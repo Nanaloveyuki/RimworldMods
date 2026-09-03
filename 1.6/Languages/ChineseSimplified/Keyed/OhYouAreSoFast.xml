@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <OhYouAreSoFast_SettingsCategory>Oh You Are So Fast</OhYouAreSoFast_SettingsCategory>
+  <OhYouAreSoFast_SaveLoadTrace>轻量存档加载追踪</OhYouAreSoFast_SaveLoadTrace>
+  <OhYouAreSoFast_SaveLoadTraceTip>以较低开销将启动、存档保存和存档加载的主要阶段记录到 Player.log。</OhYouAreSoFast_SaveLoadTraceTip>
+  <OhYouAreSoFast_SaveLoadFullTrace>完整存档加载追踪</OhYouAreSoFast_SaveLoadFullTrace>
+  <OhYouAreSoFast_SaveLoadFullTraceTip>额外记录 DeepProfiler 的嵌套阶段到 Player.log。只在排查加载问题时开启。</OhYouAreSoFast_SaveLoadFullTraceTip>
+  <OhYouAreSoFast_AdaptivePathHeuristic>自适应路径启发式</OhYouAreSoFast_AdaptivePathHeuristic>
+  <OhYouAreSoFast_AdaptivePathHeuristicTip>根据实际整数移动代价调整 A* 启发式，可修复速度极快的 Pawn 出现长距离绕路的问题。</OhYouAreSoFast_AdaptivePathHeuristicTip>
+  <OhYouAreSoFast_WorldPathCorrectness>星球地图路径正确性</OhYouAreSoFast_WorldPathCorrectness>
+  <OhYouAreSoFast_WorldPathCorrectnessTip>使用远行队实际的限幅移动代价，并在星球地图上执行精确最短路径搜索。本项优先保证路径正确性，而不是搜索速度。</OhYouAreSoFast_WorldPathCorrectnessTip>
+  <OhYouAreSoFast_SparseDynamicPathData>稀疏动态路径数据</OhYouAreSoFast_SparseDynamicPathData>
+  <OhYouAreSoFast_SparseDynamicPathDataTip>只清理上一次门、代价提供者或 Pawn 阻挡计算写入过的格子。</OhYouAreSoFast_SparseDynamicPathDataTip>
+  <OhYouAreSoFast_WorkScanThrottle>工作扫描节流</OhYouAreSoFast_WorkScanThrottle>
+  <OhYouAreSoFast_WorkScanThrottleTip>在大型地图上延迟重复的无结果 JobGiver_Work 扫描，同时保留思维树的其他分支。</OhYouAreSoFast_WorkScanThrottleTip>
+  <OhYouAreSoFast_WorkScanRetryInterval>工作扫描重试间隔：{0} 秒</OhYouAreSoFast_WorkScanRetryInterval>
+  <OhYouAreSoFast_WorkPriorityCache>工作优先级缓存</OhYouAreSoFast_WorkPriorityCache>
+  <OhYouAreSoFast_WorkPriorityCacheTip>关闭工作页时预热每个 Pawn 的工作提供者顺序列表，并在失效或刷新前复用。</OhYouAreSoFast_WorkPriorityCacheTip>
+  <OhYouAreSoFast_WorkPriorityRefreshInterval>工作优先级刷新间隔：{0} 秒</OhYouAreSoFast_WorkPriorityRefreshInterval>
+  <OhYouAreSoFast_MinimumMapSize>工作扫描启用的最小地图大小：{0} 格</OhYouAreSoFast_MinimumMapSize>
+</LanguageData>
