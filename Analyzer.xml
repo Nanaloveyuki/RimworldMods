@@ -6,6 +6,11 @@
       <li>FullyAutomaticOmniCrafter.OuterrealmStorage.OuterrealmIdentityRouting:MoveToHome</li>
       <li>FullyAutomaticOmniCrafter.OuterrealmStorage.OuterrealmIdentityRouting:MoveAnchor</li>
       <li>Verse.ListerThings:Contains</li>
+      <li>RimWorld.GenThing:ItemCenterAt</li>
+      <li>RimWorld.StoreUtility:NoStorageBlockersIn</li>
+      <li>RimWorld.WorkGiver_Merge:JobOnThing</li>
+      <li>SaveYourStorageAndTickEveryMinute.Things.DenseCellLayoutCache:TryGetCenter</li>
+      <li>SaveYourStorageAndTickEveryMinute.Things.MergeableCandidateCache:GetCandidates</li>
       <li>Verse.AI.ReservationManager:CanReserveStack</li>
       <li>RimWorld.WorkGiver_ConstructDeliverResources:ResourceDeliverJobFor</li>
       <li>SaveYourStorageAndTickEveryMinute.Compatibility.OuterrealmTechAdapter:ExecuteMove</li>

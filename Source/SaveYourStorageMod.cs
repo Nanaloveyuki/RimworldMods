@@ -37,6 +37,22 @@ namespace SaveYourStorageAndTickEveryMinute
                 ref Settings.listerMembershipIndex,
                 "SaveYourStorage_ListerIndexTip".Translate());
             listing.CheckboxLabeled(
+                "SaveYourStorage_DenseCellLayoutCache".Translate(),
+                ref Settings.denseCellLayoutCache,
+                "SaveYourStorage_DenseCellLayoutCacheTip".Translate());
+            listing.CheckboxLabeled(
+                "SaveYourStorage_SinglePassStorageCheck".Translate(),
+                ref Settings.singlePassStorageCheck,
+                "SaveYourStorage_SinglePassStorageCheckTip".Translate());
+            listing.CheckboxLabeled(
+                "SaveYourStorage_MergeCandidateBuckets".Translate(),
+                ref Settings.mergeCandidateBuckets,
+                "SaveYourStorage_MergeCandidateBucketsTip".Translate());
+            listing.Label("SaveYourStorage_DenseCellMinimumItems".Translate(
+                Settings.denseCellMinimumItems));
+            Settings.denseCellMinimumItems = (int)listing.Slider(
+                Settings.denseCellMinimumItems, 6f, 64f);
+            listing.CheckboxLabeled(
                 "SaveYourStorage_OuterrealmThrottle".Translate(),
                 ref Settings.outerrealmLeaseThrottle,
                 "SaveYourStorage_OuterrealmThrottleTip".Translate());

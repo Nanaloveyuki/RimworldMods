@@ -5,6 +5,10 @@ namespace SaveYourStorageAndTickEveryMinute
     public sealed class SaveYourStorageSettings : ModSettings
     {
         public bool listerMembershipIndex = true;
+        public bool denseCellLayoutCache = true;
+        public bool singlePassStorageCheck = true;
+        public bool mergeCandidateBuckets = true;
+        public int denseCellMinimumItems = 12;
         public bool outerrealmLeaseThrottle = true;
         public int outerrealmMaximumRehomesPerTick = 8;
         public float outerrealmMaximumMilliseconds = 0.5f;
@@ -12,6 +16,10 @@ namespace SaveYourStorageAndTickEveryMinute
         public override void ExposeData()
         {
             Scribe_Values.Look(ref listerMembershipIndex, "listerMembershipIndex", true);
+            Scribe_Values.Look(ref denseCellLayoutCache, "denseCellLayoutCache", true);
+            Scribe_Values.Look(ref singlePassStorageCheck, "singlePassStorageCheck", true);
+            Scribe_Values.Look(ref mergeCandidateBuckets, "mergeCandidateBuckets", true);
+            Scribe_Values.Look(ref denseCellMinimumItems, "denseCellMinimumItems", 12);
             Scribe_Values.Look(ref outerrealmLeaseThrottle, "outerrealmLeaseThrottle", true);
             Scribe_Values.Look(
                 ref outerrealmMaximumRehomesPerTick,
@@ -26,6 +34,7 @@ namespace SaveYourStorageAndTickEveryMinute
 
         public void Normalize()
         {
+            denseCellMinimumItems = Clamp(denseCellMinimumItems, 6, 64);
             outerrealmMaximumRehomesPerTick = Clamp(
                 outerrealmMaximumRehomesPerTick,
                 1,

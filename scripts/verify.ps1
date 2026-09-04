@@ -60,4 +60,12 @@ if (-not $SkipOuterrealmContract) {
     }
 }
 
+if (Test-Path -LiteralPath $RimWorldManagedPath -PathType Container) {
+    & (Join-Path $PSScriptRoot "verify-rimworld-contract.ps1") `
+        -RimWorldManagedPath $RimWorldManagedPath
+}
+else {
+    Write-Warning "RimWorld is not installed; its dense-Thing runtime contract was not checked."
+}
+
 Write-Host "All available verification passed."

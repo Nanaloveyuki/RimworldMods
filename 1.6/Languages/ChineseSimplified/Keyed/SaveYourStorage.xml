@@ -3,6 +3,13 @@
   <SaveYourStorage_SettingsCategory>拯救你的存储并降低 Tick 频率</SaveYourStorage_SettingsCategory>
   <SaveYourStorage_ListerIndex>为全局 Thing 列表启用成员索引</SaveYourStorage_ListerIndex>
   <SaveYourStorage_ListerIndexTip>让 ListerThings.Contains 使用增量维护的集合；索引无法证明结果准确时自动回退原版列表扫描。</SaveYourStorage_ListerIndexTip>
+  <SaveYourStorage_DenseCellLayoutCache>缓存高密度格内物品绘制位置</SaveYourStorage_DenseCellLayoutCache>
+  <SaveYourStorage_DenseCellLayoutCacheTip>一次计算同格所有物品堆的绘制位置，避免每个物品都完整扫描该格；不会改变真实 Thing 的位置或身份。</SaveYourStorage_DenseCellLayoutCacheTip>
+  <SaveYourStorage_SinglePassStorageCheck>对高密度格使用单次存储检查</SaveYourStorage_SinglePassStorageCheck>
+  <SaveYourStorage_SinglePassStorageCheckTip>检查阻挡物时同时统计物品数量，不再二次扫描该格；存储接纳和堆叠规则保持不变。</SaveYourStorage_SinglePassStorageCheckTip>
+  <SaveYourStorage_MergeCandidateBuckets>按堆叠类型索引合并工作候选</SaveYourStorage_MergeCandidateBuckets>
+  <SaveYourStorage_MergeCandidateBucketsTip>为原版储存组建立短期候选索引，再执行原版即时验证；自定义 CanStackWith 或自定义 SlotGroup 会回退原版枚举。</SaveYourStorage_MergeCandidateBucketsTip>
+  <SaveYourStorage_DenseCellMinimumItems>高密度优化阈值：单格 {0} 组 Thing</SaveYourStorage_DenseCellMinimumItems>
   <SaveYourStorage_OuterrealmThrottle>节流超维科技唯一物品锚点归位</SaveYourStorage_OuterrealmThrottle>
   <SaveYourStorage_OuterrealmThrottleTip>合并租约到期后的重复归位请求，并将其分散到多个 tick；不会接管超维存储的其他操作。</SaveYourStorage_OuterrealmThrottleTip>
   <SaveYourStorage_OuterrealmItemsPerTick>每 tick 最多归位的唯一物品：{0}</SaveYourStorage_OuterrealmItemsPerTick>
