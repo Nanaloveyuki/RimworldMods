@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SaveYourStorage_SettingsCategory>Save Your Storage and Tick Every Minute</SaveYourStorage_SettingsCategory>
+  <SaveYourStorage_ListerIndex>Use a membership index for global Thing listers</SaveYourStorage_ListerIndex>
+  <SaveYourStorage_ListerIndexTip>Makes ListerThings.Contains use an incrementally maintained set. Falls back to the original list scan if the index cannot prove that it is exact.</SaveYourStorage_ListerIndexTip>
+  <SaveYourStorage_OuterrealmThrottle>Throttle Outerrealm Tech identity-anchor returns</SaveYourStorage_OuterrealmThrottle>
+  <SaveYourStorage_OuterrealmThrottleTip>Coalesces lease-expiry returns and spreads them across ticks. Other Outerrealm Tech storage operations are not intercepted.</SaveYourStorage_OuterrealmThrottleTip>
+  <SaveYourStorage_OuterrealmItemsPerTick>Maximum identity-anchor returns per tick: {0}</SaveYourStorage_OuterrealmItemsPerTick>
+  <SaveYourStorage_OuterrealmTimeBudget>Identity-anchor time budget per tick: {0} ms</SaveYourStorage_OuterrealmTimeBudget>
+</LanguageData>
