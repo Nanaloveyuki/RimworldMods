@@ -1,57 +1,39 @@
 # Save Your Storage and Tick Every Minute
 
-A RimWorld 1.6 performance compatibility mod for bursty storage and tick workloads.
+RimWorld 1.6 存储与突发 Tick 性能兼容 Mod。
 
-## Current optimizations
+## 安装
 
-- Maintains a reference-identity membership index for global `ListerThings` instances, replacing repeated linear `AllThings.Contains` scans. Region listers are intentionally excluded. If the index cannot prove that it mirrors the source list, the query falls back to the original method.
-- Detects Outerrealm Tech without a compile-time dependency and spreads lease-expiry identity-anchor returns across game ticks. Calls to the same entry are coalesced and live lease/reservation state is checked immediately before execution.
-- Pre-routes Outerrealm identity books before RimWorld enumerates the live book list, preventing anchor moves from invalidating that enumeration.
-- Restores vanilla `CanReserveStack` recheck semantics for Outerrealm projections by excluding the current pawn's matching reservations. This prevents repeated reservation checks, including Smart Medicine's tending workflow, from ending otherwise valid jobs.
-- Revalidates Outerrealm's custom construction-delivery jobs before they leave the work giver, so reservation contention is treated as a normal no-job result instead of failing immediately after `StartJob` and logging errors.
-- Normalizes the intentionally suppressed power-inspection text on UF Recipes super workbenches before Turn It On and Off - RePowered processes it. This prevents its regular-expression postfix from receiving a null input while preserving UF Recipes' custom power-status line.
+1. 订阅并启用 Harmony。
+2. 将本 Mod 放入 RimWorld 的 `Mods` 目录并在 Mod 列表中启用。
+3. 让本 Mod 排在以下已安装 Mod 之后：
+   - Outerrealm Tech / 超维科技
+   - UF Light Industries / 联合轻工
+   - Turn It On and Off - RePowered
+4. 重启游戏。已有存档可以直接使用，不会修改存档格式。
 
-All changes are runtime Harmony patches. RimWorld `Thing`, `Map`, lister, region, and reservation operations remain on the main thread.
+## 设置
 
-## Build
+在 `选项 -> Mod 设置 -> Save Your Storage and Tick Every Minute` 中可以分别开关：
 
-```powershell
-dotnet build Source\SaveYourStorageAndTickEveryMinute.csproj -c Release
-dotnet run --project Tests\SchedulerHarness\SchedulerHarness.csproj -c Release
-.\scripts\verify.ps1
-```
+- **全局 Thing 列表成员索引**：加速大型全局 Thing 列表中的成员检查。
+- **高密度格物品位置缓存**：一次计算同格所有物品的绘制位置，主要降低近距离标签绘制和地图 Mesh 重建开销。
+- **高密度格单次存储检查**：避免存储位置检查重复扫描同一格。
+- **合并工作候选索引**：减少自动合并物品堆时对整个储存组的重复枚举。
+- **高密度优化阈值**：前两项从单格多少组 Thing 开始生效，默认 `12`。普通地面、原版货架和书架不会进入该路径。
+- **超维科技锚点归位节流**：把租约到期后的集中归位分散到多个 tick；可调整每 tick 数量与时间预算。
 
-The release assembly is written to `1.6\Assemblies`.
+所有功能默认开启，并可独立关闭用于兼容排查。关闭后重新进入存档即可恢复对应原版路径。
 
-When Dubs Performance Analyzer is active, `Analyzer.xml` adds a `SaveYourStorage`
-entry under its modder profiling category. Profiling remains disabled until that
-entry is explicitly enabled in the Analyzer UI.
+## 排错
 
-## Deploy
+出现异常时，先单独关闭相关设置并重新进入存档：
 
-```powershell
-.\scripts\build-and-deploy.ps1
-```
+- 物品显示位置异常：关闭“高密度格物品位置缓存”。
+- 搬运目标或存储容量判断异常：关闭“高密度格单次存储检查”。
+- 自动合并工作异常：关闭“合并工作候选索引”。
+- 超维存储出现归位或预留异常：关闭“超维科技锚点归位节流”。
 
-Pass `-GameModPath` when RimWorld is installed elsewhere. The script verifies the target package ID before replacing an existing installation and compares the copied assembly and language-file hashes.
+提交问题时请附上 `Player.log`、完整 Mod 列表、存档，以及启用/关闭对应设置后的对比结果。
 
-## Verify Outerrealm Tech compatibility
-
-```powershell
-.\scripts\verify-outerrealm-contract.ps1
-```
-
-The focused verifier reads the installed `FullyAutomaticOmniCrafter.dll` and checks the
-exact private method, property, and state-field contract used by the optional
-Harmony adapter. Pass `-OuterrealmAssemblyPath` or `-RimWorldManagedPath` for a
-non-default installation.
-
-`verify.ps1` runs the build, scheduler harness, XML checks, optional-dependency
-check, and this installed-DLL contract check together. Use
-`-SkipOuterrealmContract` on machines without Outerrealm Tech.
-
-## Compatibility boundary
-
-The Outerrealm Tech adapter is enabled only when the expected assembly, methods, and anchor-state fields are present. A signature mismatch leaves the original Mod behavior untouched and writes a warning to the RimWorld log.
-
-The UF Recipes / Turn It On and Off bridge is enabled only when both expected runtime types are present in their expected assemblies. It changes only a null `CompPowerTrader` inspect string on `UFRecipes.Building_SuperWorkbench` instances to an empty string, ordered after UF Recipes and before Turn It On and Off.
+开发与测试资料见 [`docs`](docs/)。
