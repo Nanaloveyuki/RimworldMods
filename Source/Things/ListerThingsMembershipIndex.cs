@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using SaveYourStorageAndTickEveryMinute.Collections;
@@ -10,9 +9,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
     internal static class ListerThingsMembershipIndex
     {
         private const int MinimumIndexedCount = 64;
-
-        private static readonly FieldInfo ListVersionField =
-            AccessTools.Field(typeof(List<Thing>), "_version");
 
         private sealed class State
         {
@@ -130,18 +126,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
 
         private static bool TryGetVersion(List<Thing> source, out int version)
         {
-            if (ListVersionField != null)
-            {
-                object value = ListVersionField.GetValue(source);
-                if (value is int)
-                {
-                    version = (int)value;
-                    return true;
-                }
-            }
-
-            version = 0;
-            return false;
+            return ListVersionAccessor.TryGet(source, out version);
         }
     }
 

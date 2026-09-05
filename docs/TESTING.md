@@ -33,6 +33,7 @@
 
 Analyzer 目标：
 
+- `Verse.GridsUtility:GetItemCount`
 - `RimWorld.GenThing:ItemCenterAt`
 - `SaveYourStorageAndTickEveryMinute.Things.DenseCellLayoutCache:TryGetCenter`
 
@@ -48,6 +49,7 @@ Analyzer 目标：
 
 - 每个 Thing 的显示位置在开关前后一致。
 - 搬入、取出、拆分后下一帧布局立即更新，无重影或旧位置。
+- 普通物品和武器的重复 `GetItemCount` 调用命中同格缓存，不再各自完整扫描。
 - `ItemCenterAt` 不再随单格组数表现为 N 次完整扫描。
 - 低于设置阈值的格保持原版路径。
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
+using SaveYourStorageAndTickEveryMinute.Compatibility;
 using Verse;
 
 namespace SaveYourStorageAndTickEveryMinute.Things
@@ -11,11 +12,19 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         new[] { typeof(IntVec3), typeof(Map), typeof(Thing) })]
     internal static class Patch_StoreUtility_NoStorageBlockersIn
     {
+        private static readonly OriginalMethodGuard Guard = new OriginalMethodGuard(
+            AccessTools.Method(
+                typeof(StoreUtility),
+                "NoStorageBlockersIn",
+                new[] { typeof(IntVec3), typeof(Map), typeof(Thing) }));
+
         [HarmonyPriority(Priority.Low)]
         private static bool Prefix(IntVec3 c, Map map, Thing thing, ref bool __result)
         {
             SaveYourStorageSettings settings = SaveYourStorageMod.Settings;
-            if (settings == null || !settings.singlePassStorageCheck)
+            if (settings == null
+                || !settings.singlePassStorageCheck
+                || !Guard.CanReplace())
                 return true;
 
             List<Thing> things = map.thingGrid.ThingsListAt(c);
@@ -58,5 +67,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
             __result = hasMergeTarget || itemCount < c.GetMaxItemsAllowedInCell(map);
             return false;
         }
+
     }
 }

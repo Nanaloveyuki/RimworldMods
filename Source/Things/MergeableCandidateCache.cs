@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using RimWorld;
+using SaveYourStorageAndTickEveryMinute.Collections;
 using Verse;
 
 namespace SaveYourStorageAndTickEveryMinute.Things
@@ -80,7 +81,8 @@ namespace SaveYourStorageAndTickEveryMinute.Things
 
             public bool Rebuild(ISlotGroup group, Map map, int mapRevision, int tick)
             {
-                Buckets.Clear();
+                foreach (List<Thing> bucket in Buckets.Values)
+                    bucket.Clear();
                 List<IntVec3> cells = group.CellsList;
                 if (CellIndices.Length != cells.Count)
                 {
@@ -127,9 +129,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         private static readonly Dictionary<Type, bool> StackContractByType =
             new Dictionary<Type, bool>();
 
-        private static readonly FieldInfo ListVersionField =
-            AccessTools.Field(typeof(List<Thing>), "_version");
-
         private static readonly Assembly RimWorldAssembly = typeof(Thing).Assembly;
 
         public static IEnumerable<Thing> GetCandidates(ISlotGroup group, Thing source)
@@ -141,7 +140,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
                 || group == null
                 || source == null
                 || map == null
-                || ListVersionField == null
+                || !ListVersionAccessor.IsAvailable
                 || !HasVanillaStackContract(source.GetType())
                 || !HasVanillaSlotGroupContract(group.GetType()))
             {
@@ -214,15 +213,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
 
         private static bool TryGetVersion(List<Thing> things, out int version)
         {
-            object value = ListVersionField.GetValue(things);
-            if (value is int)
-            {
-                version = (int)value;
-                return true;
-            }
-
-            version = 0;
-            return false;
+            return ListVersionAccessor.TryGet(things, out version);
         }
     }
 

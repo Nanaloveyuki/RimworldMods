@@ -70,11 +70,15 @@ function Get-CallCount {
 try {
     $assembly = [System.Reflection.Assembly]::LoadFrom($assemblyPath)
     $thingType = $assembly.GetType("Verse.Thing", $true)
+    $thingDefType = $assembly.GetType("Verse.ThingDef", $true)
     $mapType = $assembly.GetType("Verse.Map", $true)
     $intVec3Type = $assembly.GetType("Verse.IntVec3", $true)
     $pawnType = $assembly.GetType("Verse.Pawn", $true)
     $jobType = $assembly.GetType("Verse.AI.Job", $true)
     $genThingType = $assembly.GetType("RimWorld.GenThing", $true)
+    $gridsUtilityType = $assembly.GetType("Verse.GridsUtility", $true)
+    $graphicRandomRotatedType = $assembly.GetType("Verse.Graphic_RandomRotated", $true)
+    $genLabelType = $assembly.GetType("RimWorld.GenLabel", $true)
     $storeUtilityType = $assembly.GetType("RimWorld.StoreUtility", $true)
     $workGiverMergeType = $assembly.GetType("RimWorld.WorkGiver_Merge", $true)
     $slotGroupType = $assembly.GetType("RimWorld.ISlotGroup", $true)
@@ -90,6 +94,31 @@ try {
     $instanceNonPublic = [System.Reflection.BindingFlags](
         [System.Reflection.BindingFlags]::Instance -bor
         [System.Reflection.BindingFlags]::NonPublic)
+
+    $getItemCount = Get-ExactMethod `
+        -Type $gridsUtilityType `
+        -Name "GetItemCount" `
+        -Flags ([System.Reflection.BindingFlags]::Static -bor [System.Reflection.BindingFlags]::Public) `
+        -ParameterTypes ([Type[]]@($intVec3Type, $mapType)) `
+        -ReturnTypeName "System.Int32"
+    $multipleItemsPerCell = Get-ExactMethod `
+        -Type $genLabelType `
+        -Name "MultipleItemsPerCellDrawn" `
+        -Flags ([System.Reflection.BindingFlags]::Static -bor [System.Reflection.BindingFlags]::Public) `
+        -ParameterTypes ([Type[]]@($thingType)) `
+        -ReturnTypeName "System.Boolean"
+    $getRotInRack = Get-ExactMethod `
+        -Type $graphicRandomRotatedType `
+        -Name "GetRotInRack" `
+        -Flags $instanceNonPublic `
+        -ParameterTypes ([Type[]]@($thingType, $thingDefType, $intVec3Type)) `
+        -ReturnTypeName ([Nullable[float]]).FullName
+    if ((Get-CallCount -Method $multipleItemsPerCell -CalledMethod $getItemCount) -ne 1) {
+        throw "GenLabel.MultipleItemsPerCellDrawn no longer has exactly one GetItemCount call."
+    }
+    if ((Get-CallCount -Method $getRotInRack -CalledMethod $getItemCount) -ne 1) {
+        throw "Graphic_RandomRotated.GetRotInRack no longer has exactly one GetItemCount call."
+    }
 
     [void](Get-ExactMethod `
         -Type $genThingType `

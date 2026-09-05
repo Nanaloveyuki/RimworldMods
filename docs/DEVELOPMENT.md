@@ -24,22 +24,23 @@
 
 ### 高密度单格布局
 
-原版 `GenThing.ItemCenterAt` 每次调用都会扫描同格全部 Thing。N 个物品分别绘制或打印 Mesh 时形成 O(N²) 扫描。
+原版 `Graphic.Print` 会对每个物品调用 `GenLabel.MultipleItemsPerCellDrawn`，后者通过 `GetItemCount` 扫描同格全部 Thing；武器的 `Graphic_RandomRotated` 还会额外调用一次。随后 `GenThing.ItemCenterAt` 会再次扫描。N 个物品分别打印 Mesh 时这些入口都会形成 O(N²) 扫描。
 
 `DenseCellLayoutCache` 在达到设置阈值后：
 
 1. 复制同格 Item 引用并按 `thingIDNumber` 排序。
 2. 一次计算是否包含武器、是否为同 Def，以及每个 Thing 的原版 rank。
 3. 使用与 RimWorld 1.6 相同的常量和分支生成所有中心点。
-4. 按 Thing 引用缓存结果，使同一批绘制从 O(N²) 降为一次 O(N log N) 构建和 N 次 O(1) 查询。
+4. `DenseCellItemCountCache` 按格缓存 `GetItemCount`，武器、普通物品及其他调用者共享同一精确计数。
+5. 按 Thing 引用缓存中心点，使同一批绘制从 O(N²) 降为一次 O(N log N) 布局构建、一次 O(N) 计数和 N 次 O(1) 查询。
 
-缓存记录源列表 `_version`、地图结构 revision、游戏 tick 与生效阈值。标准 `Register`、`Deregister`、位置变化和储存组变化会立即失效；下一 tick 也会核对原始列表版本。低于阈值或无法读取版本时回退原版。
+两个缓存都记录源列表 `_version` 和生效阈值。计数缓存及非武器布局只在本格列表变化时重建；武器布局额外记录地图结构 revision，因为其位置依赖西侧连续存储格。低于阈值、无法读取版本或目标方法存在其他 Harmony 补丁时回退原版。
 
 武器布局还依赖西侧连续高密度格的奇偶数。为保持原版位置，任何地图 Item 结构变化都会使已缓存布局失效，而不是只失效变化格。
 
 ### 存储阻挡检查
 
-原版 `StoreUtility.NoStorageBlockersIn` 先扫描阻挡物和可合并堆，最后通过 `GetItemCount` 再扫描同一格。替换路径只在达到高密度阈值后启用，在第一次循环中同步统计 Item 数量，其余判断顺序和条件保持一致。
+原版 `StoreUtility.NoStorageBlockersIn` 先扫描阻挡物和可合并堆，最后通过 `GetItemCount` 再扫描同一格。替换路径只在达到高密度阈值且该方法没有其他 Mod 补丁时启用，在第一次循环中同步统计 Item 数量，其余判断顺序和条件保持一致；例如 Adaptive Storage 修改该方法时会完整回退，以保留其合法堆叠目标检查。
 
 ### 合并工作候选
 

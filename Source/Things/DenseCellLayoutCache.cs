@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using RimWorld;
 using SaveYourStorageAndTickEveryMinute.Collections;
+using SaveYourStorageAndTickEveryMinute.Compatibility;
 using UnityEngine;
 using Verse;
 
@@ -15,12 +15,13 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         {
             public readonly Dictionary<Thing, Vector3> Centers =
                 new Dictionary<Thing, Vector3>(ReferenceEqualityComparer<Thing>.Instance);
+            public readonly List<Thing> Items = new List<Thing>();
             public List<Thing> Source;
             public int SourceVersion;
             public int MapRevision;
-            public int ValidatedTick;
             public int MinimumItems;
             public bool Eligible;
+            public bool AnyWeapon;
         }
 
         private sealed class MapLayouts
@@ -32,9 +33,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         private static readonly ConditionalWeakTable<Map, MapLayouts> Layouts =
             new ConditionalWeakTable<Map, MapLayouts>();
 
-        private static readonly FieldInfo ListVersionField =
-            AccessTools.Field(typeof(List<Thing>), "_version");
-
         public static bool TryGetCenter(Thing thing, out Vector3 center)
         {
             center = default(Vector3);
@@ -44,7 +42,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
                 || thing == null
                 || !thing.Spawned
                 || thing.def.category != ThingCategory.Item
-                || ListVersionField == null)
+                || !ListVersionAccessor.IsAvailable)
             {
                 return false;
             }
@@ -64,7 +62,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
 
             int cellIndex = map.cellIndices.CellToIndex(position);
             int mapRevision = ThingGridMutationTracker.RevisionFor(map);
-            int tick = Find.TickManager == null ? -1 : Find.TickManager.TicksGame;
             MapLayouts mapLayouts = Layouts.GetOrCreateValue(map);
             CellLayout layout;
             if (!mapLayouts.Cells.TryGetValue(cellIndex, out layout))
@@ -74,13 +71,9 @@ namespace SaveYourStorageAndTickEveryMinute.Things
             }
 
             bool valid = ReferenceEquals(layout.Source, source)
-                && layout.MapRevision == mapRevision
-                && layout.MinimumItems == settings.denseCellMinimumItems;
-            if (valid && layout.ValidatedTick != tick)
-            {
-                valid = layout.SourceVersion == sourceVersion;
-                layout.ValidatedTick = tick;
-            }
+                && layout.SourceVersion == sourceVersion
+                && layout.MinimumItems == settings.denseCellMinimumItems
+                && (!layout.AnyWeapon || layout.MapRevision == mapRevision);
 
             if (!valid)
             {
@@ -89,7 +82,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
                     source,
                     sourceVersion,
                     mapRevision,
-                    tick,
                     position,
                     map,
                     settings.denseCellMinimumItems);
@@ -103,7 +95,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
             List<Thing> source,
             int sourceVersion,
             int mapRevision,
-            int tick,
             IntVec3 position,
             Map map,
             int minimumItems)
@@ -112,10 +103,12 @@ namespace SaveYourStorageAndTickEveryMinute.Things
             layout.Source = source;
             layout.SourceVersion = sourceVersion;
             layout.MapRevision = mapRevision;
-            layout.ValidatedTick = tick;
             layout.MinimumItems = minimumItems;
 
-            var items = new List<Thing>(source.Count);
+            List<Thing> items = layout.Items;
+            items.Clear();
+            if (items.Capacity < source.Count)
+                items.Capacity = source.Count;
             ThingDef firstDef = null;
             bool allSameDef = true;
             bool anyWeapon = false;
@@ -136,6 +129,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
             }
 
             layout.Eligible = items.Count >= minimumItems;
+            layout.AnyWeapon = anyWeapon;
             if (!layout.Eligible)
                 return;
 
@@ -159,7 +153,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
                     result = new Vector3(
                         baseCenter.x - 0.5f + width * (rank + 0.5f),
                         altitude,
-                        baseCenter.z + (((rank + adjacencyOffset) % 2 == 0) ? -0.02f : 0.2f));
+                        baseCenter.z + ((adjacencyOffset % 2 == 0) ? -0.02f : 0.2f));
                 }
                 else if (allSameDef)
                 {
@@ -206,24 +200,22 @@ namespace SaveYourStorageAndTickEveryMinute.Things
 
         private static bool TryGetVersion(List<Thing> source, out int version)
         {
-            object value = ListVersionField.GetValue(source);
-            if (value is int)
-            {
-                version = (int)value;
-                return true;
-            }
-
-            version = 0;
-            return false;
+            return ListVersionAccessor.TryGet(source, out version);
         }
     }
 
     [HarmonyPatch(typeof(GenThing), "ItemCenterAt")]
     internal static class Patch_GenThing_ItemCenterAt
     {
+        private static readonly OriginalMethodGuard Guard = new OriginalMethodGuard(
+            AccessTools.Method(typeof(GenThing), "ItemCenterAt"));
+
         [HarmonyPriority(Priority.Low)]
         private static bool Prefix(Thing thing, ref Vector3 __result)
         {
+            if (!Guard.CanReplace())
+                return true;
+
             Vector3 center;
             if (!DenseCellLayoutCache.TryGetCenter(thing, out center))
                 return true;
@@ -231,5 +223,6 @@ namespace SaveYourStorageAndTickEveryMinute.Things
             __result = center;
             return false;
         }
+
     }
 }

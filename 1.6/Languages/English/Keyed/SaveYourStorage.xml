@@ -3,8 +3,8 @@
   <SaveYourStorage_SettingsCategory>Save Your Storage and Tick Every Minute</SaveYourStorage_SettingsCategory>
   <SaveYourStorage_ListerIndex>Use a membership index for global Thing listers</SaveYourStorage_ListerIndex>
   <SaveYourStorage_ListerIndexTip>Makes ListerThings.Contains use an incrementally maintained set. Falls back to the original list scan if the index cannot prove that it is exact.</SaveYourStorage_ListerIndexTip>
-  <SaveYourStorage_DenseCellLayoutCache>Cache item positions in high-density cells</SaveYourStorage_DenseCellLayoutCache>
-  <SaveYourStorage_DenseCellLayoutCacheTip>Calculates the visual positions of all item stacks in a dense cell together, avoiding a full cell scan for every item. Real Thing positions and identities are unchanged.</SaveYourStorage_DenseCellLayoutCacheTip>
+  <SaveYourStorage_DenseCellLayoutCache>Cache scans and item positions in high-density cells</SaveYourStorage_DenseCellLayoutCache>
+  <SaveYourStorage_DenseCellLayoutCacheTip>Caches item counts and calculates visual positions together in dense cells, avoiding repeated full-cell scans. Real Thing positions and identities are unchanged.</SaveYourStorage_DenseCellLayoutCacheTip>
   <SaveYourStorage_SinglePassStorageCheck>Use a single-pass dense-cell storage check</SaveYourStorage_SinglePassStorageCheck>
   <SaveYourStorage_SinglePassStorageCheckTip>Counts items while checking blockers instead of scanning a dense cell a second time. Storage acceptance and stacking rules remain unchanged.</SaveYourStorage_SinglePassStorageCheckTip>
   <SaveYourStorage_MergeCandidateBuckets>Index merge-job candidates by stack type</SaveYourStorage_MergeCandidateBuckets>

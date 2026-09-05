@@ -127,8 +127,7 @@ namespace SaveYourStorageAndTickEveryMinute.Scheduling
 
         private bool TryGetFirstBucket(out long dueTick, out LinkedList<Entry> bucket)
         {
-            using (IEnumerator<KeyValuePair<long, LinkedList<Entry>>> enumerator =
-                buckets.GetEnumerator())
+            using (var enumerator = buckets.GetEnumerator())
             {
                 if (enumerator.MoveNext())
                 {
