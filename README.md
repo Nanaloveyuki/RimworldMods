@@ -1,7 +1,8 @@
 # RimIris Moonlight
 
 A single-pass, cool, bright nighttime filter loaded as a RimIris bundle addon.
-No runtime DLL, Harmony patches, or framework modifications.
+The filter remains a bundle. A small UI-only DLL supplies English and Simplified
+Chinese text through `Languages`, without Harmony patches or framework changes.
 
 ## Install
 
@@ -11,7 +12,8 @@ Keep the RimIris master switch enabled. In the Iris pack screen, enable the
 `Moonlight` coexisting addon. Adjust strength, night brightness and cool tint
 in its options. It can remain enabled alongside the selected base pack.
 
-The runtime files are `About/` and `ShaderPacks/`, including `moonlight_win`.
+The runtime files are `About/`, `ShaderPacks/`, `Languages/` and
+`Assemblies/RimIrisShaders.UI.dll`, including `moonlight_win`.
 The checked-in bundle targets Windows; other platforms require a matching build.
 
 ## Effect
@@ -34,6 +36,8 @@ a working graphics device are required; do not pass `-nographics`.
 
 ```powershell
 ./scripts/build.ps1 -UnityPath 'E:\app\Unity 2022.3.35f1c1\Editor\Unity.exe'
+./scripts/build-ui.ps1 -RimWorldManagedDir 'D:\Appdata\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed' -RimIrisAssemblyPath 'F:\tmp\rimworld\RimIris\Assemblies\RimIris.dll'
+./scripts/verify-localization.ps1
 ```
 
 Build output is reloaded as an AssetBundle and GPU-tested for day/off identity,
