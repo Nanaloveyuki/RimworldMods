@@ -1,0 +1,7 @@
+Tools/Unity/Library/
+Tools/Unity/Temp/
+Tools/Unity/Logs/
+Tools/Unity/obj/
+Tools/Unity/UserSettings/
+artifacts/
+Tools/Unity/ProjectSettings/*.asset

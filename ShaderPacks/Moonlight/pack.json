@@ -1,0 +1,19 @@
+{
+  "specVersion": 1,
+  "kind": "bundle",
+  "id": "rimirisshaders.moonlight",
+  "name": "Moonlight",
+  "version": "0.1.0",
+  "authors": ["RimIrisShaders"],
+  "description": "Bright, cool nights with a smooth daylight transition.",
+  "coexist": true,
+  "options": "options.json",
+  "routes": {
+    "postfx": {
+      "bundle": "moonlight_win",
+      "passes": [
+        {"id": "moonlight", "stage": "post_composite", "shader": "Hidden/RimIrisShaders/Moonlight", "enableWhen": "strength > 0"}
+      ]
+    }
+  }
+}
