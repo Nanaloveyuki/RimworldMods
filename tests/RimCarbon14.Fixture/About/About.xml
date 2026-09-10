@@ -1,0 +1,8 @@
+<ModMetaData>
+  <name>RimCarbon14 Test Fixture</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.rimcarbon14.fixture</packageId>
+  <supportedVersions><li>1.6</li></supportedVersions>
+  <modDependencies><li><packageId>brrainz.harmony</packageId><displayName>Harmony</displayName><steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl></li></modDependencies>
+  <description>Development acceptance fixture. Not included in the release package.</description>
+</ModMetaData>

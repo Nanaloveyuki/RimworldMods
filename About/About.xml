@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>RimCarbon14</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.rimcarbon14</packageId>
+  <supportedVersions><li>1.6</li></supportedVersions>
+  <modDependencies><li><packageId>brrainz.harmony</packageId><displayName>Harmony</displayName><steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl></li></modDependencies>
+  <loadAfter><li>brrainz.harmony</li></loadAfter>
+  <description>Agent-facing runtime inspection, debugging and automation bridge. Includes a Windows x64 MCP companion. Intended for development and isolated test saves.</description>
+</ModMetaData>

@@ -1,0 +1,14 @@
+{
+  "name": "RimCarbon14 real-game smoke",
+  "steps": [
+    { "id": "start", "tool": "process_start", "arguments": { "timeoutMs": 600000 } },
+    { "id": "load", "tool": "game_load", "arguments": { "name": "carbon-fixture" }, "timeoutMs": 180000, "assert": [{ "path": "result.data.status.paused", "equals": true }] },
+    { "id": "pawns", "tool": "pawn_list", "arguments": { "limit": 20 }, "assert": [{ "path": "result.data.items[0].handle", "exists": true }] },
+    { "id": "inspect", "tool": "pawn_get", "arguments": { "handle": { "$ref": "pawns.result.data.items[0].handle" } }, "assert": [{ "path": "result.data.needs[0]", "exists": true }] },
+    { "id": "step", "tool": "game_step", "arguments": { "ticks": 10 }, "assert": [{ "path": "result.data.delta", "equals": 10 }] },
+    { "id": "capture", "tool": "capture_screen", "assert": [{ "path": "result.data.bytes", "min": 10000 }] },
+    { "id": "restart", "tool": "process_restart", "arguments": { "timeoutMs": 600000 } },
+    { "id": "reload", "tool": "game_load", "arguments": { "name": "carbon-fixture" }, "timeoutMs": 180000, "assert": [{ "path": "result.data.status.paused", "equals": true }] },
+    { "id": "environment", "tool": "game_state", "assert": [{ "path": "result.data.maps[0]", "exists": true }] }
+  ]
+}
