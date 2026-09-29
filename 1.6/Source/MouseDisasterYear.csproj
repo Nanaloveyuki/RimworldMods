@@ -124,6 +124,7 @@
     <Compile Include="Patches\\MouseDisasterNarrativePatches.cs" />
     <Compile Include="Letters\\ChoiceLetter_MouseDisasterStory.cs" />
     <Compile Include="UI\\Building_MouseDisasterNarrative.cs" />
+    <Compile Include="UI\\Dialog_MouseDisasterSuccessorNotice.cs" />
     <Compile Include="Components\\GameComponent_MouseDisasterPendingState.cs" />
     <Compile Include="Core\\MouseDisasterGuanyinTu.cs" />
     <Compile Include="Core\\HediffComp_MouseDisasterEmploymentTimer.cs" />

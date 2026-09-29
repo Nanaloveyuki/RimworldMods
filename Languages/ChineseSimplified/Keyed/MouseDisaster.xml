@@ -291,4 +291,8 @@
   <MouseDisaster_N007_Died_Text>这批病人没有活下来的人。留守安排已经结束。</MouseDisaster_N007_Died_Text>
   <MouseDisaster_N007_Handled_Label>中止的检疫记录</MouseDisaster_N007_Handled_Label>
   <MouseDisaster_N007_Handled_Text>这批病人已经各有去向。有些人的消息还能打听到，有些至今没有回音。穗音收起了那张旧名单。</MouseDisaster_N007_Handled_Text>
+  <MouseDisaster_SuccessorNotice_Label>《鼠灾-大荒年》已迁移</MouseDisaster_SuccessorNotice_Label>
+  <MouseDisaster_SuccessorNotice_Text>《鼠灾-大荒年》的后续开发已经转到《鼠族：饥与祸》。</MouseDisaster_SuccessorNotice_Text>
+  <MouseDisaster_SuccessorNotice_Search>也可以搜索 Ratkin: Hunger and Havoc。</MouseDisaster_SuccessorNotice_Search>
+  <MouseDisaster_SuccessorNotice_Close>关闭</MouseDisaster_SuccessorNotice_Close>
 </LanguageData>

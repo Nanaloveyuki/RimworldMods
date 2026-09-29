@@ -3,6 +3,7 @@
   <ThingDef Name="MouseDisasterTemperatureApparelBase" ParentName="ApparelBase" Abstract="True">
     <thingClass>Apparel</thingClass>
     <techLevel>Neolithic</techLevel>
+    <smeltable>false</smeltable>
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/TribalA/TribalA</texPath>
       <graphicClass>Graphic_Single</graphicClass>

@@ -288,4 +288,8 @@
   <MouseDisaster_N007_Died_Text>None of these patients survived. The quarantine is over.</MouseDisaster_N007_Died_Text>
   <MouseDisaster_N007_Handled_Label>An unfinished quarantine record</MouseDisaster_N007_Handled_Label>
   <MouseDisaster_N007_Handled_Text>The patients have gone their separate ways. News of some still arrives; others have not been heard from. Suin has put away the old list.</MouseDisaster_N007_Handled_Text>
+  <MouseDisaster_SuccessorNotice_Label>Great Famine Year has moved</MouseDisaster_SuccessorNotice_Label>
+  <MouseDisaster_SuccessorNotice_Text>Development of Ratkin: Great Famine Year has moved to Ratkin: Hunger and Havoc.</MouseDisaster_SuccessorNotice_Text>
+  <MouseDisaster_SuccessorNotice_Search>You can also find it by searching for Ratkin: Hunger and Havoc.</MouseDisaster_SuccessorNotice_Search>
+  <MouseDisaster_SuccessorNotice_Close>Close</MouseDisaster_SuccessorNotice_Close>
 </LanguageData>

@@ -66,6 +66,7 @@ namespace MouseDisaster
         public const float MaxTemperatureApparelInsulation = 100f;
 
         public bool enableNewContent = true;
+        public bool successorNoticeDismissed;
         public float refugeePredationChancePercent = 10f;
         public bool refugeePredationFightBack = true;
         public bool outsidePredatorsFollowDifficulty = false;
@@ -715,6 +716,7 @@ namespace MouseDisaster
             Scribe_Values.Look(ref narrativeEchoChancePercent, "narrativeEchoChancePercent", 100f);
             Scribe_Values.Look(ref narrativeEchoCooldownDays, "narrativeEchoCooldownDays", 3);
             Scribe_Values.Look(ref enableNewContent, "enableNewContent", true);
+            Scribe_Values.Look(ref successorNoticeDismissed, "successorNoticeDismissed", false);
             Scribe_Values.Look(ref allowColonistAutoGiveFood, "allowColonistAutoGiveFood", false);
             int ratkinYoungTradeJoinModeRaw = (int)ratkinYoungTradeJoinMode;
             Scribe_Values.Look(ref ratkinYoungTradeJoinModeRaw, "ratkinYoungTradeJoinMode", (int)MouseDisasterTradePawnJoinMode.Slave);
