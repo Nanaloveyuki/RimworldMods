@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Washing Machine · 洗衣机</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.washingmachine</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Nanaloveyuki.IrisMenus</li>
+    <li>fxz.Solaris.RatkinRaceMod.odyssey</li>
+    <li>Dubwise.DubsBadHygiene</li>
+    <li>Dubwise.DubsBadHygiene.Lite</li>
+  </loadAfter>
+  <description>A 1×1 electric washing machine. Removes the dead-person flag from apparel without repairing it. Each cycle takes 30 game seconds. Small creatures can also be washed, although they will not enjoy it.
+
+洗衣机：清除衣物的死人标记，不修复耐久。每次清洗需要30游戏秒。也能把体型符合限制的生物搬进去洗，洗完心情-24，持续1游戏天；体型严格小于0.25的生物有死亡风险。
+
+Harmony is required. IrisMenus, NewRatkinPlus, Dubs Bad Hygiene and Dubs Bad Hygiene Lite are optional, not dependencies.</description>
+</ModMetaData>

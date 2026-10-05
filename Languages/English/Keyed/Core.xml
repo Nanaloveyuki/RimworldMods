@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_LoadPawn>Load creature</PWM_LoadPawn>
+  <PWM_LoadApparel>Load tainted apparel</PWM_LoadApparel>
+  <PWM_Cancel>Cancel wash and release contents</PWM_Cancel>
+  <PWM_Idle>Washing machine: idle</PWM_Idle>
+  <PWM_NoPower>Washing machine: no power or switched off (paused)</PWM_NoPower>
+  <PWM_Progress>Washing machine: {0} game seconds remaining</PWM_Progress>
+  <PWM_TooLarge>Too large (maximum body size: {0})</PWM_TooLarge>
+  <PWM_NoCandidates>No eligible targets or available haulers</PWM_NoCandidates>
+  <PWM_LoadingApparel>Loading {0} into the washing machine.</PWM_LoadingApparel>
+  <PWM_CarryPawn>Carry {0} to the washing machine</PWM_CarryPawn>
+  <PWM_CannotCarry>Cannot carry this creature to the washing machine</PWM_CannotCarry>
+</LanguageData>

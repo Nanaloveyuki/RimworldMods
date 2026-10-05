@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <JobDef>
+    <defName>PWM_LoadApparel</defName>
+    <driverClass>WashingMachine.JobDriver_LoadApparel</driverClass>
+    <reportString>Loading TargetA into the washing machine.</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>PWM_CarryToWasher</defName>
+    <driverClass>WashingMachine.JobDriver_CarryToWasher</driverClass>
+    <reportString>Carrying TargetA to the washing machine.</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>PWM_BeingWashed</defName>
+    <driverClass>WashingMachine.JobDriver_BeingWashed</driverClass>
+    <reportString>Being thrown into the washing machine.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <playerInterruptible>false</playerInterruptible>
+    <checkOverrideOnExpire>false</checkOverrideOnExpire>
+    <alwaysShowWeapon>false</alwaysShowWeapon>
+  </JobDef>
+</Defs>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_Settings_Title>Washing machine</PWM_Settings_Title>
+  <PWM_Settings_Intro>Changes apply to existing washing machines immediately. Each cycle takes 30 game seconds.</PWM_Settings_Intro>
+  <PWM_Settings_Power>Power consumption: {0} W</PWM_Settings_Power>
+  <PWM_Settings_PowerTip>Set power consumption from 0 to 1000 W. Default: 200 W.</PWM_Settings_PowerTip>
+  <PWM_Settings_MaxBodySize>Maximum body size: {0}</PWM_Settings_MaxBodySize>
+  <PWM_Settings_MaxBodySizeTip>Creatures at or below this body size can be carried into a washing machine. Range: 0.1–10. Default: 0.95.</PWM_Settings_MaxBodySizeTip>
+  <PWM_Settings_DeathChance>Small creature death chance: {0}%</PWM_Settings_DeathChance>
+  <PWM_Settings_DeathChanceTip>Creatures with a body size strictly below 0.25 can die after washing. Range: 0–100%. Default: 5%.</PWM_Settings_DeathChanceTip>
+</LanguageData>
