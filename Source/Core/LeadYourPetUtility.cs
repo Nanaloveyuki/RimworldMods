@@ -665,9 +665,31 @@ namespace LeadYourPet
             return IsFriendlyVisitorOrTraveler(pawn) || (pawn.GetLord()?.LordJob is LordJob_TradeWithColony || pawn.GetLord()?.LordJob is LordJob_VisitColony);
         }
 
+        internal static bool AllowsLeashedHostileAttack(LeashLink link)
+        {
+            if (LeadYourPetMod.Settings?.leashedHostilesCanAttack != true || link?.Pet == null || link.Master == null)
+            {
+                return false;
+            }
+
+            return link.Pet.HostileTo(link.Master);
+        }
+
+        internal static bool HasFixedAnchor(LeashLink link)
+        {
+            return link != null && (link.AnchorMode == LeashAnchorMode.Cell
+                || (link.AnchorMode == LeashAnchorMode.Thing && !(link.AnchorThing is Pawn)));
+        }
+
+        internal static bool HasAnchoredCareJob(LeashLink link)
+        {
+            return HasFixedAnchor(link) && (link.Pet.CurJobDef == JobDefOf.Ingest
+                || link.Pet.CurJobDef == JobDefOf.LayDown || link.Pet.jobs?.curDriver?.asleep == true);
+        }
+
         public static bool IsSuppressedAgainstMasterFaction(Pawn pet, Faction faction)
         {
-            if (pet == null || faction == null || Component == null)
+            if (LeadYourPetMod.Settings?.leashedHostilesCanAttack == true || pet == null || faction == null || Component == null)
             {
                 return false;
             }
@@ -678,7 +700,7 @@ namespace LeadYourPet
 
         public static bool IsSuppressedAgainstThing(Thing a, Thing b)
         {
-            if (a == null || b == null || Component == null)
+            if (LeadYourPetMod.Settings?.leashedHostilesCanAttack == true || a == null || b == null || Component == null)
             {
                 return false;
             }
@@ -887,7 +909,8 @@ namespace LeadYourPet
 
         public static bool ShouldDrag(LeashLink link)
         {
-            if (link == null || link.Master == null || link.Pet == null || !link.Master.Spawned || !link.Pet.Spawned || link.Master.Map != link.Pet.Map)
+            if (link == null || link.Master == null || link.Pet == null || HasFixedAnchor(link)
+                || AllowsLeashedHostileAttack(link) || !link.Master.Spawned || !link.Pet.Spawned || link.Master.Map != link.Pet.Map)
             {
                 return false;
             }
@@ -972,7 +995,7 @@ namespace LeadYourPet
                 return link.AnchorThing;
             }
 
-            return link.Master;
+            return link.AnchorMode == LeashAnchorMode.None ? link.Master : null;
         }
 
         public static IntVec3 GetAnchorCell(LeashLink link)
@@ -1036,8 +1059,7 @@ namespace LeadYourPet
             }
 
             LeashLink link = Component.GetLinkForPet(pawn);
-            if (link == null || GodHandsCompat.IsGrabbed(pawn) || GodHandsCompat.IsGrabbed(link.Master)
-                || ShouldPreserveMapExitMovement(pawn) || ShouldPreserveMapExitMovement(link.Master))
+            if (link == null || GodHandsCompat.IsGrabbed(pawn) || GodHandsCompat.IsGrabbed(link.Master))
             {
                 return false;
             }
@@ -1223,7 +1245,7 @@ namespace LeadYourPet
             }
 
             LeashLink link = Component.GetLinkForPet(pawn);
-            if (link == null || link.Kind != LeashLinkKind.MouseEggPet)
+            if (link == null || link.Kind != LeashLinkKind.MouseEggPet || link.AnchorMode != LeashAnchorMode.None)
             {
                 return false;
             }

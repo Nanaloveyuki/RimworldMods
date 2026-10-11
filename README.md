@@ -11,7 +11,7 @@
 - IrisMenus（`Nanaloveyuki.IrisMenus`，1.6）可选。运行时检测到已启用且支持 1.6，并且公开菜单 API 存在时，用反射登记牵引、幼年鼠族、年龄、来客、离图、主人喂食六页，写入同一套设置。主程序集不引用 IrisMenus.dll。未安装、未启用、不是 1.6 或 API 对不上时不登记，原版设置窗口照常可用。不写入 `modDependencies`。
 - 饥与祸通过 `LeadYourPet.LeadYourPetApi` 调用。本模组不检测饥与祸，也不引用它的程序集。
 - PA’s God Hands（`Palpha.godhands`）可选。抓取鼠蛋、牵引者或锚定 Pawn 时暂停牵引和互动动画，不完成旧动画的传送；隐藏手持期间的绳子，其他超出硬绳长的绳子也不绘制。释放后恢复牵引，并清理相关 Pawn 遗留的神之手 `Wait(99999)`，不结束普通等待或无关 Pawn 的任务。主程序集不引用 PA_GodHands.dll。
-- 访客的离场集合与入场集合分开识别。商队/访客开始撤离时，释放其自己旅行鼠蛋的牵引、睡眠和忙碌任务，保留交易身份及 Lord 成员关系；玩家拥有的鼠蛋不受此例外影响。同 Lord 成员可搬运倒地或不能移动的鼠蛋，到集合点落地后恢复原版集合检查；在出口先放下鼠蛋再使其离图，成人继续处理其他成员。已有外部幼儿抱持不会被抢占，撤离时落地不重新建绳。
+- 访客的离场集合与入场集合分开识别。商队/访客开始撤离时保留牵引与绘绳，让原版 Lord 接管离场移动；不再仅因退出任务隐藏绳子。牵引者真正离图时，其旅行鼠蛋优先一起离图，不套用玩家的「留在原地」设置；不能移动的成员保留 Lord 关系，由现有搬运流程处理。同 Lord 成员可搬运倒地或不能移动的鼠蛋，到集合点落地后恢复原版集合检查；在出口先放下鼠蛋再使其离图。已有外部幼儿抱持不会被抢占。
 
 ## 替换原版
 
@@ -48,6 +48,17 @@ IrisMenus 的「年龄」页及原版模组设置新增「不限制牵引年龄�
 English: Automatic interactions now respect their cooldown and pause while the leader is drafted, moving or sleeping. Reversing a leash breaks reciprocal control; loading a cyclic leash relationship keeps the newest direction. Adult-facing menus, interaction labels, job reports and shared thoughts use age-neutral wording in English and Simplified Chinese. `Ratkin` names the race; `Young Ratkin` names the young pawns.
 
 验证：Release 构建零警告、零错误；Mono headless 回归 158 项通过、0 项失败，包含新增 8 项冷却、征召/移动、方向反转、链式牵引和旧存档控制环回归。生产程序集 smoke 覆盖冷却暂停/恢复、30 岁智人反转牵引，以及中英各 20 条成人殖民者互动、20 条成人非殖民者互动和 3 条任务报告；125 个 Keyed 键两语言一致，DefInjected 路径有效。临时游戏 DLL 仅移除 UI/配置静态初始化器，未替换寻路或任务行为。没有用户存档，不能确认其反向移动是否来自控制环；未运行 Unity 画面、真实逐格寻路或实机存档验收，未部署。
+
+## 1.6.1 — 退场、固定物与照料修复
+
+- 商队退场保留绳子；只有端点真正离图、无效或越过硬绳长时才停止绘制。NPC 旅行鼠蛋不因主人离图被套用玩家的留图/消失设置。
+- 锚定物体或地面时结束旧的跟随主人任务、取消旧互动动画与拖拽状态。地面锚点不再回退到原主人；固定物范围内恢复原有 AI，越界返回使用可结束的牵引任务，不再直接改写正常任务的寻路。
+- 新增「牵着的敌对生物可以攻击」，默认关闭。原版设置与 IrisMenus「牵引」页均可修改和保存，中英双语。开启后保留原版敌对判定与战斗 AI，不强制创造敌意，仍保留硬绳长约束。
+- 固定物上的 pawn 可正常找食物、走向床铺并睡觉，进食/睡眠期间暂停拉回。自动喂食不再要求与主人互相好感大于 20，且不启动会打断睡眠的互动动画；尝试间隔按每条牵引记录计算，不会因分桶 tick 错过全部喂食。选中任意可操控殖民者右键固定物上的 pawn，可直接「喂食」，无需先接管绳子，继续遵守主人喂食列表与目标饮食限制。
+
+English: Departing caravans keep visible leashes while vanilla departure AI controls movement. Fixed anchors end stale leader-follow jobs and let pawns eat and sleep without repeated pullback. Any controllable colonist can feed a fixed-anchored pawn from its context menu. The new “Leashed hostile creatures can attack” option is off by default; enabling it preserves normal hostility and combat AI.
+
+验证：Release 构建零警告、零错误；165 项 Mono 回归通过。生产程序集 11 项 headless smoke 通过：物体锚定清理旧跟随任务、地面锚点不跟旧主人、进食移动与睡眠保留、实际消耗食物恢复营养且不改睡眠任务、敌对攻击任务保留及双方退场绘绳目标。中英 133 个 Keyed 键一致，模组与程序集版本为 1.6.1。临时游戏 DLL 仅禁用 UI/材质、配置静态初始化器，使用真实任务与食物消耗方法；未运行 Unity 菜单画面、逐格寻路、整队离图或用户旧档验收。
 
 ## 开发
 

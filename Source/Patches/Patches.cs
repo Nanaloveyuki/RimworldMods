@@ -594,7 +594,7 @@ namespace LeadYourPet
             for (int i = 0; i < masterLinks.Count; i++)
             {
                 LeashLink link = masterLinks[i];
-                if (link?.Pet == null || link.Kind != LeashLinkKind.MouseEggPet)
+                if (link?.Pet == null || link.Kind != LeashLinkKind.MouseEggPet || link.AnchorMode != LeashAnchorMode.None)
                 {
                     continue;
                 }

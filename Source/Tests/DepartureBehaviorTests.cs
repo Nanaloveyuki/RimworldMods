@@ -270,6 +270,8 @@ namespace LeadYourPet.Tests
         private void AssertLeashStaysOnDeparture(LeashLinkKind kind)
         {
             Pawn member = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            member.health = Raw<Pawn_HealthTracker>();
+            Set(member.health, "healthState", PawnHealthState.Down);
             Pawn master = NewSpawnedPawn(lord, new IntVec3(2, 0, 2));
             MouseEggState state = MarkTravelStock(member, currentMaster: master, leashMaster: master, linkKind: kind);
             state.IsPet = true;

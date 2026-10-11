@@ -117,6 +117,13 @@ namespace LeadYourPet
             }
 
             ValidateAnchor(link);
+            bool fixedAnchor = LeadYourPetUtility.HasFixedAnchor(link);
+            bool hostileAttack = LeadYourPetUtility.AllowsLeashedHostileAttack(link);
+            if ((link.AnchorMode != LeashAnchorMode.None && IsRunningFollowMasterJob(link))
+                || (hostileAttack && link.Pet.CurJobDef == LeadYourPetDefOf.LeadYourPet_FollowMaster))
+            {
+                ResetAnchorControl(link);
+            }
             ReleaseExternalToddlerHold(link.Pet);
             if (ticksGame - link.LastMoodRefreshTick >= 180)
             {
@@ -126,7 +133,7 @@ namespace LeadYourPet
 
             if (HasBlockingInteractionAnimation(link.Pet))
             {
-                if (LeadYourPetUtility.ShouldPreserveMapExitMovement(link.Pet))
+                if (fixedAnchor || hostileAttack || LeadYourPetUtility.ShouldPreserveMapExitMovement(link.Pet))
                 {
                     StopInteractionAnimation(link.Pet, finalizeTeleport: false);
                 }
@@ -137,13 +144,29 @@ namespace LeadYourPet
                 }
             }
 
+            if (fixedAnchor)
+            {
+                link.MouseEggDutyState = LeashedMouseEggDutyState.FollowMaster;
+                UpdateMouseEggDutyReport(link);
+            }
+            if (LeadYourPetUtility.HasAnchoredCareJob(link))
+            {
+                link.IsDragging = false;
+                MaintainDraggedSlow(link.Pet, false);
+                if (link.Pet.CurJobDef != JobDefOf.Ingest)
+                {
+                    TryFeedPet(link, ticksGame);
+                }
+                return;
+            }
+
             bool sleepingMaster = HandleSleepingMaster(link);
             bool runExpensiveUpdate = ShouldRunExpensiveLinkUpdate(link, ticksGame, forceImmediateUpdate);
             if (link.Kind == LeashLinkKind.MouseEggPet)
             {
                 link.MouseEggDutyState = LeadYourPetRules.ResolveLeashedMouseEggDutyState(
                     masterSleeping: sleepingMaster,
-                    masterEating: LeadYourPetUtility.MasterEating(link.Master));
+                    masterEating: link.AnchorMode == LeashAnchorMode.None && LeadYourPetUtility.MasterEating(link.Master));
                 UpdateMouseEggDutyReport(link);
             }
 
@@ -181,12 +204,17 @@ namespace LeadYourPet
                 distance = targetCell.DistanceTo(link.Pet.Position);
             }
 
+            if (hostileAttack)
+            {
+                return;
+            }
+
             if (!preserveMapExit && (link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !LeadYourPetUtility.CanMouseEggMove(link.Pet) && draggingNow)
             {
                 PullImmobileMouseEgg(link, targetCell);
             }
 
-            if (!preserveMapExit && (distance > LeadYourPetUtility.MaxLeashLength || draggingNow))
+            if (!preserveMapExit && !fixedAnchor && (distance > LeadYourPetUtility.MaxLeashLength || draggingNow))
             {
                 if (runExpensiveUpdate)
                 {
@@ -217,7 +245,11 @@ namespace LeadYourPet
             {
                 link.LastExpensiveUpdateTick = ticksGame;
 
-                if (link.Kind == LeashLinkKind.MouseEggPet)
+                if (fixedAnchor)
+                {
+                    TryFeedPet(link, ticksGame);
+                }
+                else if (link.Kind == LeashLinkKind.MouseEggPet)
                 {
                     ProcessMouseEggPet(link, draggingNow, distance, ticksGame, sleepingMaster);
                 }
@@ -484,12 +516,14 @@ namespace LeadYourPet
                 return;
             }
 
-            if (ticksGame % 120 != 0)
+            if (ticksGame - link.LastFeedAttemptTick < 120)
             {
                 return;
             }
+            link.LastFeedAttemptTick = ticksGame;
 
-            if (link.Kind == LeashLinkKind.MouseEggPet && !LeadYourPetUtility.CanUseSingleDirectionInteractions(link.Master, link.Pet))
+            if (!LeadYourPetUtility.HasFixedAnchor(link) && link.Kind == LeashLinkKind.MouseEggPet
+                && !LeadYourPetUtility.CanUseSingleDirectionInteractions(link.Master, link.Pet))
             {
                 return;
             }
@@ -511,7 +545,10 @@ namespace LeadYourPet
                 return;
             }
 
-            ApplyInteraction(link.Master, link.Pet, interactionKind, false);
+            if (!LeadYourPetUtility.HasFixedAnchor(link))
+            {
+                ApplyInteraction(link.Master, link.Pet, interactionKind, false);
+            }
         }
 
         private void GentlePullBack(LeashLink link, IntVec3 targetCell, int ticksGame, bool forceImmediateUpdate)
@@ -609,6 +646,24 @@ namespace LeadYourPet
                 return;
             }
 
+            if (fixedAnchor)
+            {
+                LocalTargetInfo anchorTarget = followThing != null
+                    ? new LocalTargetInfo(followThing)
+                    : new LocalTargetInfo(link.AnchorCell);
+                PathEndMode mode = anchorTarget.HasThing ? PathEndMode.Touch : PathEndMode.OnCell;
+                if (link.Pet.CurJobDef != LeadYourPetDefOf.LeadYourPet_FollowMaster
+                    && link.Pet.CanReach(anchorTarget, mode, Danger.Deadly))
+                {
+                    Job returnJob = JobMaker.MakeJob(LeadYourPetDefOf.LeadYourPet_FollowMaster, anchorTarget);
+                    if (link.Pet.jobs.TryTakeOrderedJob(returnJob, JobTag.Misc, false))
+                    {
+                        link.LastFollowIssueTick = ticksGame;
+                    }
+                }
+                return;
+            }
+
             if (followThing != null && link.Pet.CanReach(followThing, PathEndMode.Touch, Danger.Deadly))
             {
                 if (LeadYourPetRules.ShouldIssueLeashFollowJob(
@@ -632,11 +687,6 @@ namespace LeadYourPet
                 return;
             }
 
-            if (link.AnchorMode == LeashAnchorMode.Cell && link.AnchorCell.IsValid && link.Pet.CanReach(link.AnchorCell, PathEndMode.OnCell, Danger.Deadly))
-            {
-                link.Pet.pather.StartPath(link.AnchorCell, PathEndMode.OnCell);
-                link.LastFollowIssueTick = ticksGame;
-            }
         }
 
         private bool IsRunningFollowMasterJob(LeashLink link)

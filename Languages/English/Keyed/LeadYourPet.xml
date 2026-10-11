@@ -110,6 +110,9 @@
   <LeadYourPet_Settings_MaxLeashLength>Maximum leash length</LeadYourPet_Settings_MaxLeashLength>
   <LeadYourPet_Settings_AllowAnimalPets>Allow animal pets</LeadYourPet_Settings_AllowAnimalPets>
   <LeadYourPet_Settings_AllowAnimalPets_Tooltip>Turn off to hide the animal leash order. Animals already leashed stay leashed.</LeadYourPet_Settings_AllowAnimalPets_Tooltip>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack>Leashed hostile creatures can attack</LeadYourPet_Settings_LeashedHostilesCanAttack>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>Allow normal hostile behavior while leashed, including enemy factions and aggressive creatures. Following no longer overrides their combat AI. Off by default: the leader and their faction remain protected.</LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>
+  <LeadYourPet_FeedLeashedPet>Feed {0}</LeadYourPet_FeedLeashedPet>
   <LeadYourPet_Settings_AllowRatkinYoungPets>Allow humanlike leashing</LeadYourPet_Settings_AllowRatkinYoungPets>
   <LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>Turn off to stop new humanlike leashes. Existing ones end when the pawn is next checked.</LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>
   <LeadYourPet_Settings_MinPetAge>Minimum pet age: {0}</LeadYourPet_Settings_MinPetAge>

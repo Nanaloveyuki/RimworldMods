@@ -110,6 +110,9 @@
   <LeadYourPet_Settings_MaxLeashLength>拴绳最高长度</LeadYourPet_Settings_MaxLeashLength>
   <LeadYourPet_Settings_AllowAnimalPets>允许牵引动物</LeadYourPet_Settings_AllowAnimalPets>
   <LeadYourPet_Settings_AllowAnimalPets_Tooltip>关闭后不再出现动物牵引命令。已经牵着的动物仍保持牵引。</LeadYourPet_Settings_AllowAnimalPets_Tooltip>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack>牵着的敌对生物可以攻击</LeadYourPet_Settings_LeashedHostilesCanAttack>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>开启后保留被牵引者原本的敌对行为，包括敌对派系与有攻击性的生物，跟随任务不再覆盖其战斗 AI。默认关闭，保护牵引者及其派系。</LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>
+  <LeadYourPet_FeedLeashedPet>喂食 {0}</LeadYourPet_FeedLeashedPet>
   <LeadYourPet_Settings_AllowRatkinYoungPets>允许牵引智人</LeadYourPet_Settings_AllowRatkinYoungPets>
   <LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>关闭后不能新牵智人。已有的智人牵引会在下次检查时结束。</LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>
   <LeadYourPet_Settings_MinPetAge>宠物下限年龄：{0}</LeadYourPet_Settings_MinPetAge>

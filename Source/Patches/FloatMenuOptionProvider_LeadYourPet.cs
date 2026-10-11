@@ -32,6 +32,25 @@ namespace LeadYourPet
                 yield break;
             }
 
+            if (LeadYourPetUtility.HasFixedAnchor(component.GetLinkForPet(clickedPawn)))
+            {
+                string label = "LeadYourPet_FeedLeashedPet".Translate(clickedPawn.LabelShort).Resolve();
+                if (!actor.CanReach(clickedPawn, PathEndMode.Touch, Danger.Deadly))
+                {
+                    yield return DisabledOption(label, "LeadYourPet_Reason_Unreachable", true);
+                }
+                else if (!LeadYourPetUtility.TryFindManualFeedFood(actor, clickedPawn, out _, out string reason))
+                {
+                    yield return DisabledOption(label, reason, true);
+                }
+                else
+                {
+                    yield return new FloatMenuOption(label, delegate
+                    {
+                        LeadYourPetUtility.TryFeedTarget(actor, clickedPawn, out _, out _);
+                    }, MenuOptionPriority.InitiateSocial);
+                }
+            }
             if (LeadYourPetUtility.IsEligibleAnimalPet(clickedPawn))
             {
                 foreach (FloatMenuOption option in AnimalOptions(actor, clickedPawn, component))

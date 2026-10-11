@@ -33,6 +33,8 @@ namespace LeadYourPet
             bool allowAnimalPets = Settings.allowAnimalPets;
             listing.CheckboxLabeled("LeadYourPet_Settings_AllowAnimalPets".Translate(), ref allowAnimalPets, "LeadYourPet_Settings_AllowAnimalPets_Tooltip".Translate());
             Settings.allowAnimalPets = allowAnimalPets;
+            listing.CheckboxLabeled("LeadYourPet_Settings_LeashedHostilesCanAttack".Translate(), ref Settings.leashedHostilesCanAttack,
+                "LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip".Translate());
 
             bool allowRatkinYoungPets = Settings.allowRatkinYoungPets;
             listing.CheckboxLabeled("LeadYourPet_Settings_AllowRatkinYoungPets".Translate(), ref allowRatkinYoungPets, "LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip".Translate());

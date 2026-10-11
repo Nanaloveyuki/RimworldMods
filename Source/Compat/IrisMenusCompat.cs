@@ -327,6 +327,9 @@ namespace LeadYourPet
             IrisMenusCompat.Anchor(list, "animals");
             IrisMenusCompat.Checkbox(list, "LeadYourPet_Settings_AllowAnimalPets".Translate(), ref settings.allowAnimalPets,
                 "LeadYourPet_Settings_AllowAnimalPets_Tooltip".Translate());
+            IrisMenusCompat.Anchor(list, "hostile-attack");
+            IrisMenusCompat.Checkbox(list, "LeadYourPet_Settings_LeashedHostilesCanAttack".Translate(), ref settings.leashedHostilesCanAttack,
+                "LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip".Translate());
             if (!lengthVisible)
             {
                 return;
@@ -456,6 +459,8 @@ namespace LeadYourPet
                 "LeadYourPet_Settings_ShowInteractionText_Tooltip");
             yield return IrisMenusCompat.Entry("animals", "LeadYourPet_Settings_AllowAnimalPets", "animal pet",
                 "LeadYourPet_Settings_AllowAnimalPets_Tooltip");
+            yield return IrisMenusCompat.Entry("hostile-attack", "LeadYourPet_Settings_LeashedHostilesCanAttack", "hostile enemy faction attack 敌对 派系 攻击",
+                "LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip");
             if (lengthVisible)
             {
                 yield return IrisMenusCompat.Entry("length", "LeadYourPet_Settings_MaxLeashLength", "max leash length");

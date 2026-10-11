@@ -1,4 +1,5 @@
 using Verse;
+using Verse.AI;
 
 namespace LeadYourPet
 {
@@ -21,10 +22,7 @@ namespace LeadYourPet
                 link.AnchorMode = LeashAnchorMode.Thing;
                 link.AnchorThing = anchorThing;
                 link.AnchorCell = IntVec3.Invalid;
-                link.MasterSleepSuspended = false;
-                link.ForceImmediateUpdate = true;
-                link.CachedHasValidAutoInteractionPool = false;
-                link.Pet.pather?.StopDead();
+                ResetAnchorControl(link);
             }
         }
 
@@ -40,10 +38,7 @@ namespace LeadYourPet
                 link.AnchorMode = LeashAnchorMode.Cell;
                 link.AnchorThing = null;
                 link.AnchorCell = cell;
-                link.MasterSleepSuspended = false;
-                link.ForceImmediateUpdate = true;
-                link.CachedHasValidAutoInteractionPool = false;
-                link.Pet.pather?.StopDead();
+                ResetAnchorControl(link);
             }
         }
 
@@ -56,6 +51,23 @@ namespace LeadYourPet
                 link.AnchorCell = IntVec3.Invalid;
                 link.ForceImmediateUpdate = true;
                 link.CachedHasValidAutoInteractionPool = false;
+            }
+        }
+
+        private void ResetAnchorControl(LeashLink link)
+        {
+            StopInteractionAnimation(link.Pet, finalizeTeleport: false);
+            link.MasterSleepSuspended = false;
+            link.MouseEggDutyState = LeashedMouseEggDutyState.FollowMaster;
+            UpdateMouseEggDutyReport(link);
+            link.IsDragging = false;
+            MaintainDraggedSlow(link.Pet, false);
+            link.ForceImmediateUpdate = true;
+            link.CachedHasValidAutoInteractionPool = false;
+            link.Pet.pather?.StopDead();
+            if (link.Pet.CurJob != null && link.Pet.CurJobDef == LeadYourPetDefOf.LeadYourPet_FollowMaster)
+            {
+                link.Pet.jobs.EndCurrentJob(JobCondition.InterruptForced, false);
             }
         }
     }

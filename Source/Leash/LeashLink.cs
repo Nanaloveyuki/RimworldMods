@@ -20,6 +20,7 @@ namespace LeadYourPet
         public int UpdateBucket;
         public int LastExpensiveUpdateTick = -99999;
         public int LastFollowIssueTick = -99999;
+        internal int LastFeedAttemptTick = -99999;
         public int LastAutoInteractionPoolTick = -99999;
         public bool ForceImmediateUpdate;
         public bool CachedCanUseSingleDirectionInteractions;

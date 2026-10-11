@@ -398,10 +398,6 @@ namespace LeadYourPet
             return ownedByActor && isBidirectionalMenu && !bidirectionalBlocked;
         }
 
-        public static bool ShouldReleaseNonPlayerTravelLeashOnMasterExit(bool masterIsPlayer, bool petIsTravelStock, bool petSharesMasterLord)
-        {
-            return !masterIsPlayer && petIsTravelStock;
-        }
 
         public static bool ShouldBlockExternalDialogue(bool isProtectedLeashedMouseEgg, string integrationName)
         {

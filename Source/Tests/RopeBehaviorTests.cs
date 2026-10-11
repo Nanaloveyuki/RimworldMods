@@ -50,13 +50,56 @@ namespace LeadYourPet.Tests
             else Assert.False(target.IsValid);
         }
 
-        [Fact]
-        public void ExitMovementNeverDrawsLeashEvenAtShortDistance()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void DepartureMovementKeepsTheRopeOnEitherEndpoint(bool masterExits)
         {
             Job exit = Raw<Job>();
             exit.exitMapOnArrival = true;
-            Set(pet.jobs, "curJob", exit);
-            Assert.False(LeadYourPetUtility.TryGetCustomRopeTarget(pet, out _));
+            Set((masterExits ? master : pet).jobs, "curJob", exit);
+            Assert.True(LeadYourPetUtility.TryGetCustomRopeTarget(pet, out LocalTargetInfo target));
+            Assert.Same(master, target.Thing);
+            Assert.Same(link, component.GetLinkForPet(pet));
+        }
+
+        [Fact]
+        public void CellAnchorKeepsItsOwnTargetWhenTheOldMasterMovesAway()
+        {
+            link.AnchorMode = LeashAnchorMode.Cell;
+            link.AnchorCell = new IntVec3(21, 0, 20);
+            Set(master, "positionInt", new IntVec3(200, 0, 200));
+            Assert.Null(LeadYourPetUtility.GetCurrentFollowThing(link));
+            Assert.True(LeadYourPetUtility.TryGetCustomRopeTarget(pet, out LocalTargetInfo target));
+            Assert.False(target.HasThing);
+            Assert.Equal(link.AnchorCell, target.Cell);
+        }
+
+        [Fact]
+        public void HostileAttackSettingRestoresEnemyHostilityAndCanBeTurnedBackOff()
+        {
+            Faction faction = Raw<Faction>();
+            Set(master, "factionInt", faction);
+            pet.kindDef = new PawnKindDef { hostileToAll = true };
+            master.kindDef = new PawnKindDef();
+            bool hostile = true;
+            Patch_GenHostility_ThingThing.Postfix(pet, master, ref hostile);
+            Assert.False(hostile);
+
+            LeadYourPetMod.Settings = new LeadYourPetSettings { leashedHostilesCanAttack = true };
+            hostile = true;
+            Patch_GenHostility_ThingThing.Postfix(pet, master, ref hostile);
+            Assert.True(hostile);
+            Assert.True(LeadYourPetUtility.AllowsLeashedHostileAttack(link));
+            hostile = true;
+            Patch_GenHostility_ThingFaction.Postfix(pet, faction, ref hostile);
+            Assert.True(hostile);
+
+            LeadYourPetMod.Settings.leashedHostilesCanAttack = false;
+            Assert.False(LeadYourPetUtility.AllowsLeashedHostileAttack(link));
+            hostile = true;
+            Patch_GenHostility_ThingFaction.Postfix(pet, faction, ref hostile);
+            Assert.False(hostile);
         }
 
         [Theory]

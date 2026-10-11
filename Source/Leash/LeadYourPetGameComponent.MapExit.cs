@@ -20,8 +20,6 @@ namespace LeadYourPet
 
             try
             {
-                ReleaseNonPlayerTravelLeashesBeforeExit(master);
-
                 List<LeashLink> masterLinks = GetLinksForMaster(master);
                 if (masterLinks == null || masterLinks.Count == 0)
                 {
@@ -40,7 +38,10 @@ namespace LeadYourPet
                         continue;
                     }
 
-                    HandleLeashedPawnAtMapExit(link, behavior, exitDir, master.Map);
+                    LeashedPawnMapExitBehavior linkBehavior = LeadYourPetUtility.IsUnprotectedTravelStock(link.Pet)
+                        ? LeashedPawnMapExitBehavior.LeaveMap
+                        : behavior;
+                    HandleLeashedPawnAtMapExit(link, linkBehavior, exitDir, master.Map);
                 }
             }
             finally
@@ -59,52 +60,6 @@ namespace LeadYourPet
                 : LeashedPawnMapExitBehavior.StayInPlace;
         }
 
-        private void ReleaseNonPlayerTravelLeashesBeforeExit(Pawn master)
-        {
-            if (master == null || master.Faction == Faction.OfPlayer)
-            {
-                return;
-            }
-
-            List<LeashLink> masterLinks = GetLinksForMaster(master);
-            if (masterLinks == null || masterLinks.Count == 0)
-            {
-                return;
-            }
-
-            Lord masterLord = master.GetLord();
-            List<LeashLink> snapshot = new List<LeashLink>(masterLinks);
-            for (int i = 0; i < snapshot.Count; i++)
-            {
-                LeashLink link = snapshot[i];
-                if (link == null || GetLinkForPet(link.Pet) != link)
-                {
-                    continue;
-                }
-
-                MouseEggState state = GetMouseEggState(link.Pet);
-                if (!LeadYourPetUtility.IsUnprotectedTravelStock(link.Pet))
-                {
-                    continue;
-                }
-
-                if (!LeadYourPetRules.ShouldReleaseNonPlayerTravelLeashOnMasterExit(
-                    masterIsPlayer: false,
-                    petIsTravelStock: state != null && state.IsTravelStock,
-                    petSharesMasterLord: masterLord != null && link.Pet.GetLord() == masterLord))
-                {
-                    continue;
-                }
-
-                StopInteractionAnimation(link.Pet, finalizeTeleport: false);
-                EndLink(link, false);
-                if (state != null)
-                {
-                    state.IsPet = false;
-                    state.CurrentMaster = null;
-                }
-            }
-        }
 
         private void HandleLeashedPawnAtMapExit(LeashLink link, LeashedPawnMapExitBehavior behavior, Rot4 exitDir, Map map)
         {
@@ -135,6 +90,13 @@ namespace LeadYourPet
                     EndLink(link, false);
                 }
 
+                return;
+            }
+
+            if (LeadYourPetUtility.IsUnprotectedTravelStock(pet))
+            {
+                // Its Lord still owns departure, including carrying immobile members.
+                EndLink(link, false);
                 return;
             }
 
