@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <LeadYourPetContinued_DuplicateTitle>Lead Your Pets Continued: Restart Required</LeadYourPetContinued_DuplicateTitle>
+  <LeadYourPetContinued_DuplicateBody>The original mod and Continued were both enabled. The original has been removed from the active mod list; Continued remains enabled.\n\nContinued content was not loaded in this session to avoid duplicate types and Defs. Restart now to use Continued. Do not load or save a game in this session. No original files or saves were deleted or modified.</LeadYourPetContinued_DuplicateBody>
+  <LeadYourPetContinued_Restart>Restart game</LeadYourPetContinued_Restart>
+</LanguageData>

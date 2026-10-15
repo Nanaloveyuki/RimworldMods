@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.Serialization;
+#if RIMWORLD_1_7
+using UninitializedObject = System.Runtime.CompilerServices.RuntimeHelpers;
+#else
+using UninitializedObject = System.Runtime.Serialization.FormatterServices;
+#endif
 using RimWorld;
 using Verse;
 using Xunit;
@@ -100,7 +104,7 @@ namespace LeadYourPet.Tests
         }
 
         public void Dispose() { Current.Game = previousGame; GodHandsCompat.Reset(); }
-        private static T Raw<T>() => (T)FormatterServices.GetUninitializedObject(typeof(T));
+        private static T Raw<T>() => (T)UninitializedObject.GetUninitializedObject(typeof(T));
         private static FieldInfo Field(object obj, string name)
         {
             for (Type t = obj.GetType(); t != null; t = t.BaseType)

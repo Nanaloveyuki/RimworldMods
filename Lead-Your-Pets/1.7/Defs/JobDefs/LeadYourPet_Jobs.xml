@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JobDef>
+    <defName>LeadYourPet_BeginLeash</defName>
+    <driverClass>LeadYourPet.JobDriver_BeginLeash</driverClass>
+    <reportString>leashing TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+    <playerInterruptible>true</playerInterruptible>
+    <checkOverrideOnDamage>Always</checkOverrideOnDamage>
+  </JobDef>
+
+  <JobDef>
+    <defName>LeadYourPet_EndLeash</defName>
+    <driverClass>LeadYourPet.JobDriver_BeginLeash</driverClass>
+    <reportString>releasing TargetA from the leash.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+    <playerInterruptible>true</playerInterruptible>
+    <checkOverrideOnDamage>Always</checkOverrideOnDamage>
+  </JobDef>
+
+  <JobDef>
+    <defName>LeadYourPet_FollowMaster</defName>
+    <driverClass>LeadYourPet.JobDriver_FollowLeashMaster</driverClass>
+    <reportString>following TargetA on a leash.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+    <playerInterruptible>true</playerInterruptible>
+    <checkOverrideOnDamage>Always</checkOverrideOnDamage>
+    <neverShowWeapon>true</neverShowWeapon>
+  </JobDef>
+
+  <JobDef>
+    <defName>LeadYourPet_MouseEggInteraction</defName>
+    <driverClass>LeadYourPet.JobDriver_MouseEggInteraction</driverClass>
+    <reportString>interacting with TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+    <playerInterruptible>true</playerInterruptible>
+    <checkOverrideOnDamage>Always</checkOverrideOnDamage>
+  </JobDef>
+</Defs>

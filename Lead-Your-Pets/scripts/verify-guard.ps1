@@ -1,5 +1,10 @@
-param([switch]$NoDuplicate)
+[CmdletBinding()]
+param(
+    [switch]$NoDuplicate,
+    [ValidateSet('1.6', '1.7')][string]$RimWorldVersion = $(if ($env:RIMWORLD_VERSION) { $env:RIMWORLD_VERSION } else { '1.7' })
+)
 $ErrorActionPreference = 'Stop'
+if ($RimWorldVersion -eq '1.7' -and [Environment]::Version.Major -lt 10) { throw 'RimWorld 1.7 guard verification requires pwsh running on .NET 10; Windows PowerShell 5.1 uses the legacy framework.' }
 $root = Split-Path $PSScriptRoot -Parent
 $source = Get-Content (Join-Path $root 'Guard/Source/DuplicateModGuard.cs') -Raw
 $stubs = @'
@@ -62,4 +67,4 @@ public static class GuardHarness {
 '@
 Add-Type -TypeDefinition ($source + "`n" + $stubs)
 [GuardHarness]::Run($NoDuplicate.IsPresent)
-Write-Host "Guard engine-double checks passed (NoDuplicate=$NoDuplicate). Not an in-game restart test."
+Write-Host "RimWorld $RimWorldVersion guard engine-double checks passed (NoDuplicate=$NoDuplicate). Not a game DLL load or in-game restart test."

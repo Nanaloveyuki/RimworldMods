@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RimWorld;
 using Verse;
 
 namespace LeadYourPet
 {
-    // No compile reference to IrisMenus. Registration runs only after the active 1.6 mod is found.
+    // No compile reference to IrisMenus. Registration requires support for the running game version.
     internal static class IrisMenusCompat
     {
         internal const string PackageId = "Nanaloveyuki.IrisMenus";
@@ -38,11 +39,13 @@ namespace LeadYourPet
                 return;
             }
 
+            Version currentVersion = VersionControl.CurrentVersion;
             bool supported = meta.SupportedVersionsReadOnly != null &&
-                meta.SupportedVersionsReadOnly.Any(item => item != null && item.Major == 1 && item.Minor == 6);
+                meta.SupportedVersionsReadOnly.Any(item => item != null &&
+                    item.Major == currentVersion.Major && item.Minor == currentVersion.Minor);
             if (!supported)
             {
-                Log.Warning("[LeadYourPet] IrisMenus does not list RimWorld 1.6. Menu pages were not registered.");
+                Log.Warning($"[LeadYourPet] IrisMenus does not list RimWorld {currentVersion.Major}.{currentVersion.Minor}. Menu pages were not registered.");
                 return;
             }
 
@@ -56,7 +59,7 @@ namespace LeadYourPet
 
                 new IrisMenusPages().Register(owner);
                 registered = true;
-                Log.Message("[LeadYourPet] IrisMenus 1.6 pages registered.");
+                Log.Message($"[LeadYourPet] IrisMenus {currentVersion.Major}.{currentVersion.Minor} pages registered.");
             }
             catch (Exception exception)
             {

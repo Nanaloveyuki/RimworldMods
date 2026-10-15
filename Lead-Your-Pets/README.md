@@ -8,7 +8,7 @@
 - 修复鼠灾原版 / Continued 的可选联动：包名检测、生成方法重载与可选参数、访客敌对入口。
 - 鼠灾 Continued 需安装同时更新的版本，才能主动识别本模组的新包名。
 - 新包名：`nanaloveyuki.leadyourpet.continued`。`About/PublishedFileId.txt` 是本续作的创意工坊文件 ID，不是原版 ID。
-- IrisMenus（`Nanaloveyuki.IrisMenus`，1.6）可选。运行时检测到已启用且支持 1.6，并且公开菜单 API 存在时，用反射登记牵引、幼年鼠族、年龄、来客、离图、主人喂食六页，写入同一套设置。主程序集不引用 IrisMenus.dll。未安装、未启用、不是 1.6 或 API 对不上时不登记，原版设置窗口照常可用。不写入 `modDependencies`。
+- IrisMenus（`Nanaloveyuki.IrisMenus`，1.6 / 1.7）可选。运行时检测到已启用且声明支持当前游戏版本，并且公开菜单 API 存在时，用反射登记牵引、幼年鼠族、年龄、来客、离图、主人喂食六页，写入同一套设置。主程序集不引用 IrisMenus.dll。未安装、未启用、游戏版本不匹配或 API 对不上时不登记，原版设置窗口照常可用。不写入 `modDependencies`。
 - 饥与祸通过 `LeadYourPet.LeadYourPetApi` 调用。本模组不检测饥与祸，也不引用它的程序集。
 - PA’s God Hands（`Palpha.godhands`）可选。抓取鼠蛋、牵引者或锚定 Pawn 时暂停牵引和互动动画，不完成旧动画的传送；隐藏手持期间的绳子，其他超出硬绳长的绳子也不绘制。释放后恢复牵引，并清理相关 Pawn 遗留的神之手 `Wait(99999)`，不结束普通等待或无关 Pawn 的任务。主程序集不引用 PA_GodHands.dll。
 - 访客的离场集合与入场集合分开识别。商队/访客开始撤离时保留牵引与绘绳，让原版 Lord 接管离场移动；不再仅因退出任务隐藏绳子。牵引者真正离图时，其旅行鼠蛋优先一起离图，不套用玩家的「留在原地」设置；不能移动的成员保留 Lord 关系，由现有搬运流程处理。同 Lord 成员可搬运倒地或不能移动的鼠蛋，到集合点落地后恢复原版集合检查；在出口先放下鼠蛋再使其离图。已有外部幼儿抱持不会被抢占。
@@ -60,17 +60,35 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 
 验证：Release 构建零警告、零错误；165 项 Mono 回归通过。生产程序集 11 项 headless smoke 通过：物体锚定清理旧跟随任务、地面锚点不跟旧主人、进食移动与睡眠保留、实际消耗食物恢复营养且不改睡眠任务、敌对攻击任务保留及双方退场绘绳目标。中英 133 个 Keyed 键一致，模组与程序集版本为 1.6.1。临时游戏 DLL 仅禁用 UI/材质、配置静态初始化器，使用真实任务与食物消耗方法；未运行 Unity 菜单画面、逐格寻路、整队离图或用户旧档验收。
 
+## 1.7.0 — RimWorld 1.7
+
+- 对照 RimWorld 1.7 源码，使用已安装的 1.7.4979 rev109 游戏程序集编译，目标框架改为 .NET 10；游戏引用来自安装根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll`。Harmony 由外部 Harmony 模组提供；1.7 需使用它的 Harmony 3 版本，不随本模组打包。
+- `LoadFolders.xml` 保持 1.6 加载 `Guard` 和根目录；1.7 仅加载 `1.7/Guard` 和 `1.7`，不混载旧程序集。两版均保留重复启用原版时只加载 Guard 的条件。
+- 根目录原有 `Assemblies`、`Defs`、`Languages`、`Guard` 保持不变；1.7 使用独立的 Def、翻译与主/守卫程序集。模组包名、存档类型、Scribe 字段和 Def 标识不变。IrisMenus 按当前游戏主次版本检测，不再固定要求 1.6。
+- 验证：主程序集与 Guard 的 Release 构建零警告、零错误；161 项 .NET 10 回归通过。真实游戏 DLL 与已安装的 Harmony 3 成功应用 29 个原版补丁目标；headless smoke 实际执行公开牵引查询、目标复制、地面锚定、绳索目标、特殊来源状态和解绑，并绑定实际 IrisMenus 1.7 DLL、登记六页。游戏 DLL 未修改。
+- 已部署到 `Mods/LeadYourPetsContinued`，SHA-256 校验运行时文件；仓库原有 17 个、部署目录原有 14 个旧版运行时文件均与升级前指纹一致。未修改启用列表或存档。未启动游戏画面，未验收逐格寻路、动画显示、整队离图或旧档；可选模组的实机兼容仍需使用各自对应的 1.7 版本验证。
+
 ## 开发
 
+需要 .NET 10 SDK 和实际游戏安装。默认 `RimWorldVersion=1.7`，输出到 `1.7/Assemblies`、`1.7/Guard/Assemblies`；`RimWorldDir` / `RIMWORLD_DIR` 指向游戏根目录，不能指向反编译源码。默认路径为 Windows 的 `E:/Apps/Steam/steamapps/common/RimWorld` 或 WSL 的对应挂载路径。
+
 ```powershell
-dotnet test Source/Tests/LeadYourPet.Tests.csproj -c Release -p:RimWorldDir="D:/Appdata/Steam/steamapps/common/RimWorld"
+dotnet test Source/Tests/LeadYourPet.Tests.csproj -c Release
 ./scripts/build-and-deploy.ps1 -BuildOnly
+# 以下反射/守卫验证使用运行于 .NET 10 的 PowerShell 7。
 ./scripts/verify-guard.ps1
 ./scripts/verify-guard.ps1 -NoDuplicate
-./scripts/verify-integration.ps1 -MouseDisasterAssembly="F:/repo/Ratkin-Great-Famine-Year-Continued/1.6/Assemblies/MouseDisaster.dll"
-./scripts/deploy.sh
+./scripts/verify-integration.ps1 -HarmonyAssembly="E:/Apps/Steam/steamapps/workshop/content/294100/2009463077/1.7/Assemblies/0Harmony.dll"
+# 可追加 -MouseDisasterAssembly=<对应 1.7 的 MouseDisaster.dll> 验证可选联动。
 ./scripts/build-and-deploy.ps1 -RimWorldDir="E:/Apps/Steam/steamapps/common/RimWorld"
 ```
+
+```bash
+./scripts/deploy.sh --build-only
+./scripts/deploy.sh
+```
+
+部署只升级所选运行时和顶层元数据，校验 SHA-256；默认 1.7 部署不复制、覆盖或删除原有 1.6 运行时。完整双版本安装使用整个模组目录；仅运行 1.7 部署脚本不会补齐新目标中缺失的 1.6 文件。`-RimWorldVersion=1.6` / `RIMWORLD_VERSION=1.6` 仅供明确安排的旧版维护，需要独立 1.6 游戏，且会覆盖原有 1.6 构建输出；本次升级未执行该构建。
 
 测试包含规则回归、反射重载/默认参数/out 参数，以及抓取、绘绳边界、撤离阶段、归属和搬运授权的行为回归；不以源码文本或文件哈希断言代替行为。部署仅复制运行时文件，校验 SHA-256，不改启用列表、旧版目录或玩家存档。仓库是独立历史，不导入原版 Git 记录。
 

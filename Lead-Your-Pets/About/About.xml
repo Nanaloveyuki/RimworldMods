@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <modVersion IgnoreIfNoMatchingField="True">1.6.1</modVersion>
+  <modVersion IgnoreIfNoMatchingField="True">1.7.0</modVersion>
   <name>牵着你的宠物 Continued</name>
   <author>乐织终; Nanaloveyuki (Continued)</author>
   <packageId>nanaloveyuki.leadyourpet.continued</packageId>
   <supportedVersions>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <modDependencies>
     <li>
@@ -15,7 +16,7 @@
     </li>
     <li>
       <packageId>Solaris.RatkinRaceMod</packageId>
-      <displayName>NewRatkinPlus[1.6]</displayName>
+      <displayName>NewRatkinPlus</displayName>
       <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2898638732</steamWorkshopUrl>
     </li>
   </modDependencies>
@@ -30,7 +31,7 @@
     <li>lezhizhong.leadyourpet</li>
     <li>codex.leadyourpet</li>
   </incompatibleWith>
-  <description>前置：Harmony、NewRatkinPlus[1.6]。
+  <description>前置：Harmony、对应游戏版本的 NewRatkinPlus。支持 RimWorld 1.6 / 1.7；1.7 使用独立程序集，保留原有 1.6 内容。
 
 让殖民者牵着宠物行动，也支持将鼠蛋/鼠族幼体作为特殊牵引对象处理。支持锚定、喂食、互动、母婴牵引、动画表现与情绪效果。
 
@@ -38,5 +39,5 @@
 
 可选联动：鼠灾-大荒年及其 Continued 版本；IrisMenus。
 启用鼠灾后，普通访客/商队携带的鼠蛋会优先生成鼠灾 Pawn；鼠灾中的流民商队、易子而食等原生鼠蛋队伍也会接入本模组的牵引、交易与心情逻辑。
-启用 IrisMenus 1.6 后，设置会出现在它的菜单里。没装它时仍用原版模组设置窗口。IrisMenus 不是前置。</description>
+启用支持当前游戏版本的 IrisMenus 后，设置会出现在它的菜单里。没装它时仍用原版模组设置窗口。IrisMenus 不是前置。</description>
 </ModMetaData>

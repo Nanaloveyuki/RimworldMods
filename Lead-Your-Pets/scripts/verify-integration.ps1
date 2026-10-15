@@ -1,15 +1,25 @@
 [CmdletBinding()]
 param(
-    [string]$RimWorldDir = 'D:\Appdata\Steam\steamapps\common\RimWorld',
-    [string]$MouseDisasterAssembly = 'F:\repo\Ratkin-Great-Famine-Year-Continued\1.6\Assemblies\MouseDisaster.dll'
+    [string]$RimWorldDir = $(if ($env:RIMWORLD_DIR) { $env:RIMWORLD_DIR } elseif ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) { 'E:\Apps\Steam\steamapps\common\RimWorld' } else { '/mnt/e/Apps/Steam/steamapps/common/RimWorld' }),
+    [ValidateSet('1.6', '1.7')][string]$RimWorldVersion = $(if ($env:RIMWORLD_VERSION) { $env:RIMWORLD_VERSION } else { '1.7' }),
+    [string]$MouseDisasterAssembly = $env:MOUSE_DISASTER_ASSEMBLY,
+    [string]$HarmonyAssembly = $env:HARMONY_ASSEMBLY
 )
 $ErrorActionPreference = 'Stop'
+if ($RimWorldVersion -eq '1.7' -and [Environment]::Version.Major -lt 10) { throw 'RimWorld 1.7 verification requires pwsh running on .NET 10; Windows PowerShell 5.1 cannot load net10.0 game DLLs.' }
 $root = Split-Path $PSScriptRoot -Parent
-$managed = Join-Path $RimWorldDir 'RimWorldWin64_Data/Managed'
+$runtime = if ($RimWorldVersion -eq '1.7') { '1.7/' } else { '' }
+$managed = if ($RimWorldVersion -eq '1.7') { $RimWorldDir } else { Join-Path $RimWorldDir 'RimWorldWin64_Data/Managed' }
+$assemblies = Join-Path $root "${runtime}Assemblies"
+if (!(Test-Path -LiteralPath (Join-Path $managed 'Assembly-CSharp.dll'))) { throw "RimWorld $RimWorldVersion game assembly not found: $managed" }
+if ($HarmonyAssembly) {
+    if (!(Test-Path -LiteralPath $HarmonyAssembly)) { throw "Harmony assembly not found: $HarmonyAssembly" }
+    [Reflection.Assembly]::LoadFrom($HarmonyAssembly) | Out-Null
+}
 $resolver = [ResolveEventHandler] {
     param($sender, $eventArgs)
     $name = [Reflection.AssemblyName]::new($eventArgs.Name).Name + '.dll'
-    foreach ($dir in @($managed, (Join-Path $root 'Assemblies'))) {
+    foreach ($dir in @($managed, $assemblies)) {
         $path = Join-Path $dir $name
         if (Test-Path $path) { return [Reflection.Assembly]::LoadFrom($path) }
     }
@@ -17,7 +27,7 @@ $resolver = [ResolveEventHandler] {
 }
 [AppDomain]::CurrentDomain.add_AssemblyResolve($resolver)
 try {
-    $petsPath = Join-Path $root 'Assemblies/LeadYourPet.dll'
+    $petsPath = Join-Path $assemblies 'LeadYourPet.dll'
     $pets = [Reflection.Assembly]::LoadFrom($petsPath)
     $api = $pets.GetType('LeadYourPet.LeadYourPetApi', $true)
     $publicStatic = [Reflection.BindingFlags]'Public,Static'
@@ -54,12 +64,13 @@ try {
     Test-ApiMethod 'TryCopyLinkedPets' 'System.Boolean' @($pawnName, 'System.Collections.Generic.List`1[[Verse.Pawn]]')
     Test-ApiMethod 'SetSpecialSource' 'System.Void' @($pawnName, 'System.Int32')
     Test-ApiMethod 'IsLeashed' 'System.Boolean' @($pawnName)
-    if (-not (Test-Path $MouseDisasterAssembly)) {
-        Write-Host 'LeadYourPetApi public signatures verified. MouseDisaster.dll was not supplied, so old integration bindings were skipped.'
+    if (!$MouseDisasterAssembly) {
+        Write-Host "RimWorld $RimWorldVersion LeadYourPetApi public signatures verified. Supply a matching -MouseDisasterAssembly (and external -HarmonyAssembly if needed) to verify integration bindings."
         return
     }
+    if (!(Test-Path -LiteralPath $MouseDisasterAssembly)) { throw "MouseDisaster assembly not found: $MouseDisasterAssembly" }
     $mouse = [Reflection.Assembly]::LoadFrom($MouseDisasterAssembly)
-    $pets = [Reflection.Assembly]::LoadFrom((Join-Path $root 'Assemblies/LeadYourPet.dll'))
+    $pets = [Reflection.Assembly]::LoadFrom($petsPath)
     $utility = $pets.GetType('LeadYourPet.LeadYourPetUtility', $true)
     [Runtime.CompilerServices.RuntimeHelpers]::RunClassConstructor($utility.TypeHandle)
     $flags = [Reflection.BindingFlags]'NonPublic,Static'

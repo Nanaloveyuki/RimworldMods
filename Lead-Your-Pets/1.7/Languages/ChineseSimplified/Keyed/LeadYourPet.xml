@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <LeadYourPet_LabelWithReason>{0}（{1}）</LeadYourPet_LabelWithReason>
+
+  <LeadYourPet_StopLeash>取消牵引</LeadYourPet_StopLeash>
+  <LeadYourPet_LeadPet>牵着宠物</LeadYourPet_LeadPet>
+  <LeadYourPet_StopMouseEggLeash>取消牵引</LeadYourPet_StopMouseEggLeash>
+  <LeadYourPet_MouseEggOneWay>单向互动...</LeadYourPet_MouseEggOneWay>
+  <LeadYourPet_MouseEggTwoWay>互动...</LeadYourPet_MouseEggTwoWay>
+  <LeadYourPet_SetAsPetMouseEggAndLeash>牵引</LeadYourPet_SetAsPetMouseEggAndLeash>
+  <LeadYourPet_MouseEggNoLongerPettable>不能继续牵引</LeadYourPet_MouseEggNoLongerPettable>
+  <LeadYourPet_TightenLeash>收紧拴绳</LeadYourPet_TightenLeash>
+  <LeadYourPet_TightenLeashDesc>把正在牵引的智人立刻拉回主人周围的 3x3 区域。</LeadYourPet_TightenLeashDesc>
+
+  <LeadYourPet_Message_StartedLeash>{0} 开始牵着 {1}</LeadYourPet_Message_StartedLeash>
+  <LeadYourPet_Message_EndedLeash>{0} 不再牵着 {1}</LeadYourPet_Message_EndedLeash>
+
+  <LeadYourPet_Reason_Unreachable>无法到达</LeadYourPet_Reason_Unreachable>
+  <LeadYourPet_Reason_NeedsOpinionAbove20>需要双方社会关系大于 20</LeadYourPet_Reason_NeedsOpinionAbove20>
+  <LeadYourPet_Reason_AdultCannotBePet>成人不能当宠物</LeadYourPet_Reason_AdultCannotBePet>
+  <LeadYourPet_Reason_NotRatkinMouseEgg>目标不是鼠族</LeadYourPet_Reason_NotRatkinMouseEgg>
+  <LeadYourPet_Reason_Dead>已经死亡</LeadYourPet_Reason_Dead>
+  <LeadYourPet_Reason_TooOld>年龄过大</LeadYourPet_Reason_TooOld>
+  <LeadYourPet_Reason_TooYoung>年龄过小</LeadYourPet_Reason_TooYoung>
+  <LeadYourPet_Reason_RatkinYoungPetsDisabled>已关闭智人牵引</LeadYourPet_Reason_RatkinYoungPetsDisabled>
+  <LeadYourPet_Reason_NotOnCurrentMap>不在当前地图</LeadYourPet_Reason_NotOnCurrentMap>
+  <LeadYourPet_Reason_NoFoodNeed>目标不需要进食</LeadYourPet_Reason_NoFoodNeed>
+  <LeadYourPet_Reason_NoSuitableFood>没有合适的食物</LeadYourPet_Reason_NoSuitableFood>
+  <LeadYourPet_Reason_NoUsableNutrition>没有可用营养</LeadYourPet_Reason_NoUsableNutrition>
+
+  <LeadYourPet_Interaction_Kick>踢一下</LeadYourPet_Interaction_Kick>
+  <LeadYourPet_Interaction_Observe>观察</LeadYourPet_Interaction_Observe>
+  <LeadYourPet_Interaction_Drag>拖行</LeadYourPet_Interaction_Drag>
+  <LeadYourPet_Interaction_TapHead>敲脑袋</LeadYourPet_Interaction_TapHead>
+  <LeadYourPet_Interaction_PullTail>拽尾巴</LeadYourPet_Interaction_PullTail>
+  <LeadYourPet_Interaction_PullEar>揪耳朵</LeadYourPet_Interaction_PullEar>
+  <LeadYourPet_Interaction_Whirl>甩着转圈</LeadYourPet_Interaction_Whirl>
+  <LeadYourPet_Interaction_Slap>扇巴掌</LeadYourPet_Interaction_Slap>
+  <LeadYourPet_Interaction_Pat>拍打</LeadYourPet_Interaction_Pat>
+  <LeadYourPet_Interaction_KickButt>踢屁股</LeadYourPet_Interaction_KickButt>
+  <LeadYourPet_Interaction_WatchWork>看主人干活</LeadYourPet_Interaction_WatchWork>
+  <LeadYourPet_Interaction_Fed>被主人喂食</LeadYourPet_Interaction_Fed>
+  <LeadYourPet_Interaction_RestAtFeet>在主人脚边休息</LeadYourPet_Interaction_RestAtFeet>
+  <LeadYourPet_Interaction_IdleNearOwner>在主人身边发呆</LeadYourPet_Interaction_IdleNearOwner>
+  <LeadYourPet_Interaction_StudyFloor>在主人身边看地板</LeadYourPet_Interaction_StudyFloor>
+  <LeadYourPet_Interaction_SillySmile>对主人傻笑</LeadYourPet_Interaction_SillySmile>
+  <LeadYourPet_Interaction_TailPetting>被摸尾巴</LeadYourPet_Interaction_TailPetting>
+  <LeadYourPet_Interaction_EarPetting>被摸耳朵</LeadYourPet_Interaction_EarPetting>
+  <LeadYourPet_Interaction_OwnerWaited>主人在等我</LeadYourPet_Interaction_OwnerWaited>
+  <LeadYourPet_Interaction_Snack>主人给我零食</LeadYourPet_Interaction_Snack>
+
+  <LeadYourPet_Interaction_Colonist_Kick>逗着跑两步</LeadYourPet_Interaction_Colonist_Kick>
+  <LeadYourPet_Interaction_Colonist_Observe>看看近况</LeadYourPet_Interaction_Colonist_Observe>
+  <LeadYourPet_Interaction_Colonist_Drag>拉着走</LeadYourPet_Interaction_Colonist_Drag>
+  <LeadYourPet_Interaction_Colonist_TapHead>拍拍脑袋</LeadYourPet_Interaction_Colonist_TapHead>
+  <LeadYourPet_Interaction_Colonist_PullTail>拽拽尾巴闹着玩</LeadYourPet_Interaction_Colonist_PullTail>
+  <LeadYourPet_Interaction_Colonist_PullEar>捏捏耳朵</LeadYourPet_Interaction_Colonist_PullEar>
+  <LeadYourPet_Interaction_Colonist_Whirl>抱起来转圈</LeadYourPet_Interaction_Colonist_Whirl>
+  <LeadYourPet_Interaction_Colonist_Slap>推着转圈玩</LeadYourPet_Interaction_Colonist_Slap>
+  <LeadYourPet_Interaction_Colonist_Pat>轻轻拍一拍</LeadYourPet_Interaction_Colonist_Pat>
+  <LeadYourPet_Interaction_Colonist_KickButt>催着往前跑</LeadYourPet_Interaction_Colonist_KickButt>
+  <LeadYourPet_Interaction_Colonist_WatchWork>让对方看看自己在做事</LeadYourPet_Interaction_Colonist_WatchWork>
+  <LeadYourPet_Interaction_Colonist_Fed>喂点东西</LeadYourPet_Interaction_Colonist_Fed>
+  <LeadYourPet_Interaction_Colonist_RestAtFeet>让对方在脚边歇会</LeadYourPet_Interaction_Colonist_RestAtFeet>
+  <LeadYourPet_Interaction_Colonist_IdleNearOwner>让对方在旁边待着</LeadYourPet_Interaction_Colonist_IdleNearOwner>
+  <LeadYourPet_Interaction_Colonist_StudyFloor>一起看地上的东西</LeadYourPet_Interaction_Colonist_StudyFloor>
+  <LeadYourPet_Interaction_Colonist_SillySmile>逗着笑一笑</LeadYourPet_Interaction_Colonist_SillySmile>
+  <LeadYourPet_Interaction_Colonist_TailPetting>顺顺尾巴</LeadYourPet_Interaction_Colonist_TailPetting>
+  <LeadYourPet_Interaction_Colonist_EarPetting>揉揉耳朵</LeadYourPet_Interaction_Colonist_EarPetting>
+  <LeadYourPet_Interaction_Colonist_OwnerWaited>等对方慢慢跟上</LeadYourPet_Interaction_Colonist_OwnerWaited>
+  <LeadYourPet_Interaction_Colonist_Snack>给点零食</LeadYourPet_Interaction_Colonist_Snack>
+
+  <LeadYourPet_Duty_SleepAtLeash>被牵着睡觉</LeadYourPet_Duty_SleepAtLeash>
+  <LeadYourPet_Duty_WaitForFeeding>等待主人投喂</LeadYourPet_Duty_WaitForFeeding>
+  <LeadYourPet_Duty_FollowMaster>跟随主人</LeadYourPet_Duty_FollowMaster>
+  <LeadYourPet_Reason_InvalidTarget>无效目标</LeadYourPet_Reason_InvalidTarget>
+  <LeadYourPet_Reason_InvalidPetStatus>当前身份不能被当成宠物</LeadYourPet_Reason_InvalidPetStatus>
+  <LeadYourPet_Reason_LeashedByNonPlayer>已经被非玩家派系牵引</LeadYourPet_Reason_LeashedByNonPlayer>
+  <LeadYourPet_Reason_NotBaby>目标不是婴儿</LeadYourPet_Reason_NotBaby>
+  <LeadYourPet_Reason_NotMotherChild>目标不是这位鼠妈的婴儿</LeadYourPet_Reason_NotMotherChild>
+  <LeadYourPet_Reason_MissingTail>缺少尾巴</LeadYourPet_Reason_MissingTail>
+  <LeadYourPet_Reason_MissingEar>缺少耳朵</LeadYourPet_Reason_MissingEar>
+  <LeadYourPet_Reason_MissingHead>缺少头部</LeadYourPet_Reason_MissingHead>
+
+  <LeadYourPet_AnchorPetsHere>将宠物固定在此</LeadYourPet_AnchorPetsHere>
+  <LeadYourPet_AnchorPetsToThing>将宠物拴在 {0}</LeadYourPet_AnchorPetsToThing>
+  <LeadYourPet_AnchorPetsToPawn>将宠物拴在 {0}</LeadYourPet_AnchorPetsToPawn>
+  <LeadYourPet_ClearAnchors>解除固定</LeadYourPet_ClearAnchors>
+  <LeadYourPet_ClearAnchorsDesc>移除当前所有被固定的牵引宠物。</LeadYourPet_ClearAnchorsDesc>
+
+  <LeadYourPet_Message_StartedMotherLeash>{0} 开始带着婴儿 {1}</LeadYourPet_Message_StartedMotherLeash>
+  <LeadYourPet_Message_EndedMotherLeash>{0} 不再带着婴儿 {1}</LeadYourPet_Message_EndedMotherLeash>
+  <LeadYourPet_Reason_MouseEggTooFarToLeash>目标超出可以开始牵引的最大距离</LeadYourPet_Reason_MouseEggTooFarToLeash>
+  <LeadYourPet_Settings_MouseEggLeashStartDistance>智人开始牵引最大距离：</LeadYourPet_Settings_MouseEggLeashStartDistance>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior>牵引者离开地图时：</LeadYourPet_Settings_LeashedPawnMapExitBehavior>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior_StayInPlace>留在原地</LeadYourPet_Settings_LeashedPawnMapExitBehavior_StayInPlace>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior_LeaveMap>可以离开时离开地图</LeadYourPet_Settings_LeashedPawnMapExitBehavior_LeaveMap>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior_Disappear>直接消失</LeadYourPet_Settings_LeashedPawnMapExitBehavior_Disappear>
+  <LeadYourPet_Reason_NotHumanlikeJuvenile>不在设定的宠物年龄范围内</LeadYourPet_Reason_NotHumanlikeJuvenile>
+
+  <LeadYourPet_Menu_Leash>牵引</LeadYourPet_Menu_Leash>
+  <LeadYourPet_Menu_MouseEgg>智人</LeadYourPet_Menu_MouseEgg>
+  <LeadYourPet_Menu_Age>年龄</LeadYourPet_Menu_Age>
+  <LeadYourPet_Menu_Visitors>来客</LeadYourPet_Menu_Visitors>
+  <LeadYourPet_Menu_MapExit>离图</LeadYourPet_Menu_MapExit>
+  <LeadYourPet_Settings_InfiniteLeash>拴绳无限长度</LeadYourPet_Settings_InfiniteLeash>
+  <LeadYourPet_Settings_InfiniteLeash_Tooltip>开启后忽略最大拴绳长度。</LeadYourPet_Settings_InfiniteLeash_Tooltip>
+  <LeadYourPet_Settings_ShowInteractionText>显示头顶浮字</LeadYourPet_Settings_ShowInteractionText>
+  <LeadYourPet_Settings_ShowInteractionText_Tooltip>关闭后不再显示互动时的头顶文字。</LeadYourPet_Settings_ShowInteractionText_Tooltip>
+  <LeadYourPet_Settings_MaxLeashLength>拴绳最高长度</LeadYourPet_Settings_MaxLeashLength>
+  <LeadYourPet_Settings_AllowAnimalPets>允许牵引动物</LeadYourPet_Settings_AllowAnimalPets>
+  <LeadYourPet_Settings_AllowAnimalPets_Tooltip>关闭后不再出现动物牵引命令。已经牵着的动物仍保持牵引。</LeadYourPet_Settings_AllowAnimalPets_Tooltip>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack>牵着的敌对生物可以攻击</LeadYourPet_Settings_LeashedHostilesCanAttack>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>开启后保留被牵引者原本的敌对行为，包括敌对派系与有攻击性的生物，跟随任务不再覆盖其战斗 AI。默认关闭，保护牵引者及其派系。</LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>
+  <LeadYourPet_FeedLeashedPet>喂食 {0}</LeadYourPet_FeedLeashedPet>
+  <LeadYourPet_Settings_AllowRatkinYoungPets>允许牵引智人</LeadYourPet_Settings_AllowRatkinYoungPets>
+  <LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>关闭后不能新牵智人。已有的智人牵引会在下次检查时结束。</LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>
+  <LeadYourPet_Settings_MinPetAge>宠物下限年龄：{0}</LeadYourPet_Settings_MinPetAge>
+  <LeadYourPet_Settings_MinPetAge_Tooltip>低于这个岁数的动物和智人不能作为宠物牵引。0 包括新生儿。</LeadYourPet_Settings_MinPetAge_Tooltip>
+  <LeadYourPet_Settings_MaxPetAge>宠物上限年龄：{0}</LeadYourPet_Settings_MaxPetAge>
+  <LeadYourPet_Settings_MaxPetAge_Tooltip>达到这个岁数就不能作为宠物牵引。默认是未满 14 岁。</LeadYourPet_Settings_MaxPetAge_Tooltip>
+  <LeadYourPet_Settings_VisitorsLeadRatkinYoung>来客和商队牵着鼠蛋</LeadYourPet_Settings_VisitorsLeadRatkinYoung>
+  <LeadYourPet_Settings_VisitorsLeadRatkinYoung_Tooltip>关闭后，普通来客和商队不再带着生成的鼠蛋到来。鼠灾队伍仍会带着自己的孩子。</LeadYourPet_Settings_VisitorsLeadRatkinYoung_Tooltip>
+  <LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount>每支来客队伍的鼠蛋数量：{0}</LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount>
+  <LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount_Tooltip>普通来客或商队尝试牵着的鼠蛋数量。0 表示不带。默认是 2。</LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount_Tooltip>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus>买下的鼠蛋加入为</LeadYourPet_Settings_BoughtYoungRatkinStatus>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Tooltip>选择从商队买下的鼠蛋成为殖民者、囚犯或奴隶。奴隶需要文化扩展；未启用时按囚犯加入。</LeadYourPet_Settings_BoughtYoungRatkinStatus_Tooltip>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Colonist>殖民者</LeadYourPet_Settings_BoughtYoungRatkinStatus_Colonist>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Prisoner>囚犯</LeadYourPet_Settings_BoughtYoungRatkinStatus_Prisoner>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Slave>奴隶</LeadYourPet_Settings_BoughtYoungRatkinStatus_Slave>
+  <LeadYourPet_Menu_Feeding>主人喂食</LeadYourPet_Menu_Feeding>
+  <LeadYourPet_Feeding_Note>勾选主人可用来喂食和分享的食物。默认只允许原版及官方扩展的食物。目标的饮食限制仍然有效；药物和尸体不用于喂食。</LeadYourPet_Feeding_Note>
+  <LeadYourPet_Feeding_Search>搜索食物名称或模组</LeadYourPet_Feeding_Search>
+  <LeadYourPet_Feeding_Grouping>分类方式</LeadYourPet_Feeding_Grouping>
+  <LeadYourPet_Feeding_Group_Mod>按 Mod 分</LeadYourPet_Feeding_Group_Mod>
+  <LeadYourPet_Feeding_Group_Alphabet>按 A–Z 分（内部名称）</LeadYourPet_Feeding_Group_Alphabet>
+  <LeadYourPet_Feeding_Group_Vanilla>按原版分</LeadYourPet_Feeding_Group_Vanilla>
+  <LeadYourPet_Feeding_Vanilla>原版及官方扩展</LeadYourPet_Feeding_Vanilla>
+  <LeadYourPet_Feeding_Modded>模组食物</LeadYourPet_Feeding_Modded>
+  <LeadYourPet_Feeding_UnknownMod>未知来源</LeadYourPet_Feeding_UnknownMod>
+  <LeadYourPet_Feeding_NoResults>没有匹配的食物。</LeadYourPet_Feeding_NoResults>
+  <LeadYourPet_Settings_IgnorePetAge>不限制牵引年龄</LeadYourPet_Settings_IgnorePetAge>
+  <LeadYourPet_Settings_IgnorePetAge_Tooltip>开启后忽略动物和智人的牵引年龄上下限，可牵引成年囚犯。其他牵引条件仍然有效。</LeadYourPet_Settings_IgnorePetAge_Tooltip>
+  <LeadYourPet_Settings_PetAge_Note>按生物年龄判断，下限包含、上限不包含。关闭「不限制牵引年龄」后使用下面的范围；默认 0 至未满 14 岁。</LeadYourPet_Settings_PetAge_Note>
+</LanguageData>

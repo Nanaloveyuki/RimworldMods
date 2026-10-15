@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JobDef>
+    <defName>LeadYourPet_CarryTravelMouseEgg</defName>
+    <driverClass>LeadYourPet.JobDriver_CarryTravelMouseEgg</driverClass>
+    <reportString>carrying TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <checkOverrideOnDamage>Always</checkOverrideOnDamage>
+  </JobDef>
+</Defs>

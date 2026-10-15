@@ -1,6 +1,10 @@
 using System;
 using System.Reflection;
-using System.Runtime.Serialization;
+#if RIMWORLD_1_7
+using UninitializedObject = System.Runtime.CompilerServices.RuntimeHelpers;
+#else
+using UninitializedObject = System.Runtime.Serialization.FormatterServices;
+#endif
 using Verse;
 using Xunit;
 
@@ -23,7 +27,7 @@ namespace LeadYourPet.Tests
 
         private static Pawn NewPawn(int thingIdNumber)
         {
-            Pawn pawn = (Pawn)FormatterServices.GetUninitializedObject(typeof(Pawn));
+            Pawn pawn = (Pawn)UninitializedObject.GetUninitializedObject(typeof(Pawn));
             SetThingId(pawn, thingIdNumber);
             return pawn;
         }

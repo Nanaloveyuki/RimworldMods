@@ -4,6 +4,15 @@ Assemblies/0Harmony.*
 Assemblies/*.json
 Assemblies/*.xml
 Guard/Assemblies/*.pdb
+Guard/Assemblies/*.json
+Guard/Assemblies/*.xml
+1.7/Assemblies/*.pdb
+1.7/Assemblies/0Harmony.*
+1.7/Assemblies/*.json
+1.7/Assemblies/*.xml
+1.7/Guard/Assemblies/*.pdb
+1.7/Guard/Assemblies/*.json
+1.7/Guard/Assemblies/*.xml
 Guard/Source/obj/
 Guard/Source/bin/
 Source/bin/

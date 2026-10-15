@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.Serialization;
+#if RIMWORLD_1_7
+using UninitializedObject = System.Runtime.CompilerServices.RuntimeHelpers;
+#else
+using UninitializedObject = System.Runtime.Serialization.FormatterServices;
+#endif
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -429,7 +433,7 @@ namespace LeadYourPet.Tests
             LeadYourPetMod.Settings = previousSettings;
         }
 
-        private static T Raw<T>() => (T)FormatterServices.GetUninitializedObject(typeof(T));
+        private static T Raw<T>() => (T)UninitializedObject.GetUninitializedObject(typeof(T));
 
         private static FieldInfo Field(object instance, string name)
         {

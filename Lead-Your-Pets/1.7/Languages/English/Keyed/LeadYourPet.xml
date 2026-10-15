@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <LeadYourPet_LabelWithReason>{0} ({1})</LeadYourPet_LabelWithReason>
+
+  <LeadYourPet_StopLeash>Stop leash</LeadYourPet_StopLeash>
+  <LeadYourPet_LeadPet>Lead pet</LeadYourPet_LeadPet>
+  <LeadYourPet_StopMouseEggLeash>Stop leash</LeadYourPet_StopMouseEggLeash>
+  <LeadYourPet_MouseEggOneWay>One-way interactions...</LeadYourPet_MouseEggOneWay>
+  <LeadYourPet_MouseEggTwoWay>Interact...</LeadYourPet_MouseEggTwoWay>
+  <LeadYourPet_SetAsPetMouseEggAndLeash>Leash</LeadYourPet_SetAsPetMouseEggAndLeash>
+  <LeadYourPet_MouseEggNoLongerPettable>Cannot continue leash</LeadYourPet_MouseEggNoLongerPettable>
+  <LeadYourPet_TightenLeash>Tighten leash</LeadYourPet_TightenLeash>
+  <LeadYourPet_TightenLeashDesc>Pull all leashed humanlikes back into the 3x3 area around the master immediately.</LeadYourPet_TightenLeashDesc>
+
+  <LeadYourPet_Message_StartedLeash>{0} started leading {1}</LeadYourPet_Message_StartedLeash>
+  <LeadYourPet_Message_EndedLeash>{0} stopped leading {1}</LeadYourPet_Message_EndedLeash>
+
+  <LeadYourPet_Reason_Unreachable>unreachable</LeadYourPet_Reason_Unreachable>
+  <LeadYourPet_Reason_NeedsOpinionAbove20>needs both opinions above 20</LeadYourPet_Reason_NeedsOpinionAbove20>
+  <LeadYourPet_Reason_AdultCannotBePet>adults cannot be pets</LeadYourPet_Reason_AdultCannotBePet>
+  <LeadYourPet_Reason_NotRatkinMouseEgg>target is not a ratkin</LeadYourPet_Reason_NotRatkinMouseEgg>
+  <LeadYourPet_Reason_NotHumanlikeJuvenile>not a humanlike pawn in the configured age range</LeadYourPet_Reason_NotHumanlikeJuvenile>
+  <LeadYourPet_Reason_Dead>dead</LeadYourPet_Reason_Dead>
+  <LeadYourPet_Reason_TooOld>too old</LeadYourPet_Reason_TooOld>
+  <LeadYourPet_Reason_TooYoung>too young</LeadYourPet_Reason_TooYoung>
+  <LeadYourPet_Reason_RatkinYoungPetsDisabled>humanlike leashing is turned off</LeadYourPet_Reason_RatkinYoungPetsDisabled>
+  <LeadYourPet_Reason_NotOnCurrentMap>not on current map</LeadYourPet_Reason_NotOnCurrentMap>
+  <LeadYourPet_Reason_NoFoodNeed>does not need food</LeadYourPet_Reason_NoFoodNeed>
+  <LeadYourPet_Reason_NoSuitableFood>no suitable food</LeadYourPet_Reason_NoSuitableFood>
+  <LeadYourPet_Reason_NoUsableNutrition>no usable nutrition</LeadYourPet_Reason_NoUsableNutrition>
+  <LeadYourPet_Reason_MouseEggTooFarToLeash>target is too far away to leash</LeadYourPet_Reason_MouseEggTooFarToLeash>
+  <LeadYourPet_Settings_MouseEggLeashStartDistance>Humanlike start leash distance:</LeadYourPet_Settings_MouseEggLeashStartDistance>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior>When a leash master leaves the map:</LeadYourPet_Settings_LeashedPawnMapExitBehavior>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior_StayInPlace>Stay in place</LeadYourPet_Settings_LeashedPawnMapExitBehavior_StayInPlace>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior_LeaveMap>Leave the map when able</LeadYourPet_Settings_LeashedPawnMapExitBehavior_LeaveMap>
+  <LeadYourPet_Settings_LeashedPawnMapExitBehavior_Disappear>Disappear</LeadYourPet_Settings_LeashedPawnMapExitBehavior_Disappear>
+
+  <LeadYourPet_Interaction_Kick>Kick</LeadYourPet_Interaction_Kick>
+  <LeadYourPet_Interaction_Observe>Observe</LeadYourPet_Interaction_Observe>
+  <LeadYourPet_Interaction_Drag>Drag</LeadYourPet_Interaction_Drag>
+  <LeadYourPet_Interaction_TapHead>Tap head</LeadYourPet_Interaction_TapHead>
+  <LeadYourPet_Interaction_PullTail>Pull tail</LeadYourPet_Interaction_PullTail>
+  <LeadYourPet_Interaction_PullEar>Pull ear</LeadYourPet_Interaction_PullEar>
+  <LeadYourPet_Interaction_Whirl>Whirl around</LeadYourPet_Interaction_Whirl>
+  <LeadYourPet_Interaction_Slap>Slap</LeadYourPet_Interaction_Slap>
+  <LeadYourPet_Interaction_Pat>Pat</LeadYourPet_Interaction_Pat>
+  <LeadYourPet_Interaction_KickButt>Kick butt</LeadYourPet_Interaction_KickButt>
+  <LeadYourPet_Interaction_WatchWork>Watch owner work</LeadYourPet_Interaction_WatchWork>
+  <LeadYourPet_Interaction_Fed>Be fed by owner</LeadYourPet_Interaction_Fed>
+  <LeadYourPet_Interaction_RestAtFeet>Rest at feet</LeadYourPet_Interaction_RestAtFeet>
+  <LeadYourPet_Interaction_IdleNearOwner>Idle near owner</LeadYourPet_Interaction_IdleNearOwner>
+  <LeadYourPet_Interaction_StudyFloor>Study floor</LeadYourPet_Interaction_StudyFloor>
+  <LeadYourPet_Interaction_SillySmile>Silly smile</LeadYourPet_Interaction_SillySmile>
+  <LeadYourPet_Interaction_TailPetting>Tail petting</LeadYourPet_Interaction_TailPetting>
+  <LeadYourPet_Interaction_EarPetting>Ear petting</LeadYourPet_Interaction_EarPetting>
+  <LeadYourPet_Interaction_OwnerWaited>Owner waited</LeadYourPet_Interaction_OwnerWaited>
+  <LeadYourPet_Interaction_Snack>Snack from owner</LeadYourPet_Interaction_Snack>
+
+  <LeadYourPet_Interaction_Colonist_Kick>Play chase</LeadYourPet_Interaction_Colonist_Kick>
+  <LeadYourPet_Interaction_Colonist_Observe>Check on</LeadYourPet_Interaction_Colonist_Observe>
+  <LeadYourPet_Interaction_Colonist_Drag>Lead along</LeadYourPet_Interaction_Colonist_Drag>
+  <LeadYourPet_Interaction_Colonist_TapHead>Pat head</LeadYourPet_Interaction_Colonist_TapHead>
+  <LeadYourPet_Interaction_Colonist_PullTail>Tug tail playfully</LeadYourPet_Interaction_Colonist_PullTail>
+  <LeadYourPet_Interaction_Colonist_PullEar>Pinch ears</LeadYourPet_Interaction_Colonist_PullEar>
+  <LeadYourPet_Interaction_Colonist_Whirl>Pick up and spin</LeadYourPet_Interaction_Colonist_Whirl>
+  <LeadYourPet_Interaction_Colonist_Slap>Spin around playfully</LeadYourPet_Interaction_Colonist_Slap>
+  <LeadYourPet_Interaction_Colonist_Pat>Pat gently</LeadYourPet_Interaction_Colonist_Pat>
+  <LeadYourPet_Interaction_Colonist_KickButt>Urge to run ahead</LeadYourPet_Interaction_Colonist_KickButt>
+  <LeadYourPet_Interaction_Colonist_WatchWork>Let them watch you work</LeadYourPet_Interaction_Colonist_WatchWork>
+  <LeadYourPet_Interaction_Colonist_Fed>Feed something</LeadYourPet_Interaction_Colonist_Fed>
+  <LeadYourPet_Interaction_Colonist_RestAtFeet>Let them rest at your feet</LeadYourPet_Interaction_Colonist_RestAtFeet>
+  <LeadYourPet_Interaction_Colonist_IdleNearOwner>Let them stay nearby</LeadYourPet_Interaction_Colonist_IdleNearOwner>
+  <LeadYourPet_Interaction_Colonist_StudyFloor>Look at things on the ground together</LeadYourPet_Interaction_Colonist_StudyFloor>
+  <LeadYourPet_Interaction_Colonist_SillySmile>Make them smile</LeadYourPet_Interaction_Colonist_SillySmile>
+  <LeadYourPet_Interaction_Colonist_TailPetting>Stroke tail</LeadYourPet_Interaction_Colonist_TailPetting>
+  <LeadYourPet_Interaction_Colonist_EarPetting>Rub ears</LeadYourPet_Interaction_Colonist_EarPetting>
+  <LeadYourPet_Interaction_Colonist_OwnerWaited>Wait for them to catch up</LeadYourPet_Interaction_Colonist_OwnerWaited>
+  <LeadYourPet_Interaction_Colonist_Snack>Give a snack</LeadYourPet_Interaction_Colonist_Snack>
+
+  <LeadYourPet_Duty_SleepAtLeash>Sleeping on a leash</LeadYourPet_Duty_SleepAtLeash>
+  <LeadYourPet_Duty_WaitForFeeding>Waiting for the master to feed them</LeadYourPet_Duty_WaitForFeeding>
+  <LeadYourPet_Duty_FollowMaster>Following the master</LeadYourPet_Duty_FollowMaster>
+  <LeadYourPet_Reason_InvalidTarget>invalid target</LeadYourPet_Reason_InvalidTarget>
+  <LeadYourPet_Reason_InvalidPetStatus>invalid status for pet leash</LeadYourPet_Reason_InvalidPetStatus>
+  <LeadYourPet_Reason_LeashedByNonPlayer>already leashed by a non-player faction</LeadYourPet_Reason_LeashedByNonPlayer>
+  <LeadYourPet_Reason_NotBaby>target is not a baby</LeadYourPet_Reason_NotBaby>
+  <LeadYourPet_Reason_NotMotherChild>target is not this mother's baby</LeadYourPet_Reason_NotMotherChild>
+  <LeadYourPet_Reason_MissingTail>missing tail</LeadYourPet_Reason_MissingTail>
+  <LeadYourPet_Reason_MissingEar>missing ear</LeadYourPet_Reason_MissingEar>
+  <LeadYourPet_Reason_MissingHead>missing head</LeadYourPet_Reason_MissingHead>
+
+  <LeadYourPet_AnchorPetsHere>Anchor leashed pets here</LeadYourPet_AnchorPetsHere>
+  <LeadYourPet_AnchorPetsToThing>Anchor leashed pets to {0}</LeadYourPet_AnchorPetsToThing>
+  <LeadYourPet_AnchorPetsToPawn>Anchor leashed pets to {0}</LeadYourPet_AnchorPetsToPawn>
+  <LeadYourPet_ClearAnchors>Release anchors</LeadYourPet_ClearAnchors>
+  <LeadYourPet_ClearAnchorsDesc>Remove all fixed anchors from your leashed pets.</LeadYourPet_ClearAnchorsDesc>
+
+  <LeadYourPet_Message_StartedMotherLeash>{0} started leading baby {1}</LeadYourPet_Message_StartedMotherLeash>
+  <LeadYourPet_Message_EndedMotherLeash>{0} stopped leading baby {1}</LeadYourPet_Message_EndedMotherLeash>
+
+  <LeadYourPet_Menu_Leash>Leash</LeadYourPet_Menu_Leash>
+  <LeadYourPet_Menu_MouseEgg>Humanlikes</LeadYourPet_Menu_MouseEgg>
+  <LeadYourPet_Menu_Age>Age</LeadYourPet_Menu_Age>
+  <LeadYourPet_Menu_Visitors>Visitors</LeadYourPet_Menu_Visitors>
+  <LeadYourPet_Menu_MapExit>Map exit</LeadYourPet_Menu_MapExit>
+  <LeadYourPet_Settings_InfiniteLeash>Unlimited leash length</LeadYourPet_Settings_InfiniteLeash>
+  <LeadYourPet_Settings_InfiniteLeash_Tooltip>Ignore the maximum leash length.</LeadYourPet_Settings_InfiniteLeash_Tooltip>
+  <LeadYourPet_Settings_ShowInteractionText>Show overhead text</LeadYourPet_Settings_ShowInteractionText>
+  <LeadYourPet_Settings_ShowInteractionText_Tooltip>Hide the floating text shown during interactions.</LeadYourPet_Settings_ShowInteractionText_Tooltip>
+  <LeadYourPet_Settings_MaxLeashLength>Maximum leash length</LeadYourPet_Settings_MaxLeashLength>
+  <LeadYourPet_Settings_AllowAnimalPets>Allow animal pets</LeadYourPet_Settings_AllowAnimalPets>
+  <LeadYourPet_Settings_AllowAnimalPets_Tooltip>Turn off to hide the animal leash order. Animals already leashed stay leashed.</LeadYourPet_Settings_AllowAnimalPets_Tooltip>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack>Leashed hostile creatures can attack</LeadYourPet_Settings_LeashedHostilesCanAttack>
+  <LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>Allow normal hostile behavior while leashed, including enemy factions and aggressive creatures. Following no longer overrides their combat AI. Off by default: the leader and their faction remain protected.</LeadYourPet_Settings_LeashedHostilesCanAttack_Tooltip>
+  <LeadYourPet_FeedLeashedPet>Feed {0}</LeadYourPet_FeedLeashedPet>
+  <LeadYourPet_Settings_AllowRatkinYoungPets>Allow humanlike leashing</LeadYourPet_Settings_AllowRatkinYoungPets>
+  <LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>Turn off to stop new humanlike leashes. Existing ones end when the pawn is next checked.</LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip>
+  <LeadYourPet_Settings_MinPetAge>Minimum pet age: {0}</LeadYourPet_Settings_MinPetAge>
+  <LeadYourPet_Settings_MinPetAge_Tooltip>Younger animals and humanlikes cannot be leashed as pets. 0 includes newborns.</LeadYourPet_Settings_MinPetAge_Tooltip>
+  <LeadYourPet_Settings_MaxPetAge>Maximum pet age: {0}</LeadYourPet_Settings_MaxPetAge>
+  <LeadYourPet_Settings_MaxPetAge_Tooltip>A pawn this age or older cannot be leashed as a pet. The default is under 14.</LeadYourPet_Settings_MaxPetAge_Tooltip>
+  <LeadYourPet_Settings_VisitorsLeadRatkinYoung>Visitors and traders lead young ratkin</LeadYourPet_Settings_VisitorsLeadRatkinYoung>
+  <LeadYourPet_Settings_VisitorsLeadRatkinYoung_Tooltip>Turn off and ordinary visitors and traders stop arriving with generated young ratkin. Mouse Disaster caravans still bring their own.</LeadYourPet_Settings_VisitorsLeadRatkinYoung_Tooltip>
+  <LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount>Young ratkin per visiting group: {0}</LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount>
+  <LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount_Tooltip>How many young ratkin an ordinary visitor or trader group tries to lead. 0 means none. The default is 2.</LeadYourPet_Settings_OrdinaryTravelRatkinYoungCount_Tooltip>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus>Bought young ratkin join as</LeadYourPet_Settings_BoughtYoungRatkinStatus>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Tooltip>Chooses whether a young ratkin bought from a caravan joins as a colonist, prisoner, or slave. Slave requires Ideology; otherwise they join as a prisoner.</LeadYourPet_Settings_BoughtYoungRatkinStatus_Tooltip>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Colonist>Colonist</LeadYourPet_Settings_BoughtYoungRatkinStatus_Colonist>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Prisoner>Prisoner</LeadYourPet_Settings_BoughtYoungRatkinStatus_Prisoner>
+  <LeadYourPet_Settings_BoughtYoungRatkinStatus_Slave>Slave</LeadYourPet_Settings_BoughtYoungRatkinStatus_Slave>
+  <LeadYourPet_Menu_Feeding>Owner feeding</LeadYourPet_Menu_Feeding>
+  <LeadYourPet_Feeding_Note>Select foods the owner can feed or share. Only base-game and official expansion foods are allowed by default. The target's food restrictions still apply; drugs and corpses are not used for feeding.</LeadYourPet_Feeding_Note>
+  <LeadYourPet_Feeding_Search>Search food or mod name</LeadYourPet_Feeding_Search>
+  <LeadYourPet_Feeding_Grouping>Group foods</LeadYourPet_Feeding_Grouping>
+  <LeadYourPet_Feeding_Group_Mod>By mod</LeadYourPet_Feeding_Group_Mod>
+  <LeadYourPet_Feeding_Group_Alphabet>By A–Z (internal name)</LeadYourPet_Feeding_Group_Alphabet>
+  <LeadYourPet_Feeding_Group_Vanilla>By vanilla source</LeadYourPet_Feeding_Group_Vanilla>
+  <LeadYourPet_Feeding_Vanilla>Base game and official expansions</LeadYourPet_Feeding_Vanilla>
+  <LeadYourPet_Feeding_Modded>Mod foods</LeadYourPet_Feeding_Modded>
+  <LeadYourPet_Feeding_UnknownMod>Unknown source</LeadYourPet_Feeding_UnknownMod>
+  <LeadYourPet_Feeding_NoResults>No matching foods.</LeadYourPet_Feeding_NoResults>
+  <LeadYourPet_Settings_IgnorePetAge>No leash age limit</LeadYourPet_Settings_IgnorePetAge>
+  <LeadYourPet_Settings_IgnorePetAge_Tooltip>Ignore the minimum and maximum leash ages for animals and humanlikes, including adult prisoners. Other leash conditions still apply.</LeadYourPet_Settings_IgnorePetAge_Tooltip>
+  <LeadYourPet_Settings_PetAge_Note>Uses biological age, including the minimum and excluding the maximum. The range below applies when No leash age limit is off. The default is 0 to under 14.</LeadYourPet_Settings_PetAge_Note>
+</LanguageData>
