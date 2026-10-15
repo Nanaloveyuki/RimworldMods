@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <OhYouAreSoFast_SettingsCategory>Oh You Are So Fast</OhYouAreSoFast_SettingsCategory>
+  <OhYouAreSoFast_SaveLoadTrace>Light save/load trace</OhYouAreSoFast_SaveLoadTrace>
+  <OhYouAreSoFast_SaveLoadTraceTip>Log major startup and save/load stages to Player.log with low overhead.</OhYouAreSoFast_SaveLoadTraceTip>
+  <OhYouAreSoFast_SaveLoadFullTrace>Full save/load trace</OhYouAreSoFast_SaveLoadFullTrace>
+  <OhYouAreSoFast_SaveLoadFullTraceTip>Also log nested DeepProfiler stages to Player.log. Enable this only while diagnosing a loading problem.</OhYouAreSoFast_SaveLoadFullTraceTip>
+  <OhYouAreSoFast_AdaptivePathHeuristic>Adaptive path heuristic</OhYouAreSoFast_AdaptivePathHeuristic>
+  <OhYouAreSoFast_AdaptivePathHeuristicTip>Scale the A* heuristic to the actual integer movement cost. This fixes long detours for very fast pawns.</OhYouAreSoFast_AdaptivePathHeuristicTip>
+  <OhYouAreSoFast_WorldPathCorrectness>World path correctness</OhYouAreSoFast_WorldPathCorrectness>
+  <OhYouAreSoFast_WorldPathCorrectnessTip>Use the actual clamped caravan movement cost and an exact shortest-path search on the planet map. This favors correctness over path-search speed.</OhYouAreSoFast_WorldPathCorrectnessTip>
+  <OhYouAreSoFast_SparseDynamicPathData>Sparse dynamic path data</OhYouAreSoFast_SparseDynamicPathData>
+  <OhYouAreSoFast_SparseDynamicPathDataTip>Clear only cells written by the previous door, provider, or pawn-blocking pass.</OhYouAreSoFast_SparseDynamicPathDataTip>
+  <OhYouAreSoFast_WorkScanThrottle>Work scan throttle</OhYouAreSoFast_WorkScanThrottle>
+  <OhYouAreSoFast_WorkScanThrottleTip>On large maps, delay repeated no-result JobGiver_Work scans while preserving other think-tree branches.</OhYouAreSoFast_WorkScanThrottleTip>
+  <OhYouAreSoFast_WorkScanRetryInterval>Work scan retry interval: {0} seconds</OhYouAreSoFast_WorkScanRetryInterval>
+  <OhYouAreSoFast_WorkPriorityCache>Work priority cache</OhYouAreSoFast_WorkPriorityCache>
+  <OhYouAreSoFast_WorkPriorityCacheTip>Warm each pawn's ordered work-giver lists when the work tab closes and reuse them until invalidated or refreshed.</OhYouAreSoFast_WorkPriorityCacheTip>
+  <OhYouAreSoFast_WorkPriorityRefreshInterval>Work priority refresh interval: {0} seconds</OhYouAreSoFast_WorkPriorityRefreshInterval>
+  <OhYouAreSoFast_MinimumMapSize>Minimum map size for work scan: {0} cells</OhYouAreSoFast_MinimumMapSize>
+</LanguageData>

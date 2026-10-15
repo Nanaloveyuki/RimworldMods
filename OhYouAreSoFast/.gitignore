@@ -1,0 +1,10 @@
+# RimWorld mod build output
+1.6/Assemblies/*.dll
+1.6/Assemblies/*.pdb
+
+# MSBuild intermediate output
+Source/bin/
+Source/obj/
+
+# Local decompiled reference mods
+references/
