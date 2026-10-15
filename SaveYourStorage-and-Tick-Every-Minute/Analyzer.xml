@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Analyzer>
+  <SaveYourStorage>
+    <Methods>
+      <li>FullyAutomaticOmniCrafter.OuterrealmStorage.OuterrealmIdentityRouting:Tick</li>
+      <li>FullyAutomaticOmniCrafter.OuterrealmStorage.OuterrealmIdentityRouting:MoveToHome</li>
+      <li>FullyAutomaticOmniCrafter.OuterrealmStorage.OuterrealmIdentityRouting:MoveAnchor</li>
+      <li>Verse.ListerThings:Contains</li>
+      <li>Verse.GridsUtility:GetItemCount</li>
+      <li>RimWorld.GenThing:ItemCenterAt</li>
+      <li>RimWorld.StoreUtility:NoStorageBlockersIn</li>
+      <li>RimWorld.WorkGiver_Merge:JobOnThing</li>
+      <li>SaveYourStorageAndTickEveryMinute.Things.DenseCellLayoutCache:TryGetCenter</li>
+      <li>SaveYourStorageAndTickEveryMinute.Things.MergeableCandidateCache:GetCandidates</li>
+      <li>Verse.AI.ReservationManager:CanReserveStack</li>
+      <li>RimWorld.WorkGiver_ConstructDeliverResources:ResourceDeliverJobFor</li>
+      <li>SaveYourStorageAndTickEveryMinute.Compatibility.OuterrealmTechAdapter:ExecuteMove</li>
+      <li>SaveYourStorageAndTickEveryMinute.Compatibility.OuterrealmTechAdapter:PrepareBooksForSearch</li>
+      <li>Verse.BookUtility:TryGetRandomBookToRead</li>
+    </Methods>
+  </SaveYourStorage>
+</Analyzer>

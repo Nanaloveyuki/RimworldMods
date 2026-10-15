@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Save Your Storage and Tick Every Minute</name>
+  <author>Nanaloveyuki</author>
+  <packageId>Nanaloveyuki.SaveYourStorageAndTickEveryMinute</packageId>
+  <description>Compatibility-focused performance patches for bursty storage and tick workloads. Expensive work is coalesced and spread across game ticks while preserving live-state validation.</description>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Jeremie.Fully.Automatic.OmniCrafter</li>
+    <li>KindSeal.UFLI</li>
+    <li>Mlie.TurnOnOffRePowered</li>
+  </loadAfter>
+</ModMetaData>

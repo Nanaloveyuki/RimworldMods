@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SaveYourStorage_SettingsCategory>Save Your Storage and Tick Every Minute</SaveYourStorage_SettingsCategory>
+  <SaveYourStorage_ListerIndex>Use a membership index for global Thing listers</SaveYourStorage_ListerIndex>
+  <SaveYourStorage_ListerIndexTip>Makes ListerThings.Contains use an incrementally maintained set. Falls back to the original list scan if the index cannot prove that it is exact.</SaveYourStorage_ListerIndexTip>
+  <SaveYourStorage_DenseCellLayoutCache>Cache scans and item positions in high-density cells</SaveYourStorage_DenseCellLayoutCache>
+  <SaveYourStorage_DenseCellLayoutCacheTip>Caches item counts and calculates visual positions together in dense cells, avoiding repeated full-cell scans. Real Thing positions and identities are unchanged.</SaveYourStorage_DenseCellLayoutCacheTip>
+  <SaveYourStorage_SinglePassStorageCheck>Use a single-pass dense-cell storage check</SaveYourStorage_SinglePassStorageCheck>
+  <SaveYourStorage_SinglePassStorageCheckTip>Counts items while checking blockers instead of scanning a dense cell a second time. Storage acceptance and stacking rules remain unchanged.</SaveYourStorage_SinglePassStorageCheckTip>
+  <SaveYourStorage_MergeCandidateBuckets>Index merge-job candidates by stack type</SaveYourStorage_MergeCandidateBuckets>
+  <SaveYourStorage_MergeCandidateBucketsTip>Builds one short-lived candidate index per vanilla storage group, then performs the original live validation. Custom CanStackWith and custom slot-group implementations use the original enumeration.</SaveYourStorage_MergeCandidateBucketsTip>
+  <SaveYourStorage_DenseCellMinimumItems>High-density optimization threshold: {0} Thing groups per cell</SaveYourStorage_DenseCellMinimumItems>
+  <SaveYourStorage_OuterrealmThrottle>Throttle Outerrealm Tech identity-anchor returns</SaveYourStorage_OuterrealmThrottle>
+  <SaveYourStorage_OuterrealmThrottleTip>Coalesces lease-expiry returns and spreads them across ticks. Other Outerrealm Tech storage operations are not intercepted.</SaveYourStorage_OuterrealmThrottleTip>
+  <SaveYourStorage_OuterrealmItemsPerTick>Maximum identity-anchor returns per tick: {0}</SaveYourStorage_OuterrealmItemsPerTick>
+  <SaveYourStorage_OuterrealmTimeBudget>Identity-anchor time budget per tick: {0} ms</SaveYourStorage_OuterrealmTimeBudget>
+</LanguageData>
