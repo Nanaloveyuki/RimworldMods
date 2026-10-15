@@ -4,7 +4,7 @@
   <author>Nanaloveyuki</author>
   <packageId>odf.nanaloveyuki.prisonernames</packageId>
   <modVersion>0.0.1</modVersion>
-  <supportedVersions><li>1.6</li></supportedVersions>
+  <supportedVersions><li>1.6</li><li>1.7</li></supportedVersions>
   <modDependencies>
     <li><packageId>brrainz.harmony</packageId><displayName>Harmony</displayName><steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl></li>
     <li><packageId>nanaloveyuki.oxygendsl</packageId><displayName>Oxygen DSL Framework</displayName><downloadUrl>https://github.com/Nanaloveyuki/RimworldMods/tree/main/Oxygen-Dsl-Framework</downloadUrl></li>

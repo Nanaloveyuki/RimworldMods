@@ -12,7 +12,7 @@ RimworldMods monorepo 中基于 Oxygen DSL Framework 的模组集合。每个 `M
 
 ## 构建和部署
 
-需要 .NET SDK、RimWorld 1.6 本机程序集及 monorepo 同级目录 `../Oxygen-Dsl-Framework`。无需单独克隆框架仓库。游戏程序集与 Harmony 不随发布包分发；Oxygen 程序集只由框架 Mod 提供。
+需要 .NET 10 SDK、RimWorld 1.7 本机程序集及 monorepo 同级目录 `../Oxygen-Dsl-Framework`、`../IrisMenus` 的 1.7 源码。无需单独克隆框架仓库。游戏程序集与 Harmony 不随发布包分发；Oxygen 程序集只由框架 Mod 提供。
 
 ```sh
 # 游戏运行时也可构建；发布包输出 artifacts/PrisonerNames
@@ -28,9 +28,19 @@ bash scripts/deploy.sh all
 dotnet run --project Tests/PrisonerNames.Checks.csproj -c Release
 ```
 
-默认游戏路径为 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；`RIMWORLD_DIR` 可覆盖。需要同时安装当前 Oxygen 框架；本项目部署脚本不会自行修改玩家的启用列表或旧 Mod。部署前检查游戏进程，检查目标包名，并逐文件核对 SHA-256。
+默认游戏路径为 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；`RIMWORLD_DIR` 可覆盖。引用安装根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 和 Harmony 模组的 `1.7/Assemblies/0Harmony.dll`，不引用反编译源码。需要同时安装对应 1.7 的 Oxygen 框架和 IrisMenus；本项目部署脚本不会自行修改玩家的启用列表或旧 Mod。部署前检查游戏进程，检查目标包名，并逐文件核对 SHA-256。
 
-新增 Mod 在 `Mods/` 下独立放置 About、LoadFolders、Languages、Oxygen 和 Source；程序集名使用 `Odf.<DirectoryName>`，输出 `tmp/build/<DirectoryName>/`，在 `ODF-Mods.slnx` 添加项目。每个发布包只包含自己的程序集，不重复打包 Oxygen。
+1.6 使用保留的 `Mods/PrisonerNames/1.6/Assemblies/Odf.PrisonerNames.dll`；1.7 只加载 `1.7/Assemblies`。两版共享根目录翻译和 Oxygen 规则，根目录不放程序集。源码仅构建 1.7，不重编译 1.6。`artifacts/PrisonerNames` 完整发布包包含两版；部署只复制 1.7 运行时和共享资源，不覆盖目标已有的 1.6。全新双版本安装应复制完整发布包。
+
+新增 Mod 在 `Mods/` 下独立放置 About、LoadFolders、Languages、Oxygen 和 Source；程序集名使用 `Odf.<DirectoryName>`，输出 `Mods/<DirectoryName>/1.7/Assemblies/`，在 `ODF-Mods.slnx` 添加项目。每个发布包只包含自己的程序集，不重复打包 Oxygen。
+
+## RimWorld 1.7 验证（2026-10-15）
+
+- 使用本机 1.7 游戏与 Harmony 3 程序集构建，Release 0 警告、0 错误；47 项现有行为检查通过。
+- 未修改游戏 DLL 的 headless smoke：五处真实 Pawn 标签补丁全部应用；9 项检查覆盖人形囚犯手动代号、真实标签调用、原姓名不变、释放恢复原名、重新成为囚犯时保留代号、拒绝动物，以及 DSL 读取真实 1.7 Pawn 事实。生产方法完成 JIT 绑定。
+- 未启动游戏画面，未验收 1.7 原生菜单、完整存读档、跨地图和大型 Mod 组合；下列历史 1.6 实测不等于 1.7 实机验收。本次未部署到玩家游戏安装。
+- 原生 `ModLoadFolders` 对两个版本分别选择对应 DLL；隔离部署保留目标 1.6 DLL 并安装与构建结果一致的 1.7 DLL。保留的 1.6 发布 DLL 与迁移前成品逐字节一致。离线预览 CLI 实际输出 `007·Alice`；默认规则含真实 Pawn 查询，离线 JSON 预览不支持所有此类查询。
+
 
 ## 设置分页与年龄命名验收（2026-10-11）
 

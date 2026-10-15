@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
     <AssemblyName>Odf.PrisonerNames</AssemblyName>
     <RootNamespace>Odf.PrisonerNames</RootNamespace>
-    <OutputPath>../../../tmp/build/PrisonerNames/</OutputPath>
+    <OutputPath>../1.7/Assemblies/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
@@ -15,8 +15,11 @@
     <ProjectReference Include="$(OxygenSourceDir)/../IrisMenus/Source/IrisMenus.csproj" Private="false" />
     <Reference Include="Assembly-CSharp"><HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="0Harmony"><HintPath>$(HarmonyPath)</HintPath><Private>false</Private></Reference>
-    <Reference Include="UnityEngine.CoreModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
-    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
-    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityStubs"><HintPath>$(RimWorldManagedDir)/UnityStubs.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>
+  <Target Name="CheckGame" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(RimWorldVersion)' != '1.7'" Text="This source targets RimWorld 1.7; retained 1.6 binaries must not be rebuilt with it." />
+    <Error Condition="!Exists('$(RimWorldManagedDir)/Assembly-CSharp.dll') or !Exists('$(RimWorldManagedDir)/UnityStubs.dll')" Text="Set RimWorldDir to the installed RimWorld 1.7 game, not decompiled source." />
+    <Error Condition="!Exists('$(HarmonyPath)')" Text="Set HarmonyPath to the Harmony 1.7 assembly." />
+  </Target>
 </Project>

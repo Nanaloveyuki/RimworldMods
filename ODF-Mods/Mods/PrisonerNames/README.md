@@ -1,6 +1,6 @@
 # ODF 囚犯动态代号
 
-包名：`odf.nanaloveyuki.prisonernames`。适用 RimWorld 1.6，依赖 Harmony、Oxygendsl 和 IrisMenus。独立实现，不依赖 RHAH；不要与 `Lezhizhong.PrisonerCodename` 同时启用。
+包名：`odf.nanaloveyuki.prisonernames`。适用 RimWorld 1.6／1.7，依赖对应版本的 Harmony、Oxygendsl 和 IrisMenus。1.6 保留现有编译产物，1.7 使用独立 .NET 10 程序集；存档类型和字段不变。独立实现，不依赖 RHAH；不要与 `Lezhizhong.PrisonerCodename` 同时启用。
 
 发布图片均为黑底白字，主标题分两行显示 Prisoner Name / 囚犯代号。`About/Preview.png`（1536×1024）的小字副标题为 Oxygen DSL Framework；`About/ModIcon.png`（1254×1254）的副标题为 O.D.F.。
 

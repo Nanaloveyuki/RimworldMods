@@ -2,6 +2,7 @@
 **/obj/
 tmp/
 artifacts/
-Mods/*/1.6/Assemblies/
 **/__pycache__/
 *.py[cod]
+Mods/*/1.7/Assemblies/*.pdb
+Mods/*/1.7/Assemblies/*.deps.json

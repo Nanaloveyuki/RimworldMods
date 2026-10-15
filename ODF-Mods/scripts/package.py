@@ -26,7 +26,10 @@ if target.exists():
     elif any(target.iterdir()):
         raise SystemExit("Nonempty destination has no Mod identity")
 manifest = []
-for folder in ("About", "Languages", "Oxygen", "1.6/Defs"):
+folders = ["About", "Languages", "Oxygen", "1.7/Defs"]
+if args.target is None:
+    folders.append("1.6")
+for folder in folders:
     directory = source / folder
     if directory.is_dir():
         manifest.extend((p, p.relative_to(source)) for p in sorted(directory.rglob("*")) if p.is_file())
@@ -34,8 +37,13 @@ for name in ("LoadFolders.xml", "README.md"):
     if (source / name).is_file():
         manifest.append((source / name, Path(name)))
 manifest.append((root / "LICENSE", Path("LICENSE")))
-assembly = root / "tmp/build" / args.mod / f"Odf.{args.mod}.dll"
-manifest.append((assembly, Path("1.6/Assemblies") / assembly.name))
+assembly = source / "1.7/Assemblies" / f"Odf.{args.mod}.dll"
+if not assembly.is_file():
+    raise SystemExit(f"Missing release input: {assembly}")
+manifest.append((assembly, Path("1.7/Assemblies") / assembly.name))
+legacy = source / "1.6/Assemblies" / assembly.name
+if args.target is None and not legacy.is_file():
+    raise SystemExit(f"Missing retained 1.6 assembly: {legacy}")
 for item, relative in manifest:
     if not item.is_file():
         raise SystemExit(f"Missing release input: {item}")
