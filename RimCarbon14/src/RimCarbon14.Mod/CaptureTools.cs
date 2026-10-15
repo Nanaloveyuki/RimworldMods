@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 using RimCarbon14.Core;
 using UnityEngine;
 using Verse;
+using UnityEngine.Experimental.Rendering;
+using UnityStubs.Rendering;
 
 namespace RimCarbon14.Mod
 {
@@ -32,33 +34,35 @@ namespace RimCarbon14.Mod
         {
             yield return new WaitForEndOfFrame();
             if (request.Cancelled) yield break;
-            Texture2D? full = null; Texture2D? crop = null;
             try
             {
                 host.Ui.FinalizeFrame();
                 if (!host.Ui.HasCurrentRepaint) throw new BridgeException("no_render_frame", "Game UI is not repainting. Keep the game window rendered, not hidden or minimized.");
                 var files = new DirectoryInfo(host.ArtifactDirectory).GetFiles("*.png");
                 if (files.Sum(f => f.Length) > 512L * 1024 * 1024) throw new BridgeException("artifact_limit", "Artifact storage exceeds 512 MiB; archive and remove old captures.");
-                full = ScreenCapture.CaptureScreenshotAsTexture();
-                if (full == null || full.width < 1 || full.height < 1) throw new BridgeException("no_render_frame", "No screenshot texture was available.");
-                var rect = new Rect(0, 0, full.width, full.height);
+                var backend = ScreenCaptureBackend.Current;
+                if (backend == null || !backend.TryReadScreen(out var pixels, out var screenWidth, out var screenHeight) || screenWidth < 1 || screenHeight < 1)
+                    throw new BridgeException("no_render_frame", "The rendered frame has no readable screen capture. Keep the game window visible.");
+                var rect = new Rect(0, 0, screenWidth, screenHeight);
                 if (args["elementId"] != null) rect = host.Ui.ResolveRect(Wire.Required(args, "elementId"), (int?)args["layoutVersion"] ?? -1);
                 else if (args["rect"] is JObject r) rect = new Rect((float?)r["x"] ?? 0, (float?)r["y"] ?? 0, (float?)r["width"] ?? 0, (float?)r["height"] ?? 0);
-                int x = Mathf.Clamp(Mathf.FloorToInt(rect.x), 0, full.width), top = Mathf.Clamp(Mathf.FloorToInt(rect.y), 0, full.height);
-                int width = Mathf.Clamp(Mathf.CeilToInt(rect.xMax) - x, 0, full.width - x), height = Mathf.Clamp(Mathf.CeilToInt(rect.yMax) - top, 0, full.height - top);
+                int x = Mathf.Clamp(Mathf.FloorToInt(rect.x), 0, screenWidth), top = Mathf.Clamp(Mathf.FloorToInt(rect.y), 0, screenHeight);
+                int width = Mathf.Clamp(Mathf.CeilToInt(rect.xMax) - x, 0, screenWidth - x), height = Mathf.Clamp(Mathf.CeilToInt(rect.yMax) - top, 0, screenHeight - top);
                 if (width == 0 || height == 0) throw new BridgeException("empty_crop", "Crop lies outside the screenshot.");
-                var output = full;
-                if (width != full.width || height != full.height)
+                var output = pixels;
+                if (width != screenWidth || height != screenHeight)
                 {
-                    crop = new Texture2D(width, height, TextureFormat.RGB24, false);
-                    crop.SetPixels(full.GetPixels(x, full.height - top - height, width, height)); crop.Apply(); output = crop;
+                    output = new byte[checked(width * height * 4)];
+                    for (int row = 0; row < height; row++)
+                        Buffer.BlockCopy(pixels, ((top + row) * screenWidth + x) * 4, output, row * width * 4, width * 4);
                 }
                 var id = Guid.NewGuid().ToString("N") + ".png";
-                var bytes = output.EncodeToPNG(); File.WriteAllBytes(Path.Combine(host.ArtifactDirectory, id), bytes);
+                var bytes = ImageConversion.EncodeArrayToPNG(output, GraphicsFormat.R8G8B8A8_UNorm, (uint)width, (uint)height);
+                File.WriteAllBytes(Path.Combine(host.ArtifactDirectory, id), bytes);
                 request.Result = new JObject { ["artifactId"] = id, ["mimeType"] = "image/png", ["width"] = width, ["height"] = height, ["bytes"] = bytes.Length, ["uiScale"] = Prefs.UIScale, ["crop"] = Wire.Token(new { x, y = top, width, height }), ["capturedAt"] = host.Stamp(), ["layout"] = host.Ui.Snapshot() };
             }
             catch (Exception ex) { request.Error = ex; }
-            finally { if (crop != null) UnityEngine.Object.Destroy(crop); if (full != null) UnityEngine.Object.Destroy(full); request.Done = true; }
+            finally { request.Done = true; }
         }
     }
 }

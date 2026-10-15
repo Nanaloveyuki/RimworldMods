@@ -30,7 +30,7 @@ the root `run.json` and JUnit report the final result and attempt count.
 ## Development checks
 
 ```powershell
-dotnet test tests/RimCarbon14.Tests/RimCarbon14.Tests.csproj
+dotnet test tests/RimCarbon14.Tests/RimCarbon14.Tests.csproj -c Release
 ./scripts/live-smoke.ps1 -Profile C:/RimCarbon14/test-profile -LoadSave carbon-fixture
 ```
 
@@ -42,7 +42,7 @@ Set `CARBON_DESKTOP_TESTS=1` as well, with an open ProbeWindow fixture, to exerc
 the published MCP desktop click, Ctrl+A and text tool against its actual text field.
 
 For deterministic UI/trace fixture acceptance, stop the isolated game, run
-`scripts/install-fixture.ps1 -RimWorldDir <game> -Profile <profile>`, then restart and
+`scripts/install-fixture.ps1 -RimWorldDir <1.7-game> -Profile <1.7-profile> -GameVersion 1.7 -HarmonyPath <1.7-0Harmony.dll>`, then restart and
 run `scripts/fixture-smoke.ps1 -Profile <profile>`. This extra mod is test-only, never
 included in the release. It verifies actual fields behind duplicate-label buttons,
 checkbox/text/slider controls, clipped scrolling, exceptions, recursion, worker threads
@@ -50,8 +50,8 @@ and Harmony skipping/cleanup. Use a clean process for an independent fixture run
 This script also clicks, drags and scrolls using the real Windows mouse. It brings
 the test game to the foreground; do not use the mouse while it runs.
 
-`diagnostics_sample` reports FPS/TPS, main-thread allocated bytes when the Mono API
-is available, GC counts and frame intervals. These include bridge overhead. Turning
+On 1.7, `diagnostics_sample` reports FPS/TPS, .NET main-thread allocated bytes,
+GC counts and frame intervals. These include bridge overhead. Turning
 off `ui_capture` disables observation, not the whole mod; label that baseline accurately.
 Do not claim compatibility or speedup from builds alone, or generalize the fixture's
 coverage to every third-party mod.

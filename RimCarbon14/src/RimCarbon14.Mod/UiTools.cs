@@ -8,6 +8,7 @@ using RimCarbon14.Core;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using UnityStubs.Gui;
 
 namespace RimCarbon14.Mod
 {
@@ -26,7 +27,6 @@ namespace RimCarbon14.Mod
         private Pending? pending;
         private bool captureEnabled = true;
         private static readonly Element Unobserved = new Element { Disabled = true };
-        private static readonly MethodInfo VisibleRectGetter = AccessTools.PropertyGetter(typeof(GUI).Assembly.GetType("UnityEngine.GUIClip"), "visibleRect");
         private static readonly AccessTools.FieldRef<FloatMenu, List<FloatMenuOption>> MenuOptions = AccessTools.FieldRefAccess<FloatMenu, List<FloatMenuOption>>("options");
         private static UiTools Self => BridgeHost.Instance.Ui;
         public UiTools(BridgeHost host) { this.host = host; }
@@ -126,11 +126,12 @@ namespace RimCarbon14.Mod
                 if (m.Name == "Checkbox" && p.Length == 8) Patch(m, nameof(SmallCheckPrefix), nameof(CheckPostfix));
                 if (m.Name == "HorizontalSlider" && p.Length == 9) Patch(m, nameof(SliderPrefix), nameof(SliderPostfix));
             }
-            Patch(AccessTools.Method(typeof(GUI), "Button", new[] { typeof(Rect), typeof(GUIContent), typeof(GUIStyle) }), nameof(GuiButtonPrefix), nameof(ButtonPostfix));
+            Patch(AccessTools.Method(typeof(GUI), "ButtonImpl", new[] { typeof(Rect), typeof(GUIContent), typeof(GUIStyle), typeof(bool) }), nameof(GuiButtonPrefix), nameof(ButtonPostfix));
             Patch(AccessTools.Method(typeof(GUI), "Toggle", new[] { typeof(Rect), typeof(bool), typeof(GUIContent), typeof(GUIStyle) }), nameof(GuiTogglePrefix), nameof(GuiTogglePostfix));
-            Patch(AccessTools.Method(typeof(GUI), "Label", new[] { typeof(Rect), typeof(GUIContent), typeof(GUIStyle) }), nameof(GuiLabelPrefix), null);
-            foreach (var method in typeof(GUI).GetMethods(BindingFlags.Public | BindingFlags.Static).Where(m => m.Name == "TextField")) Patch(method, nameof(TextPrefix), nameof(TextPostfix));
-            Patch(AccessTools.Method(typeof(GUI), "BeginScrollView", new[] { typeof(Rect), typeof(Vector2), typeof(Rect), typeof(bool), typeof(bool), typeof(GUIStyle), typeof(GUIStyle), typeof(GUIStyle) }), nameof(ScrollPrefix), null);
+            Patch(AccessTools.Method(typeof(GUI), "Label", new[] { typeof(Rect), typeof(string), typeof(GUIStyle) }), nameof(GuiLabelPrefix), null);
+            Patch(AccessTools.Method(typeof(GUI), "Label", new[] { typeof(Rect), typeof(GUIContent), typeof(GUIStyle) }), nameof(GuiContentLabelPrefix), null);
+            Patch(AccessTools.Method(typeof(GUI), "TextField", new[] { typeof(Rect), typeof(string), typeof(int), typeof(GUIStyle) }), nameof(TextPrefix), nameof(TextPostfix));
+            Patch(AccessTools.Method(typeof(GUI), "BeginScrollViewImpl", new[] { typeof(Rect), typeof(Vector2), typeof(Rect), typeof(GUIStyle), typeof(GUIStyle) }), nameof(ScrollPrefix), null);
         }
         private void Patch(Type type, string name, string? prefix, string? postfix) => Patch(AccessTools.Method(type, name), prefix, postfix);
         private void Patch(MethodBase method, string? prefix, string? postfix) => harmony.Patch(method, prefix == null ? null : new HarmonyMethod(typeof(UiTools), prefix), postfix == null ? null : new HarmonyMethod(typeof(UiTools), postfix));
@@ -150,16 +151,42 @@ namespace RimCarbon14.Mod
             if (Event.current.type == EventType.Repaint) s.EnsureFrame();
         }
         private void EnsureFrame() { if (drawingFrame != Time.frameCount) { drawing.Clear(); drawingFrame = Time.frameCount; } }
-        private static Vector2 PhysicalPoint(Vector2 point) => UI.GUIToScreenPoint(point) * Prefs.UIScale;
+        private static Vector2 ScreenPoint(Vector2 point, Vector2 origin)
+        {
+            var transformed = GUI.matrix.MultiplyPoint3x4(new Vector3(point.x + origin.x, point.y + origin.y, 0));
+            return new Vector2(transformed.x, transformed.y);
+        }
+        private static Vector2 PhysicalPoint(Vector2 point)
+        {
+            var backend = GuiBackend.Current;
+            var origin = Vector2.zero;
+            if (backend != null && backend.GroupCount > 0) backend.GetGroup(backend.GroupCount - 1, out _, out origin);
+            return ScreenPoint(point, origin);
+        }
+        private static Rect VisibleRect()
+        {
+            var visible = new Rect(0, 0, Screen.width, Screen.height);
+            var backend = GuiBackend.Current;
+            if (backend == null || backend.GroupCount == 0) return visible;
+            var previousOrigin = Vector2.zero;
+            for (int i = 0; i < backend.GroupCount; i++)
+            {
+                backend.GetGroup(i, out var group, out var origin);
+                var top = ScreenPoint(group.position, previousOrigin);
+                var bottom = ScreenPoint(new Vector2(group.xMax, group.yMax), previousOrigin);
+                visible = Rect.MinMaxRect(Mathf.Max(visible.xMin, top.x), Mathf.Max(visible.yMin, top.y), Mathf.Min(visible.xMax, bottom.x), Mathf.Min(visible.yMax, bottom.y));
+                previousOrigin = origin;
+            }
+            return visible;
+        }
         private static Element Observe(string kind, Rect rect, string label, bool disabled, JToken? value)
         {
             if (!Self.captureEnabled) return Unobserved;
             var s = Self; var top = PhysicalPoint(rect.position); var bottom = PhysicalPoint(new Vector2(rect.xMax, rect.yMax));
             var e = new Element { Id = s.surface + ":" + (++s.ordinal), Surface = s.surface, Kind = kind, Label = label, Rect = Rect.MinMaxRect(top.x, top.y, bottom.x, bottom.y), Disabled = disabled || !GUI.enabled, Value = value };
-            var visible = (Rect)VisibleRectGetter.Invoke(null, null);
-            var clipTop = PhysicalPoint(visible.position); var clipBottom = PhysicalPoint(new Vector2(visible.xMax, visible.yMax));
-            var xMin = Mathf.Max(0, Mathf.Max(e.Rect.xMin, clipTop.x)); var yMin = Mathf.Max(0, Mathf.Max(e.Rect.yMin, clipTop.y));
-            var xMax = Mathf.Min(Screen.width, Mathf.Min(e.Rect.xMax, clipBottom.x)); var yMax = Mathf.Min(Screen.height, Mathf.Min(e.Rect.yMax, clipBottom.y));
+            var visible = VisibleRect();
+            var xMin = Mathf.Max(e.Rect.xMin, visible.xMin); var yMin = Mathf.Max(e.Rect.yMin, visible.yMin);
+            var xMax = Mathf.Min(e.Rect.xMax, visible.xMax); var yMax = Mathf.Min(e.Rect.yMax, visible.yMax);
             e.Rect = new Rect(xMin, yMin, Mathf.Max(0, xMax - xMin), Mathf.Max(0, yMax - yMin));
             if (Event.current.type == EventType.Repaint && e.Rect.width > 0 && e.Rect.height > 0) { s.EnsureFrame(); s.drawing.Add(e); }
             return e;
@@ -192,7 +219,8 @@ namespace RimCarbon14.Mod
         private static void SliderPostfix(Element __state, float min, float max, ref float __result) { if (Consume(__state)) __result = Mathf.Clamp((float?)Self.pending!.Value ?? __result, min, max); }
         private static void SmallCheckPrefix(float x, float y, bool checkOn, float size, bool disabled, out Element __state) => __state = Observe("checkbox", new Rect(x, y, size, size), "", disabled, checkOn);
         private static void GuiButtonPrefix(Rect position, GUIContent content, out Element __state) => __state = Observe("button", position, content.text ?? "", false, null);
-        private static void GuiLabelPrefix(Rect position, GUIContent content) => Observe("label", position, content.text ?? "", false, null);
+        private static void GuiLabelPrefix(Rect position, string text) => Observe("label", position, text ?? "", false, null);
+        private static void GuiContentLabelPrefix(Rect position, GUIContent content) { if (content?.image != null) Observe("label", position, content.text ?? "", false, null); }
         private static void GuiTogglePrefix(Rect position, bool value, GUIContent content, out Element __state) => __state = Observe("checkbox", position, content.text ?? "", false, value);
         private static void GuiTogglePostfix(Element __state, ref bool __result) { if (Consume(__state)) __result = (bool?)Self.pending!.Value ?? !__result; }
         private static void ScrollPrefix(Rect position, ref Vector2 scrollPosition, Rect viewRect)

@@ -19,7 +19,8 @@ namespace RimCarbon14.Tests
             while (root != null && !File.Exists(Path.Combine(root.FullName, "RimCarbon14.slnx"))) root = root.Parent;
             Assert.NotNull(root);
             var host = Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? "dotnet";
-            var dll = Path.Combine(root.FullName, "src", "RimCarbon14.Agent", "bin", "Debug", "net10.0", "RimCarbon14.Agent.dll");
+            var configuration = new DirectoryInfo(AppContext.BaseDirectory).Parent!.Name;
+            var dll = Path.Combine(root.FullName, "src", "RimCarbon14.Agent", "bin", configuration, "net10.0", "RimCarbon14.Agent.dll");
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             await using var client = await McpClient.CreateAsync(new StdioClientTransport(new StdioClientTransportOptions
             {
@@ -41,6 +42,24 @@ namespace RimCarbon14.Tests
             Assert.Equal("1.25", result.Root.Element("uiScale")!.Value);
             Assert.Equal("true", result.Root.Element("runInBackground")!.Value);
             Assert.Equal("False", source.Root!.Element("runInBackground")!.Value);
+        }
+        [Theory]
+        [InlineData("1.6.4871 rev1126", "RimWorldWin64.exe", "Player.log")]
+        [InlineData("1.7.4979 rev109", "RimWorld.exe", "Logs/Player.log")]
+        public void InstalledVersionSelectsLifecycleAndEvidence(string version, string executable, string log)
+        {
+            var root = Path.Combine(Path.GetTempPath(), "carbon-version-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(root);
+            try
+            {
+                File.WriteAllText(Path.Combine(root, "Version.txt"), version);
+                using var bridge = new BridgeClient(root);
+                var process = new GameProcess(bridge, root);
+                Assert.Equal(log.Replace('/', Path.DirectorySeparatorChar), Path.GetRelativePath(root, process.LogPath));
+                var path = typeof(GameProcess).GetProperty("Executable", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.GetValue(process);
+                Assert.Equal(Path.Combine(root, executable), path);
+            }
+            finally { Directory.Delete(root, true); }
         }
         [Fact] public void ScenarioReferencesPreserveTypedValues()
         {

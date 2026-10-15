@@ -1,5 +1,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$RimWorldDir,
+    [ValidateSet('1.6','1.7')][string]$GameVersion = '1.7',
+    [string]$HarmonyPath,
     [string]$Dotnet = 'dotnet',
     [string]$DeployTo,
     [switch]$SkipAgent
@@ -7,12 +9,32 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $out = Join-Path $root 'artifacts/RimCarbon14'
-& $Dotnet build (Join-Path $root 'src/RimCarbon14.Mod/RimCarbon14.Mod.csproj') -c Release "-p:RimWorldDir=$RimWorldDir"
-if ($LASTEXITCODE -ne 0) { throw 'Mod build failed' }
-$assemblies = Join-Path $out '1.6/Assemblies'
-New-Item -ItemType Directory -Path $assemblies -Force | Out-Null
-foreach ($name in @('RimCarbon14.dll','RimCarbon14.Core.dll','Newtonsoft.Json.dll')) {
-    Copy-Item -LiteralPath (Join-Path $root "src/RimCarbon14.Mod/bin/Release/net472/$name") -Destination $assemblies -Force
+$legacy = Join-Path $root '1.6/Assemblies'
+$runtime = Join-Path $root '1.7/Assemblies'
+$names = @('RimCarbon14.dll','RimCarbon14.Core.dll','Newtonsoft.Json.dll')
+foreach ($name in $names) {
+    if (!(Test-Path -LiteralPath (Join-Path $legacy $name))) { throw "Preserved 1.6 runtime missing: $name. Restore the existing release; do not rebuild it." }
+}
+if ($GameVersion -eq '1.7') {
+    $installed = (Get-Content -LiteralPath (Join-Path $RimWorldDir 'Version.txt') -Raw).Trim().Split(' ')[0]
+    if (!$installed.StartsWith('1.7.')) { throw "RimWorldDir is not a 1.7 installation: $installed" }
+    $properties = @("-p:RimWorldDir=$RimWorldDir", "-p:GameVersion=$GameVersion")
+    if ($HarmonyPath) { $properties += "-p:HarmonyPath=$HarmonyPath" }
+    & $Dotnet build (Join-Path $root 'src/RimCarbon14.Mod/RimCarbon14.Mod.csproj') -c Release @properties
+    if ($LASTEXITCODE -ne 0) { throw 'Mod build failed' }
+    New-Item -ItemType Directory -Path $runtime -Force | Out-Null
+    foreach ($name in $names) {
+        Copy-Item -LiteralPath (Join-Path $root "src/RimCarbon14.Mod/bin/Release/net10.0/$name") -Destination $runtime -Force
+    }
+}
+foreach ($version in @('1.6','1.7')) {
+    $assemblies = Join-Path $out "$version/Assemblies"
+    New-Item -ItemType Directory -Path $assemblies -Force | Out-Null
+    foreach ($name in $names) {
+        $source = Join-Path $root "$version/Assemblies/$name"
+        if (!(Test-Path -LiteralPath $source)) { throw "Runtime missing: $source. Build 1.7 before packaging the legacy release." }
+        Copy-Item -LiteralPath $source -Destination $assemblies -Force
+    }
 }
 Copy-Item -LiteralPath (Join-Path $root 'About') -Destination $out -Recurse -Force
 foreach ($name in @('LoadFolders.xml','LICENSE','README.md','THIRD_PARTY_NOTICES.md')) {
@@ -71,9 +93,11 @@ if ($DeployTo) {
     $target = [IO.Path]::GetFullPath($DeployTo)
     if ($target -eq [IO.Path]::GetPathRoot($target) -or (Split-Path $target -Leaf) -ne 'RimCarbon14') { throw 'DeployTo must name a dedicated RimCarbon14 mod directory.' }
     New-Item -ItemType Directory -Path $target -Force | Out-Null
-    Get-ChildItem -LiteralPath $out | Copy-Item -Destination $target -Recurse -Force
-    foreach ($name in @('RimCarbon14.dll','RimCarbon14.Core.dll','Newtonsoft.Json.dll')) {
-        if ((Get-FileHash (Join-Path $assemblies $name)).Hash -ne (Get-FileHash (Join-Path $target "1.6/Assemblies/$name")).Hash) { throw "Deploy hash mismatch: $name" }
+    Get-ChildItem -LiteralPath $out | Where-Object { $_.Name -notin @('1.6','1.7') -or $_.Name -eq $GameVersion } | Copy-Item -Destination $target -Recurse -Force
+    foreach ($version in @($GameVersion)) {
+        foreach ($name in $names) {
+            if ((Get-FileHash (Join-Path $root "$version/Assemblies/$name")).Hash -ne (Get-FileHash (Join-Path $target "$version/Assemblies/$name")).Hash) { throw "Deploy hash mismatch: $version/$name" }
+        }
     }
 }
 if (!$SkipAgent) { Compress-Archive -LiteralPath $out -DestinationPath (Join-Path $root 'artifacts/RimCarbon14-win-x64.zip') -Force }

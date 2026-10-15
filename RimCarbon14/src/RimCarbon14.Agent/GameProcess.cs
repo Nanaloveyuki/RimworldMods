@@ -16,6 +16,17 @@ namespace RimCarbon14.Agent
         private readonly BridgeClient bridge;
         private readonly string gameRoot;
         private string OwnerFile => Path.Combine(bridge.Profile, "RimCarbon14", "process.json");
+        private Version? installedVersion;
+        private bool UsesWaylith => (installedVersion ??= InstalledVersion(gameRoot)).Minor == 7;
+        private string Executable => Path.Combine(gameRoot, UsesWaylith ? "RimWorld.exe" : "RimWorldWin64.exe");
+        public string LogPath => Path.Combine(bridge.Profile, UsesWaylith ? "Logs/Player.log" : "Player.log");
+        public static Version InstalledVersion(string root)
+        {
+            var text = File.ReadAllText(Path.Combine(root, "Version.txt")).Split(new[] { ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            var version = Version.Parse(text);
+            if (version.Major != 1 || (version.Minor != 6 && version.Minor != 7)) throw new BridgeException("unsupported_game_version", "Use a RimWorld 1.6 or 1.7 installation.");
+            return version;
+        }
         public GameProcess(BridgeClient bridge, string gameRoot) { this.bridge = bridge; this.gameRoot = Path.GetFullPath(gameRoot); }
         public JObject Prepare(string? source, bool minimal)
         {
@@ -27,11 +38,8 @@ namespace RimCarbon14.Agent
                 new XDocument(new XElement("ModsConfigData", new XElement("version", File.ReadAllText(Path.Combine(gameRoot, "Version.txt")).Trim()), new XElement("activeMods", new[] { "brrainz.harmony", "ludeon.rimworld", "nanaloveyuki.rimcarbon14" }.Select(id => new XElement("li", id))))).Save(Path.Combine(config, "ModsConfig.xml"));
                 var sourceProfile = source ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "AppData", "LocalLow", "Ludeon Studios", "RimWorld by Ludeon Studios");
                 var prefsFile = Path.Combine(sourceProfile, "Config", "Prefs.xml");
-                if (File.Exists(prefsFile))
-                {
-                    var prefs = XDocument.Load(prefsFile);
-                    PrepareTestPreferences(prefs).Save(Path.Combine(config, "Prefs.xml"));
-                }
+                var prefs = File.Exists(prefsFile) ? XDocument.Load(prefsFile) : new XDocument(new XElement("PrefsData"));
+                PrepareTestPreferences(prefs).Save(Path.Combine(config, "Prefs.xml"));
             }
             else
             {
@@ -61,7 +69,7 @@ namespace RimCarbon14.Agent
             try
             {
                 var p = Process.GetProcessById((int)owner["pid"]!);
-                if (p.HasExited || p.StartTime.ToUniversalTime().Ticks != (long)owner["startTicks"]! || !string.Equals(p.MainModule?.FileName, Path.Combine(gameRoot, "RimWorldWin64.exe"), StringComparison.OrdinalIgnoreCase)) { p.Dispose(); return null; }
+                if (p.HasExited || p.StartTime.ToUniversalTime().Ticks != (long)owner["startTicks"]! || !string.Equals(p.MainModule?.FileName, Executable, StringComparison.OrdinalIgnoreCase)) { p.Dispose(); return null; }
                 return p;
             }
             catch (ArgumentException) { return null; }
@@ -83,20 +91,28 @@ namespace RimCarbon14.Agent
             using var owned = Owned();
             if (owned != null) return await WaitReady(owned, timeoutMs, ct);
             if (!File.Exists(Path.Combine(bridge.Profile, "Config", "ModsConfig.xml"))) throw new BridgeException("profile_not_prepared", "Run profile_prepare first.");
+            if (UsesWaylith)
+            {
+                var prefsFile = Path.Combine(bridge.Profile, "Config", "Prefs.xml");
+                var prefs = File.Exists(prefsFile) ? XDocument.Load(prefsFile) : new XDocument(new XElement("PrefsData"));
+                PrepareTestPreferences(prefs).Save(prefsFile);
+            }
             if (File.Exists(Path.Combine(bridge.Profile, "RimCarbon14", "discovery.json")))
             {
                 try { var status = await bridge.Status(ct); throw new BridgeException("unowned_instance", "An unowned bridge is already active in this profile: " + status["instanceId"]); }
                 catch (HttpRequestException) { }
             }
             Directory.CreateDirectory(Path.GetDirectoryName(OwnerFile)!);
-            // RimWorld must own a rendered window: a hidden Unity player can tick without repainting its UI.
-            // Shell launch prevents the long-lived game from inheriting the companion's stdio/MCP pipes.
-            var info = new ProcessStartInfo(Path.Combine(gameRoot, "RimWorldWin64.exe")) { WorkingDirectory = gameRoot, UseShellExecute = true, WindowStyle = ProcessWindowStyle.Normal };
+            // Shell launch keeps the rendered game independent of the companion's stdio/MCP pipes.
+            var info = new ProcessStartInfo(Executable) { WorkingDirectory = gameRoot, UseShellExecute = true, WindowStyle = ProcessWindowStyle.Normal };
             info.ArgumentList.Add("-savedatafolder=" + bridge.Profile);
-            info.ArgumentList.Add("-screen-fullscreen"); info.ArgumentList.Add("0");
-            info.ArgumentList.Add("-screen-width"); info.ArgumentList.Add("1280");
-            info.ArgumentList.Add("-screen-height"); info.ArgumentList.Add("720");
-            info.ArgumentList.Add("-logFile"); info.ArgumentList.Add(Path.Combine(bridge.Profile, "Player.log"));
+            if (!UsesWaylith)
+            {
+                info.ArgumentList.Add("-screen-fullscreen"); info.ArgumentList.Add("0");
+                info.ArgumentList.Add("-screen-width"); info.ArgumentList.Add("1280");
+                info.ArgumentList.Add("-screen-height"); info.ArgumentList.Add("720");
+                info.ArgumentList.Add("-logFile"); info.ArgumentList.Add(LogPath);
+            }
             using var process = Process.Start(info) ?? throw new BridgeException("start_failed", "Process did not start.");
             File.WriteAllText(OwnerFile, Wire.Json(new { pid = process.Id, startTicks = process.StartTime.ToUniversalTime().Ticks, executable = info.FileName }));
             return await WaitReady(process, timeoutMs, ct);
@@ -108,7 +124,7 @@ namespace RimCarbon14.Agent
             while (DateTime.UtcNow < deadline)
             {
                 ct.ThrowIfCancellationRequested();
-                if (process.HasExited) throw new BridgeException("game_exited", $"Game exited with {process.ExitCode}; see {Path.Combine(bridge.Profile, "Player.log")}");
+                if (process.HasExited) throw new BridgeException("game_exited", $"Game exited with {process.ExitCode}; see {LogPath}");
                 try
                 {
                     var status = await bridge.Status(ct);

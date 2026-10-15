@@ -1,5 +1,45 @@
 # Validation status
 
+## 1.7 migration status
+
+The current source and tooling target RimWorld 1.7.4979 rev109's .NET 10 game API,
+UnityStubs and installed Harmony 3. Source inspection identified and migrated the
+executable/log paths, GUI overload dispatch, physical coordinates and nested clipping,
+screen readback and allocation API. Missing screen readback now reports
+`no_render_frame` rather than accepting UnityStubs' blank-texture fallback.
+
+Integration verification on 2026-10-15 used the installed 1.7.4979 rev109 DLLs,
+without modifying game assemblies:
+
+- Release solution and development fixture builds: zero warnings/errors. Offline
+  suite: 29 passed, two live-game tests skipped. The real stdio MCP handshake and
+  offline lifecycle tools ran in the suite.
+- Twenty-one real-assembly smoke checks passed: complete tool catalogue, actual GUI
+  text/scroll dispatch and observation, real renderer bounds at 125% scale with nested
+  groups and scroll clipping, Harmony 3 trace recursion/exception/worker accounting
+  and skipped-original metadata, owner-scoped cleanup, watch transpilers preserving
+  virtual dispatch/ref arguments/exceptions, frame-end capture scheduling, missing-GPU
+  `no_render_frame`, and live loopback HTTP credential/origin rejection plus
+  authenticated tool schemas. The real graphics backend's CPU group stack was used
+  without a graphics device; no rendering methods or game assemblies were replaced.
+- Full Windows x64 self-contained publishing and license bundling completed; the
+  published `RimCarbon14.Agent.exe --help` executed on Windows through WSL interop.
+  One upstream notice download failed on transport EOF; fetching the exact pinned
+  upstream notice with curl allowed packaging to complete unchanged.
+- Native `ModLoadFolders` selected the correct isolated runtime for 1.6 and 1.7.
+  All three preserved 1.6 DLLs match the existing installed release byte-for-byte.
+  Isolated deployment installed exact 1.7 DLLs without changing its 1.6 runtime.
+  No player game installation, configuration or save was changed.
+
+Builds, offline tests and assembly-level patch execution are distinct from a
+rendered-game acceptance run. The historical evidence below is **1.6 only** and
+must not be read as proof that 1.7 desktop gestures, screenshots, save/load,
+pawn actions, recovery or tick-watch windows have passed. Use the existing checks
+in [testing.md](testing.md) with a fresh isolated 1.7 profile and record their actual
+environment and evidence separately. No game or profile is deployed by a plain build.
+
+## Historical 1.6 rendered-game acceptance
+
 Local functional acceptance for 0.1.0 was performed on 2026-09-10 using Windows x64,
 RimWorld 1.6.4871, Unity 2022.3.35f1 and .NET SDK 10.0.401. This is a development
 bridge, not a claim of compatibility with every third-party mod or old save.
@@ -8,7 +48,7 @@ The isolated profile loaded Harmony, Core, Royalty, Ideology, Biotech, Anomaly,
 Odyssey, RimCarbon14 and the development fixture. The fixture is not distributed.
 Original and isolated preferences remain Simplified Chinese. No Unity editor was needed.
 
-## Requirement evidence
+### Requirement evidence
 
 Evidence paths below are relative to the ignored `local/smoke/RimCarbon14` directory.
 
@@ -29,7 +69,7 @@ The automated suite passed 22 tests with `CARBON_LIVE_PROFILE`, `RIMWORLD_DIR` a
 `CARBON_DESKTOP_TESTS=1`, including published MCP click/Ctrl+A/text effects read back
 from the fixture. Without the live environment, the two live tests are skipped.
 
-## Tick Watch Acceptance
+### Tick Watch Acceptance
 
 The data-only watch/output extension was verified on the same isolated profile.
 Evidence is under `local/smoke/RimCarbon14/watch-smoke-20260910T115430`:
@@ -60,7 +100,7 @@ The baseline variation is too large to infer a precise watch overhead or a speed
 These are diagnostic fixture timings including post-tick output work, not a general
 performance guarantee. Normal watch/output operation never reloads a save.
 
-## Limits
+### Historical limits
 
 - Desktop input intentionally moves the real cursor and requires an interactive,
   foreground game window. It is not an invisible/background input channel. Use the

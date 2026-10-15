@@ -75,7 +75,7 @@ $headers = @{ Authorization = 'Bearer ' + $discovery.token }
 $status = Invoke-RestMethod ($discovery.endpoint + 'v1/status') -Headers $headers
 if ($status.instanceId -ne $discovery.instanceId -or $status.pid -ne $discovery.pid) { throw 'Bridge instance changed. Read the new layout before sending input.' }
 $game = Get-Process -Id $discovery.pid
-if ($game.ProcessName -ne 'RimWorldWin64' -or !$game.MainWindowHandle) { throw 'The bridge process has no RimWorld window.' }
+if ($game.ProcessName -notin @('RimWorld', 'RimWorldWin64') -or !$game.MainWindowHandle) { throw 'The bridge process has no RimWorld window.' }
 $window = $game.MainWindowHandle
 $dpi = [RimCarbon14.DesktopMouse]::SetThreadDpiAwarenessContext([IntPtr](-4))
 $pressed = $false

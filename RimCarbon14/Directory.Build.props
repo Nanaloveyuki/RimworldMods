@@ -6,5 +6,9 @@
     <Deterministic>true</Deterministic>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Version>0.1.0</Version>
+    <GameVersion Condition="'$(GameVersion)' == ''">1.7</GameVersion>
+    <RimWorldDir Condition="'$(RimWorldDir)' == ''">$(RIMWORLD_DIR)</RimWorldDir>
+    <GameManaged Condition="'$(GameManaged)' == ''">$(RimWorldDir)</GameManaged>
+    <HarmonyPath Condition="'$(HarmonyPath)' == ''">$(RimWorldDir)/../../workshop/content/294100/2009463077/$(GameVersion)/Assemblies/0Harmony.dll</HarmonyPath>
   </PropertyGroup>
 </Project>

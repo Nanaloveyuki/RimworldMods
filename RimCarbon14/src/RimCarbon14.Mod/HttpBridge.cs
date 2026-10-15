@@ -63,7 +63,7 @@ namespace RimCarbon14.Mod
             {
                 if (!IPAddress.IsLoopback(context.Request.RemoteEndPoint.Address) || context.Request.Headers["Origin"] != null || context.Request.Headers["Authorization"] != "Bearer " + token)
                 { await Reply(context, 403, "{\"error\":\"unauthorized\"}"); return; }
-                var route = context.Request.Url.AbsolutePath;
+                var route = context.Request.Url!.AbsolutePath;
                 var method = context.Request.HttpMethod;
                 if (method == "GET" && route == "/v1/status") { await Reply(context, 200, host.StatusJson); return; }
                 if (method == "GET" && route == "/v1/tools") { await Reply(context, 200, Wire.Json(host.Specs.Values)); return; }

@@ -1,8 +1,10 @@
 # Implementation and acceptance
 
-Target: RimWorld 1.6, Windows x64, agent-only. Independent of RimBridgeServer,
-GABS and DPA. In-process net472 HTTP bridge; out-of-process self-contained
-net10.0 stdio MCP companion and test runner. Game objects stay on the game thread.
+Current source target: RimWorld 1.7, Windows x64, agent-only. Independent of
+RimBridgeServer, GABS and DPA. In-process net10.0 HTTP bridge with installed
+UnityStubs and Harmony 3; out-of-process self-contained net10.0 stdio MCP companion
+and test runner. The compiled 1.6 runtime remains isolated and unchanged.
+Game objects stay on the game thread.
 
 Ordered deliverables:
 

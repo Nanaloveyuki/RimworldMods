@@ -92,7 +92,7 @@ namespace RimCarbon14.Mod
             if (!CanDescend(method)) { Gap(new { methodId = ReflectionTools.MethodId(method), reason = "body_not_expanded" }); return; }
             // Reflection on a subclass can return inherited bodies with a different ReflectedType.
             // Harmony requires the declaration, not that reflected alias.
-            if (method.ReflectedType != method.DeclaringType) method = (MethodInfo)method.Module.ResolveMethod(method.MetadataToken);
+            if (method.ReflectedType != method.DeclaringType) method = (MethodInfo)(method.Module.ResolveMethod(method.MetadataToken) ?? throw new BridgeException("method_not_found", "The declaring method is no longer available."));
             if (depths.ContainsKey(method)) return;
             if (depths.Count >= methodBudget) { Gap(new { methodId = ReflectionTools.MethodId(method), reason = "method_limit" }); return; }
             depths.Add(method, depth); pending.Enqueue((method, depth));

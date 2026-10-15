@@ -1,7 +1,8 @@
 # RimCarbon14
 
-An agent-facing runtime inspection, debugging and testing bridge for RimWorld 1.6
-on Windows x64. No dashboard. No dependency on RimBridgeServer, GABS or DPA.
+An agent-facing runtime inspection, debugging and testing bridge for RimWorld 1.7,
+with the existing compiled 1.6 runtime preserved, on Windows x64. No dashboard.
+No dependency on RimBridgeServer, GABS or DPA.
 
 The mod exposes loopback HTTP inside the running game. The included self-contained
 `RimCarbon14.Agent.exe` exposes stdio MCP, manages isolated game processes, and runs
@@ -18,6 +19,15 @@ The game must have a rendered window for UI capture. Hidden/minimized players ma
 continue simulation without drawing usable frames. The bridge does not change the
 game language; isolated minimal profiles inherit the user's preferences, including
 language, and change only background execution and test-window dimensions.
+
+RimWorld 1.7 uses .NET 10, `UnityStubs.dll`, Harmony 3 and `RimWorld.exe`.
+`LoadFolders.xml` selects only `1.7/Assemblies` for 1.7 and only the unchanged
+`1.6/Assemblies` for 1.6. Do not merge these DLLs into root `Assemblies`.
+The companion selects the executable and log location from the installation's
+`Version.txt`: `<profile>/Logs/Player.log` on 1.7, `<profile>/Player.log` on 1.6.
+1.7 launch settings come from the isolated profile's preferences; obsolete Unity
+screen/log command-line switches are not sent. Starting an isolated 1.7 profile
+sets its rendering preferences to windowed 1280x720, preserving language and UI scale.
 
 ## Isolated Test Profile
 
@@ -72,19 +82,36 @@ game-state reads or a new screenshot, not the helper's `sent` acknowledgement.
 
 ## Build and Verification
 
-Requires .NET 10 SDK, an installed RimWorld 1.6, and PowerShell 7.
+Requires .NET 10 SDK, an installed RimWorld 1.7, Harmony 3 for 1.7, and PowerShell 7.
 
 ```powershell
 $env:RIMWORLD_DIR = 'C:/Games/RimWorld'
-dotnet test tests/RimCarbon14.Tests/RimCarbon14.Tests.csproj
-./scripts/build.ps1 -RimWorldDir $env:RIMWORLD_DIR
+$harmony = 'C:/Games/Steam/steamapps/workshop/content/294100/2009463077/1.7/Assemblies/0Harmony.dll'
+dotnet build RimCarbon14.slnx -c Release "-p:RimWorldDir=$env:RIMWORLD_DIR" "-p:HarmonyPath=$harmony"
+dotnet test tests/RimCarbon14.Tests/RimCarbon14.Tests.csproj -c Release
+./scripts/build.ps1 -RimWorldDir $env:RIMWORLD_DIR -GameVersion 1.7 -HarmonyPath $harmony
 ```
 
-Build outputs go to `artifacts/RimCarbon14` and `artifacts/RimCarbon14-win-x64.zip`.
-`-DeployTo <game>/Mods/RimCarbon14` deploys to that exact mod root and checks DLL hashes.
-Do not redeploy while the target game is running. `-SkipAgent` is a development-only
-shortcut, not a complete release build. Game assemblies are referenced locally and
-never redistributed. The development fixture is not included in the release.
+Build outputs go to tracked `1.7/Assemblies`, `artifacts/RimCarbon14`, and
+`artifacts/RimCarbon14-win-x64.zip`. The package includes both isolated runtimes.
+The default Harmony path follows the usual Steam workshop layout; override
+`-HarmonyPath` for another installation. `-GameVersion 1.6` packages the preserved
+legacy runtime without rebuilding it and requires an already-built 1.7 runtime.
+Current mod/core/fixture source targets net10.0 only; the 1.6 binaries are not rebuilt.
+
+`-DeployTo <game>/Mods/RimCarbon14` deploys only the selected runtime plus shared
+metadata/tools/docs, leaving the other version's installed DLLs untouched, and
+checks the deployed DLL hashes. Do not redeploy while the target game is running.
+`-SkipAgent` is a development-only shortcut, not a complete release build. Game
+and Harmony assemblies are referenced locally and never redistributed. The 1.7-only
+development fixture is not included in the release; its installer has explicit
+1.7 load routing and does not overwrite an existing root legacy fixture DLL.
+
+The historical rendered-game evidence in [validation status](docs/validation.md)
+belongs to 1.6, not 1.7. A successful 1.7 build or real-assembly Harmony smoke does
+not establish Windows desktop input, GPU readback, pawn behavior, save round trips,
+MCP recovery, or complete tick-watch acceptance. Run the documented live/fixture
+checks in a separate 1.7 profile before claiming those behaviors were verified.
 
 See [protocol](docs/protocol.md), [test scenarios](docs/testing.md), and
 [validation status](docs/validation.md) for contracts, evidence and remaining limits.

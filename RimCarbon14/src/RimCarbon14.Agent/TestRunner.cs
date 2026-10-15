@@ -118,7 +118,7 @@ namespace RimCarbon14.Agent
                 File.WriteAllText(Path.Combine(output, "events.json"), Wire.Json(pages));
             }
             catch (Exception ex) { evidence["eventsError"] = ex.Message; }
-            var log = Path.Combine(bridge.Profile, "Player.log");
+            var log = process.LogPath;
             if (File.Exists(log))
             {
                 using var source = new FileStream(log, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
