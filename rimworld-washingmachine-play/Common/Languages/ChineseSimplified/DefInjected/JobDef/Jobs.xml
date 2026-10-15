@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_LoadApparel.reportString>正在将TargetA装入洗衣机。</PWM_LoadApparel.reportString>
+  <PWM_CarryToWasher.reportString>正在搬运TargetA至洗衣机。</PWM_CarryToWasher.reportString>
+  <PWM_BeingWashed.reportString>被扔进洗衣机里洗。</PWM_BeingWashed.reportString>
+</LanguageData>

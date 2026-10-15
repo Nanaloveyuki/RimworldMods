@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_LoadTaintedApparel.label>将死人衣物装入洗衣机</PWM_LoadTaintedApparel.label>
+  <PWM_LoadTaintedApparel.verb>装入洗衣机</PWM_LoadTaintedApparel.verb>
+  <PWM_LoadTaintedApparel.gerund>正在装入洗衣机</PWM_LoadTaintedApparel.gerund>
+</LanguageData>

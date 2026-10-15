@@ -1,21 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
-    <LangVersion>12.0</LangVersion>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
     <RootNamespace>WashingMachine</RootNamespace>
     <AssemblyName>WashingMachine</AssemblyName>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
-    <OutputPath>tmp/build/</OutputPath>
+    <OutputPath>1.7/Assemblies/</OutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Tests/**;tmp/**;obj/**" />
-    <Reference Include="Assembly-CSharp" HintPath="$(RimWorldManagedDir)/Assembly-CSharp.dll" Private="false" />
-    <Reference Include="UnityEngine.CoreModule" HintPath="$(RimWorldManagedDir)/UnityEngine.CoreModule.dll" Private="false" />
-    <Reference Include="UnityEngine.IMGUIModule" HintPath="$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll" Private="false" />
-    <Reference Include="UnityEngine.TextRenderingModule" HintPath="$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Compile Remove="Tests/**;tmp/**;obj/**;bin/**" />
+    <Reference Include="Assembly-CSharp" HintPath="$(RimWorldDir)/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="UnityStubs" HintPath="$(RimWorldDir)/UnityStubs.dll" Private="false" />
     <Reference Include="0Harmony" HintPath="$(HarmonyAssemblyPath)" Private="false" />
   </ItemGroup>
+  <Target Name="CheckRimWorldReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(RimWorldVersion)' != '1.7'" Text="This project builds RimWorld 1.7 only. The packaged 1.6 assembly is preserved, not rebuilt." />
+    <Error Condition="!Exists('$(RimWorldDir)/Assembly-CSharp.dll') or !Exists('$(RimWorldDir)/UnityStubs.dll')" Text="RimWorld 1.7 requires Assembly-CSharp.dll and UnityStubs.dll at the installed game root. Set RimWorldDir, not a legacy Managed directory." />
+    <Error Condition="!Exists('$(HarmonyAssemblyPath)')" Text="Harmony 3 is required. Set HarmonyAssemblyPath to its 1.7/Assemblies/0Harmony.dll." />
+  </Target>
+  <Target Name="CopySharedAssets" AfterTargets="Build">
+    <ItemGroup>
+      <SharedAsset Include="Defs/**/*;Languages/**/*;Textures/**/*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SharedAsset)" DestinationFiles="@(SharedAsset->'Common/%(Identity)')" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

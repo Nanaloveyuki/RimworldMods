@@ -1,9 +1,12 @@
 <Project>
   <PropertyGroup>
-    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(OS)' == 'Windows_NT'">E:\Apps\Steam\steamapps\common\RimWorld</RimWorldDir>
+    <RimWorldVersion Condition="'$(RimWorldVersion)' == ''">1.7</RimWorldVersion>
+    <BaseIntermediateOutputPath>tmp/obj/$(RimWorldVersion)/</BaseIntermediateOutputPath>
+    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(RIMWORLD_DIR)' != ''">$(RIMWORLD_DIR)</RimWorldDir>
+    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(OS)' == 'Windows_NT'">E:/Apps/Steam/steamapps/common/RimWorld</RimWorldDir>
     <RimWorldDir Condition="'$(RimWorldDir)' == ''">/mnt/e/Apps/Steam/steamapps/common/RimWorld</RimWorldDir>
-    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == ''">$(RimWorldDir)/RimWorldWin64_Data/Managed</RimWorldManagedDir>
-    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == '' and '$(OS)' == 'Windows_NT'">D:\References\Rimworld\Mods\RimIris\Assemblies\0Harmony.dll</HarmonyAssemblyPath>
-    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == ''">/mnt/d/References/Rimworld/Mods/RimIris/Assemblies/0Harmony.dll</HarmonyAssemblyPath>
+    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == '' and '$(HARMONY_ASSEMBLY_PATH)' != ''">$(HARMONY_ASSEMBLY_PATH)</HarmonyAssemblyPath>
+    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == '' and '$(OS)' == 'Windows_NT'">E:/Apps/Steam/steamapps/workshop/content/294100/2009463077/1.7/Assemblies/0Harmony.dll</HarmonyAssemblyPath>
+    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == ''">/mnt/e/Apps/Steam/steamapps/workshop/content/294100/2009463077/1.7/Assemblies/0Harmony.dll</HarmonyAssemblyPath>
   </PropertyGroup>
 </Project>

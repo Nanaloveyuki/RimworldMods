@@ -1,6 +1,6 @@
 # Washing Machine · 洗衣机
 
-RimWorld **1.6** 电力滚筒洗衣机模组。包标识：`nanaloveyuki.washingmachine`；程序集：`WashingMachine.dll`（.NET Framework 4.8）。
+RimWorld **1.6 / 1.7** 电力滚筒洗衣机模组。包标识：`nanaloveyuki.washingmachine`；程序集名称与存档类型名保持不变。1.6 使用保留的 .NET Framework 4.8 二进制；当前源码构建 1.7 的 .NET 10 / UnityStubs / Harmony 3 版本。
 
 ## 安装与操作
 
@@ -34,14 +34,14 @@ RimWorld **1.6** 电力滚筒洗衣机模组。包标识：`nanaloveyuki.washing
 ## 可选兼容
 
 - **IrisMenus**（`Nanaloveyuki.IrisMenus`）：共享设置页面。
-- **NewRatkinPlus 1.6**（`fxz.Solaris.RatkinRaceMod.odyssey`）：鼠族清洗记忆使用指定专属文案。
-- **Dubs Bad Hygiene**（`Dubwise.DubsBadHygiene`）或 **Dubs Bad Hygiene Lite**（`Dubwise.DubsBadHygiene.Lite`）：清洗完成后恢复目标已有的卫生需求。两个卫生模组本身互斥，选择其中一个即可。
+- **NewRatkinPlus**（`fxz.Solaris.RatkinRaceMod.odyssey`）：以既有 `Ratkin` / `Ratkin_Su` 种族标识选择鼠族专属清洗记忆。
+- **Dubs Bad Hygiene**（`Dubwise.DubsBadHygiene`）或 **Dubs Bad Hygiene Lite**（`Dubwise.DubsBadHygiene.Lite`）：清洗完成后恢复目标已有的 `DubsBadHygiene.Need_Hygiene` 卫生需求。两个卫生模组本身互斥，选择其中一个即可。可选模组仍须自行支持当前游戏版本；这里不宣称第三方 1.7 适配已经过游戏验证。
 
 上述模组只在 `loadAfter` 声明加载顺序。未安装时仍使用核心清洗、心情和风险逻辑，不需要额外兼容程序集，也不复制这些模组的DLL。
 
 ## 构建与部署
 
-需要 .NET SDK 8或更新版本、合法安装的 RimWorld 1.6 程序集以及 Harmony 的 `0Harmony.dll`。构建目标是 `net48`，不是游戏程序集的替代品。默认游戏位置是 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`（Windows 对应 `E:\Apps\Steam\steamapps\common\RimWorld`），部署目标固定为该游戏的 `Mods/WashingMachine`。
+需要 **.NET SDK 10**、合法安装的 **RimWorld 1.7** 与 **Harmony 3**。游戏引用是安装目录根部的 `Assembly-CSharp.dll`、`UnityStubs.dll`，不是旧版 `RimWorldWin64_Data/Managed`。默认游戏位置是 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`（Windows 对应 `E:\Apps\Steam\steamapps\common\RimWorld`），默认 Harmony 引用是对应 Steam Workshop 的 `2009463077/1.7/Assemblies/0Harmony.dll`。部署目标固定为该游戏的 `Mods/WashingMachine`。
 
 ### Linux / WSL
 
@@ -61,7 +61,7 @@ HARMONY_ASSEMBLY_PATH="/path/to/0Harmony.dll" \
 bash scripts/deploy.sh
 ```
 
-`CONFIGURATION=Debug` 可切换构建配置，默认 `Release`。脚本自动选择游戏的 Windows/Linux Managed 目录。
+`CONFIGURATION=Debug` 可切换构建配置，默认 `Release`。这些脚本只构建 1.7，不重编译或替换包内的 1.6 DLL。
 
 ### PowerShell
 
@@ -79,11 +79,15 @@ PowerShell脚本兼容 Windows PowerShell 和 PowerShell 7；Linux/WSL 下默认
 ```bash
 dotnet build WashingMachine.csproj -c Release \
   -p:RimWorldDir="/path/to/RimWorld" \
-  -p:RimWorldManagedDir="/path/to/RimWorld/RimWorldLinux_Data/Managed" \
+  -p:RimWorldVersion=1.7 \
   -p:HarmonyAssemblyPath="/path/to/0Harmony.dll"
 ```
 
-输出为 `tmp/build/WashingMachine.dll`。部署脚本仅复制这一个自有DLL、`About/`、`Defs/`、`Languages/`、`Textures/`、本说明与许可证；不复制游戏、Harmony、其他模组程序集、源码或临时构建内容。脚本检查源/目标包标识，拒绝不属于本模组的已有目录、非空无身份目录及符号链接/重解析点；游戏运行中拒绝部署，并逐文件比较SHA-256。它们不修改 `ModsConfig.xml`，不删除目标中的无关文件；启用模组请在游戏里自行操作。
+输出为 `1.7/Assemblies/WashingMachine.dll`，中间文件为 `tmp/obj/1.7/`。既有 `tmp/build/` 与根部 `obj/` 不作为新构建输出。构建后会把根部 `Defs/`、`Languages/`、`Textures/` 同步复制到只含数据的 `Common/`；根部数据不移动、不改写。
+
+`LoadFolders.xml` 明确路由：1.6 只加载根目录（含保留的 `Assemblies/WashingMachine.dll`）；1.7 只加载 `Common/` 与 `1.7/`，**不加载根部旧 DLL**。请完整安装发布包，不要只覆盖旧的根部 DLL。1.6 运行文件保留，不提供从当前源码重新构建旧版的入口。
+
+完整发布包保留两个版本的自有 DLL 与各自所需数据；部署脚本只更新 `1.7/Assemblies/WashingMachine.dll`、`Common/`、`About/`、`LoadFolders.xml`、本说明与许可证，**不写入目标的根部 1.6 DLL 或旧数据**。需要 1.6 时请完整安装发布包。脚本不复制游戏、Harmony、IrisMenus 或其他模组程序集、源码及临时构建内容；检查源/目标包标识，拒绝不属于本模组的已有目录、非空无身份目录及符号链接/重解析点；游戏运行中拒绝部署，并逐文件比较 SHA-256。它们不修改 `ModsConfig.xml`，不删除目标中的无关文件；启用模组请在游戏里自行操作。
 
 ## 纹理来源
 
@@ -93,7 +97,11 @@ dotnet build WashingMachine.csproj -c Release \
 
 ## 真实游戏验证界限
 
-构建成功、XML检查和部署哈希一致均不能替代实际游戏验证。本说明不宣称已在运行中的 RimWorld 完成以下检查；需要在测试存档中逐项观察：
+本次迁移包含 1.7 引用、隔离装载、构建部署更新，以及 `IThingHolderTickable` 适配：由洗衣机显式 tick 内容物，避免 1.7 的 `Thing.DoTick` 再次推进被洗生物。可选 IrisMenus 仍通过公开 `MenuRegistry.Register(Mod, string, Func<string>, Action<Rect>, Action)` 反射注册，无强制依赖。
+
+集成验证：Release 构建 0 警告、0 错误；Bash／PowerShell 的只构建入口通过。未修改游戏 DLL 的 headless smoke 通过 19 项检查：真实 Harmony 3 补丁、内容物每 tick 仅推进一次、断电暂停、1800 tick 才清除死人标记、阻塞出口保留内容物并重试、耐久和品质不变、取消不清洗、被洗生物任务保护、缺少卫生需求时不创建需求，以及实际 IrisMenus 1.7 注册；118 个生产方法完成 JIT 绑定。游戏原生 `ModLoadFolders` 确认 1.6／1.7 不混载。保留 DLL 的 SHA-256 与现有 1.6 成品一致，未部署到玩家游戏安装。
+
+未启动游戏画面。上述 headless 检查不等于实际游戏验收；本说明不宣称已在运行中的 RimWorld 完成以下检查，需要在测试存档中逐项观察：
 
 - 仅启用 Core、Harmony 与本模组，确认启动无Def/类型错误、杂项建筑可建造，四向透明纹理与滚筒中的真实Pawn渲染正常。
 - 衣物清洗结束后死人标记消失，耐久和品质保持原值；开启搬运后自动上料。
@@ -104,4 +112,4 @@ dotnet build WashingMachine.csproj -c Release \
 
 ## 本次交付
 
-新增洗衣机建筑、搬运与清洗任务、七阶段清洗记忆、英文及精准简中文案、四向透明纹理、预览图和安全构建部署脚本。未新增第二种可建造物。
+保留洗衣机建筑、搬运与清洗任务、七阶段清洗记忆、英简中文案、四向透明纹理及全部既有存档字段。新增隔离的 1.7 装载目录与数据副本；1.6 既有二进制不重编译，当前构建与部署入口转为 1.7。未新增第二种可建造物。

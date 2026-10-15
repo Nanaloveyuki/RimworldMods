@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorkGiverDef>
+    <defName>PWM_LoadTaintedApparel</defName>
+    <label>load tainted apparel into washing machine</label>
+    <giverClass>WashingMachine.WorkGiver_LoadTaintedApparel</giverClass>
+    <workType>Hauling</workType>
+    <priorityInType>16</priorityInType>
+    <verb>load into washing machine</verb>
+    <gerund>loading into washing machine</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+  </WorkGiverDef>
+</Defs>

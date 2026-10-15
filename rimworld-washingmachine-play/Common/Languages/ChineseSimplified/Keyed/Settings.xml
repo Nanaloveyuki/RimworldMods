@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_Settings_Title>洗衣机</PWM_Settings_Title>
+  <PWM_Settings_Intro>修改立即应用于已有洗衣机。每次洗涤耗时30游戏秒。</PWM_Settings_Intro>
+  <PWM_Settings_Power>耗电量：{0} W</PWM_Settings_Power>
+  <PWM_Settings_PowerTip>设置耗电量，范围0～1000 W。默认200 W。</PWM_Settings_PowerTip>
+  <PWM_Settings_MaxBodySize>最大体型：{0}</PWM_Settings_MaxBodySize>
+  <PWM_Settings_MaxBodySizeTip>体型小于或等于此值的生物可以搬入洗衣机。范围0.1～10，默认0.95。</PWM_Settings_MaxBodySizeTip>
+  <PWM_Settings_DeathChance>小体型生物死亡概率：{0}%</PWM_Settings_DeathChance>
+  <PWM_Settings_DeathChanceTip>体型严格小于0.25的生物在洗完后可能死亡。范围0～100%，默认5%。</PWM_Settings_DeathChanceTip>
+</LanguageData>

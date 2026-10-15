@@ -1,3 +1,7 @@
 obj/
 tmp/
 Assemblies/*.pdb
+bin/
+1.7/Assemblies/*.pdb
+1.7/Assemblies/*.deps.json
+1.7/Assemblies/*.runtimeconfig.json

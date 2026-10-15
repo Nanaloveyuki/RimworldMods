@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_LoadPawn>装入生物</PWM_LoadPawn>
+  <PWM_LoadApparel>装入死人衣物</PWM_LoadApparel>
+  <PWM_Cancel>取消清洗并释放内容物</PWM_Cancel>
+  <PWM_Idle>洗衣机：空闲</PWM_Idle>
+  <PWM_NoPower>洗衣机：未供电或已关闭（暂停）</PWM_NoPower>
+  <PWM_Progress>洗衣机：剩余 {0} 游戏秒</PWM_Progress>
+  <PWM_TooLarge>体型过大（体型上限：{0}）</PWM_TooLarge>
+  <PWM_NoCandidates>没有符合条件的目标或可用搬运者</PWM_NoCandidates>
+  <PWM_LoadingApparel>正在将 {0} 装入洗衣机。</PWM_LoadingApparel>
+  <PWM_CarryPawn>搬运 {0} 至洗衣机</PWM_CarryPawn>
+  <PWM_CannotCarry>无法将这个生物搬运至洗衣机</PWM_CannotCarry>
+</LanguageData>

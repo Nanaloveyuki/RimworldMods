@@ -17,15 +17,11 @@ if [[ "$configuration" != "Release" && "$configuration" != "Debug" ]]; then
   echo "CONFIGURATION must be Release or Debug." >&2
   exit 1
 fi
-managed="$rimworld/RimWorldWin64_Data/Managed"
-if [[ ! -f "$managed/Assembly-CSharp.dll" ]]; then
-  managed="$rimworld/RimWorldLinux_Data/Managed"
-fi
-if [[ ! -f "$managed/Assembly-CSharp.dll" ]]; then
-  echo "RimWorld managed assemblies not found: $rimworld" >&2
+if [[ ! -f "$rimworld/Assembly-CSharp.dll" || ! -f "$rimworld/UnityStubs.dll" ]]; then
+  echo "RimWorld 1.7 Assembly-CSharp.dll and UnityStubs.dll must be at the game root: $rimworld" >&2
   exit 1
 fi
-build_args=("-p:RimWorldDir=$rimworld" "-p:RimWorldManagedDir=$managed")
+build_args=("-p:RimWorldVersion=1.7" "-p:RimWorldDir=$rimworld")
 if [[ -n "${HARMONY_ASSEMBLY_PATH:-}" ]]; then
   build_args+=("-p:HarmonyAssemblyPath=$HARMONY_ASSEMBLY_PATH")
 fi

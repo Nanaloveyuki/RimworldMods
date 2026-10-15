@@ -6,7 +6,7 @@ using Verse.AI;
 
 namespace WashingMachine;
 
-public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn
+public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThingHolderTickable
 {
     public const int CycleTicks = 1800;
     private ThingOwner<Thing> contents;
@@ -27,6 +27,9 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn
     public float HeldPawnDrawPos_Y => AltitudeLayer.BuildingOnTop.AltitudeFor() + 0.05f;
     public float HeldPawnBodyAngle => -((CycleTicks - remainingTicks) % 30) * 12f;
     public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundNormal;
+    // Thing.DoTick also ticks holders in 1.7. Tick explicitly below so death/release
+    // is handled before advancing the cycle, without ticking the occupant twice.
+    public bool ShouldTickContents => false;
 
     public ThingOwner GetDirectlyHeldThings() => contents;
     public void GetChildHolders(List<IThingHolder> outChildren) =>

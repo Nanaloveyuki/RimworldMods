@@ -9,7 +9,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 PACKAGE_ID = "nanaloveyuki.washingmachine"
-DATA_FOLDERS = ("About", "Defs", "Languages", "Textures")
+DATA_FOLDERS = ("About", "Common")
 
 
 def fail(message):
@@ -84,10 +84,10 @@ def main():
         elif any(target.iterdir()):
             fail(f"Non-empty target has no matching About.xml: {target}")
 
-    manifest = [(root / "tmp/build/WashingMachine.dll", Path("Assemblies/WashingMachine.dll"))]
+    manifest = [(root / "1.7/Assemblies/WashingMachine.dll", Path("1.7/Assemblies/WashingMachine.dll"))]
     for folder in DATA_FOLDERS:
         manifest.extend((item, item.relative_to(root)) for item in data_files(root / folder))
-    manifest.extend((root / name, Path(name)) for name in ("README.md", "LICENSE"))
+    manifest.extend((root / name, Path(name)) for name in ("LoadFolders.xml", "README.md", "LICENSE"))
     # Validate the complete manifest and all destination ancestors before writing.
     for source, relative in manifest:
         reject_links(source)

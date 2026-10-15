@@ -19,7 +19,7 @@ namespace WashingMachine
                 memories.TryGainMemory(ThoughtMaker.MakeThought(WashingMachineDefOf.PWM_Washed, stage));
             }
 
-            // Both DBH 1.6 editions use this exact need; bladder and thirst stay unchanged.
+            // Match the optional mod's existing need; never create hygiene, bladder or thirst needs.
             var needs = pawn.needs.AllNeeds;
             for (int index = 0; index < needs.Count; index++)
             {
@@ -33,7 +33,7 @@ namespace WashingMachine
 
         private static bool IsRatkin(Pawn pawn)
         {
-            // NewRatkinPlus 1.6 defines the normal race and its inherited subject race.
+            // Preserve the normal and inherited subject race identifiers across versions.
             string race = pawn.def?.defName;
             return race == "Ratkin" || race == "Ratkin_Su";
         }

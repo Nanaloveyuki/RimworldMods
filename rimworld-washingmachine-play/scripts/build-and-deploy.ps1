@@ -19,7 +19,7 @@ if ([string]::IsNullOrWhiteSpace($RimWorldDir)) {
 $gameRoot = [System.IO.Path]::GetFullPath($RimWorldDir)
 $target = Join-Path $gameRoot "Mods/WashingMachine"
 $project = Join-Path $repoRoot "WashingMachine.csproj"
-$assembly = Join-Path $repoRoot "tmp/build/WashingMachine.dll"
+$assembly = Join-Path $repoRoot "1.7/Assemblies/WashingMachine.dll"
 $comparison = [System.StringComparison]::Ordinal
 if ($isWindowsHost) { $comparison = [System.StringComparison]::OrdinalIgnoreCase }
 
@@ -78,14 +78,11 @@ Assert-NoLinks $repoRoot
 Assert-NoLinks $gameRoot
 Assert-NoLinks $project
 Assert-Identity (Join-Path $repoRoot "About/About.xml")
-$managed = Join-Path $gameRoot "RimWorldWin64_Data/Managed"
-if (-not (Test-Path -LiteralPath (Join-Path $managed "Assembly-CSharp.dll") -PathType Leaf)) {
-    $managed = Join-Path $gameRoot "RimWorldLinux_Data/Managed"
+if (-not (Test-Path -LiteralPath (Join-Path $gameRoot "Assembly-CSharp.dll") -PathType Leaf) -or
+    -not (Test-Path -LiteralPath (Join-Path $gameRoot "UnityStubs.dll") -PathType Leaf)) {
+    throw "RimWorld 1.7 Assembly-CSharp.dll and UnityStubs.dll must be at the game root: $gameRoot"
 }
-if (-not (Test-Path -LiteralPath (Join-Path $managed "Assembly-CSharp.dll") -PathType Leaf)) {
-    throw "RimWorld managed assemblies not found: $gameRoot"
-}
-$buildArguments = @("build", $project, "--configuration", $Configuration, "-p:RimWorldDir=$gameRoot", "-p:RimWorldManagedDir=$managed", "--nologo")
+$buildArguments = @("build", $project, "--configuration", $Configuration, "-p:RimWorldVersion=1.7", "-p:RimWorldDir=$gameRoot", "--nologo")
 if (-not [string]::IsNullOrWhiteSpace($HarmonyAssemblyPath)) {
     $buildArguments += "-p:HarmonyAssemblyPath=$HarmonyAssemblyPath"
 }
@@ -117,8 +114,8 @@ if (Test-Path -LiteralPath $target) {
 }
 
 $manifest = [System.Collections.Generic.List[object]]::new()
-$manifest.Add([pscustomobject]@{ Source = $assembly; Relative = "Assemblies/WashingMachine.dll" })
-foreach ($folder in @("About", "Defs", "Languages", "Textures")) {
+$manifest.Add([pscustomobject]@{ Source = $assembly; Relative = "1.7/Assemblies/WashingMachine.dll" })
+foreach ($folder in @("About", "Common")) {
     foreach ($file in @(Get-SafeFiles (Join-Path $repoRoot $folder))) {
         $manifest.Add([pscustomobject]@{
             Source = $file.FullName
@@ -126,7 +123,7 @@ foreach ($folder in @("About", "Defs", "Languages", "Textures")) {
         })
     }
 }
-foreach ($name in @("README.md", "LICENSE")) {
+foreach ($name in @("LoadFolders.xml", "README.md", "LICENSE")) {
     $manifest.Add([pscustomobject]@{ Source = (Join-Path $repoRoot $name); Relative = $name })
 }
 
