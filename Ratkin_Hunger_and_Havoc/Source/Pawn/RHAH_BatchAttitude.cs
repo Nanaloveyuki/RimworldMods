@@ -20,9 +20,9 @@ namespace HungerAndHavoc.Pawn
 
     internal static class RHAH_BatchAttitude
     {
-        internal static bool TryShift(Verse.Pawn affected, RHAH_BatchReaction reaction)
+        internal static bool TryShift(Verse.Pawn affected, RHAH_BatchReaction reaction, bool wholeBatch = true)
         {
-            if (RHAH_MouseSwarm.TryProvoke(affected))
+            if (RHAH_MouseSwarm.TryProvoke(affected, wholeBatch))
             {
                 if (reaction == RHAH_BatchReaction.Harm)
                     HungerAndHavoc.EventMgr.RHAH_EventFollowMood.NoteHurt(affected);
@@ -45,10 +45,12 @@ namespace HungerAndHavoc.Pawn
                 return false;
             }
 
-            List<Verse.Pawn> members = Collect(affected.MapHeld, comp.State.spawnBatchId);
+            List<Verse.Pawn> members = wholeBatch
+                ? Collect(affected.MapHeld, comp.State.spawnBatchId)
+                : new List<Verse.Pawn> { affected };
             RHAH_Settings settings = RHAH_Mod.Settings;
             bool turnHostile = shift == RHAH_AttitudeShift.Hostile && (settings == null || settings.batchTurnsHostile);
-            bool leave = settings == null || settings.batchLeavesTogether;
+            bool leave = reaction == RHAH_BatchReaction.Expel || settings == null || settings.batchLeavesTogether;
             if (members.Count == 0 || (!turnHostile && !leave))
             {
                 return false;

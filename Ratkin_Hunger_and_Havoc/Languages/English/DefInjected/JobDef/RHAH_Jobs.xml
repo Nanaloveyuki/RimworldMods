@@ -7,6 +7,7 @@
   <RHAH_Scavenge.reportString>searching the ground for something to eat</RHAH_Scavenge.reportString>
   <RHAH_TailBite.reportString>biting a tail</RHAH_TailBite.reportString>
   <RHAH_Expel.reportString>expelling target</RHAH_Expel.reportString>
+  <RHAH_ExpelSingle.reportString>expelling only TargetA</RHAH_ExpelSingle.reportString>
   <RHAH_BroadcastHope.reportString>broadcasting hope</RHAH_BroadcastHope.reportString>
   <RHAH_CarryYoung.reportString>carrying TargetA.</RHAH_CarryYoung.reportString>
 </LanguageData>

@@ -7,6 +7,7 @@
   <RHAH_Scavenge.reportString>地面で食べられる物を探す</RHAH_Scavenge.reportString>
   <RHAH_TailBite.reportString>尻尾にかみつく</RHAH_TailBite.reportString>
   <RHAH_Expel.reportString>対象を追い払う</RHAH_Expel.reportString>
+  <RHAH_ExpelSingle.reportString>TargetA だけを追い払う</RHAH_ExpelSingle.reportString>
   <RHAH_BroadcastHope.reportString>希望を放送する</RHAH_BroadcastHope.reportString>
   <RHAH_CarryYoung.reportString>TargetAを運び出す。</RHAH_CarryYoung.reportString>
 </LanguageData>

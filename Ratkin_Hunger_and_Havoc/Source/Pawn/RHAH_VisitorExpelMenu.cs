@@ -32,8 +32,14 @@ namespace HungerAndHavoc.Pawn
             }
 
             yield return new FloatMenuOption(
-                "RHAH_Menu_Expel".Translate(clickedPawn.LabelShort),
-                () => AssignExpel(actor, clickedPawn),
+                "RHAH_Menu_ExpelAll".Translate(),
+                () => AssignExpel(actor, clickedPawn, true),
+                MenuOptionPriority.Default,
+                null,
+                clickedPawn);
+            yield return new FloatMenuOption(
+                "RHAH_Menu_ExpelSingle".Translate(clickedPawn.LabelShort),
+                () => AssignExpel(actor, clickedPawn, false),
                 MenuOptionPriority.Default,
                 null,
                 clickedPawn);
@@ -41,7 +47,10 @@ namespace HungerAndHavoc.Pawn
             {
                 yield return new FloatMenuOption("RHAH_Choice_Join".Translate(), () =>
                 {
-                    RHAH_Api.ReleaseToColony(clickedPawn, RHAH_ReleaseReason.JoinedPlayerFaction);
+                    if (!RHAH_ColonyGates.AllowsJoin(clickedPawn))
+                    {
+                        return;
+                    }
                     RHAH_VisitorRules.ApplyPlayerIdeo(
                         clickedPawn,
                         RHAH_Mod.Settings == null ? 100 : RHAH_Mod.Settings.playerIdeoPercent,
@@ -173,9 +182,10 @@ namespace HungerAndHavoc.Pawn
             actor.jobs.TryTakeOrderedJob(give, JobTag.Misc);
         }
 
-        static void AssignExpel(Verse.Pawn actor, Verse.Pawn target)
+        static void AssignExpel(Verse.Pawn actor, Verse.Pawn target, bool wholeBatch)
         {
-            if (actor == null || actor.Dead || actor.jobs == null || RHAH_DefOf.RHAH_Expel == null)
+            JobDef jobDef = wholeBatch ? RHAH_DefOf.RHAH_Expel : RHAH_DefOf.RHAH_ExpelSingle;
+            if (actor == null || actor.Dead || actor.jobs == null || jobDef == null)
             {
                 return;
             }
@@ -185,7 +195,7 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
-            Job job = JobMaker.MakeJob(RHAH_DefOf.RHAH_Expel, target);
+            Job job = JobMaker.MakeJob(jobDef, target);
             job.playerForced = true;
             actor.jobs.TryTakeOrderedJob(job, JobTag.Misc);
         }

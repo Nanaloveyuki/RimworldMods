@@ -2,8 +2,10 @@
 <LanguageData>
   <RHAH_Job_Beg_Report>乞讨食物</RHAH_Job_Beg_Report>
   <RHAH_Job_Gnaw_Report>啃树皮</RHAH_Job_Gnaw_Report>
-  <RHAH_Menu_Expel>驱逐{0}</RHAH_Menu_Expel>
-  <RHAH_Job_Expel_Report>驱逐{0}</RHAH_Job_Expel_Report>
+  <RHAH_Menu_ExpelAll>驱逐全部</RHAH_Menu_ExpelAll>
+  <RHAH_Menu_ExpelSingle>只驱逐{0}</RHAH_Menu_ExpelSingle>
+  <RHAH_Job_Expel_Report>只驱逐{0}</RHAH_Job_Expel_Report>
+  <RHAH_Job_ExpelAll_Report>驱逐{0}及其同批来客</RHAH_Job_ExpelAll_Report>
   <RHAH_Job_CarryYoung_Report>抬走{0}。</RHAH_Job_CarryYoung_Report>
   <RHAH_Beg_Text_Success_1>求到吃的啦……</RHAH_Beg_Text_Success_1>
   <RHAH_Beg_Text_Success_2>谢谢……谢谢给窝吃的……</RHAH_Beg_Text_Success_2>

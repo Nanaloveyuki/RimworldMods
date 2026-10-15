@@ -2,8 +2,10 @@
 <LanguageData>
   <RHAH_Job_Beg_Report>食べ物を乞う</RHAH_Job_Beg_Report>
   <RHAH_Job_Gnaw_Report>樹皮をかじる</RHAH_Job_Gnaw_Report>
-  <RHAH_Menu_Expel>{0} を追放する</RHAH_Menu_Expel>
-  <RHAH_Job_Expel_Report>{0} を追放する</RHAH_Job_Expel_Report>
+  <RHAH_Menu_ExpelAll>全員を追放する</RHAH_Menu_ExpelAll>
+  <RHAH_Menu_ExpelSingle>{0} だけを追放する</RHAH_Menu_ExpelSingle>
+  <RHAH_Job_Expel_Report>{0} だけを追放する</RHAH_Job_Expel_Report>
+  <RHAH_Job_ExpelAll_Report>{0} とその一行を追放する</RHAH_Job_ExpelAll_Report>
   <RHAH_Job_CarryYoung_Report>{0} を運び出す。</RHAH_Job_CarryYoung_Report>
   <RHAH_Beg_Text_Success_1>食べ物、もらえたぁ…</RHAH_Beg_Text_Success_1>
   <RHAH_Beg_Text_Success_2>ありがと…食べ物くれて、ありがと…</RHAH_Beg_Text_Success_2>

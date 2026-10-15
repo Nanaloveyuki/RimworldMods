@@ -23,6 +23,29 @@ namespace HungerAndHavoc.Pawn
         }
     }
 
+    [HarmonyPatch(typeof(Designator_Adopt), nameof(Designator_Adopt.DesignateThing))]
+    internal static class RHAH_AdoptPatch
+    {
+        static bool Prefix(Thing t, out bool __state)
+        {
+            __state = RHAH_Api.IsVisitor(t as Verse.Pawn);
+            return RHAH_ColonyGates.AllowsJoin(t as Verse.Pawn);
+        }
+
+        static void Postfix(Thing t, bool __state)
+        {
+            if (!__state || !(t is Verse.Pawn pawn) || pawn.Faction != Faction.OfPlayer)
+            {
+                return;
+            }
+
+            RHAH_VisitorRules.ApplyPlayerIdeo(pawn,
+                Core.RHAH_Mod.Settings == null ? 100 : Core.RHAH_Mod.Settings.playerIdeoPercent,
+                Rand.Value);
+            RHAH_VisitorMood.NotifySheltered(pawn);
+        }
+    }
+
     // 原版角色买卖不看来源闸门 关闸后这笔不成交
     [HarmonyPatch(typeof(Tradeable_Pawn), "ResolveTrade")]
     internal static class RHAH_TradePawnGatePatch
@@ -55,6 +78,13 @@ namespace HungerAndHavoc.Pawn
 
     internal static class RHAH_ColonyGates
     {
+        internal static bool AllowsJoin(Verse.Pawn pawn)
+        {
+            return !RHAH_Api.IsOrigin(pawn) ||
+                RHAH_Api.Allows(pawn, RHAH_BehaviorGate.JoinColony) &&
+                RHAH_Api.ReleaseToColony(pawn, RHAH_ReleaseReason.JoinedPlayerFaction);
+        }
+
         internal static bool AllowsCapture(Verse.Pawn pawn, Faction by)
         {
             if (!RHAH_Api.IsOrigin(pawn) || by == null || by != Faction.OfPlayerSilentFail)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HungerAndHavoc.Api;
+using HungerAndHavoc.Core;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -27,7 +28,8 @@ namespace HungerAndHavoc.Pawn
             this.FailOn(() => !RHAH_BatchAttitude.CanOrderLeave(TargetPawn));
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             Toil expel = ToilMaker.MakeToil("ExpelVisitor");
-            expel.initAction = () => RHAH_BatchAttitude.TryShift(TargetPawn, RHAH_BatchReaction.Expel);
+            expel.initAction = () => RHAH_BatchAttitude.TryShift(TargetPawn, RHAH_BatchReaction.Expel,
+                job.def != RHAH_DefOf.RHAH_ExpelSingle);
             expel.defaultCompleteMode = ToilCompleteMode.Instant;
             yield return expel;
         }
@@ -40,7 +42,8 @@ namespace HungerAndHavoc.Pawn
                 return base.GetReport();
             }
 
-            return "RHAH_Job_Expel_Report".Translate(target.LabelShort);
+            return (job.def == RHAH_DefOf.RHAH_ExpelSingle
+                ? "RHAH_Job_Expel_Report" : "RHAH_Job_ExpelAll_Report").Translate(target.LabelShort);
         }
     }
 }

@@ -50,18 +50,20 @@ namespace HungerAndHavoc.Pawn
             }
         }
 
-        internal static bool TryProvoke(Verse.Pawn affected)
+        internal static bool TryProvoke(Verse.Pawn affected, bool wholeBatch = true)
         {
             CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(affected);
             if (comp == null || !IsSource(comp.State.sourceIncidentDisplayId) ||
                 !RHAH_BatchAttitude.CanOrderLeave(affected)) return false;
-            if (IsProvoked(affected)) return true;
-            List<Verse.Pawn> members = RHAH_BatchAttitude.Collect(affected.MapHeld, comp.State.spawnBatchId);
+            if (!wholeBatch && IsProvoked(affected)) return true;
+            List<Verse.Pawn> members = wholeBatch
+                ? RHAH_BatchAttitude.Collect(affected.MapHeld, comp.State.spawnBatchId)
+                : new List<Verse.Pawn> { affected };
             if (members.Count == 0) members.Add(affected);
-            return Provoke(members);
+            return Provoke(members, wholeBatch);
         }
 
-        internal static bool Provoke(List<Verse.Pawn> members)
+        internal static bool Provoke(List<Verse.Pawn> members, bool wholeBatch = true)
         {
             Verse.Pawn affected = null;
             for (int i = 0; members != null && i < members.Count; i++)
@@ -74,14 +76,28 @@ namespace HungerAndHavoc.Pawn
                 }
             }
             if (affected == null) return false;
-            if (IsProvoked(affected)) return true;
+            if (!wholeBatch && IsProvoked(affected)) return true;
             int batchId = CompRHAH_Pawn.TryGet(affected).State.spawnBatchId;
-            List<Verse.Pawn> batch = RHAH_BatchAttitude.Collect(affected.MapHeld, batchId);
+            List<Verse.Pawn> batch = wholeBatch
+                ? RHAH_BatchAttitude.Collect(affected.MapHeld, batchId)
+                : new List<Verse.Pawn> { affected };
             for (int i = 0; i < members.Count; i++)
             {
                 Verse.Pawn member = members[i];
                 if (RHAH_BatchAttitude.CanOrderLeave(member) && member.MapHeld == affected.MapHeld &&
                     CompRHAH_Pawn.TryGet(member).State.spawnBatchId == batchId && !batch.Contains(member)) batch.Add(member);
+            }
+            bool allProvoked = true;
+            for (int i = 0; i < batch.Count; i++)
+            {
+                allProvoked &= IsProvoked(batch[i]);
+            }
+            if (allProvoked) return true;
+            if (!wholeBatch)
+            {
+                // 单只反抗必须拆出原 Lord 避免切换整队职责
+                RHAH_VisitorGroup.TryStart(batch, affected.MapHeld, affected.PositionHeld,
+                    RHAH_Api.Get(affected).Role);
             }
             List<Lord> lords = new List<Lord>();
             for (int i = 0; i < batch.Count; i++)

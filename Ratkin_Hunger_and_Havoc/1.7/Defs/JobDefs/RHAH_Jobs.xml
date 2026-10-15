@@ -38,6 +38,11 @@
     <reportString>驱逐目标</reportString>
   </JobDef>
   <JobDef>
+    <defName>RHAH_ExpelSingle</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_Expel</driverClass>
+    <reportString>只驱逐TargetA</reportString>
+  </JobDef>
+  <JobDef>
     <defName>RHAH_CarryYoung</defName>
     <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung</driverClass>
     <reportString>抬走TargetA。</reportString>

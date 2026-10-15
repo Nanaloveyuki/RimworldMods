@@ -2,8 +2,10 @@
 <LanguageData>
   <RHAH_Job_Beg_Report>begging for food</RHAH_Job_Beg_Report>
   <RHAH_Job_Gnaw_Report>gnawing bark</RHAH_Job_Gnaw_Report>
-  <RHAH_Menu_Expel>expel {0}</RHAH_Menu_Expel>
-  <RHAH_Job_Expel_Report>expelling {0}</RHAH_Job_Expel_Report>
+  <RHAH_Menu_ExpelAll>expel all</RHAH_Menu_ExpelAll>
+  <RHAH_Menu_ExpelSingle>expel only {0}</RHAH_Menu_ExpelSingle>
+  <RHAH_Job_Expel_Report>expelling only {0}</RHAH_Job_Expel_Report>
+  <RHAH_Job_ExpelAll_Report>expelling {0} and their group</RHAH_Job_ExpelAll_Report>
   <RHAH_Job_CarryYoung_Report>carrying {0}.</RHAH_Job_CarryYoung_Report>
   <RHAH_Beg_Text_Success_1>Something to eat...</RHAH_Beg_Text_Success_1>
   <RHAH_Beg_Text_Success_2>Thank you... thank you for the food...</RHAH_Beg_Text_Success_2>
