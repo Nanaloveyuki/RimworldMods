@@ -21,7 +21,9 @@ check_stopped() {
 if [[ "$mode" != "--build-only" ]]; then check_stopped; fi
 npm --prefix "$root/Tools/vscode" ci --no-audit --no-fund
 node "$root/Tools/web-editor/build.mjs"
-dotnet build "$root/Oxygendsl.slnx" -c "$configuration" -p:RimWorldDir="$rimworld" --nologo
+irismenus="${IRISMENUS_SOURCE_DIR:-$root/../IrisMenus}"
+dotnet build "$irismenus/Source/IrisMenus.csproj" -c "$configuration" -p:RimWorldVersion=1.7 -p:RimWorldManagedDir="$rimworld" --nologo
+dotnet build "$root/Oxygendsl.slnx" -c "$configuration" -p:RimWorldDir="$rimworld" -p:IrisMenusSourceDir="$irismenus" --nologo
 if [[ "$mode" == "--build-only" ]]; then exit 0; fi
 check_stopped
 python3 "$root/scripts/deploy.py" "$root" "$rimworld/Mods/Oxygendsl"

@@ -4,7 +4,7 @@ The language implementation in `Source/Core/Language` is derived from AdvancedRi
 
 Copyright (c) 2026 Nanaloveyuki
 
-The derived files retain the original MIT license terms below. Prompt, RimTalk, and Verse host interfaces from the original project are not included in this adaptation.
+The derived files retain the original MIT license terms below. Nanaloveyuki-owned contributions, including this language adaptation, are also available under Apache-2.0 at your option (MIT OR Apache-2.0); see LICENSE for both full texts and scope. This does not change the licenses of Blockly, CodeMirror, or other third-party material. Prompt, RimTalk, and Verse host interfaces from the original project are not included in this adaptation.
 
 ## AdvancedRimTalk
 

@@ -1,16 +1,17 @@
 # RimIris Moonlight
 
 A single-pass, cool, bright nighttime filter loaded as a RimIris bundle addon.
-The filter remains a bundle. A small UI-only DLL supplies English and Simplified
-Chinese text through `Languages`, without Harmony patches or framework changes.
+The filter remains a bundle. A small UI-only DLL supplies the pack name and
+description through `Languages`, and copies each option label onto the
+framework's bundle pane. It does not patch Harmony or replace that pane.
 
 ## Install
 
 Place this folder in RimWorld's `Mods` directory (or link it there), enable
 RimIris Beta and RimIris Moonlight, and load Moonlight after the framework.
 Keep the RimIris master switch enabled. In the Iris pack screen, enable the
-`Moonlight` coexisting addon. Adjust strength, night brightness and cool tint
-in its options. It can remain enabled alongside the selected base pack.
+`Moonlight` coexisting addon. Its strength, night brightness and cool tint are
+the framework's own sliders. It can remain enabled alongside the selected base pack.
 
 The runtime files are `About/`, `ShaderPacks/`, `Languages/` and
 `Assemblies/RimIrisShaders.UI.dll`, including `moonlight_win`.

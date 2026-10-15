@@ -1,3 +1,53 @@
+Copyright (c) 2026 Nanaloveyuki
+SPDX-License-Identifier: MIT OR Apache-2.0
+
+Nanaloveyuki-owned contributions to Oxygen-Dsl-Framework are licensed under either the
+MIT License or the Apache License, Version 2.0, at your option. You may
+choose either license; you do not have to comply with both for the same
+owned contribution. Both complete license texts are included below for
+standalone distribution.
+
+This grant covers only copyright owned by Nanaloveyuki. Third-party code,
+binaries, dependencies, assets and other material retain their original
+copyright, licenses and notices and are not relicensed by this file.
+Preserve applicable NOTICE, THIRD_PARTY_NOTICES and bundled license files.
+External game and mod components remain owned by their respective
+rightsholders. Where ownership or permission is unclear, this file grants
+no additional rights to that material. Existing grants remain effective.
+
+The language implementation derived from AdvancedRimTalk retains its full
+MIT grant and attribution in THIRD_PARTY_NOTICES.md; contributions owned
+by Nanaloveyuki, including that adaptation, are available under either
+license below. Blockly, CodeMirror and other third-party components retain
+their own licenses. Nested Tools/vscode/LICENSE copies remain effective;
+the adjacent scoped LICENSE-APACHE offers the owned extension's alternative.
+
+===== MIT License =====
+
+MIT License
+
+Copyright (c) 2026 Nanaloveyuki
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+===== Apache License, Version 2.0 =====
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

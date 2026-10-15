@@ -1,3 +1,4 @@
+#if !RIMWORLD_1_7
 using System;
 using RimWorld.Planet;
 using UnityEngine;
@@ -133,3 +134,4 @@ namespace IrisMenus
         public void DoGrayOut(Rect rect) => vanilla.DoGrayOut(rect);
     }
 }
+#endif

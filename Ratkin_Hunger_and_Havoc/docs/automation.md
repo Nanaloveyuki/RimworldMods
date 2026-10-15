@@ -1,6 +1,6 @@
 # 自动化与低噪声调试
 
-统一入口：`python3 scripts/rhah.py`，快捷入口：`make`。Python 只使用标准库；.NET SDK 由根目录 `global.json` 固定。Windows 游戏目录默认 `E:\Apps\Steam\steamapps\common\RimWorld`，WSL 使用 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`。
+以下命令在 monorepo 的 `Ratkin_Hunger_and_Havoc/` 目录执行；从仓库根目录使用 make 时加 `-C Ratkin_Hunger_and_Havoc`。统一入口：`python3 scripts/rhah.py`，快捷入口：`make`。Python 只使用标准库；.NET SDK 由 `Ratkin_Hunger_and_Havoc/global.json` 固定。Windows 游戏目录默认 `E:\Apps\Steam\steamapps\common\RimWorld`，WSL 使用 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`。
 
 ## 常用命令
 
@@ -33,17 +33,17 @@ python3 scripts/rhah.py logs --match 'HungerAndHavoc.*Exception|RHAH_' --limit 5
 
 `build` 不是完整门禁；只有完整 CI 成功才允许部署或打包。没有绕过检查的发布参数。发布版要求 `About/About.xml` 的 `modVersion` 与主体项目 `Version` 一致，tag 必须是对应的 `v<版本>`；API 的独立契约版本、稳定 `AssemblyVersion` 不随内容版本强制改变。版本不一致时报告失败，不自动修改版本号。
 
-环境覆盖：`RIMWORLD_DIR`（也接受 `RimWorldDir`）、`OXYGEN_DSL_DIR`、`CONFIGURATION`、`HARMONY_PATH`。ODF 默认使用同级 `Oxygen-Dsl-Framework` 仓库；完整 CI 先构建该仓库的 `Source/Mod/Oxygendsl.Mod.csproj`。不要将未经审核的外部 checkout 作为受保护 runner 的依赖。
+环境覆盖：`RIMWORLD_DIR`（也接受 `RimWorldDir`）、`OXYGEN_DSL_DIR`、`CONFIGURATION`、`HARMONY_PATH`。ODF 默认使用 monorepo 内同级的 `Oxygen-Dsl-Framework/` 目录，路径由 RHAH 源码位置推导，不依赖 checkout 的绝对位置；完整 CI 先构建该目录的 `Source/Mod/Oxygendsl.Mod.csproj`。受保护 runner 默认使用本次审核的同一 checkout；只有需要独立依赖时才设置 `OXYGEN_DSL_DIR`，该外部源码也必须先审核。
 
 ## CI/CD
 
 公共 GitHub Actions 在 push 和 PR 上执行 Actions schema 检查、离线工具测试与静态门禁，不接触游戏安装、不下载或上传游戏 DLL、不启动游戏。分支保护应要求公共检查通过。
 
-完整流水线通过 `workflow_dispatch` 手动触发，运行在标有 `rhah` 的 Linux x64 self-hosted runner 上，使用受保护的 `rhah-local` environment。它只 checkout 当前仓库默认分支，不接受任意 ref，也不在 PR 或 `pull_request_target` 上执行。runner 的工具链版本与安装要求以 `global.json`、工作流配置和 `doctor` 报告为准；游戏程序集、Harmony、审核过的 ODF 及可选 IrisMenus 需在本机准备。
+完整流水线通过 `workflow_dispatch` 手动触发，运行在标有 `rhah` 的 Linux x64 self-hosted runner 上，使用受保护的 `rhah-local` environment。它只 checkout 当前仓库默认分支，不接受任意 ref，也不在 PR 或 `pull_request_target` 上执行。runner 的工具链版本与安装要求以 `Ratkin_Hunger_and_Havoc/global.json`、工作流配置和 `doctor` 报告为准；游戏程序集、Harmony 及可选 IrisMenus 需在本机准备，ODF 源码默认来自同一 checkout。
 
-工作流文件为 `.github/workflows/static.yml` 和 `local.yml`。在 GitHub 仓库设置中登记 runner，为 `rhah-local` 和发布用的 `rhah-release` environment 设置审批人及允许的默认分支。`rhah-local` 变量使用 `RIMWORLD_DIR`、`OXYGEN_DSL_DIR`、`HARMONY_PATH`；运行时烟雾另设 `CARBON_PROFILE` 为已准备的独立 profile。源码中的工作流不会自动注册 runner 或创建远端审批规则。WSL runner 必须能够执行 `powershell.exe`，部署时用它检查 Windows 游戏进程
+工作流只保存在 monorepo 根目录的 `.github/workflows/static.yml` 和 `.github/workflows/local.yml`，runner label 配置在根目录 `.github/actionlint.yaml`。Python 步骤在 `Ratkin_Hunger_and_Havoc/` 执行，Actions 校验从仓库根目录读取配置；artifact 路径指向 `Ratkin_Hunger_and_Havoc/tmp/automation/`。在 GitHub 仓库设置中登记 runner，为 `rhah-local` 和发布用的 `rhah-release` environment 设置审批人及允许的默认分支。`rhah-local` 变量使用 `RIMWORLD_DIR`、`HARMONY_PATH`；`OXYGEN_DSL_DIR` 和 `CARBON_SOURCE_DIR` 是可选覆盖，默认分别为本次 checkout 的 `Oxygen-Dsl-Framework/` 和 `RimCarbon14/`。运行时烟雾另设 `CARBON_PROFILE` 为已准备的独立 profile。源码中的工作流不会自动注册 runner 或创建远端审批规则。WSL runner 必须能够执行 `powershell.exe`，部署时用它检查 Windows 游戏进程。
 
-完整工作流可选择 `ci`、`package`、`deploy`、`release`。`runtime_smoke` 只允许与 `deploy` 一起启用，确保游戏观察的是本次部署；它启动独立 profile、创建新测试地图、执行只读场景，最后只停止该 profile 拥有的进程。已有测试游戏仍运行时拒绝接管。未启用时不声称通过运行时验收。`release` 要求既有 `v<版本>` tag 正好指向默认分支本次 checkout 的 HEAD，完整门禁成功后才经 `rhah-release` 发布 GitHub Release
+完整工作流可选择 `ci`、`package`、`deploy`、`release`。`runtime_smoke` 只允许与 `deploy` 一起启用，确保游戏观察的是本次部署；它启动独立 profile、创建新测试地图、执行只读场景，最后只停止该 profile 拥有的进程。已有测试游戏仍运行时拒绝接管。未启用时不声称通过运行时验收。`release` 要求既有 `v<版本>` tag 正好指向默认分支本次 checkout 的 HEAD，完整门禁成功后才经 `rhah-release` 发布 GitHub Release。当前只有 RHAH 发布工作流，`v<版本>` 对应 RHAH 的版本，并非各项目的统一版本。
 
 发布与部署共用本地门禁。发布产物只包含 `About`、语言、Guard、`1.6`、Biotech、纹理、加载配置与许可证等白名单内容；三个本模组 DLL 必须存在。第三方程序集、PDB、源码、存档、发现令牌和原始测试日志不得入包或公共 artifact。私有游戏文件、登录凭据及玩家存档只留在本机，不上传 CI 或 Release。需要 Steam Workshop 发布时，仍通过游戏的 Workshop 上传流程，不在 CI 中保存 Steam 登录凭据。
 
@@ -95,7 +95,7 @@ python3 scripts/rhah.py carbon config
 
 工具必须先查真实 schema，再提供精确参数。长调用显式设置超时；写调用失败或 acknowledgement 丢失后查 operation，不自动重放。事件 cursor 按实例隔离；`lost` 或截断计数意味着观察不完整，不能据此声称没有错误。
 
-适配器接受 `CARBON_AGENT`、`CARBON_PROFILE`、`CARBON_SOURCE_DIR`，以及命令行 `--agent`、`--profile`、`--game-root`、`--evidence-dir`。WSL 自动转换传给 Windows companion 的 profile、游戏、参数文件与场景路径。`carbon config` 输出标准 MCP 配置；客户端只接入这个精简适配器即可，避免再同时加载上游全部工具定义。
+适配器接受 `CARBON_AGENT`、`CARBON_PROFILE`、`CARBON_SOURCE_DIR`，以及命令行 `--agent`、`--profile`、`--source-dir`、`--game-root`、`--evidence-dir`。Carbon 源码目录默认是与 RHAH 同级的 `RimCarbon14/`，从脚本所在位置推导，不依赖当前工作目录或固定工作区。WSL 自动转换传给 Windows companion 的 profile、游戏、参数文件与场景路径。`carbon config` 输出标准 MCP 配置；客户端只接入这个精简适配器即可，避免再同时加载上游全部工具定义。
 
 ## 输出与证据
 

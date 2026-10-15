@@ -37,7 +37,6 @@ namespace Oxygendsl.Mod
                 foreach (ModContentPack provider in LoadedModManager.RunningModsListForReading)
                     if (HasOxygenFiles(provider) || documentProviders.ContainsKey(provider.PackageIdPlayerFacing)) providers.Add(provider);
                 var gameObject = new GameObject("Oxygen local editor");
-                gameObject.hideFlags = HideFlags.HideAndDontSave;
                 UnityEngine.Object.DontDestroyOnLoad(gameObject);
                 gameObject.AddComponent<OxygenEditorPump>();
                 Application.quitting += Stop;

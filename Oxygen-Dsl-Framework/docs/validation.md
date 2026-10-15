@@ -1,5 +1,15 @@
 # Oxygendsl 验证记录
 
+## RimWorld 1.7 迁移（2026-10-15）
+
+- 游戏运行时切换至 .NET 10，引用游戏根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 和 Harmony 1.7。运行时、可选适配器、离线检查器及适配加载检查已迁移；语言核心保持 `netstandard2.0`，独立作者工具保持原目标。移除编辑器对象上已无实际作用的 `hideFlags` 写入，保留主线程更新与退出回收。
+- 1.7 构建输出位于 `tmp/build/1.7/`、`tmp/tool/1.7/`；发布主体位于 `1.7/Assemblies/`，适配器分别位于 `1.7/IrisMenus/Assemblies/`、`1.7/Rhah/Assemblies/`。保留 `v1.6` 加载项、旧思想定义和现有 1.6 已编译内容，不要求当前源码双版本构建。对正式安装的旧发布制作隔离副本后执行新版部署，`1.6/`、`Rhah/Assemblies/`、`IrisMenus/Assemblies/` 共 7 个原文件 SHA-256 完全不变。
+- `bash scripts/deploy.sh --build-only` 完整构建链通过；框架 Release 零警告、零错误。既有 548 项行为检查通过；.NET 10 适配加载检查按最终发布目录完成 ODF 优先类型扫描、随后加载真实 API、重复激活单次注册。未把旧版 RHAH 主体列为已兼容 1.7。
+- 实际离线工具读取 1.7 Core Def 目录，完成六个示例 Trait／Thought 定义和 `Industriousness.commonality` 修改检查；RHAH 示例试算覆盖 allow／deny／abstain，并拒绝非对象 JSON 事实。独立 .NET 10 进程用真实游戏程序集验证生成 XML／assetlookup 提交、三态闸门，以及真实 Scribe 对 provider、instance、receipt 未知 XML 的保存保留。临时探针第一次使用错误的 `when` 参数，改为已有 `evaluate` 契约后通过，未修改语言语法迎合探针。
+- 独立 RimWorld 1.7.4979 rev109，配置 `C:/RimCarbon14/odf-upgrade17-20261015-profile`：Headless 新游戏中原生示例特质与载体思想加载成功，真实殖民者取得 +5 思想，热重载为 +12 且思想对象不变；无效脚本保留有效效果，分配计数可用，实际写出存档。未改玩家安装、配置或原始存档。
+- 最终分版本发布包在新进程读取上述存档成功：恢复有效源码与唯一 +12 思想，重新评估保持同一思想对象，显式停用删除归属效果。首次读档进程曾退出于 `MonoMod.Core` 的 `Core60Runtime.CompileMethodHook`，stderr 报 `Internal CLR error (0x80131506)`；最终成功不能证明该原生崩溃已修复，框架未屏蔽异常。Headless 另有原生 0×0 分辨率错误及关闭阶段分配警告；没有把日志称为零错误。两次成功证明位于隔离配置的 `upgrade17-proof.txt` 与 `upgrade17-reload-proof.txt`；临时执行代码和游戏副本验收后删除。
+- 本轮不覆盖设置窗口视觉、浏览器编辑、全部 DLC／大型模组组合、旧 1.6 存档直接跨版迁移和长时性能；1.6 的历史验收记录保持原版本含义。
+
 ## IrisMenus 示例 Mod Item 清理（2026-10-11）
 
 - 两个独立示例启用后，网页编辑操作使 IrisMenus 为 `nanaloveyuki.oxygen.example.traits` 与 `nanaloveyuki.oxygen.example.rhah` 自动生成 launcher。仅在 `OxygenEditorMenus` 跳过这两个包的菜单注册；不修改 IrisMenus、内容加载、编辑文档资格或正式消费 Mod 的入口。

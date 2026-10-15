@@ -729,7 +729,7 @@ def parser():
     common.add_argument('--profile', default=os.environ.get('CARBON_PROFILE', DEFAULT_PROFILE))
     common.add_argument('--game-root', default=os.environ.get('RIMWORLD_DIR', os.environ.get('RimWorldDir', DEFAULT_ROOT)))
     common.add_argument('--agent', default=os.environ.get('CARBON_AGENT'))
-    common.add_argument('--source-dir', default=os.environ.get('CARBON_SOURCE_DIR', '/root/repos/csharp/RimCarbon14'))
+    common.add_argument('--source-dir', default=os.environ.get('CARBON_SOURCE_DIR') or str(REPO.parent / 'RimCarbon14'))
     common.add_argument('--evidence-dir', default=str(REPO / 'tmp/automation/carbon'))
     common.add_argument('--timeout-ms', type=int, default=10000)
     common.add_argument('--select')

@@ -4,7 +4,7 @@
   "description": "Oxygen DSL text tools and offline Blockly programming for RimWorld mod authors.",
   "version": "0.2.0",
   "publisher": "nanaloveyuki",
-  "license": "MIT",
+  "license": "(MIT OR Apache-2.0)",
   "engines": {
     "vscode": "^1.85.0"
   },

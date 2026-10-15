@@ -1,6 +1,6 @@
 # 工作项：GitHub
 
-缺陷、规格、实施工作项和后续债统一使用当前仓库 [GitHub Issues](https://github.com/Nanaloveyuki/Ratkin_Hunger_and_Havoc/issues)。机制讨论留在对应设计稿，形成可执行工作项后再发布 Issue。
+缺陷、规格、实施工作项和后续债统一使用 monorepo 的 [GitHub Issues](https://github.com/Nanaloveyuki/RimworldMods/issues)，标题注明 `Ratkin_Hunger_and_Havoc`。机制讨论留在对应设计稿，形成可执行工作项后再发布 Issue。
 
 ## 操作
 

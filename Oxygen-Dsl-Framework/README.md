@@ -1,6 +1,6 @@
 # Oxygendsl
 
-在 RimWorld 1.6 中用 Oxygen 声明原生特质、思想和常用内容修改，并在运行中的存档里重载玩法条件。支持动态心情、限时记忆、类型、struct、模块、Mod 自动内容入口和 RHAH 三态行为闸门；现已加入 IrisMenus 设置页与顶层 optional use。
+在 RimWorld 1.7 中用 Oxygen 声明原生特质、思想和常用内容修改，并在运行中的存档里重载玩法条件。支持动态心情、限时记忆、类型、struct、模块、Mod 自动内容入口和 RHAH 三态行为闸门；现已加入 IrisMenus 设置页与顶层 optional use。
 
 - 包名：`nanaloveyuki.oxygendsl`
 - 命名空间：`Oxygendsl`
@@ -102,7 +102,7 @@ patch("TraitDef", "Industriousness", set: { commonality: 1.5 })
 
 完整内容包：[Examples/NativeTraits](Examples/NativeTraits)；RHAH 策略：[Examples/RhahPolicy](Examples/RhahPolicy)。分别将示例目录复制为独立 Mod 并启用；不会因安装框架就启用示例。特质授予仍由原生游戏／生成方处理，框架不在读档时强制补回特质。
 
-RHAH 保持排在 ODF 后面。`Rhah/Assemblies/Oxygendsl.Rhah.dll` 不进入 Verse 的提前程序集扫描；框架在所有模组程序集和静态启动完成后，才从自身目录加载并注册这个可选适配器。未启用 RHAH 时不加载它，不附带 `HungerAndHavoc.Api.dll`。更新这项兼容修复必须一起更新 ODF 的 `LoadFolders.xml`、`Oxygendsl.Mod.dll` 和 `Oxygendsl.Rhah.dll`，然后完全退出并重启游戏。
+RHAH 保持排在 ODF 后面。1.7 适配器位于 `1.7/Rhah/Assemblies/Oxygendsl.Rhah.dll`，不进入 Verse 的提前程序集扫描；框架在所有模组程序集和静态启动完成后才加载并注册它。未启用 RHAH 时不加载它，不附带 `HungerAndHavoc.Api.dll`。旧版已编译主体仍从 `Rhah/Assemblies/` 加载原来的 1.6 适配器，两者不能相互覆盖。
 
 本批内置 `TraitDef`／`ThoughtDef` 字段映射、带类型的 Def 引用、原生 Worker 类型校验、模板／组合和 `set`／`append`／`remove`。Def 继承按 `defName` 展开，与 XML `Name`／`ParentName` 分开；嵌套修改可用 `"degreeDatas.0.label"`。完整声明及 C# 扩展接口见 [语法文档](docs/syntax-draft.md#原生内容与运行规则)。
 
@@ -116,18 +116,18 @@ RHAH 适配只在对应 Mod 活动时加载，使用稳定 `HungerAndHavoc.Api.d
 
 运行时文本使用免导入的 `lang("Key", name: value)`；设置标题／标签在回调内查询，可随当前语言变化。复用原生 Keyed、默认语言回退和命名参数格式化，缺键显示键名；离线调用没有翻译宿主则报错。PrisonerNames 已改用通用 `lang()`，不再导出专用翻译成员。完整契约见 [语法文档](docs/syntax-draft.md#翻译查询-lang)。
 
-原生 Def 文本继续放在 `Languages/<语言>/DefInjected/<真实Def类型>/`，不要按用途或原始 XML 文件夹猜类型。例如 `MapGeneratorDef` 与 `GenStepDef` 分别使用自己的类型目录；当前游戏程序集没有 `SiteDef`，`SiteDefs` 也无法解析。自定义类型应写完整命名空间，如 `RHAH.SomeDef`。RimWorld 1.6 还兼容目录名去掉末尾一个字符后解析；不依赖这条兼容规则创建新目录。
+原生 Def 文本继续放在 `Languages/<语言>/DefInjected/<真实Def类型>/`，不要按用途或原始 XML 文件夹猜类型。例如 `MapGeneratorDef` 与 `GenStepDef` 分别使用自己的类型目录；当前游戏程序集没有 `SiteDef`，`SiteDefs` 也无法解析。自定义类型应写完整命名空间，如 `RHAH.SomeDef`。RimWorld 1.7 仍兼容目录名去掉末尾一个字符后解析；不依赖这条兼容规则创建新目录。
 
 `check`／`preview` 检查翻译目录类型和键所属 Def，已知错配报错，缺少外部目录／程序集时标为 Unknown；不验证全部字段路径、翻译完整性或实际注入。最终在主菜单选择非英语、启用开发者模式，运行 **Translation → Save Translation Report**（`Actions/Save Translation Report`），查看报告的 General load errors 与 Def-injected translations load errors。报告写入桌面 `TranslationReport.txt`，桌面不可用时写入游戏保存数据目录；错误目录不保证立即出现在玩家日志里。
 
 
 ## 离线检查与试算
 
-构建生成 `tmp/tool/Oxygendsl.Tool.exe`。Windows 放在可解析框架、游戏程序集的位置运行；Linux Mono 不要把游戏自带的 `mscorlib.dll` 加入搜索路径，应仅提供需要的游戏／Unity DLL 和 `tmp/build`。
+构建生成 `tmp/tool/1.7/Oxygendsl.Tool.dll`，使用 .NET 10 运行。构建目录包含离线工具所需的本机游戏依赖，仅供本机检查，不作为 Mod 发布；不再使用 Mono 或旧的 `RimWorldWin64_Data/Managed` 搜索路径。
 
 ```sh
-Oxygendsl.Tool.exe check Examples/NativeTraits --catalog /path/to/Core/Defs
-Oxygendsl.Tool.exe preview Examples/RhahPolicy --facts Examples/RhahPolicy/preview.json
+dotnet tmp/tool/1.7/Oxygendsl.Tool.dll check Examples/NativeTraits --catalog /path/to/Core/Defs
+dotnet tmp/tool/1.7/Oxygendsl.Tool.dll preview Examples/RhahPolicy --facts Examples/RhahPolicy/preview.json
 ```
 
 `--catalog` 可重复；`--mod` 添加导入库的 Mod 根目录。只有确认目录封闭完整时使用 `--catalog-complete`；默认标为不完整并记录目录／依赖 SHA-256。退出码：`0` 检查成功，`1` 错误，`2` 目录不完整或引用未知。`preview` 只读取显式 JSON 事实并运行规则函数，不执行寻路、Job、伤害或特质授予，也不替代原生思想资格检查。
@@ -145,12 +145,14 @@ bash scripts/deploy.sh
 dotnet run --project Tests/Oxygendsl.Checks.csproj -c Release
 ```
 
-RHAH 加载顺序回归先构建 `Tests/AdapterLoading/AdapterLoading.csproj`，再用 Mono 运行其 `bin/Release/net48/AdapterLoading.exe`，依次传入已打包的 ODF 目录、RHAH API DLL、游戏 Managed 目录与 Harmony DLL 路径。它按实际 `LoadFolders.xml` 扫描框架，之后才加载 API 和适配器，检查真实 TypeRef 解析与重复激活不重复注册；无需启动 Unity。
+RHAH 加载顺序回归先构建 `Tests/AdapterLoading/AdapterLoading.csproj`，再用 `dotnet Tests/AdapterLoading/bin/Release/net10.0/AdapterLoading.dll` 运行，依次传入已打包的 ODF 目录、RHAH API DLL、游戏根目录与 Harmony DLL 路径。它按实际 `LoadFolders.xml` 的 `v1.7` 扫描框架，之后才加载 API 和适配器，检查真实 TypeRef 解析与重复激活不重复注册；无需启动完整游戏。
 
-默认游戏路径由 `Directory.Build.props` 与部署脚本定义，可通过 `RIMWORLD_DIR` 指定部署路径。Linux/WSL 构建引用本机游戏程序集，不分发这些程序集。
+构建需要 .NET 10 SDK 与已安装的 RimWorld 1.7；默认游戏路径由 `Directory.Build.props` 与部署脚本定义，可通过 `RIMWORLD_DIR` 指定部署路径。直接调用 MSBuild 时使用 `-p:RimWorldDir=/path/to/RimWorld`；`RimWorldManagedDir` 默认就是游戏根目录，引用 `Assembly-CSharp.dll` 与 `UnityStubs.dll`。Harmony 默认引用创意工坊的 `1.7/Assemblies/0Harmony.dll`，可用 `HarmonyPath` 覆盖。不分发游戏程序集。
 
-构建 IrisMenus 适配程序集会引用相邻 `../IrisMenus/Source/IrisMenus.csproj`，可用 MSBuild 属性 `IrisMenusSourceDir` 改路径。发布只携带 `IrisMenus/Assemblies/Oxygendsl.IrisMenus.dll`，由 `LoadFolders.xml` 在 IrisMenus 启用时加载；不分发 IrisMenus.dll。
+部署脚本先以 `RimWorldVersion=1.7` 构建 monorepo 同级目录中的 IrisMenus，再构建框架。适配程序集引用 `../IrisMenus/1.7/Assemblies/IrisMenus.dll`；脚本可用 `IRISMENUS_SOURCE_DIR`、直接 MSBuild 可用 `IrisMenusSourceDir` 指定依赖源码目录。发布只携带 `1.7/IrisMenus/Assemblies/Oxygendsl.IrisMenus.dll`，不分发 IrisMenus.dll。RHAH 适配仍引用同级目录中现有的稳定 API，可用 `RhahApiPath` 覆盖；这不代表旧版 RHAH 主体已兼容 1.7。
+
+当前源码构建 1.7，输出独立保存在 `tmp/build/1.7/`。部署仅写入 `1.7/` 下的新程序集和适配器，不删除或覆盖已安装的 `1.6/`、`Rhah/Assemblies/` 与 `IrisMenus/Assemblies/` 编译内容；`LoadFolders.xml` 为两个游戏版本分别选择加载目录。1.6 沿用现有已编译发布，不要求用当前源码重新构建；全新安装若需要 1.6，须保留原 1.6 发布文件。
 
 本机 RimCarbon14 客户端、可复用 Python 验收脚本、临时原生探针和原始结果保留在 `tmp/`，该目录被忽略且不进入发布包。
 
-语言核心复用 AdvancedRimTalk 的 Arti 实现；来源与 MIT 授权见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。本仓库许可见 [LICENSE](LICENSE)。
+语言核心复用 AdvancedRimTalk 的 Arti 实现；来源与保留的 MIT 授权见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。Nanaloveyuki 自有贡献采用 MIT OR Apache-2.0 双重许可，完整条款与适用范围见 [LICENSE](LICENSE)；Blockly、CodeMirror 等第三方内容保留原许可。

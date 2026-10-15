@@ -5,4 +5,9 @@
     <li>1.6</li>
     <li IfModActive="Nanaloveyuki.IrisMenus">IrisMenus</li>
   </v1.6>
+  <v1.7>
+    <li>/</li>
+    <li>1.7</li>
+    <li IfModActive="Nanaloveyuki.IrisMenus">1.7/IrisMenus</li>
+  </v1.7>
 </loadFolders>

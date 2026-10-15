@@ -1,6 +1,6 @@
 # Third-party notices
 
-RimCarbon14 is licensed under MIT; see LICENSE.
+Nanaloveyuki-owned contributions to RimCarbon14 are licensed under MIT OR Apache-2.0, at your option; see LICENSE for both full texts and scope. The third-party components below retain their original licenses.
 
 - Harmony / Lib.Harmony: MIT, Andreas Pardeike and contributors. Runtime supplied by
   the separate Harmony mod. https://github.com/pardeike/Harmony

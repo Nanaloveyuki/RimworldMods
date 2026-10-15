@@ -34,7 +34,9 @@ namespace IrisMenus
         private MenuWindow(FrostBackground drawing, MenuPage requested) : base(drawing)
         {
             background = drawing;
+#if !RIMWORLD_1_7
             background.Owner = this;
+#endif
             drawShadow = false;
             forcePause = true;
             absorbInputAroundWindow = true;
@@ -61,7 +63,9 @@ namespace IrisMenus
             base.PostOpen();
             if (Settings.X >= 0f) windowRect.position = new Vector2(Settings.X, Settings.Y);
             ClampGeometry();
+#if !RIMWORLD_1_7
             background.Start();
+#endif
         }
 
         public override void Notify_ResolutionChanged() { ClampGeometry(); }

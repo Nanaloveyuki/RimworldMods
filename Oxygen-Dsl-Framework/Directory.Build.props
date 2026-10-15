@@ -8,6 +8,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(OS)' == 'Windows_NT'">E:\Apps\Steam\steamapps\common\RimWorld</RimWorldDir>
     <RimWorldDir Condition="'$(RimWorldDir)' == ''">/mnt/e/Apps/Steam/steamapps/common/RimWorld</RimWorldDir>
-    <RimWorldManagedDir>$(RimWorldDir)/RimWorldWin64_Data/Managed</RimWorldManagedDir>
+    <RimWorldManagedDir Condition="'$(RimWorldManagedDir)' == ''">$(RimWorldDir)</RimWorldManagedDir>
+    <HarmonyPath Condition="'$(HarmonyPath)' == ''">$(RimWorldDir)/../../workshop/content/294100/2009463077/1.7/Assemblies/0Harmony.dll</HarmonyPath>
   </PropertyGroup>
 </Project>

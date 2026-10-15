@@ -1,3 +1,4 @@
+#if !RIMWORLD_1_7
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -104,3 +105,4 @@ namespace IrisMenus
         }
     }
 }
+#endif

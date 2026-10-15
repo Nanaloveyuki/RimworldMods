@@ -1,6 +1,6 @@
 # IrisMenus
 
-Opt-in RimWorld 1.6 settings UI library. Requires Harmony; no dependency on RimIris.
+Opt-in RimWorld 1.6/1.7 settings UI library. Requires Harmony; no dependency on RimIris.
 Original settings entries for opted-in owners open IrisMenus. Unselected mods
 and unrelated game settings remain untouched.
 
@@ -99,49 +99,85 @@ methods or private settings are patched or reflected.
 
 ## Build
 
+Install the .NET 10 SDK and a local RimWorld 1.7 installation. The existing
+engine-double checks also require the .NET 9 runtime. Builds and deployment
+default to 1.7 and use the installed game's DLLs, not a 1.7 NuGet package.
+The existing 1.6 DLL and shader bundle are preserved unchanged: deployment
+scripts neither rebuild nor copy any 1.6 files. Harmony remains an external
+runtime dependency; its reference package is used only to compile the mod.
+
 ```powershell
-./scripts/build-and-deploy.ps1
-./scripts/validate.ps1
-./scripts/build-and-deploy.ps1 -SkipBuild -GameModPath 'D:\Appdata\Steam\steamapps\common\RimWorld\Mods\IrisMenus'
+./scripts/build-and-deploy.ps1 -SkipGpu
+./scripts/validate.ps1 -SkipGpu
+# Deployment is explicit; this rebuilds only the 1.7 DLL before copying.
+./scripts/build-and-deploy.ps1 -SkipGpu -GameModPath 'E:\Apps\Steam\steamapps\common\RimWorld\Mods\IrisMenus'
 ```
 
-On WSL, build against the installed game's managed assemblies and deploy to
-`E:\Apps\Steam\steamapps\common\RimWorld\Mods\IrisMenus`:
+`-RimWorldManagedDir` overrides the 1.7 DLL directory. Its default is
+`E:\Apps\Steam\steamapps\common\RimWorld` on Windows and
+`/mnt/e/Apps/Steam/steamapps/common/RimWorld` on WSL. In 1.7 the DLLs are at the
+game root, not `RimWorldWin64_Data/Managed`. A decompiled source tree such as
+`D:\References\Rimworld\Vanilla\1.7\Game` is useful for API research but cannot
+be passed as the DLL directory.
+
+For DLL-only iteration:
 
 ```bash
-./scripts/deploy.sh
+# Default: 1.7, net10.0, 1.7/Assemblies/IrisMenus.dll
+dotnet build Source/IrisMenus.csproj -c Release
+# Explicit 1.7 selection is also accepted.
+dotnet build Source/IrisMenus.csproj -c Release -p:RimWorldVersion=1.7
+```
+
+Consumers must reference the DLL matching their game version and target
+`net48` for 1.6 or `net10.0` for 1.7. `tests/ApiConsumer` accepts the same
+`RimWorldVersion` and `RimWorldManagedDir` properties. Both versions expose
+the same consumer APIs; 1.7 compilation defines `RIMWORLD_1_7` internally.
+
+The `RimWorldVersion=1.6` compile configuration remains available only for
+explicit legacy maintenance (`net48`, `Krafs.Rimworld.Ref` 1.6.4633, or a
+`RimWorldManagedDir` override pointing to a separate 1.6 Managed directory).
+Do not invoke it during the 1.7 upgrade: it would replace the preserved output.
+
+On WSL, build 1.7 and optionally deploy:
+
+```bash
 ./scripts/deploy.sh --build-only
+./scripts/deploy.sh
 RIMWORLD_DIR='/mnt/d/Steam/steamapps/common/RimWorld' ./scripts/deploy.sh
 ```
 
 `CONFIGURATION` defaults to `Release` (`Debug` is also accepted). `RIMWORLD_DIR`
-overrides the default game directory; `RimWorldDir` is accepted as a fallback.
-The script reuses the checked-in shader bundle without running Unity, refuses
-deployment while RimWorld is running, validates the complete file manifest and
-target package identity before copying, rejects destination symlink redirects,
-and verifies SHA-256 hashes. It deploys only IrisMenus runtime files, README,
-both guides, and `docs/`; Harmony and game assemblies are never copied.
+overrides the game/deployment root; `RimWorldDir` is accepted as a fallback.
+`RIMWORLD_1_7_MANAGED_DIR` can separately select the 1.7 DLL directory.
+The script builds only 1.7 from installed DLLs, never invokes Unity, refuses
+deployment while RimWorld is running, validates the manifest and package
+identity, rejects destination symlink redirects, and verifies SHA-256 hashes.
 
-Deployment is opt-in. It creates a new target or verifies an existing target's
-package ID, copies runtime package files, both integration guides, and `docs/`,
-then verifies each file hash.
-It never edits ModsConfig or removes other files.
+`LoadFolders.xml` selects `[1.6]` or `[1.7, Common]`. The unchanged legacy
+resources remain in `1.6`; 1.7 uses `Common` and loads neither the 1.6 DLL nor its Unity
+AssetBundle. The native 1.7 shader source lives in `1.7/Rendering/Frost17.frag.glsl`.
+Deployment copies only the 1.7 DLL, `1.7/Rendering/`, shared resources, metadata,
+README, both guides and `docs/`, never Harmony or game dependencies. It leaves
+the destination's entire existing `1.6/` directory untouched and does not
+remove files or edit ModsConfig. A fresh 1.7 staging package intentionally has
+no 1.6 DLL/bundle; retain the existing 1.6 artifacts separately for legacy use.
+`-SkipBuild` stages a freshly built 1.7 output without rebuilding it.
 
-Shader builds need Unity 2022.3.35 on Windows with D3D11. The script discovers
-that editor in Unity Hub's local registry, or accepts `-UnityPath`. It builds
-the included shader source and runs GPU fixtures against the reloaded bundle.
-No RimIris source or AssetBundle is distributed. Build products include
-`1.6/Assemblies/IrisMenus.dll` and `1.6/AssetBundles/irismenus_frost`.
-
-For DLL-only iteration use `dotnet build Source/IrisMenus.csproj -c Release`.
-Pass `-p:RimWorldManagedDir=...` to compile against an installed game's actual
-Managed directory instead of NuGet reference assemblies. `validate.ps1
--SkipGpu` runs the API/engine-double/package checks using the existing bundle.
+`validate.ps1 -SkipGpu` builds the 1.7 API consumer and provider, runs
+engine-double checks, validates XML/translations and load-folder isolation,
+and stages a hash-verified 1.7 package without deploying to the game. Staging
+explicitly rejects 1.6 files. Neither PowerShell script invokes Unity or changes
+the preserved 1.6 bundle, with or without `-SkipGpu`; without that switch it
+prints the reminder that native GPU/UI acceptance is manual. The historical
+Unity 2022.3.35/D3D11 fixtures cover only the 1.6 renderer and are not run by
+this workflow. Native 1.7 blur orientation, rounded clipping and UI interactions
+require verification in the actual 1.7 game.
 
 ## Background
 
-The private `IWindowDrawing` implementation affects only IrisMenus. A command
-buffer on the active map/world camera captures its output after rendering;
+On RimWorld 1.6, the private `IWindowDrawing` implementation affects only
+IrisMenus. A command buffer on the active map/world camera captures its output after rendering;
 top-origin backbuffer captures are normalized before blurring. Two half-resolution
 targets and a separable Gaussian shader generate the background. The blur scratch
 target is reused for the window crop; the background, tint and border share the
@@ -154,10 +190,20 @@ and releases textures and material. The shader is borrowed from this mod's
 There is no duplicate bundle load and no CPU pixel readback in
 the runtime path.
 
-Outside a rendered game scene (including the main menu), with no eligible
-camera, or after a shader-load failure, the window uses an unblurred translucent
-background. Transparency works independently of the frost switch; zero
-transparency uses an opaque rounded background.
+RimWorld 1.7 uses the game's native renderer instead of Unity camera commands.
+A narrow `ImGuiRenderFeature.Record` hook borrows the scene color for the current
+submission; the native fragment shader applies blur and rounded fill/border.
+The game shader cache loads `1.7/Rendering/Frost17.frag.glsl` directly from its
+absolute source path. This path does not load the 1.6 Unity bundle or extract
+shader files from the DLL.
+The native path uses a 25-sample Gaussian footprint rather than the legacy
+half-resolution separable filter; blur strength is retained, not pixel-identical.
+RimWorld 1.7 requires the Harmony mod's .NET 10-compatible Harmony 3 runtime.
+
+Outside a rendered game scene (including the main menu), the window uses an
+unblurred translucent background. Transparency works independently of frost;
+zero transparency uses an opaque rounded background. A native shader-load
+failure is logged and falls back to the vanilla window background.
 Turning the background off and on retries loading without restarting the game.
 **Remember last page** is enabled by default in the window footer and the original
 IrisMenus settings dialog. It restores the page, global/owner search, result page,
@@ -213,7 +259,7 @@ persistence, frosted background, and English/Chinese labels.
 production files against engine doubles, including persistence contracts and
 camera callback lifetime and ownership of game-preloaded bundles. The entry
 router is exercised with real Harmony against a doubled window stack.
-Unity fixtures compile the actual GPU/layout files,
+RimWorld 1.6 Unity fixtures compile the actual GPU/layout files,
 reload the built bundle, check pixel variance/orientation, render a camera,
 verify texture reuse/resize/release, and check layout containment. PNG outputs
 and the GPU result are written under ignored `tmp/`.

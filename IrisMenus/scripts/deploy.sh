@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build and deploy IrisMenus; reuse the existing shader bundle, never ship dependencies.
+# Build and deploy RimWorld 1.7 only; preserve all existing 1.6 files.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -19,11 +19,13 @@ if [[ "$configuration" != "Release" && "$configuration" != "Debug" ]]; then
   exit 1
 fi
 
-managed="$rimworld/RimWorldWin64_Data/Managed"
-if [[ ! -f "$managed/Assembly-CSharp.dll" ]]; then
-  echo "RimWorld managed assemblies not found: $managed" >&2
-  exit 1
-fi
+managed="${RIMWORLD_1_7_MANAGED_DIR:-$rimworld}"
+for assembly in Assembly-CSharp UnityStubs RimWorld Waylith; do
+  if [[ ! -f "$managed/$assembly.dll" ]]; then
+    echo "RimWorld 1.7 DLL not found: $managed/$assembly.dll (set RIMWORLD_1_7_MANAGED_DIR to the installed DLL directory)." >&2
+    exit 1
+  fi
+done
 
 check_game_stopped() {
   if command -v powershell.exe >/dev/null 2>&1; then
@@ -43,7 +45,7 @@ if [[ "$build_only" == 0 ]]; then
   check_game_stopped
 fi
 
-dotnet build "$root/Source/IrisMenus.csproj" -c "$configuration" -p:RimWorldManagedDir="$managed" --nologo
+dotnet build "$root/Source/IrisMenus.csproj" -c "$configuration" -p:RimWorldVersion=1.7 -p:RimWorldManagedDir="$managed" --nologo
 if [[ "$build_only" == 1 ]]; then
   exit 0
 fi
@@ -59,11 +61,11 @@ from pathlib import Path
 root = Path(sys.argv[1]).resolve()
 target = Path(sys.argv[2])
 package_id = "Nanaloveyuki.IrisMenus"
-folders = ("1.6/Defs", "1.6/Languages", "docs")
+folders = ("Common/Defs", "Common/Languages", "1.7/Rendering", "docs")
 files = (
-    "About/About.xml", "README.md", "LICENSE", "guide.md", "guide_agents.md",
+    "About/About.xml", "LoadFolders.xml", "README.md", "LICENSE", "guide.md", "guide_agents.md",
     "About/Preview.png", "About/ModIcon.png",
-    "1.6/Assemblies/IrisMenus.dll", "1.6/AssetBundles/irismenus_frost",
+    "1.7/Assemblies/IrisMenus.dll", "1.7/Rendering/Frost17.frag.glsl",
 )
 
 
@@ -92,6 +94,7 @@ for folder in folders:
     if not path.is_dir():
         raise SystemExit(f"Required source directory not found: {path}")
     sources.extend((item, item.relative_to(root)) for item in sorted(path.rglob("*")) if item.is_file())
+sources = list(dict.fromkeys(sources))
 
 # Validate the complete manifest before writing into the game directory.
 for source, relative in sources:

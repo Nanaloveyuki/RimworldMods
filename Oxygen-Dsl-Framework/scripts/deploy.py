@@ -25,7 +25,7 @@ if target.exists():
         raise SystemExit("Non-empty target has no mod identity")
 
 manifest = []
-for folder in ("About", "Languages", "docs", "Examples", "Oxygen", "WebEditor", "1.6/Defs"):
+for folder in ("About", "Languages", "docs", "Examples", "Oxygen", "WebEditor", "1.7/Defs"):
     source = root / folder
     if not source.is_dir():
         raise SystemExit(f"Missing release directory: {source}")
@@ -35,15 +35,15 @@ for name in ("LoadFolders.xml", "LICENSE", "THIRD_PARTY_NOTICES.md"):
 if (root / "README.md").is_file():
     manifest.append((root / "README.md", Path("README.md")))
 for name in ("Oxygendsl.Core", "Oxygendsl.Mod"):
-    manifest.append((root / f"tmp/build/{name}.dll", Path(f"1.6/Assemblies/{name}.dll")))
-    pdb = root / f"tmp/build/{name}.pdb"
+    manifest.append((root / f"tmp/build/1.7/{name}.dll", Path(f"1.7/Assemblies/{name}.dll")))
+    pdb = root / f"tmp/build/1.7/{name}.pdb"
     if pdb.is_file():
-        manifest.append((pdb, Path(f"1.6/Assemblies/{name}.pdb")))
+        manifest.append((pdb, Path(f"1.7/Assemblies/{name}.pdb")))
 for name, folder in (("Oxygendsl.Rhah", "Rhah"), ("Oxygendsl.IrisMenus", "IrisMenus")):
-    adapter = root / f"tmp/build/{name}.dll"
+    adapter = root / f"tmp/build/1.7/{name}.dll"
     if not adapter.is_file():
         raise SystemExit(f"Missing optional adapter build input: {adapter}")
-    manifest.append((adapter, Path(f"{folder}/Assemblies/{name}.dll")))
+    manifest.append((adapter, Path(f"1.7/{folder}/Assemblies/{name}.dll")))
 for source, relative in manifest:
     if not source.is_file():
         raise SystemExit(f"Missing release input: {source}")

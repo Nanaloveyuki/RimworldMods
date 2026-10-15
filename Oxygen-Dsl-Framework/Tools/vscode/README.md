@@ -61,4 +61,4 @@ npm run package:vsix
 
 VSIX 输出到仓库 `tmp/vscode/`。打包会自动重新发布检查器；发布的是跨平台、依赖运行时的 DLL，携带 Core 与许可文件，不携带游戏／Unity 程序集。开发打包脚本和 `node_modules` 不进入 VSIX。
 
-高亮／发布结构参考 AdvancedRimTalk 的 Arti 插件，按 Oxygen 当前语法重新适配；许可证见 `LICENSE`。检查器及语言核心许可见 `server/LICENSE` 与 `server/THIRD_PARTY_NOTICES.md`。Blockly 使用 Apache-2.0，许可随包附于 `media/Blockly-LICENSE`。图形编程契约见仓库 `docs/ide.md`。
+高亮／发布结构参考 AdvancedRimTalk 的 Arti 插件，按 Oxygen 当前语法重新适配。Nanaloveyuki 自有贡献采用 MIT OR Apache-2.0 双重许可；完整条款分别见保留的 `LICENSE` 与 `LICENSE-APACHE`。检查器及语言核心的完整双重许可与来源说明见 `server/LICENSE` 与 `server/THIRD_PARTY_NOTICES.md`。Blockly 保留 Apache-2.0 许可，随包附于 `media/Blockly-LICENSE`；其他第三方内容保留原许可。图形编程契约见仓库 `docs/ide.md`。

@@ -1,15 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <AssemblyName>Oxygendsl.Tool</AssemblyName>
-    <OutputPath>../../tmp/tool/</OutputPath>
+    <OutputPath>../../tmp/tool/1.7/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../Mod/Oxygendsl.Mod.csproj" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="Assembly-CSharp"><HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
-    <Reference Include="UnityEngine.CoreModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Assembly-CSharp"><HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath><Private>true</Private></Reference>
+    <Reference Include="UnityStubs"><HintPath>$(RimWorldManagedDir)/UnityStubs.dll</HintPath><Private>true</Private></Reference>
   </ItemGroup>
 </Project>

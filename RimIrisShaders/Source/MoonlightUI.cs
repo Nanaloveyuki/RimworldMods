@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Xml;
 using RimIris;
-using UnityEngine;
 using Verse;
 
 namespace RimIrisShaders
@@ -22,23 +22,11 @@ namespace RimIrisShaders
                 RuntimeHelpers.RunClassConstructor(typeof(RimIrisInitializer).TypeHandle);
                 PackEntry entry = PackRegistry.Get(PackId);
                 if (entry == null) throw new InvalidOperationException("Moonlight pack was not registered.");
-                var mod = LoadedModManager.RunningMods.First(m =>
-                    string.Equals(m.PackageId, "RimIrisShaders.Moonlight", StringComparison.OrdinalIgnoreCase));
-                var json = (Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(
-                    Path.Combine(mod.RootDir, "ShaderPacks", "Moonlight", "options.json")));
-                var options = new List<PackOptionDef>();
-                foreach (Dictionary<string, object> option in (List<object>)json["options"])
-                {
-                    options.Add(new PackOptionDef {
-                        Id = (string)option["id"],
-                        Min = Convert.ToSingle(option["min"]),
-                        Max = Convert.ToSingle(option["max"]),
-                        Default = Convert.ToSingle(option["default"])
-                    });
-                }
+                // NameKey/DescKey are read on every draw. Bundle option panes are owned by
+                // PackEngine; replacing DrawOptions hides them and can fail the addon.
                 entry.NameKey = "Moonlight_Name";
                 entry.DescKey = "Moonlight_Description";
-                entry.DrawOptions = list => DrawOptions(list, entry, options);
+                ApplyOptionLabels();
             }
             catch (Exception ex)
             {
@@ -46,27 +34,41 @@ namespace RimIrisShaders
             }
         }
 
-        private static void DrawOptions(Listing_Standard list, PackEntry entry, List<PackOptionDef> options)
+        private static void ApplyOptionLabels()
         {
-            list.Label(entry.DisplayName);
-            list.Label(entry.DisplayDesc);
-            list.Gap();
-            var settings = RimIrisBetaMod.Settings;
-            if (settings == null || entry.Status != PackStatus.Ok ||
-                (settings.activePack != PackId && (settings.enabledAddons == null || !settings.enabledAddons.Contains(PackId))))
+            List<PackOptionDef> options = PackEngine.GetOptionDefs(PackId);
+            if (options == null) return;
+            LoadedLanguage language = LanguageDatabase.activeLanguage;
+            string folder = language == null ? "English" : language.folderName;
+            Dictionary<string, string> labels = ReadLabels(folder) ?? new Dictionary<string, string>();
+            Dictionary<string, string> english = folder == "English" ? labels : ReadLabels("English");
+            foreach (PackOptionDef option in options)
             {
-                list.Label("Moonlight_Disabled".Translate());
-                return;
+                string label;
+                if (labels.TryGetValue("Moonlight_" + option.Id, out label) ||
+                    (english != null && english.TryGetValue("Moonlight_" + option.Id, out label)))
+                    option.Label = label;
             }
-            foreach (var option in options)
+        }
+
+        private static Dictionary<string, string> ReadLabels(string folder)
+        {
+            ModContentPack mod = LoadedModManager.RunningMods.FirstOrDefault(m =>
+                string.Equals(m.PackageId, "RimIrisShaders.Moonlight", StringComparison.OrdinalIgnoreCase));
+            if (mod == null) return null;
+            string path = Path.Combine(mod.RootDir, "Languages", folder, "Keyed", "Moonlight.xml");
+            if (!File.Exists(path)) return null;
+            var doc = new XmlDocument();
+            doc.Load(path);
+            XmlNode root = doc.DocumentElement;
+            if (root == null) return null;
+            var labels = new Dictionary<string, string>();
+            foreach (XmlNode node in root.ChildNodes)
             {
-                float value;
-                if (!settings.packOptionValues.TryGetValue(PackId + "|" + option.Id, out value))
-                    value = option.Default;
-                list.Label(("Moonlight_" + option.Id).Translate() + ": " + value.ToString("0.##"));
-                float next = list.Slider(value, option.Min, option.Max);
-                if (!Mathf.Approximately(value, next)) PackEngine.SetOptionValue(PackId, option, next);
+                if (node.NodeType != XmlNodeType.Element || string.IsNullOrEmpty(node.InnerText)) continue;
+                labels[node.Name] = node.InnerText;
             }
+            return labels;
         }
     }
 }

@@ -1,6 +1,6 @@
 # ODF Mods
 
-基于 Oxygen DSL Framework 的独立 RimWorld Mod monorepo。每个 `Mods/<Name>/` 是独立发布包，包名统一为 `odf.nanaloveyuki.<name>`。不把多个 Mod 打成一个必须全部启用的包，也不为 RHAH 增加依赖。
+RimworldMods monorepo 中基于 Oxygen DSL Framework 的模组集合。每个 `Mods/<Name>/` 是独立发布包，包名统一为 `odf.nanaloveyuki.<name>`。不把多个 Mod 打成一个必须全部启用的包，也不为 RHAH 增加依赖。
 
 ## 当前 Mod
 
@@ -8,11 +8,11 @@
 | --- | --- | --- |
 | [PrisonerNames](Mods/PrisonerNames/README.md) | `odf.nanaloveyuki.prisonernames` | 保留原姓名；支持英文命名占位符、年龄段／种族覆盖、持久分数／等级、事件规则和单人覆盖 |
 
-`PrisonerNames` 依赖 Harmony、`nanaloveyuki.oxygendsl` 和 `Nanaloveyuki.IrisMenus`，不依赖 RHAH、HAR 或旧囚犯代号。旧 Mod 仅参考公开功能说明；未读取或复用其实现源码。根目录已有 LICENSE 保持不变。ODF 的 IrisMenus 适配为依赖 Mod 自动提供本机网页编辑／退出操作，IrisMenus 不反向依赖 ODF。
+`PrisonerNames` 依赖 Harmony、`nanaloveyuki.oxygendsl` 和 `Nanaloveyuki.IrisMenus`，不依赖 RHAH、HAR 或旧囚犯代号。旧 Mod 仅参考公开功能说明；未读取或复用其实现源码。Nanaloveyuki 自有贡献采用 MIT OR Apache-2.0 双重许可，见 [LICENSE](LICENSE)；第三方内容保留原许可。ODF 的 IrisMenus 适配为依赖 Mod 自动提供本机网页编辑／退出操作，IrisMenus 不反向依赖 ODF。
 
 ## 构建和部署
 
-需要 .NET SDK、RimWorld 1.6 本机程序集及相邻 `../Oxygen-Dsl-Framework` 仓库。游戏程序集与 Harmony 不随发布包分发；Oxygen 程序集只由框架 Mod 提供。
+需要 .NET SDK、RimWorld 1.6 本机程序集及 monorepo 同级目录 `../Oxygen-Dsl-Framework`。无需单独克隆框架仓库。游戏程序集与 Harmony 不随发布包分发；Oxygen 程序集只由框架 Mod 提供。
 
 ```sh
 # 游戏运行时也可构建；发布包输出 artifacts/PrisonerNames
@@ -28,7 +28,7 @@ bash scripts/deploy.sh all
 dotnet run --project Tests/PrisonerNames.Checks.csproj -c Release
 ```
 
-默认游戏路径为 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；`RIMWORLD_DIR` 可覆盖。需要同时安装当前 Oxygen 框架；此仓库部署脚本不会自行修改玩家的启用列表或旧 Mod。部署前检查游戏进程，检查目标包名，并逐文件核对 SHA-256。
+默认游戏路径为 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；`RIMWORLD_DIR` 可覆盖。需要同时安装当前 Oxygen 框架；本项目部署脚本不会自行修改玩家的启用列表或旧 Mod。部署前检查游戏进程，检查目标包名，并逐文件核对 SHA-256。
 
 新增 Mod 在 `Mods/` 下独立放置 About、LoadFolders、Languages、Oxygen 和 Source；程序集名使用 `Odf.<DirectoryName>`，输出 `tmp/build/<DirectoryName>/`，在 `ODF-Mods.slnx` 添加项目。每个发布包只包含自己的程序集，不重复打包 Oxygen。
 

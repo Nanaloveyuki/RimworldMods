@@ -7,8 +7,8 @@
   <supportedVersions><li>1.6</li></supportedVersions>
   <modDependencies>
     <li><packageId>brrainz.harmony</packageId><displayName>Harmony</displayName><steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl></li>
-    <li><packageId>nanaloveyuki.oxygendsl</packageId><displayName>Oxygen DSL Framework</displayName><downloadUrl>https://github.com/Nanaloveyuki/Oxygen-Dsl-Framework</downloadUrl></li>
-    <li><packageId>Nanaloveyuki.IrisMenus</packageId><displayName>IrisMenus</displayName><downloadUrl>https://github.com/Nanaloveyuki/IrisMenus</downloadUrl></li>
+    <li><packageId>nanaloveyuki.oxygendsl</packageId><displayName>Oxygen DSL Framework</displayName><downloadUrl>https://github.com/Nanaloveyuki/RimworldMods/tree/main/Oxygen-Dsl-Framework</downloadUrl></li>
+    <li><packageId>Nanaloveyuki.IrisMenus</packageId><displayName>IrisMenus</displayName><downloadUrl>https://github.com/Nanaloveyuki/RimworldMods/tree/main/IrisMenus</downloadUrl></li>
   </modDependencies>
   <incompatibleWith><li>lezhizhong.prisonercodename</li></incompatibleWith>
   <description>使用 Oxygen DSL 制作的囚犯代号模组, 方便调试和修改 | Dynamic prisoner names mod using Oxygen DSL, for easy debugging and modification</description>

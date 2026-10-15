@@ -3,9 +3,9 @@
   <name>Oxygen Ratkin gate example</name>
   <author>Nanaloveyuki</author>
   <packageId>nanaloveyuki.oxygen.example.rhah</packageId>
-  <supportedVersions><li>1.6</li></supportedVersions>
+  <supportedVersions><li>1.6</li><li>1.7</li></supportedVersions>
   <modDependencies>
-    <li><packageId>nanaloveyuki.oxygendsl</packageId><displayName>Oxygen DSL Framework</displayName><downloadUrl>https://github.com/Nanaloveyuki/Oxygen-Dsl-Framework</downloadUrl></li>
+    <li><packageId>nanaloveyuki.oxygendsl</packageId><displayName>Oxygen DSL Framework</displayName><downloadUrl>https://github.com/Nanaloveyuki/RimworldMods/tree/main/Oxygen-Dsl-Framework</downloadUrl></li>
     <li><packageId>nanaloveyuki.ratkin.hungerandhavoc</packageId><displayName>Ratkin: Hunger and Havoc</displayName></li>
   </modDependencies>
   <loadAfter><li>nanaloveyuki.oxygendsl</li><li>nanaloveyuki.ratkin.hungerandhavoc</li></loadAfter>

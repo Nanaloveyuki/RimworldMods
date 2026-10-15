@@ -3,6 +3,7 @@
 1.6/Assemblies/*.dll
 1.6/Assemblies/*.pdb
 1.6/Assemblies/*.deps.json
+1.7/Assemblies/
 .vs/
 tmp/
 Tools/Unity/Library/

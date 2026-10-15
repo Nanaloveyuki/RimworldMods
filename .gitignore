@@ -1,0 +1,15 @@
+# Shared build outputs and local evidence; project rules remain in their directories.
+**/bin/
+**/obj/
+**/tmp/
+**/artifacts/
+**/node_modules/
+**/__pycache__/
+*.py[cod]
+.vs/
+.idea/
+*.user
+*.suo
+.DS_Store
+Thumbs.db
+Desktop.ini

@@ -1,7 +1,7 @@
 {
   "options": [
-    {"id": "strength", "type": "float", "label": "Moonlight strength", "min": 0, "max": 1, "default": 1},
-    {"id": "brightness", "type": "float", "label": "Night brightness", "min": 0, "max": 3, "default": 1.6},
+    {"id": "strength", "type": "float", "label": "Light intensity", "min": 0, "max": 1, "default": 1},
+    {"id": "brightness", "type": "float", "label": "Night vision", "min": 0, "max": 3, "default": 1.6},
     {"id": "coolness", "type": "float", "label": "Cool tint", "min": 0, "max": 1, "default": 0.65}
   ]
 }

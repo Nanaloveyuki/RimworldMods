@@ -1,13 +1,13 @@
 # IrisMenus 接入指南
 
-IrisMenus 是 RimWorld 1.6 的共享 Mod 设置窗口，需要 Harmony，不依赖 RimIris。
+IrisMenus 是 RimWorld 1.6/1.7 的共享 Mod 设置窗口，需要 Harmony，不依赖 RimIris。
 设置值仍由你的 Mod 持有、修改和保存；IrisMenus 负责页面、导航和搜索。
 Markdown 动态内容和外部只读文件的接入方式见
 [docs/markdown.md](docs/markdown.md)。
 
 ## 1. 引用与加载
 
-编译时引用 `1.6/Assemblies/IrisMenus.dll`，设置 `Private=false`，不要把它再打包进自己的 Mod。
+按游戏版本引用 `1.6/Assemblies/IrisMenus.dll`（`net48`）或 `1.7/Assemblies/IrisMenus.dll`（`net10.0`），设置 `Private=false`，不要把它再打包进自己的 Mod。两版提供相同的接入 API。
 在你的 `About/About.xml` 的 `modDependencies` 中加入：
 
 ```xml
@@ -164,16 +164,45 @@ IrisMenus 窗口底栏和原版 IrisMenus 设置页都提供“显示底部 Iris
 完整、参与编译验证的示例位于仓库 `tests/ApiConsumer/ExampleMod.cs`。
 引擎替身测试和编译不能替代游戏实测：接入后需检查切页、定位、长翻译、窗口缩放、保存与重启。
 
-## 7. WSL 构建与部署
+## 7. 构建与部署
+
+需要 .NET 10 SDK、本地 RimWorld 1.7 游戏文件；运行现有引擎替身测试还需要 .NET 9 runtime。
+默认构建 1.7，从已安装游戏读取 DLL，没有对应的 NuGet 引用包。
+现有 1.6 DLL 和 Shader bundle 保持原样；本次构建、验证和部署脚本不重建、不复制任何 1.6 文件。
 
 ```bash
-./scripts/deploy.sh
+# 默认编译 1.7，输出到 1.7/Assemblies。
+dotnet build Source/IrisMenus.csproj -c Release
+# 显式选择 1.7。
+dotnet build Source/IrisMenus.csproj -c Release -p:RimWorldVersion=1.7
+# 只构建 1.7，不部署。
 ./scripts/deploy.sh --build-only
+# 构建并部署 1.7。
+./scripts/deploy.sh
 RIMWORLD_DIR='/mnt/d/Steam/steamapps/common/RimWorld' ./scripts/deploy.sh
 ```
 
-默认 Release，使用已安装游戏的程序集编译，部署到 `E:\Apps\Steam\steamapps\common\RimWorld\Mods\IrisMenus`。
-`CONFIGURATION=Debug` 可切换配置，`RIMWORLD_DIR` 可覆盖游戏目录（兼容 `RimWorldDir`）。
-沿用仓库中的 Shader bundle，不启动 Unity。部署前需退出游戏；脚本检查进程、目标包标识、完整文件清单及符号链接，复制后校验 SHA-256。
-只部署 IrisMenus 运行文件和说明，不复制 Harmony/游戏程序集，不修改 ModsConfig，也不删除目标中的其他文件。
+默认 Release，1.7 DLL 目录是 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；Windows 下为 `E:\Apps\Steam\steamapps\common\RimWorld`。
+1.7 的 DLL 位于游戏根目录，已不在 `RimWorldWin64_Data/Managed`。`-p:RimWorldManagedDir=...` 可覆盖 DLL 目录；反编译源码目录（如 `D:\References\Rimworld\Vanilla\1.7\Game`）不能用于编译引用。
+保留 `-p:RimWorldVersion=1.6` 编译配置，仅供明确安排的旧版维护使用；它会覆盖 `1.6/Assemblies` 的现有输出，本次升级不要调用。该配置可从 `Krafs.Rimworld.Ref` 1.6.4633 获取引用，或用 `-p:RimWorldManagedDir=<1.6游戏>/RimWorldWin64_Data/Managed` 指向独立的 1.6 游戏，不能使用 1.7 DLL。
+
+WSL 脚本只构建和打包 1.7。`CONFIGURATION=Debug` 可切换配置，`RIMWORLD_DIR` 可覆盖部署用游戏目录（兼容 `RimWorldDir`）；`RIMWORLD_1_7_MANAGED_DIR` 可单独指定 1.7 DLL 目录。
+不启动 Unity，不触碰目标中的整个 `1.6/` 目录。部署前需退出游戏；脚本检查进程、目标包标识、完整文件清单及符号链接，复制后校验 SHA-256。
+部署内容为 1.7 DLL、原生 shader、共享资源和说明，不复制 Harmony/游戏程序集，不删除目标文件，也不修改 ModsConfig。全新暂存包不含 1.6 DLL/bundle，旧版继续使用原有产物。
+
+Windows 或 PowerShell 7 下可使用：
+
+```powershell
+./scripts/build-and-deploy.ps1 -SkipGpu
+./scripts/validate.ps1 -SkipGpu
+./scripts/build-and-deploy.ps1 -SkipGpu -GameModPath 'E:\Apps\Steam\steamapps\common\RimWorld\Mods\IrisMenus'
+```
+
+两份脚本均可用 `-RimWorldManagedDir` 指定 1.7 DLL 目录。构建脚本只有传入 `-GameModPath` 才部署；`-SkipBuild` 仅适用于 1.7 刚完成构建后的暂存/复制。
+验证脚本只编译 1.7 API 示例和提供方 DLL、运行引擎替身检查、校验 XML/翻译及加载目录，再暂存 1.7 包并验证哈希，明确检查包内没有 1.6 文件，不部署到游戏。
+无论是否传入 `-SkipGpu`，两份脚本均不启动 Unity、不重建 1.6 bundle；省略开关时会提示需要实际游戏 GPU/UI 验收。历史 Unity 2022.3.35/D3D11 测试只覆盖 1.6，不在本次流程中运行。1.7 毛玻璃方向、圆角裁切和界面交互需在 1.7 游戏中检查。
+
+1.6 的原有 Def 和语言文件保持在 `1.6/`；1.7 使用 `Common/Defs`、`Common/Languages`。`LoadFolders.xml` 分别加载 `[1.6]` 和 `[1.7, Common]`，1.7 不会加载 1.6 DLL 或 Unity bundle。部署包包含 `1.7/Rendering/Frost17.frag.glsl`，游戏 shader 缓存直接读取源码路径。1.7 需要 Harmony Mod 中支持 .NET 10 的 Harmony 3。
+
+1.6 毛玻璃使用 Unity 相机和 bundle；1.7 在 `ImGuiRenderFeature.Record` 的渲染提交中借用场景颜色，由原生片段 shader 绘制模糊、圆角底色和边框。
 

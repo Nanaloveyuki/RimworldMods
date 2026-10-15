@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThoughtDef>
+    <defName>Oxygendsl_Memory</defName>
+    <thoughtClass>Oxygendsl.Mod.Thought_Memory_Oxygendsl</thoughtClass>
+    <durationDays>99999</durationDays>
+    <stackLimit>-1</stackLimit>
+    <stackedEffectMultiplier>1</stackedEffectMultiplier>
+    <validWhileDespawned>true</validWhileDespawned>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>oxygendsl</label>
+        <description>oxygendsl</description>
+        <baseMoodEffect>0</baseMoodEffect>
+        <visible>true</visible>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

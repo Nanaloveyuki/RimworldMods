@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Web.Script.Serialization;
+using System.Text.Json;
 using System.Xml;
 using Oxygendsl.Core;
 using Oxygendsl.Language;
@@ -82,8 +82,7 @@ namespace Oxygendsl.Tool
                 if (args[0] == "preview")
                 {
                     if (factsPath == null) throw new ArgumentException("preview requires --facts JSON facts; it does not invent game state.");
-                    JavaScriptSerializer json = new JavaScriptSerializer();
-                    IDictionary<string, object> values = (IDictionary<string, object>)json.DeserializeObject(File.ReadAllText(factsPath));
+                    IDictionary<string, object> values = PreviewInput(File.ReadAllText(factsPath));
                     PawnContext pawn = new PawnContext
                     {
                         Id = Integer(values, "id"), Name = Text(values, "name"),
@@ -167,6 +166,48 @@ namespace Oxygendsl.Tool
                 }
                 sha.TransformFinalBlock(new byte[0], 0, 0);
                 return BitConverter.ToString(sha.Hash).Replace("-", string.Empty);
+            }
+        }
+
+        static IDictionary<string, object> PreviewInput(string text)
+        {
+            using (JsonDocument document = JsonDocument.Parse(text, new JsonDocumentOptions { MaxDepth = 100 }))
+            {
+                if (document.RootElement.ValueKind != JsonValueKind.Object)
+                    throw new ArgumentException("Preview facts must be a JSON object.");
+                return (IDictionary<string, object>)PreviewValue(document.RootElement);
+            }
+        }
+
+        static object PreviewValue(JsonElement element)
+        {
+            switch (element.ValueKind)
+            {
+                case JsonValueKind.Object:
+                    var map = new Dictionary<string, object>(StringComparer.Ordinal);
+                    foreach (JsonProperty property in element.EnumerateObject())
+                        map[property.Name] = PreviewValue(property.Value);
+                    return map;
+                case JsonValueKind.Array:
+                    var items = new object[element.GetArrayLength()];
+                    int index = 0;
+                    foreach (JsonElement item in element.EnumerateArray()) items[index++] = PreviewValue(item);
+                    return items;
+                case JsonValueKind.String: return element.GetString();
+                case JsonValueKind.True: return true;
+                case JsonValueKind.False: return false;
+                case JsonValueKind.Null: return null;
+                case JsonValueKind.Number:
+                    if (element.TryGetInt32(out int integer)) return integer;
+                    if (element.TryGetInt64(out long largeInteger)) return largeInteger;
+                    // Preserve the preview contract: fixed-point numbers are decimal; exponents are double.
+                    string number = element.GetRawText();
+                    if (number.IndexOf('e') < 0 && number.IndexOf('E') < 0
+                        && decimal.TryParse(number, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal precise))
+                        return precise;
+                    if (element.TryGetDouble(out double real) && double.IsFinite(real)) return real;
+                    throw new ArgumentException("A preview JSON number is outside the supported range.");
+                default: throw new ArgumentException("Unsupported preview JSON value.");
             }
         }
 

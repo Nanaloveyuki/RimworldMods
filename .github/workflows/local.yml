@@ -27,15 +27,18 @@ jobs:
     if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: [self-hosted, Linux, X64, rhah]
     environment: rhah-local
+    defaults:
+      run:
+        working-directory: Ratkin_Hunger_and_Havoc
     env:
       RIMWORLD_DIR: ${{ vars.RIMWORLD_DIR || '/mnt/e/Apps/Steam/steamapps/common/RimWorld' }}
-      OXYGEN_DSL_DIR: ${{ vars.OXYGEN_DSL_DIR }}
+      OXYGEN_DSL_DIR: ${{ vars.OXYGEN_DSL_DIR || format('{0}/Oxygen-Dsl-Framework', github.workspace) }}
       HARMONY_PATH: ${{ vars.HARMONY_PATH }}
       OPERATION: ${{ inputs.operation }}
       RELEASE_TAG: ${{ inputs.release_tag }}
       CARBON_PROFILE: ${{ vars.CARBON_PROFILE }}
-      CARBON_SOURCE_DIR: ${{ vars.CARBON_SOURCE_DIR }}
-      PACKAGE_OUTPUT: tmp/automation/workflow-${{ github.run_id }}-${{ github.run_attempt }}/release
+      CARBON_SOURCE_DIR: ${{ vars.CARBON_SOURCE_DIR || format('{0}/RimCarbon14', github.workspace) }}
+      PACKAGE_OUTPUT: ${{ github.workspace }}/Ratkin_Hunger_and_Havoc/tmp/automation/workflow-${{ github.run_id }}-${{ github.run_attempt }}/release
     outputs:
       release_commit: ${{ steps.review.outputs.commit }}
     steps:
@@ -53,12 +56,12 @@ jobs:
       - name: Use repository-pinned SDK
         uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v4.3.1
         with:
-          global-json-file: global.json
-      - name: Require pre-reviewed local ODF configuration
+          global-json-file: Ratkin_Hunger_and_Havoc/global.json
+      - name: Require reviewed ODF source
         shell: bash
         run: |
           if [[ -z "$OXYGEN_DSL_DIR" || ! -d "$OXYGEN_DSL_DIR" ]]; then
-            echo 'Configure rhah-local OXYGEN_DSL_DIR to the locally reviewed ODF checkout.' >&2
+            echo 'ODF source is missing; use the sibling checkout or configure reviewed OXYGEN_DSL_DIR.' >&2
             exit 1
           fi
       - name: Require release tag to identify checked-out default-branch HEAD
@@ -139,7 +142,7 @@ jobs:
           path: |
             ${{ env.PACKAGE_OUTPUT }}/*.zip
             ${{ env.PACKAGE_OUTPUT }}/*.sha256.json
-            tmp/automation/*/safe-report.json
+            Ratkin_Hunger_and_Havoc/tmp/automation/*/safe-report.json
           if-no-files-found: warn
           retention-days: 14
   release:

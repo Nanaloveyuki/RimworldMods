@@ -40,7 +40,7 @@ namespace Oxygendsl.Mod
                 if (api == null || api.GetType("HungerAndHavoc.Api.IRHAH_PawnBehavior") == null)
                     throw new InvalidOperationException("The enabled RHAH mod did not load its behavior API.");
 
-                string path = Path.Combine(framework.RootDir, "Rhah", "Assemblies", "Oxygendsl.Rhah.dll");
+                string path = Path.Combine(framework.RootDir, "1.7", "Rhah", "Assemblies", "Oxygendsl.Rhah.dll");
                 Assembly adapter = Assembly.LoadFrom(path);
                 Type type = adapter.GetType("Oxygendsl.Rhah.RhahBehaviorAdapter", true);
                 MethodInfo activate = type.GetMethod("Activate", BindingFlags.Public | BindingFlags.Static,
