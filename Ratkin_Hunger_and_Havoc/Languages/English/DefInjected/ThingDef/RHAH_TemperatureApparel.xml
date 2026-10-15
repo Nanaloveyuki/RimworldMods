@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Heat_WetCloth.label>stale wet cloth</RHAH_Heat_WetCloth.label>
+  <RHAH_Heat_WetCloth.description>An old cloth soaked in water and draped around the waist. It offers a little protection from heat.</RHAH_Heat_WetCloth.description>
+  <RHAH_Heat_MudCoat.label>dry mud coating</RHAH_Heat_MudCoat.label>
+  <RHAH_Heat_MudCoat.description>A thick coat of dried mud. It cracks and sheds, but it keeps the sun off.</RHAH_Heat_MudCoat.description>
+  <RHAH_Heat_ReedWrap.label>reed shade wrap</RHAH_Heat_ReedWrap.label>
+  <RHAH_Heat_ReedWrap.description>A loose wrap of dry reeds. It blocks the sun and lets heat out.</RHAH_Heat_ReedWrap.description>
+  <RHAH_Heat_BarkWrap.label>soaked bark wrap</RHAH_Heat_BarkWrap.label>
+  <RHAH_Heat_BarkWrap.description>Strips of soaked bark tied around the body to keep the heat off. They smell bad.</RHAH_Heat_BarkWrap.description>
+  <RHAH_Heat_MudMantle.label>mud and reed mantle</RHAH_Heat_MudMantle.label>
+  <RHAH_Heat_MudMantle.description>A thick pad of mud and reeds draped over the body to block harsh sunlight. Wet and heavy.</RHAH_Heat_MudMantle.description>
+  <RHAH_Heat_MudShell.label>heavy cooling mud</RHAH_Heat_MudShell.label>
+  <RHAH_Heat_MudShell.description>Layers of dried mud wrapped around the body. They protect against severe heat but crack with movement.</RHAH_Heat_MudShell.description>
+  <RHAH_Cold_ThinHemp.label>thin hemp layer</RHAH_Cold_ThinHemp.label>
+  <RHAH_Cold_ThinHemp.description>A small piece of rough hemp. It stops little wind, and it is better than nothing.</RHAH_Cold_ThinHemp.description>
+  <RHAH_Cold_LayeredHemp.label>layered hemp</RHAH_Cold_LayeredHemp.label>
+  <RHAH_Cold_LayeredHemp.description>Several layers of rough hemp. Ugly, and warm enough to matter.</RHAH_Cold_LayeredHemp.description>
+  <RHAH_Cold_StrawQuilt.label>straw and bark quilt</RHAH_Cold_StrawQuilt.label>
+  <RHAH_Cold_StrawQuilt.description>Dry straw and bark sewn into old cloth. It rustles and keeps some cold out.</RHAH_Cold_StrawQuilt.description>
+  <RHAH_Cold_FurCloak.label>patched fur cloak</RHAH_Cold_FurCloak.label>
+  <RHAH_Cold_FurCloak.description>A short cloak pieced together from fur scraps. Its loose seams still keep out some of the cold wind.</RHAH_Cold_FurCloak.description>
+  <RHAH_Cold_SmokedBlanket.label>smoke-stiffened blanket</RHAH_Cold_SmokedBlanket.label>
+  <RHAH_Cold_SmokedBlanket.description>An old blanket stiffened by smoke and grease. Dirty, hard, and enough to keep the cold off.</RHAH_Cold_SmokedBlanket.description>
+  <RHAH_Cold_HideWrap.label>thick hide wrap</RHAH_Cold_HideWrap.label>
+  <RHAH_Cold_HideWrap.description>Layers of hide and hemp tied into a wrap. It leaves the limbs free and is warmer than it looks.</RHAH_Cold_HideWrap.description>
+</LanguageData>

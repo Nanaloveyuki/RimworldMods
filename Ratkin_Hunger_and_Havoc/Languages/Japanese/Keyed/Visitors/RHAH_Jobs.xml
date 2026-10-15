@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Job_Beg_Report>食べ物を乞う</RHAH_Job_Beg_Report>
+  <RHAH_Job_Gnaw_Report>樹皮をかじる</RHAH_Job_Gnaw_Report>
+  <RHAH_Menu_Expel>{0} を追放する</RHAH_Menu_Expel>
+  <RHAH_Job_Expel_Report>{0} を追放する</RHAH_Job_Expel_Report>
+  <RHAH_Job_CarryYoung_Report>{0} を運び出す。</RHAH_Job_CarryYoung_Report>
+  <RHAH_Beg_Text_Success_1>食べ物、もらえたぁ…</RHAH_Beg_Text_Success_1>
+  <RHAH_Beg_Text_Success_2>ありがと…食べ物くれて、ありがと…</RHAH_Beg_Text_Success_2>
+  <RHAH_Beg_Text_Success_3>今日も、もう少し生きられる…</RHAH_Beg_Text_Success_3>
+  <RHAH_Beg_Text_Fail_1>{0}、食べ物くれなかった…</RHAH_Beg_Text_Fail_1>
+  <RHAH_Beg_Text_Fail_2>{0} に追い払われた…</RHAH_Beg_Text_Fail_2>
+  <RHAH_Beg_Text_Fail_3>{0}、こっちも見てくれない…</RHAH_Beg_Text_Fail_3>
+  <RHAH_Beg_Text_Slap>ぶたれた…</RHAH_Beg_Text_Slap>
+</LanguageData>

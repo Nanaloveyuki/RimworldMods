@@ -1,0 +1,9 @@
+node_modules/**
+scripts/**
+package-lock.json
+.vscode/**
+**/*.vsix
+server/*.pdb
+tests/**
+src/blocks/webview.js
+src/blocks/webview.css

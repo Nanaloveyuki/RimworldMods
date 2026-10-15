@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <HediffDef>
+    <defName>RHAH_ClaySatiety</defName>
+    <label>观音土饱腹</label>
+    <description>吃下的观音土在胃里结块，暂时减缓了饥饿。结块会逐渐消退。吃到摄入上限后，需要等一段时间才能再吃观音土，普通食物仍可照常进食；上限和间隔可在设置中调整。</description>
+    <hediffClass>HungerAndHavoc.Pawn.Hediff_RHAH_ClaySatiety</hediffClass>
+    <initialSeverity>0.33</initialSeverity>
+    <minSeverity>0.001</minSeverity>
+    <maxSeverity>1</maxSeverity>
+    <tendable>false</tendable>
+    <isBad>true</isBad>
+    <stages>
+      <li>
+        <label>胃中结块</label>
+        <hungerRateFactor>0</hungerRateFactor>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_BeggingSucceeded.stages.0.label>食べ物をもらえた</RHAH_Thought_BeggingSucceeded.stages.0.label>
+  <RHAH_Thought_BeggingSucceeded.stages.0.description>ようやく、少しだけ食べ物をもらえた。今日はもう少し持ちこたえられる。</RHAH_Thought_BeggingSucceeded.stages.0.description>
+  <RHAH_Thought_BeggingRejected.stages.0.label>追い払われた</RHAH_Thought_BeggingRejected.stages.0.label>
+  <RHAH_Thought_BeggingRejected.stages.0.description>一口だけ食べ物がほしかった。それだけなのに、追い払われた。</RHAH_Thought_BeggingRejected.stages.0.description>
+  <RHAH_Thought_BeggingSlapped.stages.0.label>ひっぱたかれた</RHAH_Thought_BeggingSlapped.stages.0.label>
+  <RHAH_Thought_BeggingSlapped.stages.0.description>ひっぱたかれた…まだ顔が痛い。</RHAH_Thought_BeggingSlapped.stages.0.description>
+  <RHAH_Thought_ScavengedFilth.label>床を舐めた</RHAH_Thought_ScavengedFilth.label>
+  <RHAH_Thought_ScavengedFilth.description>地面に落ちていた何かを舐めた。気持ち悪い。</RHAH_Thought_ScavengedFilth.description>
+  <RHAH_Thought_ScavengedFilth.stages.0.label>床を舐めた</RHAH_Thought_ScavengedFilth.stages.0.label>
+  <RHAH_Thought_ScavengedFilth.stages.0.description>地面に落ちていた何かを舐めた。気持ち悪い。</RHAH_Thought_ScavengedFilth.stages.0.description>
+  <RHAH_Thought_TailBitten.label>尻尾を噛みちぎられた</RHAH_Thought_TailBitten.label>
+  <RHAH_Thought_TailBitten.description>尻尾がなくなった。寝ている間に噛みちぎられた。</RHAH_Thought_TailBitten.description>
+  <RHAH_Thought_TailBitten.stages.0.label>尻尾を噛みちぎられた</RHAH_Thought_TailBitten.stages.0.label>
+  <RHAH_Thought_BitATail.label>尻尾を噛みちぎった</RHAH_Thought_BitATail.label>
+  <RHAH_Thought_BitATail.description>尻尾を一本噛みちぎった。お腹いっぱいだ。</RHAH_Thought_BitATail.description>
+  <RHAH_Thought_BitATail.stages.0.label>尻尾を噛みちぎった</RHAH_Thought_BitATail.stages.0.label>
+  <RHAH_Thought_AteRatEggMeal.label>子ラットキンの料理を食べた</RHAH_Thought_AteRatEggMeal.label>
+  <RHAH_Thought_AteRatEggMeal.description>子ラットキンを使った料理を食べた。おいしかったけれど、自分も料理にされるかもしれないと思うと怖い。</RHAH_Thought_AteRatEggMeal.description>
+  <RHAH_Thought_AteRatEggMeal.stages.0.label>子ラットキンの料理を食べた</RHAH_Thought_AteRatEggMeal.stages.0.label>
+  <RHAH_Thought_AteRatEggMeal.stages.0.description>子ラットキンを使った料理を食べた。おいしかったけれど、自分も料理にされるかもしれないと思うと怖い。</RHAH_Thought_AteRatEggMeal.stages.0.description>
+  <RHAH_Thought_TailBitten.stages.0.description>尻尾がなくなった。寝ている間に誰かに噛みちぎられた。</RHAH_Thought_TailBitten.stages.0.description>
+  <RHAH_Thought_BitATail.stages.0.description>尻尾を一本噛みちぎった。お腹いっぱいだ。</RHAH_Thought_BitATail.stages.0.description>
+</LanguageData>

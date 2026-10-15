@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <LeadYourPetContinued_DuplicateTitle>牵着你的宠物 Continued：需要重启</LeadYourPetContinued_DuplicateTitle>
+  <LeadYourPetContinued_DuplicateBody>检测到同时启用了原版和 Continued。已从启用列表移除原版，保留 Continued。\n\n本次启动未加载 Continued 的同名内容，以避免重复类型和 Def。请立即重启，重启后才会使用 Continued；本次不要载入或保存游戏。未删除原版文件或修改存档。</LeadYourPetContinued_DuplicateBody>
+  <LeadYourPetContinued_Restart>重启游戏</LeadYourPetContinued_Restart>
+</LanguageData>

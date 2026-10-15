@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../Oxygen-Dsl-Framework/Source/Core/Oxygendsl.Core.csproj" />
+  <Project Path="../Oxygen-Dsl-Framework/Source/Mod/Oxygendsl.Mod.csproj" />
+  <Project Path="Mods/PrisonerNames/Source/Odf.PrisonerNames.csproj" />
+  <Project Path="Tests/PrisonerNames.Checks.csproj" />
+  <Project Path="Tools/PrisonerNames.Preview/PrisonerNames.Preview.csproj" />
+</Solution>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Faction_Hostile.label>hostile famine ratkin</RHAH_Faction_Hostile.label>
+  <RHAH_Faction_Hostile.fixedName>Hostile famine ratkin</RHAH_Faction_Hostile.fixedName>
+  <RHAH_Faction_Hostile.description>These ratkin fled settlements ruined by famine and have little food left. They are hostile to the colony and may attack colonists.</RHAH_Faction_Hostile.description>
+  <RHAH_Faction_Hostile.pawnSingular>ratkin</RHAH_Faction_Hostile.pawnSingular>
+  <RHAH_Faction_Hostile.pawnsPlural>ratkin</RHAH_Faction_Hostile.pawnsPlural>
+
+  <RHAH_Faction_LeaningHostile.label>wary famine ratkin</RHAH_Faction_LeaningHostile.label>
+  <RHAH_Faction_LeaningHostile.fixedName>Wary famine ratkin</RHAH_Faction_LeaningHostile.fixedName>
+  <RHAH_Faction_LeaningHostile.description>These ratkin fled settlements ruined by famine. They watch the colony warily. If a colonist hurts one of them, the accompanying visitors may turn hostile together.</RHAH_Faction_LeaningHostile.description>
+  <RHAH_Faction_LeaningHostile.pawnSingular>ratkin</RHAH_Faction_LeaningHostile.pawnSingular>
+  <RHAH_Faction_LeaningHostile.pawnsPlural>ratkin</RHAH_Faction_LeaningHostile.pawnsPlural>
+
+  <RHAH_Faction_Neutral.label>famine ratkin</RHAH_Faction_Neutral.label>
+  <RHAH_Faction_Neutral.fixedName>Famine ratkin</RHAH_Faction_Neutral.fixedName>
+  <RHAH_Faction_Neutral.description>These ratkin fled settlements ruined by famine. Some beg, some steal, and some are merely passing through. They are currently neutral toward the colony. Forced expulsion may make the accompanying visitors turn hostile together.</RHAH_Faction_Neutral.description>
+  <RHAH_Faction_Neutral.pawnSingular>ratkin</RHAH_Faction_Neutral.pawnSingular>
+  <RHAH_Faction_Neutral.pawnsPlural>ratkin</RHAH_Faction_Neutral.pawnsPlural>
+
+  <RHAH_Faction_LeaningFriendly.label>approachable famine ratkin</RHAH_Faction_LeaningFriendly.label>
+  <RHAH_Faction_LeaningFriendly.fixedName>Approachable famine ratkin</RHAH_Faction_LeaningFriendly.fixedName>
+  <RHAH_Faction_LeaningFriendly.description>These ratkin fled settlements ruined by famine and are willing to approach the colony for food. If a colonist hurts one of them, the accompanying visitors may leave together.</RHAH_Faction_LeaningFriendly.description>
+  <RHAH_Faction_LeaningFriendly.pawnSingular>ratkin</RHAH_Faction_LeaningFriendly.pawnSingular>
+  <RHAH_Faction_LeaningFriendly.pawnsPlural>ratkin</RHAH_Faction_LeaningFriendly.pawnsPlural>
+
+  <RHAH_Faction_Friendly.label>friendly famine ratkin</RHAH_Faction_Friendly.label>
+  <RHAH_Faction_Friendly.fixedName>Friendly famine ratkin</RHAH_Faction_Friendly.fixedName>
+  <RHAH_Faction_Friendly.description>These ratkin fled settlements ruined by famine and are friendly toward the colony. Once you mark a relief area, they look for food there. If a colonist hurts one of them, the accompanying visitors may leave together.</RHAH_Faction_Friendly.description>
+  <RHAH_Faction_Friendly.pawnSingular>ratkin</RHAH_Faction_Friendly.pawnSingular>
+  <RHAH_Faction_Friendly.pawnsPlural>ratkin</RHAH_Faction_Friendly.pawnsPlural>
+</LanguageData>

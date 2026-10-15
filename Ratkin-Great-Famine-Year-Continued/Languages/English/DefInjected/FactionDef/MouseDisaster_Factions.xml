@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_HiddenFaction.label>Famine survivors</MouseDisaster_HiddenFaction.label>
+  <MouseDisaster_HiddenFaction.description>Ratkin survivors scattered by famine, searching for food and shelter.</MouseDisaster_HiddenFaction.description>
+  <MouseDisaster_HiddenFaction.pawnSingular>Ratkin</MouseDisaster_HiddenFaction.pawnSingular>
+  <MouseDisaster_HiddenFaction.pawnsPlural>Ratkin</MouseDisaster_HiddenFaction.pawnsPlural>
+  <MouseDisaster_HiddenFaction.fixedName>Famine survivors</MouseDisaster_HiddenFaction.fixedName>
+</LanguageData>

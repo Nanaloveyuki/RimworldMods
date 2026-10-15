@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_RefugeeCamp>允许建立难民营</RHAH_Settings_RefugeeCamp>
+  <RHAH_Settings_RefugeeCamp_Tooltip>关闭后，不再出现临时难民营。</RHAH_Settings_RefugeeCamp_Tooltip>
+  <RHAH_Settings_SuiyinTempo>穗音按信任调整大型威胁</RHAH_Settings_SuiyinTempo>
+  <RHAH_Settings_SuiyinTempo_Tooltip>关闭后，选穗音作叙事者时，大型威胁不再随信任变快或变慢。</RHAH_Settings_SuiyinTempo_Tooltip>
+  <RHAH_Settings_WeightWild>野生：{0}</RHAH_Settings_WeightWild>
+  <RHAH_Settings_WeightBeggar>乞食：{0}</RHAH_Settings_WeightBeggar>
+  <RHAH_Settings_WeightThief>偷窃：{0}</RHAH_Settings_WeightThief>
+  <RHAH_Settings_WeightTrade>交易：{0}</RHAH_Settings_WeightTrade>
+  <RHAH_Settings_WeightSiege>围攻：{0}</RHAH_Settings_WeightSiege>
+  <RHAH_Settings_WeightAid>接济：{0}</RHAH_Settings_WeightAid>
+  <RHAH_Settings_WeightSpecial>特殊：{0}</RHAH_Settings_WeightSpecial>
+  <RHAH_Settings_WeightIntel>情报：{0}</RHAH_Settings_WeightIntel>
+  <RHAH_Settings_WeightSeason>春冬加成：{0}</RHAH_Settings_WeightSeason>
+  <RHAH_Settings_WeightPlague>鼠疫事件系数：{0}</RHAH_Settings_WeightPlague>
+  <RHAH_Settings_Weight_Tooltip>此类事件的出现权重乘以这个系数，范围 0 到 5。设为 0 时，此类事件停止出现。</RHAH_Settings_Weight_Tooltip>
+  <RHAH_Menu_Events>事件</RHAH_Menu_Events>
+  <RHAH_Menu_DevEvents>手动触发事件</RHAH_Menu_DevEvents>
+  <RHAH_Menu_EventFrequency>事件频率</RHAH_Menu_EventFrequency>
+  <RHAH_Menu_EventMeta>{0} / {1} / {2} / {3}。可广播：{4}。</RHAH_Menu_EventMeta>
+  <RHAH_Menu_Events_Note>这里按 20 类事件设置。同类场景共用开关、规模、权重、到达态度和后续类型，事件发生时再选取具体场景。拖动滑条可粗略调整，右侧输入框可填写精确值。权重为 0 时，整类事件停止出现。</RHAH_Menu_Events_Note>
+  <RHAH_Menu_EventEnabled>允许发生</RHAH_Menu_EventEnabled>
+  <RHAH_Menu_EventEnabled_Tip>关闭后，此类新事件停止出现。已经在场的来客照常活动。</RHAH_Menu_EventEnabled_Tip>
+  <RHAH_Menu_DebugPoints>规模</RHAH_Menu_DebugPoints>
+  <RHAH_Menu_DebugPoints_Tip>同类场景自然发生或通过开发模式触发时，都使用此规模。数值影响来客人数与接济索取量，范围 1 到 10000；食物交易按当时库存报价。拖动滑条可粗略调整，输入框可填写精确值。</RHAH_Menu_DebugPoints_Tip>
+  <RHAH_Menu_IncidentWeight>出现权重</RHAH_Menu_IncidentWeight>
+  <RHAH_Menu_IncidentWeight_Tip>设为 100 时保留此类事件原有的出现份额，降低数值会减少出现，设为 0 时停止出现。同类场景共用整类份额。拖动滑条可粗略调整，输入框可填写精确值。</RHAH_Menu_IncidentWeight_Tip>
+  <RHAH_Menu_Attitude>到达态度</RHAH_Menu_Attitude>
+  <RHAH_Menu_Attitude_Tip>同类场景共用选定的到达态度；未调整时，各场景使用原有态度。穗音担任叙事者且信任为负时，来客态度再降低一档，最低为敌对。此项只影响新来客。</RHAH_Menu_Attitude_Tip>
+  <RHAH_Menu_Attitude_Hostile>敌对</RHAH_Menu_Attitude_Hostile>
+  <RHAH_Menu_Attitude_LeaningHostile>偏敌对</RHAH_Menu_Attitude_LeaningHostile>
+  <RHAH_Menu_Attitude_Neutral>中立</RHAH_Menu_Attitude_Neutral>
+  <RHAH_Menu_Attitude_LeaningFriendly>偏友好</RHAH_Menu_Attitude_LeaningFriendly>
+  <RHAH_Menu_Attitude_Friendly>友善</RHAH_Menu_Attitude_Friendly>
+  <RHAH_Menu_Chain>后续</RHAH_Menu_Chain>
+  <RHAH_Menu_Chain_Tip>短后续按事件规则安排捕食者。长后续包含人物重访、交接及相关选择，出现时间取决于人物状态和事件期限。同类场景共用此选项，具体后续以各场景为准。</RHAH_Menu_Chain_Tip>
+  <RHAH_Menu_Chain_Short>短后续</RHAH_Menu_Chain_Short>
+  <RHAH_Menu_Chain_Long>长后续</RHAH_Menu_Chain_Long>
+  <RHAH_Menu_Trigger>按正常流程触发</RHAH_Menu_Trigger>
+  <RHAH_Menu_TriggerInstant>立刻生成到当前地图</RHAH_Menu_TriggerInstant>
+  <RHAH_Menu_TriggerInstant_Tip>立即在当前地图生成事件来客，跳过排队和世界地图行进。远行队伏击直接生成袭击者，安居点直接生成居民。触发前仍须启用新内容及对应事件。</RHAH_Menu_TriggerInstant_Tip>
+  <RHAH_Menu_Instant_Failed>未生成。检查事件开关、地图条件和日志。</RHAH_Menu_Instant_Failed>
+  <RHAH_Menu_Queue_Disabled>新内容已关闭。</RHAH_Menu_Queue_Disabled>
+  <RHAH_Menu_Queue_NoGame>没有已加载的游戏。</RHAH_Menu_Queue_NoGame>
+  <RHAH_Menu_Queue_NoMap>没有可用地图。</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Queue_NoCaravan>没有玩家商队。</RHAH_Menu_Queue_NoCaravan>
+  <RHAH_Menu_Queue_Fired>已生成。</RHAH_Menu_Queue_Fired>
+  <RHAH_Menu_Queue_Queued>已排队。关闭暂停窗口后生成。</RHAH_Menu_Queue_Queued>
+  <RHAH_Menu_Queue_Failed>没有排队。</RHAH_Menu_Queue_Failed>
+  <RHAH_Menu_DevEvents_Note>本页用于开发模式。“按正常流程触发”会将事件排队，地图来客先在世界地图上行进；“立刻生成到当前地图”会直接在当前地图生成来客。</RHAH_Menu_DevEvents_Note>
+  <RHAH_Menu_Frequency_Gap>曲线表示这一组事件在未来每一天至少发生一次的概率，依据上方的平均天数和间隔式估算。横轴为天数，纵轴为当天概率；鼠标停在曲线上可查看具体数值。估算使用当前信任和季节，将平均天数设为 0 可关闭这一组事件。</RHAH_Menu_Frequency_Gap>
+  <RHAH_Menu_Frequency_Positive>正面事件平均天数</RHAH_Menu_Frequency_Positive>
+  <RHAH_Menu_Frequency_Negative>负面事件平均天数</RHAH_Menu_Frequency_Negative>
+  <RHAH_Menu_Frequency_Window>显示天数</RHAH_Menu_Frequency_Window>
+  <RHAH_Menu_Frequency_WindowTip>图表展示未来多少天的事件概率，范围 5 到 360 天。此项只调整图表的显示范围。</RHAH_Menu_Frequency_WindowTip>
+  <RHAH_Menu_Frequency_Curve>当天发生概率</RHAH_Menu_Frequency_Curve>
+  <RHAH_Menu_Frequency_CurveTip>第 {0} 天，当天概率 {1}。</RHAH_Menu_Frequency_CurveTip>
+  <RHAH_Menu_Frequency_Pace>间隔式</RHAH_Menu_Frequency_Pace>
+  <RHAH_Menu_Frequency_PaceTip>此公式计算事件在当天的平均间隔，单位为天。可使用上方的平均天数（averageDays）、定居天数（day）、信任（trust）、季节（season），以及 + - * /、括号、min、max、abs、clamp。season 的取值为 0 到 3，计算结果限制在 0 到 60 天。公式有误、除以 0 或留空时，使用上方的平均天数；结果为 0 时，此组事件停止出现。</RHAH_Menu_Frequency_PaceTip>
+  <RHAH_Menu_Family_Beggar>乞食</RHAH_Menu_Family_Beggar>
+  <RHAH_Menu_Family_Thief>偷窃</RHAH_Menu_Family_Thief>
+  <RHAH_Menu_Family_Wild>野生</RHAH_Menu_Family_Wild>
+  <RHAH_Menu_Family_Aid>接济</RHAH_Menu_Family_Aid>
+  <RHAH_Menu_Family_Intel>情报</RHAH_Menu_Family_Intel>
+  <RHAH_Menu_Family_Siege>围攻</RHAH_Menu_Family_Siege>
+  <RHAH_Menu_Family_Trade>交易</RHAH_Menu_Family_Trade>
+  <RHAH_Menu_Family_Special>特殊</RHAH_Menu_Family_Special>
+  <RHAH_Menu_Origin_Original>原作</RHAH_Menu_Origin_Original>
+  <RHAH_Menu_Origin_Sequel>续作</RHAH_Menu_Origin_Sequel>
+  <RHAH_Menu_Category_Hunger>饥荒</RHAH_Menu_Category_Hunger>
+  <RHAH_Menu_Category_Plague>鼠疫</RHAH_Menu_Category_Plague>
+  <RHAH_Menu_Target_Map>地图</RHAH_Menu_Target_Map>
+  <RHAH_Menu_Target_Caravan>商队</RHAH_Menu_Target_Caravan>
+  <RHAH_Settings_AidRequests>启用接济请求</RHAH_Settings_AidRequests>
+  <RHAH_Settings_AidRequests_Tooltip>开启后，接济和婴儿交换会通过信件征求答复。关闭后停止发送新请求，已有请求仍可交付或拒绝。</RHAH_Settings_AidRequests_Tooltip>
+  <RHAH_Settings_IntelTrades>启用情报交易</RHAH_Settings_IntelTrades>
+  <RHAH_Settings_IntelTrades_Tooltip>开启后，来客可用地点情报交换物资。关闭后停止新的情报交易，已经获知的地点继续保留在世界地图上。</RHAH_Settings_IntelTrades_Tooltip>
+  <RHAH_Settings_TraderIgnoreEnvironment>商队无视恶劣环境</RHAH_Settings_TraderIgnoreEnvironment>
+  <RHAH_Settings_TraderIgnoreEnvironment_Tooltip>开启后，灾荒商队会在寒冷、炎热或危险天气下继续停留；关闭后，他们会因恶劣环境离开。</RHAH_Settings_TraderIgnoreEnvironment_Tooltip>
+  <RHAH_Settings_TraderIgnoreEnclosed>商队无视封闭空间</RHAH_Settings_TraderIgnoreEnclosed>
+  <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>开启后，灾荒商队会继续在封闭房间内停留；关闭后，到不了地图边缘时，他们会挖路离开。</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
+  <RHAH_Settings_SpaceApproach>允许太空家园刷新事件</RHAH_Settings_SpaceApproach>
+  <RHAH_Settings_SpaceApproach_Tooltip>默认关闭。开启后，轨道、小行星和 SOS2 轨道船等太空家园也可出现地图事件和步行而来的鼠族远行队。位于奥德赛轨道层的鼠族远行队允许穿梭机正常起飞。</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_ChildExchangeFood>允许用食物代替交出孩子</RHAH_Settings_ChildExchangeFood>
+  <RHAH_Settings_ChildExchangeFood_Tooltip>开启后，“易子而食”和旧“索要婴儿”请求都可以交出简单餐代替孩子。“易子而食”按每个来客孩子计量，“索要婴儿”需要单个孩子基准量的两倍。关闭后仍可选择交出孩子。</RHAH_Settings_ChildExchangeFood_Tooltip>
+  <RHAH_Settings_GreenLetters>鼠饥事件使用绿色信件</RHAH_Settings_GreenLetters>
+  <RHAH_Settings_GreenLetters_Tooltip>默认开启。关闭后，鼠饥事件信恢复原版蓝色。</RHAH_Settings_GreenLetters_Tooltip>
+  <RHAH_Settings_Stagger>分批到来</RHAH_Settings_Stagger>
+  <RHAH_Settings_Stagger_Tooltip>开启后，排队的事件每隔一小段时间生成一批。关闭后，排队事件会尽快连续生成。</RHAH_Settings_Stagger_Tooltip>
+  <RHAH_Settings_PredationChance>鼠难民被捕食：{0}%</RHAH_Settings_PredationChance>
+  <RHAH_Settings_PredationChance_Tooltip>安居点地图出现捕食者的几率，范围 0 到 100%，默认 10%。设为 0 时停止出现。</RHAH_Settings_PredationChance_Tooltip>
+  <RHAH_Settings_PredationFightBack>鼠难民反击捕食者</RHAH_Settings_PredationFightBack>
+  <RHAH_Settings_PredationFightBack_Tooltip>开启后，能够使用暴力的安居点鼠族会反击捕食者；关闭后，被追猎的鼠族会逃跑。</RHAH_Settings_PredationFightBack_Tooltip>
+  <RHAH_Settings_PredationFollowDifficulty>外来捕食者无鼠可吃后遵循存档难度</RHAH_Settings_PredationFollowDifficulty>
+  <RHAH_Settings_PredationFollowDifficulty_Tooltip>捕食者找不到可接近的鼠族或尸体时，开启此项会让它按原版规则觅食；关闭后，饥饿且找不到目标的捕食者会离开地图。</RHAH_Settings_PredationFollowDifficulty_Tooltip>
+  <RHAH_Settings_FollowPredator>短后续捕食：{0}%</RHAH_Settings_FollowPredator>
+  <RHAH_Settings_FollowPredator_Tooltip>选择短后续时，每批来客抵达后遭遇捕食者的几率。范围 0 到 100%，默认 10%；设为 0 时停止安排捕食者。</RHAH_Settings_FollowPredator_Tooltip>
+  <RHAH_Settings_FollowBirth>出生观察：{0} 天</RHAH_Settings_FollowBirth>
+  <RHAH_Settings_FollowBirth_Tooltip>待产流民生下孩子后，经过这么多天，母亲会根据结果获得后续心情。范围 0 到 60 天，默认 3 天。</RHAH_Settings_FollowBirth_Tooltip>
+  <RHAH_Settings_FollowPlagueBirth>鼠疫出生观察：{0} 天</RHAH_Settings_FollowPlagueBirth>
+  <RHAH_Settings_FollowPlagueBirth_Tooltip>鼠疫待产流民生下的孩子存活这么多天后，母亲会获得后续心情。范围 0 到 60 天，默认 5 天；孩子患病时，会提前产生相应心情。</RHAH_Settings_FollowPlagueBirth_Tooltip>
+  <RHAH_Settings_FollowMother>母亲回归：{0} 天</RHAH_Settings_FollowMother>
+  <RHAH_Settings_FollowMother_Tooltip>鼠疫母亲离开后，等待这么多天再回来。范围 0 到 120 天，默认 15 天。</RHAH_Settings_FollowMother_Tooltip>
+  <RHAH_Settings_FollowYears>长后续年数：{0}</RHAH_Settings_FollowYears>
+  <RHAH_Settings_FollowYears_Tooltip>选择长后续时，孩子达到后续年龄后，还可在这么多年内收到后续来信。范围 0 到 20 年，默认 2 年。母亲回归事件使用单独的天数设置。</RHAH_Settings_FollowYears_Tooltip>
+  <RHAH_Settings_FollowAdult>后续年龄：{0}</RHAH_Settings_FollowAdult>
+  <RHAH_Settings_FollowAdult_Tooltip>触发长后续和后续心情所需的年龄。范围 1 到 80 岁，默认 14 岁。</RHAH_Settings_FollowAdult_Tooltip>
+  <RHAH_Settings_FollowMood>后续心情：{0}%</RHAH_Settings_FollowMood>
+  <RHAH_Settings_FollowMood_Tooltip>后续心情数值的倍率。范围 0 到 300%，默认 100%。计算后不足 1 点时，仍保留与原效果同为正面或负面的 1 点心情。</RHAH_Settings_FollowMood_Tooltip>
+  <RHAH_Settings_RequestRange_Tooltip>此档请求的物资数量下限或上限。实际索取量按殖民地财富在两者之间确定。</RHAH_Settings_RequestRange_Tooltip>
+  <RHAH_Settings_RequestSimpleMin>简单餐最少：{0}</RHAH_Settings_RequestSimpleMin>
+  <RHAH_Settings_RequestSimpleMax>简单餐最多：{0}</RHAH_Settings_RequestSimpleMax>
+  <RHAH_Settings_RequestFineMin>精致餐最少：{0}</RHAH_Settings_RequestFineMin>
+  <RHAH_Settings_RequestFineMax>精致餐最多：{0}</RHAH_Settings_RequestFineMax>
+  <RHAH_Settings_RequestMedicineMin>药品最少：{0}</RHAH_Settings_RequestMedicineMin>
+  <RHAH_Settings_RequestMedicineMax>药品最多：{0}</RHAH_Settings_RequestMedicineMax>
+  <RHAH_Settings_RequestHerbalMin>草药最少：{0}</RHAH_Settings_RequestHerbalMin>
+  <RHAH_Settings_RequestHerbalMax>草药最多：{0}</RHAH_Settings_RequestHerbalMax>
+  <RHAH_Settings_RequestSilverMin>白银最少：{0}</RHAH_Settings_RequestSilverMin>
+  <RHAH_Settings_RequestSilverMax>白银最多：{0}</RHAH_Settings_RequestSilverMax>
+  <RHAH_Settings_RequestDays>索取期限：{0} 天</RHAH_Settings_RequestDays>
+  <RHAH_Settings_RequestDays_Tooltip>接济和情报请求的答复期限。范围 0 到 30 天，默认 1 天；设为 0 时，请求发出后立即到期。</RHAH_Settings_RequestDays_Tooltip>
+  <RHAH_Settings_RequestPoints>索取点数：{0}</RHAH_Settings_RequestPoints>
+  <RHAH_Settings_RequestPoints_Tooltip>索取量以此规模为基准，再按实际事件规模的比例增减。范围 1 到 10000，默认 300。</RHAH_Settings_RequestPoints_Tooltip>
+  <RHAH_Settings_FoodPerChild>每个孩子的简单餐：{0}</RHAH_Settings_FoodPerChild>
+  <RHAH_Settings_FoodPerChild_Tooltip>“易子而食”每个来客孩子所需的简单餐份数；旧“索要婴儿”请求需要此值的两倍。范围 0 到 100，默认 10。</RHAH_Settings_FoodPerChild_Tooltip>
+  <RHAH_Settings_FoodPerVisitor>投喂每人份数：{0}</RHAH_Settings_FoodPerVisitor>
+  <RHAH_Settings_FoodPerVisitor_Tooltip>每名来客需要的投喂份数，乘以来客人数得到总需求。范围 0 到 20，默认 1。</RHAH_Settings_FoodPerVisitor_Tooltip>
+  <RHAH_Settings_FoodRequestCap>投喂上限：{0}</RHAH_Settings_FoodRequestCap>
+  <RHAH_Settings_FoodRequestCap_Tooltip>一次投喂请求的食物份数上限。范围 0 到 100，默认 12。</RHAH_Settings_FoodRequestCap_Tooltip>
+  <RHAH_Settings_CampRange_Tooltip>此档安居点的居民人数下限或上限。</RHAH_Settings_CampRange_Tooltip>
+  <RHAH_Settings_CampAdultMin>安居点成人最少：{0}</RHAH_Settings_CampAdultMin>
+  <RHAH_Settings_CampAdultMax>安居点成人最多：{0}</RHAH_Settings_CampAdultMax>
+  <RHAH_Settings_CampChildMin>安居点幼年最少：{0}</RHAH_Settings_CampChildMin>
+  <RHAH_Settings_CampChildMax>安居点幼年最多：{0}</RHAH_Settings_CampChildMax>
+  <RHAH_Settings_CampGoodwill>安居点好感：{0}</RHAH_Settings_CampGoodwill>
+  <RHAH_Settings_CampGoodwill_Tooltip>清除安居点后获得的派系好感变化。范围 -100 到 100，默认 12。</RHAH_Settings_CampGoodwill_Tooltip>
+  <RHAH_Settings_CampDays>安居点天数：{0}</RHAH_Settings_CampDays>
+  <RHAH_Settings_CampDays_Tooltip>安居点任务持续的天数。1 到 120，默认 15。</RHAH_Settings_CampDays_Tooltip>
+  <RHAH_Settings_CampHuts>棚屋：{0}</RHAH_Settings_CampHuts>
+  <RHAH_Settings_CampHuts_Tooltip>安居点生成的棚屋数。0 到 12，默认 4。</RHAH_Settings_CampHuts_Tooltip>
+  <RHAH_Settings_HoleWood>封洞木材：{0}</RHAH_Settings_HoleWood>
+  <RHAH_Settings_HoleWood_Tooltip>封上粮洞需要的木材。0 到 200，默认 20。</RHAH_Settings_HoleWood_Tooltip>
+  <RHAH_Settings_HoleClean>清洞食物：{0}</RHAH_Settings_HoleClean>
+  <RHAH_Settings_HoleClean_Tooltip>清理粮洞时毁掉的食物份数。范围 0 到 50，默认 5。</RHAH_Settings_HoleClean_Tooltip>
+  <RHAH_Settings_HoleRange>粮洞范围：{0}</RHAH_Settings_HoleRange>
+  <RHAH_Settings_HoleRange_Tooltip>粮洞周围可被偷吃食物的范围，以格数计。范围 1 到 60 格，默认 12 格。</RHAH_Settings_HoleRange_Tooltip>
+  <RHAH_Settings_HoleLosses>粮洞损失：{0}</RHAH_Settings_HoleLosses>
+  <RHAH_Settings_HoleLosses_Tooltip>粮洞未经处理时，最多造成的食物损失次数。范围 0 到 20 次，默认 3 次。</RHAH_Settings_HoleLosses_Tooltip>
+</LanguageData>

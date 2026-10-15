@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Oxygendsl_SettingsIntro>在当前游戏中修改心情规则。应用后立即生效，不需要重启；未应用的文本只保留为草稿。</Oxygendsl_SettingsIntro>
+  <Oxygendsl_NoGame>进入存档后可打开脚本窗口。</Oxygendsl_NoGame>
+  <Oxygendsl_OpenWindow>打开脚本窗口</Oxygendsl_OpenWindow>
+  <Oxygendsl_GameChanged>当前存档已改变。关闭此窗口，在新存档中重新打开。</Oxygendsl_GameChanged>
+  <Oxygendsl_Enabled>规则已启用</Oxygendsl_Enabled>
+  <Oxygendsl_Disabled>规则已停用</Oxygendsl_Disabled>
+  <Oxygendsl_Revision>有效版本</Oxygendsl_Revision>
+  <Oxygendsl_Unapplied>有未应用修改</Oxygendsl_Unapplied>
+  <Oxygendsl_Apply>应用脚本</Oxygendsl_Apply>
+  <Oxygendsl_Applied>脚本已应用。</Oxygendsl_Applied>
+  <Oxygendsl_KeepActive>未应用修改，保留上一份有效脚本。请修正下方错误。</Oxygendsl_KeepActive>
+  <Oxygendsl_Evaluate>立即评估</Oxygendsl_Evaluate>
+  <Oxygendsl_Evaluated>已评估当前规则。</Oxygendsl_Evaluated>
+  <Oxygendsl_EvaluationFailed>操作未完成。请查看下方错误。</Oxygendsl_EvaluationFailed>
+  <Oxygendsl_Disable>停用并清理效果</Oxygendsl_Disable>
+  <Oxygendsl_Enable>启用规则</Oxygendsl_Enable>
+  <Oxygendsl_Cleaned>已停用并清理本脚本的效果。</Oxygendsl_Cleaned>
+  <Oxygendsl_CaptureSelection>重新捕获选择</Oxygendsl_CaptureSelection>
+  <Oxygendsl_SelectionCaptured>已重新捕获选中的角色。</Oxygendsl_SelectionCaptured>
+  <Oxygendsl_Interval>间隔 tick</Oxygendsl_Interval>
+  <Oxygendsl_SetInterval>设置间隔</Oxygendsl_SetInterval>
+  <Oxygendsl_IntervalSet>评估间隔已更新。</Oxygendsl_IntervalSet>
+  <Oxygendsl_PositiveInterval>间隔必须为正整数。</Oxygendsl_PositiveInterval>
+  <Oxygendsl_RestoreActive>恢复有效文本</Oxygendsl_RestoreActive>
+  <Oxygendsl_DraftRestored>草稿已恢复为当前有效脚本。</Oxygendsl_DraftRestored>
+  <Oxygendsl_TimingHint>暂停时可评估；时间与冷却不推进。</Oxygendsl_TimingHint>
+  <Oxygendsl_Source>脚本文本</Oxygendsl_Source>
+  <Oxygendsl_Inspection>运行检查</Oxygendsl_Inspection>
+  <Oxygendsl_Error>错误</Oxygendsl_Error>
+  <Oxygendsl_FilePath>文件路径</Oxygendsl_FilePath>
+  <Oxygendsl_FileHint>输入 UTF-8 脚本文件的完整路径。读取成功后应用；脚本错误保留上一份有效规则。</Oxygendsl_FileHint>
+  <Oxygendsl_ReadFile>从文件读取</Oxygendsl_ReadFile>
+  <Oxygendsl_FileRequired>请先输入脚本文件路径。</Oxygendsl_FileRequired>
+  <Oxygendsl_FileApplied>文件已读取并应用</Oxygendsl_FileApplied>
+  <Oxygendsl_FileFailed>无法读取文件</Oxygendsl_FileFailed>
+  <Oxygendsl_ActiveEffects>活动效果</Oxygendsl_ActiveEffects>
+  <Oxygendsl_LastTick>上次评估 tick</Oxygendsl_LastTick>
+  <Oxygendsl_EvaluationMs>评估耗时</Oxygendsl_EvaluationMs>
+  <Oxygendsl_Allocated>本次分配</Oxygendsl_Allocated>
+  <Oxygendsl_Unavailable>不可用</Oxygendsl_Unavailable>
+  <Oxygendsl_EvaluationCount>评估次数</Oxygendsl_EvaluationCount>
+  <Oxygendsl_Matched>匹配</Oxygendsl_Matched>
+  <Oxygendsl_Skipped>跳过</Oxygendsl_Skipped>
+  <Oxygendsl_Active>活动</Oxygendsl_Active>
+  <Oxygendsl_ReloadMods>重新加载 Mod 规则</Oxygendsl_ReloadMods>
+  <Oxygendsl_ModRulesReloaded>Mod 规则已重新加载。原生内容修改需要重启。</Oxygendsl_ModRulesReloaded>
+  <Oxygendsl_ModRulesFailed>部分 Mod 规则未改变，请查看内容检查。</Oxygendsl_ModRulesFailed>
+  <Oxygendsl_PreviewPawn>试算选中角色</Oxygendsl_PreviewPawn>
+  <Oxygendsl_ChooseProvider>选择内容提供者</Oxygendsl_ChooseProvider>
+  <Oxygendsl_DisableProvider>停用提供者规则</Oxygendsl_DisableProvider>
+  <Oxygendsl_EnableProvider>启用提供者规则</Oxygendsl_EnableProvider>
+  <Oxygendsl_ProviderUpdated>提供者规则已更新，原生定义和已授予特质未移除。</Oxygendsl_ProviderUpdated>
+  <Oxygendsl_ModContent>原生 Mod 内容与规则</Oxygendsl_ModContent>
+  <Oxygendsl_EventChains>事件链提供者与运行状态</Oxygendsl_EventChains>
+  <Oxygendsl_SettingsNeedGame>请进入存档后修改这些设置；修改仅保存在当前存档中。</Oxygendsl_SettingsNeedGame>
+  <Oxygendsl_EditMod>在浏览器编辑 Mod</Oxygendsl_EditMod>
+  <Oxygendsl_EditModConfirm>打开「{0}」的本机 Oxygen 编辑器？保存文件会修改已安装的 Mod。应用运行规则会影响当前存档，原生内容修改需要重启。修改前请保留备份。关闭浏览器或返回主菜单后，编辑器仍会运行；在 IrisMenus 点击「退出编辑器」才会关闭。</Oxygendsl_EditModConfirm>
+  <Oxygendsl_ExitEditor>退出编辑器</Oxygendsl_ExitEditor>
+  <Oxygendsl_ExitEditorConfirm>关闭本机 Oxygen 编辑器？所有编辑页面将断开连接，浏览器里未保存的修改不会被保存。</Oxygendsl_ExitEditorConfirm>
+</LanguageData>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_BeggingState.label>鼠灾乞讨</MouseDisaster_BeggingState.label>
+  <MouseDisaster_BeggingState.baseInspectLine>精神状态：鼠灾乞讨</MouseDisaster_BeggingState.baseInspectLine>
+  <MouseDisaster_ThievingState.label>鼠灾偷窃</MouseDisaster_ThievingState.label>
+  <MouseDisaster_ThievingState.baseInspectLine>精神状态：鼠灾偷窃</MouseDisaster_ThievingState.baseInspectLine>
+</LanguageData>

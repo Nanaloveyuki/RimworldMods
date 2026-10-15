@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_RefugeeCamp>Allow refugee camps</RHAH_Settings_RefugeeCamp>
+  <RHAH_Settings_RefugeeCamp_Tooltip>Off, temporary refugee camps stop appearing.</RHAH_Settings_RefugeeCamp_Tooltip>
+  <RHAH_Settings_SuiyinTempo>Suiyin changes major threats with trust</RHAH_Settings_SuiyinTempo>
+  <RHAH_Settings_SuiyinTempo_Tooltip>Off, major threats stay on their normal pace while Suiyin is the storyteller.</RHAH_Settings_SuiyinTempo_Tooltip>
+  <RHAH_Settings_WeightWild>Wild: {0}</RHAH_Settings_WeightWild>
+  <RHAH_Settings_WeightBeggar>Begging: {0}</RHAH_Settings_WeightBeggar>
+  <RHAH_Settings_WeightThief>Theft: {0}</RHAH_Settings_WeightThief>
+  <RHAH_Settings_WeightTrade>Trade: {0}</RHAH_Settings_WeightTrade>
+  <RHAH_Settings_WeightSiege>Siege: {0}</RHAH_Settings_WeightSiege>
+  <RHAH_Settings_WeightAid>Aid: {0}</RHAH_Settings_WeightAid>
+  <RHAH_Settings_WeightSpecial>Special: {0}</RHAH_Settings_WeightSpecial>
+  <RHAH_Settings_WeightIntel>Intel: {0}</RHAH_Settings_WeightIntel>
+  <RHAH_Settings_WeightSeason>Spring and winter: {0}</RHAH_Settings_WeightSeason>
+  <RHAH_Settings_WeightPlague>Plague incidents: {0}</RHAH_Settings_WeightPlague>
+  <RHAH_Settings_Weight_Tooltip>Incidents of this kind are multiplied by this before one is chosen. 0 to 5. At 0, that kind stops appearing.</RHAH_Settings_Weight_Tooltip>
+  <RHAH_Menu_Events>Events</RHAH_Menu_Events>
+  <RHAH_Menu_DevEvents>Dev mode: trigger incidents</RHAH_Menu_DevEvents>
+  <RHAH_Menu_EventFrequency>Event frequency</RHAH_Menu_EventFrequency>
+  <RHAH_Menu_EventMeta>{0} / {1} / {2} / {3}. Broadcast: {4}.</RHAH_Menu_EventMeta>
+  <RHAH_Menu_Events_Note>Settings cover 20 incident classes. Scenarios in each class share their switch, scale, weight, arrival attitude and follow-up. A scenario is chosen when the class fires. Drag for a rough value or type an exact one. At weight 0, the whole class stops appearing.</RHAH_Menu_Events_Note>
+  <RHAH_Menu_EventEnabled>Allow this incident</RHAH_Menu_EventEnabled>
+  <RHAH_Menu_EventEnabled_Tip>Off, this class is excluded from draws and queues. Visitors already here continue their activities.</RHAH_Menu_EventEnabled_Tip>
+  <RHAH_Menu_DebugPoints>Scale</RHAH_Menu_DebugPoints>
+  <RHAH_Menu_DebugPoints_Tip>Natural and dev mode triggers share this scale across the class. It changes visitor numbers and aid requests, from 1 to 10000. Food trades quote your current stock. Drag for a rough value or type an exact one.</RHAH_Menu_DebugPoints_Tip>
+  <RHAH_Menu_IncidentWeight>Appearance weight</RHAH_Menu_IncidentWeight>
+  <RHAH_Menu_IncidentWeight_Tip>100 keeps this class's original share. Lower values reduce its frequency; 0 stops it appearing. Extra scenarios do not increase the class's share. Drag for a rough value or type an exact one.</RHAH_Menu_IncidentWeight_Tip>
+  <RHAH_Menu_Attitude>Arrival attitude</RHAH_Menu_Attitude>
+  <RHAH_Menu_Attitude_Tip>The selected arrival attitude applies to all scenarios in this class. Until changed, each scenario keeps its original attitude. Under Suiyin, negative trust lowers it by one step. Hostile stays hostile. Visitors already here are unchanged.</RHAH_Menu_Attitude_Tip>
+  <RHAH_Menu_Attitude_Hostile>Hostile</RHAH_Menu_Attitude_Hostile>
+  <RHAH_Menu_Attitude_LeaningHostile>Leaning hostile</RHAH_Menu_Attitude_LeaningHostile>
+  <RHAH_Menu_Attitude_Neutral>Neutral</RHAH_Menu_Attitude_Neutral>
+  <RHAH_Menu_Attitude_LeaningFriendly>Leaning friendly</RHAH_Menu_Attitude_LeaningFriendly>
+  <RHAH_Menu_Attitude_Friendly>Friendly</RHAH_Menu_Attitude_Friendly>
+  <RHAH_Menu_Chain>Follow-up</RHAH_Menu_Chain>
+  <RHAH_Menu_Chain_Tip>Short follow-ups send predators according to the incident's rules. Long follow-ups continue supported scenarios with returning characters, handovers and related choices. Timing depends on character state and the incident's deadline. This option applies to the whole class.</RHAH_Menu_Chain_Tip>
+  <RHAH_Menu_Chain_Short>Short follow-up</RHAH_Menu_Chain_Short>
+  <RHAH_Menu_Chain_Long>Long follow-up</RHAH_Menu_Chain_Long>
+  <RHAH_Menu_Trigger>Queue the normal way</RHAH_Menu_Trigger>
+  <RHAH_Menu_TriggerInstant>Place them on this map now</RHAH_Menu_TriggerInstant>
+  <RHAH_Menu_TriggerInstant_Tip>Place them on the current map at once, skipping the queue and world travel. A caravan ambush places its attackers here. A refugee camp places its residents here. New content and incident switches still apply.</RHAH_Menu_TriggerInstant_Tip>
+  <RHAH_Menu_Instant_Failed>Nothing appeared. Check the incident switch, the map, and the log.</RHAH_Menu_Instant_Failed>
+  <RHAH_Menu_Queue_Disabled>New content is off.</RHAH_Menu_Queue_Disabled>
+  <RHAH_Menu_Queue_NoGame>No game is loaded.</RHAH_Menu_Queue_NoGame>
+  <RHAH_Menu_Queue_NoMap>No usable map.</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Queue_NoCaravan>No player caravan.</RHAH_Menu_Queue_NoCaravan>
+  <RHAH_Menu_Queue_Fired>They have appeared.</RHAH_Menu_Queue_Fired>
+  <RHAH_Menu_Queue_Queued>Queued. It appears when the pausing window closes.</RHAH_Menu_Queue_Queued>
+  <RHAH_Menu_Queue_Failed>Nothing was queued.</RHAH_Menu_Queue_Failed>
+  <RHAH_Menu_DevEvents_Note>Dev mode page. Queue the normal way and map visitors travel across the world first. Place them on this map now and they appear here without closing the window or sending a caravan.</RHAH_Menu_DevEvents_Note>
+  <RHAH_Menu_Frequency_Gap>The line is the chance this group fires at least once on each coming day, from the average days above and the interval formula. Days run across. That day's chance runs up. 0 turns this group off. Rest the cursor on the line to read that day's chance. The graph uses the current trust and season.</RHAH_Menu_Frequency_Gap>
+  <RHAH_Menu_Frequency_Positive>Positive incidents, average days</RHAH_Menu_Frequency_Positive>
+  <RHAH_Menu_Frequency_Negative>Negative incidents, average days</RHAH_Menu_Frequency_Negative>
+  <RHAH_Menu_Frequency_Window>Days shown</RHAH_Menu_Frequency_Window>
+  <RHAH_Menu_Frequency_WindowTip>How many coming days the curve shows. 5 to 360. This only changes how many days are shown, not how often incidents fire.</RHAH_Menu_Frequency_WindowTip>
+  <RHAH_Menu_Frequency_Curve>Chance that day</RHAH_Menu_Frequency_Curve>
+  <RHAH_Menu_Frequency_CurveTip>Day {0}, chance {1}.</RHAH_Menu_Frequency_CurveTip>
+  <RHAH_Menu_Frequency_Pace>Interval formula</RHAH_Menu_Frequency_Pace>
+  <RHAH_Menu_Frequency_PaceTip>That day's average gap, in days. It can use the average days above (written as averageDays), day, trust, season, + - * /, parentheses, min, max, abs, and clamp. day is days since settling. season runs from 0 to 3. The result stays between 0 and 60. A bad formula, a division by 0, or an empty field uses the average days above. A result of 0 turns this group off.</RHAH_Menu_Frequency_PaceTip>
+  <RHAH_Menu_Family_Beggar>Beggar</RHAH_Menu_Family_Beggar>
+  <RHAH_Menu_Family_Thief>Thief</RHAH_Menu_Family_Thief>
+  <RHAH_Menu_Family_Wild>Wild</RHAH_Menu_Family_Wild>
+  <RHAH_Menu_Family_Aid>Aid</RHAH_Menu_Family_Aid>
+  <RHAH_Menu_Family_Intel>Intel</RHAH_Menu_Family_Intel>
+  <RHAH_Menu_Family_Siege>Siege</RHAH_Menu_Family_Siege>
+  <RHAH_Menu_Family_Trade>Trade</RHAH_Menu_Family_Trade>
+  <RHAH_Menu_Family_Special>Special</RHAH_Menu_Family_Special>
+  <RHAH_Menu_Origin_Original>Original</RHAH_Menu_Origin_Original>
+  <RHAH_Menu_Origin_Sequel>Sequel</RHAH_Menu_Origin_Sequel>
+  <RHAH_Menu_Category_Hunger>Hunger</RHAH_Menu_Category_Hunger>
+  <RHAH_Menu_Category_Plague>Plague</RHAH_Menu_Category_Plague>
+  <RHAH_Menu_Target_Map>Map</RHAH_Menu_Target_Map>
+  <RHAH_Menu_Target_Caravan>Caravan</RHAH_Menu_Target_Caravan>
+  <RHAH_Settings_AidRequests>Enable aid requests</RHAH_Settings_AidRequests>
+  <RHAH_Settings_AidRequests_Tooltip>Off, new aid and baby-exchange letters stop. An open request can still be delivered or refused.</RHAH_Settings_AidRequests_Tooltip>
+  <RHAH_Settings_IntelTrades>Enable intel trades</RHAH_Settings_IntelTrades>
+  <RHAH_Settings_IntelTrades_Tooltip>Off, new intel stops being traded for a site. Sites already placed stay on the world.</RHAH_Settings_IntelTrades_Tooltip>
+  <RHAH_Settings_TraderIgnoreEnvironment>Trader caravans ignore harsh weather</RHAH_Settings_TraderIgnoreEnvironment>
+  <RHAH_Settings_TraderIgnoreEnvironment_Tooltip>On, famine traders stay after entering even in cold, heat, or dangerous weather. Off, harsh weather still sends them away.</RHAH_Settings_TraderIgnoreEnvironment_Tooltip>
+  <RHAH_Settings_TraderIgnoreEnclosed>Trader caravans stay in closed rooms</RHAH_Settings_TraderIgnoreEnclosed>
+  <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>On, famine traders stay inside a closed room instead of digging out. Off, they dig out when they cannot reach the map edge.</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
+  <RHAH_Settings_SpaceApproach>Allow incidents at orbital homes</RHAH_Settings_SpaceApproach>
+  <RHAH_Settings_SpaceApproach_Tooltip>Off by default. Orbital homes, asteroids, and SOS2 ships then receive no ratkin who walk in, and map incidents stay out of the draw. Turn this on to allow both. A group already on an Odyssey orbit layer still leaves the shuttle launch clear.</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_ChildExchangeFood>Allow food in place of children</RHAH_Settings_ChildExchangeFood>
+  <RHAH_Settings_ChildExchangeFood_Tooltip>Allows simple meals instead of handing over a child in child exchange and old baby requests. Child exchange charges per visiting child; a baby request costs twice the single-child amount. Turning this off still allows you to hand over a child.</RHAH_Settings_ChildExchangeFood_Tooltip>
+  <RHAH_Settings_GreenLetters>Green famine letters</RHAH_Settings_GreenLetters>
+  <RHAH_Settings_GreenLetters_Tooltip>On by default. Off, famine incident letters use the ordinary blue.</RHAH_Settings_GreenLetters_Tooltip>
+  <RHAH_Settings_Stagger>Visitors arrive in batches</RHAH_Settings_Stagger>
+  <RHAH_Settings_Stagger_Tooltip>On, queued incidents arrive one batch at a time, with a short wait between them. Off, queued incidents arrive as soon as they can, one after another.</RHAH_Settings_Stagger_Tooltip>
+  <RHAH_Settings_PredationChance>Ratkin refugees hunted: {0}%</RHAH_Settings_PredationChance>
+  <RHAH_Settings_PredationChance_Tooltip>Each camp map rolls this chance for a predator. 0 to 100, default 10. At 0, none arrive.</RHAH_Settings_PredationChance_Tooltip>
+  <RHAH_Settings_PredationFightBack>Refugees fight predators</RHAH_Settings_PredationFightBack>
+  <RHAH_Settings_PredationFightBack_Tooltip>Off, hunted camp ratkin run. Anyone who cannot use violence still cannot fight.</RHAH_Settings_PredationFightBack_Tooltip>
+  <RHAH_Settings_PredationFollowDifficulty>Outside predators hunt normally once the ratkin are gone</RHAH_Settings_PredationFollowDifficulty>
+  <RHAH_Settings_PredationFollowDifficulty_Tooltip>On, they resume ordinary hunting when no reachable ratkin or corpse remains. Off, a hungry predator with nothing reachable leaves the map.</RHAH_Settings_PredationFollowDifficulty_Tooltip>
+  <RHAH_Settings_FollowPredator>Short follow-up predators: {0}%</RHAH_Settings_FollowPredator>
+  <RHAH_Settings_FollowPredator_Tooltip>When an incident uses the short follow-up, this is the chance predators are sent once that group appears. 0 to 100, default 10. At 0, none are sent.</RHAH_Settings_FollowPredator_Tooltip>
+  <RHAH_Settings_FollowBirth>Birth watch: {0} days</RHAH_Settings_FollowBirth>
+  <RHAH_Settings_FollowBirth_Tooltip>Days after a laboring birth before the mood is written. 0 to 60, default 3.</RHAH_Settings_FollowBirth_Tooltip>
+  <RHAH_Settings_FollowPlagueBirth>Plague birth watch: {0} days</RHAH_Settings_FollowPlagueBirth>
+  <RHAH_Settings_FollowPlagueBirth_Tooltip>Days after a plague birth before the mood is written. 0 to 60, default 5.</RHAH_Settings_FollowPlagueBirth_Tooltip>
+  <RHAH_Settings_FollowMother>Mother returns: {0} days</RHAH_Settings_FollowMother>
+  <RHAH_Settings_FollowMother_Tooltip>Days before a plague mother comes back. 0 to 120, default 15.</RHAH_Settings_FollowMother_Tooltip>
+  <RHAH_Settings_FollowYears>Long follow-up: {0} years</RHAH_Settings_FollowYears>
+  <RHAH_Settings_FollowYears_Tooltip>When an incident with a follow-up uses the long one, the letter waits at most this many years after the children reach the follow-up age. 0 to 20, default 2. The mother's return uses its own day count.</RHAH_Settings_FollowYears_Tooltip>
+  <RHAH_Settings_FollowAdult>Follow-up age: {0}</RHAH_Settings_FollowAdult>
+  <RHAH_Settings_FollowAdult_Tooltip>Age used by the long follow-up and its later mood. 1 to 80, default 14.</RHAH_Settings_FollowAdult_Tooltip>
+  <RHAH_Settings_FollowMood>Follow-up mood: {0}%</RHAH_Settings_FollowMood>
+  <RHAH_Settings_FollowMood_Tooltip>Scales the later mood by this much. 0 to 300, default 100. A result under 1 point still leaves 1 point in the original direction.</RHAH_Settings_FollowMood_Tooltip>
+  <RHAH_Settings_RequestRange_Tooltip>Minimum or maximum for this request. Wealth still picks a count inside the range.</RHAH_Settings_RequestRange_Tooltip>
+  <RHAH_Settings_RequestSimpleMin>Simple meals, minimum: {0}</RHAH_Settings_RequestSimpleMin>
+  <RHAH_Settings_RequestSimpleMax>Simple meals, maximum: {0}</RHAH_Settings_RequestSimpleMax>
+  <RHAH_Settings_RequestFineMin>Fine meals, minimum: {0}</RHAH_Settings_RequestFineMin>
+  <RHAH_Settings_RequestFineMax>Fine meals, maximum: {0}</RHAH_Settings_RequestFineMax>
+  <RHAH_Settings_RequestMedicineMin>Medicine, minimum: {0}</RHAH_Settings_RequestMedicineMin>
+  <RHAH_Settings_RequestMedicineMax>Medicine, maximum: {0}</RHAH_Settings_RequestMedicineMax>
+  <RHAH_Settings_RequestHerbalMin>Herbal medicine, minimum: {0}</RHAH_Settings_RequestHerbalMin>
+  <RHAH_Settings_RequestHerbalMax>Herbal medicine, maximum: {0}</RHAH_Settings_RequestHerbalMax>
+  <RHAH_Settings_RequestSilverMin>Silver, minimum: {0}</RHAH_Settings_RequestSilverMin>
+  <RHAH_Settings_RequestSilverMax>Silver, maximum: {0}</RHAH_Settings_RequestSilverMax>
+  <RHAH_Settings_RequestDays>Request days: {0}</RHAH_Settings_RequestDays>
+  <RHAH_Settings_RequestDays_Tooltip>Days before an aid or intel letter expires. 0 to 30, default 1. Zero expires as soon as it arrives.</RHAH_Settings_RequestDays_Tooltip>
+  <RHAH_Settings_RequestPoints>Request points: {0}</RHAH_Settings_RequestPoints>
+  <RHAH_Settings_RequestPoints_Tooltip>Requests scale against this point value. 1 to 10000, default 300.</RHAH_Settings_RequestPoints_Tooltip>
+  <RHAH_Settings_FoodPerChild>Simple meals per child: {0}</RHAH_Settings_FoodPerChild>
+  <RHAH_Settings_FoodPerChild_Tooltip>Simple meals per visiting child in child exchange. Old baby requests cost twice this amount. 0 to 100, default 10.</RHAH_Settings_FoodPerChild_Tooltip>
+  <RHAH_Settings_FoodPerVisitor>Food per visitor: {0}</RHAH_Settings_FoodPerVisitor>
+  <RHAH_Settings_FoodPerVisitor_Tooltip>Portions requested per visitor when feeding them. 0 to 20, default 1.</RHAH_Settings_FoodPerVisitor_Tooltip>
+  <RHAH_Settings_FoodRequestCap>Feeding cap: {0}</RHAH_Settings_FoodRequestCap>
+  <RHAH_Settings_FoodRequestCap_Tooltip>Most portions one feeding request can ask for. 0 to 100, default 12.</RHAH_Settings_FoodRequestCap_Tooltip>
+  <RHAH_Settings_CampRange_Tooltip>Minimum or maximum people in a camp of this age.</RHAH_Settings_CampRange_Tooltip>
+  <RHAH_Settings_CampAdultMin>Camp adults, minimum: {0}</RHAH_Settings_CampAdultMin>
+  <RHAH_Settings_CampAdultMax>Camp adults, maximum: {0}</RHAH_Settings_CampAdultMax>
+  <RHAH_Settings_CampChildMin>Camp children, minimum: {0}</RHAH_Settings_CampChildMin>
+  <RHAH_Settings_CampChildMax>Camp children, maximum: {0}</RHAH_Settings_CampChildMax>
+  <RHAH_Settings_CampGoodwill>Camp goodwill: {0}</RHAH_Settings_CampGoodwill>
+  <RHAH_Settings_CampGoodwill_Tooltip>Goodwill for clearing a camp. -100 to 100, default 12.</RHAH_Settings_CampGoodwill_Tooltip>
+  <RHAH_Settings_CampDays>Camp days: {0}</RHAH_Settings_CampDays>
+  <RHAH_Settings_CampDays_Tooltip>Days a camp quest lasts. 1 to 120, default 15.</RHAH_Settings_CampDays_Tooltip>
+  <RHAH_Settings_CampHuts>Huts: {0}</RHAH_Settings_CampHuts>
+  <RHAH_Settings_CampHuts_Tooltip>Huts placed in a camp. 0 to 12, default 4.</RHAH_Settings_CampHuts_Tooltip>
+  <RHAH_Settings_HoleWood>Wood to seal: {0}</RHAH_Settings_HoleWood>
+  <RHAH_Settings_HoleWood_Tooltip>Wood required to seal a grain hole. 0 to 200, default 20.</RHAH_Settings_HoleWood_Tooltip>
+  <RHAH_Settings_HoleClean>Food cleared: {0}</RHAH_Settings_HoleClean>
+  <RHAH_Settings_HoleClean_Tooltip>Food portions removed when a grain hole is cleared. 0 to 50, default 5.</RHAH_Settings_HoleClean_Tooltip>
+  <RHAH_Settings_HoleRange>Hole range: {0}</RHAH_Settings_HoleRange>
+  <RHAH_Settings_HoleRange_Tooltip>Tiles from the hole that food can be taken. 1 to 60, default 12.</RHAH_Settings_HoleRange_Tooltip>
+  <RHAH_Settings_HoleLosses>Hole losses: {0}</RHAH_Settings_HoleLosses>
+  <RHAH_Settings_HoleLosses_Tooltip>Most losses while a grain hole is left alone. 0 to 20, default 3.</RHAH_Settings_HoleLosses_Tooltip>
+</LanguageData>

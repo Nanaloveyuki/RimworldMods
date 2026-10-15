@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/RimCarbon14.Core/RimCarbon14.Core.csproj" />
+  <Project Path="src/RimCarbon14.Mod/RimCarbon14.Mod.csproj" />
+  <Project Path="src/RimCarbon14.Agent/RimCarbon14.Agent.csproj" />
+  <Project Path="tests/RimCarbon14.Tests/RimCarbon14.Tests.csproj" />
+</Solution>

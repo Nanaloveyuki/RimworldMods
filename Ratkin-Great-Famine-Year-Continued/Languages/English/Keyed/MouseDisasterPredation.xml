@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_RefugeeMassacre_MenuLabel>Refugee massacre</MouseDisaster_RefugeeMassacre_MenuLabel>
+  <MouseDisaster_Predation_Settings>Refugee predation</MouseDisaster_Predation_Settings>
+  <MouseDisaster_Predation_Chance>Chance of predators targeting each arrival: {0}%</MouseDisaster_Predation_Chance>
+  <MouseDisaster_Predation_FightBack>Refugees fight back against predators</MouseDisaster_Predation_FightBack>
+  <MouseDisaster_Predation_FightBack_Tip>When disabled, refugees flee instead of retaliating. Those incapable of violence cannot fight back.</MouseDisaster_Predation_FightBack_Tip>
+  <MouseDisaster_Predation_FollowDifficulty>Outside predators follow difficulty after prey runs out</MouseDisaster_Predation_FollowDifficulty>
+  <MouseDisaster_Predation_FollowDifficulty_Tip>When enabled, predators without accessible Ratkin prey or corpses seek food normally, following your setting for hunting humans. When disabled, they leave if hungry with no Ratkin food available. Home-area Ratkin and corpses are controlled by the separate setting below.</MouseDisaster_Predation_FollowDifficulty_Tip>
+  <MouseDisaster_Predation_SearchInterval>Predator search interval: {0} seconds</MouseDisaster_Predation_SearchInterval>
+  <MouseDisaster_Predation_SearchInterval_Tip>Higher values reduce map checks and CPU use but make predators react more slowly.</MouseDisaster_Predation_SearchInterval_Tip>
+  <MouseDisaster_Predation_AvoidWhenFed>Wild predators avoid Ratkin when fed</MouseDisaster_Predation_AvoidWhenFed>
+  <MouseDisaster_Predation_AvoidWhenFed_Tip>Enabled by default. Predators target Ratkin only below the normal food-seeking threshold; when disabled, an event can make them hunt even while relatively full.</MouseDisaster_Predation_AvoidWhenFed_Tip>
+  <MouseDisaster_Predation_LeaveAfterFed>Wild predators leave after feeding once</MouseDisaster_Predation_LeaveAfterFed>
+  <MouseDisaster_Predation_LeaveAfterFed_Tip>Disabled by default. When enabled, a predator leaves after successfully eating and reaching its fed threshold; an interrupted hunt does not trigger departure.</MouseDisaster_Predation_LeaveAfterFed_Tip>
+  <MouseDisaster_Predation_HuntHomeArea>Wild predators hunt Ratkin in the home area</MouseDisaster_Predation_HuntHomeArea>
+  <MouseDisaster_Predation_HuntHomeArea_Tip>Disabled by default. When enabled, wild predators registered by a Mouse Disaster event may hunt unclaimed Ratkin and eat their corpses inside the player home area.</MouseDisaster_Predation_HuntHomeArea_Tip>
+  <MouseDisaster_Predation_Label>Refugees hunted</MouseDisaster_Predation_Label>
+  <MouseDisaster_Predation_Text>A wild predator has begun hunting the arriving Ratkin refugees, favoring their children.</MouseDisaster_Predation_Text>
+  <MouseDisaster_OutsidePredators_Label>Outside predators</MouseDisaster_OutsidePredators_Label>
+  <MouseDisaster_OutsidePredators_Text>A predator has followed the Ratkin refugees into this area. It is searching for Ratkin prey.</MouseDisaster_OutsidePredators_Text>
+</LanguageData>

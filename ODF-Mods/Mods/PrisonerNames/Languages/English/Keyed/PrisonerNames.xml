@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <OPN_Title>Prisoner names</OPN_Title>
+  <OPN_EnabledToggle>Show prisoner aliases</OPN_EnabledToggle>
+  <OPN_NoGame>Open a save before changing prisoner settings. The User guide is always available.</OPN_NoGame>
+  <OPN_OpenWindow>View prisoner roster</OPN_OpenWindow>
+  <OPN_GameChanged>This save is no longer active. Close the window and open it again.</OPN_GameChanged>
+  <OPN_Enabled>Aliases on</OPN_Enabled>
+  <OPN_Disabled>Aliases off</OPN_Disabled>
+  <OPN_Revision>Revision</OPN_Revision>
+  <OPN_Unapplied>Draft not applied</OPN_Unapplied>
+  <OPN_Apply>Apply</OPN_Apply>
+  <OPN_Enable>Turn aliases on</OPN_Enable>
+  <OPN_Disable>Turn aliases off</OPN_Disable>
+  <OPN_Refresh>Refresh</OPN_Refresh>
+  <OPN_Restore>Restore applied</OPN_Restore>
+  <OPN_DefaultChinese>Load Chinese draft</OPN_DefaultChinese>
+  <OPN_DefaultEnglish>Load English draft</OPN_DefaultEnglish>
+  <OPN_Applied>Rule applied. Names refresh from the prisoners' current condition.</OPN_Applied>
+  <OPN_KeepActive>The draft was not applied. The previous rule is still in use.</OPN_KeepActive>
+  <OPN_Refreshed>Names refreshed.</OPN_Refreshed>
+  <OPN_Restored>Draft restored from the applied rule.</OPN_Restored>
+  <OPN_DefaultLoaded>Default draft loaded. Apply it to use these names.</OPN_DefaultLoaded>
+  <OPN_Error>Rule error</OPN_Error>
+  <OPN_Script>Naming rule</OPN_Script>
+  <OPN_Prisoners>Prisoners</OPN_Prisoners>
+  <OPN_NoPrisoners>No colony prisoners. Capture someone, then refresh.</OPN_NoPrisoners>
+  <OPN_NoSelection>Select a prisoner to set an individual alias.</OPN_NoSelection>
+  <OPN_Shown>Shown</OPN_Shown>
+  <OPN_Original>Original</OPN_Original>
+  <OPN_UsingOriginal>Showing the original name</OPN_UsingOriginal>
+  <OPN_UsingRule>Using the rule</OPN_UsingRule>
+  <OPN_UsingManual>Using an individual alias</OPN_UsingManual>
+  <OPN_Jump>Go to</OPN_Jump>
+  <OPN_Manual>Alias</OPN_Manual>
+  <OPN_SetManual>Set alias</OPN_SetManual>
+  <OPN_Preview>Draft preview</OPN_Preview>
+  <OPN_PreviewFailed>Draft preview failed</OPN_PreviewFailed>
+  <OPN_Clear>Clear</OPN_Clear>
+  <OPN_ManualSet>Individual alias set. It stays until cleared.</OPN_ManualSet>
+  <OPN_ManualCleared>Individual alias cleared. The rule is used again.</OPN_ManualCleared>
+  <OPN_ManualFailed>Could not set that alias</OPN_ManualFailed>
+  <OPN_Unnamed>Unnamed</OPN_Unnamed>
+  <OPN_ShowHelp>Show help</OPN_ShowHelp>
+  <OPN_HideHelp>Hide help</OPN_HideHelp>
+  <OPN_Help>Select a prisoner on the right to set an individual alias, score or grade. Clear an override to return to automatic settings. To change names for all prisoners, use Naming in IrisMenus. See the User guide for details. Changes apply to the current save; save the game to keep them after loading.</OPN_Help>
+  <OPN_PolicyPage>Naming</OPN_PolicyPage>
+  <OPN_PolicyIntro>Choose how prisoner names appear. See the User guide for details.</OPN_PolicyIntro>
+  <OPN_AutoSaveHint>Valid changes apply automatically to this save. Save the game to keep them after loading. Invalid entries leave the previous valid settings in use.</OPN_AutoSaveHint>
+  <OPN_CustomSettingsHint>An advanced naming rule is active. Valid settings changes apply automatically to this save without replacing it. Save the game to keep them after loading. Choose Use these settings to take over naming.</OPN_CustomSettingsHint>
+  <OPN_SectionGeneral>Display and naming method</OPN_SectionGeneral>
+  <OPN_SectionAge>Names and age bands</OPN_SectionAge>
+  <OPN_SectionRace>Race prefixes</OPN_SectionRace>
+  <OPN_SectionPresets>Quick styles</OPN_SectionPresets>
+  <OPN_SectionPreview>Name preview and save status</OPN_SectionPreview>
+  <OPN_SectionScores>Automatic scoring</OPN_SectionScores>
+  <OPN_SectionGrades>Grade requirements</OPN_SectionGrades>
+  <OPN_HumanlikeRacesHint>Choose from active humanlike races, including HAR aliens. Vanilla xenotypes such as impids, pigskins and baseliners share the Human race and its rules. Existing prefixes are kept below.</OPN_HumanlikeRacesHint>
+  <OPN_NoHumanlikeRaces>No humanlike races available</OPN_NoHumanlikeRaces>
+  <OPN_RacePrefixExists>This race already has a prefix. Edit it above.</OPN_RacePrefixExists>
+  <OPN_SourceMode>Naming method</OPN_SourceMode>
+  <OPN_CustomSource>Advanced rule</OPN_CustomSource>
+  <OPN_ConfigSource>These settings</OPN_ConfigSource>
+  <OPN_UseCustom>Switch to an advanced rule</OPN_UseCustom>
+  <OPN_UsePattern>Use these settings</OPN_UsePattern>
+  <OPN_UsePatternConfirm>Use these settings? This replaces the current advanced naming rule, including unapplied changes. Scoring rules and individual aliases are not affected.</OPN_UsePatternConfirm>
+  <OPN_NameStyle>Name display</OPN_NameStyle>
+  <OPN_Style_code>Custom alias</OPN_Style_code>
+  <OPN_Style_short>Short name</OPN_Style_short>
+  <OPN_Style_full>Full name</OPN_Style_full>
+  <OPN_Style_first>First name</OPN_Style_first>
+  <OPN_Style_last>Last name</OPN_Style_last>
+  <OPN_NeutralScore>Starting score</OPN_NeutralScore>
+  <OPN_ResistanceScore>Points per resistance point reduced</OPN_ResistanceScore>
+  <OPN_Pattern>Name pattern</OPN_Pattern>
+  <OPN_Placeholders>For example, Prisoner {number_text} becomes Prisoner 001. See the User guide for the available values.</OPN_Placeholders>
+  <OPN_RacePrefixes>Race prefixes</OPN_RacePrefixes>
+  <OPN_Race>Race</OPN_Race>
+  <OPN_Prefix>Prefix</OPN_Prefix>
+  <OPN_AddRace>Add race prefix</OPN_AddRace>
+  <OPN_Grades>Grades</OPN_Grades>
+  <OPN_GradeName>Grade</OPN_GradeName>
+  <OPN_AddGrade>Add grade</OPN_AddGrade>
+  <OPN_Remove>Remove</OPN_Remove>
+  <OPN_PolicyFailed>Invalid change; the previous valid settings remain active. Correct the entry.</OPN_PolicyFailed>
+  <OPN_PolicyPreview>Sample</OPN_PolicyPreview>
+  <OPN_PolicyPreviewFailed>Sample failed</OPN_PolicyPreviewFailed>
+  <OPN_Preset_code>Use code pattern</OPN_Preset_code>
+  <OPN_Preset_grade>Use grade pattern</OPN_Preset_grade>
+  <OPN_Preset_short>Use short names</OPN_Preset_short>
+  <OPN_Preset_full>Use full names</OPN_Preset_full>
+  <OPN_Score>Score</OPN_Score>
+  <OPN_Grade>Grade</OPN_Grade>
+  <OPN_ScoreAutomatic>Event scoring resumed; current score retained.</OPN_ScoreAutomatic>
+  <OPN_NextGrade>Next grade</OPN_NextGrade>
+  <OPN_NoNextGrade>No higher grade</OPN_NoNextGrade>
+  <OPN_OpenEditor>Open browser editor</OPN_OpenEditor>
+  <OPN_OpenEditorConfirm>Open the browser editor for this save?</OPN_OpenEditorConfirm>
+  <OPN_Roster>Roster</OPN_Roster>
+  <OPN_BrowserEditing>Select a prisoner on the right to change their alias, score or grade. Common settings are in IrisMenus; see the User guide for details. The browser editor is for advanced customization only.</OPN_BrowserEditing>
+  <OPN_CustodyScore>Points per full day in custody</OPN_CustodyScore>
+  <OPN_PrisonBreakScore>Score for a prison break</OPN_PrisonBreakScore>
+  <OPN_OpenLower>Any lower score</OPN_OpenLower>
+  <OPN_SetScore>Set score</OPN_SetScore>
+  <OPN_SetGrade>Set grade</OPN_SetGrade>
+  <OPN_ScoreSet>Score set. Events will not change it.</OPN_ScoreSet>
+  <OPN_GradeSet>Grade set. The score stays unchanged.</OPN_GradeSet>
+  <OPN_ScoresPage>Scores</OPN_ScoresPage>
+  <OPN_ScoresIntro>Choose the starting score for new prisoners and points gained or lost for reduced resistance, time in custody or prison breaks. Zero means no change; negative values subtract points.</OPN_ScoresIntro>
+  <OPN_GradesIntro>Prisoners move up when their score reaches a grade's requirement and can move down when it falls. Individually assigned grades stay fixed.</OPN_GradesIntro>
+  <OPN_Threshold>Points needed for this grade</OPN_Threshold>
+  <OPN_UseAgePatterns>Use different aliases at different ages</OPN_UseAgePatterns>
+  <OPN_AgeRulesIntro>Names follow biological age. For example, the 1–7 band starts at the first birthday and ends at the seventh.</OPN_AgeRulesIntro>
+  <OPN_DefaultAgeRules>All races</OPN_DefaultAgeRules>
+  <OPN_RaceAgeRules>Specific race</OPN_RaceAgeRules>
+  <OPN_PreviewAge>Sample age</OPN_PreviewAge>
+  <OPN_AgeMinimum>Starting age for the new band</OPN_AgeMinimum>
+  <OPN_AddAgeBand>Add age band</OPN_AddAgeBand>
+  <OPN_UseRaceAgeRules>Use separate names for this race</OPN_UseRaceAgeRules>
+  <OPN_AgeInherited>Use default rule</OPN_AgeInherited>
+  <OPN_AgeRange>Age range</OPN_AgeRange>
+  <OPN_AgeInherit>Use default</OPN_AgeInherit>
+  <OPN_AgeOverride>Override</OPN_AgeOverride>
+  <OPN_BaseGrade>Default grade</OPN_BaseGrade>
+  <OPN_UserGuideTitle>User guide</OPN_UserGuideTitle>
+  <OPN_UserGuide><![CDATA[# Prisoner names — User guide
+
+Give prisoners easy-to-recognize aliases, with different names for their age, race or grade. **No coding is needed.** Original names are not changed. Turning aliases off, releasing or recruiting a prisoner restores their original name.
+
+## Getting started
+
+1. Open a save, then open IrisMenus → ODF Prisoner Names → Naming.
+2. Turn on Show prisoner aliases and choose Name display. Use a custom alias, or show a short name, full name, first name or last name.
+3. Valid changes on Naming, Scores and Grades apply automatically to this save; no settings Save button is needed.
+4. Click View prisoner roster to check the result or give one prisoner an individual name.
+
+**These settings belong to the current save only.** Automatic application takes effect immediately for valid changes; save the game to keep them after loading. Invalid entries show an error and keep the previous valid settings active. Switching pages does not discard entries you are editing.
+
+## Making an alias
+
+Choose Custom alias, then type the name you want in Name pattern. Text in braces is replaced with that prisoner's information.
+
+- Prisoner {number_text} → Prisoner 001
+- {race_prefix}{number_text} → P001 (when the race prefix is P)
+- {grade}·{original_name} → C·Ada (when the grade is C and the original short name is Ada)
+
+Available values:
+
+- {number_text}: an ID with at least three digits, such as 001; {number}: a plain ID, such as 1.
+- {original_name}: original short name; {original_full_name}: original full name; {original_short}: original nickname.
+- {first_name}: first name; {last_name}: last name.
+- {race_label}: race name; {race_prefix}: your chosen prefix; {race}: race code, such as Human.
+- {grade}: current grade; {score}: current score; {interaction_label}: current interaction mode.
+
+Copy the names inside braces exactly. Text outside them can use any language. Type {{ or }} to show a brace itself. Do not use line breaks or color tags; aliases can contain up to 120 characters. Invalid entries do not replace the previous valid settings.
+
+## Different ages and races
+
+Turn on Use different aliases at different ages, then set each age band's name under All races.
+
+- Names follow biological age, not the time since birth. The defaults are 0–1, 1–7, 7–14, 14–18 and 18 years or older.
+- The 1–7 band starts at the first birthday and ends at the seventh. Decimal ages such as 1.5 are supported.
+- Changing a band's starting age updates the neighboring ranges. The last band has no upper limit, and the band starting at zero cannot be removed.
+- Enter Starting age for the new band and click Add age band to add one. Remove bands you no longer need.
+- Under Specific race, choose a race and turn on Use separate names for this race. Click Override beside a band to give it a separate name. Untouched bands keep the default names; Use default removes the separate name for that band.
+- Changing or removing a default age boundary also updates the matching bands for each race.
+
+Sample age only previews a name; it does not change any prisoner's age. Turn age naming off to use one pattern for all ages. The quick name-style buttons also turn age naming off.
+
+Race prefixes supply {race_prefix}. Choose a humanlike race from the dropdown, enter a prefix and add it. The selector shows localized labels and uses stable race codes, so no race defName needs typing. It includes humanlike alien races supplied by active HAR-dependent mods without making HAR a dependency. Edit existing prefixes directly; no race code is needed. For example, set Human to P and Ratkin to RK to get P001 or RK001. Animals are excluded. Vanilla xenotypes such as impids, pigskins and baseliners share the Human race and its rules. Existing race entries from old saves remain available even when their supplying mod is missing or inactive, until you remove them.
+
+## Scores and grades
+
+Scores lets you choose a starting score for new prisoners and points gained or lost for reduced resistance, a full day in custody or prison breaks. **Automatic score changes are off by default.** Zero means no change, and negative values subtract points. Starting score affects new prisoners only.
+
+For example, 2 points per resistance point reduced gives 6 points when resistance drops by 3. A custody day counts unpaused in-game time only. Time spent paused or released is not counted, and loading a save does not add missed days.
+
+In Grades, enter a grade name and Points needed for this grade. For example, if D needs 20, C needs 40 and B needs 60, a prisoner with 40 points is C, reaches B at 60 and returns to D at 39. The roster shows the current grade and points needed for the next one. Scores and grades are your own labels; they do not release prisoners or change their vanilla interaction mode.
+
+## Individual settings
+
+In View prisoner roster, select a prisoner on the right to assign an alias, score or grade.
+
+- An individual alias takes priority over shared naming. Clear it to return to automatic names.
+- Setting a score manually stops automatic score changes. Empty the score field and click Set score to resume automatic scoring while keeping the current score.
+- An assigned grade stays fixed when the score changes. Empty the grade field and click Set grade to return to score-based grades.
+
+IDs belong to this save. Recapturing the same prisoner keeps their ID. Duplicate aliases are allowed; add {number_text} to your pattern if you want to tell prisoners apart.
+
+## Advanced customization (optional)
+
+Common naming, scoring and grade choices are all available in the settings pages. Use Edit Mod in browser only for more complex conditions or scoring. It opens a local editor without requiring separate editing tools.
+
+Switch to an advanced rule keeps the current names and stops page settings from being applied automatically to the naming rule. To return to page-based naming, choose Use these settings and confirm. This replaces the advanced naming rule and any unapplied naming changes, but not scoring rules or individual aliases.
+
+In the browser, current/naming is this save's naming rule and current/events is its advanced scoring rule. Check and save your changes, then choose Apply to current game. Invalid changes leave the previous valid rule in use. This browser save/apply workflow is separate from the automatic settings-page application. Refresh the editor after switching saves. Closing the browser does not stop the editor service; use Exit editor in IrisMenus to stop it.
+
+## Names did not change?
+
+- Check that the prisoner is a living humanlike colony prisoner and Show prisoner aliases is on.
+- Check Name preview and save status for an input error, and check whether an individual alias is taking priority.
+- When Naming method is Advanced rule, page patterns do not take over. Choose Use these settings to return to them.
+- Some third-party windows read original names directly and may not show these aliases.
+]]></OPN_UserGuide>
+</LanguageData>

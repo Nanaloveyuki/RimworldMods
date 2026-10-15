@@ -1,0 +1,232 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using AdvancedRimTalk.Arti;
+using AdvancedRimTalk.Prompt;
+using AdvancedRimTalk.Diagnostics;
+using RimTalk.Prompt;
+using Verse;
+
+namespace AdvancedRimTalk.Integration
+{
+    internal sealed class ArtiPromptRenderResult
+    {
+        private readonly PromptExpansionResult _literalOutput;
+
+        public ArtiPromptRenderResult(string text, IList<ArtiDiagnostic> diagnostics, PromptExpansionResult literalOutput = null)
+        {
+            _literalOutput = literalOutput;
+            TemplateText = text ?? string.Empty;
+            Text = Restore(TemplateText);
+            Diagnostics = diagnostics ?? new List<ArtiDiagnostic>();
+        }
+
+        public string Text { get; }
+        public string TemplateText { get; }
+        public string Restore(string renderedText) => _literalOutput == null ? renderedText : _literalOutput.Restore(renderedText);
+        public IList<ArtiDiagnostic> Diagnostics { get; }
+        public bool HasErrors
+        {
+            get
+            {
+                foreach (ArtiDiagnostic diagnostic in Diagnostics)
+                {
+                    if (diagnostic.Severity == ArtiDiagnosticSeverity.Error)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+    }
+
+    internal static class ArtiPromptDocumentRenderer
+    {
+        public static bool HasArtiBlocks(string source)
+        {
+            return !string.IsNullOrEmpty(source)
+                && source.IndexOf(ArtiDocumentParser.OpeningMarker, StringComparison.Ordinal) >= 0;
+        }
+
+        public static ArtiPromptRenderResult Render(string source, PromptContext context,
+            ArtiGlobalRuntime runtime = null, string owner = "prompt-document")
+        {
+            source = source ?? string.Empty;
+            runtime = runtime ?? new ArtiGlobalRuntime();
+            ArtiDocumentParseResult document = new ArtiDocumentParser().Parse(source);
+            List<ArtiDiagnostic> diagnostics = new List<ArtiDiagnostic>(document.Diagnostics);
+            bool preview = context != null && context.IsPreview;
+            if (document.CodeBlocks.Count == 0)
+            {
+                return new ArtiPromptRenderResult(preview && document.Diagnostics.Count > 0 ? string.Empty : source, diagnostics);
+            }
+
+            ArtiSymbolCatalog symbols = RimTalkArtiCatalog.CreateSymbolCatalog();
+            IArtiModuleCatalog modules = RimTalkArtiCatalog.CreateModuleCatalog();
+            ArtiExecutionContext executionContext = CreateExecutionContext(context, modules, symbols, owner);
+            StringBuilder output = new StringBuilder();
+            PromptExpansionResult literalOutput = null;
+            int cursor = 0;
+            foreach (ArtiCodeBlock block in document.CodeBlocks)
+            {
+                int start = Math.Max(cursor, Math.Min(source.Length, block.Span.StartOffset));
+                int end = Math.Max(start, Math.Min(source.Length, block.Span.EndOffset));
+                if (start > cursor)
+                {
+                    output.Append(source.Substring(cursor, start - cursor));
+                }
+
+                if (block.HasErrors)
+                {
+                    if (!preview) output.Append(CreateErrorMarker(FirstDiagnosticForBlock(document.Diagnostics, block), block.Span));
+                }
+                else
+                {
+                    string blockSource = block.Body ?? string.Empty;
+                    ArtiExecutionResult execution = runtime.Execute(
+                        blockSource,
+                        owner,
+                        executionContext,
+                        block.BodySpan.StartOffset, block.BodySpan.Line, block.BodySpan.Column);
+                    AddDiagnostics(diagnostics, execution.Diagnostics);
+                    bool executionFailed = false;
+                    foreach (ArtiDiagnostic diagnostic in execution.Diagnostics)
+                        executionFailed |= diagnostic.Severity == ArtiDiagnosticSeverity.Error;
+                    if (!preview || !executionFailed)
+                    {
+                        string emitted = execution.Output;
+                        if (!string.IsNullOrEmpty(emitted) && emitted.IndexOf("{{", StringComparison.Ordinal) >= 0)
+                        {
+                            if (literalOutput == null) literalOutput = new PromptExpansionResult(string.Empty);
+                            string slot = "\uE000ArtiOutput" + Guid.NewGuid().ToString("N") + "\uE001";
+                            literalOutput.Slots.Add(slot, emitted);
+                            output.Append(slot);
+                        }
+                        else output.Append(emitted);
+                    }
+                }
+
+                cursor = end;
+            }
+
+            if (cursor < source.Length)
+            {
+                output.Append(source.Substring(cursor));
+            }
+
+            return new ArtiPromptRenderResult(output.ToString(), diagnostics, literalOutput);
+        }
+
+        private static ArtiExecutionContext CreateExecutionContext(
+            PromptContext context,
+            IArtiModuleCatalog modules,
+            IArtiSymbolCatalog symbols,
+            string owner)
+        {
+            PromptContext promptContext = context ?? new PromptContext();
+            ArtiExecutionContext executionContext = new ArtiExecutionContext(
+                new RimTalkArtiRuntimeValueProvider(promptContext),
+                modules,
+                symbols);
+            executionContext.OnceStore = ArtiOnceStores.Current;
+            executionContext.OncePreview = promptContext.IsPreview;
+            executionContext.OnceOwner = owner ?? string.Empty;
+            executionContext.OnceScope = ArtiOnceStores.CurrentScopeKey();
+            executionContext.OnceScopeLabel = ArtiOnceStores.CurrentScopeLabel();
+            executionContext.WarningSink = delegate(string message)
+            {
+            };
+            Dictionary<string, object> previewVariables = promptContext.IsPreview
+                ? PromptPreviewSession.Variables ?? new Dictionary<string, object>(StringComparer.Ordinal) : null;
+            executionContext.GetVariable = delegate(string key)
+            {
+                if (previewVariables != null)
+                {
+                    return PromptPreviewSession.GetVariable(previewVariables, key);
+                }
+                return ScribanParser.GetSessionVar(key);
+            };
+            executionContext.SetVariable = delegate(string key, string value)
+            {
+                if (previewVariables != null) PromptPreviewSession.SetVariable(previewVariables, key, value);
+                else ScribanParser.SetSessionVar(key, value);
+            };
+            return executionContext;
+        }
+
+        private static ArtiDiagnostic FirstDiagnosticForBlock(
+            IList<ArtiDiagnostic> diagnostics,
+            ArtiCodeBlock block)
+        {
+            if (diagnostics != null)
+            {
+                foreach (ArtiDiagnostic diagnostic in diagnostics)
+                {
+                    if (diagnostic.Span.StartOffset >= block.Span.StartOffset
+                        && diagnostic.Span.StartOffset <= block.Span.EndOffset
+                        && diagnostic.Severity == ArtiDiagnosticSeverity.Error)
+                    {
+                        return diagnostic;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static ArtiDiagnostic FirstError(IList<ArtiDiagnostic> diagnostics)
+        {
+            if (diagnostics != null)
+            {
+                foreach (ArtiDiagnostic diagnostic in diagnostics)
+                {
+                    if (diagnostic.Severity == ArtiDiagnosticSeverity.Error)
+                    {
+                        return diagnostic;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static string CreateErrorMarker(ArtiDiagnostic diagnostic, ArtiSourceSpan fallbackSpan)
+        {
+            if (diagnostic == null)
+            {
+                return "[Advanced RimTalk Arti error at "
+                    + fallbackSpan.Line
+                    + ":"
+                    + fallbackSpan.Column
+                    + "]";
+            }
+
+            return "[Advanced RimTalk Arti error "
+                + diagnostic.Code
+                + " at "
+                + diagnostic.Span.Line
+                + ":"
+                + diagnostic.Span.Column
+                + ": "
+                + diagnostic.Message
+                + "]";
+        }
+
+        private static void AddDiagnostics(
+            IList<ArtiDiagnostic> target,
+            IList<ArtiDiagnostic> diagnostics)
+        {
+            if (diagnostics == null)
+            {
+                return;
+            }
+
+            foreach (ArtiDiagnostic diagnostic in diagnostics)
+            {
+                target.Add(diagnostic);
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_Trait_HardyLabor.degreeDatas.0.label>Hardy</MouseDisaster_Trait_HardyLabor.degreeDatas.0.label>
+  <MouseDisaster_Trait_HardyLabor.degreeDatas.0.description>[PAWN_nameDef] can take hardship, and will keep at unpleasant work.</MouseDisaster_Trait_HardyLabor.degreeDatas.0.description>
+  <MouseDisaster_Trait_FamineFarmer.degreeDatas.0.label>Agrarian</MouseDisaster_Trait_FamineFarmer.degreeDatas.0.label>
+  <MouseDisaster_Trait_FamineFarmer.degreeDatas.0.description>[PAWN_nameDef] knows field work well.</MouseDisaster_Trait_FamineFarmer.degreeDatas.0.description>
+  <MouseDisaster_Trait_FieldGleaner.degreeDatas.0.label>Foraging</MouseDisaster_Trait_FieldGleaner.degreeDatas.0.label>
+  <MouseDisaster_Trait_FieldGleaner.degreeDatas.0.description>[PAWN_nameDef] is used to picking through edges and waste ground for anything edible.</MouseDisaster_Trait_FieldGleaner.degreeDatas.0.description>
+  <MouseDisaster_Trait_DisasterHerder.degreeDatas.0.label>Husbandry</MouseDisaster_Trait_DisasterHerder.degreeDatas.0.label>
+  <MouseDisaster_Trait_DisasterHerder.degreeDatas.0.description>[PAWN_nameDef] is good with animals. Even frightened livestock will come close to [PAWN_objective].</MouseDisaster_Trait_DisasterHerder.degreeDatas.0.description>
+  <MouseDisaster_Trait_WellBearer.degreeDatas.0.label>Sturdy</MouseDisaster_Trait_WellBearer.degreeDatas.0.label>
+  <MouseDisaster_Trait_WellBearer.degreeDatas.0.description>[PAWN_nameDef] can take a lot of weight without minding the load.</MouseDisaster_Trait_WellBearer.degreeDatas.0.description>
+  <MouseDisaster_Trait_MoldSifter.degreeDatas.0.label>Palate</MouseDisaster_Trait_MoldSifter.degreeDatas.0.label>
+  <MouseDisaster_Trait_MoldSifter.degreeDatas.0.description>[PAWN_nameDef] can tell which grain can still be cooked.</MouseDisaster_Trait_MoldSifter.degreeDatas.0.description>
+  <MouseDisaster_Trait_GranaryCarpenter.degreeDatas.0.label>Handy</MouseDisaster_Trait_GranaryCarpenter.degreeDatas.0.label>
+  <MouseDisaster_Trait_GranaryCarpenter.degreeDatas.0.description>[PAWN_nameDef] is handy with roofs and wooden frames.</MouseDisaster_Trait_GranaryCarpenter.degreeDatas.0.description>
+  <MouseDisaster_Trait_RagTailor.degreeDatas.0.label>Mender</MouseDisaster_Trait_RagTailor.degreeDatas.0.label>
+  <MouseDisaster_Trait_RagTailor.degreeDatas.0.description>[PAWN_nameDef] is good at stitching rags and old felt into something usable.</MouseDisaster_Trait_RagTailor.degreeDatas.0.description>
+  <MouseDisaster_Trait_HerbReader.degreeDatas.0.label>Herbal</MouseDisaster_Trait_HerbReader.degreeDatas.0.label>
+  <MouseDisaster_Trait_HerbReader.degreeDatas.0.description>[PAWN_nameDef] knows which herbs still bring a fever down, and can be trusted with a bandage.</MouseDisaster_Trait_HerbReader.degreeDatas.0.description>
+  <MouseDisaster_Trait_NightFugitive.degreeDatas.0.label>Nocturnal</MouseDisaster_Trait_NightFugitive.degreeDatas.0.label>
+  <MouseDisaster_Trait_NightFugitive.degreeDatas.0.description>[PAWN_nameDef] prefers to move at night, and doesn't stumble much in the dark.</MouseDisaster_Trait_NightFugitive.degreeDatas.0.description>
+  <MouseDisaster_Trait_SnowGuide.degreeDatas.0.label>Pathwise</MouseDisaster_Trait_SnowGuide.degreeDatas.0.label>
+  <MouseDisaster_Trait_SnowGuide.degreeDatas.0.description>[PAWN_nameDef] remembers old trail markers and tracks buried in snow.</MouseDisaster_Trait_SnowGuide.degreeDatas.0.description>
+  <MouseDisaster_Trait_DustBearer.degreeDatas.0.label>Bearer</MouseDisaster_Trait_DustBearer.degreeDatas.0.label>
+  <MouseDisaster_Trait_DustBearer.degreeDatas.0.description>[PAWN_nameDef] will carry grain and water all the way to the next camp, and rarely puts the load down.</MouseDisaster_Trait_DustBearer.degreeDatas.0.description>
+  <MouseDisaster_Trait_CampWatcher.degreeDatas.0.label>Vigilant</MouseDisaster_Trait_CampWatcher.degreeDatas.0.label>
+  <MouseDisaster_Trait_CampWatcher.degreeDatas.0.description>[PAWN_nameDef] doesn't panic easily. When the camp is in chaos, [PAWN_pronoun] can still keep a clear head.</MouseDisaster_Trait_CampWatcher.degreeDatas.0.description>
+  <MouseDisaster_Trait_AlmsSpeaker.degreeDatas.0.label>Eloquent</MouseDisaster_Trait_AlmsSpeaker.degreeDatas.0.label>
+  <MouseDisaster_Trait_AlmsSpeaker.degreeDatas.0.description>[PAWN_nameDef] has a way with words. Even hard news comes out in a way people will listen to.</MouseDisaster_Trait_AlmsSpeaker.degreeDatas.0.description>
+  <MouseDisaster_Trait_JunkAppraiser.degreeDatas.0.label>Shrewd</MouseDisaster_Trait_JunkAppraiser.degreeDatas.0.label>
+  <MouseDisaster_Trait_JunkAppraiser.degreeDatas.0.description>[PAWN_nameDef] can tell what a sack of old goods is still worth, and is sharp in a trade.</MouseDisaster_Trait_JunkAppraiser.degreeDatas.0.description>
+  <MouseDisaster_Trait_GrainMediator.degreeDatas.0.label>Peaceable</MouseDisaster_Trait_GrainMediator.degreeDatas.0.label>
+  <MouseDisaster_Trait_GrainMediator.degreeDatas.0.description>[PAWN_nameDef] steps in before a crowd starts grabbing, and can keep a situation from falling apart.</MouseDisaster_Trait_GrainMediator.degreeDatas.0.description>
+  <MouseDisaster_Trait_WoundTender.degreeDatas.0.label>Careful</MouseDisaster_Trait_WoundTender.degreeDatas.0.label>
+  <MouseDisaster_Trait_WoundTender.degreeDatas.0.description>[PAWN_nameDef] has a steady hand with wounds, and smell or crying rarely stops [PAWN_objective].</MouseDisaster_Trait_WoundTender.degreeDatas.0.description>
+  <MouseDisaster_Trait_EggKeeper.degreeDatas.0.label>Broody</MouseDisaster_Trait_EggKeeper.degreeDatas.0.label>
+  <MouseDisaster_Trait_EggKeeper.degreeDatas.0.description>[PAWN_nameDef] puts the young first. If a child nearby goes hungry or falls ill, [PAWN_pronoun] takes it hard.</MouseDisaster_Trait_EggKeeper.degreeDatas.0.description>
+  <MouseDisaster_Trait_LeanHunger.degreeDatas.0.label>Abstemious</MouseDisaster_Trait_LeanHunger.degreeDatas.0.label>
+  <MouseDisaster_Trait_LeanHunger.degreeDatas.0.description>[PAWN_nameDef] is used to splitting one meal into two, and can keep going on an empty stomach.</MouseDisaster_Trait_LeanHunger.degreeDatas.0.description>
+  <MouseDisaster_Trait_ThickFur.degreeDatas.0.label>Thick-furred</MouseDisaster_Trait_ThickFur.degreeDatas.0.label>
+  <MouseDisaster_Trait_ThickFur.degreeDatas.0.description>[PAWN_nameDef] handles the cold well.</MouseDisaster_Trait_ThickFur.degreeDatas.0.description>
+  <MouseDisaster_Trait_FinePaws.degreeDatas.0.label>Deft</MouseDisaster_Trait_FinePaws.degreeDatas.0.label>
+  <MouseDisaster_Trait_FinePaws.degreeDatas.0.description>[PAWN_nameDef] has a sure hand with fine work like mending sacks and threading needles.</MouseDisaster_Trait_FinePaws.degreeDatas.0.description>
+  <MouseDisaster_Trait_PathScout.degreeDatas.0.label>Alert</MouseDisaster_Trait_PathScout.degreeDatas.0.label>
+  <MouseDisaster_Trait_PathScout.degreeDatas.0.description>[PAWN_nameDef] notices movement early and checks the path before stepping.</MouseDisaster_Trait_PathScout.degreeDatas.0.description>
+  <MouseDisaster_Trait_ColumnLead.degreeDatas.0.label>Decisive</MouseDisaster_Trait_ColumnLead.degreeDatas.0.label>
+  <MouseDisaster_Trait_ColumnLead.degreeDatas.0.description>[PAWN_nameDef] lines people up before moving. Who walks first and who watches the young is for [PAWN_pronoun] to decide.</MouseDisaster_Trait_ColumnLead.degreeDatas.0.description>
+  <MouseDisaster_Trait_ReliefCook.degreeDatas.0.label>Culinary</MouseDisaster_Trait_ReliefCook.degreeDatas.0.label>
+  <MouseDisaster_Trait_ReliefCook.degreeDatas.0.description>[PAWN_nameDef] can turn a little grain into a hot meal that can still be shared.</MouseDisaster_Trait_ReliefCook.degreeDatas.0.description>
+  <MouseDisaster_Trait_FamineHunter.degreeDatas.0.label>Hunter</MouseDisaster_Trait_FamineHunter.degreeDatas.0.label>
+  <MouseDisaster_Trait_FamineHunter.degreeDatas.0.description>[PAWN_nameDef] likes to pin prey up close, and moves quietly on the approach.</MouseDisaster_Trait_FamineHunter.degreeDatas.0.description>
+  <MouseDisaster_Trait_HungerRage.degreeDatas.0.label>Ravenous</MouseDisaster_Trait_HungerRage.degreeDatas.0.label>
+  <MouseDisaster_Trait_HungerRage.degreeDatas.0.description>[PAWN_nameDef] sees food and the eyes go red. The emptier the stomach, the harder it is to keep still.</MouseDisaster_Trait_HungerRage.degreeDatas.0.description>
+  <MouseDisaster_Trait_FoodSnatcher.degreeDatas.0.label>Snatching</MouseDisaster_Trait_FoodSnatcher.degreeDatas.0.label>
+  <MouseDisaster_Trait_FoodSnatcher.degreeDatas.0.description>[PAWN_nameDef] can hardly watch food pass by. When hungry, the paws go to the sack first.</MouseDisaster_Trait_FoodSnatcher.degreeDatas.0.description>
+  <MouseDisaster_Trait_PlagueDread.degreeDatas.0.label>Plague-shy</MouseDisaster_Trait_PlagueDread.degreeDatas.0.label>
+  <MouseDisaster_Trait_PlagueDread.degreeDatas.0.description>[PAWN_nameDef] is especially afraid of plague. Being sick, or seeing someone nearby fall ill, makes [PAWN_pronoun] uneasy.</MouseDisaster_Trait_PlagueDread.degreeDatas.0.description>
+  <MouseDisaster_Trait_NightTerrors.degreeDatas.0.label>Jumpy</MouseDisaster_Trait_NightTerrors.degreeDatas.0.label>
+  <MouseDisaster_Trait_NightTerrors.degreeDatas.0.description>[PAWN_nameDef] sleeps lightly and wakes at small sounds. Tiredness only makes the panic worse.</MouseDisaster_Trait_NightTerrors.degreeDatas.0.description>
+  <MouseDisaster_Trait_FamineSloth.degreeDatas.0.label>Slothful</MouseDisaster_Trait_FamineSloth.degreeDatas.0.label>
+  <MouseDisaster_Trait_FamineSloth.degreeDatas.0.description>[PAWN_nameDef] is a little lazy, and will rest if there's a chance to rest.</MouseDisaster_Trait_FamineSloth.degreeDatas.0.description>
+  <MouseDisaster_Trait_GrainGreed.degreeDatas.0.label>Gluttonous</MouseDisaster_Trait_GrainGreed.degreeDatas.0.label>
+  <MouseDisaster_Trait_GrainGreed.degreeDatas.0.description>[PAWN_nameDef] can't stop eating while food is in reach, and hunger hits hard.</MouseDisaster_Trait_GrainGreed.degreeDatas.0.description>
+  <MouseDisaster_Trait_Distrustful.degreeDatas.0.label>Distrustful</MouseDisaster_Trait_Distrustful.degreeDatas.0.label>
+  <MouseDisaster_Trait_Distrustful.degreeDatas.0.description>[PAWN_nameDef] has a hard time trusting anyone. Even kindness often looks like a trap to [PAWN_objective].</MouseDisaster_Trait_Distrustful.degreeDatas.0.description>
+  <MouseDisaster_Trait_WeakFlesh.degreeDatas.0.label>Frail</MouseDisaster_Trait_WeakFlesh.degreeDatas.0.label>
+  <MouseDisaster_Trait_WeakFlesh.degreeDatas.0.description>[PAWN_nameDef] is frail, and doesn't take knocks well.</MouseDisaster_Trait_WeakFlesh.degreeDatas.0.description>
+  <MouseDisaster_Trait_WeakGut.degreeDatas.0.label>Queasy</MouseDisaster_Trait_WeakGut.degreeDatas.0.label>
+  <MouseDisaster_Trait_WeakGut.degreeDatas.0.description>[PAWN_nameDef] has a weak gut, and gets hungry again soon after a meal.</MouseDisaster_Trait_WeakGut.degreeDatas.0.description>
+  <MouseDisaster_Trait_Chillblood.degreeDatas.0.label>Chilly</MouseDisaster_Trait_Chillblood.degreeDatas.0.label>
+  <MouseDisaster_Trait_Chillblood.degreeDatas.0.description>[PAWN_nameDef] hates the cold. When the wind picks up, [PAWN_pronoun] suffers for it.</MouseDisaster_Trait_Chillblood.degreeDatas.0.description>
+  <MouseDisaster_Trait_FamineGloom.degreeDatas.0.label>Gloomy</MouseDisaster_Trait_FamineGloom.degreeDatas.0.label>
+  <MouseDisaster_Trait_FamineGloom.degreeDatas.0.description>[PAWN_nameDef] has a hard time believing anything good is coming, and cracks more easily under pressure.</MouseDisaster_Trait_FamineGloom.degreeDatas.0.description>
+  <MouseDisaster_Trait_WailingYoung.degreeDatas.0.label>Tearful</MouseDisaster_Trait_WailingYoung.degreeDatas.0.label>
+  <MouseDisaster_Trait_WailingYoung.degreeDatas.0.description>[PAWN_nameDef] is still small, and cries easily when hungry or cold.</MouseDisaster_Trait_WailingYoung.degreeDatas.0.description>
+  <MouseDisaster_Trait_BitingYoung.degreeDatas.0.label>Biting</MouseDisaster_Trait_BitingYoung.degreeDatas.0.label>
+  <MouseDisaster_Trait_BitingYoung.degreeDatas.0.description>[PAWN_nameDef] hasn't learned to hide hunger. Near food, or when grabbed, biting follows.</MouseDisaster_Trait_BitingYoung.degreeDatas.0.description>
+  <MouseDisaster_Trait_AlmsHate.degreeDatas.0.label>Proud</MouseDisaster_Trait_AlmsHate.degreeDatas.0.label>
+  <MouseDisaster_Trait_AlmsHate.degreeDatas.0.description>[PAWN_nameDef] treats charity as a humiliation, and won't bow to give thanks after taking what's offered.</MouseDisaster_Trait_AlmsHate.degreeDatas.0.description>
+  <MouseDisaster_Trait_GrudgeKeeper.degreeDatas.0.label>Vindictive</MouseDisaster_Trait_GrudgeKeeper.degreeDatas.0.label>
+  <MouseDisaster_Trait_GrudgeKeeper.degreeDatas.0.description>[PAWN_nameDef] remembers who shut a gate and who took what was needed. The next meeting starts with the old grudge.</MouseDisaster_Trait_GrudgeKeeper.degreeDatas.0.description>
+  <MouseDisaster_Trait_PlagueSurvivor.degreeDatas.0.label>Hardened</MouseDisaster_Trait_PlagueSurvivor.degreeDatas.0.label>
+  <MouseDisaster_Trait_PlagueSurvivor.degreeDatas.0.description>[PAWN_nameDef] survived plague once. Illness is easier to endure now, but tiredness comes more quickly.</MouseDisaster_Trait_PlagueSurvivor.degreeDatas.0.description>
+  <MouseDisaster_Trait_GrainSneak.degreeDatas.0.label>Guileful</MouseDisaster_Trait_GrainSneak.degreeDatas.0.label>
+  <MouseDisaster_Trait_GrainSneak.degreeDatas.0.description>[PAWN_nameDef] doesn't show what is really wanted, and moves quietly when closing in.</MouseDisaster_Trait_GrainSneak.degreeDatas.0.description>
+  <MouseDisaster_Trait_SiegeDigger.degreeDatas.0.label>Digger</MouseDisaster_Trait_SiegeDigger.degreeDatas.0.label>
+  <MouseDisaster_Trait_SiegeDigger.degreeDatas.0.description>[PAWN_nameDef] is good with a shovel, especially digging ways out and trenches.</MouseDisaster_Trait_SiegeDigger.degreeDatas.0.description>
+  <MouseDisaster_Trait_GranaryBreaker.degreeDatas.0.label>Fierce</MouseDisaster_Trait_GranaryBreaker.degreeDatas.0.label>
+  <MouseDisaster_Trait_GranaryBreaker.degreeDatas.0.description>[PAWN_nameDef] doesn't mind a close fight. The fists are ready before the sentence is finished.</MouseDisaster_Trait_GranaryBreaker.degreeDatas.0.description>
+  <MouseDisaster_Trait_AilingMother.degreeDatas.0.label>Maternal</MouseDisaster_Trait_AilingMother.degreeDatas.0.label>
+  <MouseDisaster_Trait_AilingMother.degreeDatas.0.description>[PAWN_nameDef] puts the children first. If a child is hungry or sick, [PAWN_pronoun] unravels.</MouseDisaster_Trait_AilingMother.degreeDatas.0.description>
+  <MouseDisaster_Trait_FamilyThief.degreeDatas.0.label>Clannish</MouseDisaster_Trait_FamilyThief.degreeDatas.0.label>
+  <MouseDisaster_Trait_FamilyThief.degreeDatas.0.description>[PAWN_nameDef] puts kin above rules. If the young of the den go hungry or fall ill, [PAWN_pronoun] can't sit still.</MouseDisaster_Trait_FamilyThief.degreeDatas.0.description>
+  <MouseDisaster_Trait_QuarantineGuard.degreeDatas.0.label>Aloof</MouseDisaster_Trait_QuarantineGuard.degreeDatas.0.label>
+  <MouseDisaster_Trait_QuarantineGuard.degreeDatas.0.description>[PAWN_nameDef] is hard to get close to, and keeps people apart with a firm hand and few words.</MouseDisaster_Trait_QuarantineGuard.degreeDatas.0.description>
+  <MouseDisaster_Trait_WrongKin.degreeDatas.0.label>Gullible</MouseDisaster_Trait_WrongKin.degreeDatas.0.label>
+  <MouseDisaster_Trait_WrongKin.degreeDatas.0.description>[PAWN_nameDef] will take a strange door for home, and takes it hard when that guess is wrong.</MouseDisaster_Trait_WrongKin.degreeDatas.0.description>
+  <MouseDisaster_Trait_CrowdChild.degreeDatas.0.label>Gregarious</MouseDisaster_Trait_CrowdChild.degreeDatas.0.label>
+  <MouseDisaster_Trait_CrowdChild.degreeDatas.0.description>[PAWN_nameDef] is more at ease in a crowd, and talks poorly when left alone.</MouseDisaster_Trait_CrowdChild.degreeDatas.0.description>
+  <MouseDisaster_Trait_WildHole.degreeDatas.0.label>Feral</MouseDisaster_Trait_WildHole.degreeDatas.0.label>
+  <MouseDisaster_Trait_WildHole.degreeDatas.0.description>[PAWN_nameDef] looks first for cover, then for anything edible. Waste ground feels safer to [PAWN_objective] than a storehouse.</MouseDisaster_Trait_WildHole.degreeDatas.0.description>
+</LanguageData>

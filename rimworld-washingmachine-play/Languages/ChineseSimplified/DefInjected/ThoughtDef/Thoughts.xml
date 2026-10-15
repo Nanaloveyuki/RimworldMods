@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_Washed.stages.0.label>被洗衣机洗了...</PWM_Washed.stages.0.label>
+  <PWM_Washed.stages.0.description>被塞进洗衣机了,不开心</PWM_Washed.stages.0.description>
+  <PWM_Washed.stages.1.label>唔...好晕</PWM_Washed.stages.1.label>
+  <PWM_Washed.stages.1.description>被塞进洗衣机了,不开心</PWM_Washed.stages.1.description>
+  <PWM_Washed.stages.2.label>浑身湿透了...</PWM_Washed.stages.2.label>
+  <PWM_Washed.stages.2.description>被塞进洗衣机了,不开心</PWM_Washed.stages.2.description>
+  <PWM_Washed.stages.3.label>要吐了...</PWM_Washed.stages.3.label>
+  <PWM_Washed.stages.3.description>被塞进洗衣机了,不开心</PWM_Washed.stages.3.description>
+  <PWM_Washed.stages.4.label>吱吱吱..晕晕的</PWM_Washed.stages.4.label>
+  <PWM_Washed.stages.4.description>被塞进洗衣机了,不开心</PWM_Washed.stages.4.description>
+  <PWM_Washed.stages.5.label>叽吱!我不要被转圈圈!</PWM_Washed.stages.5.label>
+  <PWM_Washed.stages.5.description>被塞进洗衣机了,不开心</PWM_Washed.stages.5.description>
+  <PWM_Washed.stages.6.label>吐了吱吐了吱!</PWM_Washed.stages.6.label>
+  <PWM_Washed.stages.6.description>被塞进洗衣机了,不开心</PWM_Washed.stages.6.description>
+</LanguageData>

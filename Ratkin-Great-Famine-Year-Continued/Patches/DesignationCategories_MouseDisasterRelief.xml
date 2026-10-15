@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses</xpath>
+    <value>
+      <li>MouseDisaster.Designator_AreaMouseDisasterReliefExpand</li>
+      <li>MouseDisaster.Designator_AreaMouseDisasterReliefClear</li>
+    </value>
+  </Operation>
+</Patch>

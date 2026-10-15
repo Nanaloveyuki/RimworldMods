@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Format_LabelValue>{0}：{1}</RHAH_Menu_Format_LabelValue>
+  <RHAH_Menu_Format_IdentifiedLabel>{0}  {1}</RHAH_Menu_Format_IdentifiedLabel>
+  <RHAH_Menu_Format_GroupCount>{0}（{1}）</RHAH_Menu_Format_GroupCount>
+  <RHAH_Menu_Format_XenotypeShare>{0}  {1}</RHAH_Menu_Format_XenotypeShare>
+  <RHAH_Menu_Format_IncidentContext>{0} / {1}</RHAH_Menu_Format_IncidentContext>
+  <RHAH_Menu_VersionUnknown>未知</RHAH_Menu_VersionUnknown>
+</LanguageData>

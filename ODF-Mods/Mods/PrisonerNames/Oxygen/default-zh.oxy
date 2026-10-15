@@ -1,0 +1,16 @@
+// 按当前状态显示代号，不改原姓名。规则从上往下判断。
+fn codename(pawn): string {
+    let kind = "囚"
+    if pawn.race == "Ratkin" { kind = "鼠" }
+    let purpose = pawn.interaction_label
+    if pawn.has_interaction("HemogenFarm") { purpose = "供血" }
+    let name = f"{kind}{pawn.number_text}·{purpose}"
+    if !pawn.recruitable { name += "·坚定" }
+    if pawn.bleeding { return name + "·出血" }
+    if pawn.downed { return name + "·倒地" }
+    if pawn.sick { return name + "·患病" }
+    if pawn.interaction == "AttemptRecruit" && pawn.resistance <= 0 {
+        return name + "·可招募"
+    }
+    return name
+}

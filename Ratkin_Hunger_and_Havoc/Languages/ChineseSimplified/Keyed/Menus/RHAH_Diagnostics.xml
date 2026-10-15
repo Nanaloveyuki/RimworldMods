@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Narrative_Kingdom>穗音的王国篇</RHAH_Menu_Narrative_Kingdom>
+  <RHAH_Menu_Pawns>来客</RHAH_Menu_Pawns>
+  <RHAH_Menu_CompatDiagnostics>兼容与诊断</RHAH_Menu_CompatDiagnostics>
+  <RHAH_Menu_Developer>调试</RHAH_Menu_Developer>
+  <RHAH_Menu_Pawns_NoMap>没有当前地图。</RHAH_Menu_Pawns_NoMap>
+  <RHAH_Menu_Pawns_None>这张地图上没有饥与祸来客。</RHAH_Menu_Pawns_None>
+  <RHAH_Menu_Pawns_Invalid>这个来客已经不在了。</RHAH_Menu_Pawns_Invalid>
+  <RHAH_Menu_PawnMeta>{0}。{1}。事件 {2}。</RHAH_Menu_PawnMeta>
+  <RHAH_Menu_PawnRelation>关系组 {0}。父母 {1}。子女 {2}。已投喂：{3}。鼠疫：{4}。</RHAH_Menu_PawnRelation>
+  <RHAH_Menu_Compat_Active>已启用（{0}）</RHAH_Menu_Compat_Active>
+  <RHAH_Menu_Compat_Inactive>未启用</RHAH_Menu_Compat_Inactive>
+  <RHAH_Menu_Compat_MissingRequired>必需，但未启用</RHAH_Menu_Compat_MissingRequired>
+  <RHAH_Menu_Diagnostics_NoGame>加载存档后，可查看诊断信息。</RHAH_Menu_Diagnostics_NoGame>
+  <RHAH_Menu_Diagnostics_Pending>等待中的事件</RHAH_Menu_Diagnostics_Pending>
+  <RHAH_Menu_Diagnostics_Batches>进行中的批次</RHAH_Menu_Diagnostics_Batches>
+  <RHAH_Menu_Diagnostics_Map>当前地图</RHAH_Menu_Diagnostics_Map>
+  <RHAH_Menu_Developer_Note>手动触发事件的功能在“手动触发事件”页；版本和 IrisMenus 信息在“兼容与诊断”页。</RHAH_Menu_Developer_Note>
+  <RHAH_Menu_Developer_LastPawn>最近列出的来客</RHAH_Menu_Developer_LastPawn>
+</LanguageData>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_LongClaim_KeepsakeOpening>{1}拿出一件随身的小东西，说这是自己的，却说不清它从哪里来。
+
+你可以现在问，也可以等孩子成年后再问。收走这件东西会让孩子心情 -6，直到归还；当面丢掉会留下永久的 -8 心情。</RHAH_LongClaim_KeepsakeOpening>
+  <RHAH_LongClaim_KeepsakeCustody>那件东西已经从{1}的背包里拿出来，放在据点里。归还后，-6 心情会消失；一直不还，孩子成年后就不再解释这件东西的来历。丢掉它，会留下永久的 -8 心情。</RHAH_LongClaim_KeepsakeCustody>
+  <RHAH_LongClaim_KeepsakeOrigin>{1}现在能说清那件东西的来历了。那是某个鼠族窝里的记号，孩子在被卖掉前住在那里。孩子几次说出的窝名都不一样。</RHAH_LongClaim_KeepsakeOrigin>
+  <RHAH_LongClaim_KeepsakeClaimant>一只成年鼠族来到据点，认出了{1}的小东西，自称来自那个窝，要把孩子领回去。
+
+你可以让孩子跟来客走，也可以留下孩子。来客不愿意空手离开。</RHAH_LongClaim_KeepsakeClaimant>
+  <RHAH_LongClaim_ClaimOpening>{1}的鼠疫好了，也能把往事说清楚了。这个孩子自称出身于某个鼠族王国，因为不受待见，生病后被赶了出来。地名和称呼都对得上，细节却有些乱。
+
+承认后，孩子会得到一个只有自己相信的头衔，以及 +6 心情，持续15天。不承认会带来 -4 心情，持续15天。你也可以继续追问。</RHAH_LongClaim_ClaimOpening>
+  <RHAH_LongClaim_ClaimDemand>{1}越说越乱，却坚持要回去争那个位子，想请你帮忙联系那些自称仍忠于它的人。
+
+同意后，一小队鼠族会在几天后来到据点，带孩子回去。拒绝会带来 -4 心情，持续15天。</RHAH_LongClaim_ClaimDemand>
+  <RHAH_LongClaim_ClaimRetract>{1}改了口，承认这些称呼和地方都是在路上听来的。
+
+孩子会获得 -2 心情，持续15天，并放弃回去的要求。</RHAH_LongClaim_ClaimRetract>
+  <RHAH_LongClaim_ClaimLegacy>几只鼠族来到据点，自称是{1}的旧人，准备带孩子回去争位子。
+
+交出孩子，孩子会随这群鼠族离开；留下孩子，这群鼠族会记仇，日后带着粮和刀再来。</RHAH_LongClaim_ClaimLegacy>
+  <RHAH_LongClaim_AskNow>现在问</RHAH_LongClaim_AskNow>
+  <RHAH_LongClaim_WaitAdult>等成年后再问</RHAH_LongClaim_WaitAdult>
+  <RHAH_LongClaim_TakeKeepsake>收走东西</RHAH_LongClaim_TakeKeepsake>
+  <RHAH_LongClaim_DiscardKeepsake>丢掉东西</RHAH_LongClaim_DiscardKeepsake>
+  <RHAH_LongClaim_ReturnKeepsake>归还东西</RHAH_LongClaim_ReturnKeepsake>
+  <RHAH_LongClaim_ItemUnavailable>那件东西不在这张地图上，或已经毁掉。</RHAH_LongClaim_ItemUnavailable>
+  <RHAH_LongClaim_HearOrigin>听它说完</RHAH_LongClaim_HearOrigin>
+  <RHAH_LongClaim_LetLeave>让它跟去</RHAH_LongClaim_LetLeave>
+  <RHAH_LongClaim_KeepChild>把它留下</RHAH_LongClaim_KeepChild>
+  <RHAH_LongClaim_AcceptClaim>承认它的身份</RHAH_LongClaim_AcceptClaim>
+  <RHAH_LongClaim_DenyClaim>不承认</RHAH_LongClaim_DenyClaim>
+  <RHAH_LongClaim_ProbeClaim>继续追问</RHAH_LongClaim_ProbeClaim>
+  <RHAH_LongClaim_ApproveReturn>同意送它回去</RHAH_LongClaim_ApproveReturn>
+  <RHAH_LongClaim_RefuseReturn>不同意送回</RHAH_LongClaim_RefuseReturn>
+  <RHAH_LongClaim_AcceptRetraction>听完它的改口</RHAH_LongClaim_AcceptRetraction>
+  <RHAH_LongClaim_PrivateTitle>自认的王位继承人</RHAH_LongClaim_PrivateTitle>
+  <RHAH_LongClaim_EarlyAnswer>{0}反复说那件东西是自己的，还是说不出以前的主人。东西还在它身上，可以等它成年后再问。</RHAH_LongClaim_EarlyAnswer>
+  <RHAH_LongClaim_KeepsakeWithheld>{0}成年了，仍记得被收走的东西，却不再谈它的来历。归还东西仍能消除-6心情。</RHAH_LongClaim_KeepsakeWithheld>
+  <RHAH_LongClaim_KeepsakeDestroyed>{0}看见自己的东西没了。收走东西带来的-6心情消失，换成永久-8心情。</RHAH_LongClaim_KeepsakeDestroyed>
+  <RHAH_LongClaim_NobodyCame>没有鼠族来认{0}。那件东西仍在它身上，它也不再提起那个窝。</RHAH_LongClaim_NobodyCame>
+  <RHAH_LongClaim_KeptAfterClaim>你决定把{0}留下。来领它的鼠族很不高兴，临走还骂了几句。以后别的鼠族也可能叫它卖剩下的。</RHAH_LongClaim_KeptAfterClaim>
+  <RHAH_LongClaim_Recognized>{0}得到了一个只有自己相信的头衔，还会向别的鼠族提起自己的身份。心情+6，持续15天。</RHAH_LongClaim_Recognized>
+  <RHAH_LongClaim_LegacyRefused>你把{0}留下了。那一小队离开了，但他们记住了这件事。</RHAH_LongClaim_LegacyRefused>
+  <RHAH_LongClaim_RevengeArrived>鼠族又来了，带着粮食和刀，要为上次没能带走{0}算账。他们开始攻击据点。</RHAH_LongClaim_RevengeArrived>
+  <RHAH_LongClaim_GroupScattered>来接{0}的队伍被打散了。这只孩子留了下来，仍觉得那个位子是自己的。心情+8，持续15天；以后不会再有鼠族来认它。</RHAH_LongClaim_GroupScattered>
+  <RHAH_LongClaim_KilledScared>你的人杀死了来认{0}的鼠族。它害怕了，不再谈这件事。心情-6，持续15天。</RHAH_LongClaim_KilledScared>
+  <RHAH_LongClaim_KilledRelieved>你的人杀死了来认{0}的鼠族。它认定对方本来就是来抓自己的，反而松了口气。心情+4，持续15天。</RHAH_LongClaim_KilledRelieved>
+  <RHAH_LongClaim_KilledViolent>你的人杀死了来认{0}的鼠族。它看着尸体，觉得争回那个位子也可以用这种办法。心情+4，持续15天。</RHAH_LongClaim_KilledViolent>
+  <RHAH_LongClaim_SellingMention>{1}当着{0}的面，叫它卖剩下的。</RHAH_LongClaim_SellingMention>
+  <RHAH_LongClaim_TitleMention>{0}向{1}提起自己的头衔，对方并不相信。</RHAH_LongClaim_TitleMention>
+</LanguageData>

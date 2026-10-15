@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ArmedDemand_LetterTitle>Ratkin demanding food</RHAH_ArmedDemand_LetterTitle>
+  <RHAH_ArmedDemand_LetterText>A group of famine ratkin has gathered around our colony, demanding food.\n\n“We need food. Give us a meal and we will go.”\n\nThey demand {0} simple meals and will wait {1} days. Refusing makes them attack immediately, and missing the deadline also triggers an attack. Ignoring or postponing your reply leaves the deadline running. Even after the attack begins, you can pay in full through this letter to make them stop and leave with the food.</RHAH_ArmedDemand_LetterText>
+  <RHAH_ArmedDemand_Attack>{0}'s group did not receive the food they demanded and has begun attacking. You can still pay the full number of simple meals to stop the attack and make them leave.</RHAH_ArmedDemand_Attack>
+  <RHAH_ArmedDemand_Paid>The food-demanding visitors have received the requested simple meals and are preparing to leave.</RHAH_ArmedDemand_Paid>
+  <RHAH_ArmedDemand_Unavailable>Cannot deliver {0} simple meals: there is not enough food, or the visitors cannot collect it.</RHAH_ArmedDemand_Unavailable>
+</LanguageData>

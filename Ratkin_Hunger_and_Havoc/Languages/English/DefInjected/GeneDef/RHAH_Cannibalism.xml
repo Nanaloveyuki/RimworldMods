@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Gene_Cannibalism.label>cannibalism</RHAH_Gene_Cannibalism.label>
+  <RHAH_Gene_Cannibalism.description>Carriers of this gene accept eating corpses and human meat, and seeing corpses, including rotting corpses. They are immune to the negative mood effects and ideoligious restrictions associated with these acts.</RHAH_Gene_Cannibalism.description>
+  <RHAH_Gene_Cannibalism.customEffectDescriptions.0>Immune to negative mood effects and ideoligious restrictions from eating corpses or human meat</RHAH_Gene_Cannibalism.customEffectDescriptions.0>
+  <RHAH_Gene_Cannibalism.customEffectDescriptions.1>Immune to negative mood effects and ideoligious restrictions from seeing fresh or rotting corpses</RHAH_Gene_Cannibalism.customEffectDescriptions.1>
+</LanguageData>

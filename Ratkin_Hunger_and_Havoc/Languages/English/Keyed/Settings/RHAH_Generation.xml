@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_MaxEventPawns>Visitors per event: {0}</RHAH_Settings_MaxEventPawns>
+  <RHAH_Settings_MaxEventPawns_Tooltip>One incident stays at or under this count. 1 to 100, default 30. A lower count still uses that incident's minimum. A mother and child stay together.</RHAH_Settings_MaxEventPawns_Tooltip>
+  <RHAH_Settings_MinAge>Minimum arrival age: {0}</RHAH_Settings_MinAge>
+  <RHAH_Settings_MaxAge>Maximum arrival age: {0}</RHAH_Settings_MaxAge>
+  <RHAH_Settings_Age_Tooltip>Ordinary visitors arrive inside this range. 0 to 100, default 0 to 50. A mother stays at least as old as her own minimum. Ratkin young keep their own ages unless the switch below is on.</RHAH_Settings_Age_Tooltip>
+  <RHAH_Settings_YoungAge>Ratkin young use this age range</RHAH_Settings_YoungAge>
+  <RHAH_Settings_YoungAge_Tooltip>On, newly arriving ratkin young also use the range above. Off, begging young are 1 day to 2.9 years, and other young are 3 to 6.9. Mothers still use their own minimum age.</RHAH_Settings_YoungAge_Tooltip>
+  <RHAH_Settings_MotherAge>Minimum mother age: {0}</RHAH_Settings_MotherAge>
+  <RHAH_Settings_MotherAge_Tooltip>A newly arriving mother or begging mother is at least this old. 1 to 14, default 14. If the ordinary arrival age is higher, that age wins. Ratkin young keep their own ages.</RHAH_Settings_MotherAge_Tooltip>
+  <RHAH_Settings_ImmobileBabies>Allow babies who cannot walk</RHAH_Settings_ImmobileBabies>
+  <RHAH_Settings_ImmobileBabies_Tooltip>Without a toddler mod, ratkin under 4 stay down, and an adult has to carry them out. Off, ratkin young arrive at least 4 years old.</RHAH_Settings_ImmobileBabies_Tooltip>
+  <RHAH_Settings_ImmobileBabies_Toddlers>Toddlers is active. Children under 3 can move on their own. This switch no longer raises their age.</RHAH_Settings_ImmobileBabies_Toddlers>
+  <RHAH_Settings_Gender>Gender</RHAH_Settings_Gender>
+  <RHAH_Settings_Gender_0>Random</RHAH_Settings_Gender_0>
+  <RHAH_Settings_Gender_1>By share</RHAH_Settings_Gender_1>
+  <RHAH_Settings_Gender_2>All female</RHAH_Settings_Gender_2>
+  <RHAH_Settings_Gender_3>All male</RHAH_Settings_Gender_3>
+  <RHAH_Settings_FemaleShare>Female share: {0}%</RHAH_Settings_FemaleShare>
+  <RHAH_Settings_FemaleShare_Tooltip>Used only when gender is set by share. 0 is all male. 100 is all female. Someone whose gender the incident already set keeps it.</RHAH_Settings_FemaleShare_Tooltip>
+  <RHAH_Settings_PlayerIdeo>Player ideoligion: {0}%</RHAH_Settings_PlayerIdeo>
+  <RHAH_Settings_PlayerIdeo_Tooltip>This share of new arrivals, and of people who later join, takes the player faction's primary ideoligion. 100 converts all of them. 0 keeps the ideoligion they arrived with. With Ideology off, or with no primary ideoligion, nothing changes.</RHAH_Settings_PlayerIdeo_Tooltip>
+  <RHAH_Settings_Apparel>Clothing</RHAH_Settings_Apparel>
+  <RHAH_Settings_Apparel_0>Plain clothes</RHAH_Settings_Apparel_0>
+  <RHAH_Settings_Apparel_1>Plain clothes</RHAH_Settings_Apparel_1>
+  <RHAH_Settings_Apparel_2>Plain clothes, then a temperature wrap</RHAH_Settings_Apparel_2>
+  <RHAH_Settings_Apparel_3>No clothing</RHAH_Settings_Apparel_3>
+  <RHAH_Settings_MaxTraits>Mod traits: {0}</RHAH_Settings_MaxTraits>
+  <RHAH_Settings_MaxTraits_Tooltip>A new visitor gains at most this many mod traits. 0 gives none. Range 0 to 3. People already here keep the traits they have.</RHAH_Settings_MaxTraits_Tooltip>
+  <RHAH_Settings_VanillaTraits>Keep vanilla traits</RHAH_Settings_VanillaTraits>
+  <RHAH_Settings_VanillaTraits_Tooltip>Off, new visitors gain no age-based vanilla traits. Mod traits still follow the limit above.</RHAH_Settings_VanillaTraits_Tooltip>
+  <RHAH_Settings_TraitAge>Traits follow age</RHAH_Settings_TraitAge>
+  <RHAH_Settings_TraitAge_Tooltip>Off, child traits and adult traits can both be chosen. On, children miss adult traits and adults miss child traits.</RHAH_Settings_TraitAge_Tooltip>
+  <RHAH_Settings_ContentSort>List grouping</RHAH_Settings_ContentSort>
+  <RHAH_Settings_ContentSort_0>By source</RHAH_Settings_ContentSort_0>
+  <RHAH_Settings_ContentSort_1>By name</RHAH_Settings_ContentSort_1>
+  <RHAH_Settings_ContentSort_2>By category</RHAH_Settings_ContentSort_2>
+  <RHAH_Settings_ContentSearch>Search histories or traits</RHAH_Settings_ContentSearch>
+  <RHAH_Menu_Content_Owned>Hunger and Havoc</RHAH_Menu_Content_Owned>
+  <RHAH_Menu_Content_vanilla>Vanilla</RHAH_Menu_Content_vanilla>
+  <RHAH_Menu_Content_none>Ordinary</RHAH_Menu_Content_none>
+  <RHAH_Menu_Content_plague>Plague</RHAH_Menu_Content_plague>
+  <RHAH_Menu_Content_theft>Theft</RHAH_Menu_Content_theft>
+  <RHAH_Menu_Content_conflict>Conflict</RHAH_Menu_Content_conflict>
+  <RHAH_Menu_Content_siege>Siege</RHAH_Menu_Content_siege>
+  <RHAH_Settings_RefugeeApparel>Clothing that can be generated</RHAH_Settings_RefugeeApparel>
+  <RHAH_Settings_RefugeeApparel_Tooltip>Clothing you turn off is kept from new visitors. Temperature clothing is set on the environment page and worn first. Ordinary clothing is added only where it does not replace the wrap.</RHAH_Settings_RefugeeApparel_Tooltip>
+  <RHAH_Settings_RefugeeApparel_All>Allow all</RHAH_Settings_RefugeeApparel_All>
+  <RHAH_Settings_RefugeeApparel_None>Forbid all</RHAH_Settings_RefugeeApparel_None>
+  <RHAH_Settings_RefugeeApparel_Search>Search clothing or mods</RHAH_Settings_RefugeeApparel_Search>
+  <RHAH_Settings_RefugeeApparel_Empty>No clothing matches.</RHAH_Settings_RefugeeApparel_Empty>
+  <RHAH_Settings_RefugeeApparel_Quote>By default, visitors receive only vanilla tribalwear, the specified NewRatkinPlus clothes, and vanilla baby and child basics. Clothes from other mods stay off the default list. Ordinary clothes never replace a temperature wrap.</RHAH_Settings_RefugeeApparel_Quote>
+  <RHAH_Settings_RefugeeApparel_Sort>Clothing grouping</RHAH_Settings_RefugeeApparel_Sort>
+  <RHAH_Settings_RefugeeApparel_Sort_0>By mod</RHAH_Settings_RefugeeApparel_Sort_0>
+  <RHAH_Settings_RefugeeApparel_Sort_1>By name</RHAH_Settings_RefugeeApparel_Sort_1>
+  <RHAH_Settings_RefugeeApparel_Sort_2>By vanilla category</RHAH_Settings_RefugeeApparel_Sort_2>
+  <RHAH_Menu_PawnHistory>Visitor histories</RHAH_Menu_PawnHistory>
+  <RHAH_Menu_Experimental>Experimental</RHAH_Menu_Experimental>
+  <RHAH_Menu_PawnHistory_Note>New visitors take one checked history. Someone whose story the incident already wrote keeps that story. Traits can still be chosen.</RHAH_Menu_PawnHistory_Note>
+  <RHAH_Menu_PawnHistory_EnableAll>Enable all histories</RHAH_Menu_PawnHistory_EnableAll>
+  <RHAH_Menu_PawnHistory_DisableAll>Disable all histories</RHAH_Menu_PawnHistory_DisableAll>
+  <RHAH_Menu_PawnHistory_ItemTip>Off, new visitors no longer receive this history. People already here keep the history they have.</RHAH_Menu_PawnHistory_ItemTip>
+  <RHAH_Menu_PawnTrait>Traits</RHAH_Menu_PawnTrait>
+  <RHAH_Menu_PawnTrait_EnableAll>Enable all traits</RHAH_Menu_PawnTrait_EnableAll>
+  <RHAH_Menu_PawnTrait_DisableAll>Disable all traits</RHAH_Menu_PawnTrait_DisableAll>
+  <RHAH_Menu_PawnTrait_ItemTip>Off, new visitors no longer receive this trait. People already here keep the trait they have.</RHAH_Menu_PawnTrait_ItemTip>
+  <RHAH_Menu_PawnTrait_Weight>Weight</RHAH_Menu_PawnTrait_Weight>
+  <RHAH_Menu_PawnTrait_WeightTip>A higher weight is chosen more often. 0 stays out. After it is chosen, weight divided by 100 is the chance they actually gain it. The slider is rough. The field is exact.</RHAH_Menu_PawnTrait_WeightTip>
+  <RHAH_Settings_PawnHistories>Give new visitors a history</RHAH_Settings_PawnHistories>
+  <RHAH_Settings_PawnHistories_Tooltip>Off, new visitors arrive without these histories. People already here keep the histories they have.</RHAH_Settings_PawnHistories_Tooltip>
+  <RHAH_Settings_PawnTraits>Give new visitors mod traits</RHAH_Settings_PawnTraits>
+  <RHAH_Settings_PawnTraits_Tooltip>Off, new visitors gain none of this mod's traits. People already here keep the traits they have. Each visitor still follows the limit above.</RHAH_Settings_PawnTraits_Tooltip>
+  <RHAH_Menu_Experimental_Gap>This page only speeds up how visitors appear.</RHAH_Menu_Experimental_Gap>
+  <RHAH_Menu_Experimental_Note>These options change how long visitors take to appear. With one off, visitors still arrive with that incident's own clothes, history, health, and genes.</RHAH_Menu_Experimental_Note>
+  <RHAH_Settings_OptimizeGeneration>Speed up visitor arrival</RHAH_Settings_OptimizeGeneration>
+  <RHAH_Settings_OptimizeGeneration_Tooltip>Visitors appear faster, with less random clothing and status. Without a set xenotype, the weights on the gene page decide.</RHAH_Settings_OptimizeGeneration_Tooltip>
+  <RHAH_Settings_ApparelAwful>Awful clothes: {0}%</RHAH_Settings_ApparelAwful>
+  <RHAH_Settings_ApparelAwful_Tooltip>Chance a new visitor wears awful clothes. The rest is poor, then normal. 0 to 100, default 35.</RHAH_Settings_ApparelAwful_Tooltip>
+  <RHAH_Settings_ApparelPoor>Poor clothes: {0}%</RHAH_Settings_ApparelPoor>
+  <RHAH_Settings_ApparelPoor_Tooltip>Chance of poor clothes. Awful and poor together cannot pass 100. Default 50.</RHAH_Settings_ApparelPoor_Tooltip>
+  <RHAH_Settings_ApparelDurability_Tooltip>Durability percent of new clothes. The minimum cannot pass the maximum. 1 to 100.</RHAH_Settings_ApparelDurability_Tooltip>
+  <RHAH_Settings_ApparelMin>Clothes durability, minimum: {0}%</RHAH_Settings_ApparelMin>
+  <RHAH_Settings_ApparelMax>Clothes durability, maximum: {0}%</RHAH_Settings_ApparelMax>
+  <RHAH_Settings_ApparelCorpse>Corpse clothes: {0}%</RHAH_Settings_ApparelCorpse>
+  <RHAH_Settings_ApparelCorpse_Tooltip>Chance new clothes were worn by a corpse. 0 to 100, default 25.</RHAH_Settings_ApparelCorpse_Tooltip>
+  <RHAH_Settings_ApparelCloth>Cloth: {0}%</RHAH_Settings_ApparelCloth>
+  <RHAH_Settings_ApparelCloth_Tooltip>Chance of cloth when both cloth and human leather are allowed. The rest is human leather. 0 to 100, default 65.</RHAH_Settings_ApparelCloth_Tooltip>
+  <RHAH_Settings_ApparelPieces>Most clothes: {0}</RHAH_Settings_ApparelPieces>
+  <RHAH_Settings_ApparelPieces_Tooltip>Most pieces one adult visitor wears. 1 to 8, default 4.</RHAH_Settings_ApparelPieces_Tooltip>
+</LanguageData>

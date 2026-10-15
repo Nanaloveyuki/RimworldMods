@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Heat_WetCloth.label>古い濡れ布</RHAH_Heat_WetCloth.label>
+  <RHAH_Heat_WetCloth.description>水を吸わせた古い布を腰に巻いたものです。多少は暑さをしのげます。</RHAH_Heat_WetCloth.description>
+  <RHAH_Heat_MudCoat.label>乾いた泥の被膜</RHAH_Heat_MudCoat.label>
+  <RHAH_Heat_MudCoat.description>体に厚く塗り、乾かした泥です。ひび割れて剥がれますが、日差しを遮ります。</RHAH_Heat_MudCoat.description>
+  <RHAH_Heat_ReedWrap.label>葦の日よけ</RHAH_Heat_ReedWrap.label>
+  <RHAH_Heat_ReedWrap.description>乾いた葦を粗く編んで巻いたものです。日差しを遮り、熱気は逃がします。</RHAH_Heat_ReedWrap.description>
+  <RHAH_Heat_BarkWrap.label>濡れた樹皮の耐暑服</RHAH_Heat_BarkWrap.label>
+  <RHAH_Heat_BarkWrap.description>水に浸した樹皮の細片を体に巻き、暑さをしのぐものです。ひどい臭いがします。</RHAH_Heat_BarkWrap.description>
+  <RHAH_Heat_MudMantle.label>泥と葦の肩掛け</RHAH_Heat_MudMantle.label>
+  <RHAH_Heat_MudMantle.description>泥と葦を押し固めた厚い覆いを体に掛け、強い日差しを遮るものです。濡れていて重いです。</RHAH_Heat_MudMantle.description>
+  <RHAH_Heat_MudShell.label>厚い冷却用の泥殻</RHAH_Heat_MudShell.label>
+  <RHAH_Heat_MudShell.description>乾いた泥を何層も体に塗ったものです。厳しい暑さをしのげますが、動くとひび割れます。</RHAH_Heat_MudShell.description>
+  <RHAH_Cold_ThinHemp.label>一枚の麻布</RHAH_Cold_ThinHemp.label>
+  <RHAH_Cold_ThinHemp.description>小さな粗い麻布です。風はあまり防げませんが、裸よりはましです。</RHAH_Cold_ThinHemp.description>
+  <RHAH_Cold_LayeredHemp.label>重ねた麻布</RHAH_Cold_LayeredHemp.label>
+  <RHAH_Cold_LayeredHemp.description>粗い麻布を何枚も重ねたものです。見た目は悪いものの、多少は暖かさを保てます。</RHAH_Cold_LayeredHemp.description>
+  <RHAH_Cold_StrawQuilt.label>藁と樹皮の綿入れ</RHAH_Cold_StrawQuilt.label>
+  <RHAH_Cold_StrawQuilt.description>乾いた藁と樹皮を古い布の間に縫い込んだものです。動くとかさかさ音がしますが、寒気を防ぎます。</RHAH_Cold_StrawQuilt.description>
+  <RHAH_Cold_FurCloak.label>継ぎはぎの毛皮の肩掛け</RHAH_Cold_FurCloak.label>
+  <RHAH_Cold_FurCloak.description>毛皮の切れ端をつなぎ合わせた短い肩掛けです。縫い目は少しほつれていますが、冷たい風をいくらか防げます。</RHAH_Cold_FurCloak.description>
+  <RHAH_Cold_SmokedBlanket.label>煙と脂で硬くなった古い毛布</RHAH_Cold_SmokedBlanket.label>
+  <RHAH_Cold_SmokedBlanket.description>煙と脂で硬くなった古い毛布です。汚れていてごわごわしますが、寒気を遮ります。</RHAH_Cold_SmokedBlanket.description>
+  <RHAH_Cold_HideWrap.label>厚い皮と麻布の巻き衣</RHAH_Cold_HideWrap.label>
+  <RHAH_Cold_HideWrap.description>獣の皮と麻布を重ねた巻き衣です。手足は動かしやすく、見た目より暖かいです。</RHAH_Cold_HideWrap.description>
+</LanguageData>

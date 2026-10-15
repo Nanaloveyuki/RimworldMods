@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisasterContinued_DuplicateMod_Title>检测到重复加载“鼠灾-大荒年”</MouseDisasterContinued_DuplicateMod_Title>
+  <MouseDisasterContinued_DuplicateMod_Body>原版或“优化版”鼠灾-大荒年与 Continued 版同时启用。为避免程序集、Def 与补丁重复加载，本次运行已停止加载 Continued 版的游戏内容。请只保留一个版本，然后重启 RimWorld；重启前请勿加载或保存游戏。迁移优化版存档时请禁用优化版，而不是同时启用两者。</MouseDisasterContinued_DuplicateMod_Body>
+</LanguageData>

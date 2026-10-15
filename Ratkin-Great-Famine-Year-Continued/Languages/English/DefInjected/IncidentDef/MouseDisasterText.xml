@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_LargeRefugeeWave.label>A large refugee wave</MouseDisaster_LargeRefugeeWave.label>
+  <MouseDisaster_LargeRefugeeWave.letterLabel>A large refugee wave</MouseDisaster_LargeRefugeeWave.letterLabel>
+  <MouseDisaster_LargeRefugeeWave.letterText>A large crowd of Ratkin, frantic with hunger, is pouring toward the colony. They seek food rather than a fight, and will leave after eating.</MouseDisaster_LargeRefugeeWave.letterText>
+  <MouseDisaster_AbandonedRatkinChildren.label>Abandoned Ratkin young</MouseDisaster_AbandonedRatkinChildren.label>
+  <MouseDisaster_AbandonedRatkinChildren.letterLabel>Abandoned Ratkin young</MouseDisaster_AbandonedRatkinChildren.letterLabel>
+  <MouseDisaster_AbandonedRatkinChildren.letterText>A Ratkin mother has arrived with her young and is heading straight for your food stores. She will leave once all the children are in place. They will then become wild wanderers.</MouseDisaster_AbandonedRatkinChildren.letterText>
+  <MouseDisaster_ShatteredMother.label>A mother torn apart</MouseDisaster_ShatteredMother.label>
+  <MouseDisaster_ShatteredMother.letterLabel>A mother torn apart</MouseDisaster_ShatteredMother.letterLabel>
+  <MouseDisaster_ShatteredMother.letterText>A dying Ratkin lies at the edge of the map. Meanwhile, a group of Ratkin young is crossing the colony, moving on as though nothing happened.</MouseDisaster_ShatteredMother.letterText>
+  <MouseDisaster_BeggarFamily.label>A begging mother</MouseDisaster_BeggarFamily.label>
+  <MouseDisaster_BeggarFamily.letterLabel>A begging mother</MouseDisaster_BeggarFamily.letterLabel>
+  <MouseDisaster_BeggarFamily.letterText>A mother and four Ratkin young have arrived at the edge of the colony. They do not seek a fight, only a little food.</MouseDisaster_BeggarFamily.letterText>
+  <MouseDisaster_BeggarGroup.label>Ratkin beggars</MouseDisaster_BeggarGroup.label>
+  <MouseDisaster_BeggarGroup.letterLabel>Ratkin beggars</MouseDisaster_BeggarGroup.letterLabel>
+  <MouseDisaster_BeggarGroup.letterText>Hungry Ratkin refugees have arrived. They will beg colonists for food first. If nobody helps, they will search for it themselves.</MouseDisaster_BeggarGroup.letterText>
+  <MouseDisaster_ThiefRatkinGroup.label>Ratkin thieves</MouseDisaster_ThiefRatkinGroup.label>
+  <MouseDisaster_ThiefRatkinGroup.letterLabel>Ratkin thieves</MouseDisaster_ThiefRatkinGroup.letterLabel>
+  <MouseDisaster_ThiefRatkinGroup.letterText>Hungry Ratkin have slipped into the colony in search of food. You can take them in or drive them away by force.</MouseDisaster_ThiefRatkinGroup.letterText>
+  <MouseDisaster_ThiefRatkinChildGroup.label>Thieving Ratkin young</MouseDisaster_ThiefRatkinChildGroup.label>
+  <MouseDisaster_ThiefRatkinChildGroup.letterLabel>Thieving Ratkin young</MouseDisaster_ThiefRatkinChildGroup.letterLabel>
+  <MouseDisaster_ThiefRatkinChildGroup.letterText>Ratkin young have slipped into the colony, eating and carrying away food. You can take them in or drive them away by force.</MouseDisaster_ThiefRatkinChildGroup.letterText>
+  <MouseDisaster_WildRatkinWandersIn.label>A wild Ratkin wanderer</MouseDisaster_WildRatkinWandersIn.label>
+  <MouseDisaster_WildRatkinWandersIn.letterLabel>A wild Ratkin wanderer</MouseDisaster_WildRatkinWandersIn.letterLabel>
+  <MouseDisaster_WildRatkinWandersIn.letterText>A starving wild Ratkin has appeared. They have no faction and can be tamed like a wild person.</MouseDisaster_WildRatkinWandersIn.letterText>
+  <MouseDisaster_WildRatkinChildWandersIn.label>A wild Ratkin child</MouseDisaster_WildRatkinChildWandersIn.label>
+  <MouseDisaster_WildRatkinChildWandersIn.letterLabel>A wild Ratkin child</MouseDisaster_WildRatkinChildWandersIn.letterLabel>
+  <MouseDisaster_WildRatkinChildWandersIn.letterText>A starving wild Ratkin child has appeared. They have no faction and can be tamed like a wild person.</MouseDisaster_WildRatkinChildWandersIn.letterText>
+  <MouseDisaster_WildRatkinGroupWandersIn.label>Wild Ratkin wanderers</MouseDisaster_WildRatkinGroupWandersIn.label>
+  <MouseDisaster_WildRatkinGroupWandersIn.letterLabel>Wild Ratkin wanderers</MouseDisaster_WildRatkinGroupWandersIn.letterLabel>
+  <MouseDisaster_WildRatkinGroupWandersIn.letterText>Hungry wild Ratkin have appeared at the edge of the map. They have no faction and will roam like wild people.</MouseDisaster_WildRatkinGroupWandersIn.letterText>
+  <MouseDisaster_FamineRefugees.label>Famine refugees</MouseDisaster_FamineRefugees.label>
+  <MouseDisaster_FamineRefugees.letterLabel>Famine refugees</MouseDisaster_FamineRefugees.letterLabel>
+  <MouseDisaster_FamineRefugees.letterText>Ratkin driven to desperation by famine have reached the colony and asked to join. They are frighteningly thin, but still alive.</MouseDisaster_FamineRefugees.letterText>
+  <MouseDisaster_RatkinTraderCaravan.label>A refugee caravan</MouseDisaster_RatkinTraderCaravan.label>
+  <MouseDisaster_RatkinTraderCaravan.letterLabel>A refugee caravan</MouseDisaster_RatkinTraderCaravan.letterLabel>
+  <MouseDisaster_RatkinTraderCaravan.letterText>A Ratkin trader has arrived with captive Ratkin young. She handles the negotiations; those purchased will become prisoners.</MouseDisaster_RatkinTraderCaravan.letterText>
+  <MouseDisaster_ChildExchange.label>Exchanging children for food</MouseDisaster_ChildExchange.label>
+  <MouseDisaster_ChildExchange.letterLabel>Exchanging children for food</MouseDisaster_ChildExchange.letterLabel>
+  <MouseDisaster_ChildExchange.letterText>A Ratkin trader has arrived with a group of young. Send a colonist to negotiate an exchange involving a colonist, prisoner or slave baby. The trader will leave if no deal is made within 24 hours.</MouseDisaster_ChildExchange.letterText>
+  <MouseDisaster_BeggarSiege.label>A siege of beggars</MouseDisaster_BeggarSiege.label>
+  <MouseDisaster_BeggarSiege.letterLabel>A siege of beggars</MouseDisaster_BeggarSiege.letterLabel>
+  <MouseDisaster_BeggarSiege.letterText>Ratkin refugees have surrounded your colony. They repeatedly beg rather than attacking outright. They will leave after carrying five units of food or stealing and eating one.</MouseDisaster_BeggarSiege.letterText>
+  <MouseDisaster_Aid_SimpleMeal.label>Refugee aid (simple meals)</MouseDisaster_Aid_SimpleMeal.label>
+  <MouseDisaster_Aid_SimpleMeal.letterLabel>Refugee aid (simple meals)</MouseDisaster_Aid_SimpleMeal.letterLabel>
+  <MouseDisaster_Aid_SimpleMeal.letterText>Ratkin refugees are asking for aid. They need simple meals.</MouseDisaster_Aid_SimpleMeal.letterText>
+  <MouseDisaster_Aid_FineMeal.label>Refugee aid (fine meals)</MouseDisaster_Aid_FineMeal.label>
+  <MouseDisaster_Aid_FineMeal.letterLabel>Refugee aid (fine meals)</MouseDisaster_Aid_FineMeal.letterLabel>
+  <MouseDisaster_Aid_FineMeal.letterText>Ratkin refugees are asking for aid. They hope to receive fine meals.</MouseDisaster_Aid_FineMeal.letterText>
+  <MouseDisaster_Aid_Medicine.label>Refugee aid (medicine)</MouseDisaster_Aid_Medicine.label>
+  <MouseDisaster_Aid_Medicine.letterLabel>Refugee aid (medicine)</MouseDisaster_Aid_Medicine.letterLabel>
+  <MouseDisaster_Aid_Medicine.letterText>Ratkin refugees are asking for aid. They urgently need medicine.</MouseDisaster_Aid_Medicine.letterText>
+  <MouseDisaster_Aid_Silver.label>Refugee aid (silver)</MouseDisaster_Aid_Silver.label>
+  <MouseDisaster_Aid_Silver.letterLabel>Refugee aid (silver)</MouseDisaster_Aid_Silver.letterLabel>
+  <MouseDisaster_Aid_Silver.letterText>Ratkin refugees are asking for aid. They request silver.</MouseDisaster_Aid_Silver.letterText>
+  <MouseDisaster_Aid_Baby.label>Refugee aid (a baby)</MouseDisaster_Aid_Baby.label>
+  <MouseDisaster_Aid_Baby.letterLabel>Refugee aid (a baby)</MouseDisaster_Aid_Baby.letterLabel>
+  <MouseDisaster_Aid_Baby.letterText>Ratkin refugees are asking for a baby who is a prisoner or slave.</MouseDisaster_Aid_Baby.letterText>
+  <MouseDisaster_Intel_Treasure_SimpleMeal.label>A treasure lead (simple meals)</MouseDisaster_Intel_Treasure_SimpleMeal.label>
+  <MouseDisaster_Intel_Treasure_SimpleMeal.letterLabel>A treasure lead (simple meals)</MouseDisaster_Intel_Treasure_SimpleMeal.letterLabel>
+  <MouseDisaster_Intel_Treasure_SimpleMeal.letterText>The Ratkin offer information about a treasure in exchange for simple meals.</MouseDisaster_Intel_Treasure_SimpleMeal.letterText>
+  <MouseDisaster_Intel_Treasure_Herbal.label>A treasure lead (herbal medicine)</MouseDisaster_Intel_Treasure_Herbal.label>
+  <MouseDisaster_Intel_Treasure_Herbal.letterLabel>A treasure lead (herbal medicine)</MouseDisaster_Intel_Treasure_Herbal.letterLabel>
+  <MouseDisaster_Intel_Treasure_Herbal.letterText>The Ratkin offer information about a treasure in exchange for herbal medicine.</MouseDisaster_Intel_Treasure_Herbal.letterText>
+  <MouseDisaster_Intel_Treasure_Silver.label>A treasure lead (silver)</MouseDisaster_Intel_Treasure_Silver.label>
+  <MouseDisaster_Intel_Treasure_Silver.letterLabel>A treasure lead (silver)</MouseDisaster_Intel_Treasure_Silver.letterLabel>
+  <MouseDisaster_Intel_Treasure_Silver.letterText>The Ratkin offer information about a treasure in exchange for silver.</MouseDisaster_Intel_Treasure_Silver.letterText>
+  <MouseDisaster_Intel_Structure_SimpleMeal.label>A ruins lead (simple meals)</MouseDisaster_Intel_Structure_SimpleMeal.label>
+  <MouseDisaster_Intel_Structure_SimpleMeal.letterLabel>A ruins lead (simple meals)</MouseDisaster_Intel_Structure_SimpleMeal.letterLabel>
+  <MouseDisaster_Intel_Structure_SimpleMeal.letterText>The Ratkin offer the location of some ruins in exchange for simple meals.</MouseDisaster_Intel_Structure_SimpleMeal.letterText>
+  <MouseDisaster_Intel_Structure_Herbal.label>A ruins lead (herbal medicine)</MouseDisaster_Intel_Structure_Herbal.label>
+  <MouseDisaster_Intel_Structure_Herbal.letterLabel>A ruins lead (herbal medicine)</MouseDisaster_Intel_Structure_Herbal.letterLabel>
+  <MouseDisaster_Intel_Structure_Herbal.letterText>The Ratkin offer the location of some ruins in exchange for herbal medicine.</MouseDisaster_Intel_Structure_Herbal.letterText>
+  <MouseDisaster_Intel_Structure_Silver.label>A ruins lead (silver)</MouseDisaster_Intel_Structure_Silver.label>
+  <MouseDisaster_Intel_Structure_Silver.letterLabel>A ruins lead (silver)</MouseDisaster_Intel_Structure_Silver.letterLabel>
+  <MouseDisaster_Intel_Structure_Silver.letterText>The Ratkin offer the location of some ruins in exchange for silver.</MouseDisaster_Intel_Structure_Silver.letterText>
+  <MouseDisaster_Intel_Settlement_SimpleMeal.label>A settlement lead (simple meals)</MouseDisaster_Intel_Settlement_SimpleMeal.label>
+  <MouseDisaster_Intel_Settlement_SimpleMeal.letterLabel>A settlement lead (simple meals)</MouseDisaster_Intel_Settlement_SimpleMeal.letterLabel>
+  <MouseDisaster_Intel_Settlement_SimpleMeal.letterText>The Ratkin offer the location of a small settlement in exchange for simple meals.</MouseDisaster_Intel_Settlement_SimpleMeal.letterText>
+  <MouseDisaster_Intel_Settlement_Herbal.label>A settlement lead (herbal medicine)</MouseDisaster_Intel_Settlement_Herbal.label>
+  <MouseDisaster_Intel_Settlement_Herbal.letterLabel>A settlement lead (herbal medicine)</MouseDisaster_Intel_Settlement_Herbal.letterLabel>
+  <MouseDisaster_Intel_Settlement_Herbal.letterText>The Ratkin offer the location of a small settlement in exchange for herbal medicine.</MouseDisaster_Intel_Settlement_Herbal.letterText>
+  <MouseDisaster_Intel_Settlement_Silver.label>A settlement lead (silver)</MouseDisaster_Intel_Settlement_Silver.label>
+  <MouseDisaster_Intel_Settlement_Silver.letterLabel>A settlement lead (silver)</MouseDisaster_Intel_Settlement_Silver.letterLabel>
+  <MouseDisaster_Intel_Settlement_Silver.letterText>The Ratkin offer the location of a small settlement in exchange for silver.</MouseDisaster_Intel_Settlement_Silver.letterText>
+  <MouseDisaster_PlagueWanderers.label>Infected wanderers</MouseDisaster_PlagueWanderers.label>
+  <MouseDisaster_PlagueWanderers.letterLabel>Infected wanderers</MouseDisaster_PlagueWanderers.letterLabel>
+  <MouseDisaster_PlagueWanderers.letterText>Wild Ratkin carrying Ratkin plague have appeared near the colony. They wander as though searching for hope.</MouseDisaster_PlagueWanderers.letterText>
+  <MouseDisaster_PlagueAbandonedBabies.label>A sick mother's last request</MouseDisaster_PlagueAbandonedBabies.label>
+  <MouseDisaster_PlagueAbandonedBabies.letterLabel>A sick mother's last request</MouseDisaster_PlagueAbandonedBabies.letterLabel>
+  <MouseDisaster_PlagueAbandonedBabies.letterText>A mother with Ratkin plague has arrived at the map edge with her newborn babies. They are all seriously ill.</MouseDisaster_PlagueAbandonedBabies.letterText>
+  <MouseDisaster_PlagueTraderCaravan.label>An infected trade caravan</MouseDisaster_PlagueTraderCaravan.label>
+  <MouseDisaster_PlagueTraderCaravan.letterLabel>An infected trade caravan</MouseDisaster_PlagueTraderCaravan.letterLabel>
+  <MouseDisaster_PlagueTraderCaravan.letterText>A refugee trade caravan has arrived, but its leader has Ratkin plague. Nobody mentions it. Nobody dares.</MouseDisaster_PlagueTraderCaravan.letterText>
+  <MouseDisaster_PlaguePassersby.label>Infected travelers</MouseDisaster_PlaguePassersby.label>
+  <MouseDisaster_PlaguePassersby.letterLabel>Infected travelers</MouseDisaster_PlaguePassersby.letterLabel>
+  <MouseDisaster_PlaguePassersby.letterText>Ratkin carrying plague are passing through your colony on their way elsewhere. They are ordinary travelers, but still dangerous.</MouseDisaster_PlaguePassersby.letterText>
+  <MouseDisaster_PlagueRefugees.label>Plague refugees</MouseDisaster_PlagueRefugees.label>
+  <MouseDisaster_PlagueRefugees.letterLabel>Plague refugees</MouseDisaster_PlagueRefugees.letterLabel>
+  <MouseDisaster_PlagueRefugees.letterText>Ratkin plague refugees have reached the colony and are asking to join.</MouseDisaster_PlagueRefugees.letterText>
+  <MouseDisaster_PlagueOrphan.label>A plague orphan</MouseDisaster_PlagueOrphan.label>
+  <MouseDisaster_PlagueOrphan.letterLabel>A plague orphan</MouseDisaster_PlagueOrphan.letterLabel>
+  <MouseDisaster_PlagueOrphan.letterText>A Ratkin child with plague has appeared in your colony. Without help, they may not live long.</MouseDisaster_PlagueOrphan.letterText>
+  <MouseDisaster_PlagueBeggarGroup.label>Infected beggars</MouseDisaster_PlagueBeggarGroup.label>
+  <MouseDisaster_PlagueBeggarGroup.letterLabel>Infected beggars</MouseDisaster_PlagueBeggarGroup.letterLabel>
+  <MouseDisaster_PlagueBeggarGroup.letterText>Infected Ratkin are wandering through the colony and eating your rice.</MouseDisaster_PlagueBeggarGroup.letterText>
+  <MouseDisaster_PlagueThiefGroup.label>Infected thieves</MouseDisaster_PlagueThiefGroup.label>
+  <MouseDisaster_PlagueThiefGroup.letterLabel>Infected thieves</MouseDisaster_PlagueThiefGroup.letterLabel>
+  <MouseDisaster_PlagueThiefGroup.letterText>Even with plague, these Ratkin have come to steal your rice.</MouseDisaster_PlagueThiefGroup.letterText>
+  <MouseDisaster_LaboringRefugees.label>Refugees in labor</MouseDisaster_LaboringRefugees.label>
+  <MouseDisaster_LaboringRefugees.letterLabel>Refugees in labor</MouseDisaster_LaboringRefugees.letterLabel>
+  <MouseDisaster_LaboringRefugees.letterText>Frail, hungry Ratkin refugees have arrived at the map edge. They are about to give birth and will go into labor as soon as they enter.</MouseDisaster_LaboringRefugees.letterText>
+  <MouseDisaster_PlagueLaboringRefugees.label>Infected refugees in labor</MouseDisaster_PlagueLaboringRefugees.label>
+  <MouseDisaster_PlagueLaboringRefugees.letterLabel>Infected refugees in labor</MouseDisaster_PlagueLaboringRefugees.letterLabel>
+  <MouseDisaster_PlagueLaboringRefugees.letterText>Infected Ratkin refugees have arrived at the map edge. They carry plague and will go into labor as soon as they enter.</MouseDisaster_PlagueLaboringRefugees.letterText>
+  <MouseDisaster_StrongSiege.label>A fierce siege</MouseDisaster_StrongSiege.label>
+  <MouseDisaster_StrongSiege.letterLabel>A fierce siege</MouseDisaster_StrongSiege.letterLabel>
+  <MouseDisaster_StrongSiege.letterText>Refugees have set their sights on your colony. They intend to steal food and leave, but will attack if their route is blocked.</MouseDisaster_StrongSiege.letterText>
+  <MouseDisaster_PlagueStrongSiege.label>An infected siege</MouseDisaster_PlagueStrongSiege.label>
+  <MouseDisaster_PlagueStrongSiege.letterLabel>An infected siege</MouseDisaster_PlagueStrongSiege.letterLabel>
+  <MouseDisaster_PlagueStrongSiege.letterText>Infected refugees have set their sights on your colony. They intend to steal food and leave, but will attack if their route is blocked.</MouseDisaster_PlagueStrongSiege.letterText>
+  <MouseDisaster_Passersby.label>Ratkin passing through</MouseDisaster_Passersby.label>
+  <MouseDisaster_Passersby.letterLabel>Ratkin passing through</MouseDisaster_Passersby.letterLabel>
+  <MouseDisaster_Passersby.letterText>Ratkin travelers are passing through the colony. They are ordinary travelers and will soon continue their journey.</MouseDisaster_Passersby.letterText>
+  <MouseDisaster_AirdropMistake.label>A misdirected airdrop</MouseDisaster_AirdropMistake.label>
+  <MouseDisaster_AirdropMistake.letterLabel>A misdirected airdrop</MouseDisaster_AirdropMistake.letterLabel>
+  <MouseDisaster_AirdropMistake.letterText>Ratkin babies meant for somewhere else have been dropped into your colony by mistake. They are only three days old and will remain here.</MouseDisaster_AirdropMistake.letterText>
+  <MouseDisaster_PlagueAirdropMistake.label>An infected airdrop</MouseDisaster_PlagueAirdropMistake.label>
+  <MouseDisaster_PlagueAirdropMistake.letterLabel>An infected airdrop</MouseDisaster_PlagueAirdropMistake.letterLabel>
+  <MouseDisaster_PlagueAirdropMistake.letterText>Ratkin babies meant for somewhere else have been dropped into your colony by mistake. They carry plague, are only three days old, and will remain here.</MouseDisaster_PlagueAirdropMistake.letterText>
+  <MouseDisaster_MisguidedKinship.label>Mistaken identity</MouseDisaster_MisguidedKinship.label>
+  <MouseDisaster_MisguidedKinship.letterLabel>Mistaken identity</MouseDisaster_MisguidedKinship.letterLabel>
+  <MouseDisaster_MisguidedKinship.letterText>Ratkin young with harmful traits have crawled to your door, calling for their mother. If you refuse them, they will treat this place as a wild nest and search for food.</MouseDisaster_MisguidedKinship.letterText>
+  <MouseDisaster_PlagueMisguidedKinship.label>Mistaken identity with plague</MouseDisaster_PlagueMisguidedKinship.label>
+  <MouseDisaster_PlagueMisguidedKinship.letterLabel>Mistaken identity with plague</MouseDisaster_PlagueMisguidedKinship.letterLabel>
+  <MouseDisaster_PlagueMisguidedKinship.letterText>Ratkin young with harmful traits and plague have crawled to your door, calling for their mother. If you refuse them, they will treat this place as a wild nest and search for food.</MouseDisaster_PlagueMisguidedKinship.letterText>
+  <MouseDisaster_GreatFamine.label>The Great Famine</MouseDisaster_GreatFamine.label>
+  <MouseDisaster_GreatFamine.letterLabel>The Great Famine</MouseDisaster_GreatFamine.letterLabel>
+  <MouseDisaster_GreatFamine.letterText>A mass of famine-stricken Ratkin has flooded into your colony. Hunger has stripped away all restraint. They will eat or gnaw anything they can reach.</MouseDisaster_GreatFamine.letterText>
+  <MouseDisaster_PlagueGreatFamine.label>Famine and plague</MouseDisaster_PlagueGreatFamine.label>
+  <MouseDisaster_PlagueGreatFamine.letterLabel>Famine and plague</MouseDisaster_PlagueGreatFamine.letterLabel>
+  <MouseDisaster_PlagueGreatFamine.letterText>A mass of infected, famine-stricken Ratkin has flooded into your colony. Hunger has stripped away all restraint. They will eat or gnaw anything they can reach.</MouseDisaster_PlagueGreatFamine.letterText>
+  <MouseDisaster_PlagueRevenge.label>Plague revenge</MouseDisaster_PlagueRevenge.label>
+  <MouseDisaster_PlagueRevenge.letterLabel>Plague revenge</MouseDisaster_PlagueRevenge.letterLabel>
+  <MouseDisaster_PlagueRevenge.letterText>You seem to have angered someone formidable. A large group of dying plague victims is being dropped into your colony at once.</MouseDisaster_PlagueRevenge.letterText>
+  <MouseDisaster_CaravanMuggers.label>Refugees rob a caravan</MouseDisaster_CaravanMuggers.label>
+  <MouseDisaster_CaravanMuggers.letterLabel>Refugees rob a caravan</MouseDisaster_CaravanMuggers.letterLabel>
+  <MouseDisaster_PlagueCaravanMuggers.label>Infected refugees rob a caravan</MouseDisaster_PlagueCaravanMuggers.label>
+  <MouseDisaster_PlagueCaravanMuggers.letterLabel>Infected refugees rob a caravan</MouseDisaster_PlagueCaravanMuggers.letterLabel>
+</LanguageData>

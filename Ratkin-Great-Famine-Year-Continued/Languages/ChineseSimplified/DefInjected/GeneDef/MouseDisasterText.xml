@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_Gene_MoreLitter.label>鼠灾多崽</MouseDisaster_Gene_MoreLitter.label>
+  <MouseDisaster_Gene_MoreLitter.description>携带者每次分娩至少会产下 4 个后代，并有概率继续追加，不设上限。</MouseDisaster_Gene_MoreLitter.description>
+  <MouseDisaster_Gene_MoreLitter.customEffectDescriptions.0>单次分娩至少 4 个后代</MouseDisaster_Gene_MoreLitter.customEffectDescriptions.0>
+  <MouseDisaster_Gene_MoreLitter.customEffectDescriptions.1>有概率继续追加，不设上限</MouseDisaster_Gene_MoreLitter.customEffectDescriptions.1>
+  <MouseDisaster_Gene_PrimalFertility.label>鼠灾早熟</MouseDisaster_Gene_PrimalFertility.label>
+  <MouseDisaster_Gene_PrimalFertility.description>携带者可突破原版年龄阶段限制参与受孕判定，但双方生理年龄仍需达到 1 岁。</MouseDisaster_Gene_PrimalFertility.description>
+  <MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.0>可突破年龄阶段限制参与受孕判定</MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.0>
+  <MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.1>双方生理年龄需达到 1 岁</MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.1>
+  <MouseDisaster_Gene_HyperBreeding.label>鼠灾高育</MouseDisaster_Gene_HyperBreeding.label>
+  <MouseDisaster_Gene_HyperBreeding.description>携带者参与繁殖时，整体怀孕概率提高至原来的 300%。</MouseDisaster_Gene_HyperBreeding.description>
+  <MouseDisaster_Gene_HyperBreeding.customEffectDescriptions.0>怀孕几率 x300%</MouseDisaster_Gene_HyperBreeding.customEffectDescriptions.0>
+  <MouseDisaster_Gene_ChaosFertility.label>鼠灾乱起</MouseDisaster_Gene_ChaosFertility.label>
+  <MouseDisaster_Gene_ChaosFertility.description>携带者与同阵营异性同处室内时，会按间隔自动判定受孕；可在哺乳期受孕。双方生理年龄需达到 1 岁。每次判定概率与间隔由模组设置面板控制（默认 2%）。</MouseDisaster_Gene_ChaosFertility.description>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.0>与同阵营异性同房间时有概率自发怀孕</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.0>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.1>双方生理年龄需达到 1 岁</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.1>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.2>每次判定概率可在设置中调整（默认 2%）</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.2>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.3>判定间隔可在设置中调整</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.3>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.4>可在哺乳期受孕</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.4>
+  <MouseDisaster_Gene_MoreComing.label>鼠灾速产</MouseDisaster_Gene_MoreComing.label>
+  <MouseDisaster_Gene_MoreComing.description>携带者妊娠进程改为固定节奏：总孕期固定为 12 天，不受其他速度修正影响。</MouseDisaster_Gene_MoreComing.description>
+  <MouseDisaster_Gene_MoreComing.customEffectDescriptions.0>总孕期固定为 12 天</MouseDisaster_Gene_MoreComing.customEffectDescriptions.0>
+</LanguageData>

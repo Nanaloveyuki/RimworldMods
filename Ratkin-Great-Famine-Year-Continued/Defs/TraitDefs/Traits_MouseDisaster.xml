@@ -1,0 +1,1238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <TraitDef>
+    <defName>MouseDisaster_Trait_HardyLabor</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterWorkSpeed</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Industriousness</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>吃苦</label>
+        <description>[PAWN_nameDef]吃得了苦，苦活也能一直干下去。</description>
+        <color>(3, 67, 223)</color>
+        <statOffsets>
+          <WorkSpeedGlobal>0.15</WorkSpeedGlobal>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FamineFarmer</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterFarming</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>农熟</label>
+        <description>[PAWN_nameDef]对田里的活很熟，种地收割都在行。</description>
+        <color>(21, 176, 26)</color>
+        <statOffsets>
+          <PlantWorkSpeed>0.2</PlantWorkSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FieldGleaner</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterForage</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>拾荒</label>
+        <description>[PAWN_nameDef]习惯在边角和废地里翻还能吃的东西。</description>
+        <color>(21, 176, 26)</color>
+        <statOffsets>
+          <ForagedNutritionPerDay>0.45</ForagedNutritionPerDay>
+          <HuntingStealth>0.08</HuntingStealth>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_DisasterHerder</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterAnimals</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>善牧</label>
+        <description>[PAWN_nameDef]会照看牲口，受惊的活物也肯靠近[PAWN_objective]。</description>
+        <color>(21, 176, 26)</color>
+        <statFactors>
+          <TameAnimalChance>1.25</TameAnimalChance>
+          <TrainAnimalChance>1.2</TrainAnimalChance>
+        </statFactors>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WellBearer</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMove</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>SpeedOffset</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>能扛</label>
+        <description>[PAWN_nameDef]肩上压得住分量，搬东西不怎么怕沉。</description>
+        <color>(3, 67, 223)</color>
+        <statOffsets>
+          <CarryingCapacity>12</CarryingCapacity>
+          <MoveSpeed>0.08</MoveSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_MoldSifter</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCooking</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>识味</label>
+        <description>[PAWN_nameDef]闻得出哪一把粮还能下锅。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <CookSpeed>0.18</CookSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_GranaryCarpenter</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterBuild</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>善建</label>
+        <description>[PAWN_nameDef]修屋顶、补木架这类活很在行。</description>
+        <color>(3, 67, 223)</color>
+        <statOffsets>
+          <ConstructionSpeed>0.2</ConstructionSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_RagTailor</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCraft</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>巧手</label>
+        <description>[PAWN_nameDef]擅长把破布和旧毡缝成还能用的东西。</description>
+        <color>(3, 67, 223)</color>
+        <statOffsets>
+          <GeneralLaborSpeed>0.16</GeneralLaborSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_HerbReader</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMedical</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>识药</label>
+        <description>[PAWN_nameDef]认得哪些草还能退热，包扎也还算靠得住。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <MedicalTendSpeed>0.16</MedicalTendSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_NightFugitive</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMove</li>
+      <li>MouseDisasterStealth</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>SpeedOffset</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>夜行</label>
+        <description>[PAWN_nameDef]喜欢夜里走路，暗处也不容易绊倒。</description>
+        <color>(101, 55, 0)</color>
+        <statOffsets>
+          <MoveSpeed>0.12</MoveSpeed>
+          <HuntingStealth>0.12</HuntingStealth>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_SnowGuide</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterTemp</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>识途</label>
+        <description>[PAWN_nameDef]记得旧路标和被雪盖住的脚印，探路很在行。</description>
+        <color>(21, 176, 26)</color>
+        <statOffsets>
+          <HuntingStealth>0.1</HuntingStealth>
+          <MoveSpeed>0.08</MoveSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_DustBearer</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMove</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>驮运</label>
+        <description>[PAWN_nameDef]愿意把粮和饮水一直背到下一处营地，路上很少把东西卸下来。</description>
+        <color>(3, 67, 223)</color>
+        <statOffsets>
+          <CarryingCapacity>18</CarryingCapacity>
+          <MoveSpeed>-0.04</MoveSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_CampWatcher</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMood</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Nerves</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>警醒</label>
+        <description>[PAWN_nameDef]不容易慌。营地乱的时候，[PAWN_pronoun]还能把精神绷住。</description>
+        <color>(229, 0, 0)</color>
+        <statOffsets>
+          <MentalBreakThreshold>-0.06</MentalBreakThreshold>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_AlmsSpeaker</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>善言</label>
+        <description>[PAWN_nameDef]会说话，难听的事也能让人听得进去。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <NegotiationAbility>0.16</NegotiationAbility>
+          <SocialImpact>0.1</SocialImpact>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_JunkAppraiser</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>精明</label>
+        <description>[PAWN_nameDef]看得出一袋旧货还能换多少口粮，谈价钱很精。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <NegotiationAbility>0.18</NegotiationAbility>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_GrainMediator</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>和事</label>
+        <description>[PAWN_nameDef]会在抢夺开始前先把人分开，场面不容易一下子散掉。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <SocialImpact>0.14</SocialImpact>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WoundTender</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMedical</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>细心</label>
+        <description>[PAWN_nameDef]包扎时手很稳，气味和哭声也很少让[PAWN_objective]停下来。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <MedicalTendSpeed>0.2</MedicalTendSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_EggKeeper</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>护幼</label>
+        <description>[PAWN_nameDef]总是把幼崽放在前面。身边的孩子挨饿或病倒时，[PAWN_pronoun]会很难受。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <SocialImpact>0.1</SocialImpact>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_LeanHunger</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterHunger</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Gourmand</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>耐饿</label>
+        <description>[PAWN_nameDef]习惯把一顿饭拆成两顿，胃空着也能继续走。</description>
+        <color>(101, 55, 0)</color>
+        <hungerRateFactor>0.85</hungerRateFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_ThickFur</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterTemp</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>耐寒</label>
+        <description>[PAWN_nameDef]比较耐寒。</description>
+        <color>(21, 176, 26)</color>
+        <statOffsets>
+          <ComfyTemperatureMin>-10</ComfyTemperatureMin>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FinePaws</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCraft</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>灵巧</label>
+        <description>[PAWN_nameDef]做补袋、穿针这类细活很顺手。</description>
+        <color>(3, 67, 223)</color>
+        <statOffsets>
+          <GeneralLaborSpeed>0.12</GeneralLaborSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_PathScout</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterStealth</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>机敏</label>
+        <description>[PAWN_nameDef]对动静很敏感，走路前总要先看路。</description>
+        <color>(101, 55, 0)</color>
+        <statOffsets>
+          <HuntingStealth>0.18</HuntingStealth>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_ColumnLead</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+      <li>MouseDisasterMove</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>果断</label>
+        <description>[PAWN_nameDef]上路前会先把人排好。该谁走、该谁看着幼崽，[PAWN_pronoun]说了就算。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <SocialImpact>0.08</SocialImpact>
+          <MoveSpeed>0.1</MoveSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_ReliefCook</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCooking</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>能炊</label>
+        <description>[PAWN_nameDef]能用很少的粮做出还能分的热食。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <CookSpeed>0.22</CookSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FamineHunter</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCombat</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Brawler</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>好猎</label>
+        <description>[PAWN_nameDef]习惯近身把猎物按住，靠近时脚步很轻。</description>
+        <color>(229, 0, 0)</color>
+        <statOffsets>
+          <MeleeHitChance>4</MeleeHitChance>
+          <HuntingStealth>0.1</HuntingStealth>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_HungerRage</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMood</li>
+      <li>MouseDisasterCombat</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Kind</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>眼红</label>
+        <description>[PAWN_nameDef]一看见食物就容易红眼。肚子越空，越难按住爪子。</description>
+        <color>(229, 0, 0)</color>
+        <socialFightChanceFactor>1.8</socialFightChanceFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FoodSnatcher</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCombat</li>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Kind</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>抢食</label>
+        <description>[PAWN_nameDef]看不得食物从眼前过去。肚子一空，爪子就会先伸向袋口。</description>
+        <color>(229, 0, 0)</color>
+        <socialFightChanceFactor>2</socialFightChanceFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_PlagueDread</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterPlague</li>
+      <li>MouseDisasterMood</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Immunity</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>怕疫</label>
+        <description>[PAWN_nameDef]特别怕疫病。自己生病，或身边有人病倒时，[PAWN_pronoun]会明显不安。</description>
+        <color>(126, 30, 156)</color>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_NightTerrors</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMood</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>QuickSleeper</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>易惊</label>
+        <description>[PAWN_nameDef]睡眠很浅，一点动静就容易醒。越累越慌。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <RestRateMultiplier>-0.15</RestRateMultiplier>
+          <RestFallRateFactor>0.12</RestFallRateFactor>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FamineSloth</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterWorkSpeed</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Industriousness</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>怠惰</label>
+        <description>[PAWN_nameDef]有点懒，能歇着就先歇着。</description>
+        <color>(146, 149, 145)</color>
+        <statOffsets>
+          <WorkSpeedGlobal>-0.15</WorkSpeedGlobal>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_GrainGreed</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterHunger</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Ascetic</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>贪粮</label>
+        <description>[PAWN_nameDef]面前有粮就停不住嘴，饿着的时候特别难受。</description>
+        <color>(101, 55, 0)</color>
+        <statOffsets>
+          <EatingSpeed>0.2</EatingSpeed>
+        </statOffsets>
+        <hungerRateFactor>1.25</hungerRateFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_Distrustful</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Kind</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>多疑</label>
+        <description>[PAWN_nameDef]很难再相信别人。好意也常被[PAWN_objective]看成圈套。</description>
+        <color>(146, 149, 145)</color>
+        <statOffsets>
+          <SocialImpact>-0.15</SocialImpact>
+          <NegotiationAbility>-0.1</NegotiationAbility>
+          <MentalBreakThreshold>0.05</MentalBreakThreshold>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WeakFlesh</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterHealth</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Tough</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>体弱</label>
+        <description>[PAWN_nameDef]身子很弱，经不起磕碰。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <IncomingDamageFactor>0.1</IncomingDamageFactor>
+        </statOffsets>
+        <painOffset>0.06</painOffset>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WeakGut</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterHunger</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Gourmand</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>胃弱</label>
+        <description>[PAWN_nameDef]胃不好，刚吃过不久就又饿了。</description>
+        <color>(101, 55, 0)</color>
+        <hungerRateFactor>1.2</hungerRateFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_Chillblood</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterTemp</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>怕冷</label>
+        <description>[PAWN_nameDef]很怕冷。寒风一来，[PAWN_pronoun]就容易难受。</description>
+        <color>(146, 149, 145)</color>
+        <statOffsets>
+          <ComfyTemperatureMin>8</ComfyTemperatureMin>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FamineGloom</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMood</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>NaturalMood</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>悲观</label>
+        <description>[PAWN_nameDef]很难相信接下来会有好事，压力一大就容易撑不住。</description>
+        <color>(146, 149, 145)</color>
+        <statOffsets>
+          <MentalBreakThreshold>0.1</MentalBreakThreshold>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WailingYoung</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterChildTemper</li>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>爱哭</label>
+        <description>[PAWN_nameDef]还小，饿了、冷了就爱哭。</description>
+        <color>(146, 149, 145)</color>
+        <statOffsets>
+          <SocialImpact>-0.1</SocialImpact>
+          <RestFallRateFactor>0.1</RestFallRateFactor>
+          <MentalBreakThreshold>0.05</MentalBreakThreshold>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_BitingYoung</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterChildTemper</li>
+      <li>MouseDisasterCombat</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Kind</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>好咬</label>
+        <description>[PAWN_nameDef]还没学会把饥饿藏起来。靠近食物或被人抓住时，就会咬人。</description>
+        <color>(229, 0, 0)</color>
+        <statOffsets>
+          <SocialImpact>-0.08</SocialImpact>
+        </statOffsets>
+        <socialFightChanceFactor>2.4</socialFightChanceFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_AlmsHate</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Kind</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>傲骨</label>
+        <description>[PAWN_nameDef]把别人的施舍看成羞辱，接过东西也不肯低头道谢。</description>
+        <color>(229, 0, 0)</color>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_GrudgeKeeper</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCombat</li>
+      <li>MouseDisasterMood</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Kind</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>记仇</label>
+        <description>[PAWN_nameDef]谁关过门、谁抢过东西都还记着。再碰面，旧账会先翻出来。</description>
+        <color>(229, 0, 0)</color>
+        <statOffsets>
+          <MentalBreakThreshold>0.05</MentalBreakThreshold>
+        </statOffsets>
+        <socialFightChanceFactor>1.6</socialFightChanceFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_PlagueSurvivor</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterPlague</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Immunity</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>抗疫</label>
+        <description>[PAWN_nameDef]从疫病里活下来过。病再来也还能撑，只是人容易乏。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <ImmunityGainSpeed>0.2</ImmunityGainSpeed>
+          <RestFallRateFactor>0.08</RestFallRateFactor>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_GrainSneak</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterStealth</li>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>藏锋</label>
+        <description>[PAWN_nameDef]不爱把真实想法写在脸上，靠近时脚步很轻。</description>
+        <color>(101, 55, 0)</color>
+        <statOffsets>
+          <HuntingStealth>0.15</HuntingStealth>
+          <SocialImpact>-0.08</SocialImpact>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_SiegeDigger</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterBuild</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>善掘</label>
+        <description>[PAWN_nameDef]挖出路和壕沟很在行。</description>
+        <color>(229, 0, 0)</color>
+        <statOffsets>
+          <MiningSpeed>0.2</MiningSpeed>
+          <ConstructionSpeed>0.08</ConstructionSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_GranaryBreaker</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterCombat</li>
+    </exclusionTags>
+    <conflictingTraits>
+      <li>Brawler</li>
+    </conflictingTraits>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>好斗</label>
+        <description>[PAWN_nameDef]不怕近身打架。话还没说完，拳头就已经准备好了。</description>
+        <color>(229, 0, 0)</color>
+        <statOffsets>
+          <MeleeHitChance>3</MeleeHitChance>
+        </statOffsets>
+        <socialFightChanceFactor>1.35</socialFightChanceFactor>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_AilingMother</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMedical</li>
+      <li>MouseDisasterWorkSpeed</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>舐犊</label>
+        <description>[PAWN_nameDef]总是把孩子放在自己前面。孩子挨饿或病倒时，[PAWN_pronoun]会先乱。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <MedicalTendSpeed>0.1</MedicalTendSpeed>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_FamilyThief</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterStealth</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>护窝</label>
+        <description>[PAWN_nameDef]把自己人看得比规矩重。窝里的幼小挨饿或病倒时，[PAWN_pronoun]会坐不住。</description>
+        <color>(101, 55, 0)</color>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_QuarantineGuard</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterPlague</li>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>冷面</label>
+        <description>[PAWN_nameDef]不容易被亲近。把人分开时手硬，话也少。</description>
+        <color>(126, 30, 156)</color>
+        <statOffsets>
+          <SocialImpact>-0.12</SocialImpact>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WrongKin</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterSocial</li>
+      <li>MouseDisasterMood</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>轻信</label>
+        <description>[PAWN_nameDef]容易把陌生的门认成家，认错了也容易失落。</description>
+        <color>(219, 180, 12)</color>
+        <statOffsets>
+          <SocialImpact>0.08</SocialImpact>
+          <MentalBreakThreshold>0.06</MentalBreakThreshold>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_CrowdChild</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterMove</li>
+      <li>MouseDisasterSocial</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>扎堆</label>
+        <description>[PAWN_nameDef]在人堆里更自在。单独待着时反而说不好话。</description>
+        <color>(146, 149, 145)</color>
+        <statOffsets>
+          <MoveSpeed>0.1</MoveSpeed>
+          <SocialImpact>-0.06</SocialImpact>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>MouseDisaster_Trait_WildHole</defName>
+    <commonality>0</commonality>
+    <exclusionTags>
+      <li>MouseDisasterForage</li>
+      <li>MouseDisasterStealth</li>
+    </exclusionTags>
+    <degreeDatas>
+      <li Class="MouseDisaster.MouseDisasterTraitDegreeData">
+        <label>野性</label>
+        <description>[PAWN_nameDef]习惯先找藏身处，再找能入口的东西。荒地边角比仓库更让[PAWN_objective]安心。</description>
+        <color>(21, 176, 26)</color>
+        <statOffsets>
+          <ForagedNutritionPerDay>0.35</ForagedNutritionPerDay>
+          <HuntingStealth>0.1</HuntingStealth>
+        </statOffsets>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="MouseDisaster.MouseDisasterGenerationExtension">
+        <allowTrait>true</allowTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+
+</Defs>

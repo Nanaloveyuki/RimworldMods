@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_ShelterDays>短工：{0}</RHAH_Settings_ShelterDays>
+  <RHAH_Settings_ShelterDays_Tooltip>短工到期后离开。最短 5 天，最长 1 年，默认 5 天。如果来客因伤病倒地，期限暂停，恢复后继续；还不能走路的孩子到期后由同组照护者带走。</RHAH_Settings_ShelterDays_Tooltip>
+  <RHAH_Settings_HireDays>长工：{0}</RHAH_Settings_HireDays>
+  <RHAH_Settings_HireDays_Tooltip>长工到期后离开。最短 5 天，最长 10 年，默认 1 年。如果来客因伤病倒地，期限暂停，恢复后继续；还不能走路的孩子到期后由同组照护者带走。</RHAH_Settings_HireDays_Tooltip>
+  <RHAH_Settings_Begging>允许乞讨</RHAH_Settings_Begging>
+  <RHAH_Settings_Begging_Tooltip>关闭后，来客不再向殖民者乞讨。</RHAH_Settings_Begging_Tooltip>
+  <RHAH_Settings_BegAutoGive>乞讨成功时自动交出背包食物</RHAH_Settings_BegAutoGive>
+  <RHAH_Settings_BegAutoGive_Tooltip>默认关闭。开启后，乞讨成功的来客会从对方背包获得一份允许乞讨的食物，优先选择营养较高的食物。</RHAH_Settings_BegAutoGive_Tooltip>
+  <RHAH_Settings_BegSuccessChance>首次乞讨成功：{0}%</RHAH_Settings_BegSuccessChance>
+  <RHAH_Settings_BegSuccessChance_Tooltip>来客首次向同一名殖民者乞讨时的基础成功率，默认 35%。社交技能按下方设置额外提高成功率，最高 100%。</RHAH_Settings_BegSuccessChance_Tooltip>
+  <RHAH_Settings_BegSocialBonus>社交每级成功率：+{0}%</RHAH_Settings_BegSocialBonus>
+  <RHAH_Settings_BegSocialBonus_Tooltip>乞讨者每级社交技能额外增加的成功率，范围 0 到 20%，默认 3%。每名殖民者只会答应同一名来客的首次乞讨。</RHAH_Settings_BegSocialBonus_Tooltip>
+  <RHAH_Settings_BegFoods>可乞讨的食物</RHAH_Settings_BegFoods>
+  <RHAH_Settings_BegFoods_Tooltip>乞讨成功时，殖民者只会交出背包中已允许的食物。列表仅包含正餐，生食和原料除外。</RHAH_Settings_BegFoods_Tooltip>
+  <RHAH_Settings_BegFoods_All>全部允许</RHAH_Settings_BegFoods_All>
+  <RHAH_Settings_BegFoods_None>全部禁止</RHAH_Settings_BegFoods_None>
+  <RHAH_Settings_BegFoods_Search>搜索食物或模组</RHAH_Settings_BegFoods_Search>
+  <RHAH_Settings_BegFoods_Empty>没有符合的食物。</RHAH_Settings_BegFoods_Empty>
+  <RHAH_Settings_BegFoods_Quote>来客只能通过乞讨获得已允许的食物。新增正餐默认允许乞讨；右键投喂使用单独的食物名单。</RHAH_Settings_BegFoods_Quote>
+  <RHAH_Settings_BegFoods_Sort>乞讨食物分类</RHAH_Settings_BegFoods_Sort>
+  <RHAH_Settings_BegFoods_Sort_0>按模组</RHAH_Settings_BegFoods_Sort_0>
+  <RHAH_Settings_BegFoods_Sort_1>按名称</RHAH_Settings_BegFoods_Sort_1>
+  <RHAH_Settings_BegFoods_Sort_2>按原版分类</RHAH_Settings_BegFoods_Sort_2>
+  <RHAH_Settings_BegFailCooldown>乞讨失败后闲逛：{0} 小时</RHAH_Settings_BegFailCooldown>
+  <RHAH_Settings_BegFailCooldown_Tooltip>来客向所有合适的殖民者乞讨失败后，会闲逛一段时间再尝试。等待时间为 3 到 12 小时，默认 3 小时。</RHAH_Settings_BegFailCooldown_Tooltip>
+  <RHAH_Settings_BegSlapChance>重复乞讨被抽耳光：{0}%</RHAH_Settings_BegSlapChance>
+  <RHAH_Settings_BegSlapChance_Tooltip>殖民者第二次及以后被同一名来客乞讨时，抽对方耳光的几率。范围 0 到 100%，默认 50%。</RHAH_Settings_BegSlapChance_Tooltip>
+  <RHAH_Settings_Stealing>允许偷窃</RHAH_Settings_Stealing>
+  <RHAH_Settings_Stealing_Tooltip>关闭后，来客不再偷东西。</RHAH_Settings_Stealing_Tooltip>
+  <RHAH_Settings_Fighting>允许反击</RHAH_Settings_Fighting>
+  <RHAH_Settings_Fighting_Tooltip>开启后，来客受到伤害或驱逐时可以反击；关闭后，他们只会离开。</RHAH_Settings_Fighting_Tooltip>
+  <RHAH_Settings_Gnawing>允许啃树和墙</RHAH_Settings_Gnawing>
+  <RHAH_Settings_Gnawing_Tooltip>关闭后，来客不再啃树皮或墙充饥。</RHAH_Settings_Gnawing_Tooltip>
+  <RHAH_Settings_BatchHostile>整批转为敌对</RHAH_Settings_BatchHostile>
+  <RHAH_Settings_BatchHostile_Tooltip>开启后，伤害或驱逐一名来客会让同批其他人转为敌对；关闭后，只影响当事人。</RHAH_Settings_BatchHostile_Tooltip>
+  <RHAH_Settings_BatchLeave>整批一起离开</RHAH_Settings_BatchLeave>
+  <RHAH_Settings_BatchLeave_Tooltip>开启后，伤害或驱逐一名来客会让同批其他人一起离开；关闭后，其他人继续留下。</RHAH_Settings_BatchLeave_Tooltip>
+  <RHAH_Settings_ShortStayLockApparel>短工锁定当前衣物</RHAH_Settings_ShortStayLockApparel>
+  <RHAH_Settings_ShortStayLockApparel_Tooltip>默认开启。短工会一直穿着开始工作时的衣物，直到雇期结束或转为囚犯、奴隶、殖民者。关闭后，新雇的短工可以自行换衣；已经受雇的短工仍穿着原来的衣物。</RHAH_Settings_ShortStayLockApparel_Tooltip>
+  <RHAH_Settings_VisitorChoices>启用来客选择</RHAH_Settings_VisitorChoices>
+  <RHAH_Settings_VisitorChoices_Tooltip>开启后，新来客会通过信件询问收留、雇佣或拒绝。关闭后停止发送此类选择信，在场来客仍可通过右键菜单处理。</RHAH_Settings_VisitorChoices_Tooltip>
+  <RHAH_Settings_FoodGiveHint>不再提示如何投喂</RHAH_Settings_FoodGiveHint>
+  <RHAH_Settings_FoodGiveHint_Tooltip>勾选后，点击投喂时省去首次投喂的操作提示。</RHAH_Settings_FoodGiveHint_Tooltip>
+  <RHAH_Settings_FamilyDrop>携幼离场时放下孩子</RHAH_Settings_FamilyDrop>
+  <RHAH_Settings_FamilyDrop_Tooltip>开启后，母亲离场时会放下仍抱着的孩子；关闭后，她会带着孩子离开。</RHAH_Settings_FamilyDrop_Tooltip>
+  <RHAH_Settings_MotherFeed>母亲给孩子喂食</RHAH_Settings_MotherFeed>
+  <RHAH_Settings_MotherFeed_Tooltip>开启后，母亲会从背包中拿出一份食物交给饥饿的孩子。</RHAH_Settings_MotherFeed_Tooltip>
+  <RHAH_Settings_PrisonerScavenge>囚犯在地上找吃的</RHAH_Settings_PrisonerScavenge>
+  <RHAH_Settings_PrisonerScavenge_Tooltip>开启后，饥饿的囚犯会舔食地上的污物，每次舔掉一层。</RHAH_Settings_PrisonerScavenge_Tooltip>
+  <RHAH_Settings_TailBite>允许咬尾巴</RHAH_Settings_TailBite>
+  <RHAH_Settings_TailBite_Tooltip>开启后，饥饿的囚犯会咬掉近处睡着、不满 3 岁且仍有鼠尾的囚犯的尾巴。默认关闭。</RHAH_Settings_TailBite_Tooltip>
+  <RHAH_Settings_FamineDoors>允许饥民开门</RHAH_Settings_FamineDoors>
+  <RHAH_Settings_FamineDoors_Tooltip>默认关闭。开启后，饥民可在地图上没有敌人时打开殖民者的门。</RHAH_Settings_FamineDoors_Tooltip>
+  <RHAH_Settings_BegFailMood>乞讨被拒心情：{0}</RHAH_Settings_BegFailMood>
+  <RHAH_Settings_BegFailMood_Tooltip>来客乞讨失败时获得的心情变化。范围 -50 到 50，默认 -5。</RHAH_Settings_BegFailMood_Tooltip>
+  <RHAH_Settings_BegSuccessMood>乞讨成功心情：{0}</RHAH_Settings_BegSuccessMood>
+  <RHAH_Settings_BegSuccessMood_Tooltip>来客乞讨成功时获得的心情变化。范围 -50 到 50，默认 3。</RHAH_Settings_BegSuccessMood_Tooltip>
+  <RHAH_Settings_BegSlapMood>被抽耳光心情：{0}</RHAH_Settings_BegSlapMood>
+  <RHAH_Settings_BegSlapMood_Tooltip>来客因重复乞讨而被抽耳光时获得的心情变化。范围 -50 到 50，默认 -10。</RHAH_Settings_BegSlapMood_Tooltip>
+  <RHAH_Settings_BegKnock>耳光击晕：{0} 小时</RHAH_Settings_BegKnock>
+  <RHAH_Settings_BegKnock_Tooltip>来客被抽耳光后的昏迷时间。可设为 1 到 24 小时；设为 0 时使用默认的半小时。</RHAH_Settings_BegKnock_Tooltip>
+  <RHAH_Settings_BegBruise>耳光瘀伤：{0}</RHAH_Settings_BegBruise>
+  <RHAH_Settings_BegBruise_Tooltip>来客第一次被抽耳光时产生的瘀伤严重度。范围 0 到 40，默认 4。</RHAH_Settings_BegBruise_Tooltip>
+  <RHAH_Settings_BegBruiseStep>瘀伤加重：{0}</RHAH_Settings_BegBruiseStep>
+  <RHAH_Settings_BegBruiseStep_Tooltip>来客同一部位再次被抽耳光时，瘀伤严重度的增量。范围 0 到 40，默认 4。</RHAH_Settings_BegBruiseStep_Tooltip>
+  <RHAH_Settings_BegBruiseMax>瘀伤上限：{0}</RHAH_Settings_BegBruiseMax>
+  <RHAH_Settings_BegBruiseMax_Tooltip>瘀伤达到此严重度时会变成割伤。下限为首次瘀伤的严重度，上限为 40，默认 16。</RHAH_Settings_BegBruiseMax_Tooltip>
+  <RHAH_Settings_GnawBark>啃树皮营养：{0}</RHAH_Settings_GnawBark>
+  <RHAH_Settings_GnawBark_Tooltip>来客每次啃食植物获得的营养。范围 0 到 2，默认 0.25。</RHAH_Settings_GnawBark_Tooltip>
+  <RHAH_Settings_GnawBarkDamage>啃树皮伤害：{0}</RHAH_Settings_GnawBarkDamage>
+  <RHAH_Settings_GnawBarkDamage_Tooltip>植物每次被啃食时损失的固定耐久。范围 0 到 50，默认 12。</RHAH_Settings_GnawBarkDamage_Tooltip>
+  <RHAH_Settings_GnawWall>啃墙皮营养：{0}</RHAH_Settings_GnawWall>
+  <RHAH_Settings_GnawWall_Tooltip>来客每次啃食墙体获得的营养。范围 0 到 2，默认 0.20。</RHAH_Settings_GnawWall_Tooltip>
+  <RHAH_Settings_GnawWallDamage>啃墙皮伤害：{0}</RHAH_Settings_GnawWallDamage>
+  <RHAH_Settings_GnawWallDamage_Tooltip>墙体每次被啃食时损失的固定耐久，与材料和伤害倍率无关。范围 0 到 50，默认 10。</RHAH_Settings_GnawWallDamage_Tooltip>
+  <RHAH_Settings_ClayBites>观音土口数：{0}</RHAH_Settings_ClayBites>
+  <RHAH_Settings_ClayBites_Tooltip>每个饱腹周期内可吃的观音土口数上限。范围 1 到 3，默认 3。</RHAH_Settings_ClayBites_Tooltip>
+  <RHAH_Settings_ClayDays>观音土窗口：{0} 天</RHAH_Settings_ClayDays>
+  <RHAH_Settings_ClayDays_Tooltip>食用观音土的口数每隔这么多天重新计算。范围 1 到 60 天，默认 15 天。</RHAH_Settings_ClayDays_Tooltip>
+  <RHAH_Settings_ClaySeverity>观音土饱腹：{0}</RHAH_Settings_ClaySeverity>
+  <RHAH_Settings_ClaySeverity_Tooltip>每口观音土增加的饱腹严重度。范围 0 到 1，默认 0.33。</RHAH_Settings_ClaySeverity_Tooltip>
+  <RHAH_Settings_ChildHungry>孩子饥饿：{0}%</RHAH_Settings_ChildHungry>
+  <RHAH_Settings_ChildHungry_Tooltip>孩子的食物需求条低于此百分比时，母亲才会喂食。范围 0 到 100%，默认 30%。</RHAH_Settings_ChildHungry_Tooltip>
+  <RHAH_Settings_PrisonerHungry>囚犯饥饿：{0}%</RHAH_Settings_PrisonerHungry>
+  <RHAH_Settings_PrisonerHungry_Tooltip>囚犯的食物需求条低于此百分比时，才会舔食污物或咬尾巴。范围 0 到 100%，默认 20%。</RHAH_Settings_PrisonerHungry_Tooltip>
+  <RHAH_Settings_TailAge>咬尾年龄：{0}</RHAH_Settings_TailAge>
+  <RHAH_Settings_TailAge_Tooltip>咬尾巴的目标仅限于正在睡觉、且年龄低于此岁数的幼年囚犯。范围 0 到 18 岁，默认 3 岁。</RHAH_Settings_TailAge_Tooltip>
+  <RHAH_Settings_Scavenge>舔污物营养：{0}</RHAH_Settings_Scavenge>
+  <RHAH_Settings_Scavenge_Tooltip>囚犯每次舔食污物获得的营养。范围 0 到 2，默认 0.15。</RHAH_Settings_Scavenge_Tooltip>
+  <RHAH_Settings_TailFood>咬尾营养：{0}</RHAH_Settings_TailFood>
+  <RHAH_Settings_TailFood_Tooltip>囚犯咬断他人尾巴后获得的营养。范围 0 到 2，默认 0.35。</RHAH_Settings_TailFood_Tooltip>
+  <RHAH_Settings_TailFail>咬尾失败伤害：{0}</RHAH_Settings_TailFail>
+  <RHAH_Settings_TailFail_Tooltip>囚犯咬尾巴失败时，对目标造成的伤害。范围 0 到 50，默认 4。</RHAH_Settings_TailFail_Tooltip>
+  <RHAH_Settings_FamineYear>启用年度饥荒</RHAH_Settings_FamineYear>
+  <RHAH_Settings_FamineYear_Tooltip>默认关闭。开启后，以选定家园的当地历法，在每年第一天早上 6 点决定这一年是否发生饥荒；首次开启时，已过年初会补判当前年份。饥荒年会增加本模组来客人数和广播回应，并可能出现一次重大天灾。关闭后，年度饥荒的影响停止。</RHAH_Settings_FamineYear_Tooltip>
+  <RHAH_Settings_FamineYearChance>每年发生饥荒的几率：{0}%</RHAH_Settings_FamineYearChance>
+  <RHAH_Settings_FamineYearChance_Tooltip>每年判为饥荒年的几率，范围 0 到 100%，默认 40%。</RHAH_Settings_FamineYearChance_Tooltip>
+  <RHAH_Settings_FamineYearMultiplier>饥荒年来客倍率：{0}</RHAH_Settings_FamineYearMultiplier>
+  <RHAH_Settings_FamineYearMultiplier_Tooltip>饥荒年中，本模组普通多人队伍先按原有上限确定人数，再乘以此倍率并向上取整。单人来客、固定母子家庭和待产双人队伍保持原人数；鼠潮始终为 15 到 50 人。广播最多召来向上取整后的倍率这么多支不同队伍。范围 1 到 4，默认 3。</RHAH_Settings_FamineYearMultiplier_Tooltip>
+  <RHAH_Settings_FamineYearDisasterChance>饥荒年每日额外天灾几率：{0}%</RHAH_Settings_FamineYearDisasterChance>
+  <RHAH_Settings_FamineYearDisasterChance_Tooltip>饥荒年每天当地早上 6 点，按此几率尝试引发寒流、热浪、毒尘或火山冬天。每个饥荒年最多成功引发其中一次；范围 0 到 100%，默认 20%。</RHAH_Settings_FamineYearDisasterChance_Tooltip>
+  <RHAH_FamineYear_Label>{0} 年：年景</RHAH_FamineYear_Label>
+  <RHAH_FamineYear_Famine>{0} 年是个饥荒年。缺粮的鼠族将以更大的队伍前来，广播也会引来更多求援的队伍。寒流、热浪、毒尘或火山冬天可能让这一年更加难熬。\n\n请为来客和你的殖民地多留些粮食。</RHAH_FamineYear_Famine>
+  <RHAH_FamineYear_Normal>{0} 年是个寻常年景。本模组来客的队伍规模和广播回应数量维持通常水平。</RHAH_FamineYear_Normal>
+  <RHAH_FamineYear_Catchup>今年已经过了年初，现在补报这一年的年景。</RHAH_FamineYear_Catchup>
+  <RHAH_Settings_FamineArrival>饥荒来客空腹入场</RHAH_Settings_FamineArrival>
+  <RHAH_Settings_FamineArrival_Tooltip>默认开启。本模组非玩家饥荒来客首次到达时，饱食度降为零，并按“入场营养不良”设置获得营养不良。调整只在入场时应用；关闭后，新来客保留通常的食物需求和健康状况。</RHAH_Settings_FamineArrival_Tooltip>
+  <RHAH_Settings_FamineMalnutrition>入场营养不良：{0}</RHAH_Settings_FamineMalnutrition>
+  <RHAH_Settings_FamineMalnutrition_Tooltip>启用空腹入场时，本模组非玩家饥荒来客到达时获得的营养不良严重度。范围 0.01 到 0.5，默认 0.25。</RHAH_Settings_FamineMalnutrition_Tooltip>
+  <RHAH_Settings_FamineMood>启用饥荒来客心情</RHAH_Settings_FamineMood>
+  <RHAH_Settings_FamineMood_Tooltip>默认开启。本模组来客挨饿时心情降低，求食被拒或索粮逾期后仍饿着，心情会更差。实际吃饱获得 +6，持续 1 天。来自本模组的鼠族还会因收留、拘捕、奴役、驱赶和进食获得心情；加入殖民地后仍适用。进食按单份营养值与精致餐比较，获得 +6 或 +12，持续 1 天。关闭后，这些心情停止生效。</RHAH_Settings_FamineMood_Tooltip>
+  <RHAH_Settings_ClayMood>启用观音土心情</RHAH_Settings_ClayMood>
+  <RHAH_Settings_ClayMood_Tooltip>默认开启。有心情需求的角色在当前饱腹周期内吃下第 1、2、3 份观音土后，分别产生 -2、-4、-6 的心情影响。只显示当前阶段，周期结束后消失。</RHAH_Settings_ClayMood_Tooltip>
+  <RHAH_Settings_FamineTrade>启用饥荒商队特殊报价</RHAH_Settings_FamineTrade>
+  <RHAH_Settings_FamineTrade_Tooltip>默认开启。本模组饥荒商队按下方倍率提高玩家出售食物的价格，并降低玩家购买非食物商品的价格。关闭后使用通常报价；商队照常交易。</RHAH_Settings_FamineTrade_Tooltip>
+  <RHAH_Settings_FoodSaleFactor>玩家卖食物价格倍率：{0}</RHAH_Settings_FoodSaleFactor>
+  <RHAH_Settings_FoodSaleFactor_Tooltip>饥荒商队特殊报价开启时，本模组商队收购玩家食物的价格乘以此数值，最高为玩家通常购入同种食物的价格。范围 1 到 3，默认 1.5；设为 1 时按通常价格收购。</RHAH_Settings_FoodSaleFactor_Tooltip>
+  <RHAH_Settings_GoodsBuyFactor>玩家买非食物价格倍率：{0}</RHAH_Settings_GoodsBuyFactor>
+  <RHAH_Settings_GoodsBuyFactor_Tooltip>饥荒商队特殊报价开启时，玩家从本模组商队购买非食物商品的价格乘以此数值，最低为玩家通常卖出同种商品的价格。范围 0.1 到 1，默认 0.75；设为 1 时按通常价格出售。</RHAH_Settings_GoodsBuyFactor_Tooltip>
+  <RHAH_Settings_ArmedDemand>索粮落空后进攻</RHAH_Settings_ArmedDemand>
+  <RHAH_Settings_ArmedDemand_Tooltip>默认开启。乞食围攻、强势围攻和鼠疫强势围攻的来客会等待要求的简单餐，期限使用“请求期限”设置。拒绝或逾期后进攻；给足食物可让他们停止进攻并离开。关闭后，新的围攻来客按通常的来客选择处理，已有索粮队伍转为中立并离开。</RHAH_Settings_ArmedDemand_Tooltip>
+  <RHAH_Settings_ArmedWeapons>给索粮来客配备简陋武器</RHAH_Settings_ArmedWeapons>
+  <RHAH_Settings_ArmedWeapons_Tooltip>默认开启。新到来的乞食围攻、强势围攻和鼠疫强势围攻队伍中，允许反击且能够使用武器的成年来客会配备木棒或低级枪械等原版简陋武器，品质最高为普通。关闭后，新索粮来客保持徒手。</RHAH_Settings_ArmedWeapons_Tooltip>
+</LanguageData>

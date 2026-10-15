@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Oxygendsl_SettingsTitle>设置</Oxygendsl_SettingsTitle>
+  <Oxygendsl_DocumentationTitle>Oxygen 语言文档</Oxygendsl_DocumentationTitle>
+  <Oxygendsl_DocumentationIndex>主题与章节</Oxygendsl_DocumentationIndex>
+  <Oxygendsl_DocumentationSource>查看 Markdown 原文（只读）</Oxygendsl_DocumentationSource>
+  <Oxygendsl_DocumentationCopy>复制全文</Oxygendsl_DocumentationCopy>
+  <Oxygendsl_DocumentationUnavailable>无法加载这篇文档：内嵌 Markdown 资源缺失、为空或无法读取。请重新安装完整的 Oxygen DSL Framework；详细原因也已写入日志。</Oxygendsl_DocumentationUnavailable>
+  <Oxygendsl_DocumentationOverview>概览与入门</Oxygendsl_DocumentationOverview>
+  <Oxygendsl_DocumentationSyntax>关键词与语法</Oxygendsl_DocumentationSyntax>
+  <Oxygendsl_DocumentationValues>值与函数</Oxygendsl_DocumentationValues>
+  <Oxygendsl_DocumentationGameplay>游戏规则与内容</Oxygendsl_DocumentationGameplay>
+  <Oxygendsl_DocumentationModules>模块与设置</Oxygendsl_DocumentationModules>
+  <Oxygendsl_DocumentationAdvanced>高级用法与注意事项</Oxygendsl_DocumentationAdvanced>
+</LanguageData>

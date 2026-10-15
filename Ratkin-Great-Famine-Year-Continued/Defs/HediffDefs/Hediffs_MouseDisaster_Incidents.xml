@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>MouseDisaster_AbandonedEgg</defName>
+    <label>即将被遗弃的鼠蛋</label>
+    <description>它们刚刚还在吵着谁吃的最多，马上就成了没人要的野种了。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_AbandoningMother</defName>
+    <label>抛弃鼠蛋的普通鼠妈</label>
+    <description>没有能力抚养后她这么做的是。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ShatteredMother_Dying</defName>
+    <label>被自己的鼠蛋吃掉一部分且濒死的鼠妈</label>
+    <description>她被自己的孩子们分食了一部分身体，现在只剩一口气。她没有怨恨，因为她知道孩子们饿。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ShatteredMother_Children</defName>
+    <label>吃掉妈妈一部分并抛尸野外的鼠蛋</label>
+    <description>因为鼠妈没有多余食物，它们吃掉了妈妈的一部分，然后把剩下的扔在野外继续往前走。它们不知道自己做了什么。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_BeggarMother</defName>
+    <label>带着孩子乞讨的灾荒鼠妈</label>
+    <description>她已经好几天没吃东西了，但还是把最后一点食物留给了孩子们。她只想求一口吃的，让孩子们活下去。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_BeggarChild</defName>
+    <label>跟着妈妈乞讨的鼠蛋</label>
+    <description>它们紧紧跟着妈妈，眼睛里充满了恐惧和饥饿。它们不知道为什么妈妈要带它们来这里，只知道要跟着妈妈走。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_BeggarGroupAdult</defName>
+    <label>饥饿的灾荒流民</label>
+    <description>它们已经走了很远的路，饿得头晕眼花。它们只想找一口吃的，然后继续上路。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_BeggarGroupChild</defName>
+    <label>跟着队伍乞讨的鼠蛋</label>
+    <description>它们跟在大人后面，不知道要去哪里，只知道要跟着走。它们的肚子饿得咕咕叫，但不敢停下来。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ThiefAdult</defName>
+    <label>饥饿的偷窃者</label>
+    <description>它们已经饿得不行了，只能偷偷摸摸地找吃的。它们不想惹麻烦，但饥饿让它们不得不这么做。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ThiefChild</defName>
+    <label>学着偷东西的鼠蛋</label>
+    <description>它们跟着大人学坏了，但它们不知道这是偷，只知道这样能吃到东西。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ThiefChildOnly</defName>
+    <label>没人管的偷窃鼠蛋</label>
+    <description>它们没有大人带着，自己学会了偷东西。它们不知道这是错的，只知道这样能活下去。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_LargeRefugeeAdult</defName>
+    <label>大型灾荒流民</label>
+    <description>它们是大荒年灾荒的幸存者，已经走了很远的路。它们饿得不行了，只想找一口吃的。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_LargeRefugeeChild</defName>
+    <label>大型灾荒流民的鼠蛋</label>
+    <description>它们跟着大人走了很远的路，已经饿得不行了。它们不知道发生了什么，只知道要跟着走。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_FamineRefugee</defName>
+    <label>失去家园的灾荒逃难者</label>
+    <description>它们的家园被灾荒摧毁了，只能四处流浪。它们瘦得吓人，但至少还活着。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_WildWanderer</defName>
+    <label>游荡的野生鼠族</label>
+    <description>它看起来饿极了，没有派系，像原版野人一样在地图上游荡。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_WildChildWanderer</defName>
+    <label>游荡的野生鼠蛋</label>
+    <description>它看起来饿极了，没有派系，像原版野人一样在地图上游荡。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_WildGroupWanderer</defName>
+    <label>游荡的野生鼠群</label>
+    <description>它们看起来饿极了，没有派系，像原版野人一样在地图上活动。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_TraderCaravanTrader</defName>
+    <label>流民商队商人</label>
+    <description>她牵着一串囚犯鼠蛋来到殖民地边缘，负责交涉和交易。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_TraderCaravanEscort</defName>
+    <label>流民商队护卫</label>
+    <description>她负责保护商队的安全，确保交易顺利进行。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_TraderCaravanChild</defName>
+    <label>被贩卖的鼠蛋</label>
+    <description>它们被当成商品一样贩卖，不知道自己的命运会如何。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ChildExchangeTrader</defName>
+    <label>易子而食的商人</label>
+    <description>她带着一群鼠蛋来到殖民地边缘，准备用它们交换婴儿。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_ChildExchangeChild</defName>
+    <label>被交换的鼠蛋</label>
+    <description>它们即将被交换出去，不知道自己的命运会如何。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_SiegeBeggar</defName>
+    <label>围攻中的乞丐</label>
+    <description>它们包围了殖民地，不会主动攻击，但会反复乞讨食物。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_GreatFamineAdult</defName>
+    <label>疯狂的灾荒鼠族</label>
+    <description>饿到失去理性的鼠灾成年个体，只想吃掉一切能吃到的东西。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>MouseDisaster_GreatFamineChild</defName>
+    <label>疯狂的灾荒鼠蛋</label>
+    <description>饿到失去理性的鼠灾幼体，只想吃掉一切能啃到的东西。</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+</Defs>

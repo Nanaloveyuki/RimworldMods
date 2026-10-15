@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Ending_Identity>身分を明かす手紙</RHAH_Ending_Identity>
+  <RHAH_Ending_Identity_Tooltip>スイインがストーリーテラーで、遺物のイベントが完了しているとき、信頼が基準に達すると身分の手紙を送ります。開示の段階ごとに一度だけ送り、断った問い合わせは再送しません。</RHAH_Ending_Identity_Tooltip>
+</LanguageData>

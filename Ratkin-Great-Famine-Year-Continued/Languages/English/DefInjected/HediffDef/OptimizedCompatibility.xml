@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_AidVisitor.label>aid requester</MouseDisaster_AidVisitor.label>
+  <MouseDisaster_AidVisitor.description>A Ratkin who requested aid.</MouseDisaster_AidVisitor.description>
+  <MouseDisaster_IntelMessenger.label>information messenger</MouseDisaster_IntelMessenger.label>
+  <MouseDisaster_IntelMessenger.description>A Ratkin who carried information about the area.</MouseDisaster_IntelMessenger.description>
+  <MouseDisaster_LaboringRefugee.label>expectant refugee</MouseDisaster_LaboringRefugee.label>
+  <MouseDisaster_LaboringRefugee.description>A Ratkin seeking shelter to give birth.</MouseDisaster_LaboringRefugee.description>
+  <MouseDisaster_StrongSieger.label>besieging refugee</MouseDisaster_StrongSieger.label>
+  <MouseDisaster_StrongSieger.description>A Ratkin who blockaded the colony for food.</MouseDisaster_StrongSieger.description>
+  <MouseDisaster_Passerby.label>passing refugee</MouseDisaster_Passerby.label>
+  <MouseDisaster_Passerby.description>A Ratkin passing through the area.</MouseDisaster_Passerby.description>
+  <MouseDisaster_AirdropBaby.label>airdrop child</MouseDisaster_AirdropBaby.label>
+  <MouseDisaster_AirdropBaby.description>A Ratkin child who arrived by airdrop.</MouseDisaster_AirdropBaby.description>
+  <MouseDisaster_MisguidedKin.label>mistaken kin</MouseDisaster_MisguidedKin.label>
+  <MouseDisaster_MisguidedKin.description>A Ratkin child who mistook someone for family.</MouseDisaster_MisguidedKin.description>
+  <MouseDisaster_CaravanMugger.label>caravan mugger</MouseDisaster_CaravanMugger.label>
+  <MouseDisaster_CaravanMugger.description>A Ratkin who stole food along a caravan route.</MouseDisaster_CaravanMugger.description>
+</LanguageData>

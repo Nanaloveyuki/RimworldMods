@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_WildRatkinAdult.label>wild Ratkin</MouseDisaster_WildRatkinAdult.label>
+  <MouseDisaster_WildRatkinBaby.label>wild Ratkin baby</MouseDisaster_WildRatkinBaby.label>
+  <MouseDisaster_WildRatkinChild.label>wild Ratkin child</MouseDisaster_WildRatkinChild.label>
+  <MouseDisaster_ThiefRatkinAdult.label>Ratkin thief</MouseDisaster_ThiefRatkinAdult.label>
+  <MouseDisaster_ThiefRatkinBaby.label>Ratkin baby</MouseDisaster_ThiefRatkinBaby.label>
+  <MouseDisaster_ThiefRatkinChild.label>thieving Ratkin child</MouseDisaster_ThiefRatkinChild.label>
+  <MouseDisaster_BeggarRatkinAdult.label>Ratkin beggar</MouseDisaster_BeggarRatkinAdult.label>
+  <MouseDisaster_BeggarRatkinBaby.label>Ratkin baby</MouseDisaster_BeggarRatkinBaby.label>
+  <MouseDisaster_BeggarRatkinChild.label>begging Ratkin child</MouseDisaster_BeggarRatkinChild.label>
+  <MouseDisaster_TraderRatkinAdult.label>refugee trader</MouseDisaster_TraderRatkinAdult.label>
+  <MouseDisaster_TraderRatkinEscort.label>refugee caravan guard</MouseDisaster_TraderRatkinEscort.label>
+</LanguageData>

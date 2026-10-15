@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.0.1</Version>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(OS)' == 'Windows_NT'">E:\Apps\Steam\steamapps\common\RimWorld</RimWorldDir>
+    <RimWorldDir Condition="'$(RimWorldDir)' == ''">/mnt/e/Apps/Steam/steamapps/common/RimWorld</RimWorldDir>
+    <RimWorldManagedDir>$(RimWorldDir)/RimWorldWin64_Data/Managed</RimWorldManagedDir>
+    <OxygenSourceDir Condition="'$(OxygenSourceDir)' == ''">$(MSBuildThisFileDirectory)../Oxygen-Dsl-Framework</OxygenSourceDir>
+    <HarmonyPath Condition="'$(HarmonyPath)' == ''">$(RimWorldDir)/../../workshop/content/294100/2009463077/Current/Assemblies/0Harmony.dll</HarmonyPath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Oxygendsl.IrisMenus</AssemblyName>
+    <RootNamespace>Oxygendsl.IrisMenus</RootNamespace>
+    <OutputPath>../../tmp/build/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IrisMenusSourceDir Condition="'$(IrisMenusSourceDir)' == ''">../../../IrisMenus</IrisMenusSourceDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Core/Oxygendsl.Core.csproj" Private="false" />
+    <ProjectReference Include="../Mod/Oxygendsl.Mod.csproj" Private="false" />
+    <ProjectReference Include="$(IrisMenusSourceDir)/Source/IrisMenus.csproj" Private="false" />
+    <Reference Include="Assembly-CSharp"><HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../docs/Oxygen/zh_cn/*.md" LogicalName="docs.Oxygen.zh_cn.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

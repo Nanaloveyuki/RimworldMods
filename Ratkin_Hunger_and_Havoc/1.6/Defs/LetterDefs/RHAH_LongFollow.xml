@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <LetterDef>
+    <defName>RHAH_LongFollowLetter</defName>
+    <letterClass>HungerAndHavoc.EventMgr.ChoiceLetter_RHAH_LongFollow</letterClass>
+    <color>(0.65, 0.85, 0.9)</color>
+  </LetterDef>
+  <JobDef>
+    <defName>RHAH_LongMeeting</defName>
+    <driverClass>HungerAndHavoc.EventMgr.JobDriver_RHAH_LongMeeting</driverClass>
+    <reportString>带孩子去见来客。</reportString>
+    <playerInterruptible>true</playerInterruptible>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_LongMeetWalk</defName>
+    <driverClass>HungerAndHavoc.EventMgr.JobDriver_RHAH_LongMeetWalk</driverClass>
+    <reportString>去见来客。</reportString>
+    <playerInterruptible>true</playerInterruptible>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>RHAH_LongKeepsake</defName>
+    <label>旧窝记物</label>
+    <description>幼年鼠族随身带着的小块旧布。</description>
+    <thingClass>ThingWithComps</thingClass>
+    <graphicData>
+      <texPath>Things/Item/Resource/Cloth</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MarketValue>1</MarketValue>
+      <Mass>0.01</Mass>
+      <MaxHitPoints>30</MaxHitPoints>
+      <DeteriorationRate>0</DeteriorationRate>
+    </statBases>
+  </ThingDef>
+</Defs>

@@ -1,0 +1,27 @@
+﻿# RimWorld / C# ????
+Assemblies/*.pdb
+Assemblies/0Harmony.*
+Assemblies/*.json
+Assemblies/*.xml
+Guard/Assemblies/*.pdb
+Guard/Source/obj/
+Guard/Source/bin/
+Source/bin/
+Source/obj/
+Source/Tests/bin/
+Source/Tests/obj/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+
+# Windows ????
+Thumbs.db
+Desktop.ini
+
+# ???????
+*.log
+*.tmp
+*.temp

@@ -1,0 +1,205 @@
+{
+  "Localized text": {
+    "prefix": "lang",
+    "description": "Resolve a Keyed translation in the game's current language",
+    "body": ["lang(\"${1:MyMod_Key}\")"]
+  },
+  "Typed function": {
+    "prefix": "fn",
+    "description": "Function with typed parameters and a return type",
+    "body": [
+      "fn ${1:name}(${2:value}: ${3:int}): ${4:int} {",
+      "\treturn ${5:value}",
+      "}"
+    ]
+  },
+  "Struct": {
+    "prefix": "struct",
+    "description": "Struct with a typed field and an instance method",
+    "body": [
+      "struct ${1:Name} {",
+      "\t${2:value}: ${3:int} = ${4:0}",
+      "",
+      "\tfn ${5:read}(): ${3:int} {",
+      "\t\treturn self.${2:value}",
+      "\t}",
+      "}"
+    ]
+  },
+  "Inherent impl": {
+    "prefix": "impl",
+    "description": "Add methods to an existing struct",
+    "body": [
+      "impl ${1:Name} {",
+      "\tfn ${2:add}(${3:amount}: ${4:int}): void {",
+      "\t\tself.${5:value} += ${3:amount}",
+      "\t}",
+      "",
+      "\tstatic fn ${6:starting}(${5:value}: ${4:int}): Self {",
+      "\t\treturn Self(${5:value}: ${5:value})",
+      "\t}",
+      "}"
+    ]
+  },
+  "Trait and implementation": {
+    "prefix": "trait",
+    "description": "Trait signature plus a concrete implementation",
+    "body": [
+      "trait ${1:Named} {",
+      "\tfn ${2:name}(): ${3:string}",
+      "}",
+      "",
+      "struct ${4:Point} {",
+      "\t${5:x}: ${6:int} = ${7:0}",
+      "}",
+      "",
+      "impl ${1:Named} for ${4:Point} {",
+      "\tfn ${2:name}(): ${3:string} {",
+      "\t\treturn string(self.${5:x})",
+      "\t}",
+      "}"
+    ]
+  },
+  "Generic trait function": {
+    "prefix": "fn generic",
+    "description": "Free function constrained by one trait",
+    "body": [
+      "fn ${1:describe}<${2:T}: ${3:Named}>(${4:value}: ${2:T}): ${5:string} {",
+      "\treturn ${4:value}.${6:name}()",
+      "}"
+    ]
+  },
+  "Module import": {
+    "prefix": "use",
+    "description": "Import a module path from a package",
+    "body": "use ${1:helpers}@${2:nanaloveyuki.oxygendsl}"
+  },
+  "Optional import": {
+    "prefix": "optional use",
+    "description": "Import a module that may be absent",
+    "body": "optional use ${1:irismenus}@${2:std} as ${3:menus}"
+  },
+  "IrisMenus settings page": {
+    "prefix": "irismenus",
+    "description": "Optional IrisMenus settings page for Oxygen/settings.oxy",
+    "body": [
+      "optional use irismenus@std",
+      "",
+      "if irismenus.available {",
+      "\tirismenus.registry(pages: [{",
+      "\t\tid: \"${1:general}\",",
+      "\t\ttitle: \"${2:Settings}\",",
+      "\t\tscope: \"${3|game,global|}\",",
+      "\t\titems: [",
+      "\t\t\t{id: \"${4:enabled}\", kind: \"checkbox\", label: \"${5:Enabled}\",",
+      "\t\t\t\tkey: \"${6:enabled}\", default: ${7:true}}",
+      "\t\t]",
+      "\t}])",
+      "}"
+    ]
+  },
+  "Mood rule": {
+    "prefix": "mood",
+    "description": "Continuous mood registration",
+    "body": [
+      "fn ${1:check}(pawn): bool {",
+      "\treturn pawn.food != null && pawn.food > ${2:0.25}",
+      "}",
+      "",
+      "mood(\"${3:rule_id}\",",
+      "\tlabel: \"${4:label}\",",
+      "\tdescription: \"${5:description}\",",
+      "\toffset: ${6:5},",
+      "\ttarget: \"${7|colonists,map,selected|}\",",
+      "\twhen: ${1:check})"
+    ]
+  },
+  "Memory rule": {
+    "prefix": "memory",
+    "description": "Timed mood memory; refresh mode does not take stack_limit",
+    "body": [
+      "memory(\"${1:rule_id}\",",
+      "\tlabel: \"${2:label}\",",
+      "\tdescription: \"${3:description}\",",
+      "\toffset: ${4:3},",
+      "\ttarget: \"${5|selected,colonists,map|}\",",
+      "\tduration: ${6:2500},",
+      "\tcooldown: ${7:2500},",
+      "\tmode: \"refresh\")"
+    ]
+  },
+  "Stacked memory rule": {
+    "prefix": "memory stack",
+    "description": "Timed mood memory that stacks up to a positive stack_limit",
+    "body": [
+      "memory(\"${1:rule_id}\",",
+      "\tlabel: \"${2:label}\",",
+      "\tdescription: \"${3:description}\",",
+      "\toffset: ${4:3},",
+      "\ttarget: \"${5|selected,colonists,map|}\",",
+      "\tduration: ${6:2500},",
+      "\tcooldown: ${7:2500},",
+      "\tmode: \"stack\",",
+      "\tstack_limit: ${8:3})"
+    ]
+  },
+  "Define TraitDef": {
+    "prefix": "define TraitDef",
+    "description": "Register a TraitDef for Oxygen/content.oxy",
+    "body": [
+      "define(\"TraitDef\", \"${1:MyMod_Trait}\", fields: {",
+      "\tdegreeDatas: [{",
+      "\t\tdegree: ${2:0},",
+      "\t\tlabel: \"${3:label}\",",
+      "\t\tdescription: \"${4:description}\"",
+      "\t}]",
+      "})"
+    ]
+  },
+  "Define ThoughtDef": {
+    "prefix": "define ThoughtDef",
+    "description": "Register a ThoughtDef for Oxygen/content.oxy",
+    "body": [
+      "define(\"ThoughtDef\", \"${1:MyMod_Thought}\", fields: {",
+      "\tstages: [{",
+      "\t\tlabel: \"${2:label}\",",
+      "\t\tdescription: \"${3:description}\",",
+      "\t\tbaseMoodEffect: ${4:-4}",
+      "\t}]",
+      "})"
+    ]
+  },
+  "Patch definition": {
+    "prefix": "patch",
+    "description": "Patch one existing native definition",
+    "body": [
+      "patch(\"${1|TraitDef,ThoughtDef|}\", \"${2:DefName}\", set: {",
+      "\t${3:commonality}: ${4:1.5}",
+      "})"
+    ]
+  },
+  "Thought rule": {
+    "prefix": "thought_rule",
+    "description": "Bind a pawn stage function to a ThoughtDef",
+    "body": [
+      "fn ${1:evaluate}(pawn) {",
+      "\tif pawn.${2:young_sick} { return ${3:1} }",
+      "\treturn -1",
+      "}",
+      "",
+      "thought_rule(\"${1:evaluate}\", thought: def_ref(\"ThoughtDef\", \"${4:MyMod_Thought}\"), evaluate: ${1:evaluate})"
+    ]
+  },
+  "Gate rule": {
+    "prefix": "gate_rule",
+    "description": "Bind a bool? pawn function to an RHAH gate",
+    "body": [
+      "fn ${1:evaluate}(pawn): bool? {",
+      "\tif !pawn.origin || !pawn.active_visitor { return null }",
+      "\treturn pawn.hunger == \"Hungry\"",
+      "}",
+      "",
+      "gate_rule(\"${1:evaluate}\", gate: \"${2|Beg,Steal,Fight,LeaveAfterFed,EatOutsideRelief,FeedFromRelief,Gnaw,TailBite,Leash,Carry,JoinColony,Hire,Transfer,Imprison,DropOffChild,ExitMap|}\", evaluate: ${1:evaluate})"
+    ]
+  }
+}

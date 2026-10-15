@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_BeggingSucceeded.stages.0.label>讨到吃的了</RHAH_Thought_BeggingSucceeded.stages.0.label>
+  <RHAH_Thought_BeggingSucceeded.stages.0.description>总算讨到一点能入口的东西。今天还能再撑一下。</RHAH_Thought_BeggingSucceeded.stages.0.description>
+  <RHAH_Thought_BeggingRejected.stages.0.label>被赶走了</RHAH_Thought_BeggingRejected.stages.0.label>
+  <RHAH_Thought_BeggingRejected.stages.0.description>我只想讨一口吃的。他们把我赶走了。</RHAH_Thought_BeggingRejected.stages.0.description>
+  <RHAH_Thought_BeggingSlapped.stages.0.label>被人抽了</RHAH_Thought_BeggingSlapped.stages.0.label>
+  <RHAH_Thought_BeggingSlapped.stages.0.description>我被人抽了……脸还在疼。</RHAH_Thought_BeggingSlapped.stages.0.description>
+</LanguageData>

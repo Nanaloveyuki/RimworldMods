@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Removal>存档与卸载</RHAH_Menu_Removal>
+  <RHAH_RemovalSection>当前存档</RHAH_RemovalSection>
+  <RHAH_RemovalNoGame>先加载一个存档，才能停用这个存档里的新内容，或导出卸载用副本。</RHAH_RemovalNoGame>
+  <RHAH_EventChainsFailure>事件后续已暂停，旧事件记录保留，新事件也已停下。原因：{0}\n请保留本模组和 Oxygen DSL Framework。继续游戏前查看日志，或导出卸载用副本。</RHAH_EventChainsFailure>
+  <RHAH_RemovalDisable>仅对此存档停用新内容</RHAH_RemovalDisable>
+  <RHAH_RemovalDisabled>此存档已停用新的饥与祸内容，事件后续和尚未到达的捕食者也已暂停。请再保存一次，以保留停用状态。已有事件记录、来客、信件和地点继续保留；模组的全局开关仍使用原设置。</RHAH_RemovalDisabled>
+  <RHAH_RemovalExport>备份并导出卸载用副本</RHAH_RemovalExport>
+  <RHAH_RemovalConfirm>游戏会暂停，先备份当前状态，再停用此存档的新内容和事件后续，另存一份清理副本。原存档保留。\n\n清理副本会替换本模组的鼠族种类、经历、隐藏派系和叙事者，并移除本模组的特质、基因、健康状态、记忆、物品、区域、信件、进行中的任务和事件记录。角色仍会保留，Oxygen DSL Framework 和其它模组的事件记录也会保留。\n\n导出成功后，请退出游戏，仅卸载本模组，保留鼠族、Harmony、生物科技和 Oxygen DSL Framework。重启后加载清理副本。清理只作用于导出的副本，当前游戏保留原有内容。遇到无法识别的引用时，导出会中止。继续？</RHAH_RemovalConfirm>
+  <RHAH_RemovalDone>已导出：{0}\n备份：{1}\n替换项：{2}，移除项：{3}。\n\n请退出游戏，仅卸载本模组，保留鼠族、Harmony、生物科技和 Oxygen DSL Framework，再重启并加载导出的副本。当前游戏保留原有内容，并处于暂停状态。确认清理副本能正常加载、运行、保存和再次加载后，再考虑删除旧存档。加载备份时必须保留本模组。</RHAH_RemovalDone>
+  <RHAH_RemovalFailed>卸载副本导出失败，请保留本模组。\n备份路径：{0}\n原因：{1}\n\n若备份保存失败，上述文件可能尚未生成。已有备份仍含本模组内容，须保留本模组才能加载。原存档保留，完整错误请查看日志。继续游戏前，请检查此存档的新内容是否已停用。</RHAH_RemovalFailed>
+</LanguageData>

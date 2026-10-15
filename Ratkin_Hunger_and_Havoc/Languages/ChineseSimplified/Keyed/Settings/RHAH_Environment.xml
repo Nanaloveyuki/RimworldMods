@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_ColdClothes>给新来客一件温度衣</RHAH_Settings_ColdClothes>
+  <RHAH_Settings_ColdClothes_Tooltip>新来客抵达时，如果地图气温超出其耐受范围，会获得一件防护足够的温度衣。所有温度衣都不足以抵御气温时，使用防护最强的一件。此项只在到来时分配衣物，关闭后停止额外分配。</RHAH_Settings_ColdClothes_Tooltip>
+  <RHAH_Settings_TempMin>事件最低气温：{0}°C</RHAH_Settings_TempMin>
+  <RHAH_Settings_TempMax>事件最高气温：{0}°C</RHAH_Settings_TempMax>
+  <RHAH_Settings_Temp_Tooltip>以地图为目标的新事件只在这个气温范围内出现，默认 -35°C 到 70°C。商队事件不受此项限制。</RHAH_Settings_Temp_Tooltip>
+  <RHAH_Menu_Environment>环境自适应</RHAH_Menu_Environment>
+  <RHAH_Menu_Environment_Note>新来客抵达时，如果气温超出其耐受范围，会获得一件防护足够的温度衣。所有温度衣都不足以抵御气温时，使用防护最强的一件。已经在场的角色保留身上的衣物。</RHAH_Menu_Environment_Note>
+  <RHAH_Menu_Environment_Disabled>温度衣已关闭，新来客只按普通衣物设置着装。</RHAH_Menu_Environment_Disabled>
+  <RHAH_Menu_Environment_Cold>抗寒</RHAH_Menu_Environment_Cold>
+  <RHAH_Menu_Environment_Heat>抗热</RHAH_Menu_Environment_Heat>
+  <RHAH_Settings_TemperatureApparel>使用{0}</RHAH_Settings_TemperatureApparel>
+  <RHAH_Settings_TemperatureApparel_Tooltip>开启后，新来客可以获得这件温度衣。关闭后停止分配，已经穿着它的角色保留衣物。</RHAH_Settings_TemperatureApparel_Tooltip>
+  <RHAH_Settings_TemperatureInsulation>{0}：+{1}°C {2}</RHAH_Settings_TemperatureInsulation>
+  <RHAH_Settings_TemperatureInsulation_Tooltip>拖动横条调整这件温度衣的防护数值，范围 0 到 100。设为 0 时取消这项防护。</RHAH_Settings_TemperatureInsulation_Tooltip>
+</LanguageData>

@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>PromptChecks</AssemblyName>
+    <RootNamespace>AdvancedRimTalk.PromptChecks</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <OutputPath>..\tmp\prompt-checks\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Source\Diagnostics\ArtiLogBuffer.cs" Link="ArtiLogBuffer.cs" />
+    <Reference Include="Scriban">
+      <HintPath>$(RimTalkAssemblyDir)\Scriban.dll</HintPath>
+    </Reference>
+    <Compile Include="Program.cs" />
+    <Compile Include="ArtiSyntaxRenderingChecks.cs" />
+    <Compile Include="..\Source\UI\ArtiSyntaxRendering.cs" Link="ArtiSyntaxRendering.cs" />
+    <Compile Include="ResponseProcessingChecks.cs" />
+    <Compile Include="..\Source\Integration\ResponseJsonRepair.cs" Link="ResponseJsonRepair.cs" />
+    <Compile Include="..\Source\Integration\RimTalkResponseProcessor.cs" Link="RimTalkResponseProcessor.cs" />
+    <Compile Include="..\Source\Integration\RimTalkResponsePatch.cs" Link="RimTalkResponsePatch.cs" />
+    <Compile Include="GlobalRuntimeProperties.cs" />
+    <Compile Include="..\Source\Arti\ArtiGlobalRuntime.cs" Link="ArtiGlobalRuntime.cs" />
+    <Compile Include="GlobalDefinitionProperties.cs" />
+    <Compile Include="..\Source\Arti\ArtiGlobalDefinitions.cs" Link="ArtiGlobalDefinitions.cs" />
+    <Compile Include="..\Source\Arti\ArtiConstantExpression.cs" Link="ArtiConstantExpression.cs" />
+    <Compile Include="PreviewSessionPatchChecks.cs" />
+    <Compile Include="..\Source\Integration\PreviewSessionVariablePatches.cs" Link="PreviewSessionVariablePatches.cs" />
+    <Compile Include="MixedTemplateChecks.cs" />
+    <Compile Include="ArtiDocumentRenderChecks.cs" />
+    <Compile Include="..\Source\Integration\ArtiPromptDocumentRenderer.cs" Link="ArtiPromptDocumentRenderer.cs" />
+    <Compile Include="PromptSettingsChecks.cs" />
+    <Compile Include="ArtiPartEditorWindowChecks.cs" />
+    <Compile Include="..\Source\Prompt\ArtiPromptAnalysisContext.cs" Link="ArtiPromptAnalysisContext.cs" />
+    <Compile Include="..\Source\UI\ArtiEditorWorkspace.cs" Link="ArtiEditorWorkspace.cs" />
+    <Compile Include="..\Source\Documentation\DocumentationBlocks.cs" Link="DocumentationBlocks.cs" />
+    <Compile Include="..\Source\Documentation\AdvancedRimTalkDocumentationCatalog.cs" Link="AdvancedRimTalkDocumentationCatalog.cs" />
+    <Compile Include="..\Source\Documentation\ArtiDocumentationIndex.cs" Link="ArtiDocumentationIndex.cs" />
+    <Compile Include="ArtiDocumentationIndexChecks.cs" />
+    <Compile Include="..\Source\Prompt\ArtiPromptPreset.cs" Link="ArtiPromptPreset.cs" />
+    <Compile Include="..\Source\Settings\AdvancedRimTalkSettings.cs" Link="AdvancedRimTalkSettings.cs" />
+    <Compile Include="..\Source\Prompt\ArtiPromptPart.cs" Link="ArtiPromptPart.cs" />
+    <Compile Include="MemoryLayerTransferChecks.cs" />
+    <Compile Include="..\Source\Integration\MemoryLayerTransfer.cs" Link="MemoryLayerTransfer.cs" />
+    <Compile Include="MemoryPreviewPolicyChecks.cs" />
+    <Compile Include="..\Source\Integration\MemoryPreviewPolicy.cs" Link="MemoryPreviewPolicy.cs" />
+    <Compile Include="PromptPreviewSessionChecks.cs" />
+    <Compile Include="..\Source\Integration\PromptPreviewSession.cs" Link="PromptPreviewSession.cs" />
+    <Compile Include="TakeoverScopeChecks.cs" />
+    <Compile Include="..\Source\Integration\RimTalkTakeoverContextScope.cs" Link="RimTalkTakeoverContextScope.cs" />
+    <Compile Include="PromptPreviewChecks.cs" />
+    <Compile Include="PromptCharacterBudgetChecks.cs" />
+    <Compile Include="..\Source\Prompt\PromptCharacterBudget.cs" Link="PromptCharacterBudget.cs" />
+    <Compile Include="MemoryApiMethodResolverChecks.cs" />
+    <Compile Include="..\Source\Integration\MemoryApiMethodResolver.cs" Link="MemoryApiMethodResolver.cs" />
+    <Compile Include="..\Source\Prompt\PromptPreview.cs" Link="PromptPreview.cs" />
+    <Compile Include="ArtiChecks.cs" />
+    <Compile Include="ArtiExecutorChecks.cs" />
+    <Compile Include="ArtiPawnInfoChecks.cs" />
+    <Compile Include="TakeoverPromptImportConverterChecks.cs" />
+    <Compile Include="..\Source\Prompt\PromptSnapshot.cs" Link="PromptSnapshot.cs" />
+    <Compile Include="..\Source\Prompt\PromptTemplateExpander.cs" Link="PromptTemplateExpander.cs" />
+    <Compile Include="..\Source\Prompt\SystemInstructionRenderer.cs" Link="SystemInstructionRenderer.cs" />
+    <Compile Include="..\Source\Prompt\TakeoverPromptImportConverter.cs" Link="TakeoverPromptImportConverter.cs" />
+    <Compile Include="..\Source\Arti\ArtiSyntax.cs" Link="ArtiSyntax.cs" />
+    <Compile Include="..\Source\Arti\ArtiDiagnostics.cs" Link="ArtiDiagnostics.cs" />
+    <Compile Include="..\Source\Arti\ArtiLexer.cs" Link="ArtiLexer.cs" />
+    <Compile Include="..\Source\Arti\ArtiParser.cs" Link="ArtiParser.cs" />
+    <Compile Include="..\Source\Arti\ArtiAnalyzer.cs" Link="ArtiAnalyzer.cs" />
+    <Compile Include="..\Source\Arti\ArtiExecutor.cs" Link="ArtiExecutor.cs" />
+    <Compile Include="..\Source\Arti\ArtiOnce.cs" Link="ArtiOnce.cs" />
+    <Compile Include="..\Source\Arti\ArtiStringFunctions.cs" Link="ArtiStringFunctions.cs" />
+    <Compile Include="..\Source\Arti\ArtiSymbols.cs" Link="ArtiSymbols.cs" />
+    <Compile Include="..\Source\Arti\ArtiDocumentParser.cs" Link="ArtiDocumentParser.cs" />
+    <Compile Include="..\Source\Integration\RimTalkArtiPawnAgeParts.cs" Link="RimTalkArtiPawnAgeParts.cs" />
+    <Compile Include="..\Source\UI\ArtiEditorText.cs" Link="ArtiEditorText.cs" />
+    <Compile Include="ArtiEditorTextChecks.cs" />
+  </ItemGroup>
+</Project>

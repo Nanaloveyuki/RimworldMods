@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_Y001_RuinsLitter.title>child lost in the fire</RHAH_History_Y001_RuinsLitter.title>
+  <RHAH_History_Y001_RuinsLitter.titleShort>lost child</RHAH_History_Y001_RuinsLitter.titleShort>
+  <RHAH_History_Y001_RuinsLitter.description>[PAWN_nameDef] was separated from [PAWN_possessive] mother when someone set fire to the village and hid in a collapsed house. Scrap grain kept [PAWN_objective] alive for a few days. By the time [PAWN_pronoun] emerged, the rescuers had gone, and [PAWN_pronoun] eventually left with passing refugees.</RHAH_History_Y001_RuinsLitter.description>
+  <RHAH_History_Y002_LostFieldLitter.title>displaced farm child</RHAH_History_Y002_LostFieldLitter.title>
+  <RHAH_History_Y002_LostFieldLitter.titleShort>farm child</RHAH_History_Y002_LostFieldLitter.titleShort>
+  <RHAH_History_Y002_LostFieldLitter.description>[PAWN_nameDef] grew up on a small farm. The owner sold the land and took the adult workers away. Grain collectors took the last crops from the children left behind, and [PAWN_pronoun] had to follow refugees in search of food.</RHAH_History_Y002_LostFieldLitter.description>
+  <RHAH_History_Y003_CreviceMessenger.title>cave child messenger</RHAH_History_Y003_CreviceMessenger.title>
+  <RHAH_History_Y003_CreviceMessenger.titleShort>messenger</RHAH_History_Y003_CreviceMessenger.titleShort>
+  <RHAH_History_Y003_CreviceMessenger.description>[PAWN_nameDef] lived in a cave settlement where adults split into groups over food. Small enough to squeeze through the cracks, [PAWN_pronoun] became their messenger. When smoke and rats made the caves unlivable, [PAWN_pronoun] followed the last group to the surface.</RHAH_History_Y003_CreviceMessenger.description>
+  <RHAH_History_Y004_GrainMillApprentice.title>young mill helper</RHAH_History_Y004_GrainMillApprentice.title>
+  <RHAH_History_Y004_GrainMillApprentice.titleShort>mill helper</RHAH_History_Y004_GrainMillApprentice.titleShort>
+  <RHAH_History_Y004_GrainMillApprentice.description>[PAWN_nameDef] helped [PAWN_possessive] mother work at a grain mill, where broken grain was the family's most reliable food. After the mill was requisitioned, even moldy grain went into the rations. Mother and child were driven out together.</RHAH_History_Y004_GrainMillApprentice.description>
+  <RHAH_History_Y005_RatEggGuardApprentice.title>child caretaker</RHAH_History_Y005_RatEggGuardApprentice.title>
+  <RHAH_History_Y005_RatEggGuardApprentice.titleShort>caretaker</RHAH_History_Y005_RatEggGuardApprentice.titleShort>
+  <RHAH_History_Y005_RatEggGuardApprentice.description>As the adults in the group fell ill one after another, [PAWN_nameDef] had to look after younger ratkin. During a night march, the children followed [PAWN_objective], but all became separated from their relatives. Afterward, they followed whoever would share food.</RHAH_History_Y005_RatEggGuardApprentice.description>
+  <RHAH_History_Y006_LandmarkRememberingOrphan.title>lost child pathfinder</RHAH_History_Y006_LandmarkRememberingOrphan.title>
+  <RHAH_History_Y006_LandmarkRememberingOrphan.titleShort>pathfinder</RHAH_History_Y006_LandmarkRememberingOrphan.titleShort>
+  <RHAH_History_Y006_LandmarkRememberingOrphan.description>Separated from family during an evacuation, [PAWN_nameDef] remembered dead trees, a cracked bridge, and dangerous crossings. [PAWN_pronoun] used those landmarks to avoid unsafe routes and was taken in by another refugee group, but never found the old home.</RHAH_History_Y006_LandmarkRememberingOrphan.description>
+  <RHAH_History_Y007_LivestockApprentice.title>displaced young herder</RHAH_History_Y007_LivestockApprentice.title>
+  <RHAH_History_Y007_LivestockApprentice.titleShort>young herder</RHAH_History_Y007_LivestockApprentice.titleShort>
+  <RHAH_History_Y007_LivestockApprentice.description>As a child, [PAWN_nameDef] drove the family's remaining livestock. The farm lost its water, then most of its animals were requisitioned. When the pens were abandoned, [PAWN_pronoun] caught up with the refugees with a few surviving animals and never returned.</RHAH_History_Y007_LivestockApprentice.description>
+  <RHAH_History_Y008_OrphanedMillApprentice.title>abandoned mill child</RHAH_History_Y008_OrphanedMillApprentice.title>
+  <RHAH_History_Y008_OrphanedMillApprentice.titleShort>mill child</RHAH_History_Y008_OrphanedMillApprentice.titleShort>
+  <RHAH_History_Y008_OrphanedMillApprentice.description>[PAWN_nameDef] learned simple mill work as a young helper. After the owner fell into debt for grain, the adults left, abandoning [PAWN_objective] beside a millstone too heavy to turn. When the mill was torn down, [PAWN_pronoun] left with those few skills.</RHAH_History_Y008_OrphanedMillApprentice.description>
+  <RHAH_History_Y009_CampfireListener.title>campfire story listener</RHAH_History_Y009_CampfireListener.title>
+  <RHAH_History_Y009_CampfireListener.titleShort>listener</RHAH_History_Y009_CampfireListener.titleShort>
+  <RHAH_History_Y009_CampfireListener.description>[PAWN_nameDef] was born into a refugee column, had never seen a good harvest, and fell asleep to adults' stories of past crops. When the group broke up for lack of food, they left [PAWN_objective] beside the campfire. [PAWN_pronoun] moved on only when another band of refugees passed.</RHAH_History_Y009_CampfireListener.description>
+  <RHAH_History_Y010_QuarantineShedChild.title>quarantine shed child</RHAH_History_Y010_QuarantineShedChild.title>
+  <RHAH_History_Y010_QuarantineShedChild.titleShort>child</RHAH_History_Y010_QuarantineShedChild.titleShort>
+  <RHAH_History_Y010_QuarantineShedChild.description>[PAWN_nameDef] was confined to a quarantine shed with family. At first, people brought food and water through the door. As the plague worsened, the deliveries stopped and relatives left or died. When the shed was dismantled, [PAWN_pronoun] escaped with the survivors.</RHAH_History_Y010_QuarantineShedChild.description>
+  <RHAH_History_Y011_RuinedHouseOrphan.title>ruined house child</RHAH_History_Y011_RuinedHouseOrphan.title>
+  <RHAH_History_Y011_RuinedHouseOrphan.titleShort>lost child</RHAH_History_Y011_RuinedHouseOrphan.titleShort>
+  <RHAH_History_Y011_RuinedHouseOrphan.description>A night raid separated [PAWN_nameDef] from family. [PAWN_pronoun] hid in a ruined house and survived on roots and rainwater. The searchers never returned, and afterward [PAWN_pronoun] moved alone between refugee camps looking for a place to stay.</RHAH_History_Y011_RuinedHouseOrphan.description>
+  <RHAH_History_Y012_NightWatchApprentice.title>young night watch helper</RHAH_History_Y012_NightWatchApprentice.title>
+  <RHAH_History_Y012_NightWatchApprentice.titleShort>watch helper</RHAH_History_Y012_NightWatchApprentice.titleShort>
+  <RHAH_History_Y012_NightWatchApprentice.description>The refugee camp was repeatedly raided, and the adults' watches could not stop grain thieves. Unable to sleep, [PAWN_nameDef] memorized the patrol routes. After one raid separated [PAWN_objective] from family, [PAWN_pronoun] kept watching the campfires for others.</RHAH_History_Y012_NightWatchApprentice.description>
+  <RHAH_History_Y013_CrowdBornChild.title>crowd-separated child</RHAH_History_Y013_CrowdBornChild.title>
+  <RHAH_History_Y013_CrowdBornChild.titleShort>lost child</RHAH_History_Y013_CrowdBornChild.titleShort>
+  <RHAH_History_Y013_CrowdBornChild.description>[PAWN_nameDef] was carried among a huge refugee column, where every halt pushed someone out of the line. After a scramble for grain, [PAWN_pronoun] remembered only the family's voices and was taken away by another group.</RHAH_History_Y013_CrowdBornChild.description>
+  <RHAH_History_Y014_AbandonedHouseRatEgg.title>empty house foundling</RHAH_History_Y014_AbandonedHouseRatEgg.title>
+  <RHAH_History_Y014_AbandonedHouseRatEgg.titleShort>abandoned child</RHAH_History_Y014_AbandonedHouseRatEgg.titleShort>
+  <RHAH_History_Y014_AbandonedHouseRatEgg.description>[PAWN_nameDef], a young ratkin, was left behind the door of an empty house with one hardened piece of food. The adults promised to return soon, but footsteps outside grew fewer. Passing refugees eventually found [PAWN_objective] and took [PAWN_objective] out of the house.</RHAH_History_Y014_AbandonedHouseRatEgg.description>
+  <RHAH_History_Y015_DoorstepRatEgg.title>doorstep young ratkin</RHAH_History_Y015_DoorstepRatEgg.title>
+  <RHAH_History_Y015_DoorstepRatEgg.titleShort>foundling</RHAH_History_Y015_DoorstepRatEgg.titleShort>
+  <RHAH_History_Y015_DoorstepRatEgg.description>Feverish, [PAWN_nameDef] was carried to a strange settlement's gate by [PAWN_possessive] ratkin mother, whose repeated touch on [PAWN_possessive] brow was all [PAWN_pronoun] remembered. Too weak to go farther, the mother pushed [PAWN_objective] inside and stayed outside. It was [PAWN_possessive] earliest memory.</RHAH_History_Y015_DoorstepRatEgg.description>
+  <RHAH_History_Y016_RationingApprentice.title>young ration helper</RHAH_History_Y016_RationingApprentice.title>
+  <RHAH_History_Y016_RationingApprentice.titleShort>ration helper</RHAH_History_Y016_RationingApprentice.titleShort>
+  <RHAH_History_Y016_RationingApprentice.description>As the adults in a begging group dwindled, [PAWN_nameDef] was assigned to remember who had already received a spoonful of food. When there was not enough to share, [PAWN_pronoun] gave the last portion to a younger ratkin. Those fighting over the rations blamed [PAWN_objective] and drove [PAWN_objective] out of the group.</RHAH_History_Y016_RationingApprentice.description>
+  <RHAH_History_Y017_GrainBarrelHiddenChild.title>grain barrel child</RHAH_History_Y017_GrainBarrelHiddenChild.title>
+  <RHAH_History_Y017_GrainBarrelHiddenChild.titleShort>hidden child</RHAH_History_Y017_GrainBarrelHiddenChild.titleShort>
+  <RHAH_History_Y017_GrainBarrelHiddenChild.description>The family brought [PAWN_nameDef] into a storehouse to steal grain. When the plan failed, the adults fled without looking back for [PAWN_objective]. [PAWN_pronoun] hid in an empty grain barrel until dawn, and afterward always checked for an escape route before trusting companions.</RHAH_History_Y017_GrainBarrelHiddenChild.description>
+  <RHAH_History_Y018_WastelandBurrowLitter.title>abandoned burrow child</RHAH_History_Y018_WastelandBurrowLitter.title>
+  <RHAH_History_Y018_WastelandBurrowLitter.titleShort>abandoned child</RHAH_History_Y018_WastelandBurrowLitter.titleShort>
+  <RHAH_History_Y018_WastelandBurrowLitter.description>As a child, [PAWN_nameDef] lived with ratkin in a wasteland cave. Heavy rain flooded the entrance, and the adults hurried away, leaving [PAWN_objective] behind. [PAWN_pronoun] escaped the cave and hid among bushes and ruins for days before a passing group heard [PAWN_objective] crying.</RHAH_History_Y018_WastelandBurrowLitter.description>
+  <RHAH_History_Y019_ChildByTheCage.title>child beside the cages</RHAH_History_Y019_ChildByTheCage.title>
+  <RHAH_History_Y019_ChildByTheCage.titleShort>cage child</RHAH_History_Y019_ChildByTheCage.titleShort>
+  <RHAH_History_Y019_ChildByTheCage.description>[PAWN_nameDef] grew up beside merchant wagons, watching medicine, grain sacks, and young ratkin locked in separate cages. When the trade route failed, the leader abandoned both cargo and children. [PAWN_pronoun] had to follow the guard in search of a new trading stop.</RHAH_History_Y019_ChildByTheCage.description>
+  <RHAH_History_Y020_HiddenTradeChild.title>child hidden under a wagon</RHAH_History_Y020_HiddenTradeChild.title>
+  <RHAH_History_Y020_HiddenTradeChild.titleShort>hidden child</RHAH_History_Y020_HiddenTradeChild.titleShort>
+  <RHAH_History_Y020_HiddenTradeChild.description>[PAWN_nameDef] listened to adults discussing grain prices and who could take the children, unaware that [PAWN_pronoun] was being traded too. When the deal failed, [PAWN_pronoun] was hidden beneath a wagon and left the camp with the merchant and the other young ratkin.</RHAH_History_Y020_HiddenTradeChild.description>
+  <RHAH_History_Y021_SiegeCampWaterRunner.title>besieged water runner</RHAH_History_Y021_SiegeCampWaterRunner.title>
+  <RHAH_History_Y021_SiegeCampWaterRunner.titleShort>water runner</RHAH_History_Y021_SiegeCampWaterRunner.titleShort>
+  <RHAH_History_Y021_SiegeCampWaterRunner.description>[PAWN_nameDef] was trapped in a besieged camp where water could be fetched only through a narrow gap along the wall. Small enough to fit, [PAWN_pronoun] was sent to carry half-bowls to the gate guards and younger children. When the wall fell, [PAWN_pronoun] left with those who escaped.</RHAH_History_Y021_SiegeCampWaterRunner.description>
+  <RHAH_History_Y022_ReliefLedgerChild.title>young relief recorder</RHAH_History_Y022_ReliefLedgerChild.title>
+  <RHAH_History_Y022_ReliefLedgerChild.titleShort>recorder</RHAH_History_Y022_ReliefLedgerChild.titleShort>
+  <RHAH_History_Y022_ReliefLedgerChild.description>[PAWN_nameDef] tracked each batch of supplies at a relief camp, including who received food but never got medicine. When the relief group left, [PAWN_pronoun] copied the remaining sack counts and names onto a piece of wood and traveled on with the incomplete list.</RHAH_History_Y022_ReliefLedgerChild.description>
+  <RHAH_History_Y023_MapLostChild.title>lost map-following child</RHAH_History_Y023_MapLostChild.title>
+  <RHAH_History_Y023_MapLostChild.titleShort>lost child</RHAH_History_Y023_MapLostChild.titleShort>
+  <RHAH_History_Y023_MapLostChild.description>[PAWN_nameDef] followed an informant past treasure sites, ruins, and small settlements marked on a map, assuming every circle meant somewhere to sleep. After a deal failed, the informant fled alone. [PAWN_pronoun] remembered only a few vague landmarks along the route.</RHAH_History_Y023_MapLostChild.description>
+  <RHAH_History_Y024_BirthConvoyChild.title>child separated from mother</RHAH_History_Y024_BirthConvoyChild.title>
+  <RHAH_History_Y024_BirthConvoyChild.titleShort>lost child</RHAH_History_Y024_BirthConvoyChild.titleShort>
+  <RHAH_History_Y024_BirthConvoyChild.description>[PAWN_nameDef] traveled at the rear of a column with [PAWN_possessive] mother, who was close to giving birth. Every stop began with a search for shelter from the wind. The adults split mother and child between groups because of disease and scarce food, and [PAWN_pronoun] reached a colony's edge holding the mother's empty bag.</RHAH_History_Y024_BirthConvoyChild.description>
+  <RHAH_History_Y025_MisdeliveredChild.title>misrouted child</RHAH_History_Y025_MisdeliveredChild.title>
+  <RHAH_History_Y025_MisdeliveredChild.titleShort>lost child</RHAH_History_Y025_MisdeliveredChild.titleShort>
+  <RHAH_History_Y025_MisdeliveredChild.description>[PAWN_nameDef] was supposed to travel with supplies to an agreed camp, but woke beside a transport crate at the wrong destination. The haulers noticed the bad coordinates and left first. [PAWN_pronoun] waited among the unfamiliar cargo until refugees took [PAWN_objective] away.</RHAH_History_Y025_MisdeliveredChild.description>
+  <RHAH_History_Y026_MisnamedChild.title>misnamed child</RHAH_History_Y026_MisnamedChild.title>
+  <RHAH_History_Y026_MisnamedChild.titleShort>child</RHAH_History_Y026_MisnamedChild.titleShort>
+  <RHAH_History_Y026_MisnamedChild.description>During an evacuation, someone called [PAWN_nameDef] by another child's name. Afraid of being left behind, [PAWN_pronoun] did not correct it. The real family never came, and the mistaken guardian left after a quarrel, leaving [PAWN_objective] to search for a group under the unfamiliar name.</RHAH_History_Y026_MisnamedChild.description>
+  <RHAH_History_Y027_FamineCampChild.title>child without a harvest</RHAH_History_Y027_FamineCampChild.title>
+  <RHAH_History_Y027_FamineCampChild.titleShort>camp child</RHAH_History_Y027_FamineCampChild.titleShort>
+  <RHAH_History_Y027_FamineCampChild.description>The first field [PAWN_nameDef] saw had already been emptied by grain collectors. The adults kept promising the next season, but it brought only moldy seeds and sick people. The family split up while rations were distributed, and [PAWN_pronoun] left with refugees without ever seeing a real harvest.</RHAH_History_Y027_FamineCampChild.description>
+  <RHAH_History_Y028_PlaguezoneChild.title>plague zone child</RHAH_History_Y028_PlaguezoneChild.title>
+  <RHAH_History_Y028_PlaguezoneChild.titleShort>child</RHAH_History_Y028_PlaguezoneChild.titleShort>
+  <RHAH_History_Y028_PlaguezoneChild.description>[PAWN_nameDef] and family were expelled from a plague zone and had to wait outside each settlement for inspection. Fewer people brought food, and relatives gradually became unable to walk. [PAWN_pronoun] carried an empty medicine bag toward the next quarantine shed.</RHAH_History_Y028_PlaguezoneChild.description>
+  <RHAH_History_Y029_WoodenShelterOrphan.title>lost child from the huts</RHAH_History_Y029_WoodenShelterOrphan.title>
+  <RHAH_History_Y029_WoodenShelterOrphan.titleShort>lost child</RHAH_History_Y029_WoodenShelterOrphan.titleShort>
+  <RHAH_History_Y029_WoodenShelterOrphan.description>[PAWN_nameDef] grew up in a refugee camp's wooden huts, knowing which doors let in drafts and which wells still held water. When the camp was ordered to leave, adults divided the children between groups. [PAWN_pronoun] lost the family during the night and took away only a board with carved marks.</RHAH_History_Y029_WoodenShelterOrphan.description>
+  <RHAH_History_Y030_DroughtFieldApprentice.title>young drought farmhand</RHAH_History_Y030_DroughtFieldApprentice.title>
+  <RHAH_History_Y030_DroughtFieldApprentice.titleShort>farm helper</RHAH_History_Y030_DroughtFieldApprentice.titleShort>
+  <RHAH_History_Y030_DroughtFieldApprentice.description>[PAWN_nameDef]'s family fields failed for two seasons, and the adults saved the last water for seed. The child spent each day along the ridges gathering windblown ears of grain. The dry fields were abandoned in the end, and [PAWN_pronoun] left with the refugees.</RHAH_History_Y030_DroughtFieldApprentice.description>
+  <RHAH_History_Y031_SeedSortingApprentice.title>seed sorting apprentice</RHAH_History_Y031_SeedSortingApprentice.title>
+  <RHAH_History_Y031_SeedSortingApprentice.titleShort>apprentice</RHAH_History_Y031_SeedSortingApprentice.titleShort>
+  <RHAH_History_Y031_SeedSortingApprentice.description>[PAWN_nameDef]'s family collected seed for a grain mill. Damp in the warehouse spoiled some of it, leaving sound and moldy seed mixed together. [PAWN_pronoun] learned to tell which seeds could still be sown while sorting sack after sack with the adults, and left with that knowledge when the mill closed.</RHAH_History_Y031_SeedSortingApprentice.description>
+  <RHAH_History_Y032_FenceHerdingChild.title>abandoned farm herder</RHAH_History_Y032_FenceHerdingChild.title>
+  <RHAH_History_Y032_FenceHerdingChild.titleShort>young herder</RHAH_History_Y032_FenceHerdingChild.titleShort>
+  <RHAH_History_Y032_FenceHerdingChild.description>When a farm dismissed its workers, [PAWN_nameDef] was left in the pens with a few animals that had not been requisitioned. Once the water supply failed, [PAWN_pronoun] drove them after a refugee column. No one returned to the farm afterward.</RHAH_History_Y032_FenceHerdingChild.description>
+  <RHAH_History_Y033_DryWellWaterChild.title>young well water carrier</RHAH_History_Y033_DryWellWaterChild.title>
+  <RHAH_History_Y033_DryWellWaterChild.titleShort>water carrier</RHAH_History_Y033_DryWellWaterChild.titleShort>
+  <RHAH_History_Y033_DryWellWaterChild.description>The village well dried up in late summer, and adults barred their doors in a standoff over a bucket of water. Small enough to squeeze down a distant well that was nearly dry, [PAWN_nameDef] could still fetch water. When the village was abandoned, [PAWN_pronoun] left with the water crew.</RHAH_History_Y033_DryWellWaterChild.description>
+  <RHAH_History_Y034_GrainSackRecorder.title>grain sack observer</RHAH_History_Y034_GrainSackRecorder.title>
+  <RHAH_History_Y034_GrainSackRecorder.titleShort>sack recorder</RHAH_History_Y034_GrainSackRecorder.titleShort>
+  <RHAH_History_Y034_GrainSackRecorder.description>[PAWN_nameDef] often waited at the granary door for family to finish work, eventually learning every kind of sack marking. The owner moved the stored grain and locked the doors. [PAWN_pronoun] had to leave, but still remembered the marks on those sacks.</RHAH_History_Y034_GrainSackRecorder.description>
+  <RHAH_History_Y035_MillhandHelperChild.title>young chaff cleaner</RHAH_History_Y035_MillhandHelperChild.title>
+  <RHAH_History_Y035_MillhandHelperChild.titleShort>mill helper</RHAH_History_Y035_MillhandHelperChild.titleShort>
+  <RHAH_History_Y035_MillhandHelperChild.description>[PAWN_nameDef] cleared chaff for the adults at a grain mill and ate the broken grain left over. After the mill was requisitioned, spoiled grain was forced into the rations. With even the food no longer safe to rely on, [PAWN_pronoun] and the family left before it was distributed.</RHAH_History_Y035_MillhandHelperChild.description>
+  <RHAH_History_Y036_WheelRepairApprentice.title>wheel repair apprentice</RHAH_History_Y036_WheelRepairApprentice.title>
+  <RHAH_History_Y036_WheelRepairApprentice.titleShort>apprentice</RHAH_History_Y036_WheelRepairApprentice.titleShort>
+  <RHAH_History_Y036_WheelRepairApprentice.description>[PAWN_nameDef] helped a carpenter repair refugee carts as spokes broke one after another in the mud. A flood scattered the group, and the family never came. [PAWN_pronoun] had to leave with the next cart that could still roll.</RHAH_History_Y036_WheelRepairApprentice.description>
+  <RHAH_History_Y037_NeedleworkApprentice.title>needlework apprentice</RHAH_History_Y037_NeedleworkApprentice.title>
+  <RHAH_History_Y037_NeedleworkApprentice.titleShort>apprentice</RHAH_History_Y037_NeedleworkApprentice.titleShort>
+  <RHAH_History_Y037_NeedleworkApprentice.description>After the family weaving shop closed, the adults cut old clothes into strips and [PAWN_nameDef] learned to thread needles and make repairs. A fire destroyed the last fabric. By the time [PAWN_pronoun] left with the refugees, those stitches were well remembered.</RHAH_History_Y037_NeedleworkApprentice.description>
+  <RHAH_History_Y038_HuntingGroundHelper.title>young hunting helper</RHAH_History_Y038_HuntingGroundHelper.title>
+  <RHAH_History_Y038_HuntingGroundHelper.titleShort>hunting helper</RHAH_History_Y038_HuntingGroundHelper.titleShort>
+  <RHAH_History_Y038_HuntingGroundHelper.description>[PAWN_nameDef] followed family along the edge of a closed hunting ground, looking for wounded animals to kill for meat. A hunt ran into a swarm of rats, and the hunters never returned. [PAWN_pronoun] joined a refugee column with the remaining hides.</RHAH_History_Y038_HuntingGroundHelper.description>
+  <RHAH_History_Y039_HerbBasketApprentice.title>herb basket apprentice</RHAH_History_Y039_HerbBasketApprentice.title>
+  <RHAH_History_Y039_HerbBasketApprentice.titleShort>apprentice</RHAH_History_Y039_HerbBasketApprentice.titleShort>
+  <RHAH_History_Y039_HerbBasketApprentice.description>When an herbalist fell ill, [PAWN_nameDef] carried the herb basket between quarantine sheds and homes. The herbalist died, and the shed doors were sealed. [PAWN_pronoun] left with the survivors, still remembering which herbs could temporarily ease a fever.</RHAH_History_Y039_HerbBasketApprentice.description>
+  <RHAH_History_Y040_KilnsideChildWorker.title>kiln child worker</RHAH_History_Y040_KilnsideChildWorker.title>
+  <RHAH_History_Y040_KilnsideChildWorker.titleShort>child worker</RHAH_History_Y040_KilnsideChildWorker.titleShort>
+  <RHAH_History_Y040_KilnsideChildWorker.description>[PAWN_nameDef] worked with family at a brick kiln, picking up cinders and hauling broken bricks beside the furnace. The owner withheld wages and closed the lodging. Once the fire went out, [PAWN_pronoun] had to seek another shelter with the kiln workers.</RHAH_History_Y040_KilnsideChildWorker.description>
+  <RHAH_History_Y041_CampfireOrphan.title>campfire kin seeker</RHAH_History_Y041_CampfireOrphan.title>
+  <RHAH_History_Y041_CampfireOrphan.titleShort>kin seeker</RHAH_History_Y041_CampfireOrphan.titleShort>
+  <RHAH_History_Y041_CampfireOrphan.description>[PAWN_nameDef] lost the family in a crowd collecting rations. Remembering only the campfire they had tended, [PAWN_pronoun] followed fires at night for days. The search found no one, and [PAWN_pronoun] eventually left with people willing to share grain.</RHAH_History_Y041_CampfireOrphan.description>
+  <RHAH_History_Y042_RiverRaftApprentice.title>child raft builder</RHAH_History_Y042_RiverRaftApprentice.title>
+  <RHAH_History_Y042_RiverRaftApprentice.titleShort>raft builder</RHAH_History_Y042_RiverRaftApprentice.titleShort>
+  <RHAH_History_Y042_RiverRaftApprentice.description>After a storm, [PAWN_nameDef] was left on a riverbank and built a raft from driftwood and old doors with a few other children. It carried [PAWN_objective] to an unfamiliar shore. Flood and famine had already destroyed the old village.</RHAH_History_Y042_RiverRaftApprentice.description>
+  <RHAH_History_Y043_RaidedVillageChild.title>left-behind village child</RHAH_History_Y043_RaidedVillageChild.title>
+  <RHAH_History_Y043_RaidedVillageChild.titleShort>lost child</RHAH_History_Y043_RaidedVillageChild.titleShort>
+  <RHAH_History_Y043_RaidedVillageChild.description>[PAWN_nameDef] returned with family to a raided village to recover pots, cloth, and old blankets. Empty houses and rats filled the lanes, and when the family left again, they left [PAWN_objective] behind. [PAWN_pronoun] eventually escaped with the next group of searchers.</RHAH_History_Y043_RaidedVillageChild.description>
+  <RHAH_History_Y044_SnowprintApprentice.title>snow path child</RHAH_History_Y044_SnowprintApprentice.title>
+  <RHAH_History_Y044_SnowprintApprentice.titleShort>pathfinder</RHAH_History_Y044_SnowprintApprentice.titleShort>
+  <RHAH_History_Y044_SnowprintApprentice.description>After snow closed the mountain roads, [PAWN_nameDef] followed footprints toward the next campfire. An avalanche buried the old path, and a caravan later found [PAWN_objective]. Traveling with them, [PAWN_pronoun] began learning to read wind direction and tracks.</RHAH_History_Y044_SnowprintApprentice.description>
+  <RHAH_History_Y045_PackAnimalApprentice.title>young caravan drover</RHAH_History_Y045_PackAnimalApprentice.title>
+  <RHAH_History_Y045_PackAnimalApprentice.titleShort>young drover</RHAH_History_Y045_PackAnimalApprentice.titleShort>
+  <RHAH_History_Y045_PackAnimalApprentice.description>After thieves took the caravan's waterskins, [PAWN_nameDef] was assigned to lead the last pack animals into the shade. The caravan broke up, but no one came back for the child. [PAWN_pronoun] had to take the animals across the dry country with another refugee group.</RHAH_History_Y045_PackAnimalApprentice.description>
+  <RHAH_History_Y046_NightWatchChild.title>sleepless camp child</RHAH_History_Y046_NightWatchChild.title>
+  <RHAH_History_Y046_NightWatchChild.titleShort>night watcher</RHAH_History_Y046_NightWatchChild.titleShort>
+  <RHAH_History_Y046_NightWatchChild.description>Grain was stolen night after night from the refugee camp, despite the adults taking turns on watch. [PAWN_nameDef] could not sleep and learned to recognize all kinds of footsteps. After the camp moved, [PAWN_pronoun] still listened for steps in the night.</RHAH_History_Y046_NightWatchChild.description>
+  <RHAH_History_Y047_CheckpointEvasionApprentice.title>checkpoint-evading child</RHAH_History_Y047_CheckpointEvasionApprentice.title>
+  <RHAH_History_Y047_CheckpointEvasionApprentice.titleShort>child</RHAH_History_Y047_CheckpointEvasionApprentice.titleShort>
+  <RHAH_History_Y047_CheckpointEvasionApprentice.description>[PAWN_nameDef] hid under carts with family to slip through grain-tax checkpoints, gradually memorizing the patrol hours. At one inspection, the family was detained. [PAWN_pronoun] escaped into another group but never saw them arrive.</RHAH_History_Y047_CheckpointEvasionApprentice.description>
+</LanguageData>

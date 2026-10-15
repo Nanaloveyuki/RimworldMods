@@ -1,0 +1,51 @@
+// Abstract authoring templates do not create native Defs.
+template("rare_trait", type: "TraitDef", fields: { commonality: 0 })
+template("work_trait", type: "TraitDef", extends: "rare_trait", fields: {
+    conflictingTraits: [def_ref("TraitDef", "Industriousness", package: "ludeon.rimworld")]
+})
+
+define("TraitDef", "OxygenExample_HardWorker", mixins: ["work_trait"], fields: {
+    degreeDatas: [{
+        degree: 0,
+        label: "hard worker",
+        description: "{PAWN_nameDef} keeps working when there is work to do. {PAWN_pronoun} works 15% faster.",
+        statFactors: [{ stat: def_ref("StatDef", "WorkSpeedGlobal"), value: 1.15 }]
+    }]
+})
+
+define("TraitDef", "OxygenExample_CaresForYoung", extends: "rare_trait", fields: {
+    degreeDatas: [{
+        degree: 0,
+        label: "cares for the young",
+        description: "{PAWN_nameDef} worries when the young in {PAWN_possessive} group are hungry or ill."
+    }]
+})
+
+define("TraitDef", "OxygenExample_FearsIllness", extends: "rare_trait", fields: {
+    degreeDatas: [{
+        degree: 0,
+        label: "fears illness",
+        description: "{PAWN_nameDef} worries about being ill, and about illness in {PAWN_possessive} group."
+    }]
+})
+
+define("ThoughtDef", "OxygenExample_YoungInNeed", fields: {
+    requiredTraits: [def_ref("TraitDef", "OxygenExample_CaresForYoung")],
+    stages: [
+        { label: "hungry young", description: "The young in our group are hungry. I wish we could feed them.", baseMoodEffect: -4 },
+        { label: "sick young", description: "The young in our group are ill or cannot get up. I'm worried about them.", baseMoodEffect: -8 }
+    ]
+})
+
+define("ThoughtDef", "OxygenExample_OwnIllness", fields: {
+    requiredTraits: [def_ref("TraitDef", "OxygenExample_FearsIllness")],
+    stages: [{ label: "afraid of my illness", description: "I'm ill. What if I don't get better?", baseMoodEffect: -6 }]
+})
+
+define("ThoughtDef", "OxygenExample_GroupIllness", fields: {
+    requiredTraits: [def_ref("TraitDef", "OxygenExample_FearsIllness")],
+    stages: [{ label: "illness in our group", description: "Someone in our group is ill. I hope I don't catch it.", baseMoodEffect: -3 }]
+})
+
+// A real existing Def modification, only for this explicitly installed example.
+patch("TraitDef", "Industriousness", set: { commonality: 1.5 })

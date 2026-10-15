@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_LargeRefugeeWave_Label>Large refugee wave</RHAH_Incident_LargeRefugeeWave_Label>
+  <RHAH_Incident_AbandonedRatkinChildren_Label>Abandoned ratkin young</RHAH_Incident_AbandonedRatkinChildren_Label>
+  <RHAH_Incident_ShatteredMother_Label>Shattered mother</RHAH_Incident_ShatteredMother_Label>
+  <RHAH_Incident_BeggarFamily_Label>Begging famine mother</RHAH_Incident_BeggarFamily_Label>
+  <RHAH_Incident_BeggarGroup_Label>Begging ratkin group</RHAH_Incident_BeggarGroup_Label>
+  <RHAH_Incident_ThiefRatkinGroup_Label>Thieving ratkin</RHAH_Incident_ThiefRatkinGroup_Label>
+  <RHAH_Incident_ThiefRatkinChildGroup_Label>Thieving ratkin young</RHAH_Incident_ThiefRatkinChildGroup_Label>
+  <RHAH_Incident_WildRatkinWandersIn_Label>Wild ratkin wanders in</RHAH_Incident_WildRatkinWandersIn_Label>
+  <RHAH_Incident_WildRatkinChildWandersIn_Label>Wild ratkin young wanders in</RHAH_Incident_WildRatkinChildWandersIn_Label>
+  <RHAH_Incident_WildRatkinGroupWandersIn_Label>Wild ratkin group wanders in</RHAH_Incident_WildRatkinGroupWandersIn_Label>
+  <RHAH_Incident_FamineRefugees_Label>Famine refugees</RHAH_Incident_FamineRefugees_Label>
+  <RHAH_Incident_RatkinTraderCaravan_Label>Ratkin trader caravan</RHAH_Incident_RatkinTraderCaravan_Label>
+  <RHAH_Incident_ChildExchange_Label>Child exchange</RHAH_Incident_ChildExchange_Label>
+  <RHAH_Incident_BeggarSiege_Label>Beggar siege</RHAH_Incident_BeggarSiege_Label>
+  <RHAH_Incident_AidSimpleMeal_Label>Refugee aid (simple meal)</RHAH_Incident_AidSimpleMeal_Label>
+  <RHAH_Incident_AidFineMeal_Label>Refugee aid (fine meal)</RHAH_Incident_AidFineMeal_Label>
+  <RHAH_Incident_AidMedicine_Label>Refugee aid (medicine)</RHAH_Incident_AidMedicine_Label>
+  <RHAH_Incident_AidSilver_Label>Refugee aid (silver)</RHAH_Incident_AidSilver_Label>
+  <RHAH_Incident_AidBaby_Label>Refugee aid (baby)</RHAH_Incident_AidBaby_Label>
+  <RHAH_Incident_IntelTreasureSimpleMeal_Label>Intel (stash, simple meal)</RHAH_Incident_IntelTreasureSimpleMeal_Label>
+  <RHAH_Incident_IntelTreasureHerbal_Label>Intel (stash, herbal)</RHAH_Incident_IntelTreasureHerbal_Label>
+  <RHAH_Incident_IntelTreasureSilver_Label>Intel (stash, silver)</RHAH_Incident_IntelTreasureSilver_Label>
+  <RHAH_Incident_IntelStructureSimpleMeal_Label>Intel (structure, simple meal)</RHAH_Incident_IntelStructureSimpleMeal_Label>
+  <RHAH_Incident_IntelStructureHerbal_Label>Intel (structure, herbal)</RHAH_Incident_IntelStructureHerbal_Label>
+  <RHAH_Incident_IntelStructureSilver_Label>Intel (structure, silver)</RHAH_Incident_IntelStructureSilver_Label>
+  <RHAH_Incident_IntelSettlementSimpleMeal_Label>Intel (settlement, simple meal)</RHAH_Incident_IntelSettlementSimpleMeal_Label>
+  <RHAH_Incident_IntelSettlementHerbal_Label>Intel (settlement, herbal)</RHAH_Incident_IntelSettlementHerbal_Label>
+  <RHAH_Incident_IntelSettlementSilver_Label>Intel (settlement, silver)</RHAH_Incident_IntelSettlementSilver_Label>
+  <RHAH_Incident_LaboringRefugees_Label>Laboring refugees</RHAH_Incident_LaboringRefugees_Label>
+  <RHAH_Incident_StrongSiege_Label>Strong siege</RHAH_Incident_StrongSiege_Label>
+  <RHAH_Incident_Passersby_Label>Passersby</RHAH_Incident_Passersby_Label>
+  <RHAH_Incident_AirdropMistake_Label>Airdrop mistake</RHAH_Incident_AirdropMistake_Label>
+  <RHAH_Incident_MisguidedKinship_Label>Mistaken kin</RHAH_Incident_MisguidedKinship_Label>
+  <RHAH_Incident_GreatFamine_Label>Great famine</RHAH_Incident_GreatFamine_Label>
+  <RHAH_Incident_CaravanMuggers_Label>Caravan muggers</RHAH_Incident_CaravanMuggers_Label>
+  <RHAH_Incident_PlagueWanderers_Label>Plague wanderers</RHAH_Incident_PlagueWanderers_Label>
+  <RHAH_Incident_PlagueAbandonedBabies_Label>Plague abandoned young</RHAH_Incident_PlagueAbandonedBabies_Label>
+  <RHAH_Incident_PlagueTraderCaravan_Label>Plague trader caravan</RHAH_Incident_PlagueTraderCaravan_Label>
+  <RHAH_Incident_PlaguePassersby_Label>Plague passersby</RHAH_Incident_PlaguePassersby_Label>
+  <RHAH_Incident_PlagueRefugees_Label>Plague refugees</RHAH_Incident_PlagueRefugees_Label>
+  <RHAH_Incident_PlagueOrphan_Label>Plague orphan</RHAH_Incident_PlagueOrphan_Label>
+  <RHAH_Incident_PlagueBeggarGroup_Label>Plague beggar group</RHAH_Incident_PlagueBeggarGroup_Label>
+  <RHAH_Incident_PlagueThiefGroup_Label>Plague thief group</RHAH_Incident_PlagueThiefGroup_Label>
+  <RHAH_Incident_PlagueLaboringRefugees_Label>Plague laboring refugees</RHAH_Incident_PlagueLaboringRefugees_Label>
+  <RHAH_Incident_PlagueStrongSiege_Label>Plague strong siege</RHAH_Incident_PlagueStrongSiege_Label>
+  <RHAH_Incident_PlagueAirdropMistake_Label>Plague airdrop mistake</RHAH_Incident_PlagueAirdropMistake_Label>
+  <RHAH_Incident_PlagueMisguidedKinship_Label>Plague mistaken kin</RHAH_Incident_PlagueMisguidedKinship_Label>
+  <RHAH_Incident_PlagueGreatFamine_Label>Plague great famine</RHAH_Incident_PlagueGreatFamine_Label>
+  <RHAH_Incident_PlagueRevenge_Label>Plague revenge</RHAH_Incident_PlagueRevenge_Label>
+  <RHAH_Incident_PlagueCaravanMuggers_Label>Plague caravan muggers</RHAH_Incident_PlagueCaravanMuggers_Label>
+  <RHAH_CaravanAmbush_LetterText>A group of ratkin muggers is attacking your people.\n\nThey will attack immediately, steal supplies, and may kidnap anyone who falls.</RHAH_CaravanAmbush_LetterText>
+  <RHAH_Incident_RefugeeMassacre_Label>Dangerous ratkin settlement</RHAH_Incident_RefugeeMassacre_Label>
+  <RHAH_Follow_I-002>The young left behind</RHAH_Follow_I-002>
+  <RHAH_Follow_I-002_Text>That mother left the young ratkin near our colony. They are still in the colony. We do not know whether she is alive. If she came back, would she know her own children?</RHAH_Follow_I-002_Text>
+  <RHAH_Follow_I-012>Children who should not have been cargo</RHAH_Follow_I-012>
+  <RHAH_Follow_I-012_Text>The children who arrived with that caravan are still in our colony. The caravan is long gone, but we still have meals to make for them.</RHAH_Follow_I-012_Text>
+  <RHAH_Follow_I-013>The child trade</RHAH_Follow_I-013>
+  <RHAH_Follow_I-013_Text>The ratkin brought to our colony for the trade is still in the colony. If we really had sent a child away in return, where would that child be now?</RHAH_Follow_I-013_Text>
+  <RHAH_Follow_I-019>The one they asked for</RHAH_Follow_I-019>
+  <RHAH_Follow_I-019_Text>Someone once came to our colony asking for a baby. The ratkin from that visit is still here. If we really had handed the child over, how would the next people have raised that child?</RHAH_Follow_I-019_Text>
+  <RHAH_Follow_I-032>The children from the drop</RHAH_Follow_I-032>
+  <RHAH_Follow_I-032_Text>The ratkin dropped on our colony are still in the colony. We do not know whether anyone still keeps their pictures and names, and is still looking for them.</RHAH_Follow_I-032_Text>
+  <RHAH_Follow_I-033>The child who called for mother</RHAH_Follow_I-033>
+  <RHAH_Follow_I-033_Text>The young ratkin who called our people Mommy is still in the colony. As we see it, that child saw a kind face and came for a meal.</RHAH_Follow_I-033_Text>
+  <RHAH_Follow_I-037>The mother who left sick</RHAH_Follow_I-037>
+  <RHAH_Follow_I-037_Text>That mother left her young in our colony and went away sick. We do not know what became of her. If she is still alive, she probably wants to see how the children are now.</RHAH_Follow_I-037_Text>
+  <RHAH_Follow_I-041>The orphan who stayed</RHAH_Follow_I-041>
+  <RHAH_Follow_I-041_Text>The ratkin orphan who came to our colony is still in the colony. No mother is beside the orphan, and we watch the days go on anyway.</RHAH_Follow_I-041_Text>
+  <RHAH_Approach_Label>Ratkin travelers</RHAH_Approach_Label>
+  <RHAH_Approach_LetterLabel>Ratkin approaching</RHAH_Approach_LetterLabel>
+  <RHAH_Approach_LetterText>A group of ratkin is traveling toward {1}, still some way from our colony. The approaching group is: {0}.\n\nThey usually cover about 3 tiles a day, moving faster on good roads and slower over difficult terrain. If the sea lies between us, they cross from the far shore. They enter our map when they reach the colony.</RHAH_Approach_LetterText>
+  <RHAH_Approach_Inspect>Ratkin coming to our colony: {0}.</RHAH_Approach_Inspect>
+  <RHAH_Approach_Target>The travelers' destination: {0}</RHAH_Approach_Target>
+  <RHAH_Incident_MouseSwarm_Label>Mouse swarm</RHAH_Incident_MouseSwarm_Label>
+  <RHAH_Incident_PleadingJoin_Label>Pleading to join</RHAH_Incident_PleadingJoin_Label>
+  <RHAH_Incident_BanditAttack_Label>Bandit attack</RHAH_Incident_BanditAttack_Label>
+  <RHAH_BanditAttack_LetterText>A group of desperate ratkin has turned to banditry. They are coming to attack you and steal your supplies.</RHAH_BanditAttack_LetterText>
+</LanguageData>

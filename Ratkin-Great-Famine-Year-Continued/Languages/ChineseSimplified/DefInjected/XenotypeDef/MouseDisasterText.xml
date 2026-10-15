@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisasterSubtype_ratkin.label>鼠族系</MouseDisasterSubtype_ratkin.label>
+  <MouseDisasterSubtype_ratkin.description>鼠灾默认亚种：鼠族系。</MouseDisasterSubtype_ratkin.description>
+  <MouseDisasterSubtype_hamster.label>仓鼠系</MouseDisasterSubtype_hamster.label>
+  <MouseDisasterSubtype_hamster.description>鼠灾亚种：仓鼠系。</MouseDisasterSubtype_hamster.description>
+  <MouseDisasterSubtype_mole.label>鼹鼠系</MouseDisasterSubtype_mole.label>
+  <MouseDisasterSubtype_mole.description>鼠灾亚种：鼹鼠系。</MouseDisasterSubtype_mole.description>
+  <MouseDisasterSubtype_white.label>白鼠系</MouseDisasterSubtype_white.label>
+  <MouseDisasterSubtype_white.description>鼠灾亚种：白鼠系。</MouseDisasterSubtype_white.description>
+  <MouseDisasterSubtype_experiment.label>实验体</MouseDisasterSubtype_experiment.label>
+  <MouseDisasterSubtype_experiment.description>鼠灾亚种：实验体。</MouseDisasterSubtype_experiment.description>
+  <MouseDisasterSubtype_gerbil.label>沙鼠系</MouseDisasterSubtype_gerbil.label>
+  <MouseDisasterSubtype_gerbil.description>鼠灾亚种：沙鼠系。</MouseDisasterSubtype_gerbil.description>
+  <MouseDisasterSubtype_shrew.label>鼩鼱系</MouseDisasterSubtype_shrew.label>
+  <MouseDisasterSubtype_shrew.description>鼠灾亚种：鼩鼱系。</MouseDisasterSubtype_shrew.description>
+</LanguageData>

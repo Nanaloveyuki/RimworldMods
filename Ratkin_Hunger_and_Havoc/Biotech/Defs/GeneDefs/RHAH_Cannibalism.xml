@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_Cannibalism</defName>
+    <label>同类相食</label>
+    <description>携带此基因的人能够接受食尸、食用人肉以及观察尸体，包括腐烂尸体。这些行为造成的负面心情与相关文化戒律限制对其无效。</description>
+    <geneClass>Verse.Gene</geneClass>
+    <iconPath>UI/Icons/Genes/Gene_Bloodfeeder</iconPath>
+    <displayCategory>Miscellaneous</displayCategory>
+    <displayOrderInCategory>240</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <customEffectDescriptions>
+      <li>食尸和食用人肉时免于相关负面心情及文化戒律限制</li>
+      <li>观察尸体或腐烂尸体时免于相关负面心情及文化戒律限制</li>
+    </customEffectDescriptions>
+  </GeneDef>
+</Defs>

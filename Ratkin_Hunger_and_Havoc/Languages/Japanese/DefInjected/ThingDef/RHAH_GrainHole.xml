@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_GrainHole.label>食糧庫の穴</RHAH_GrainHole.label>
+  <RHAH_GrainHole.description>食糧の保管場所のそばに現れた小さな穴です。開いたままだと、近くの食事が1日1食ずつなくなることがあります。食事がなくなる回数の上限は設定で調整できます。木材で塞ぐことができます。</RHAH_GrainHole.description>
+</LanguageData>

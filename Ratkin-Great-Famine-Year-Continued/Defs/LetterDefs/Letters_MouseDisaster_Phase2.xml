@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <LetterDef>
+    <defName>MouseDisaster_RequestLetter</defName>
+    <label>鼠灾请求</label>
+    <letterClass>MouseDisaster.ChoiceLetter_MouseDisasterRequest</letterClass>
+    <color>(0.82, 0.75, 0.62)</color>
+    <flashColor>(0.82, 0.75, 0.62)</flashColor>
+  </LetterDef>
+</Defs>

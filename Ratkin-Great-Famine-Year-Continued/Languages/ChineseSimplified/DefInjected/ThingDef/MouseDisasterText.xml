@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_RecordCache.label>旧记录箱</MouseDisaster_RecordCache.label>
+  <MouseDisaster_RecordCache.description>装着配给清单和迁移记录的箱子。殖民者能够到达时，可以决定如何处置。</MouseDisaster_RecordCache.description>
+  <MouseDisaster_GrainBurrow.label>粮仓洞口</MouseDisaster_GrainBurrow.label>
+  <MouseDisaster_GrainBurrow.description>储粮附近的小洞。未处理时每天最多损失一份食物，总计不超过三份。可通过粮仓信件封堵或清理。</MouseDisaster_GrainBurrow.description>
+  <MouseDisaster_RecordPages.label>迁移记录</MouseDisaster_RecordPages.label>
+  <MouseDisaster_RecordPages.description>保存下来的配给清单和迁移记录。有几处数量被反复改过。它没有额外能力，可以留下，也可以转交。</MouseDisaster_RecordPages.description>
+  <Filth_MouseDisasterPoop.label>鼠粪</Filth_MouseDisasterPoop.label>
+  <MouseDisaster_GuanyinTu.label>观音土</MouseDisaster_GuanyinTu.label>
+  <MouseDisaster_GuanyinTu.description>经过简单处理的白垩土块，能暂时填饱肚子，但不能替代正常食物。</MouseDisaster_GuanyinTu.description>
+  <MouseDisaster_Heat_StaleWetCloth.label>陈旧的湿布</MouseDisaster_Heat_StaleWetCloth.label>
+  <MouseDisaster_Heat_StaleWetCloth.description>搭在身上的吸水布，也不知道用了多久。虽然能降温呢，但都这么热了，活着最重要。</MouseDisaster_Heat_StaleWetCloth.description>
+  <MouseDisaster_Heat_DryMudCoating.label>干硬的厚泥巴涂层</MouseDisaster_Heat_DryMudCoating.label>
+  <MouseDisaster_Heat_DryMudCoating.description>贴在身上很难受，但最起码可以起到降温的作用。</MouseDisaster_Heat_DryMudCoating.description>
+  <MouseDisaster_Heat_ReedShadeWrap.label>芦苇遮阳裹布</MouseDisaster_Heat_ReedShadeWrap.label>
+  <MouseDisaster_Heat_ReedShadeWrap.description>用干芦苇编成的松散裹布。勉强算是衣服，却能挡住阳光，也能让热气透出去。</MouseDisaster_Heat_ReedShadeWrap.description>
+  <MouseDisaster_Heat_SoakedBarkWrap.label>浸水的树皮遮热衣</MouseDisaster_Heat_SoakedBarkWrap.label>
+  <MouseDisaster_Heat_SoakedBarkWrap.description>浸过水的树皮条绑在身上，味道糟透了，但至少能让最初那段酷热好受一些。</MouseDisaster_Heat_SoakedBarkWrap.description>
+  <MouseDisaster_Heat_MudReedMantle.label>泥芦降温披</MouseDisaster_Heat_MudReedMantle.label>
+  <MouseDisaster_Heat_MudReedMantle.description>泥巴和芦苇压成的厚垫子。又丑、又湿，却意外地能在烈日下派上用场。</MouseDisaster_Heat_MudReedMantle.description>
+  <MouseDisaster_Heat_HeavyCoolingMud.label>厚重的降温泥壳</MouseDisaster_Heat_HeavyCoolingMud.label>
+  <MouseDisaster_Heat_HeavyCoolingMud.description>身上糊了好几层晒干的泥巴。每次活动都会裂开，但能挡住难以忍受的高温。</MouseDisaster_Heat_HeavyCoolingMud.description>
+  <MouseDisaster_Cold_ThinHempLayer.label>单层麻布保暖层</MouseDisaster_Cold_ThinHempLayer.label>
+  <MouseDisaster_Cold_ThinHempLayer.description>一小片粗糙的麻布，虽然不顶什么用，但总比光着身子好。</MouseDisaster_Cold_ThinHempLayer.description>
+  <MouseDisaster_Cold_LayeredHempClothes.label>层层麻布织成的保暖衣物</MouseDisaster_Cold_LayeredHempClothes.label>
+  <MouseDisaster_Cold_LayeredHempClothes.description>最原始的办法做出来的麻布，尽管不好看，但足够保暖了。</MouseDisaster_Cold_LayeredHempClothes.description>
+  <MouseDisaster_Cold_StrawBarkQuilt.label>草梗树皮絮衣</MouseDisaster_Cold_StrawBarkQuilt.label>
+  <MouseDisaster_Cold_StrawBarkQuilt.description>干草梗和树皮缝在旧布中间，走动时嘎吱作响，却能留住一点宝贵的热气。</MouseDisaster_Cold_StrawBarkQuilt.description>
+  <MouseDisaster_Cold_PatchedFurCloak.label>拼接毛皮短披</MouseDisaster_Cold_PatchedFurCloak.label>
+  <MouseDisaster_Cold_PatchedFurCloak.description>用毛皮碎片拼成的短披风，接缝处都开了，味道也不好，但风不容易直接灌进来。</MouseDisaster_Cold_PatchedFurCloak.description>
+  <MouseDisaster_Cold_SmokeStiffenedBlanket.label>烟熏油硬的旧毯</MouseDisaster_Cold_SmokeStiffenedBlanket.label>
+  <MouseDisaster_Cold_SmokeStiffenedBlanket.description>被烟和油脂熏硬的旧毯子，粗糙又脏，却能把寒气挡在外面。</MouseDisaster_Cold_SmokeStiffenedBlanket.description>
+  <MouseDisaster_Cold_ThickHideHempWrap.label>厚皮麻布裹衣</MouseDisaster_Cold_ThickHideHempWrap.label>
+  <MouseDisaster_Cold_ThickHideHempWrap.description>几层兽皮和麻布绑在身上，不会妨碍关键活动，保暖效果却比看起来好得多。</MouseDisaster_Cold_ThickHideHempWrap.description>
+</LanguageData>

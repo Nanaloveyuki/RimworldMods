@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Settlement>安置进度</RHAH_Menu_Settlement>
+  <RHAH_Settlement_Note>左侧按记录日、事件和分组列出仍在等待结果的救济来客、换来的孩子与托付家庭。展开后选择一组，即可查看救济与穗音来信的进展。</RHAH_Settlement_Note>
+  <RHAH_Settlement_UpdateNote>进展约每游戏小时观察一次。刷新可重新查看最近一次观察的结果和当前可查的状况；累计时间以已经观察到的进展为准。</RHAH_Settlement_UpdateNote>
+  <RHAH_Settlement_Refresh>刷新进度</RHAH_Settlement_Refresh>
+  <RHAH_Settlement_NoGame>载入游戏后，可以查看正在等待结果的来客和孩子。</RHAH_Settlement_NoGame>
+  <RHAH_Settlement_None>目前没有正在等待结果的救济来客、换来的孩子或托付家庭。</RHAH_Settlement_None>
+  <RHAH_Settlement_SearchTerms>安置 救济 存活 累计 进度 剩余天数 三天 营养不良 记录日 事件 分组 换子 托付 穗音 失踪 成长</RHAH_Settlement_SearchTerms>
+  <RHAH_Settlement_ReliefKind>普通救济</RHAH_Settlement_ReliefKind>
+  <RHAH_Settlement_ExchangeKind>换来的孩子</RHAH_Settlement_ExchangeKind>
+  <RHAH_Settlement_EntrustKind>托付家庭</RHAH_Settlement_EntrustKind>
+  <RHAH_Settlement_TreeHeading>记录日 → 事件 → 分组</RHAH_Settlement_TreeHeading>
+  <RHAH_Settlement_DetailHeading>所选分组</RHAH_Settlement_DetailHeading>
+  <RHAH_Settlement_RecordedDay>记录日：第 {0} 天</RHAH_Settlement_RecordedDay>
+  <RHAH_Settlement_RecordDateNote>记录日是开始跟踪这组进展的日期；实际到访可能更早。</RHAH_Settlement_RecordDateNote>
+  <RHAH_Settlement_UnknownSource>来源事件不明</RHAH_Settlement_UnknownSource>
+  <RHAH_Settlement_GroupSource>{0} · {1}</RHAH_Settlement_GroupSource>
+  <RHAH_Settlement_GroupLeaf>{0} · {1} 人\n{2}</RHAH_Settlement_GroupLeaf>
+  <RHAH_Settlement_SelectGroup>请在左侧展开记录日和事件，再选择一组来客或孩子查看详情。</RHAH_Settlement_SelectGroup>
+  <RHAH_Settlement_ReliefTimerNote>普通救济按累计存活时间计算，超过3个游戏日即可满足个人条件。只有营养不良会暂停累计；普通饥饿、鼠疫等疾病和囚禁期间仍会累计。整批结果还需等待其他来客的情况确定。</RHAH_Settlement_ReliefTimerNote>
+  <RHAH_Settlement_ExchangeTimerNote>换来的孩子按累计存活时间计算，超过3个游戏日即可满足个人条件。只有营养不良会暂停累计；普通饥饿、鼠疫等疾病和囚禁期间仍会累计。孩子们的情况确定后，才会给出整组结果。</RHAH_Settlement_ExchangeTimerNote>
+  <RHAH_Settlement_EntrustGrowthNote>托付家庭等待孩子从婴儿长到儿童或成年阶段，并查看母亲与孩子的去向。观察期限只限制仍未长到儿童阶段的等待。</RHAH_Settlement_EntrustGrowthNote>
+  <RHAH_Settlement_ObservationRemaining>确认去向的观察时间还剩 {0} 天；在场者的累计存活时间可继续等待</RHAH_Settlement_ObservationRemaining>
+  <RHAH_Settlement_GrowthObservationRemaining>等待孩子成长的观察时间还剩 {0} 天</RHAH_Settlement_GrowthObservationRemaining>
+  <RHAH_Settlement_GroupFailed>这批救济已经失败，不能算作成功救济。</RHAH_Settlement_GroupFailed>
+  <RHAH_Settlement_GroupDriven>这批来客已被驱赶，不能算作成功救济。</RHAH_Settlement_GroupDriven>
+  <RHAH_Settlement_FoodNotDelivered>已有来客离开，但尚未完成承诺的食物交接。</RHAH_Settlement_FoodNotDelivered>
+  <RHAH_Settlement_Mother>母亲：{0}\n最近一次观察：{1}</RHAH_Settlement_Mother>
+  <RHAH_Settlement_AccumulatedCareRemaining>距累计存活超过3天还需 {0} 天</RHAH_Settlement_AccumulatedCareRemaining>
+  <RHAH_Settlement_Conditions>目前可查的状况：{0}</RHAH_Settlement_Conditions>
+  <RHAH_Settlement_NoConcerns>没有查到上述障碍</RHAH_Settlement_NoConcerns>
+  <RHAH_Settlement_Hungry>饥饿，尚未吃饱</RHAH_Settlement_Hungry>
+  <RHAH_Settlement_Plague>鼠疫尚未痊愈</RHAH_Settlement_Plague>
+  <RHAH_Settlement_Captive>仍是囚犯或奴隶</RHAH_Settlement_Captive>
+  <RHAH_Settlement_Malnutrition>营养不良，累计存活时间暂停</RHAH_Settlement_Malnutrition>
+  <RHAH_Settlement_Unknown>去向暂时不明</RHAH_Settlement_Unknown>
+  <RHAH_Settlement_Missing>已失踪</RHAH_Settlement_Missing>
+  <RHAH_Settlement_Dead>已死亡</RHAH_Settlement_Dead>
+  <RHAH_Settlement_Left>已离开</RHAH_Settlement_Left>
+  <RHAH_Settlement_Growing>还需长到儿童阶段</RHAH_Settlement_Growing>
+  <RHAH_Settlement_PresenceHere>在场</RHAH_Settlement_PresenceHere>
+  <RHAH_Settlement_Pending>尚未满足个人条件。</RHAH_Settlement_Pending>
+  <RHAH_Settlement_ReadyWaiting>个人条件已满足，等待整组结果。</RHAH_Settlement_ReadyWaiting>
+  <RHAH_Settlement_ReadyFailedGroup>个人条件已满足，但这批来客不能算作成功救济。</RHAH_Settlement_ReadyFailedGroup>
+  <RHAH_Settlement_ConditionSeparator>；</RHAH_Settlement_ConditionSeparator>
+  <RHAH_Settlement_UnknownPerson>姓名不明的来客（{0}）</RHAH_Settlement_UnknownPerson>
+</LanguageData>

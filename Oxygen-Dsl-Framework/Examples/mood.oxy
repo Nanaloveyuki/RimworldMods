@@ -1,0 +1,21 @@
+// 条件成立时持续提供一个效果
+fn comfortable(pawn) {
+    return pawn.food != null && pawn.food > 0.25
+}
+
+mood("fed_comfort",
+    label: "吃饱了",
+    description: "我吃饱了。现在感觉不错。",
+    offset: 5,
+    target: "colonists",
+    when: comfortable)
+
+// selected 在应用时固定，临时改变游戏选择不会改变该目标
+memory("small_break",
+    label: "稍作休息",
+    description: "我歇了一会儿。现在感觉好多了。",
+    offset: 3,
+    target: "selected",
+    duration: 2500,
+    cooldown: 2500,
+    mode: "refresh")

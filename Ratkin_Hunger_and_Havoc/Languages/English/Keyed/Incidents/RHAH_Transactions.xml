@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Transaction_Food>food</RHAH_Transaction_Food>
+  <RHAH_ChildExchange_LegacyHint>Choose a colony child to hand over. The child leaves with the visitors' faction.</RHAH_ChildExchange_LegacyHint>
+  <RHAH_ChildExchange_LegacyChoose>Hand {0} over to the visitors</RHAH_ChildExchange_LegacyChoose>
+  <RHAH_Transaction_Accept>Exchange food</RHAH_Transaction_Accept>
+  <RHAH_Transaction_Quote>Food to hand over: {0} × {1}. Their carried payment: {2}.</RHAH_Transaction_Quote>
+  <RHAH_Transaction_NoQuote>No usable food is in storage, or the visitors do not have their full payment. This exchange is unavailable.</RHAH_Transaction_NoQuote>
+  <RHAH_Transaction_Hint>The quote will not change. Visitors take the food, and their payment is placed immediately at a handoff point colonists can reach. They may also give you information as an extra gift. They leave if the exchange is not made within {0} days.</RHAH_Transaction_Hint>
+  <RHAH_Transaction_Unavailable>Food or payment is missing, or there is no handoff point both sides can reach.</RHAH_Transaction_Unavailable>
+  <RHAH_Transaction_Completed>The visitors have the food. Their payment is at the handoff point.</RHAH_Transaction_Completed>
+  <RHAH_ChildExchange_Choose>Give {0} in exchange for young ratkin</RHAH_ChildExchange_Choose>
+  <RHAH_ChildExchange_ChooseNone>Choose a child to give away</RHAH_ChildExchange_ChooseNone>
+  <RHAH_ChildExchange_NoChild>No eligible colony child is on this map.</RHAH_ChildExchange_NoChild>
+  <RHAH_ChildExchange_Food>Give food: {0} simple meals for young ratkin</RHAH_ChildExchange_Food>
+  <RHAH_ChildExchange_SelectionHint>Choose which colony child to hand over. After the exchange, the visiting young ratkin join the colony. Adult visitors do not join.</RHAH_ChildExchange_SelectionHint>
+  <RHAH_ChildExchange_LegacyFood>Give food: {0} simple meals instead of a child</RHAH_ChildExchange_LegacyFood>
+  <RHAH_ChildExchange_LegacyFoodHint>You can give {1} simple meals instead of a child, twice the child exchange cost of {0} meals per child. The visitors take the food and leave without a colony child.</RHAH_ChildExchange_LegacyFoodHint>
+  <RHAH_ChildExchange_NoIncoming>The visiting young ratkin cannot yet join the colony.</RHAH_ChildExchange_NoIncoming>
+  <RHAH_ChildExchange_FoodDisabled>Food substitution is disabled in the settings.</RHAH_ChildExchange_FoodDisabled>
+  <RHAH_ChildExchange_NoFood>This requires {0} simple meals. There are not enough on this map.</RHAH_ChildExchange_NoFood>
+  <RHAH_ChildExchange_Completed>The exchange is complete.</RHAH_ChildExchange_Completed>
+</LanguageData>

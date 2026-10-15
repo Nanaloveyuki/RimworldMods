@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_Newborn.title>飢えと災い 凶作の年に生まれた子</RHAH_History_Newborn.title>
+  <RHAH_History_Newborn.titleShort>飢えと災い 凶作生まれ</RHAH_History_Newborn.titleShort>
+  <RHAH_History_Newborn.description>[PAWN_nameDef]が生まれたとき、ラットキンの集落はすでに飢饉に見舞われていた。仕事を手伝える年齢になる前から、もう旅に出なければならなかった。</RHAH_History_Newborn.description>
+  <RHAH_History_Refugee.title>飢えと災い 飢饉を逃れた難民</RHAH_History_Refugee.title>
+  <RHAH_History_Refugee.titleShort>飢えと災い 難民</RHAH_History_Refugee.titleShort>
+  <RHAH_History_Refugee.description>倉庫が空になると、[PAWN_nameDef]はラットキンの集落を離れた。よそへ行っても、次の食事のために仕事を探す必要があった。</RHAH_History_Refugee.description>
+</LanguageData>

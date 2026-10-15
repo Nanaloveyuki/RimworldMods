@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_ColdClothes>Give new visitors a temperature wrap</RHAH_Settings_ColdClothes>
+  <RHAH_Settings_ColdClothes_Tooltip>When the map is outside what a new visitor can bear, they get the lightest wrap that covers the gap. If none covers it, they get the thickest. Someone already wearing one keeps it. Off, no extra clothing is given.</RHAH_Settings_ColdClothes_Tooltip>
+  <RHAH_Settings_TempMin>Minimum incident temperature: {0}°C</RHAH_Settings_TempMin>
+  <RHAH_Settings_TempMax>Maximum incident temperature: {0}°C</RHAH_Settings_TempMax>
+  <RHAH_Settings_Temp_Tooltip>While the map is outside this range, new incidents aimed at the map stop. Default -35°C to 70°C. Caravans ignore this limit.</RHAH_Settings_Temp_Tooltip>
+  <RHAH_Menu_Environment>Environment</RHAH_Menu_Environment>
+  <RHAH_Menu_Environment_Note>When the map is outside what a new visitor can bear, they get the lightest wrap that covers the gap. If none covers it, they get the thickest. People already here keep the clothes they are wearing.</RHAH_Menu_Environment_Note>
+  <RHAH_Menu_Environment_Disabled>Temperature wraps are off. New visitors get none of this extra clothing.</RHAH_Menu_Environment_Disabled>
+  <RHAH_Menu_Environment_Cold>Cold</RHAH_Menu_Environment_Cold>
+  <RHAH_Menu_Environment_Heat>Heat</RHAH_Menu_Environment_Heat>
+  <RHAH_Settings_TemperatureApparel>Use {0}</RHAH_Settings_TemperatureApparel>
+  <RHAH_Settings_TemperatureApparel_Tooltip>Off, new visitors get none of this wrap. Someone already wearing it keeps wearing it.</RHAH_Settings_TemperatureApparel_Tooltip>
+  <RHAH_Settings_TemperatureInsulation>{0}: +{1}°C {2}</RHAH_Settings_TemperatureInsulation>
+  <RHAH_Settings_TemperatureInsulation_Tooltip>Drag to set this wrap's protection. Range 0 to 100. At 0 it adds none of this protection.</RHAH_Settings_TemperatureInsulation_Tooltip>
+</LanguageData>

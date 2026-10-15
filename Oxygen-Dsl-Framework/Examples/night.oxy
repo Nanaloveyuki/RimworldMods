@@ -1,0 +1,10 @@
+fn at_night(pawn) {
+    return game.hour >= 20 || game.hour < 6
+}
+
+mood("night_comfort",
+    label: "夜晚安静",
+    description: "夜里很安静。我可以歇一会儿。",
+    offset: 5,
+    target: "colonists",
+    when: at_night)

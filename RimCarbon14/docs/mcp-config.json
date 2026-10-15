@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "rimcarbon14": {
+      "command": "C:/Games/RimWorld/Mods/RimCarbon14/Tools/win-x64/RimCarbon14.Agent.exe",
+      "args": ["mcp", "--profile", "C:/RimCarbon14/test-profile", "--game-root", "C:/Games/RimWorld"]
+    }
+  }
+}

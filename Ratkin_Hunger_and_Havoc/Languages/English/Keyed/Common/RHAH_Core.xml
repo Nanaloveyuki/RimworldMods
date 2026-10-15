@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ModName>Ratkin: Hunger and Havoc</RHAH_ModName>
+  <RHAH_Settings_EnableNewContent>Enable new content</RHAH_Settings_EnableNewContent>
+  <RHAH_Settings_EnableNewContent_Tooltip>New Hunger and Havoc incidents and visitors stop appearing. Visitors already here keep begging, trading, stealing, or leaving.</RHAH_Settings_EnableNewContent_Tooltip>
+  <RHAH_Settings_Reset>Reset this mod's settings</RHAH_Settings_Reset>
+  <RHAH_Settings_ResetConfirm>Restore all Ratkin: Hunger and Havoc settings to their defaults? Custom switches, values, and list selections will be reset. Story progress and visitors in your save remain unchanged.</RHAH_Settings_ResetConfirm>
+  <RHAH_Menu_Visitors>Visitors</RHAH_Menu_Visitors>
+  <RHAH_Menu_Overview>Overview</RHAH_Menu_Overview>
+  <RHAH_Menu_Other>Other</RHAH_Menu_Other>
+  <RHAH_Menu_Field_Mod>Mod</RHAH_Menu_Field_Mod>
+  <RHAH_Menu_Field_Version>Version</RHAH_Menu_Field_Version>
+  <RHAH_Menu_Field_Game>Game</RHAH_Menu_Field_Game>
+  <RHAH_Menu_Field_IrisMenus>IrisMenus</RHAH_Menu_Field_IrisMenus>
+  <RHAH_Menu_On>On</RHAH_Menu_On>
+  <RHAH_Menu_Off>Off</RHAH_Menu_Off>
+  <RHAH_Menu_Yes>Yes</RHAH_Menu_Yes>
+  <RHAH_Menu_No>No</RHAH_Menu_No>
+  <RHAH_Menu_None>None</RHAH_Menu_None>
+  <RHAH_Menu_NoGame>No game loaded</RHAH_Menu_NoGame>
+  <RHAH_Menu_GameLoaded>Game loaded</RHAH_Menu_GameLoaded>
+  <RHAH_Menu_Unavailable>Not available</RHAH_Menu_Unavailable>
+  <RHAH_Menu_Settings_Missing>Settings are not ready. Reopen this page and try again.</RHAH_Menu_Settings_Missing>
+</LanguageData>

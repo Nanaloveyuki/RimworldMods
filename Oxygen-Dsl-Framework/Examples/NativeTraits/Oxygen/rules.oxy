@@ -1,0 +1,20 @@
+// Illness has priority over hunger; -1 means the native thought is inactive.
+fn young_in_need(pawn) {
+    if pawn.young_sick { return 1 }
+    if pawn.young_hungry { return 0 }
+    return -1
+}
+
+fn own_illness(pawn) {
+    if pawn.sick { return 0 }
+    return -1
+}
+
+fn group_illness(pawn) {
+    if pawn.group_sick { return 0 }
+    return -1
+}
+
+thought_rule("young_in_need", thought: def_ref("ThoughtDef", "OxygenExample_YoungInNeed"), evaluate: young_in_need)
+thought_rule("own_illness", thought: def_ref("ThoughtDef", "OxygenExample_OwnIllness"), evaluate: own_illness)
+thought_rule("group_illness", thought: def_ref("ThoughtDef", "OxygenExample_GroupIllness"), evaluate: group_illness)

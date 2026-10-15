@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Kingdom_Open>阅读穗音的来信</RHAH_Kingdom_Open>
+  <RHAH_Kingdom_Unavailable>当前无法联系穗音</RHAH_Kingdom_Unavailable>
+  <RHAH_Kingdom_Title>宫墙与伸来的手</RHAH_Kingdom_Title>
+  <RHAH_Kingdom_Arrival>穗音寄来了一封私人信件。她想请你们看看两份关于同一批粮食的回执。</RHAH_Kingdom_Arrival>
+  <RHAH_Kingdom_Progress>第 {0} / {1} 段</RHAH_Kingdom_Progress>
+  <RHAH_Kingdom_Manual>手动</RHAH_Kingdom_Manual>
+  <RHAH_Kingdom_Auto>自动</RHAH_Kingdom_Auto>
+  <RHAH_Kingdom_Fast>快进</RHAH_Kingdom_Fast>
+  <RHAH_Kingdom_Pause>暂停播放</RHAH_Kingdom_Pause>
+  <RHAH_Kingdom_Resume>继续播放</RHAH_Kingdom_Resume>
+  <RHAH_Kingdom_Previous>上一段</RHAH_Kingdom_Previous>
+  <RHAH_Kingdom_Next>下一段</RHAH_Kingdom_Next>
+  <RHAH_Kingdom_Skip>跳至来信</RHAH_Kingdom_Skip>
+  <RHAH_Kingdom_Review>回顾</RHAH_Kingdom_Review>
+  <RHAH_Kingdom_Return>返回阅读</RHAH_Kingdom_Return>
+  <RHAH_Kingdom_ReadOnly>回顾 · 只读</RHAH_Kingdom_ReadOnly>
+  <RHAH_Kingdom_Close>关闭</RHAH_Kingdom_Close>
+  <RHAH_Kingdom_Accept>愿意看看</RHAH_Kingdom_Accept>
+  <RHAH_Kingdom_Defer>以后再说</RHAH_Kingdom_Defer>
+  <RHAH_Kingdom_Decline>不接这件事</RHAH_Kingdom_Decline>
+  <RHAH_Kingdom_Conditions>答应后，你们将接收两份抄件，此次无需交付物资。</RHAH_Kingdom_Conditions>
+  <RHAH_Kingdom_Accepted>你们已同意接收两份抄件。抄件尚未寄达。</RHAH_Kingdom_Accepted>
+  <RHAH_Kingdom_Declined>你们已拒绝这次邀请。</RHAH_Kingdom_Declined>
+  <RHAH_Kingdom_AcceptedReply>谢谢。我让送信的人把抄件带过去。</RHAH_Kingdom_AcceptedReply>
+  <RHAH_Kingdom_DeclinedReply>好，我先收起来。</RHAH_Kingdom_DeclinedReply>
+  <RHAH_Kingdom_ReplyFailed>现在无法答复这封来信。</RHAH_Kingdom_ReplyFailed>
+  <RHAH_Kingdom_Pending>穗音在等你们的答复。</RHAH_Kingdom_Pending>
+  <RHAH_Kingdom_E1Title>御花园里的蝴蝶</RHAH_Kingdom_E1Title>
+  <RHAH_Kingdom_E2Title>宫墙另一边</RHAH_Kingdom_E2Title>
+  <RHAH_Kingdom_E3Title>那只伸出来的手</RHAH_Kingdom_E3Title>
+  <RHAH_Kingdom_E4Title>第一封私人来信</RHAH_Kingdom_E4Title>
+  <RHAH_Kingdom_Diary>如今的穗音 · 日记</RHAH_Kingdom_Diary>
+  <RHAH_Kingdom_Child>小穗音</RHAH_Kingdom_Child>
+  <RHAH_Kingdom_Young>年轻时的穗音</RHAH_Kingdom_Young>
+  <RHAH_Kingdom_Father>父亲</RHAH_Kingdom_Father>
+  <RHAH_Kingdom_FatherQuiet>父亲 · 小声</RHAH_Kingdom_FatherQuiet>
+  <RHAH_Kingdom_Mother>母亲</RHAH_Kingdom_Mother>
+  <RHAH_Kingdom_Randy>兰迪</RHAH_Kingdom_Randy>
+  <RHAH_Kingdom_Letter>穗音 · 私人来信</RHAH_Kingdom_Letter>
+  <RHAH_Kingdom_Memory>回忆</RHAH_Kingdom_Memory>
+  <RHAH_Kingdom_E1_01>“我小时候，总觉得宫墙外面也和家里一样……”</RHAH_Kingdom_E1_01>
+  <RHAH_Kingdom_E1_02>“爸爸，我们去哪里？”</RHAH_Kingdom_E1_02>
+  <RHAH_Kingdom_E1_03>“哎哟，我的小可爱，我们去御花园里玩好不好？”</RHAH_Kingdom_E1_03>
+  <RHAH_Kingdom_E1_04>“好～”</RHAH_Kingdom_E1_04>
+  <RHAH_Kingdom_E1_05>“看呐！那是什么？”</RHAH_Kingdom_E1_05>
+  <RHAH_Kingdom_E1_06>“那是蝴蝶，会飞的小虫子。翅膀很好看，对吧？”</RHAH_Kingdom_E1_06>
+  <RHAH_Kingdom_E1_07>“好看好看！”</RHAH_Kingdom_E1_07>
+  <RHAH_Kingdom_E1_08>“这么好看的蝴蝶，在哪里都有吗？”</RHAH_Kingdom_E1_08>
+  <RHAH_Kingdom_E1_09>“哦，我的小可爱，当然啦。”</RHAH_Kingdom_E1_09>
+  <RHAH_Kingdom_E1_10>“那所有鼠鼠都可以这样玩吗？”</RHAH_Kingdom_E1_10>
+  <RHAH_Kingdom_E1_11>“……”</RHAH_Kingdom_E1_11>
+  <RHAH_Kingdom_E1_12>“当然……”</RHAH_Kingdom_E1_12>
+  <RHAH_Kingdom_E1_13>“……对吧。”</RHAH_Kingdom_E1_13>
+  <RHAH_Kingdom_E1_14>“好耶，鼠鼠喜欢好看蝴蝶！”</RHAH_Kingdom_E1_14>
+  <RHAH_Kingdom_E1_15>“那时，我把父亲说的话都当了真。”</RHAH_Kingdom_E1_15>
+  <RHAH_Kingdom_E2_01>穗音踩着摆成阶梯的椅子，翻上宫墙。</RHAH_Kingdom_E2_01>
+  <RHAH_Kingdom_E2_02>“嘿……”</RHAH_Kingdom_E2_02>
+  <RHAH_Kingdom_E2_03>她跃出宫墙，落在墙外的街道上。</RHAH_Kingdom_E2_03>
+  <RHAH_Kingdom_E2_04>夜里的富人区很安静。</RHAH_Kingdom_E2_04>
+  <RHAH_Kingdom_E2_05>“哇……这里……”</RHAH_Kingdom_E2_05>
+  <RHAH_Kingdom_E2_06>门里还亮着灯，我听见有人笑，也听见杯子碰在一起的声音。我想，这里和皇宫没什么两样。</RHAH_Kingdom_E2_06>
+  <RHAH_Kingdom_E2_07>再往前走，街上几乎看不见灯光了。我闻到一股难闻的气味。</RHAH_Kingdom_E2_07>
+  <RHAH_Kingdom_E2_08>一只鼠拉着车从我身边经过。他看了我一眼，脚下没停。</RHAH_Kingdom_E2_08>
+  <RHAH_Kingdom_E2_09>“……你好？”</RHAH_Kingdom_E2_09>
+  <RHAH_Kingdom_E2_10>那只鼠没有回答，仍拖着车往前走。</RHAH_Kingdom_E2_10>
+  <RHAH_Kingdom_E2_11>“这里的鼠……怎么都这样？”</RHAH_Kingdom_E2_11>
+  <RHAH_Kingdom_E2_12>穗音向争抢食物的人伸出手，又被挤开。</RHAH_Kingdom_E2_12>
+  <RHAH_Kingdom_E2_13>“为什么他们没有吃的？他们就在墙外，你们知道吗？”</RHAH_Kingdom_E2_13>
+  <RHAH_Kingdom_E2_14>“你怎么又跑出去玩了！”</RHAH_Kingdom_E2_14>
+  <RHAH_Kingdom_E2_15>“不要离开皇宫，外边的世界都是虚假的。”</RHAH_Kingdom_E2_15>
+  <RHAH_Kingdom_E2_16>“不要相信你看到的一切……”</RHAH_Kingdom_E2_16>
+  <RHAH_Kingdom_E2_17>父母把门关上了。我坐在屋里，想起外面那口空锅：为什么会有人吃不饱饭？</RHAH_Kingdom_E2_17>
+  <RHAH_Kingdom_E3_01>第二次出去时，我在心里想了许多要问的话，到了那些鼠身边，却又不知该怎么开口。</RHAH_Kingdom_E3_01>
+  <RHAH_Kingdom_E3_02>“……”</RHAH_Kingdom_E3_02>
+  <RHAH_Kingdom_E3_03>教堂里每天都有鼠在祷告。我也祷告过。可是那些站在墙外的鼠，到底该去求谁呢？</RHAH_Kingdom_E3_03>
+  <RHAH_Kingdom_E3_04>一个男人伸手挡住了穗音的去路。他拿着一支未点燃的烟，紫色外套上画着笑脸。</RHAH_Kingdom_E3_04>
+  <RHAH_Kingdom_E3_05>“来吧，让我们见证神（超凡智能）会做些什么。”</RHAH_Kingdom_E3_05>
+  <RHAH_Kingdom_E3_06>穗音抬头望着男人，慢慢向他的掌心伸出右手。</RHAH_Kingdom_E3_06>
+  <RHAH_Kingdom_E3_07>两只手碰在了一起。</RHAH_Kingdom_E3_07>
+  <RHAH_Kingdom_E3_08>我那时没有听懂。</RHAH_Kingdom_E3_08>
+  <RHAH_Kingdom_E4_01>我写了又撕，已经弄坏好几张纸了。</RHAH_Kingdom_E4_01>
+  <RHAH_Kingdom_E4_02>宫里有两份回执，写的是同一批粮食。一份说已经送到了，另一份记着还没有发出。我问过保管它们的人，他让我去问另一个人。</RHAH_Kingdom_E4_02>
+  <RHAH_Kingdom_E4_03>我不敢再把原件拿出来，抄了两份。你们愿意替我看看吗？</RHAH_Kingdom_E4_03>
+  <RHAH_Kingdom_E4_04>我现在只想知道，究竟是哪一份写错了。\n——穗音</RHAH_Kingdom_E4_04>
+</LanguageData>

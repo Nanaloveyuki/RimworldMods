@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Narrative_Kingdom>Suiyin's kingdom arc</RHAH_Menu_Narrative_Kingdom>
+  <RHAH_Menu_Pawns>Visitors</RHAH_Menu_Pawns>
+  <RHAH_Menu_CompatDiagnostics>Compatibility and diagnostics</RHAH_Menu_CompatDiagnostics>
+  <RHAH_Menu_Developer>Dev mode</RHAH_Menu_Developer>
+  <RHAH_Menu_Pawns_NoMap>No current map.</RHAH_Menu_Pawns_NoMap>
+  <RHAH_Menu_Pawns_None>No Hunger and Havoc visitors on this map.</RHAH_Menu_Pawns_None>
+  <RHAH_Menu_Pawns_Invalid>That visitor is gone.</RHAH_Menu_Pawns_Invalid>
+  <RHAH_Menu_PawnMeta>{0}. {1}. Incident {2}.</RHAH_Menu_PawnMeta>
+  <RHAH_Menu_PawnRelation>Group {0}. Parent {1}. Children {2}. Fed: {3}. Plague: {4}.</RHAH_Menu_PawnRelation>
+  <RHAH_Menu_Compat_Active>Active ({0})</RHAH_Menu_Compat_Active>
+  <RHAH_Menu_Compat_Inactive>Not active</RHAH_Menu_Compat_Inactive>
+  <RHAH_Menu_Compat_MissingRequired>Required, not active</RHAH_Menu_Compat_MissingRequired>
+  <RHAH_Menu_Diagnostics_NoGame>Diagnostics need a loaded game.</RHAH_Menu_Diagnostics_NoGame>
+  <RHAH_Menu_Diagnostics_Pending>Pending incidents</RHAH_Menu_Diagnostics_Pending>
+  <RHAH_Menu_Diagnostics_Batches>Active batches</RHAH_Menu_Diagnostics_Batches>
+  <RHAH_Menu_Diagnostics_Map>Current map</RHAH_Menu_Diagnostics_Map>
+  <RHAH_Menu_Developer_Note>Dev mode queues are on the trigger page. Version and IrisMenus are under Compatibility and diagnostics.</RHAH_Menu_Developer_Note>
+  <RHAH_Menu_Developer_LastPawn>Last listed visitor</RHAH_Menu_Developer_LastPawn>
+</LanguageData>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Plague.label>ペスト</RHAH_Plague.label>
+  <RHAH_Plague.description>密集して暮らす飢えたラットキンの間で広がる感染症です。患者は発熱し、衰弱します。悪化すると死に至ることがあり、患者との接触で感染することがあります。</RHAH_Plague.description>
+  <RHAH_Plague.stages.0.label>軽度</RHAH_Plague.stages.0.label>
+  <RHAH_Plague.stages.1.label>重度</RHAH_Plague.stages.1.label>
+  <RHAH_Plague.stages.2.label>危篤</RHAH_Plague.stages.2.label>
+  <RHAH_Plague.stages.3.label>行動不能</RHAH_Plague.stages.3.label>
+</LanguageData>

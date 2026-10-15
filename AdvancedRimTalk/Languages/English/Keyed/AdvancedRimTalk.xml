@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AdvancedRimTalk.Settings.Incompatible>RimTalk integration is disabled: {0}</AdvancedRimTalk.Settings.Incompatible>
+  <AdvancedRimTalk.Init.Enable>Enable declared memory sources</AdvancedRimTalk.Init.Enable>
+  <AdvancedRimTalk.ArtiLog.Title>Arti Logs</AdvancedRimTalk.ArtiLog.Title>
+  <AdvancedRimTalk.ArtiLog.Clear>Clear</AdvancedRimTalk.ArtiLog.Clear>
+  <AdvancedRimTalk.Settings.Unavailable>Advanced RimTalk settings are not available.</AdvancedRimTalk.Settings.Unavailable>
+  <AdvancedRimTalk.Init.None>Prompt init: none</AdvancedRimTalk.Init.None>
+  <AdvancedRimTalk.Init.ImportedTitle>Imported memory sources</AdvancedRimTalk.Init.ImportedTitle>
+  <AdvancedRimTalk.PromptParts.Export>Export</AdvancedRimTalk.PromptParts.Export>
+  <AdvancedRimTalk.PromptParts.Exported>Prompt exported.</AdvancedRimTalk.PromptParts.Exported>
+  <AdvancedRimTalk.PromptParts.ExportFailed>Prompt export failed.</AdvancedRimTalk.PromptParts.ExportFailed>
+  <AdvancedRimTalk.Settings.PromptIntegrationMode>Prompt integration mode</AdvancedRimTalk.Settings.PromptIntegrationMode>
+  <AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPrompt>Embed Arti into the existing RimTalk prompt</AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPrompt>
+  <AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPromptTooltip>Keep RimTalk's presets, message roles, chat history, and assembler. Evaluate {{% ... %}} Arti blocks when an existing prompt entry is rendered.</AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPromptTooltip>
+  <AdvancedRimTalk.Settings.TakeoverRimTalkPrompt>Advanced RimTalk takes over the RimTalk prompt</AdvancedRimTalk.Settings.TakeoverRimTalkPrompt>
+  <AdvancedRimTalk.Settings.TakeoverRimTalkPromptTooltip>Build the system and user messages from the takeover Arti document. RimTalk still handles triggers, model clients, and responses.</AdvancedRimTalk.Settings.TakeoverRimTalkPromptTooltip>
+  <AdvancedRimTalk.Settings.EnablePlaceholderLayer>Enable dynamic prompt placeholders</AdvancedRimTalk.Settings.EnablePlaceholderLayer>
+  <AdvancedRimTalk.Settings.EnablePlaceholderLayerTooltip>In embed mode, expand Advanced RimTalk placeholders when a prompt is generated.</AdvancedRimTalk.Settings.EnablePlaceholderLayerTooltip>
+  <AdvancedRimTalk.Settings.ArtiEditorUndoLimit>Editor undo entries</AdvancedRimTalk.Settings.ArtiEditorUndoLimit>
+  <AdvancedRimTalk.Settings.ArtiEditorCompletionLimit>Maximum completion suggestions</AdvancedRimTalk.Settings.ArtiEditorCompletionLimit>
+  <AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanism>Replace RimTalk prompt builder</AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanism>
+  <AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanismTooltip>Build request messages from Advanced RimTalk Prompt Parts instead of RimTalk preset assembly, while retaining Scriban rendering. RimTalk still handles triggers and the model client.</AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanismTooltip>
+  <AdvancedRimTalk.ArtiRepl.Title>Arti REPL</AdvancedRimTalk.ArtiRepl.Title>
+  <AdvancedRimTalk.ArtiRepl.Run>Run</AdvancedRimTalk.ArtiRepl.Run>
+  <AdvancedRimTalk.ArtiRepl.Clear>Reset</AdvancedRimTalk.ArtiRepl.Clear>
+  <AdvancedRimTalk.ArtiEditor.Title>Arti Editor</AdvancedRimTalk.ArtiEditor.Title>
+  <AdvancedRimTalk.ArtiEditor.Reset>Reset</AdvancedRimTalk.ArtiEditor.Reset>
+  <AdvancedRimTalk.ArtiEditor.NoDiagnostics>No errors</AdvancedRimTalk.ArtiEditor.NoDiagnostics>
+  <AdvancedRimTalk.ArtiEditor.DiagnosticSummary>{0} errors, {1} warnings</AdvancedRimTalk.ArtiEditor.DiagnosticSummary>
+  <AdvancedRimTalk.ArtiEditor.Open>Open prompt…</AdvancedRimTalk.ArtiEditor.Open>
+  <AdvancedRimTalk.ArtiEditor.Detach>Detach to window</AdvancedRimTalk.ArtiEditor.Detach>
+  <AdvancedRimTalk.ArtiEditor.Move>Move tab…</AdvancedRimTalk.ArtiEditor.Move>
+  <AdvancedRimTalk.ArtiEditor.Dock>Dock in editor page</AdvancedRimTalk.ArtiEditor.Dock>
+  <AdvancedRimTalk.ArtiEditor.Windows>Switch window…</AdvancedRimTalk.ArtiEditor.Windows>
+  <AdvancedRimTalk.ArtiEditor.Documentation>Docs</AdvancedRimTalk.ArtiEditor.Documentation>
+  <AdvancedRimTalk.ArtiEditor.DocumentationHint>Hold Control and left-click a keyword to view documentation for built-in keywords or keywords registered outside player code.</AdvancedRimTalk.ArtiEditor.DocumentationHint>
+  <AdvancedRimTalk.ArtiEditor.OpenDocumentation>Control + left-click: view documentation for {0}</AdvancedRimTalk.ArtiEditor.OpenDocumentation>
+  <AdvancedRimTalk.ArtiEditor.CloseTab>Close tab (Ctrl+W); edits are already written to the prompt.</AdvancedRimTalk.ArtiEditor.CloseTab>
+  <AdvancedRimTalk.ArtiEditor.Empty>Use Open prompt to select parts from different presets. Detach tabs into windows for side-by-side reference or move them back to the editor page. Ctrl+Tab / Ctrl+Shift+Tab switches tabs; Ctrl+W closes a tab. Edits immediately update the corresponding part without activating a preset or executing a prompt.</AdvancedRimTalk.ArtiEditor.Empty>
+  <AdvancedRimTalk.PromptParts.Title>Takeover Prompt Parts</AdvancedRimTalk.PromptParts.Title>
+  <AdvancedRimTalk.PromptParts.Parts>Prompt parts</AdvancedRimTalk.PromptParts.Parts>
+  <AdvancedRimTalk.PromptParts.NewPart>New Prompt Part</AdvancedRimTalk.PromptParts.NewPart>
+  <AdvancedRimTalk.PromptParts.AddTooltip>Add a new Advanced RimTalk takeover prompt part.</AdvancedRimTalk.PromptParts.AddTooltip>
+  <AdvancedRimTalk.PromptParts.ImportLocal>Import local</AdvancedRimTalk.PromptParts.ImportLocal>
+  <AdvancedRimTalk.PromptParts.ImportShared>Import shared</AdvancedRimTalk.PromptParts.ImportShared>
+  <AdvancedRimTalk.PromptParts.OpenSharedFolder>Open shared folder</AdvancedRimTalk.PromptParts.OpenSharedFolder>
+  <AdvancedRimTalk.PromptParts.ResetDefaults>Reset defaults</AdvancedRimTalk.PromptParts.ResetDefaults>
+  <AdvancedRimTalk.PromptParts.ResetDefaultsConfirm>Reset Advanced RimTalk takeover prompt parts to defaults?</AdvancedRimTalk.PromptParts.ResetDefaultsConfirm>
+  <AdvancedRimTalk.PromptParts.SelectPart>Select a prompt part to edit.</AdvancedRimTalk.PromptParts.SelectPart>
+  <AdvancedRimTalk.PromptParts.Name>Part name:</AdvancedRimTalk.PromptParts.Name>
+  <AdvancedRimTalk.PromptParts.Enabled>Enabled</AdvancedRimTalk.PromptParts.Enabled>
+  <AdvancedRimTalk.PromptParts.Role>Role:</AdvancedRimTalk.PromptParts.Role>
+  <AdvancedRimTalk.PromptParts.CustomRole>Custom role:</AdvancedRimTalk.PromptParts.CustomRole>
+  <AdvancedRimTalk.PromptParts.NoLocalPrompts>No local RimTalk prompt presets were found.</AdvancedRimTalk.PromptParts.NoLocalPrompts>
+  <AdvancedRimTalk.PromptParts.NoSharedPrompts>No shared RimTalk prompt files were found. Open the shared folder and place .json presets there.</AdvancedRimTalk.PromptParts.NoSharedPrompts>
+  <AdvancedRimTalk.PromptParts.ImportFailed>Prompt import failed.</AdvancedRimTalk.PromptParts.ImportFailed>
+  <AdvancedRimTalk.PromptParts.Imported>Imported {0} prompt parts from {1}.</AdvancedRimTalk.PromptParts.Imported>
+  <AdvancedRimTalk.Documentation.Title>Arti Documentation</AdvancedRimTalk.Documentation.Title>
+  <AdvancedRimTalk.Documentation.Overview>Overview</AdvancedRimTalk.Documentation.Overview>
+  <AdvancedRimTalk.Documentation.Index>Documentation index</AdvancedRimTalk.Documentation.Index>
+  <AdvancedRimTalk.Documentation.Guide>Guides</AdvancedRimTalk.Documentation.Guide>
+  <AdvancedRimTalk.Documentation.Language>Language</AdvancedRimTalk.Documentation.Language>
+  <AdvancedRimTalk.Documentation.Global>Global functions</AdvancedRimTalk.Documentation.Global>
+  <AdvancedRimTalk.Documentation.Core>core functions</AdvancedRimTalk.Documentation.Core>
+  <AdvancedRimTalk.Documentation.CoreString>core.string functions</AdvancedRimTalk.Documentation.CoreString>
+  <AdvancedRimTalk.Documentation.Data>Game data</AdvancedRimTalk.Documentation.Data>
+  <AdvancedRimTalk.Documentation.Memory>memory module</AdvancedRimTalk.Documentation.Memory>
+  <AdvancedRimTalk.Documentation.Examples>Examples</AdvancedRimTalk.Documentation.Examples>
+  <AdvancedRimTalk.Documentation.Regex>Regular expressions</AdvancedRimTalk.Documentation.Regex>
+  <AdvancedRimTalk.Documentation.Compatibility>Compatibility</AdvancedRimTalk.Documentation.Compatibility>
+  <AdvancedRimTalk.Documentation.SelectDocument>Select a document.</AdvancedRimTalk.Documentation.SelectDocument>
+  <AdvancedRimTalk.Documentation.Unavailable>The Arti documentation library is unavailable.</AdvancedRimTalk.Documentation.Unavailable>
+  <AdvancedRimTalk.Documentation.Source>Source</AdvancedRimTalk.Documentation.Source>
+  <AdvancedRimTalk.Documentation.Copy>Copy all</AdvancedRimTalk.Documentation.Copy>
+  <AdvancedRimTalk.Settings.PawnLimit>Takeover pawn context limit</AdvancedRimTalk.Settings.PawnLimit>
+  <AdvancedRimTalk.Settings.HistoryLimit>Takeover history limit</AdvancedRimTalk.Settings.HistoryLimit>
+  <AdvancedRimTalk.Settings.CharacterBudget>Takeover character budget</AdvancedRimTalk.Settings.CharacterBudget>
+  <AdvancedRimTalk.Preview.Title>Prompt Preview</AdvancedRimTalk.Preview.Title>
+  <AdvancedRimTalk.Presets.Title>Presets</AdvancedRimTalk.Presets.Title>
+  <AdvancedRimTalk.Presets.New>New preset</AdvancedRimTalk.Presets.New>
+  <AdvancedRimTalk.Presets.Activate>Activate</AdvancedRimTalk.Presets.Activate>
+  <AdvancedRimTalk.Presets.Copy>Duplicate</AdvancedRimTalk.Presets.Copy>
+  <AdvancedRimTalk.Presets.Delete>Delete preset</AdvancedRimTalk.Presets.Delete>
+  <AdvancedRimTalk.Presets.DeleteConfirm>Delete preset "{0}"?</AdvancedRimTalk.Presets.DeleteConfirm>
+  <AdvancedRimTalk.Preview.Active>Active: {0} / {1}</AdvancedRimTalk.Preview.Active>
+  <AdvancedRimTalk.Preview.Preset>Preview preset</AdvancedRimTalk.Preview.Preset>
+  <AdvancedRimTalk.Preview.Takeover>Takeover</AdvancedRimTalk.Preview.Takeover>
+  <AdvancedRimTalk.Preview.Embed>RimTalk</AdvancedRimTalk.Preview.Embed>
+  <AdvancedRimTalk.Preview.ResultSource>{0}: {1}</AdvancedRimTalk.Preview.ResultSource>
+  <AdvancedRimTalk.Documentation.Back>Back</AdvancedRimTalk.Documentation.Back>
+  <AdvancedRimTalk.Documentation.LinkUnavailable>Document link unavailable: {0}</AdvancedRimTalk.Documentation.LinkUnavailable>
+  <AdvancedRimTalk.Preview.Text>Plain text</AdvancedRimTalk.Preview.Text>
+  <AdvancedRimTalk.Preview.Json>Raw messages JSON</AdvancedRimTalk.Preview.Json>
+  <AdvancedRimTalk.Preview.NoCapture>No generated prompt for this mode in the current game.</AdvancedRimTalk.Preview.NoCapture>
+  <AdvancedRimTalk.Preview.Experimental>Experimental context execution</AdvancedRimTalk.Preview.Experimental>
+  <AdvancedRimTalk.Preview.Generate>Generate context preview</AdvancedRimTalk.Preview.Generate>
+  <AdvancedRimTalk.Preview.ContextResult>Context preview</AdvancedRimTalk.Preview.ContextResult>
+  <AdvancedRimTalk.Preview.CapturedResult>Last generated messages</AdvancedRimTalk.Preview.CapturedResult>
+  <AdvancedRimTalk.Preview.Request>Preview request</AdvancedRimTalk.Preview.Request>
+  <AdvancedRimTalk.Response.IgnoreLogic>Ignore logic</AdvancedRimTalk.Response.IgnoreLogic>
+  <AdvancedRimTalk.Response.Enable>Enable response processing</AdvancedRimTalk.Response.Enable>
+  <AdvancedRimTalk.Response.Json>Attempt JSON formatting</AdvancedRimTalk.Response.Json>
+  <AdvancedRimTalk.Response.RegexIgnore>Ignore by regex policy</AdvancedRimTalk.Response.RegexIgnore>
+  <AdvancedRimTalk.Response.Whitelist>Enable whitelist</AdvancedRimTalk.Response.Whitelist>
+  <AdvancedRimTalk.Response.WhitelistPatterns>Whitelist regex (one per line)</AdvancedRimTalk.Response.WhitelistPatterns>
+  <AdvancedRimTalk.Response.Blacklist>Enable blacklist</AdvancedRimTalk.Response.Blacklist>
+  <AdvancedRimTalk.Response.BlacklistPatterns>Blacklist regex (one per line)</AdvancedRimTalk.Response.BlacklistPatterns>
+  <AdvancedRimTalk.Response.IntervalIgnore>Ignore within interval</AdvancedRimTalk.Response.IntervalIgnore>
+  <AdvancedRimTalk.Response.IntervalSeconds>Interval seconds</AdvancedRimTalk.Response.IntervalSeconds>
+  <AdvancedRimTalk.Response.ModelIgnore>Ignore by model</AdvancedRimTalk.Response.ModelIgnore>
+  <AdvancedRimTalk.Response.ModelIds>Model IDs (one per line)</AdvancedRimTalk.Response.ModelIds>
+  <AdvancedRimTalk.Once.Title>One-time runs</AdvancedRimTalk.Once.Title>
+  <AdvancedRimTalk.Once.Open>One-time runs</AdvancedRimTalk.Once.Open>
+  <AdvancedRimTalk.Once.Help>core.once writes a record after a successful run. Delete a record to let the same id run again on the next prompt or REPL execution. Previews do not run the action or write a record.</AdvancedRimTalk.Once.Help>
+  <AdvancedRimTalk.Once.Empty>No one-time run records.</AdvancedRimTalk.Once.Empty>
+  <AdvancedRimTalk.Once.Delete>Delete</AdvancedRimTalk.Once.Delete>
+  <AdvancedRimTalk.Once.DeleteConfirm>Delete one-time record "{0}"? It will run again next time.</AdvancedRimTalk.Once.DeleteConfirm>
+  <AdvancedRimTalk.Once.Clear>Clear all</AdvancedRimTalk.Once.Clear>
+  <AdvancedRimTalk.Once.ClearConfirm>Clear every one-time run record? Recorded ids will run again.</AdvancedRimTalk.Once.ClearConfirm>
+  <AdvancedRimTalk.Once.CurrentWorldOnly>Current world only</AdvancedRimTalk.Once.CurrentWorldOnly>
+  <AdvancedRimTalk.Once.Global>Global</AdvancedRimTalk.Once.Global>
+  <AdvancedRimTalk.Once.OwnerRepl>Arti REPL</AdvancedRimTalk.Once.OwnerRepl>
+  <AdvancedRimTalk.Once.OwnerPrompt>Prompt</AdvancedRimTalk.Once.OwnerPrompt>
+  <AdvancedRimTalk.Once.Entry>{0}  ·  {1}
+World: {2}    Action: {3}
+Note: {4}    Source: {5}</AdvancedRimTalk.Once.Entry>
+</LanguageData>

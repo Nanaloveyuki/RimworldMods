@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <LeadYourPet_RatkinBabyLeashedMood.stages.0.label>my mother is leading me</LeadYourPet_RatkinBabyLeashedMood.stages.0.label>
+  <LeadYourPet_RatkinBabyLeashedMood.stages.0.description>My mother keeps me close on a leash. I feel safe.</LeadYourPet_RatkinBabyLeashedMood.stages.0.description>
+  <LeadYourPet_MouseDisasterBeggarMotherBonusMood.stages.0.label>my child is still with me</LeadYourPet_MouseDisasterBeggarMotherBonusMood.stages.0.label>
+  <LeadYourPet_MouseDisasterBeggarMotherBonusMood.stages.0.description>We're fleeing the famine, but at least my child is still beside me.</LeadYourPet_MouseDisasterBeggarMotherBonusMood.stages.0.description>
+  <LeadYourPet_MouseDisasterBeggarBabyBonusMood.stages.0.label>my mother keeps me close</LeadYourPet_MouseDisasterBeggarBabyBonusMood.stages.0.label>
+  <LeadYourPet_MouseDisasterBeggarBabyBonusMood.stages.0.description>Everything outside is chaotic, but my mother hasn't left me behind.</LeadYourPet_MouseDisasterBeggarBabyBonusMood.stages.0.description>
+  <LeadYourPet_MouseDisasterChildExchangeMotherBonusMood.stages.0.label>my child is still beside me</LeadYourPet_MouseDisasterChildExchangeMotherBonusMood.stages.0.label>
+  <LeadYourPet_MouseDisasterChildExchangeMotherBonusMood.stages.0.description>Children are being traded all around us. At least my own child is still with me.</LeadYourPet_MouseDisasterChildExchangeMotherBonusMood.stages.0.description>
+  <LeadYourPet_MouseDisasterChildExchangeBabyBonusMood.stages.0.label>my mother is still leading me</LeadYourPet_MouseDisasterChildExchangeBabyBonusMood.stages.0.label>
+  <LeadYourPet_MouseDisasterChildExchangeBabyBonusMood.stages.0.description>Other children here are being traded, but my mother still keeps me close.</LeadYourPet_MouseDisasterChildExchangeBabyBonusMood.stages.0.description>
+</LanguageData>

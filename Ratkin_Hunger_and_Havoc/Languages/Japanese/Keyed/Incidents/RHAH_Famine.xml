@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ArmedDemand_LetterTitle>食料を要求するラットキン</RHAH_ArmedDemand_LetterTitle>
+  <RHAH_ArmedDemand_LetterText>飢饉のラットキンの一団がコロニーの周囲に集まり、食料を要求しています。\n\n「食べ物がほしい。ご飯をくれたら出ていく。」\n\n一団は簡単な食事を{0}個要求し、{1}日間待つつもりです。断るとすぐに攻撃を始め、期限までに渡さなかった場合も攻撃します。無視したり返答を後回しにしても、期限は止まりません。攻撃が始まった後も、この手紙から必要な量を渡せば、攻撃をやめて食料を持って立ち去ります。</RHAH_ArmedDemand_LetterText>
+  <RHAH_ArmedDemand_Attack>{0}の一団は要求した食料を受け取れず、攻撃を始めました。簡単な食事を必要な数だけ渡せば、攻撃をやめて立ち去ります。</RHAH_ArmedDemand_Attack>
+  <RHAH_ArmedDemand_Paid>食料を要求した訪問者に、必要な数の簡単な食事を渡しました。一団は食べ物を受け取り、出発の準備をしています。</RHAH_ArmedDemand_Paid>
+  <RHAH_ArmedDemand_Unavailable>簡単な食事を{0}個渡せません。食料が足りないか、訪問者が食料を受け取れません。</RHAH_ArmedDemand_Unavailable>
+</LanguageData>

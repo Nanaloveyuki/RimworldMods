@@ -1,0 +1,14 @@
+use events.ctx@event as event
+
+fn evaluate(ctx) {
+    if ctx.stage == 0 {
+        return event.action("roll_predator", next_tick: -1, stage: 2)
+    }
+    if ctx.stage == 1 {
+        if ctx.long_ready {
+            return event.action("notify_long", next_tick: ctx.next_long_tick, stage: 3)
+        }
+        return event.wait(ctx.next_long_tick)
+    }
+    return event.wait(-1)
+}

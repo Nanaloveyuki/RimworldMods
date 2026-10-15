@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Relief>Relief zone</RHAH_Menu_Relief>
+  <RHAH_Menu_Relief_Note>Visitors look for food they can reach inside the marked cells. Food outside, the limit after a meal, and leaving are set below.</RHAH_Menu_Relief_Note>
+  <RHAH_Settings_ReliefEnabled>Use the relief zone</RHAH_Settings_ReliefEnabled>
+  <RHAH_Settings_ReliefEnabled_Tooltip>With this off, visitors ignore the marked cells. A zone already drawn stays on the map.</RHAH_Settings_ReliefEnabled_Tooltip>
+  <RHAH_Settings_EatOutsideRelief>Allow food outside the relief zone</RHAH_Settings_EatOutsideRelief>
+  <RHAH_Settings_EatOutsideRelief_Tooltip>With this off, visitors eat only food they can reach inside the zone. If the zone has none, they beg, wait, or leave.</RHAH_Settings_EatOutsideRelief_Tooltip>
+  <RHAH_Settings_IgnoreReliefAfterFed>Ignore the relief zone after eating</RHAH_Settings_IgnoreReliefAfterFed>
+  <RHAH_Settings_IgnoreReliefAfterFed_Tooltip>On, a full visitor may take the next meal from outside the zone. Off, a full visitor stops looking for another meal.</RHAH_Settings_IgnoreReliefAfterFed_Tooltip>
+  <RHAH_Settings_LeaveAfterFed>Leave the map after eating</RHAH_Settings_LeaveAfterFed>
+  <RHAH_Settings_LeaveAfterFed_Tooltip>On, a visitor who can reach an exit leaves after eating. An adult carries out a child too young or too weak to walk. Off, a full visitor stays on the map.</RHAH_Settings_LeaveAfterFed_Tooltip>
+  <RHAH_Settings_ReliefScore>Relief food bonus: {0}%</RHAH_Settings_ReliefScore>
+  <RHAH_Settings_ReliefScore_Tooltip>Food inside the zone adds this share of its distance and suitability score. 0 to 100%, default 10%.</RHAH_Settings_ReliefScore_Tooltip>
+  <RHAH_Settings_FedWander>Wander after eating, then leave</RHAH_Settings_FedWander>
+  <RHAH_Settings_FedWander_Tooltip>On, a full visitor wanders, then leaves. Off, they head for an exit at once. If leaving after eating is off, a full visitor stays on the map.</RHAH_Settings_FedWander_Tooltip>
+  <RHAH_Settings_FedWanderHours>Wander after eating: {0} hours</RHAH_Settings_FedWanderHours>
+  <RHAH_Settings_FedWanderHours_Tooltip>How long a full visitor wanders before leaving. 1 to 48 hours, default 12. Unused while wandering is off.</RHAH_Settings_FedWanderHours_Tooltip>
+  <RHAH_Settings_WaitFood>Wait when no food is found</RHAH_Settings_WaitFood>
+  <RHAH_Settings_WaitFood_Tooltip>On, visitors keep looking for the set time. Finding food starts the next wait over. Off, they leave at once.</RHAH_Settings_WaitFood_Tooltip>
+  <RHAH_Settings_FoodWait>Wait without food: {0} days</RHAH_Settings_FoodWait>
+  <RHAH_Settings_FoodWait_Tooltip>How long a visitor waits after finding nothing to eat. 0 to 5 days, default half a day.</RHAH_Settings_FoodWait_Tooltip>
+  <RHAH_Settings_ReliefFoods>Allowed foods</RHAH_Settings_ReliefFoods>
+  <RHAH_Settings_ReliefFoods_Tooltip>Visitors can take any food left on.</RHAH_Settings_ReliefFoods_Tooltip>
+  <RHAH_Settings_ReliefFoods_All>Allow all</RHAH_Settings_ReliefFoods_All>
+  <RHAH_Settings_ReliefFoods_None>Disable all</RHAH_Settings_ReliefFoods_None>
+  <RHAH_Settings_ReliefFoods_Search>Search foods or mods</RHAH_Settings_ReliefFoods_Search>
+  <RHAH_Settings_ReliefFoods_Empty>No foods match.</RHAH_Settings_ReliefFoods_Empty>
+  <RHAH_ReliefArea_Label>Relief zone</RHAH_ReliefArea_Label>
+  <RHAH_ReliefArea_Expand>Expand relief zone</RHAH_ReliefArea_Expand>
+  <RHAH_ReliefArea_Expand_Desc>Mark cells where visitors may take food. An empty zone does not become the whole map.</RHAH_ReliefArea_Expand_Desc>
+  <RHAH_ReliefArea_Clear>Clear relief zone</RHAH_ReliefArea_Clear>
+  <RHAH_ReliefArea_Clear_Desc>Remove marked cells. Once none remain, visitors who cannot leave the zone stop taking food here.</RHAH_ReliefArea_Clear_Desc>
+  <RHAH_Settings_ReliefFoods_Quote>Visitors stop taking food you turn off. Food added later stays available.</RHAH_Settings_ReliefFoods_Quote>
+  <RHAH_Settings_GiveFoods>Food that can be handed over</RHAH_Settings_GiveFoods>
+  <RHAH_Settings_GiveFoods_Tooltip>Food turned off stays out of the right-click option for handing food to a visitor.</RHAH_Settings_GiveFoods_Tooltip>
+  <RHAH_Settings_GiveFoods_All>Allow all</RHAH_Settings_GiveFoods_All>
+  <RHAH_Settings_GiveFoods_None>Forbid all</RHAH_Settings_GiveFoods_None>
+  <RHAH_Settings_GiveFoods_Search>Search foods or mods</RHAH_Settings_GiveFoods_Search>
+  <RHAH_Settings_GiveFoods_Empty>No foods match.</RHAH_Settings_GiveFoods_Empty>
+  <RHAH_Settings_GiveFoods_Quote>Food you turn off cannot be handed to visitors. Food added later can still be handed over.</RHAH_Settings_GiveFoods_Quote>
+  <RHAH_Settings_GiveFoods_Sort>Give-food grouping</RHAH_Settings_GiveFoods_Sort>
+  <RHAH_Settings_GiveFoods_Sort_0>By mod</RHAH_Settings_GiveFoods_Sort_0>
+  <RHAH_Settings_GiveFoods_Sort_1>By name</RHAH_Settings_GiveFoods_Sort_1>
+  <RHAH_Settings_GiveFoods_Sort_2>By vanilla category</RHAH_Settings_GiveFoods_Sort_2>
+  <RHAH_Settings_GiveFoods_Other>Other</RHAH_Settings_GiveFoods_Other>
+  <RHAH_Settings_FoodFull>Fed: {0}%</RHAH_Settings_FoodFull>
+  <RHAH_Settings_FoodFull_Tooltip>Food at or above this counts as fed. 1 to 100, default 82.</RHAH_Settings_FoodFull_Tooltip>
+  <RHAH_Settings_FoodRefeed>Eat again at malnutrition: {0}</RHAH_Settings_FoodRefeed>
+  <RHAH_Settings_FoodRefeed_Tooltip>Fed visitors look for food again at this malnutrition. 0 to 1, default 0.40.</RHAH_Settings_FoodRefeed_Tooltip>
+</LanguageData>

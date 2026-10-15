@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <OPN_Title>囚犯代号</OPN_Title>
+  <OPN_EnabledToggle>显示囚犯代号</OPN_EnabledToggle>
+  <OPN_NoGame>请先进入存档，再调整囚犯设置。使用指南可随时查看。</OPN_NoGame>
+  <OPN_OpenWindow>查看囚犯名单</OPN_OpenWindow>
+  <OPN_GameChanged>这个存档已经不再是当前存档。关掉窗口后重新打开。</OPN_GameChanged>
+  <OPN_Enabled>代号已启用</OPN_Enabled>
+  <OPN_Disabled>代号已关闭</OPN_Disabled>
+  <OPN_Revision>版本</OPN_Revision>
+  <OPN_Unapplied>草稿未应用</OPN_Unapplied>
+  <OPN_Apply>应用</OPN_Apply>
+  <OPN_Enable>启用代号</OPN_Enable>
+  <OPN_Disable>关闭代号</OPN_Disable>
+  <OPN_Refresh>刷新</OPN_Refresh>
+  <OPN_Restore>恢复已应用规则</OPN_Restore>
+  <OPN_DefaultChinese>载入中文草稿</OPN_DefaultChinese>
+  <OPN_DefaultEnglish>载入英文草稿</OPN_DefaultEnglish>
+  <OPN_Applied>规则已应用。代号会按囚犯当前状态刷新。</OPN_Applied>
+  <OPN_KeepActive>草稿没有应用。仍在使用上一条规则。</OPN_KeepActive>
+  <OPN_Refreshed>代号已刷新。</OPN_Refreshed>
+  <OPN_Restored>草稿已恢复为当前规则。</OPN_Restored>
+  <OPN_DefaultLoaded>默认草稿已载入。应用后才会改用这些代号。</OPN_DefaultLoaded>
+  <OPN_Error>规则错误</OPN_Error>
+  <OPN_Script>命名规则</OPN_Script>
+  <OPN_Prisoners>囚犯</OPN_Prisoners>
+  <OPN_NoPrisoners>殖民地里没有囚犯。俘虏一名后再刷新。</OPN_NoPrisoners>
+  <OPN_NoSelection>选中一名囚犯后，可以单独指定代号。</OPN_NoSelection>
+  <OPN_Shown>当前显示</OPN_Shown>
+  <OPN_Original>原姓名</OPN_Original>
+  <OPN_UsingOriginal>正在显示原姓名</OPN_UsingOriginal>
+  <OPN_UsingRule>正在使用规则</OPN_UsingRule>
+  <OPN_UsingManual>正在使用单独代号</OPN_UsingManual>
+  <OPN_Jump>前往</OPN_Jump>
+  <OPN_Manual>代号</OPN_Manual>
+  <OPN_SetManual>设置代号</OPN_SetManual>
+  <OPN_Preview>草稿预览</OPN_Preview>
+  <OPN_PreviewFailed>草稿预览失败</OPN_PreviewFailed>
+  <OPN_Clear>清除</OPN_Clear>
+  <OPN_ManualSet>已设置单独代号。清除前会一直沿用。</OPN_ManualSet>
+  <OPN_ManualCleared>单独代号已清除。重新使用规则。</OPN_ManualCleared>
+  <OPN_ManualFailed>无法设置这个代号</OPN_ManualFailed>
+  <OPN_Unnamed>未命名</OPN_Unnamed>
+  <OPN_ShowHelp>显示说明</OPN_ShowHelp>
+  <OPN_HideHelp>隐藏说明</OPN_HideHelp>
+  <OPN_Help>在右侧选择囚犯，可单独设置代号、分数和等级；清除后恢复自动设置。需要调整所有囚犯的名称，请到 IrisMenus 的「命名」页。详细步骤见「使用指南」。修改会应用到当前存档；保存游戏后，下次读档才能保留。</OPN_Help>
+  <OPN_PolicyPage>命名</OPN_PolicyPage>
+  <OPN_PolicyIntro>选择囚犯显示的姓名。详细步骤见「使用指南」。</OPN_PolicyIntro>
+  <OPN_AutoSaveHint>有效修改自动应用到当前存档；保存游戏后，下次读档才会保留。输入有误时保留原来的有效设置。</OPN_AutoSaveHint>
+  <OPN_CustomSettingsHint>当前使用高级命名规则。有效的页面设置会自动应用到当前存档，但不会替换高级规则；保存游戏后，下次读档才能保留。需要接管命名时，点击「改用本页设置」。</OPN_CustomSettingsHint>
+  <OPN_SectionGeneral>显示与命名方式</OPN_SectionGeneral>
+  <OPN_SectionAge>名称与年龄段</OPN_SectionAge>
+  <OPN_SectionRace>种族前缀</OPN_SectionRace>
+  <OPN_SectionPresets>快捷样式</OPN_SectionPresets>
+  <OPN_SectionPreview>名称预览与保存状态</OPN_SectionPreview>
+  <OPN_SectionScores>自动计分</OPN_SectionScores>
+  <OPN_SectionGrades>等级要求</OPN_SectionGrades>
+  <OPN_HumanlikeRacesHint>列表只含当前启用的人形种族，包括 HAR 外星种族。炎魔种、猪人种、智人种等原版异种共用人类（Human）规则。已有前缀仍保留在下方。</OPN_HumanlikeRacesHint>
+  <OPN_NoHumanlikeRaces>没有可用的人形种族</OPN_NoHumanlikeRaces>
+  <OPN_RacePrefixExists>这个种族已有前缀，可直接在上方修改。</OPN_RacePrefixExists>
+  <OPN_SourceMode>命名方式</OPN_SourceMode>
+  <OPN_CustomSource>高级规则</OPN_CustomSource>
+  <OPN_ConfigSource>本页设置</OPN_ConfigSource>
+  <OPN_UseCustom>转为高级规则</OPN_UseCustom>
+  <OPN_UsePattern>改用本页设置</OPN_UsePattern>
+  <OPN_UsePatternConfirm>改用本页设置？这会替换当前的高级命名规则，包括尚未应用的修改。积分规则和单独代号不受影响。</OPN_UsePatternConfirm>
+  <OPN_NameStyle>姓名显示方式</OPN_NameStyle>
+  <OPN_Style_code>自定代号</OPN_Style_code>
+  <OPN_Style_short>短名</OPN_Style_short>
+  <OPN_Style_full>全名</OPN_Style_full>
+  <OPN_Style_first>名</OPN_Style_first>
+  <OPN_Style_last>姓</OPN_Style_last>
+  <OPN_NeutralScore>初始分数</OPN_NeutralScore>
+  <OPN_ResistanceScore>每降低 1 点抵抗增加的分数</OPN_ResistanceScore>
+  <OPN_Pattern>名称样式</OPN_Pattern>
+  <OPN_Placeholders>例如「囚{number_text}」会显示为「囚001」。可填写的内容见「使用指南」。</OPN_Placeholders>
+  <OPN_RacePrefixes>种族前缀</OPN_RacePrefixes>
+  <OPN_Race>种族</OPN_Race>
+  <OPN_Prefix>前缀</OPN_Prefix>
+  <OPN_AddRace>添加种族前缀</OPN_AddRace>
+  <OPN_Grades>等级</OPN_Grades>
+  <OPN_GradeName>等级名</OPN_GradeName>
+  <OPN_AddGrade>添加等级</OPN_AddGrade>
+  <OPN_Remove>移除</OPN_Remove>
+  <OPN_PolicyFailed>输入无效；仍使用上次有效设置。请修正输入。</OPN_PolicyFailed>
+  <OPN_PolicyPreview>示例</OPN_PolicyPreview>
+  <OPN_PolicyPreviewFailed>示例失败</OPN_PolicyPreviewFailed>
+  <OPN_Preset_code>使用代号样式</OPN_Preset_code>
+  <OPN_Preset_grade>使用等级样式</OPN_Preset_grade>
+  <OPN_Preset_short>使用短名</OPN_Preset_short>
+  <OPN_Preset_full>使用全名</OPN_Preset_full>
+  <OPN_Score>分数</OPN_Score>
+  <OPN_Grade>等级</OPN_Grade>
+  <OPN_ScoreAutomatic>已恢复事件计分；保留当前分数。</OPN_ScoreAutomatic>
+  <OPN_NextGrade>下一级</OPN_NextGrade>
+  <OPN_NoNextGrade>没有更高等级</OPN_NoNextGrade>
+  <OPN_OpenEditor>打开浏览器编辑器</OPN_OpenEditor>
+  <OPN_OpenEditorConfirm>打开这个存档的浏览器编辑器？</OPN_OpenEditorConfirm>
+  <OPN_Roster>名单</OPN_Roster>
+  <OPN_BrowserEditing>选择右侧囚犯，可单独改代号、分数和等级。常用设置在 IrisMenus；详细步骤见「使用指南」。浏览器编辑器仅用于高级自定义。</OPN_BrowserEditing>
+  <OPN_CustodyScore>每关押满一天增加的分数</OPN_CustodyScore>
+  <OPN_PrisonBreakScore>越狱的分数</OPN_PrisonBreakScore>
+  <OPN_OpenLower>更低的分数</OPN_OpenLower>
+  <OPN_SetScore>设置分数</OPN_SetScore>
+  <OPN_SetGrade>设置等级</OPN_SetGrade>
+  <OPN_ScoreSet>分数已设置。事件不会再改它。</OPN_ScoreSet>
+  <OPN_GradeSet>等级已设置。分数保持不变。</OPN_GradeSet>
+  <OPN_ScoresPage>积分</OPN_ScoresPage>
+  <OPN_ScoresIntro>设定新囚犯的起始分数，以及抵抗降低、关押或越狱时的加减分。填 0 表示不计分，负数表示扣分。</OPN_ScoresIntro>
+  <OPN_GradesIntro>分数达到要求就升级，降低后也会降级。单独指定的等级不随分数变化。</OPN_GradesIntro>
+  <OPN_Threshold>升级所需分数</OPN_Threshold>
+  <OPN_UseAgePatterns>不同年龄使用不同代号</OPN_UseAgePatterns>
+  <OPN_AgeRulesIntro>按生理年龄命名。例如 1–7 岁从满 1 岁起生效，满 7 岁改用下一段。</OPN_AgeRulesIntro>
+  <OPN_DefaultAgeRules>所有种族</OPN_DefaultAgeRules>
+  <OPN_RaceAgeRules>指定种族</OPN_RaceAgeRules>
+  <OPN_PreviewAge>示例年龄</OPN_PreviewAge>
+  <OPN_AgeMinimum>新年龄段从几岁开始</OPN_AgeMinimum>
+  <OPN_AddAgeBand>添加年龄段</OPN_AddAgeBand>
+  <OPN_UseRaceAgeRules>为这个种族单独命名</OPN_UseRaceAgeRules>
+  <OPN_AgeInherited>使用默认规则</OPN_AgeInherited>
+  <OPN_AgeRange>年龄段</OPN_AgeRange>
+  <OPN_AgeInherit>恢复默认</OPN_AgeInherit>
+  <OPN_AgeOverride>单独设置</OPN_AgeOverride>
+  <OPN_BaseGrade>默认等级</OPN_BaseGrade>
+  <OPN_UserGuideTitle>使用指南</OPN_UserGuideTitle>
+  <OPN_UserGuide><![CDATA[# 囚犯代号使用指南
+
+为囚犯显示方便辨认的代号，也可以按年龄、种族和等级使用不同名称。 **不需要编写代码。** 原姓名不会被改写；关闭代号、释放或招募后恢复原姓名。
+
+## 开始使用
+
+1. 进入存档，打开 IrisMenus → ODF 囚犯代号 → 命名。
+2. 勾选「显示囚犯代号」，选择「姓名显示方式」。可以使用自定代号，也可以直接显示短名、全名、名或姓。
+3. 命名、积分和等级页的有效修改会自动应用到当前存档，无需点击设置保存按钮。
+4. 点击「查看囚犯名单」，查看效果或为某个囚犯单独设置名称。
+
+**这些设置只属于当前存档。** 有效修改会立即自动应用；仍须保存游戏，才能在下次读档时保留。输入有误时会显示错误，并继续使用上次有效设置；切换页面不会丢失正在修改的内容。
+
+## 写一个代号
+
+选择「自定代号」后，在「名称样式」中填写想显示的文字。括号里的内容会自动换成这名囚犯的信息。
+
+- 囚{number_text} → 囚001
+- {race_prefix}{number_text} → P001（种族前缀设为 P 时）
+- {grade}·{original_name} → C·艾拉（等级为 C、原短名为艾拉时）
+
+常用内容：
+
+- {number_text}：至少三位的编号，如 001；{number}：普通编号，如 1。
+- {original_name}：原短名；{original_full_name}：原全名；{original_short}：原昵称。
+- {first_name}：名；{last_name}：姓。
+- {race_label}：种族名称；{race_prefix}：你设置的种族前缀；{race}：种族代号，如 Human。
+- {grade}：当前等级；{score}：当前分数；{interaction_label}：当前处置方式。
+
+括号里的名称请照原样填写，括号外可以写中文或其他语言。要显示括号本身，输入 {{ 或 }}。不要填写换行或颜色标签；代号最长 120 个字符。填写错误时不会替换原来的有效设置。
+
+## 不同年龄、不同种族
+
+勾选「不同年龄使用不同代号」，在「所有种族」中设置各年龄段的名称。
+
+- 使用的是生理年龄，不是实际出生至今的时间。默认分为 0–1、1–7、7–14、14–18、18 岁以上。
+- 1–7 岁表示从满 1 岁起使用，满 7 岁切换下一段；支持 1.5 等小数年龄。
+- 修改一段开始的年龄，会自动调整相邻范围。最后一段没有年龄上限，0 岁起始段不能删除。
+- 填写「新年龄段从几岁开始」并点击「添加年龄段」可新增一段；不需要的段可移除。
+- 在「指定种族」中选择种族，勾选「为这个种族单独命名」，再点击需要修改的年龄段旁的「单独设置」。没有单独设置的段继续使用默认名称；「恢复默认」会撤销这一段的单独名称。
+- 调整默认年龄段的起点或移除一段时，各种族的对应年龄段也会同步。
+
+「示例年龄」只用于试看名称，不会改变囚犯年龄。关闭按年龄命名后，所有年龄使用同一个名称样式；使用页面下方的快捷样式也会关闭按年龄命名。
+
+「种族前缀」用于 {race_prefix}。从下拉名单选择人形种族，再填写前缀并添加。选择器显示本地化名称并使用稳定的种族代码，不需要手工输入 defName；它会包含当前启用、由依赖 HAR 的 Mod 提供的人形外星种族，但本 Mod 不把 HAR 列为依赖。已有前缀可直接修改，不需要输入种族代号。例如人类（Human）设置 P、鼠族（Ratkin）设置 RK，就能得到 P001 或 RK001。名单不包含动物；炎魔种、猪人种、智人种等原版异种都属于 Human，共用人类规则。旧存档中已有的种族条目，即使提供它的 Mod 缺失或未启用，也会继续保留，直到玩家主动移除。
+
+## 积分和等级
+
+「积分」页可设置新囚犯的起始分数，以及抵抗降低、关押满一天或越狱时增加的分数。 **默认不自动加减分。** 填 0 表示不计分，负数表示扣分；初始分数只影响以后加入的新囚犯。
+
+例：每降低 1 点抵抗增加 2 分，抵抗降低 3 点就增加 6 分。关押满一天按游戏中未暂停的时间计算；暂停、释放后的时间不计入，读档不会补算。
+
+「等级」页填写等级名和「升级所需分数」。例：D 要求 20 分，C 要求 40 分，B 要求 60 分，那么 40 分时为 C，达到 60 分升为 B，降到 39 分则回到 D。名单会显示当前等级和距离下一级还差多少分。分数和等级只是你的标记，不会自动释放囚犯或改变原版处置。
+
+## 单独设置一名囚犯
+
+在「查看囚犯名单」窗口右侧选择囚犯，可以单独指定代号、分数和等级。
+
+- 单独代号优先于统一名称；点击「清除」后恢复自动命名。
+- 手动设置分数后，自动加减分会停止。清空分数输入框再点击「设置分数」，恢复自动计分，并保留当前分数。
+- 手动指定等级后，分数变化不会改变它。清空等级输入框再点击「设置等级」，恢复按分数分级。
+
+编号属于这个存档；同一囚犯再次被俘会沿用原编号。代号不会自动去重，想区分同名囚犯时请在样式里加上 {number_text}。
+
+## 高级自定义（可跳过）
+
+普通命名、积分和等级都能在设置页完成。只有想自定更复杂的判断或计分方式时，才需要「在浏览器编辑 Mod」。它会打开本机编辑器，无需另装编辑工具。
+
+「转为高级规则」保留当前名称，并让之后的页面设置不再自动应用到命名规则。要重新使用页面中的名称样式，点击「改用本页设置」并确认；这会替换高级命名规则和未应用的命名修改，但不会改积分规则或单独代号。
+
+浏览器中的 current/naming 对应本局命名，current/events 对应本局高级计分。检查并保存后，还需点击「应用到本局」；出错时继续使用原来的有效规则。浏览器的保存／应用流程与设置页自动应用是两回事。切换存档后请刷新编辑器。关闭网页不等于退出编辑器服务，可在 IrisMenus 中点击「退出编辑器」。
+
+## 名称没有变化？
+
+- 确认囚犯仍是存活的人形殖民地囚犯，并已开启「显示囚犯代号」。
+- 查看「名称预览与保存状态」是否有输入错误，以及是否有单独代号盖过统一名称。
+- 命名方式为「高级规则」时，页面里的名称样式不会接管；要切回请使用「改用本页设置」。
+- 第三方窗口可能直接显示原姓名，不一定使用本 Mod 的代号。
+]]></OPN_UserGuide>
+</LanguageData>

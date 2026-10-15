@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <TraderKindDef>
+    <defName>MouseDisaster_RatkinTrader</defName>
+    <label>流民商贩</label>
+    <requestable>false</requestable>
+    <category>MouseDisasterRatkinTrader</category>
+    <stockGenerators>
+      <li Class="StockGenerator_Slaves">
+        <countRange>2~4</countRange>
+      </li>
+    </stockGenerators>
+  </TraderKindDef>
+</Defs>

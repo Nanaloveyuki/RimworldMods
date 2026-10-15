@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+1.6/Assemblies/
+.vs/
+.idea/
+*.user
+*.suo
+__pycache__/
+*.py[cod]

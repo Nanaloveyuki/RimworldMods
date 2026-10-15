@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <LetterDef>
+    <defName>MouseDisaster_StoryLetter</defName>
+    <label>来信与约定</label>
+    <letterClass>MouseDisaster.ChoiceLetter_MouseDisasterStory</letterClass>
+    <color>(0.68, 0.84, 0.74)</color>
+    <flashColor>(0.68, 0.84, 0.74)</flashColor>
+  </LetterDef>
+  <SitePartDef>
+    <defName>MouseDisaster_RecordSite</defName>
+    <label>旧存放点</label>
+    <description>一处保存迁移清单的旧存放点。线索有效期为十五天。</description>
+    <workerClass>MouseDisaster.SitePartWorker_MouseDisasterRecords</workerClass>
+    <siteTexture>World/WorldObjects/Sites/GenericSite</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/Sites/ItemStash</expandingIconTexture>
+    <approachOrderString>前往旧存放点</approachOrderString>
+    <approachingReportString>正在前往旧存放点。</approachingReportString>
+    <arrivedLetter>已经抵达旧存放点。现场的记录箱仍需检查。</arrivedLetter>
+    <arrivedLetterDef>NeutralEvent</arrivedLetterDef>
+    <gravShipsCanLandOn>true</gravShipsCanLandOn>
+  </SitePartDef>
+  <ThingDef ParentName="BuildingBase">
+    <defName>MouseDisaster_RecordCache</defName>
+    <label>旧记录箱</label>
+    <description>装着配给清单和迁移记录的箱子。殖民者能够到达时，可以决定如何处置。</description>
+    <thingClass>MouseDisaster.Building_MouseDisasterRecordCache</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Ruins/AncientCrate</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <drawSize>(1.3,1.3)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <rotatable>false</rotatable>
+    <passability>PassThroughOnly</passability>
+    <statBases><MaxHitPoints>120</MaxHitPoints><Flammability>1</Flammability></statBases>
+    <building><isInert>true</isInert></building>
+  </ThingDef>
+  <ThingDef ParentName="BuildingBase">
+    <defName>MouseDisaster_GrainBurrow</defName>
+    <label>粮仓洞口</label>
+    <description>储粮附近的小洞。未处理时每天最多损失一份食物，总计不超过三份。可通过粮仓信件封堵或清理。</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Crater/2x2</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(0.8,0.8)</drawSize>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <passability>Standable</passability>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases><MaxHitPoints>40</MaxHitPoints><Flammability>0</Flammability></statBases>
+    <building><isInert>true</isInert></building>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>MouseDisaster_RecordPages</defName>
+    <label>迁移记录</label>
+    <description>保存下来的配给清单和迁移记录。有几处数量被反复改过。它没有额外能力，可以留下，也可以转交。</description>
+    <graphicData><texPath>Things/Item/Book/Textbook/Textbook</texPath><graphicClass>Graphic_Single</graphicClass></graphicData>
+    <statBases><MarketValue>20</MarketValue><Mass>0.4</Mass><MaxHitPoints>50</MaxHitPoints><Flammability>1</Flammability></statBases>
+    <stackLimit>1</stackLimit>
+    <thingCategories><li>ResourcesRaw</li></thingCategories>
+  </ThingDef>
+</Defs>

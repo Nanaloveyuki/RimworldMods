@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_GnawedBark.label>gnawed bark</RHAH_GnawedBark.label>
+  <RHAH_GnawedBark.description>Gnawing rough bark has cut the mouth and digestive tract, causing pain. The injuries heal on their own after a while.</RHAH_GnawedBark.description>
+  <RHAH_GnawedWall.label>gnawed wall</RHAH_GnawedWall.label>
+  <RHAH_GnawedWall.description>Swallowed wall grit temporarily slows hunger but also cuts the mouth, causing considerable pain. These effects wear off on their own after a while.</RHAH_GnawedWall.description>
+  <RHAH_OvergnawedWall.label>overgnawed wall</RHAH_OvergnawedWall.label>
+  <RHAH_OvergnawedWall.description>Swallowing too much wall grit causes severe pain, impaired consciousness, and a greatly reduced capacity for food.</RHAH_OvergnawedWall.description>
+</LanguageData>

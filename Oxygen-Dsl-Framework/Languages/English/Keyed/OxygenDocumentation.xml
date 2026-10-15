@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Oxygendsl_SettingsTitle>Settings</Oxygendsl_SettingsTitle>
+  <Oxygendsl_DocumentationTitle>Oxygen language documentation</Oxygendsl_DocumentationTitle>
+  <Oxygendsl_DocumentationIndex>Topics and sections</Oxygendsl_DocumentationIndex>
+  <Oxygendsl_DocumentationSource>Read-only Markdown source</Oxygendsl_DocumentationSource>
+  <Oxygendsl_DocumentationCopy>Copy document</Oxygendsl_DocumentationCopy>
+  <Oxygendsl_DocumentationUnavailable>This document could not be loaded. The embedded Markdown resource is missing, empty, or unreadable. Reinstall a complete Oxygen DSL Framework package; details have also been written to the log.</Oxygendsl_DocumentationUnavailable>
+  <Oxygendsl_DocumentationOverview>Overview and getting started</Oxygendsl_DocumentationOverview>
+  <Oxygendsl_DocumentationSyntax>Keywords and syntax</Oxygendsl_DocumentationSyntax>
+  <Oxygendsl_DocumentationValues>Values and functions</Oxygendsl_DocumentationValues>
+  <Oxygendsl_DocumentationGameplay>Gameplay and content</Oxygendsl_DocumentationGameplay>
+  <Oxygendsl_DocumentationModules>Modules and settings</Oxygendsl_DocumentationModules>
+  <Oxygendsl_DocumentationAdvanced>Advanced topics and cautions</Oxygendsl_DocumentationAdvanced>
+</LanguageData>

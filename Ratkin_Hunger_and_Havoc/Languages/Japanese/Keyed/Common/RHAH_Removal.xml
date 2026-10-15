@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Removal>セーブとアンインストール</RHAH_Menu_Removal>
+  <RHAH_RemovalSection>現在のセーブ</RHAH_RemovalSection>
+  <RHAH_RemovalNoGame>先にセーブを読み込んでください。そのセーブの新しいコンテンツを停止したり、アンインストール用のコピーを出力したりできます。</RHAH_RemovalNoGame>
+  <RHAH_EventChainsFailure>イベントの続きは一時停止中です。古いイベント記録は保管され、新しいイベントも停止しています。原因：{0}\nこのModとOxygen DSL Frameworkを残してください。続行前にログを確認するか、アンインストール用コピーを出力してください。</RHAH_EventChainsFailure>
+  <RHAH_RemovalDisable>このセーブのみ新しいコンテンツを停止</RHAH_RemovalDisable>
+  <RHAH_RemovalDisabled>このセーブでは、新しい「飢えと災い」のコンテンツ、イベントの続き、まだ到着していない捕食者が停止しています。この状態を元のセーブに記録するには、もう一度保存してください。イベント記録、すでにいる訪問者、手紙、地点は残ります。全体のスイッチは変わりません。</RHAH_RemovalDisabled>
+  <RHAH_RemovalExport>バックアップを作成し、アンインストール用コピーを出力</RHAH_RemovalExport>
+  <RHAH_RemovalConfirm>ゲームを一時停止し、現在の状態を先にバックアップします。その後、このセーブの新しいコンテンツとイベントの続きを止め、クリーンアップ済みコピーを保存します。元のセーブは上書きしません。\n\nクリーンアップ済みコピーでは、ラットキンの種類、生い立ち、非表示の派閥、ストーリーテラーを置き換え、このModの特性、遺伝子、健康状態、記憶、アイテム、エリア、手紙、進行中のクエスト、イベント記録を取り除きます。人物、Oxygen DSL Framework、他のModのイベント記録は残ります。\n\n出力に成功したらゲームを終了し、このModだけを外してください。ラットキン、Harmony、Biotech、Oxygen DSL Frameworkは残します。再起動後、クリーンアップ済みコピーを読み込んでください。現在プレイ中のゲーム自体はクリーンアップされません。識別できない参照がある場合、出力を中止します。続けますか？</RHAH_RemovalConfirm>
+  <RHAH_RemovalDone>出力先：{0}\nバックアップ：{1}\n置換：{2}、削除：{3}。\n\nゲームを終了し、このModだけを外してください。ラットキン、Harmony、Biotech、Oxygen DSL Frameworkは残します。再起動後、出力したコピーを読み込んでください。現在プレイ中のゲームはクリーンアップされず、一時停止のままです。コピーの読み込み、プレイ、保存、再読み込みができることを確かめてから、古いセーブを削除するか決めてください。バックアップを読み込む場合は、このModを残す必要があります。</RHAH_RemovalDone>
+  <RHAH_RemovalFailed>クリーンアップは完了していません。この結果をもとにModを外さないでください。\nバックアップ：{0}。保存に失敗した場合、バックアップが作られていない可能性があります。\n原因：{1}\n\nエラーの詳細はログにあります。元のセーブは上書きしていません。バックアップはクリーンアップ済みコピーではありません。続行前に、このセーブの新しいコンテンツが停止しているか確認してください。</RHAH_RemovalFailed>
+</LanguageData>

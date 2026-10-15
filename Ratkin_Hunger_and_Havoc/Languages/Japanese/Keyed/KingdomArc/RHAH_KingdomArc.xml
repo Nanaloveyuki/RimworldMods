@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Kingdom_Open>穗音の手紙を読む</RHAH_Kingdom_Open>
+  <RHAH_Kingdom_Unavailable>今は穗音に連絡できません</RHAH_Kingdom_Unavailable>
+  <RHAH_Kingdom_Title>宮殿の壁と差し伸べられた手</RHAH_Kingdom_Title>
+  <RHAH_Kingdom_Arrival>穗音から私信が届きました。同じ穀物の出荷に関する二通の受領記録を、あなたたちに見てほしいそうです。</RHAH_Kingdom_Arrival>
+  <RHAH_Kingdom_Progress>{0} / {1} 段</RHAH_Kingdom_Progress>
+  <RHAH_Kingdom_Manual>手動</RHAH_Kingdom_Manual>
+  <RHAH_Kingdom_Auto>自動</RHAH_Kingdom_Auto>
+  <RHAH_Kingdom_Fast>早送り</RHAH_Kingdom_Fast>
+  <RHAH_Kingdom_Pause>再生を一時停止</RHAH_Kingdom_Pause>
+  <RHAH_Kingdom_Resume>再生を再開</RHAH_Kingdom_Resume>
+  <RHAH_Kingdom_Previous>前の段</RHAH_Kingdom_Previous>
+  <RHAH_Kingdom_Next>次の段</RHAH_Kingdom_Next>
+  <RHAH_Kingdom_Skip>手紙へ進む</RHAH_Kingdom_Skip>
+  <RHAH_Kingdom_Review>振り返る</RHAH_Kingdom_Review>
+  <RHAH_Kingdom_Return>読書に戻る</RHAH_Kingdom_Return>
+  <RHAH_Kingdom_ReadOnly>回想 · 閲覧のみ</RHAH_Kingdom_ReadOnly>
+  <RHAH_Kingdom_Close>閉じる</RHAH_Kingdom_Close>
+  <RHAH_Kingdom_Accept>見てみよう</RHAH_Kingdom_Accept>
+  <RHAH_Kingdom_Defer>また今度</RHAH_Kingdom_Defer>
+  <RHAH_Kingdom_Decline>この件は断る</RHAH_Kingdom_Decline>
+  <RHAH_Kingdom_Conditions>二通の写しを受け取ることに同意します。今のところ物資の提供は必要ありません。</RHAH_Kingdom_Conditions>
+  <RHAH_Kingdom_Accepted>二通の写しを受け取ることに同意しました。写しはまだ届いていません。</RHAH_Kingdom_Accepted>
+  <RHAH_Kingdom_Declined>今回の依頼を断りました。</RHAH_Kingdom_Declined>
+  <RHAH_Kingdom_AcceptedReply>ありがとう。使いの人に写しを持っていってもらいます。</RHAH_Kingdom_AcceptedReply>
+  <RHAH_Kingdom_DeclinedReply>わかりました。ひとまずしまっておきます。</RHAH_Kingdom_DeclinedReply>
+  <RHAH_Kingdom_ReplyFailed>今はこの手紙に返事できません。</RHAH_Kingdom_ReplyFailed>
+  <RHAH_Kingdom_Pending>穗音はあなたたちの返事を待っています。</RHAH_Kingdom_Pending>
+  <RHAH_Kingdom_E1Title>御苑の蝶</RHAH_Kingdom_E1Title>
+  <RHAH_Kingdom_E2Title>宮殿の壁の向こう</RHAH_Kingdom_E2Title>
+  <RHAH_Kingdom_E3Title>差し伸べられた手</RHAH_Kingdom_E3Title>
+  <RHAH_Kingdom_E4Title>最初の私信</RHAH_Kingdom_E4Title>
+  <RHAH_Kingdom_Diary>今の穗音 · 日記</RHAH_Kingdom_Diary>
+  <RHAH_Kingdom_Child>幼い穗音</RHAH_Kingdom_Child>
+  <RHAH_Kingdom_Young>若い頃の穗音</RHAH_Kingdom_Young>
+  <RHAH_Kingdom_Father>父</RHAH_Kingdom_Father>
+  <RHAH_Kingdom_FatherQuiet>父 · 小声</RHAH_Kingdom_FatherQuiet>
+  <RHAH_Kingdom_Mother>母</RHAH_Kingdom_Mother>
+  <RHAH_Kingdom_Randy>ランディ</RHAH_Kingdom_Randy>
+  <RHAH_Kingdom_Letter>穗音 · 私信</RHAH_Kingdom_Letter>
+  <RHAH_Kingdom_Memory>回想</RHAH_Kingdom_Memory>
+  <RHAH_Kingdom_E1_01>「子供の頃の私は、とても無邪気だった...」</RHAH_Kingdom_E1_01>
+  <RHAH_Kingdom_E1_02>「お父さん、どこに行くの？」</RHAH_Kingdom_E1_02>
+  <RHAH_Kingdom_E1_03>「ああ、私のかわいい子。御苑に遊びに行こうか？」</RHAH_Kingdom_E1_03>
+  <RHAH_Kingdom_E1_04>「うん〜」</RHAH_Kingdom_E1_04>
+  <RHAH_Kingdom_E1_05>「見て！あれ、なあに？」</RHAH_Kingdom_E1_05>
+  <RHAH_Kingdom_E1_06>「蝶だよ。空を飛ぶ小さな虫さ。羽がきれいだろう？」</RHAH_Kingdom_E1_06>
+  <RHAH_Kingdom_E1_07>「きれい、きれい！」</RHAH_Kingdom_E1_07>
+  <RHAH_Kingdom_E1_08>「こんなにきれいな蝶、どこにでもいるの？」</RHAH_Kingdom_E1_08>
+  <RHAH_Kingdom_E1_09>「ああ、かわいい子。もちろんさ」</RHAH_Kingdom_E1_09>
+  <RHAH_Kingdom_E1_10>「じゃあ、どのラットキンもこうやって遊べるの？」</RHAH_Kingdom_E1_10>
+  <RHAH_Kingdom_E1_11>「......」</RHAH_Kingdom_E1_11>
+  <RHAH_Kingdom_E1_12>「もちろん...」</RHAH_Kingdom_E1_12>
+  <RHAH_Kingdom_E1_13>「...そうだろう」</RHAH_Kingdom_E1_13>
+  <RHAH_Kingdom_E1_14>「やった！みんな、きれいな蝶が好きだもん！」</RHAH_Kingdom_E1_14>
+  <RHAH_Kingdom_E1_15>「あの頃はまだ、自分が嘘の中で暮らしているとは知らなかった...」</RHAH_Kingdom_E1_15>
+  <RHAH_Kingdom_E2_01>穗音は階段のように並べた椅子に乗り、宮殿の壁をよじ登る。</RHAH_Kingdom_E2_01>
+  <RHAH_Kingdom_E2_02>「よいしょ...」</RHAH_Kingdom_E2_02>
+  <RHAH_Kingdom_E2_03>彼女は壁を飛び越え、外の通りに降り立つ。</RHAH_Kingdom_E2_03>
+  <RHAH_Kingdom_E2_04>夜の富裕層の街は静かだった。</RHAH_Kingdom_E2_04>
+  <RHAH_Kingdom_E2_05>「わあ...ここは...」</RHAH_Kingdom_E2_05>
+  <RHAH_Kingdom_E2_06>扉の向こうにはまだ明かりがあった。笑い声や、杯の触れ合う音が聞こえた。ここは宮殿とあまり変わらないと思った。</RHAH_Kingdom_E2_06>
+  <RHAH_Kingdom_E2_07>さらに歩くと、明かりはほとんどなくなり、とても嫌な臭いがした気がした。</RHAH_Kingdom_E2_07>
+  <RHAH_Kingdom_E2_08>荷車を引くラットキンが私の横を通り過ぎた。こちらを一度見たが、足は止めなかった。</RHAH_Kingdom_E2_08>
+  <RHAH_Kingdom_E2_09>「...こんにちは？」</RHAH_Kingdom_E2_09>
+  <RHAH_Kingdom_E2_10>「...」そのラットキンは答えず、ただ無感覚に歩き続けた。</RHAH_Kingdom_E2_10>
+  <RHAH_Kingdom_E2_11>ここ...みんな...？</RHAH_Kingdom_E2_11>
+  <RHAH_Kingdom_E2_12>穗音は食べ物を奪い合う人々に手を伸ばしたが、押しのけられた。</RHAH_Kingdom_E2_12>
+  <RHAH_Kingdom_E2_13>「どうしてあの人たちには食べ物がないの？壁のすぐ外なのに。知っているの？」</RHAH_Kingdom_E2_13>
+  <RHAH_Kingdom_E2_14>「また勝手に遊びに出たのか！」</RHAH_Kingdom_E2_14>
+  <RHAH_Kingdom_E2_15>「宮殿から出てはいけません。外の世界はすべて偽物なのです」</RHAH_Kingdom_E2_15>
+  <RHAH_Kingdom_E2_16>「目にしたものを信じてはいけません...」</RHAH_Kingdom_E2_16>
+  <RHAH_Kingdom_E2_17>二人は扉を閉めた。私は座ったまま、外にあった空の鍋を思い出した。どうして満足に食べられない人がいるのだろう。そう考えていた。</RHAH_Kingdom_E2_17>
+  <RHAH_Kingdom_E3_01>二度目に外へ出たとき、聞きたいことをたくさん考えていた。長い間、心の中で言葉を練っていたのに、どう切り出せばいいのかわからなかった。</RHAH_Kingdom_E3_01>
+  <RHAH_Kingdom_E3_02>「......」</RHAH_Kingdom_E3_02>
+  <RHAH_Kingdom_E3_03>教会では毎日ラットキンが祈っていた。私も祈ったことがある。けれど、壁の外にいるラットキンは、いったい誰に助けを求めればいいのだろう？</RHAH_Kingdom_E3_03>
+  <RHAH_Kingdom_E3_04>一本の手が穗音の行く先を遮った。火のついていない煙草。紫の上着に描かれた笑顔。</RHAH_Kingdom_E3_04>
+  <RHAH_Kingdom_E3_05>「さあ、神（超越知性）が何をするのか、見届けようじゃないか」</RHAH_Kingdom_E3_05>
+  <RHAH_Kingdom_E3_06>穗音は男を見上げ、彼の手のひらへゆっくりと右手を伸ばした。</RHAH_Kingdom_E3_06>
+  <RHAH_Kingdom_E3_07>二人の手が触れ合った。</RHAH_Kingdom_E3_07>
+  <RHAH_Kingdom_E3_08>あのときは、その言葉の意味がわからなかった。</RHAH_Kingdom_E3_08>
+  <RHAH_Kingdom_E4_01>書いては破って、もう何枚も紙をだめにしてしまいました。</RHAH_Kingdom_E4_01>
+  <RHAH_Kingdom_E4_02>宮殿に、同じ穀物の出荷について書かれた二通の受領記録があります。一通にはすでに届いたとあり、もう一通にはまだ発送していないとあります。保管している人に聞くと、別の人に聞くように言われました。</RHAH_Kingdom_E4_02>
+  <RHAH_Kingdom_E4_03>もう原本を持ち出す勇気がなくて、二通の写しを作りました。代わりに見てもらえませんか？</RHAH_Kingdom_E4_03>
+  <RHAH_Kingdom_E4_04>今はただ、どちらが間違っているのか知りたいのです。\n——穗音</RHAH_Kingdom_E4_04>
+</LanguageData>

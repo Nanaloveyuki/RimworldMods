@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <DutyDef>
+    <defName>MouseDisaster_ReliefVisit</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="MouseDisaster.JobGiver_MouseDisasterVisit" />
+        <li Class="JobGiver_WanderNearDutyLocation">
+          <ticksBetweenWandersRange>180~360</ticksBetweenWandersRange>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+</Defs>

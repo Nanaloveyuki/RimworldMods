@@ -1,0 +1,144 @@
+{
+  "name": "oxygen-language-support",
+  "displayName": "Oxygen Language Support",
+  "description": "Oxygen DSL text tools and offline Blockly programming for RimWorld mod authors.",
+  "version": "0.2.0",
+  "publisher": "nanaloveyuki",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "oxygen",
+    "oxy",
+    "rimworld",
+    "dsl"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onLanguage:oxygen",
+    "onCustomEditor:oxygen.blocks",
+    "onCommand:oxygen.newBlocks"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Highlighting, snippets, and block editing remain available. Analysis and source export require workspace trust."
+    },
+    "virtualWorkspaces": {
+      "supported": true
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "vscode:prepublish": "npm run build",
+    "package:vsix": "node scripts/package.mjs",
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.7.1",
+    "blockly": "13.3.0",
+    "esbuild": "0.28.2",
+    "@codemirror/theme-one-dark": "6.1.2",
+    "codemirror": "6.0.2"
+  },
+  "contributes": {
+    "customEditors": [{
+      "viewType": "oxygen.blocks",
+      "displayName": "Oxygen 积木编辑器",
+      "selector": [{ "filenamePattern": "*.oxyblocks" }],
+      "priority": "default"
+    }],
+    "languages": [
+      {
+        "id": "oxygen",
+        "aliases": [
+          "Oxygen",
+          "oxygen",
+          "oxy"
+        ],
+        "extensions": [
+          ".oxy"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "oxygen",
+        "scopeName": "source.oxygen",
+        "path": "./syntaxes/oxygen.tmLanguage.json"
+      },
+      {
+        "scopeName": "source.oxygen.markdown.fence",
+        "path": "./syntaxes/oxygen-markdown-fence.tmLanguage.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.oxygen": "oxygen"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "oxygen",
+        "path": "./snippets/oxygen.json"
+      }
+    ],
+    "commands": [
+      { "command": "oxygen.newBlocks", "title": "Oxygen: New Block Program" },
+      {
+        "command": "oxygen.checkDocument",
+        "title": "Oxygen: Check Current Document"
+      },
+      {
+        "command": "oxygen.restartAnalyzer",
+        "title": "Oxygen: Restart Analyzer"
+      },
+      {
+        "command": "oxygen.showOutput",
+        "title": "Oxygen: Show Analyzer Output"
+      }
+    ],
+    "configuration": {
+      "title": "Oxygen",
+      "properties": {
+        "oxygen.diagnostics.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Analyze open Oxygen documents after editing and on save. Outline navigation remains available when disabled."
+        },
+        "oxygen.analysis.mode": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "script",
+            "module"
+          ],
+          "default": "auto",
+          "description": "Auto distinguishes library declarations from executable scripts by syntax, never by filename. Override per folder with module or script."
+        },
+        "oxygen.diagnostics.language": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "en",
+            "zh-CN"
+          ],
+          "default": "auto",
+          "description": "Diagnostic language; auto follows the VSCode UI language."
+        },
+        "oxygen.dotnetPath": {
+          "type": "string",
+          "default": "dotnet",
+          "scope": "machine-overridable",
+          "description": "Path to the .NET executable on the extension host (local, WSL, SSH or container). Requires .NET 9 or newer."
+        }
+      }
+    }
+  }
+}

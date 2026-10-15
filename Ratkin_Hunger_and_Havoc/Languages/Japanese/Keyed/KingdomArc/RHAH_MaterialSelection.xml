@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_MaterialSelection_CopyOpen>王国の文書の写しを作る</RHAH_MaterialSelection_CopyOpen>
+  <RHAH_MaterialSelection_CopyTitle>複写する文書を選ぶ</RHAH_MaterialSelection_CopyTitle>
+  <RHAH_MaterialSelection_CopyHelp>選んだ文書を無料で複写し、拠点に置きます。写しはキャラバンに積んで照合へ持参できます。原本は残り、出所、番号、氏名の伏せ方もそのまま引き継ぎます。</RHAH_MaterialSelection_CopyHelp>
+  <RHAH_MaterialSelection_MakeCopies>選んだ文書を複写する</RHAH_MaterialSelection_MakeCopies>
+  <RHAH_MaterialSelection_PublicationTitle>送る文書の写しを選ぶ</RHAH_MaterialSelection_PublicationTitle>
+  <RHAH_MaterialSelection_HandoverTitle>王国へ渡す文書を選ぶ</RHAH_MaterialSelection_HandoverTitle>
+  <RHAH_MaterialSelection_PublicationHelp>選んだ文書の写しを、独立した2組の相手へ送ります。原本はコロニーに残ります。配達後に受領の知らせが届きます。</RHAH_MaterialSelection_PublicationHelp>
+  <RHAH_MaterialSelection_HandoverHelp>王国の使者か配達人が、選んだ文書をコロニーから受け取ります。選ばなかった文書は手元に残ります。</RHAH_MaterialSelection_HandoverHelp>
+  <RHAH_MaterialSelection_Redacted>書記は氏名の公表にまだ同意していません。声明の写しから氏名を伏せて送ります。</RHAH_MaterialSelection_Redacted>
+  <RHAH_MaterialSelection_NamedConsent>書記は公開する資料への記名に同意しています。すでに氏名を伏せた写しは、そのまま送ります。</RHAH_MaterialSelection_NamedConsent>
+  <RHAH_MaterialSelection_ChooseHelp>文書を1つずつ選んでください。現在、この拠点で所持している資料のみ表示されます。</RHAH_MaterialSelection_ChooseHelp>
+  <RHAH_MaterialSelection_Count>{1}点中{0}点を選択</RHAH_MaterialSelection_Count>
+  <RHAH_MaterialSelection_SendCopies>選んだ写しを送る</RHAH_MaterialSelection_SendCopies>
+  <RHAH_MaterialSelection_HandOver>選んだ文書を渡す</RHAH_MaterialSelection_HandOver>
+  <RHAH_MaterialSelection_Empty>この拠点に渡せる王国の文書はありません。キャラバンが持つ文書は、先に拠点へ持ち帰ってください。</RHAH_MaterialSelection_Empty>
+  <RHAH_MaterialSelection_Item>#{0}　{1}（{2}）</RHAH_MaterialSelection_Item>
+  <RHAH_MaterialSelection_Provenance>出所：{0}。{1}。</RHAH_MaterialSelection_Provenance>
+  <RHAH_MaterialSelection_Stale>この依頼は変更されたか、停止しています。ウィンドウを閉じて、現在の手紙を開き直してください。</RHAH_MaterialSelection_Stale>
+  <RHAH_MaterialSelection_Missing>拠点に残っている文書を1点以上選んでください。資料が変わった場合は、閉じて選び直してください。</RHAH_MaterialSelection_Missing>
+  <RHAH_MaterialSelection_Failed>文書はまだ渡せていません。資料と受取人を確認してから、もう一度お試しください。</RHAH_MaterialSelection_Failed>
+</LanguageData>

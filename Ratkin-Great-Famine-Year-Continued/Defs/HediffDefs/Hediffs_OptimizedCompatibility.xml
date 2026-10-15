@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Preserve optimized save markers without registering a second event system. -->
+  <HediffDef Name="MouseDisasterOptimizedMarker" Abstract="True">
+    <hediffClass>HediffWithComps</hediffClass><initialSeverity>1</initialSeverity>
+  </HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_AidVisitor</defName><label>援助请求者</label><description>曾前来请求援助的鼠族。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_IntelMessenger</defName><label>情报信使</label><description>曾携带附近情报的鼠族。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_LaboringRefugee</defName><label>待产难民</label><description>为分娩寻求庇护的鼠族。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_StrongSieger</defName><label>围攻饥民</label><description>曾围堵殖民地索要食物的鼠族。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_Passerby</defName><label>路过流民</label><description>路经此地的鼠族。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_AirdropBaby</defName><label>空投鼠蛋</label><description>由空投来到这里的鼠族幼崽。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_MisguidedKin</defName><label>认亲鼠蛋</label><description>曾认人作亲属的鼠族幼崽。</description></HediffDef>
+  <HediffDef ParentName="MouseDisasterOptimizedMarker"><defName>MouseDisaster_CaravanMugger</defName><label>商路劫掠者</label><description>曾在商路劫取食物的鼠族。</description></HediffDef>
+</Defs>

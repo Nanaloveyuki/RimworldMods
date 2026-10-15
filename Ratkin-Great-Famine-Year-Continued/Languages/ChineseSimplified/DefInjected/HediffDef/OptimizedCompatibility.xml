@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_AidVisitor.label>援助请求者</MouseDisaster_AidVisitor.label>
+  <MouseDisaster_AidVisitor.description>曾前来请求援助的鼠族。</MouseDisaster_AidVisitor.description>
+  <MouseDisaster_IntelMessenger.label>情报信使</MouseDisaster_IntelMessenger.label>
+  <MouseDisaster_IntelMessenger.description>曾携带附近情报的鼠族。</MouseDisaster_IntelMessenger.description>
+  <MouseDisaster_LaboringRefugee.label>待产难民</MouseDisaster_LaboringRefugee.label>
+  <MouseDisaster_LaboringRefugee.description>为分娩寻求庇护的鼠族。</MouseDisaster_LaboringRefugee.description>
+  <MouseDisaster_StrongSieger.label>围攻饥民</MouseDisaster_StrongSieger.label>
+  <MouseDisaster_StrongSieger.description>曾围堵殖民地索要食物的鼠族。</MouseDisaster_StrongSieger.description>
+  <MouseDisaster_Passerby.label>路过流民</MouseDisaster_Passerby.label>
+  <MouseDisaster_Passerby.description>路经此地的鼠族。</MouseDisaster_Passerby.description>
+  <MouseDisaster_AirdropBaby.label>空投鼠蛋</MouseDisaster_AirdropBaby.label>
+  <MouseDisaster_AirdropBaby.description>由空投来到这里的鼠族幼崽。</MouseDisaster_AirdropBaby.description>
+  <MouseDisaster_MisguidedKin.label>认亲鼠蛋</MouseDisaster_MisguidedKin.label>
+  <MouseDisaster_MisguidedKin.description>曾认人作亲属的鼠族幼崽。</MouseDisaster_MisguidedKin.description>
+  <MouseDisaster_CaravanMugger.label>商路劫掠者</MouseDisaster_CaravanMugger.label>
+  <MouseDisaster_CaravanMugger.description>曾在商路劫取食物的鼠族。</MouseDisaster_CaravanMugger.description>
+</LanguageData>

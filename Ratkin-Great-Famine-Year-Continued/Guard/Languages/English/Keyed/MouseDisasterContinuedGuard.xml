@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisasterContinued_DuplicateMod_Title>Duplicate Ratkin Great Famine Year mods</MouseDisasterContinued_DuplicateMod_Title>
+  <MouseDisasterContinued_DuplicateMod_Body>The original or optimized Ratkin Great Famine Year and Continued are both enabled. Continued gameplay content has been disabled to prevent duplicate assemblies, Defs and patches. Keep only one version and restart RimWorld before loading or saving. To migrate an optimized save, disable the optimized mod rather than enabling both versions.</MouseDisasterContinued_DuplicateMod_Body>
+</LanguageData>

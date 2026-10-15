@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Kingdom_Open>Read Suiyin's letter</RHAH_Kingdom_Open>
+  <RHAH_Kingdom_Unavailable>Suiyin cannot be contacted right now</RHAH_Kingdom_Unavailable>
+  <RHAH_Kingdom_Title>The wall and the outstretched hand</RHAH_Kingdom_Title>
+  <RHAH_Kingdom_Arrival>Suiyin has sent a private letter. She would like you to look at two receipts concerning the same shipment of grain.</RHAH_Kingdom_Arrival>
+  <RHAH_Kingdom_Progress>Passage {0} / {1}</RHAH_Kingdom_Progress>
+  <RHAH_Kingdom_Manual>Manual</RHAH_Kingdom_Manual>
+  <RHAH_Kingdom_Auto>Auto</RHAH_Kingdom_Auto>
+  <RHAH_Kingdom_Fast>Fast</RHAH_Kingdom_Fast>
+  <RHAH_Kingdom_Pause>Pause reading</RHAH_Kingdom_Pause>
+  <RHAH_Kingdom_Resume>Resume reading</RHAH_Kingdom_Resume>
+  <RHAH_Kingdom_Previous>Previous</RHAH_Kingdom_Previous>
+  <RHAH_Kingdom_Next>Next</RHAH_Kingdom_Next>
+  <RHAH_Kingdom_Skip>To the letter</RHAH_Kingdom_Skip>
+  <RHAH_Kingdom_Review>Review</RHAH_Kingdom_Review>
+  <RHAH_Kingdom_Return>Return</RHAH_Kingdom_Return>
+  <RHAH_Kingdom_ReadOnly>Review · Read only</RHAH_Kingdom_ReadOnly>
+  <RHAH_Kingdom_Close>Close</RHAH_Kingdom_Close>
+  <RHAH_Kingdom_Accept>We'll take a look</RHAH_Kingdom_Accept>
+  <RHAH_Kingdom_Defer>Maybe later</RHAH_Kingdom_Defer>
+  <RHAH_Kingdom_Decline>Decline the request</RHAH_Kingdom_Decline>
+  <RHAH_Kingdom_Conditions>Agree to receive two copies. No supplies are required at present.</RHAH_Kingdom_Conditions>
+  <RHAH_Kingdom_Accepted>You have agreed to receive the two copies. They have not arrived yet.</RHAH_Kingdom_Accepted>
+  <RHAH_Kingdom_Declined>You have declined this invitation.</RHAH_Kingdom_Declined>
+  <RHAH_Kingdom_AcceptedReply>Thank you. I'll have the messenger bring the copies over.</RHAH_Kingdom_AcceptedReply>
+  <RHAH_Kingdom_DeclinedReply>All right. I'll put them away for now.</RHAH_Kingdom_DeclinedReply>
+  <RHAH_Kingdom_ReplyFailed>This letter cannot be answered right now.</RHAH_Kingdom_ReplyFailed>
+  <RHAH_Kingdom_Pending>Suiyin is waiting for your reply.</RHAH_Kingdom_Pending>
+  <RHAH_Kingdom_E1Title>Butterflies in the imperial garden</RHAH_Kingdom_E1Title>
+  <RHAH_Kingdom_E2Title>Beyond the palace wall</RHAH_Kingdom_E2Title>
+  <RHAH_Kingdom_E3Title>The hand held out to me</RHAH_Kingdom_E3Title>
+  <RHAH_Kingdom_E4Title>The first private letter</RHAH_Kingdom_E4Title>
+  <RHAH_Kingdom_Diary>Suiyin today · Diary</RHAH_Kingdom_Diary>
+  <RHAH_Kingdom_Child>Little Suiyin</RHAH_Kingdom_Child>
+  <RHAH_Kingdom_Young>Young Suiyin</RHAH_Kingdom_Young>
+  <RHAH_Kingdom_Father>Father</RHAH_Kingdom_Father>
+  <RHAH_Kingdom_FatherQuiet>Father · Quietly</RHAH_Kingdom_FatherQuiet>
+  <RHAH_Kingdom_Mother>Mother</RHAH_Kingdom_Mother>
+  <RHAH_Kingdom_Randy>Randy</RHAH_Kingdom_Randy>
+  <RHAH_Kingdom_Letter>Suiyin · Private letter</RHAH_Kingdom_Letter>
+  <RHAH_Kingdom_Memory>Memory</RHAH_Kingdom_Memory>
+  <RHAH_Kingdom_E1_01>"I was so innocent as a child..."</RHAH_Kingdom_E1_01>
+  <RHAH_Kingdom_E1_02>"Daddy, where are we going?"</RHAH_Kingdom_E1_02>
+  <RHAH_Kingdom_E1_03>"Oh, my little darling. Shall we go and play in the imperial garden?"</RHAH_Kingdom_E1_03>
+  <RHAH_Kingdom_E1_04>"Yes~"</RHAH_Kingdom_E1_04>
+  <RHAH_Kingdom_E1_05>"Look! What's that?"</RHAH_Kingdom_E1_05>
+  <RHAH_Kingdom_E1_06>"That's a butterfly. A little insect that flies. Its wings are pretty, aren't they?"</RHAH_Kingdom_E1_06>
+  <RHAH_Kingdom_E1_07>"Pretty, pretty!"</RHAH_Kingdom_E1_07>
+  <RHAH_Kingdom_E1_08>"Are there butterflies this pretty everywhere?"</RHAH_Kingdom_E1_08>
+  <RHAH_Kingdom_E1_09>"Oh, my little darling, of course there are."</RHAH_Kingdom_E1_09>
+  <RHAH_Kingdom_E1_10>"Then can all ratkin play like this?"</RHAH_Kingdom_E1_10>
+  <RHAH_Kingdom_E1_11>"......"</RHAH_Kingdom_E1_11>
+  <RHAH_Kingdom_E1_12>"Of course..."</RHAH_Kingdom_E1_12>
+  <RHAH_Kingdom_E1_13>"...right?"</RHAH_Kingdom_E1_13>
+  <RHAH_Kingdom_E1_14>"Yay! Ratkin love pretty butterflies!"</RHAH_Kingdom_E1_14>
+  <RHAH_Kingdom_E1_15>"Back then, I didn't yet know I was living in a lie..."</RHAH_Kingdom_E1_15>
+  <RHAH_Kingdom_E2_01>Suiyin climbs a staircase of carefully arranged chairs to scale the palace wall.</RHAH_Kingdom_E2_01>
+  <RHAH_Kingdom_E2_02>"Hup..."</RHAH_Kingdom_E2_02>
+  <RHAH_Kingdom_E2_03>She leaps over the palace wall and lands in the street outside.</RHAH_Kingdom_E2_03>
+  <RHAH_Kingdom_E2_04>The wealthy district is quiet at night.</RHAH_Kingdom_E2_04>
+  <RHAH_Kingdom_E2_05>"Wow... this place..."</RHAH_Kingdom_E2_05>
+  <RHAH_Kingdom_E2_06>There were still lights on behind the doors. I heard laughter and glasses clinking together. I thought this place was much like the palace.</RHAH_Kingdom_E2_06>
+  <RHAH_Kingdom_E2_07>Further along, there was almost no light at all, and I thought I could smell something awful.</RHAH_Kingdom_E2_07>
+  <RHAH_Kingdom_E2_08>A ratkin pulling a cart passed me. He glanced at me without slowing down.</RHAH_Kingdom_E2_08>
+  <RHAH_Kingdom_E2_09>"...Hello?"</RHAH_Kingdom_E2_09>
+  <RHAH_Kingdom_E2_10>"..." The ratkin gave no answer. He simply trudged on, numb.</RHAH_Kingdom_E2_10>
+  <RHAH_Kingdom_E2_11>Here... everyone...?</RHAH_Kingdom_E2_11>
+  <RHAH_Kingdom_E2_12>Suiyin reaches toward the people fighting over food, but they push her aside.</RHAH_Kingdom_E2_12>
+  <RHAH_Kingdom_E2_13>"Why don't they have anything to eat? They're right outside the wall. Do you know about them?"</RHAH_Kingdom_E2_13>
+  <RHAH_Kingdom_E2_14>"Why have you run off to play again!"</RHAH_Kingdom_E2_14>
+  <RHAH_Kingdom_E2_15>"Do not leave the palace. Everything in the world outside is false."</RHAH_Kingdom_E2_15>
+  <RHAH_Kingdom_E2_16>"Don't believe anything you see..."</RHAH_Kingdom_E2_16>
+  <RHAH_Kingdom_E2_17>They shut the door. I sat there thinking of that empty pot outside. Why did some people not have enough to eat? I kept wondering.</RHAH_Kingdom_E2_17>
+  <RHAH_Kingdom_E3_01>The second time I went out, I had so many questions in mind. I didn't know how to say them, even after turning them over for so long.</RHAH_Kingdom_E3_01>
+  <RHAH_Kingdom_E3_02>"......"</RHAH_Kingdom_E3_02>
+  <RHAH_Kingdom_E3_03>Ratkin prayed in the church every day. I had prayed too. But who were the ratkin outside the wall supposed to ask for help?</RHAH_Kingdom_E3_03>
+  <RHAH_Kingdom_E3_04>A hand blocks Suiyin's path. An unlit cigarette. A smiley face on a purple coat.</RHAH_Kingdom_E3_04>
+  <RHAH_Kingdom_E3_05>"Come on. Let's see what god (the archotech) will do."</RHAH_Kingdom_E3_05>
+  <RHAH_Kingdom_E3_06>Suiyin looks up at the man and slowly reaches her right hand toward his palm.</RHAH_Kingdom_E3_06>
+  <RHAH_Kingdom_E3_07>Their hands meet.</RHAH_Kingdom_E3_07>
+  <RHAH_Kingdom_E3_08>I didn't understand him then.</RHAH_Kingdom_E3_08>
+  <RHAH_Kingdom_E4_01>I've written and torn it up again. I've already ruined several sheets of paper.</RHAH_Kingdom_E4_01>
+  <RHAH_Kingdom_E4_02>There are two receipts in the palace for the same shipment of grain. One says it has already arrived. The other says it hasn't been sent yet. I asked the person who keeps them, and he told me to ask someone else.</RHAH_Kingdom_E4_02>
+  <RHAH_Kingdom_E4_03>I daren't take the originals out again, so I made two copies. Would you look at them for me?</RHAH_Kingdom_E4_03>
+  <RHAH_Kingdom_E4_04>All I want to know right now is which one is wrong.\n—Suiyin</RHAH_Kingdom_E4_04>
+</LanguageData>

@@ -1,0 +1,16 @@
+// Aliases follow the current condition. Original names stay unchanged.
+fn codename(pawn): string {
+    let kind = "P"
+    if pawn.race == "Ratkin" { kind = "RK" }
+    let purpose = pawn.interaction_label
+    if pawn.has_interaction("HemogenFarm") { purpose = "blood" }
+    let name = f"{kind}-{pawn.number_text} · {purpose}"
+    if !pawn.recruitable { name += " · unwavering" }
+    if pawn.bleeding { return name + " · bleeding" }
+    if pawn.downed { return name + " · downed" }
+    if pawn.sick { return name + " · sick" }
+    if pawn.interaction == "AttemptRecruit" && pawn.resistance <= 0 {
+        return name + " · ready"
+    }
+    return name
+}

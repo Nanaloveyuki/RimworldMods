@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <MouseDisaster_Settings_LeaveAfterFed>Event Ratkin leave after eating their fill</MouseDisaster_Settings_LeaveAfterFed>
+  <MouseDisaster_Settings_PositiveDays>Positive Ratkin events: {0} days on average (0 disables)</MouseDisaster_Settings_PositiveDays>
+  <MouseDisaster_Settings_NegativeDays>Negative Ratkin events: {0} days on average (0 disables)</MouseDisaster_Settings_NegativeDays>
+  <MouseDisaster_Settings_CountWithoutSuin>Track Ratkin progress and trust with other storytellers</MouseDisaster_Settings_CountWithoutSuin>
+  <MouseDisaster_Settings_EndingsWithoutSuin>Allow endings with other storytellers</MouseDisaster_Settings_EndingsWithoutSuin>
+  <MouseDisaster_Settings_Positive>For the player: positive event</MouseDisaster_Settings_Positive>
+  <MouseDisaster_Settings_Negative>For the player: negative event</MouseDisaster_Settings_Negative>
+  <MouseDisaster_Settings_ReplaceRaid>May replace random raids (independent of pool intervals)</MouseDisaster_Settings_ReplaceRaid>
+  <MouseDisaster_Story_Trust>Suin's trust: {0}</MouseDisaster_Story_Trust>
+  <MouseDisaster_Story_AlertTrustLabel>Ratkin events (trust: {0})</MouseDisaster_Story_AlertTrustLabel>
+</LanguageData>

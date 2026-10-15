@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Transaction_Food>食料</RHAH_Transaction_Food>
+  <RHAH_ChildExchange_LegacyHint>訪問者に引き渡すコロニーの子供を選んでください。子供は訪問者の派閥とともに立ち去ります。</RHAH_ChildExchange_LegacyHint>
+  <RHAH_ChildExchange_LegacyChoose>{0}を訪問者に引き渡す</RHAH_ChildExchange_LegacyChoose>
+  <RHAH_Transaction_Accept>食料を交換する</RHAH_Transaction_Accept>
+  <RHAH_Transaction_Quote>渡す食料：{0} × {1}。彼らが持参した報酬：{2}。</RHAH_Transaction_Quote>
+  <RHAH_Transaction_NoQuote>保管場所に使える食料がないか、訪問者の報酬が揃っていません。この交換はできません。</RHAH_Transaction_NoQuote>
+  <RHAH_Transaction_Hint>提示された条件は変わりません。訪問者が食料を持ち帰り、報酬は入植者が到達できる受け渡し場所にすぐ置かれます。追加の贈り物として情報を教えてくれることもあります。{0}日以内に交換しなければ、彼らは立ち去ります。</RHAH_Transaction_Hint>
+  <RHAH_Transaction_Unavailable>食料か報酬が足りないか、双方が到達できる受け渡し場所がありません。</RHAH_Transaction_Unavailable>
+  <RHAH_Transaction_Completed>訪問者に食料を渡しました。報酬は受け渡し場所に置かれました。</RHAH_Transaction_Completed>
+  <RHAH_ChildExchange_Choose>{0}を渡して子ラットキンを迎える</RHAH_ChildExchange_Choose>
+  <RHAH_ChildExchange_ChooseNone>引き渡す子供を選ぶ</RHAH_ChildExchange_ChooseNone>
+  <RHAH_ChildExchange_NoChild>このマップには引き渡せるコロニーの子供がいません。</RHAH_ChildExchange_NoChild>
+  <RHAH_ChildExchange_Food>食料を渡す：簡単な食事{0}食分で子ラットキンを迎える</RHAH_ChildExchange_Food>
+  <RHAH_ChildExchange_SelectionHint>引き渡すコロニーの子供を選んでください。交換後、訪問した子ラットキンはコロニーに加入します。大人の訪問者は加入しません。</RHAH_ChildExchange_SelectionHint>
+  <RHAH_ChildExchange_LegacyFood>食料を渡す：子供の代わりに簡単な食事{0}食分</RHAH_ChildExchange_LegacyFood>
+  <RHAH_ChildExchange_LegacyFoodHint>子供の代わりに簡単な食事{1}食分を渡せます。子供の交換で必要な1人あたり{0}食分の2倍です。訪問者は食料を受け取って立ち去り、コロニーの子供は連れていきません。</RHAH_ChildExchange_LegacyFoodHint>
+  <RHAH_ChildExchange_NoIncoming>訪問した子ラットキンはまだコロニーに加入できません。</RHAH_ChildExchange_NoIncoming>
+  <RHAH_ChildExchange_FoodDisabled>設定で食料による代替が無効になっています。</RHAH_ChildExchange_FoodDisabled>
+  <RHAH_ChildExchange_NoFood>簡単な食事が{0}食分必要です。このマップには十分な数がありません。</RHAH_ChildExchange_NoFood>
+  <RHAH_ChildExchange_Completed>交換が完了しました。</RHAH_ChildExchange_Completed>
+</LanguageData>

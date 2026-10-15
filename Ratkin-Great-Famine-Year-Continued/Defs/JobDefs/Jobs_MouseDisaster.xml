@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JobDef>
+    <defName>MouseDisaster_BegForFood</defName>
+    <driverClass>MouseDisaster.JobDriver_BegForFood</driverClass>
+    <reportString>乞讨食物</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>MouseDisaster_GnawTreeBark</defName>
+    <driverClass>MouseDisaster.JobDriver_GnawTreeBark</driverClass>
+    <reportString>啃树皮</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>MouseDisaster_GnawWall</defName>
+    <driverClass>MouseDisaster.JobDriver_GnawWall</driverClass>
+    <reportString>啃墙皮</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>MouseDisaster_PrisonerScavenge</defName>
+    <driverClass>MouseDisaster.JobDriver_PrisonerScavenge</driverClass>
+    <reportString>趴在地上舔能吃的脏东西</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>MouseDisaster_TailBite</defName>
+    <driverClass>MouseDisaster.JobDriver_TailBite</driverClass>
+    <reportString>悄悄爬过去咬尾巴</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>MouseDisaster_BroadcastHope</defName>
+    <driverClass>MouseDisaster.JobDriver_BroadcastHope</driverClass>
+    <reportString>Broadcasting hope through the comms console.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+</Defs>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <PawnKindDef Name="MouseDisasterRatkinBase" Abstract="True">
+    <race>Ratkin</race>
+    <combatPower>12</combatPower>
+    <isFighter>true</isFighter>
+    <canMeleeAttack>true</canMeleeAttack>
+    <appearsRandomlyInCombatGroups>false</appearsRandomlyInCombatGroups>
+    <apparelMoney>0~0</apparelMoney>
+    <apparelAllowHeadgearChance>0</apparelAllowHeadgearChance>
+    <weaponMoney>0~0</weaponMoney>
+    <techHediffsMoney>0~0</techHediffsMoney>
+    <invNutrition>0.2</invNutrition>
+    <initialResistanceRange>0~1</initialResistanceRange>
+    <initialWillRange>0~0</initialWillRange>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_WildRatkinAdult</defName>
+    <label>野生鼠族</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <fixedAdultBackstories>
+      <li>MouseDisaster_Refugee</li>
+    </fixedAdultBackstories>
+    <minGenerationAge>16</minGenerationAge>
+    <maxGenerationAge>50</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_WildRatkinBaby</defName>
+    <label>野生鼠蛋</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <minGenerationAge>0.0166667</minGenerationAge>
+    <maxGenerationAge>2.9</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_WildRatkinChild</defName>
+    <label>野生鼠蛋</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <minGenerationAge>3</minGenerationAge>
+    <maxGenerationAge>6.9</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_ThiefRatkinAdult</defName>
+    <label>偷窃鼠族</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <fixedAdultBackstories>
+      <li>MouseDisaster_Refugee</li>
+    </fixedAdultBackstories>
+    <minGenerationAge>16</minGenerationAge>
+    <maxGenerationAge>50</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_ThiefRatkinBaby</defName>
+    <label>偷窃鼠蛋</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <minGenerationAge>0.0166667</minGenerationAge>
+    <maxGenerationAge>2.9</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_ThiefRatkinChild</defName>
+    <label>偷窃鼠蛋</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <minGenerationAge>3</minGenerationAge>
+    <maxGenerationAge>6.9</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_BeggarRatkinAdult</defName>
+    <label>乞讨鼠族</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <fixedAdultBackstories>
+      <li>MouseDisaster_Refugee</li>
+    </fixedAdultBackstories>
+    <minGenerationAge>16</minGenerationAge>
+    <maxGenerationAge>50</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_BeggarRatkinBaby</defName>
+    <label>乞讨鼠蛋</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <minGenerationAge>0.0166667</minGenerationAge>
+    <maxGenerationAge>2.9</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_BeggarRatkinChild</defName>
+    <label>乞讨鼠蛋</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <minGenerationAge>3</minGenerationAge>
+    <maxGenerationAge>6.9</maxGenerationAge>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_TraderRatkinAdult</defName>
+    <label>流民商贩鼠族</label>
+    <trader>true</trader>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <fixedAdultBackstories>
+      <li>MouseDisaster_Refugee</li>
+    </fixedAdultBackstories>
+    <minGenerationAge>16</minGenerationAge>
+    <maxGenerationAge>50</maxGenerationAge>
+  </PawnKindDef>
+  <PawnKindDef ParentName="MouseDisasterRatkinBase">
+    <defName>MouseDisaster_TraderRatkinEscort</defName>
+    <label>流民商队护卫鼠族</label>
+    <fixedChildBackstories>
+      <li>MouseDisaster_Newborn</li>
+    </fixedChildBackstories>
+    <fixedAdultBackstories>
+      <li>MouseDisaster_Refugee</li>
+    </fixedAdultBackstories>
+    <minGenerationAge>16</minGenerationAge>
+    <maxGenerationAge>50</maxGenerationAge>
+  </PawnKindDef>
+</Defs>

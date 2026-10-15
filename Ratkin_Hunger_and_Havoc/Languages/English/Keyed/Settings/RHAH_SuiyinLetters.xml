@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Narrative_Nodes>Letters</RHAH_Menu_Narrative_Nodes>
+  <RHAH_Menu_Narrative_Node>Send this letter</RHAH_Menu_Narrative_Node>
+  <RHAH_Menu_Narrative_Thresholds>Thresholds</RHAH_Menu_Narrative_Thresholds>
+  <RHAH_Menu_Narrative_Progress>Event kinds before the reflection letter</RHAH_Menu_Narrative_Progress>
+  <RHAH_Menu_Narrative_Reward>Event kinds before the silver letter</RHAH_Menu_Narrative_Reward>
+  <RHAH_Menu_Narrative_Envoy>Event kinds before the envoy</RHAH_Menu_Narrative_Envoy>
+  <RHAH_Menu_Narrative_Relic>Event kinds before the record site</RHAH_Menu_Narrative_Relic>
+  <RHAH_Menu_Narrative_Journals>Records</RHAH_Menu_Narrative_Journals>
+  <RHAH_Menu_Narrative_JournalOpen>Open record {0}</RHAH_Menu_Narrative_JournalOpen>
+  <RHAH_Menu_Narrative_Aside>Asides</RHAH_Menu_Narrative_Aside>
+  <RHAH_Menu_Narrative_TrustClosed>Trust is too low, so Suiyin has stopped sending asides. She still sends letters when events reach an outcome.</RHAH_Menu_Narrative_TrustClosed>
+</LanguageData>

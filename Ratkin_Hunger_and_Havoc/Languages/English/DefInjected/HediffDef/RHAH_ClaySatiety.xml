@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ClaySatiety.label>clay satiety</RHAH_ClaySatiety.label>
+  <RHAH_ClaySatiety.description>Ingested clay has formed a lump in the stomach, temporarily slowing hunger. The lump gradually breaks down. After reaching the intake limit, the eater must wait before consuming more clay; ordinary food can still be eaten. The limit and interval can be changed in the mod settings.</RHAH_ClaySatiety.description>
+  <RHAH_ClaySatiety.stages.0.label>packed stomach</RHAH_ClaySatiety.stages.0.label>
+</LanguageData>

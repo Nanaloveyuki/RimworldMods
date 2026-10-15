@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_Y001_RuinsLitter.title>饥与祸 火后失散的幼崽</RHAH_History_Y001_RuinsLitter.title>
+  <RHAH_History_Y001_RuinsLitter.titleShort>饥与祸 失散幼崽</RHAH_History_Y001_RuinsLitter.titleShort>
+  <RHAH_History_Y001_RuinsLitter.description>有人纵火烧村时，[PAWN_nameDef]和母亲失散，只能躲进倒塌的屋舍。[PAWN_pronoun]靠碎粮撑过几天，出来时救援队已经走了，最后跟着后来经过的难民离开。</RHAH_History_Y001_RuinsLitter.description>
+  <RHAH_History_Y002_LostFieldLitter.title>饥与祸 失去农场的孩子</RHAH_History_Y002_LostFieldLitter.title>
+  <RHAH_History_Y002_LostFieldLitter.titleShort>饥与祸 农场孩童</RHAH_History_Y002_LostFieldLitter.titleShort>
+  <RHAH_History_Y002_LostFieldLitter.description>[PAWN_nameDef]在小农场长大。农场主卖掉土地，带走成年劳力，留下的孩子连地里仅剩的庄稼也没保住，全被征粮的人收走了。[PAWN_pronoun]只好跟着流民去找吃的。</RHAH_History_Y002_LostFieldLitter.description>
+  <RHAH_History_Y003_CreviceMessenger.title>饥与祸 洞穴小信使</RHAH_History_Y003_CreviceMessenger.title>
+  <RHAH_History_Y003_CreviceMessenger.titleShort>饥与祸 小信使</RHAH_History_Y003_CreviceMessenger.titleShort>
+  <RHAH_History_Y003_CreviceMessenger.description>[PAWN_nameDef]住在洞穴聚居地，大人为粮食分成了几队。孩子个子小，能钻过缝隙，[PAWN_pronoun]便成了他们之间的信使。后来烟雾和鼠群逼得洞里不能住，只得跟最后一队人来到地面。</RHAH_History_Y003_CreviceMessenger.description>
+  <RHAH_History_Y004_GrainMillApprentice.title>饥与祸 粮坊小帮工</RHAH_History_Y004_GrainMillApprentice.title>
+  <RHAH_History_Y004_GrainMillApprentice.titleShort>饥与祸 小帮工</RHAH_History_Y004_GrainMillApprentice.titleShort>
+  <RHAH_History_Y004_GrainMillApprentice.description>[PAWN_nameDef]跟母亲在粮坊做帮工，家里最靠得住的吃食就是碎粮。粮坊被征用后，连霉粮也混进了配给。母亲和孩子一起被赶了出去。</RHAH_History_Y004_GrainMillApprentice.description>
+  <RHAH_History_Y005_RatEggGuardApprentice.title>饥与祸 照看鼠蛋的孩子</RHAH_History_Y005_RatEggGuardApprentice.title>
+  <RHAH_History_Y005_RatEggGuardApprentice.titleShort>饥与祸 小看护</RHAH_History_Y005_RatEggGuardApprentice.titleShort>
+  <RHAH_History_Y005_RatEggGuardApprentice.description>队伍里的大人接连病倒，[PAWN_nameDef]只得照看比自己更小的鼠蛋。夜里迁移时，孩子们跟着[PAWN_objective]，却一起跟丢了亲人。此后，只能跟肯分食物的人走。</RHAH_History_Y005_RatEggGuardApprentice.description>
+  <RHAH_History_Y006_LandmarkRememberingOrphan.title>饥与祸 认路的失亲孩童</RHAH_History_Y006_LandmarkRememberingOrphan.title>
+  <RHAH_History_Y006_LandmarkRememberingOrphan.titleShort>饥与祸 认路孩童</RHAH_History_Y006_LandmarkRememberingOrphan.titleShort>
+  <RHAH_History_Y006_LandmarkRememberingOrphan.description>转移途中，[PAWN_nameDef]与家人走散，只记得枯树、裂桥和几处危险路口。[PAWN_pronoun]靠这些路标避开险路，被另一支难民队伍收留，却一直没找到原来的家。</RHAH_History_Y006_LandmarkRememberingOrphan.description>
+  <RHAH_History_Y007_LivestockApprentice.title>饥与祸 离乡牧童</RHAH_History_Y007_LivestockApprentice.title>
+  <RHAH_History_Y007_LivestockApprentice.titleShort>饥与祸 牧童</RHAH_History_Y007_LivestockApprentice.titleShort>
+  <RHAH_History_Y007_LivestockApprentice.description>[PAWN_nameDef]年小时就负责赶家里剩下的牲畜。农场先断了水，大半牲口又被征走。围栏被放弃那天，[PAWN_pronoun]赶着几只活下来的牲畜追上难民队，再没回过农场。</RHAH_History_Y007_LivestockApprentice.description>
+  <RHAH_History_Y008_OrphanedMillApprentice.title>饥与祸 磨坊弃童</RHAH_History_Y008_OrphanedMillApprentice.title>
+  <RHAH_History_Y008_OrphanedMillApprentice.titleShort>饥与祸 弃童</RHAH_History_Y008_OrphanedMillApprentice.titleShort>
+  <RHAH_History_Y008_OrphanedMillApprentice.description>[PAWN_nameDef]在磨坊做小帮工，学会了最简单的活计。主人欠下粮债后，大人都走了，只把[PAWN_objective]留在推不动的石磨旁。磨坊被拆时，[PAWN_pronoun]便带着这点本事离开。</RHAH_History_Y008_OrphanedMillApprentice.description>
+  <RHAH_History_Y009_CampfireListener.title>饥与祸 营地里听故事的孩子</RHAH_History_Y009_CampfireListener.title>
+  <RHAH_History_Y009_CampfireListener.titleShort>饥与祸 营地孩童</RHAH_History_Y009_CampfireListener.titleShort>
+  <RHAH_History_Y009_CampfireListener.description>[PAWN_nameDef]出生在难民队伍里，从没见过丰年，夜里听大人讲旧收成才能睡着。队伍断粮解散，把[PAWN_objective]留在营火旁。另一批流民经过时，[PAWN_pronoun]才跟着走。</RHAH_History_Y009_CampfireListener.description>
+  <RHAH_History_Y010_QuarantineShedChild.title>饥与祸 隔离棚孩童</RHAH_History_Y010_QuarantineShedChild.title>
+  <RHAH_History_Y010_QuarantineShedChild.titleShort>饥与祸 隔离孩童</RHAH_History_Y010_QuarantineShedChild.titleShort>
+  <RHAH_History_Y010_QuarantineShedChild.description>[PAWN_nameDef]和家人被送进隔离棚，最初还有人隔着门送饭送水。鼠疫加重后，门外再没人来，亲人陆续离开或死去。棚子拆除时，[PAWN_pronoun]跟着幸存者逃了出来。</RHAH_History_Y010_QuarantineShedChild.description>
+  <RHAH_History_Y011_RuinedHouseOrphan.title>饥与祸 废屋失亲孩童</RHAH_History_Y011_RuinedHouseOrphan.title>
+  <RHAH_History_Y011_RuinedHouseOrphan.titleShort>饥与祸 失亲孩童</RHAH_History_Y011_RuinedHouseOrphan.titleShort>
+  <RHAH_History_Y011_RuinedHouseOrphan.description>夜袭把[PAWN_nameDef]和家人冲散了。[PAWN_pronoun]躲进废屋，靠根茎和雨水活下来。搜寻的人再没回来，后来便独自在一个个难民营里找容身处。</RHAH_History_Y011_RuinedHouseOrphan.description>
+  <RHAH_History_Y012_NightWatchApprentice.title>饥与祸 守夜小帮手</RHAH_History_Y012_NightWatchApprentice.title>
+  <RHAH_History_Y012_NightWatchApprentice.titleShort>饥与祸 小守夜人</RHAH_History_Y012_NightWatchApprentice.titleShort>
+  <RHAH_History_Y012_NightWatchApprentice.description>难民营屡遭偷袭，大人轮流守夜也挡不住盗粮者。[PAWN_nameDef]睡不着，便记下了巡查路线。一次袭击后，[PAWN_pronoun]跟丢家人，此后仍替人守着营火。</RHAH_History_Y012_NightWatchApprentice.description>
+  <RHAH_History_Y013_CrowdBornChild.title>饥与祸 人群中走失的孩子</RHAH_History_Y013_CrowdBornChild.title>
+  <RHAH_History_Y013_CrowdBornChild.titleShort>饥与祸 走失孩童</RHAH_History_Y013_CrowdBornChild.titleShort>
+  <RHAH_History_Y013_CrowdBornChild.description>[PAWN_nameDef]被大人抱在庞大的难民队伍中间，每次停步，都有人被挤出队列。一场抢粮混乱后，[PAWN_pronoun]只记得家人的声音，最后被另一支队伍带走。</RHAH_History_Y013_CrowdBornChild.description>
+  <RHAH_History_Y014_AbandonedHouseRatEgg.title>饥与祸 空屋弃蛋</RHAH_History_Y014_AbandonedHouseRatEgg.title>
+  <RHAH_History_Y014_AbandonedHouseRatEgg.titleShort>饥与祸 弃蛋</RHAH_History_Y014_AbandonedHouseRatEgg.titleShort>
+  <RHAH_History_Y014_AbandonedHouseRatEgg.description>[PAWN_nameDef]被留在空屋门后，身边只有一块硬了的食物。大人说很快回来，门外的脚步却越来越少。路过的难民发现[PAWN_objective]，才把[PAWN_objective]带出了那间屋。</RHAH_History_Y014_AbandonedHouseRatEgg.description>
+  <RHAH_History_Y015_DoorstepRatEgg.title>饥与祸 门口托孤的鼠蛋</RHAH_History_Y015_DoorstepRatEgg.title>
+  <RHAH_History_Y015_DoorstepRatEgg.titleShort>饥与祸 托孤鼠蛋</RHAH_History_Y015_DoorstepRatEgg.titleShort>
+  <RHAH_History_Y015_DoorstepRatEgg.description>[PAWN_nameDef]发着热，被母亲抱到陌生聚落门口，只记得母亲反复摸[PAWN_possessive]额头。母亲没力气再走，把[PAWN_objective]推向门内，自己留在门外。这是[PAWN_pronoun]最早记得的事。</RHAH_History_Y015_DoorstepRatEgg.description>
+  <RHAH_History_Y016_RationingApprentice.title>饥与祸 分粮小帮工</RHAH_History_Y016_RationingApprentice.title>
+  <RHAH_History_Y016_RationingApprentice.titleShort>饥与祸 小帮工</RHAH_History_Y016_RationingApprentice.titleShort>
+  <RHAH_History_Y016_RationingApprentice.description>乞讨队伍里的大人越来越少，[PAWN_nameDef]便被安排记住谁已经领过一勺吃的。食物不够分时，[PAWN_pronoun]把最后一份留给更小的鼠蛋。争粮的人把这算在[PAWN_objective]头上，将[PAWN_objective]赶出了队伍。</RHAH_History_Y016_RationingApprentice.description>
+  <RHAH_History_Y017_GrainBarrelHiddenChild.title>饥与祸 粮桶里的孩子</RHAH_History_Y017_GrainBarrelHiddenChild.title>
+  <RHAH_History_Y017_GrainBarrelHiddenChild.titleShort>饥与祸 藏桶孩童</RHAH_History_Y017_GrainBarrelHiddenChild.titleShort>
+  <RHAH_History_Y017_GrainBarrelHiddenChild.description>家人带[PAWN_nameDef]进仓房偷粮，计划失败，大人各自逃命，没人回头找[PAWN_objective]。[PAWN_pronoun]躲在空粮桶里直到天亮。后来再跟人同行，总要先找好退路。</RHAH_History_Y017_GrainBarrelHiddenChild.description>
+  <RHAH_History_Y018_WastelandBurrowLitter.title>饥与祸 洞穴弃崽</RHAH_History_Y018_WastelandBurrowLitter.title>
+  <RHAH_History_Y018_WastelandBurrowLitter.titleShort>饥与祸 弃崽</RHAH_History_Y018_WastelandBurrowLitter.titleShort>
+  <RHAH_History_Y018_WastelandBurrowLitter.description>[PAWN_nameDef]幼时和鼠族住在荒地洞穴。暴雨灌满洞口，大人匆忙离开，却把[PAWN_objective]留了下来。[PAWN_pronoun]逃到洞外，在灌木和废墟间躲了几天，才被听见哭声的过路队伍发现。</RHAH_History_Y018_WastelandBurrowLitter.description>
+  <RHAH_History_Y019_ChildByTheCage.title>饥与祸 囚笼旁的孩子</RHAH_History_Y019_ChildByTheCage.title>
+  <RHAH_History_Y019_ChildByTheCage.titleShort>饥与祸 笼旁孩童</RHAH_History_Y019_ChildByTheCage.titleShort>
+  <RHAH_History_Y019_ChildByTheCage.description>[PAWN_nameDef]在商队货车旁长大，看着药品、粮袋和鼠蛋分别被锁进笼子。商路断绝后，领头人把货物和孩子一起丢下。[PAWN_pronoun]只能跟着看守去找新的交易地。</RHAH_History_Y019_ChildByTheCage.description>
+  <RHAH_History_Y020_HiddenTradeChild.title>饥与祸 货车下的鼠蛋</RHAH_History_Y020_HiddenTradeChild.title>
+  <RHAH_History_Y020_HiddenTradeChild.titleShort>饥与祸 藏车鼠蛋</RHAH_History_Y020_HiddenTradeChild.titleShort>
+  <RHAH_History_Y020_HiddenTradeChild.description>[PAWN_nameDef]听大人反复谈粮价、谈谁能带走孩子，却不知道自己也是交易物。交易没成，[PAWN_pronoun]被藏进货车底下，随商人和其他鼠蛋离开营地。</RHAH_History_Y020_HiddenTradeChild.description>
+  <RHAH_History_Y021_SiegeCampWaterRunner.title>饥与祸 围营送水童</RHAH_History_Y021_SiegeCampWaterRunner.title>
+  <RHAH_History_Y021_SiegeCampWaterRunner.titleShort>饥与祸 送水童</RHAH_History_Y021_SiegeCampWaterRunner.titleShort>
+  <RHAH_History_Y021_SiegeCampWaterRunner.description>[PAWN_nameDef]困在被围的营地，取水只能走墙根的一条窄缝。孩子个子小，便被派去给守门人和更小的孩子送半碗水。围墙失守后，[PAWN_pronoun]随逃出来的人离开。</RHAH_History_Y021_SiegeCampWaterRunner.description>
+  <RHAH_History_Y022_ReliefLedgerChild.title>饥与祸 接济营小记账员</RHAH_History_Y022_ReliefLedgerChild.title>
+  <RHAH_History_Y022_ReliefLedgerChild.titleShort>饥与祸 小记账员</RHAH_History_Y022_ReliefLedgerChild.titleShort>
+  <RHAH_History_Y022_ReliefLedgerChild.description>[PAWN_nameDef]在接济营地记下每批物资，也记得哪些人吃到了饭，却没等到药。接济队伍走时，[PAWN_pronoun]把剩下的粮袋数量和人名抄在木片上，带着这份没写全的名单迁移。</RHAH_History_Y022_ReliefLedgerChild.description>
+  <RHAH_History_Y023_MapLostChild.title>饥与祸 地图边的迷途童</RHAH_History_Y023_MapLostChild.title>
+  <RHAH_History_Y023_MapLostChild.titleShort>饥与祸 迷途童</RHAH_History_Y023_MapLostChild.titleShort>
+  <RHAH_History_Y023_MapLostChild.description>[PAWN_nameDef]跟着情报客走过地图标出的藏宝地、废墟和小聚落，以为每个圆圈都是能睡觉的地方。一次交易失败，情报客独自逃走。[PAWN_pronoun]只记得沿途几处模糊的路标。</RHAH_History_Y023_MapLostChild.description>
+  <RHAH_History_Y024_BirthConvoyChild.title>饥与祸 与母失散的孩子</RHAH_History_Y024_BirthConvoyChild.title>
+  <RHAH_History_Y024_BirthConvoyChild.titleShort>饥与祸 失散孩童</RHAH_History_Y024_BirthConvoyChild.titleShort>
+  <RHAH_History_Y024_BirthConvoyChild.description>[PAWN_nameDef]和即将生产的母亲挤在队伍末尾，每次停下，都先找个挡风的地方。大人因为疫病和缺粮，把母亲和孩子分到了不同队伍。[PAWN_pronoun]最后抱着母亲的空袋，来到殖民地边缘。</RHAH_History_Y024_BirthConvoyChild.description>
+  <RHAH_History_Y025_MisdeliveredChild.title>饥与祸 错运的孩子</RHAH_History_Y025_MisdeliveredChild.title>
+  <RHAH_History_Y025_MisdeliveredChild.titleShort>饥与祸 错运孩童</RHAH_History_Y025_MisdeliveredChild.titleShort>
+  <RHAH_History_Y025_MisdeliveredChild.description>[PAWN_nameDef]本该随补给去约定的营地，却在错投地点的运输箱旁醒来。搬运者发现坐标不对，先走了。[PAWN_pronoun]在陌生的物资堆里等着，直到难民带[PAWN_objective]离开。</RHAH_History_Y025_MisdeliveredChild.description>
+  <RHAH_History_Y026_MisnamedChild.title>饥与祸 被叫错名字的孩子</RHAH_History_Y026_MisnamedChild.title>
+  <RHAH_History_Y026_MisnamedChild.titleShort>饥与祸 错名孩童</RHAH_History_Y026_MisnamedChild.titleShort>
+  <RHAH_History_Y026_MisnamedChild.description>撤离时，有人把[PAWN_nameDef]叫成另一个孩子的名字。怕被落下，[PAWN_pronoun]没有纠正。真正的家人没来，认错的人也在争执后走了，只剩[PAWN_pronoun]顶着陌生名字继续找队伍。</RHAH_History_Y026_MisnamedChild.description>
+  <RHAH_History_Y027_FamineCampChild.title>饥与祸 没见过收成的孩子</RHAH_History_Y027_FamineCampChild.title>
+  <RHAH_History_Y027_FamineCampChild.titleShort>饥与祸 营地孩童</RHAH_History_Y027_FamineCampChild.titleShort>
+  <RHAH_History_Y027_FamineCampChild.description>[PAWN_nameDef]见到的第一块田，就是征粮后的空地。大人总说等下一季，下一季却只来了霉种和病人。家人在分粮时散了，[PAWN_pronoun]随逃难队离开，始终没见过真正的收成。</RHAH_History_Y027_FamineCampChild.description>
+  <RHAH_History_Y028_PlaguezoneChild.title>饥与祸 疫区流亡孩童</RHAH_History_Y028_PlaguezoneChild.title>
+  <RHAH_History_Y028_PlaguezoneChild.titleShort>饥与祸 疫区孩童</RHAH_History_Y028_PlaguezoneChild.titleShort>
+  <RHAH_History_Y028_PlaguezoneChild.description>[PAWN_nameDef]和家人被赶出疫区，每到一个聚落，都得站在门外等检查。送饭的人越来越少，亲人也陆续走不动了。[PAWN_pronoun]带着空药袋，继续找下一处隔离棚。</RHAH_History_Y028_PlaguezoneChild.description>
+  <RHAH_History_Y029_WoodenShelterOrphan.title>饥与祸 木屋失亲孩童</RHAH_History_Y029_WoodenShelterOrphan.title>
+  <RHAH_History_Y029_WoodenShelterOrphan.titleShort>饥与祸 失亲孩童</RHAH_History_Y029_WoodenShelterOrphan.titleShort>
+  <RHAH_History_Y029_WoodenShelterOrphan.description>[PAWN_nameDef]在难民营木屋里长大，熟悉哪扇门漏风、哪口井还有水。营地被要求撤离，大人把孩子分给不同队伍。夜里，[PAWN_pronoun]跟丢了家人，只带出一块刻了记号的木板。</RHAH_History_Y029_WoodenShelterOrphan.description>
+  <RHAH_History_Y030_DroughtFieldApprentice.title>饥与祸 旱田小帮工</RHAH_History_Y030_DroughtFieldApprentice.title>
+  <RHAH_History_Y030_DroughtFieldApprentice.titleShort>饥与祸 小农工</RHAH_History_Y030_DroughtFieldApprentice.titleShort>
+  <RHAH_History_Y030_DroughtFieldApprentice.description>[PAWN_nameDef]家里的田连着两季歉收，大人把最后的水都留给种子。孩子每天守在田埂边，捡回风吹散的穗子。旱田最终还是被放弃了，[PAWN_pronoun]便随流民离开。</RHAH_History_Y030_DroughtFieldApprentice.description>
+  <RHAH_History_Y031_SeedSortingApprentice.title>饥与祸 挑种学徒</RHAH_History_Y031_SeedSortingApprentice.title>
+  <RHAH_History_Y031_SeedSortingApprentice.titleShort>饥与祸 学徒</RHAH_History_Y031_SeedSortingApprentice.titleShort>
+  <RHAH_History_Y031_SeedSortingApprentice.description>[PAWN_nameDef]家人替粮坊收种，仓库受潮后，好种和霉种混在了一起。[PAWN_pronoun]跟大人一袋袋挑拣，学会了分辨哪些种子还能播种。粮坊关闭后，便带着这点本事离开。</RHAH_History_Y031_SeedSortingApprentice.description>
+  <RHAH_History_Y032_FenceHerdingChild.title>饥与祸 空场牧童</RHAH_History_Y032_FenceHerdingChild.title>
+  <RHAH_History_Y032_FenceHerdingChild.titleShort>饥与祸 牧童</RHAH_History_Y032_FenceHerdingChild.titleShort>
+  <RHAH_History_Y032_FenceHerdingChild.description>农场遣散了人，[PAWN_nameDef]却被留在围栏里，身边只有几只没被征走的牲畜。水源也断了，[PAWN_pronoun]便赶着它们追上难民队。后来再没人回那座农场。</RHAH_History_Y032_FenceHerdingChild.description>
+  <RHAH_History_Y033_DryWellWaterChild.title>饥与祸 井下取水童</RHAH_History_Y033_DryWellWaterChild.title>
+  <RHAH_History_Y033_DryWellWaterChild.titleShort>饥与祸 取水童</RHAH_History_Y033_DryWellWaterChild.titleShort>
+  <RHAH_History_Y033_DryWellWaterChild.description>夏末村井干了，大人为一桶水封门对峙。[PAWN_nameDef]个子小，还能钻进远处快干的井里取水。村子被放弃后，[PAWN_pronoun]便跟着取水队走。</RHAH_History_Y033_DryWellWaterChild.description>
+  <RHAH_History_Y034_GrainSackRecorder.title>饥与祸 认粮袋的孩子</RHAH_History_Y034_GrainSackRecorder.title>
+  <RHAH_History_Y034_GrainSackRecorder.titleShort>饥与祸 认袋孩童</RHAH_History_Y034_GrainSackRecorder.titleShort>
+  <RHAH_History_Y034_GrainSackRecorder.description>[PAWN_nameDef]常在谷仓门口等家人下工，久了便认得每种粮袋的标记。仓主把存粮转走，又锁了门。[PAWN_pronoun]只好离开，却一直记得那些粮袋的标记。</RHAH_History_Y034_GrainSackRecorder.description>
+  <RHAH_History_Y035_MillhandHelperChild.title>饥与祸 清壳小帮工</RHAH_History_Y035_MillhandHelperChild.title>
+  <RHAH_History_Y035_MillhandHelperChild.titleShort>饥与祸 小帮工</RHAH_History_Y035_MillhandHelperChild.titleShort>
+  <RHAH_History_Y035_MillhandHelperChild.description>[PAWN_nameDef]在粮坊替大人清谷壳，留下的碎粮还能填肚子。粮坊被征用后，坏粮被强行混进配给。眼看连吃的也靠不住，[PAWN_pronoun]和家人赶在发粮前离开了。</RHAH_History_Y035_MillhandHelperChild.description>
+  <RHAH_History_Y036_WheelRepairApprentice.title>饥与祸 修轮学徒</RHAH_History_Y036_WheelRepairApprentice.title>
+  <RHAH_History_Y036_WheelRepairApprentice.titleShort>饥与祸 学徒</RHAH_History_Y036_WheelRepairApprentice.titleShort>
+  <RHAH_History_Y036_WheelRepairApprentice.description>[PAWN_nameDef]跟木匠修难民的车轮，泥地里折断的轮辐一根接一根。洪水冲散了队伍，家人始终没来。[PAWN_pronoun]只好跟着下一辆还能走的车离开。</RHAH_History_Y036_WheelRepairApprentice.description>
+  <RHAH_History_Y037_NeedleworkApprentice.title>饥与祸 针线学徒</RHAH_History_Y037_NeedleworkApprentice.title>
+  <RHAH_History_Y037_NeedleworkApprentice.titleShort>饥与祸 学徒</RHAH_History_Y037_NeedleworkApprentice.titleShort>
+  <RHAH_History_Y037_NeedleworkApprentice.description>家里的织坊停了工，大人把旧衣拆成布条，[PAWN_nameDef]跟着穿针引线、缝缝补补。最后的布料也被火烧尽了。[PAWN_pronoun]随流民离开时，已经记熟了那些针脚。</RHAH_History_Y037_NeedleworkApprentice.description>
+  <RHAH_History_Y038_HuntingGroundHelper.title>饥与祸 猎场小帮手</RHAH_History_Y038_HuntingGroundHelper.title>
+  <RHAH_History_Y038_HuntingGroundHelper.titleShort>饥与祸 小猎工</RHAH_History_Y038_HuntingGroundHelper.titleShort>
+  <RHAH_History_Y038_HuntingGroundHelper.description>[PAWN_nameDef]跟家人去被封锁的猎场边缘，找受伤的野兽猎杀取肉。一次捕猎撞上鼠群，猎人没再回来。[PAWN_pronoun]带着剩下的皮毛，加入了逃难队伍。</RHAH_History_Y038_HuntingGroundHelper.description>
+  <RHAH_History_Y039_HerbBasketApprentice.title>饥与祸 药篮学徒</RHAH_History_Y039_HerbBasketApprentice.title>
+  <RHAH_History_Y039_HerbBasketApprentice.titleShort>饥与祸 学徒</RHAH_History_Y039_HerbBasketApprentice.titleShort>
+  <RHAH_History_Y039_HerbBasketApprentice.description>药师病倒后，[PAWN_nameDef]背着草药篮，在隔离棚和住家之间替药师跑腿。药师死了，棚门也封了。[PAWN_pronoun]随幸存者离开，仍记得哪些草能暂时退热。</RHAH_History_Y039_HerbBasketApprentice.description>
+  <RHAH_History_Y040_KilnsideChildWorker.title>饥与祸 窑边童工</RHAH_History_Y040_KilnsideChildWorker.title>
+  <RHAH_History_Y040_KilnsideChildWorker.titleShort>饥与祸 童工</RHAH_History_Y040_KilnsideChildWorker.titleShort>
+  <RHAH_History_Y040_KilnsideChildWorker.description>[PAWN_nameDef]跟家人进砖窑做工，在炉边捡煤渣、搬碎砖。窑主拖着工钱不发，又关了住处。炉火熄灭后，[PAWN_pronoun]只能随窑工去找新的避难所。</RHAH_History_Y040_KilnsideChildWorker.description>
+  <RHAH_History_Y041_CampfireOrphan.title>饥与祸 营火边寻亲的孩子</RHAH_History_Y041_CampfireOrphan.title>
+  <RHAH_History_Y041_CampfireOrphan.titleShort>饥与祸 寻亲孩童</RHAH_History_Y041_CampfireOrphan.titleShort>
+  <RHAH_History_Y041_CampfireOrphan.description>分粮的人群把[PAWN_nameDef]与家人冲散了。[PAWN_pronoun]只记得他们曾守着哪堆营火，便沿夜里的火光找了几天。始终找不到，后来只好跟肯分粮的人走。</RHAH_History_Y041_CampfireOrphan.description>
+  <RHAH_History_Y042_RiverRaftApprentice.title>饥与祸 拼筏的孩子</RHAH_History_Y042_RiverRaftApprentice.title>
+  <RHAH_History_Y042_RiverRaftApprentice.titleShort>饥与祸 小筏工</RHAH_History_Y042_RiverRaftApprentice.titleShort>
+  <RHAH_History_Y042_RiverRaftApprentice.description>暴雨后，[PAWN_nameDef]被留在河滩，与几个孩子用漂木和旧门板拼出一只筏子。木筏把[PAWN_objective]送到了陌生岸边。原来的村子早被洪水和饥荒毁了。</RHAH_History_Y042_RiverRaftApprentice.description>
+  <RHAH_History_Y043_RaidedVillageChild.title>饥与祸 废村落单孩童</RHAH_History_Y043_RaidedVillageChild.title>
+  <RHAH_History_Y043_RaidedVillageChild.titleShort>饥与祸 落单孩童</RHAH_History_Y043_RaidedVillageChild.titleShort>
+  <RHAH_History_Y043_RaidedVillageChild.description>[PAWN_nameDef]随家人回被劫掠的村子，想找回锅、布和旧毯子。村道上尽是空屋和鼠群，家人再次离开时，却把[PAWN_objective]落下了。[PAWN_pronoun]最后随下一批搜寻者逃走。</RHAH_History_Y043_RaidedVillageChild.description>
+  <RHAH_History_Y044_SnowprintApprentice.title>饥与祸 雪地寻路童</RHAH_History_Y044_SnowprintApprentice.title>
+  <RHAH_History_Y044_SnowprintApprentice.titleShort>饥与祸 寻路童</RHAH_History_Y044_SnowprintApprentice.titleShort>
+  <RHAH_History_Y044_SnowprintApprentice.description>山路被大雪封住，[PAWN_nameDef]靠雪地脚印去找下一处营火。雪崩又埋了原路，后来商队发现了[PAWN_objective]。跟着商队，[PAWN_pronoun]开始学着认风向和脚印。</RHAH_History_Y044_SnowprintApprentice.description>
+  <RHAH_History_Y045_PackAnimalApprentice.title>饥与祸 商队小驮工</RHAH_History_Y045_PackAnimalApprentice.title>
+  <RHAH_History_Y045_PackAnimalApprentice.titleShort>饥与祸 小驮工</RHAH_History_Y045_PackAnimalApprentice.titleShort>
+  <RHAH_History_Y045_PackAnimalApprentice.description>商队水袋被抢后，[PAWN_nameDef]负责把最后几只驮兽带到阴凉处。队伍解散了，却没人来接孩子。[PAWN_pronoun]只好带着驮兽，随另一队难民穿过旱地。</RHAH_History_Y045_PackAnimalApprentice.description>
+  <RHAH_History_Y046_NightWatchChild.title>饥与祸 睡不着的守夜童</RHAH_History_Y046_NightWatchChild.title>
+  <RHAH_History_Y046_NightWatchChild.titleShort>饥与祸 守夜童</RHAH_History_Y046_NightWatchChild.titleShort>
+  <RHAH_History_Y046_NightWatchChild.description>难民营夜夜被盗粮，大人轮流守夜也挡不住袭击。[PAWN_nameDef]睡不着，把各种脚步声记了个熟。营地搬走后，[PAWN_pronoun]还是会听着夜里的脚步。</RHAH_History_Y046_NightWatchChild.description>
+  <RHAH_History_Y047_CheckpointEvasionApprentice.title>饥与祸 绕关的孩子</RHAH_History_Y047_CheckpointEvasionApprentice.title>
+  <RHAH_History_Y047_CheckpointEvasionApprentice.titleShort>饥与祸 绕关孩童</RHAH_History_Y047_CheckpointEvasionApprentice.titleShort>
+  <RHAH_History_Y047_CheckpointEvasionApprentice.description>[PAWN_nameDef]跟家人藏在车底，混过征粮税的关卡，渐渐记住了巡查时辰。一次检查，家人被扣下了。[PAWN_pronoun]逃进另一支队伍，却一直没等到他们。</RHAH_History_Y047_CheckpointEvasionApprentice.description>
+</LanguageData>

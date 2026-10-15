@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_PlagueSpreading>Ratkin plague is spreading through the colony.</RHAH_PlagueSpreading>
+  <RHAH_Menu_Plague>Plague</RHAH_Menu_Plague>
+  <RHAH_Settings_Plague>Allow the plague</RHAH_Settings_Plague>
+  <RHAH_Settings_Plague_Tooltip>Off, new visitors arrive healthy and the plague stops spreading through the colony. People already sick still need treatment.</RHAH_Settings_Plague_Tooltip>
+  <RHAH_Settings_PlaguePerCarrier>Spread chance per sick visitor: {0}%</RHAH_Settings_PlaguePerCarrier>
+  <RHAH_Settings_PlaguePerCarrier_Tooltip>Each sick ratkin on the map adds this much chance that a colonist catches it. 0 to 100, default 0.5.</RHAH_Settings_PlaguePerCarrier_Tooltip>
+  <RHAH_Settings_PlagueCap>Spread chance cap: {0}%</RHAH_Settings_PlagueCap>
+  <RHAH_Settings_PlagueCap_Tooltip>One check gives a colonist at most this chance of catching it. 0 to 100, default 30.</RHAH_Settings_PlagueCap_Tooltip>
+  <RHAH_Settings_PlagueDays>Spread interval: {0} days</RHAH_Settings_PlagueDays>
+  <RHAH_Settings_PlagueDays_Tooltip>Days between spread checks. 1 to 30, default 3.</RHAH_Settings_PlagueDays_Tooltip>
+  <RHAH_Settings_PlagueHour>Check hour: {0}</RHAH_Settings_PlagueHour>
+  <RHAH_Settings_PlagueHour_Tooltip>The hour of day when spread is checked. 0 to 23, default 6.</RHAH_Settings_PlagueHour_Tooltip>
+  <RHAH_Settings_PlagueBlood>Blood pumping of {0}% prevents infection</RHAH_Settings_PlagueBlood>
+  <RHAH_Settings_PlagueBlood_Tooltip>A person at or above this blood pumping stays uninfected. 0 to 300, default 120.</RHAH_Settings_PlagueBlood_Tooltip>
+  <RHAH_Settings_PlagueSafe>Plague safe mode</RHAH_Settings_PlagueSafe>
+  <RHAH_Settings_PlagueSafe_Tooltip>Off by default. On, the plague stops short of killing. The sick cannot move, but the plague itself leaves them alive.</RHAH_Settings_PlagueSafe_Tooltip>
+  <RHAH_Settings_PlagueSeverity>Plague severity: {0}</RHAH_Settings_PlagueSeverity>
+  <RHAH_Settings_PlagueSeverity_Tooltip>Highest severity a new infection can reach. 0.01 to 1, default 0.10.</RHAH_Settings_PlagueSeverity_Tooltip>
+</LanguageData>

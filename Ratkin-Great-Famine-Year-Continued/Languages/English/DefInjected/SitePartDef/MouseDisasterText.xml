@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_RecordSite.label>old store</MouseDisaster_RecordSite.label>
+  <MouseDisaster_RecordSite.description>An old store holding migration records. The lead remains valid for fifteen days.</MouseDisaster_RecordSite.description>
+  <MouseDisaster_RecordSite.approachOrderString>Visit the old store</MouseDisaster_RecordSite.approachOrderString>
+  <MouseDisaster_RecordSite.approachingReportString>Traveling to the old store.</MouseDisaster_RecordSite.approachingReportString>
+  <MouseDisaster_RecordSite.arrivedLetter>You have reached the old store. The record chest still needs to be examined.</MouseDisaster_RecordSite.arrivedLetter>
+</LanguageData>

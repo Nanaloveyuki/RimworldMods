@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <FactionDef Name="MouseDisasterHiddenFactionBase" ParentName="FactionBase">
+    <defName>MouseDisaster_HiddenFaction</defName>
+    <label>鼠灾幸存者</label>
+    <description>用于鼠灾事件的隐藏鼠族幸存者派系。</description>
+    <pawnSingular>鼠族</pawnSingular>
+    <pawnsPlural>鼠族</pawnsPlural>
+    <fixedName>鼠灾幸存者</fixedName>
+    <humanlikeFaction>true</humanlikeFaction>
+    <backstoryFilters>
+      <li>
+        <categories>
+          <li>MouseDisasterAll</li>
+        </categories>
+      </li>
+    </backstoryFilters>
+    <hidden>true</hidden>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>
+    <maxConfigurableAtWorldCreation>0</maxConfigurableAtWorldCreation>
+    <displayInFactionSelection>false</displayInFactionSelection>
+    <canGenerateQuestSites>false</canGenerateQuestSites>
+    <canRequestTraders>false</canRequestTraders>
+    <canRequestMilitaryAid>false</canRequestMilitaryAid>
+    <canRequestOrbitalTrader>false</canRequestOrbitalTrader>
+    <rescueesCanJoin>false</rescueesCanJoin>
+    <hostileToFactionlessHumanlikes>false</hostileToFactionlessHumanlikes>
+    <raidsForbidden>true</raidsForbidden>
+    <settlementGenerationWeight>0</settlementGenerationWeight>
+    <techLevel>Neolithic</techLevel>
+    <factionIconPath>World/WorldObjects/Expanding/Sites/DownedRefugee</factionIconPath>
+    <colorSpectrum>
+      <li>(0.55, 0.47, 0.40)</li>
+    </colorSpectrum>
+  </FactionDef>
+  <FactionDef ParentName="MouseDisasterHiddenFactionBase">
+    <defName>MouseDisaster_NeutralVisitors</defName>
+    <label>neutral famine survivors</label>
+    <fixedName>Neutral famine survivors</fixedName>
+  </FactionDef>
+  <FactionDef ParentName="MouseDisasterHiddenFactionBase">
+    <defName>MouseDisaster_HostileVisitors</defName>
+    <label>hostile famine survivors</label>
+    <fixedName>Hostile famine survivors</fixedName>
+    <permanentEnemy>true</permanentEnemy>
+  </FactionDef>
+  <FactionDef ParentName="MouseDisasterHiddenFactionBase">
+    <defName>MouseDisaster_FriendlyVisitors</defName>
+    <label>friendly famine survivors</label>
+    <fixedName>Friendly famine survivors</fixedName>
+  </FactionDef>
+</Defs>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThoughtDef>
+    <defName>PWM_Washed</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stackedEffectMultiplier>1</stackedEffectMultiplier>
+    <stackLimit>1</stackLimit>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>washed in a machine...</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>ugh... so dizzy</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>soaking wet...</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>going to be sick...</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>squeak squeak... dizzy</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>squeak! stop spinning me!</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>being sick, squeak!</label>
+        <description>I was stuffed into a washing machine. I'm not happy.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

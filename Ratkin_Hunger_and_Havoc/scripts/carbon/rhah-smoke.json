@@ -1,0 +1,71 @@
+{
+  "name": "RHAH real loaded dependencies, API and live roots",
+  "steps": [
+    {
+      "id": "loaded_game_and_mods",
+      "tool": "game_state",
+      "assert": [
+        { "path": "state", "equals": "completed" },
+        { "path": "result.data.status.ready", "equals": true },
+        { "path": "result.data.maps[0]", "exists": true },
+        { "path": "result.data.mods[?(@.id == 'nanaloveyuki.ratkin.hungerandhavoc')].assemblies[0]", "exists": true },
+        { "path": "result.data.mods[?(@.id == 'brrainz.harmony')].assemblies[0]", "exists": true },
+        { "path": "result.data.mods[?(@.id == 'erdelf.humanoidalienraces')].assemblies[0]", "exists": true },
+        { "path": "result.data.mods[?(@.id == 'solaris.ratkinracemod')]", "exists": true },
+        { "path": "result.data.mods[?(@.id == 'nanaloveyuki.oxygendsl')].assemblies[0]", "exists": true },
+        { "path": "result.data.mods[?(@.id == 'nanaloveyuki.rimcarbon14')].assemblies[0]", "exists": true }
+      ]
+    },
+    {
+      "id": "rhah_public_behavior_api",
+      "tool": "objects_types",
+      "arguments": { "search": "HungerAndHavoc.Api.IRHAH_PawnBehavior", "assembly": "HungerAndHavoc.Api", "limit": 2 },
+      "assert": [
+        { "path": "result.data.items[0].name", "equals": "HungerAndHavoc.Api.IRHAH_PawnBehavior" },
+        { "path": "result.data.items[0].assembly", "equals": "HungerAndHavoc.Api" }
+      ]
+    },
+    {
+      "id": "rhah_game_component",
+      "tool": "objects_types",
+      "arguments": { "search": "GameComponent_RHAH_Game", "assembly": "HungerAndHavoc", "limit": 2 },
+      "assert": [
+        { "path": "result.data.items[0].name", "equals": "HungerAndHavoc.Core.GameComponent_RHAH_Game" }
+      ]
+    },
+    {
+      "id": "harmony_api",
+      "tool": "objects_members",
+      "arguments": { "type": "HarmonyLib.Harmony, 0Harmony", "search": "Id", "limit": 10 },
+      "assert": [
+        { "path": "result.data.items[?(@.name == 'Id')].type", "equals": "System.String" }
+      ]
+    },
+    {
+      "id": "har_race_api",
+      "tool": "objects_types",
+      "arguments": { "search": "AlienRace.ThingDef_AlienRace", "limit": 2 },
+      "assert": [
+        { "path": "result.data.items[0].name", "equals": "AlienRace.ThingDef_AlienRace" }
+      ]
+    },
+    {
+      "id": "odf_event_host",
+      "tool": "objects_types",
+      "arguments": { "search": "OxygenEventChainHost", "limit": 10 },
+      "assert": [
+        { "path": "result.data.items[0].qualifiedName", "exists": true },
+        { "path": "result.data.items[0].assembly", "equals": "Oxygendsl.Mod" }
+      ]
+    },
+    {
+      "id": "live_root_handles",
+      "tool": "objects_roots",
+      "assert": [
+        { "path": "result.data.game.type", "equals": "Verse.Game" },
+        { "path": "result.data.map.type", "equals": "Verse.Map" },
+        { "path": "result.data.mods[?(@.type == 'HungerAndHavoc.Core.RHAH_Mod')].handle", "exists": true }
+      ]
+    }
+  ]
+}

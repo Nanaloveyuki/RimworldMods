@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_ThinRations</defName>
+    <label>少食</label>
+    <description>携带此基因的人胃口较小，最大食物需求量降至常人的85%。</description>
+    <iconPath>UI/Icons/Genes/Gene_RobustDigestion</iconPath>
+    <displayCategory>Miscellaneous</displayCategory>
+    <displayOrderInCategory>210</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>1</biostatMet>
+    <statFactors>
+      <MaxNutrition>0.85</MaxNutrition>
+    </statFactors>
+    <customEffectDescriptions>
+      <li>最大食物需求量：常人的85%</li>
+      <li>代谢效率略高</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_LargeLitter</defName>
+    <label>一胎多崽</label>
+    <description>携带此基因的人一次分娩可以生下多个孩子。每胎数量由设置中的下限、最常见数量和上限决定。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>220</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>1</biostatMet>
+    <customEffectDescriptions>
+      <li>每胎数量可在设置中调整</li>
+      <li>数量越接近设置的峰值，出现的机会越大</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_EarlyFertility</defName>
+    <label>性早熟</label>
+    <description>携带此基因的人较早获得生育能力。最低生育年龄可在设置中调整，双方生理年龄都须达到该年龄。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>221</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>1</biostatMet>
+    <customEffectDescriptions>
+      <li>最低生育年龄可在设置中调整</li>
+      <li>双方生理年龄都须达到该年龄</li>
+      <li>最低生育年龄的设置范围：1至14岁</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_HighFertility</defName>
+    <label>容易受孕</label>
+    <description>携带此基因的人更容易使伴侣怀孕或自己受孕。怀孕几率可在设置中调整为常人的1至10倍。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>222</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>2</biostatMet>
+    <customEffectDescriptions>
+      <li>怀孕几率倍数可在设置中调整</li>
+      <li>倍数的设置范围：常人的1至10倍</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_RoomFertility</defName>
+    <label>繁育本能</label>
+    <description>携带此基因的人在室内与异性同床休息、双方爱爱间隔已过时，会主动与对方爱爱，即使双方并非恋人。仅适用于非医疗床。爱爱后可能怀孕，哺乳期也可能受孕；双方生理年龄须满1岁。怀孕几率还受双方生育能力和相关设置影响。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>223</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>3</biostatMet>
+    <customEffectDescriptions>
+      <li>在室内的非医疗床上与异性同床休息，双方爱爱间隔已过时会主动爱爱</li>
+      <li>爱爱后可能怀孕</li>
+      <li>基础怀孕几率默认为50%，可在设置中调整</li>
+      <li>哺乳期也可能受孕</li>
+      <li>双方生理年龄须满1岁</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_FastBirth</defName>
+    <label>更短孕期</label>
+    <description>携带此基因的人孕期较短。孕期可在设置中调整，最短3天，上限为5.661天；实际孕期还受种族自身孕期限制。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>224</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>2</biostatMet>
+    <customEffectDescriptions>
+      <li>孕期可在设置中调整</li>
+      <li>孕期最短3天</li>
+      <li>上限为5.661天，也不超过种族自身孕期</li>
+    </customEffectDescriptions>
+  </GeneDef>
+</Defs>

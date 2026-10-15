@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Long_Label>Returning visitor</RHAH_Long_Label>
+  <RHAH_Long_Stale>This choice is no longer available.</RHAH_Long_Stale>
+  <RHAH_Long_NoFood>Not enough available food.</RHAH_Long_NoFood>
+  <RHAH_Long_RecognizeFeed>Acknowledge and feed, through {0}</RHAH_Long_RecognizeFeed>
+  <RHAH_Long_Recognize>Acknowledge without food, through {0}</RHAH_Long_Recognize>
+  <RHAH_Long_Deny>Do not acknowledge</RHAH_Long_Deny>
+  <RHAH_Long_Capture>Capture the visitor</RHAH_Long_Capture>
+  <RHAH_Long_Pay>Give {0} units of food</RHAH_Long_Pay>
+  <RHAH_Long_Refuse>Refuse</RHAH_Long_Refuse>
+  <RHAH_Long_Welcome>Let them in and give {0} food</RHAH_Long_Welcome>
+  <RHAH_Long_RejectEntry>Refuse entry</RHAH_Long_RejectEntry>
+  <RHAH_Long_Point>Point to {0}</RHAH_Long_Point>
+  <RHAH_Long_NoPoint>Name nobody</RHAH_Long_NoPoint>
+  <RHAH_Long_AskNext>Ask the next refugee group</RHAH_Long_AskNext>
+  <RHAH_Long_StopAsking>Stop asking</RHAH_Long_StopAsking>
+  <RHAH_Long_MatchCloth>Compare the cloth</RHAH_Long_MatchCloth>
+  <RHAH_Long_DoNotMatch>Do not compare</RHAH_Long_DoNotMatch>
+  <RHAH_Long_AskChild>Ask the child; wait until age 14</RHAH_Long_AskChild>
+  <RHAH_Long_Expel>Send them away</RHAH_Long_Expel>
+  <RHAH_Long_UnselectChild>Unselect: {0}</RHAH_Long_UnselectChild>
+  <RHAH_Long_SelectChild>Select for departure: {0}</RHAH_Long_SelectChild>
+  <RHAH_Long_SendSelected>Send the selected children</RHAH_Long_SendSelected>
+  <RHAH_Long_KeepAll>Keep all children</RHAH_Long_KeepAll>
+  <RHAH_Long_GiveFood>Give {0} food</RHAH_Long_GiveFood>
+  <RHAH_Long_RequestReturn>Request the child back</RHAH_Long_RequestReturn>
+  <RHAH_Long_NoReturn>Do not request a return</RHAH_Long_NoReturn>
+  <RHAH_Long_KeepFeeding>Continue feeding: one food</RHAH_Long_KeepFeeding>
+  <RHAH_Long_StopFeeding>Stop feeding</RHAH_Long_StopFeeding>
+  <RHAH_Long_Rehome>Place with {0}</RHAH_Long_Rehome>
+  <RHAH_Long_I-013_1>The visitor wants the exchange acknowledged. Feeding costs {2} food and gives a three-day stay.</RHAH_Long_I-013_1>
+  <RHAH_Long_I-013_8>The paper message asks for {2} food. Refusal leaves one further mention by a caravan.</RHAH_Long_I-013_8>
+  <RHAH_Long_I-019_1>{1} remembers being handed away. Entry costs {2} food; refusal leaves them waiting until dark.</RHAH_Long_I-019_1>
+  <RHAH_Long_I-019_2>Name who handed them away. The named person receives -8 mood permanently; the child receives +2 for 15 days.</RHAH_Long_I-019_2>
+  <RHAH_Long_I-019_7>They can name a direction. You may ask the next refugees requesting infants.</RHAH_Long_I-019_7>
+  <RHAH_Long_I-019_9>The visitors may confirm or deny seeing the child. Confirmation asks {2} food for the next destination.</RHAH_Long_I-019_9>
+  <RHAH_Long_I-032_1>{0} carries matching cloth. You can select children to send, or refuse.</RHAH_Long_I-032_1>
+  <RHAH_Long_I-032_2>Select children still in the colony. All unselected children stay.</RHAH_Long_I-032_2>
+  <RHAH_Long_I-032_3>The visitor now asks for {2} food, then will leave.</RHAH_Long_I-032_3>
+  <RHAH_Long_I-032_7>The child arrived, but food is short. A requested return takes five days.</RHAH_Long_I-032_7>
+  <RHAH_Long_I-033_1>{1} still follows the person once mistaken for a parent. Give one food; stopping may cause a bite or food theft. The first rehoming lasts one day; the second lasts.</RHAH_Long_I-033_1>
+  <RHAH_Long_TraderDirection>They named the direction the trader went.</RHAH_Long_TraderDirection>
+  <RHAH_Long_ExchangeRetraction>The visitor now says they only heard about the exchange.</RHAH_Long_ExchangeRetraction>
+  <RHAH_Long_ExchangeMention>Someone in the caravan mentioned the exchange once more.</RHAH_Long_ExchangeMention>
+  <RHAH_Long_CannotRecognize>After one day, they said they could no longer recognize anyone.</RHAH_Long_CannotRecognize>
+  <RHAH_Long_DirectionMatches>The later destination matched.</RHAH_Long_DirectionMatches>
+  <RHAH_Long_DirectionDoesNotMatch>The later destination did not match. They stopped asking.</RHAH_Long_DirectionDoesNotMatch>
+  <RHAH_Long_ChildCannotRemember>The child is too young and only calls for a mother. Ask again at 14.</RHAH_Long_ChildCannotRemember>
+  <RHAH_Long_RememberedMeals>They only remember the meals after landing.</RHAH_Long_RememberedMeals>
+  <RHAH_Long_ReturnedThin>The same child was returned, thinner than before.</RHAH_Long_ReturnedThin>
+  <RHAH_Long_CameBackNextDay>The next day, the child returned to the original caregiver.</RHAH_Long_CameBackNextDay>
+  <RHAH_Long_CalledAgain>The child returned with beggars and called to the familiar person again.</RHAH_Long_CalledAgain>
+</LanguageData>

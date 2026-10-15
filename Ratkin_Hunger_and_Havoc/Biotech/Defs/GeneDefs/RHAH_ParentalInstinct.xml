@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_MaternalInstinct</defName>
+    <label>母爱本能</label>
+    <description>携带此基因的人在哺乳期会按设置改变产奶速度和储奶上限、饥饿速度及食物需求上限。默认设置下，产奶更快，能储存更多乳汁，也更容易饥饿，能储存更多食物营养。三项倍率均可调整，产奶速度和储奶上限共用同一倍率，所有效果仅在哺乳期生效。若同时携带父爱本能，雌性保留母爱本能，雄性保留父爱本能；单独携带时不受性别限制。</description>
+    <geneClass>HungerAndHavoc.Pawn.Gene_RHAH_ParentalInstinct</geneClass>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>225</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>0</biostatMet>
+    <customEffectDescriptions>
+      <li>所有效果仅在哺乳期生效</li>
+      <li>产奶速度和储奶上限：均使用默认倍率150%，可在设置中调整</li>
+      <li>饥饿速度：默认倍率115%，可在设置中调整</li>
+      <li>食物需求上限：默认倍率125%，可在设置中调整</li>
+      <li>同时携带父爱本能时，雌性保留母爱本能，雄性保留父爱本能</li>
+      <li>单独携带时不受性别限制</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>RHAH_Gene_PaternalInstinct</defName>
+    <label>父爱本能</label>
+    <description>携带此基因的人在同一地图上有活着的直接亲生子女时，会按设置改变工作速度、饥饿速度、全局学习速度和承受伤害，子女年龄不限。默认设置下，工作和学习更快，也更能承受伤害，但更容易饥饿。四项倍率均可调整，所有效果均须满足子女条件才生效。若同时携带母爱本能，雄性保留父爱本能，雌性保留母爱本能；单独携带时不受性别限制。</description>
+    <geneClass>HungerAndHavoc.Pawn.Gene_RHAH_ParentalInstinct</geneClass>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>226</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>0</biostatMet>
+    <customEffectDescriptions>
+      <li>同一地图上有活着的直接亲生子女时，所有效果生效；子女年龄不限</li>
+      <li>工作速度：默认倍率120%，可在设置中调整</li>
+      <li>饥饿速度：默认倍率110%，可在设置中调整</li>
+      <li>全局学习速度：默认倍率110%，可在设置中调整</li>
+      <li>承受伤害：默认倍率90%，可在设置中调整</li>
+      <li>同时携带母爱本能时，雄性保留父爱本能，雌性保留母爱本能</li>
+      <li>单独携带时不受性别限制</li>
+    </customEffectDescriptions>
+  </GeneDef>
+</Defs>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_Newborn.title>famine-born Ratkin</MouseDisaster_Newborn.title>
+  <MouseDisaster_Newborn.titleShort>famine-born</MouseDisaster_Newborn.titleShort>
+  <MouseDisaster_Newborn.description>Born into famine, this Ratkin baby has known hunger and weakness from the start, with an instinctive fixation on food and survival.</MouseDisaster_Newborn.description>
+  <MouseDisaster_Refugee.title>famine refugee</MouseDisaster_Refugee.title>
+  <MouseDisaster_Refugee.titleShort>refugee</MouseDisaster_Refugee.titleShort>
+  <MouseDisaster_Refugee.description>A Ratkin displaced by the Great Famine Year, living on only for the next mouthful.</MouseDisaster_Refugee.description>
+</LanguageData>

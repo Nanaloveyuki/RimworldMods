@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Approach_Intercept>ラットキンを迎撃</RHAH_Approach_Intercept>
+  <RHAH_Approach_InterceptBlocked>今はラットキンを迎撃できません</RHAH_Approach_InterceptBlocked>
+  <RHAH_Approach_InterceptFailed>迎撃マップの生成に失敗しました。ラットキンの一行はワールドマップに残ります。</RHAH_Approach_InterceptFailed>
+  <RHAH_Predation_Label>捕食者</RHAH_Predation_Label>
+  <RHAH_Predation_Text>野生の捕食者がこのラットキン難民の集団を狙い始めました。最初の狙いは、その中のラットキンの子供です。</RHAH_Predation_Text>
+  <RHAH_OutsidePredators_Label>外から来た捕食者</RHAH_OutsidePredators_Label>
+  <RHAH_OutsidePredators_Text>捕食者がラットキン難民についてきました。食べられるラットキンを探しています。</RHAH_OutsidePredators_Text>
+  <RHAH_Intel_Label>情報地点</RHAH_Intel_Label>
+  <RHAH_Intel_Text>交換が成立しました。近くに地点が現れました。</RHAH_Intel_Text>
+</LanguageData>

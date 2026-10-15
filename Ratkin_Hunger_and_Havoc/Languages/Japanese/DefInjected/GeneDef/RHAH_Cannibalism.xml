@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Gene_Cannibalism.label>同族食い</RHAH_Gene_Cannibalism.label>
+  <RHAH_Gene_Cannibalism.description>この遺伝子を持つ人は、死体や人肉を食べることや、腐敗したものを含む死体を見ることを受け入れます。これらの行為による心情の悪化と、関連するイデオロギーの戒律による制限を受けません。</RHAH_Gene_Cannibalism.description>
+  <RHAH_Gene_Cannibalism.customEffectDescriptions.0>死体や人肉を食べることによる心情の悪化と、関連する戒律の制限を受けない</RHAH_Gene_Cannibalism.customEffectDescriptions.0>
+  <RHAH_Gene_Cannibalism.customEffectDescriptions.1>新鮮な死体や腐敗した死体を見ることによる心情の悪化と、関連する戒律の制限を受けない</RHAH_Gene_Cannibalism.customEffectDescriptions.1>
+</LanguageData>

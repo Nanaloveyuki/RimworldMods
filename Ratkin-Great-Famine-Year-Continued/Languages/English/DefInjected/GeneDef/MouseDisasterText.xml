@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_Gene_MoreLitter.label>Large Litters</MouseDisaster_Gene_MoreLitter.label>
+  <MouseDisaster_Gene_MoreLitter.description>Each birth produces at least four offspring, with a chance of further births and no fixed upper limit.</MouseDisaster_Gene_MoreLitter.description>
+  <MouseDisaster_Gene_MoreLitter.customEffectDescriptions.0>At least 4 offspring per birth</MouseDisaster_Gene_MoreLitter.customEffectDescriptions.0>
+  <MouseDisaster_Gene_MoreLitter.customEffectDescriptions.1>Further offspring may be born, with no fixed upper limit</MouseDisaster_Gene_MoreLitter.customEffectDescriptions.1>
+  <MouseDisaster_Gene_PrimalFertility.label>Early Maturity</MouseDisaster_Gene_PrimalFertility.label>
+  <MouseDisaster_Gene_PrimalFertility.description>Allows pregnancy before the usual life stage. Both parents must still be at least one biological year old.</MouseDisaster_Gene_PrimalFertility.description>
+  <MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.0>Pregnancy can occur before the usual life stage</MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.0>
+  <MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.1>Both parents must be at least 1 biological year old</MouseDisaster_Gene_PrimalFertility.customEffectDescriptions.1>
+  <MouseDisaster_Gene_HyperBreeding.label>Hyperfertility</MouseDisaster_Gene_HyperBreeding.label>
+  <MouseDisaster_Gene_HyperBreeding.description>The carrier's chance of pregnancy is increased to 300% of its usual value.</MouseDisaster_Gene_HyperBreeding.description>
+  <MouseDisaster_Gene_HyperBreeding.customEffectDescriptions.0>Pregnancy chance x300%</MouseDisaster_Gene_HyperBreeding.customEffectDescriptions.0>
+  <MouseDisaster_Gene_ChaosFertility.label>Chaos Fertility</MouseDisaster_Gene_ChaosFertility.label>
+  <MouseDisaster_Gene_ChaosFertility.description>A carrier sharing an indoor room with a compatible male of the same status may become pregnant, including while lactating. Both must be at least one biological year old. The interval and chance can be adjusted in settings (2% per check by default).</MouseDisaster_Gene_ChaosFertility.description>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.0>Chance of pregnancy while sharing a room with a compatible partner</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.0>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.1>Both parents must be at least 1 biological year old</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.1>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.2>Chance can be adjusted in settings (2% by default)</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.2>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.3>Interval can be adjusted in settings</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.3>
+  <MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.4>Pregnancy possible while lactating</MouseDisaster_Gene_ChaosFertility.customEffectDescriptions.4>
+  <MouseDisaster_Gene_MoreComing.label>Rapid Gestation</MouseDisaster_Gene_MoreComing.label>
+  <MouseDisaster_Gene_MoreComing.description>The carrier's pregnancy lasts a fixed twelve days, unaffected by other gestation speed changes.</MouseDisaster_Gene_MoreComing.description>
+  <MouseDisaster_Gene_MoreComing.customEffectDescriptions.0>Pregnancy lasts exactly 12 days</MouseDisaster_Gene_MoreComing.customEffectDescriptions.0>
+</LanguageData>

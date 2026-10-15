@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Stay_Year>1 year</RHAH_Stay_Year>
+  <RHAH_Stay_Years>{0} years</RHAH_Stay_Years>
+  <RHAH_Stay_YearsDays>{0} years, {1} days</RHAH_Stay_YearsDays>
+  <RHAH_Stay_Day>1 day</RHAH_Stay_Day>
+  <RHAH_Stay_Days>{0} days</RHAH_Stay_Days>
+  <RHAH_Stay_Inspect>Leaves in {0}</RHAH_Stay_Inspect>
+  <RHAH_Stay_InspectPaused>Downed by injury or illness, departure timer paused ({0} left)</RHAH_Stay_InspectPaused>
+  <RHAH_Menu_Lifecycle_Arriving>Arriving</RHAH_Menu_Lifecycle_Arriving>
+  <RHAH_Menu_Lifecycle_SeekingFood>Seeking food</RHAH_Menu_Lifecycle_SeekingFood>
+  <RHAH_Menu_Lifecycle_Fed>Fed</RHAH_Menu_Lifecycle_Fed>
+  <RHAH_Menu_Lifecycle_Leaving>Leaving</RHAH_Menu_Lifecycle_Leaving>
+  <RHAH_Menu_Lifecycle_Released>Released</RHAH_Menu_Lifecycle_Released>
+  <RHAH_Menu_Lifecycle_Dead>Dead</RHAH_Menu_Lifecycle_Dead>
+  <RHAH_Role_Unspecified>Hunger and Havoc visitor</RHAH_Role_Unspecified>
+  <RHAH_Role_Beggar>Hungry beggar</RHAH_Role_Beggar>
+  <RHAH_Role_BeggarMother>Begging famine mother</RHAH_Role_BeggarMother>
+  <RHAH_Role_BeggarChild>Begging Ratkin young</RHAH_Role_BeggarChild>
+  <RHAH_Role_Thief>Hungry thief</RHAH_Role_Thief>
+  <RHAH_Role_ThiefChild>Thieving Ratkin young</RHAH_Role_ThiefChild>
+  <RHAH_Role_Wild>Wild Ratkin wanderer</RHAH_Role_Wild>
+  <RHAH_Role_WildChild>Wild Ratkin young</RHAH_Role_WildChild>
+  <RHAH_Role_Trader>Famine trader</RHAH_Role_Trader>
+  <RHAH_Role_Escort>Trader escort</RHAH_Role_Escort>
+  <RHAH_Role_Mother>Ratkin mother</RHAH_Role_Mother>
+  <RHAH_Role_RatkinYoung>Ratkin young</RHAH_Role_RatkinYoung>
+  <RHAH_Role_Siege>Siege beggar</RHAH_Role_Siege>
+  <RHAH_Role_Plague>Plague visitor</RHAH_Role_Plague>
+  <RHAH_Role_Labor>Laboring refugee</RHAH_Role_Labor>
+  <RHAH_Role_Envoy>Survivor envoy</RHAH_Role_Envoy>
+  <RHAH_Role_Refugee>Famine refugee</RHAH_Role_Refugee>
+</LanguageData>

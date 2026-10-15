@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_RefugeeMassacre.questNameRules.rulesStrings.0>questName-&gt;ラットキンの避難キャンプを一掃</RHAH_RefugeeMassacre.questNameRules.rulesStrings.0>
+  <RHAH_RefugeeMassacre.questDescriptionRules.rulesStrings.0>questDescription-&gt;[sponsorName] によると、近くにラットキンの仮設の避難キャンプがあり、自分たちの集落を脅かすおそれがあるという。彼らは、いわゆる「ラットキンの大氾濫」を防ぐため、[campDays] 日以内に、そこにいる被災者を全員殺すよう求めている。完了すると、双方の友好度が [campGoodwill] ポイント変化する。\n\n避難キャンプには、成年のラットキンが [campMinAdults]～[campMaxAdults] 人、子ラットキンが [campMinChildren]～[campMaxChildren] 人いると見込まれている。タレットも電力もないが、大人は武器を持っているかもしれず、近くに捕食動物が現れる可能性もある。倒すだけ、あるいは捕らえるだけでは、完了にはならない。</RHAH_RefugeeMassacre.questDescriptionRules.rulesStrings.0>
+</LanguageData>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Oxygen Ratkin gate example</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.oxygen.example.rhah</packageId>
+  <supportedVersions><li>1.6</li></supportedVersions>
+  <modDependencies>
+    <li><packageId>nanaloveyuki.oxygendsl</packageId><displayName>Oxygen DSL Framework</displayName><downloadUrl>https://github.com/Nanaloveyuki/Oxygen-Dsl-Framework</downloadUrl></li>
+    <li><packageId>nanaloveyuki.ratkin.hungerandhavoc</packageId><displayName>Ratkin: Hunger and Havoc</displayName></li>
+  </modDependencies>
+  <loadAfter><li>nanaloveyuki.oxygendsl</li><li>nanaloveyuki.ratkin.hungerandhavoc</li></loadAfter>
+  <description>通过饥与祸的稳定 API 控制乞讨闸门。角色自己的闸门覆盖优先，脚本未参与时沿用原规则。Begging policy through the stable RHAH API. Pawn overrides retain priority; an abstaining rule leaves the original policy unchanged.</description>
+</ModMetaData>

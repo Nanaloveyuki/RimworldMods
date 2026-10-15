@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_MaterialSelection_CopyOpen>制作王国文书副本</RHAH_MaterialSelection_CopyOpen>
+  <RHAH_MaterialSelection_CopyTitle>选择要复制的文书</RHAH_MaterialSelection_CopyTitle>
+  <RHAH_MaterialSelection_CopyHelp>免费复制所选文书，副本放在家园，可装入商队带去核验。原件保留，副本沿用原件的来源、编号和署名情况。</RHAH_MaterialSelection_CopyHelp>
+  <RHAH_MaterialSelection_MakeCopies>制作所选副本</RHAH_MaterialSelection_MakeCopies>
+  <RHAH_MaterialSelection_PublicationTitle>选择要寄出的文书副本</RHAH_MaterialSelection_PublicationTitle>
+  <RHAH_MaterialSelection_HandoverTitle>选择交给王国的文书</RHAH_MaterialSelection_HandoverTitle>
+  <RHAH_MaterialSelection_PublicationHelp>两组收件人将分别收到所选文书的副本，原件留在殖民地。寄出后，等信使送达再确认收件。</RHAH_MaterialSelection_PublicationHelp>
+  <RHAH_MaterialSelection_HandoverHelp>所选文书将由王国使者或信使从殖民地接走。未选中的文书留在你手里。</RHAH_MaterialSelection_HandoverHelp>
+  <RHAH_MaterialSelection_Redacted>书记尚未同意公开姓名，寄出的声明副本会遮去姓名。</RHAH_MaterialSelection_Redacted>
+  <RHAH_MaterialSelection_NamedConsent>书记已同意为公开材料署名。已经遮去姓名的副本仍按原样寄出。</RHAH_MaterialSelection_NamedConsent>
+  <RHAH_MaterialSelection_ChooseHelp>请逐份勾选文书。这里仅列出当前家园实际持有的材料。</RHAH_MaterialSelection_ChooseHelp>
+  <RHAH_MaterialSelection_Count>已选择 {0}／{1} 份</RHAH_MaterialSelection_Count>
+  <RHAH_MaterialSelection_SendCopies>寄出所选副本</RHAH_MaterialSelection_SendCopies>
+  <RHAH_MaterialSelection_HandOver>交出所选文书</RHAH_MaterialSelection_HandOver>
+  <RHAH_MaterialSelection_Empty>当前家园没有可交出的王国文书。商队携带的文书须先带回家园。</RHAH_MaterialSelection_Empty>
+  <RHAH_MaterialSelection_Item>#{0}　{1}（{2}）</RHAH_MaterialSelection_Item>
+  <RHAH_MaterialSelection_Provenance>来源：{0}。{1}。</RHAH_MaterialSelection_Provenance>
+  <RHAH_MaterialSelection_Stale>这次委托已变化或暂停。请关闭此窗口，重新打开当前来信。</RHAH_MaterialSelection_Stale>
+  <RHAH_MaterialSelection_Missing>请至少选择一份仍在家园的文书；材料有变化时，请关闭后重新选择。</RHAH_MaterialSelection_Missing>
+  <RHAH_MaterialSelection_Failed>文书尚未交出。请确认材料和接件人仍在，再试一次。</RHAH_MaterialSelection_Failed>
+</LanguageData>

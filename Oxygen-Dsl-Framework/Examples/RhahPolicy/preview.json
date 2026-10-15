@@ -1,0 +1,11 @@
+{
+  "id": 2,
+  "name": "Preview visitor",
+  "colonist": false,
+  "prisoner": false,
+  "slave": false,
+  "origin": true,
+  "active_visitor": true,
+  "lifecycle": "SeekingFood",
+  "hunger": "Hungry"
+}

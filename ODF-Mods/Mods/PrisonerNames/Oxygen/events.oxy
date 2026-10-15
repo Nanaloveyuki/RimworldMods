@@ -1,0 +1,16 @@
+// Optional event hook. All coefficients below are zero, so nothing changes until a player edits them.
+const resistance_per_point = 0
+const custody_day = 0
+const prison_break = 0
+
+fn on_event(pawn, event, state) {
+    if event.id == "prisoner.resistance_reduced" {
+        state.set("score", state.score + event.amount * resistance_per_point)
+    }
+    if event.id == "prisoner.custody_day" {
+        state.set("score", state.score + custody_day)
+    }
+    if event.id == "prisoner.prison_break" {
+        state.set("score", state.score + prison_break)
+    }
+}

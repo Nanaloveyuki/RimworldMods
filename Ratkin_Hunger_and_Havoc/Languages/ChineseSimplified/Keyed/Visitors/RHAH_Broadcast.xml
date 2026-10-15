@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Broadcast_Label>广播希望</RHAH_Broadcast_Label>
+  <RHAH_Broadcast_Cooldown>广播还在冷却</RHAH_Broadcast_Cooldown>
+  <RHAH_Broadcast_Empty>现在没有能广播的事件</RHAH_Broadcast_Empty>
+  <RHAH_Broadcast_Queued>广播已经发出，预计会有 {0} 支鼠族队伍前来。</RHAH_Broadcast_Queued>
+  <RHAH_Broadcast_FamineQueued>饥荒年的广播已经发出，预计会有 {0} 支鼠族队伍前来。</RHAH_Broadcast_FamineQueued>
+  <RHAH_Broadcast_Unavailable>现在不能广播希望</RHAH_Broadcast_Unavailable>
+</LanguageData>

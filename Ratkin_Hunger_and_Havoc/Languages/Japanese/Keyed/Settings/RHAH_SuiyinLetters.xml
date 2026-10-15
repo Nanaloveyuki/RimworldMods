@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Narrative_Nodes>手紙</RHAH_Menu_Narrative_Nodes>
+  <RHAH_Menu_Narrative_Node>この手紙を送る</RHAH_Menu_Narrative_Node>
+  <RHAH_Menu_Narrative_Thresholds>発生条件</RHAH_Menu_Narrative_Thresholds>
+  <RHAH_Menu_Narrative_Progress>節目の手紙までに先に出会う事件の種類</RHAH_Menu_Narrative_Progress>
+  <RHAH_Menu_Narrative_Reward>シルバーの手紙までに先に出会う事件の種類</RHAH_Menu_Narrative_Reward>
+  <RHAH_Menu_Narrative_Envoy>使者までに先に出会う事件の種類</RHAH_Menu_Narrative_Envoy>
+  <RHAH_Menu_Narrative_Relic>記録地点までに先に出会う事件の種類</RHAH_Menu_Narrative_Relic>
+  <RHAH_Menu_Narrative_Journals>記録</RHAH_Menu_Narrative_Journals>
+  <RHAH_Menu_Narrative_JournalOpen>記録 {0} を開く</RHAH_Menu_Narrative_JournalOpen>
+  <RHAH_Menu_Narrative_Aside>ひと言</RHAH_Menu_Narrative_Aside>
+  <RHAH_Menu_Narrative_TrustClosed>信頼が低すぎるため、スイインはひと言を送るのをやめました。出来事に結果が出たときの手紙は、これまでどおり送ります。</RHAH_Menu_Narrative_TrustClosed>
+</LanguageData>

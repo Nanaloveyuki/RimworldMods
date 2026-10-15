@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_RecordSite.label>旧存放点</MouseDisaster_RecordSite.label>
+  <MouseDisaster_RecordSite.description>一处保存迁移清单的旧存放点。线索有效期为十五天。</MouseDisaster_RecordSite.description>
+  <MouseDisaster_RecordSite.approachOrderString>前往旧存放点</MouseDisaster_RecordSite.approachOrderString>
+  <MouseDisaster_RecordSite.approachingReportString>正在前往旧存放点。</MouseDisaster_RecordSite.approachingReportString>
+  <MouseDisaster_RecordSite.arrivedLetter>已经抵达旧存放点。现场的记录箱仍需检查。</MouseDisaster_RecordSite.arrivedLetter>
+</LanguageData>

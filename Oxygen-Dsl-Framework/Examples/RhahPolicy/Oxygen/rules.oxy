@@ -1,0 +1,9 @@
+// Do not treat a retained origin mark as a visitor restriction.
+fn begging_policy(pawn): bool? {
+    if !pawn.origin || !pawn.active_visitor || pawn.colonist || pawn.prisoner || pawn.slave { return null }
+    if pawn.lifecycle == "Leaving" { return false }
+    if pawn.hunger == "Hungry" || pawn.hunger == "UrgentlyHungry" || pawn.hunger == "Starving" { return true }
+    return null
+}
+
+gate_rule("begging_policy", gate: "Beg", evaluate: begging_policy)

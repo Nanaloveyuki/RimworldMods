@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Approach_Intercept>拦截鼠族</RHAH_Approach_Intercept>
+  <RHAH_Approach_InterceptBlocked>当前无法拦截鼠族</RHAH_Approach_InterceptBlocked>
+  <RHAH_Approach_InterceptFailed>拦截地图生成失败，鼠族远行队仍在原地。</RHAH_Approach_InterceptFailed>
+  <RHAH_Predation_Label>捕食者</RHAH_Predation_Label>
+  <RHAH_Predation_Text>一只野生捕食者开始追猎这批鼠难民，先盯上了其中的幼年鼠族。</RHAH_Predation_Text>
+  <RHAH_OutsidePredators_Label>外边的捕食者</RHAH_OutsidePredators_Label>
+  <RHAH_OutsidePredators_Text>一只捕食者跟着鼠难民来到这里，正在找可以吃的鼠族。</RHAH_OutsidePredators_Text>
+  <RHAH_Intel_Label>情报地点</RHAH_Intel_Label>
+  <RHAH_Intel_Text>物资交换完成，对方提供的地点已标在世界地图上。</RHAH_Intel_Text>
+</LanguageData>

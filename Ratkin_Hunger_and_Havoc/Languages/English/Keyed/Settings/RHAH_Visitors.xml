@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_ShelterDays>Short-term stay: {0}</RHAH_Settings_ShelterDays>
+  <RHAH_Settings_ShelterDays_Tooltip>A short-term worker leaves when the time is up. Minimum 5 days, maximum 1 year, default 5 days. Injury or illness that downs a visitor pauses the timer until recovery. Children too young to walk leave with a caregiver from their group when the time is up.</RHAH_Settings_ShelterDays_Tooltip>
+  <RHAH_Settings_HireDays>Long-term stay: {0}</RHAH_Settings_HireDays>
+  <RHAH_Settings_HireDays_Tooltip>A long-term worker leaves when the time is up. Minimum 5 days, maximum 10 years, default 1 year. Injury or illness that downs a visitor pauses the timer until recovery. Children too young to walk leave with a caregiver from their group when the time is up.</RHAH_Settings_HireDays_Tooltip>
+  <RHAH_Settings_Begging>Allow begging</RHAH_Settings_Begging>
+  <RHAH_Settings_Begging_Tooltip>Off, visitors stop begging from colonists.</RHAH_Settings_Begging_Tooltip>
+  <RHAH_Settings_BegAutoGive>Give carried food when begging succeeds</RHAH_Settings_BegAutoGive>
+  <RHAH_Settings_BegAutoGive_Tooltip>Off by default. On, a successful beg takes one allowed food from the colonist's pack, highest nutrition first. Off, the visitor still asks, the food stays in the pack, and the beg does not count as success. Handing food over, relief food, and feeding during care continue as usual.</RHAH_Settings_BegAutoGive_Tooltip>
+  <RHAH_Settings_BegSuccessChance>First beg succeeds: {0}%</RHAH_Settings_BegSuccessChance>
+  <RHAH_Settings_BegSuccessChance_Tooltip>Base chance the first time someone begs from one colonist. Social skill adds the bonus below, up to 100%. Default 35.</RHAH_Settings_BegSuccessChance_Tooltip>
+  <RHAH_Settings_BegSocialBonus>Social skill bonus: +{0}% per level</RHAH_Settings_BegSocialBonus>
+  <RHAH_Settings_BegSocialBonus_Tooltip>Extra success chance for each level of the beggar's Social skill. 0 to 20, default 3. A later beg to the same colonist cannot succeed.</RHAH_Settings_BegSocialBonus_Tooltip>
+  <RHAH_Settings_BegFoods>Food that can be begged</RHAH_Settings_BegFoods>
+  <RHAH_Settings_BegFoods_Tooltip>Food turned off stays in the pack when a beg succeeds. Raw food and ingredients are not on this list.</RHAH_Settings_BegFoods_Tooltip>
+  <RHAH_Settings_BegFoods_All>Allow all</RHAH_Settings_BegFoods_All>
+  <RHAH_Settings_BegFoods_None>Forbid all</RHAH_Settings_BegFoods_None>
+  <RHAH_Settings_BegFoods_Search>Search foods or mods</RHAH_Settings_BegFoods_Search>
+  <RHAH_Settings_BegFoods_Empty>No foods match.</RHAH_Settings_BegFoods_Empty>
+  <RHAH_Settings_BegFoods_Quote>Food you turn off cannot be taken by begging. Meals added later can still be begged. Handing food over uses its own list.</RHAH_Settings_BegFoods_Quote>
+  <RHAH_Settings_BegFoods_Sort>Begging food grouping</RHAH_Settings_BegFoods_Sort>
+  <RHAH_Settings_BegFoods_Sort_0>By mod</RHAH_Settings_BegFoods_Sort_0>
+  <RHAH_Settings_BegFoods_Sort_1>By name</RHAH_Settings_BegFoods_Sort_1>
+  <RHAH_Settings_BegFoods_Sort_2>By vanilla category</RHAH_Settings_BegFoods_Sort_2>
+  <RHAH_Settings_BegFailCooldown>Wander after failed begging: {0} hours</RHAH_Settings_BegFailCooldown>
+  <RHAH_Settings_BegFailCooldown_Tooltip>After every suitable colonist refuses, the visitor wanders this long before begging again. 3 to 12 hours, default 3.</RHAH_Settings_BegFailCooldown_Tooltip>
+  <RHAH_Settings_BegSlapChance>Slap on a repeat beg: {0}%</RHAH_Settings_BegSlapChance>
+  <RHAH_Settings_BegSlapChance_Tooltip>The second time the same colonist is begged, and every time after, they may slap the beggar at this chance. 0 to 100, default 50.</RHAH_Settings_BegSlapChance_Tooltip>
+  <RHAH_Settings_Stealing>Allow stealing</RHAH_Settings_Stealing>
+  <RHAH_Settings_Stealing_Tooltip>Off, visitors stop stealing.</RHAH_Settings_Stealing_Tooltip>
+  <RHAH_Settings_Fighting>Allow fighting back</RHAH_Settings_Fighting>
+  <RHAH_Settings_Fighting_Tooltip>Off, a harmed or driven-off visitor leaves instead of fighting back.</RHAH_Settings_Fighting_Tooltip>
+  <RHAH_Settings_Gnawing>Allow gnawing trees and walls</RHAH_Settings_Gnawing>
+  <RHAH_Settings_Gnawing_Tooltip>Off, visitors stop gnawing bark or walls for food.</RHAH_Settings_Gnawing_Tooltip>
+  <RHAH_Settings_BatchHostile>The whole group turns hostile</RHAH_Settings_BatchHostile>
+  <RHAH_Settings_BatchHostile_Tooltip>Off, harming or driving off one visitor leaves the rest of that group as they are.</RHAH_Settings_BatchHostile_Tooltip>
+  <RHAH_Settings_BatchLeave>The whole group leaves together</RHAH_Settings_BatchLeave>
+  <RHAH_Settings_BatchLeave_Tooltip>Off, harm or expulsion affects only that visitor. The rest of the group stays.</RHAH_Settings_BatchLeave_Tooltip>
+  <RHAH_Settings_ShortStayLockApparel>Lock current clothes for short stays</RHAH_Settings_ShortStayLockApparel>
+  <RHAH_Settings_ShortStayLockApparel_Tooltip>On by default. Starting a short stay locks the clothes worn then. When the stay ends, or the visitor becomes a prisoner, slave, or colonist, only those locks come off. Off, a newly started short stay leaves clothes unlocked. A stay already underway keeps those clothes locked.</RHAH_Settings_ShortStayLockApparel_Tooltip>
+  <RHAH_Settings_VisitorChoices>Enable visitor choices</RHAH_Settings_VisitorChoices>
+  <RHAH_Settings_VisitorChoices_Tooltip>Off, new visitors stop asking to be taken in, hired, or sent away. The right-click menu still handles people already here.</RHAH_Settings_VisitorChoices_Tooltip>
+  <RHAH_Settings_FoodGiveHint>Skip the feeding reminder</RHAH_Settings_FoodGiveHint>
+  <RHAH_Settings_FoodGiveHint_Tooltip>On, the first time you choose to feed them, the letter skips the explanation of how to hand the food over.</RHAH_Settings_FoodGiveHint_Tooltip>
+  <RHAH_Settings_FamilyDrop>Set children down when leaving</RHAH_Settings_FamilyDrop>
+  <RHAH_Settings_FamilyDrop_Tooltip>Off, a mother keeps carrying a child as she leaves.</RHAH_Settings_FamilyDrop_Tooltip>
+  <RHAH_Settings_MotherFeed>Mothers feed children</RHAH_Settings_MotherFeed>
+  <RHAH_Settings_MotherFeed_Tooltip>Off, a mother keeps the meal in her pack instead of handing one to a hungry child.</RHAH_Settings_MotherFeed_Tooltip>
+  <RHAH_Settings_PrisonerScavenge>Prisoners scavenge the ground</RHAH_Settings_PrisonerScavenge>
+  <RHAH_Settings_PrisonerScavenge_Tooltip>Off, a hungry prisoner leaves the filth on the ground.</RHAH_Settings_PrisonerScavenge_Tooltip>
+  <RHAH_Settings_TailBite>Allow tail bites</RHAH_Settings_TailBite>
+  <RHAH_Settings_TailBite_Tooltip>On, a hungry prisoner bites off the tail of a nearby sleeping prisoner under 3 who still has one. Off by default.</RHAH_Settings_TailBite_Tooltip>
+  <RHAH_Settings_FamineDoors>Famine visitors may open doors</RHAH_Settings_FamineDoors>
+  <RHAH_Settings_FamineDoors_Tooltip>Off by default. On, famine visitors may open colonist doors. They still leave doors shut while an enemy is on the map.</RHAH_Settings_FamineDoors_Tooltip>
+  <RHAH_Settings_BegFailMood>Beg refused: {0}</RHAH_Settings_BegFailMood>
+  <RHAH_Settings_BegFailMood_Tooltip>Mood after a refused beg. -50 to 50, default -5.</RHAH_Settings_BegFailMood_Tooltip>
+  <RHAH_Settings_BegSuccessMood>Beg succeeded: {0}</RHAH_Settings_BegSuccessMood>
+  <RHAH_Settings_BegSuccessMood_Tooltip>Mood after a successful beg. -50 to 50, default 3.</RHAH_Settings_BegSuccessMood_Tooltip>
+  <RHAH_Settings_BegSlapMood>Slapped: {0}</RHAH_Settings_BegSlapMood>
+  <RHAH_Settings_BegSlapMood_Tooltip>Mood after a slap for begging again. -50 to 50, default -10.</RHAH_Settings_BegSlapMood_Tooltip>
+  <RHAH_Settings_BegKnock>Slap stun: {0} hours</RHAH_Settings_BegKnock>
+  <RHAH_Settings_BegKnock_Tooltip>Hours a slap stuns the beggar. 1 to 24 uses that many hours. 0 is the default and stuns for half an hour.</RHAH_Settings_BegKnock_Tooltip>
+  <RHAH_Settings_BegBruise>Slap bruise: {0}</RHAH_Settings_BegBruise>
+  <RHAH_Settings_BegBruise_Tooltip>Severity of the first bruise. 0 to 40, default 4.</RHAH_Settings_BegBruise_Tooltip>
+  <RHAH_Settings_BegBruiseStep>Bruise step: {0}</RHAH_Settings_BegBruiseStep>
+  <RHAH_Settings_BegBruiseStep_Tooltip>Severity added by another slap on the same bruise. 0 to 40, default 4.</RHAH_Settings_BegBruiseStep_Tooltip>
+  <RHAH_Settings_BegBruiseMax>Bruise cap: {0}</RHAH_Settings_BegBruiseMax>
+  <RHAH_Settings_BegBruiseMax_Tooltip>A bruise at this severity becomes a cut. It cannot sit below the first hit. Up to 40, default 16.</RHAH_Settings_BegBruiseMax_Tooltip>
+  <RHAH_Settings_GnawBark>Bark nutrition: {0}</RHAH_Settings_GnawBark>
+  <RHAH_Settings_GnawBark_Tooltip>Nutrition from one bite of a plant. 0 to 2, default 0.25.</RHAH_Settings_GnawBark_Tooltip>
+  <RHAH_Settings_GnawBarkDamage>Bark damage: {0}</RHAH_Settings_GnawBarkDamage>
+  <RHAH_Settings_GnawBarkDamage_Tooltip>Fixed hit points removed by one bite of a plant. Material, building, and damage multipliers do not change the bite. 0 to 50, default 12.</RHAH_Settings_GnawBarkDamage_Tooltip>
+  <RHAH_Settings_GnawWall>Wall nutrition: {0}</RHAH_Settings_GnawWall>
+  <RHAH_Settings_GnawWall_Tooltip>Nutrition from one bite of a wall. 0 to 2, default 0.20.</RHAH_Settings_GnawWall_Tooltip>
+  <RHAH_Settings_GnawWallDamage>Wall damage: {0}</RHAH_Settings_GnawWallDamage>
+  <RHAH_Settings_GnawWallDamage_Tooltip>Fixed hit points removed by one bite of a wall. Material, building, and damage multipliers do not change the bite. 0 to 50, default 10.</RHAH_Settings_GnawWallDamage_Tooltip>
+  <RHAH_Settings_ClayBites>Clay bites: {0}</RHAH_Settings_ClayBites>
+  <RHAH_Settings_ClayBites_Tooltip>Bites of guanyin clay allowed in one satiety window. 1 to 3, default 3.</RHAH_Settings_ClayBites_Tooltip>
+  <RHAH_Settings_ClayDays>Clay window: {0} days</RHAH_Settings_ClayDays>
+  <RHAH_Settings_ClayDays_Tooltip>Days before the bite count starts over. 1 to 60, default 15.</RHAH_Settings_ClayDays_Tooltip>
+  <RHAH_Settings_ClaySeverity>Clay fullness: {0}</RHAH_Settings_ClaySeverity>
+  <RHAH_Settings_ClaySeverity_Tooltip>Fullness added by one bite. 0 to 1, default 0.33.</RHAH_Settings_ClaySeverity_Tooltip>
+  <RHAH_Settings_ChildHungry>Child hunger: {0}%</RHAH_Settings_ChildHungry>
+  <RHAH_Settings_ChildHungry_Tooltip>A mother feeds a child below this food level. 0 to 100, default 30.</RHAH_Settings_ChildHungry_Tooltip>
+  <RHAH_Settings_PrisonerHungry>Prisoner hunger: {0}%</RHAH_Settings_PrisonerHungry>
+  <RHAH_Settings_PrisonerHungry_Tooltip>A prisoner scavenges or bites a tail below this food level. 0 to 100, default 20.</RHAH_Settings_PrisonerHungry_Tooltip>
+  <RHAH_Settings_TailAge>Tail-bite age: {0}</RHAH_Settings_TailAge>
+  <RHAH_Settings_TailAge_Tooltip>Only a sleeping child under this age can be bitten. 0 to 18, default 3.</RHAH_Settings_TailAge_Tooltip>
+  <RHAH_Settings_Scavenge>Filth nutrition: {0}</RHAH_Settings_Scavenge>
+  <RHAH_Settings_Scavenge_Tooltip>Nutrition from licking filth once. 0 to 2, default 0.15.</RHAH_Settings_Scavenge_Tooltip>
+  <RHAH_Settings_TailFood>Tail nutrition: {0}</RHAH_Settings_TailFood>
+  <RHAH_Settings_TailFood_Tooltip>Nutrition from a successful tail bite. 0 to 2, default 0.35.</RHAH_Settings_TailFood_Tooltip>
+  <RHAH_Settings_TailFail>Failed bite damage: {0}</RHAH_Settings_TailFail>
+  <RHAH_Settings_TailFail_Tooltip>Damage when the bite does not take the tail. 0 to 50, default 4.</RHAH_Settings_TailFail_Tooltip>
+  <RHAH_Settings_FamineYear>Enable annual famines</RHAH_Settings_FamineYear>
+  <RHAH_Settings_FamineYear_Tooltip>Off by default. Each year, at 6 AM on the first day of the selected home's local calendar, decide whether it is a famine year. The first judgment catches up with the current year if New Year's Day has passed. Famine years increase this mod's visitor groups and broadcast responses and may bring one extra major disaster. Disabling this option stops annual famine effects.</RHAH_Settings_FamineYear_Tooltip>
+  <RHAH_Settings_FamineYearChance>Yearly famine chance: {0}%</RHAH_Settings_FamineYearChance>
+  <RHAH_Settings_FamineYearChance_Tooltip>Chance that a year is a famine year. Range 0 to 100%, default 40%.</RHAH_Settings_FamineYearChance_Tooltip>
+  <RHAH_Settings_FamineYearMultiplier>Famine-year visitor multiplier: {0}</RHAH_Settings_FamineYearMultiplier>
+  <RHAH_Settings_FamineYearMultiplier_Tooltip>During famine years, this mod's ordinary multi-person groups are multiplied after their usual population cap, rounding up. Single visitors, fixed mother-and-child families and laboring pairs retain their usual size. Mouse swarms always number 15 to 50. Broadcasts can call up to this multiplier rounded up in distinct groups. Range 1 to 4, default 3.</RHAH_Settings_FamineYearMultiplier_Tooltip>
+  <RHAH_Settings_FamineYearDisasterChance>Daily extra disaster chance in famine years: {0}%</RHAH_Settings_FamineYearDisasterChance>
+  <RHAH_Settings_FamineYearDisasterChance_Tooltip>At 6 AM local time each day of a famine year, this chance applies to an attempt to cause a cold snap, heat wave, toxic fallout or volcanic winter. At most one extra disaster succeeds per famine year. Range 0 to 100%, default 20%.</RHAH_Settings_FamineYearDisasterChance_Tooltip>
+  <RHAH_FamineYear_Label>{0}: The year's outlook</RHAH_FamineYear_Label>
+  <RHAH_FamineYear_Famine>{0} is a famine year. More hungry ratkin will arrive together, and broadcasts will draw more groups seeking help. A cold snap, heat wave, toxic fallout or volcanic winter may make the year harder still.\n\nKeep extra food for the visitors and your colony.</RHAH_FamineYear_Famine>
+  <RHAH_FamineYear_Normal>{0} is an ordinary year. This mod's visitor groups and broadcast responses retain their usual size.</RHAH_FamineYear_Normal>
+  <RHAH_FamineYear_Catchup>New Year's Day has already passed. Here is the outlook for the rest of this year.</RHAH_FamineYear_Catchup>
+  <RHAH_Settings_FamineArrival>Famine visitors arrive hungry</RHAH_Settings_FamineArrival>
+  <RHAH_Settings_FamineArrival_Tooltip>Enabled by default. This mod's non-player famine visitors arrive with an empty food need and malnutrition at the severity set by Arrival malnutrition. This adjustment applies on arrival only. When disabled, new visitors retain their usual food need and health.</RHAH_Settings_FamineArrival_Tooltip>
+  <RHAH_Settings_FamineMalnutrition>Arrival malnutrition: {0}</RHAH_Settings_FamineMalnutrition>
+  <RHAH_Settings_FamineMalnutrition_Tooltip>Malnutrition severity given to this mod's non-player famine visitors when hungry arrivals are enabled. 0.01 to 0.5, default 0.25.</RHAH_Settings_FamineMalnutrition_Tooltip>
+  <RHAH_Settings_FamineMood>Enable famine visitor moods</RHAH_Settings_FamineMood>
+  <RHAH_Settings_FamineMood_Tooltip>Enabled by default. This mod's visitors lose mood while starving, with a stronger penalty after food is refused or a demand expires. Actually eating their fill gives +6 for 1 day. Ratkin originating from this mod also gain memories from shelter, capture, enslavement, expulsion and eating, including after joining the colony. Eating gives +6 or +12 for 1 day based on per-unit nutrition compared with a fine meal. Disabling this option stops these mood effects.</RHAH_Settings_FamineMood_Tooltip>
+  <RHAH_Settings_ClayMood>Enable guanyin clay moods</RHAH_Settings_ClayMood>
+  <RHAH_Settings_ClayMood_Tooltip>Enabled by default. Characters with a mood need suffer a -2, -4, or -6 mood effect after their first, second, or third lump of guanyin clay in the current satiety window. Only the current stage applies; it ends when the window expires.</RHAH_Settings_ClayMood_Tooltip>
+  <RHAH_Settings_FamineTrade>Enable famine caravan prices</RHAH_Settings_FamineTrade>
+  <RHAH_Settings_FamineTrade_Tooltip>Enabled by default. This mod's famine caravans pay more for food sold by the player and charge less for non-food goods, using the factors below. When disabled, caravans continue trading at normal prices.</RHAH_Settings_FamineTrade_Tooltip>
+  <RHAH_Settings_FoodSaleFactor>Player food sale price factor: {0}</RHAH_Settings_FoodSaleFactor>
+  <RHAH_Settings_FoodSaleFactor_Tooltip>Multiplies the price this mod's caravans pay for the player's food when famine caravan prices are enabled. The result cannot exceed the normal price the player pays to buy the same food. 1 to 3, default 1.5. A value of 1 uses the normal purchase price.</RHAH_Settings_FoodSaleFactor_Tooltip>
+  <RHAH_Settings_GoodsBuyFactor>Player non-food purchase price factor: {0}</RHAH_Settings_GoodsBuyFactor>
+  <RHAH_Settings_GoodsBuyFactor_Tooltip>Multiplies the price the player pays for non-food goods from this mod's caravans when famine caravan prices are enabled. The result cannot fall below the normal price the player receives for selling the same goods. 0.1 to 1, default 0.75. A value of 1 uses the normal sale price.</RHAH_Settings_GoodsBuyFactor_Tooltip>
+  <RHAH_Settings_ArmedDemand>Attack after an unmet food demand</RHAH_Settings_ArmedDemand>
+  <RHAH_Settings_ArmedDemand_Tooltip>Enabled by default. Visitors from begging sieges, strong sieges, and plague strong sieges wait for simple meals until the request deadline. They attack after refusal or expiry. Paying in full stops the attack and makes them leave. When disabled, new siege visitors use the usual visitor choices, and existing food-demanding groups become neutral and leave.</RHAH_Settings_ArmedDemand_Tooltip>
+  <RHAH_Settings_ArmedWeapons>Give food-demanding visitors crude weapons</RHAH_Settings_ArmedWeapons>
+  <RHAH_Settings_ArmedWeapons_Tooltip>Enabled by default. New adult visitors from begging sieges, strong sieges, and plague strong sieges receive crude vanilla weapons such as wooden clubs or low-tech firearms if retaliation is allowed and they can use weapons. Quality is normal or worse. When disabled, new food-demanding visitors remain unarmed.</RHAH_Settings_ArmedWeapons_Tooltip>
+</LanguageData>

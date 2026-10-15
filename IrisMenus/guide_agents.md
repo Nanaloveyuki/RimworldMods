@@ -1,0 +1,166 @@
+# IrisMenus Agent Integration Contract
+
+## Scope and ownership
+
+- Target RimWorld 1.6, .NET Framework 4.8, namespace `IrisMenus`. Require Harmony and package `Nanaloveyuki.IrisMenus`; no RimIris dependency.
+- Reference IrisMenus.dll with `Private=false`. Never ship a duplicate DLL in a consumer. Declare the mod dependency and load the provider before the consumer.
+- Run registration, invalidation, focus and rendering on the game thread. Register static pages once, normally after `GetSettings<T>()` in the Mod constructor. Dynamically declared SubItem listings may be replaced atomically; there is no general unregister API.
+
+- Consumer owns settings and persistence. The host neither serializes consumer values nor supports rollback. Preserve existing settings keys and save semantics.
+- Do not patch other mods, scan private fields, or invoke drawing to discover settings. Manual adapter opt-in remains a user decision.
+
+## Public API
+
+```csharp
+MenuRegistry.Register(Mod owner, string pageId, Func<string> title,
+    Action<Rect> draw, Action save = null);
+MenuRegistry.RegisterListing(Mod owner, string pageId, Func<string> title,
+    Action<Listing_Standard> draw, Action save = null);
+MenuRegistry.RegisterSubItem(Mod owner, string pageId, Func<string> title,
+    Action<Rect> draw, Action save = null);
+MenuRegistry.RegisterSubItemListing(Mod owner, string pageId, Func<string> title,
+    Action<Listing_Standard> draw, Action save = null);
+MenuRegistry.ReplaceSubItemListings(Mod owner, string registrationId,
+    IEnumerable<MenuSubItemListing> listings);
+
+MenuRegistry.RegisterSearchProvider(Mod owner, string pageId,
+    Func<IEnumerable<MenuSearchEntry>> provider, Action<string> focus = null);
+MenuRegistry.RegisterAdapterSearch(Mod owner,
+    Func<IEnumerable<MenuSearchEntry>> provider, Action<string> focus = null);
+MenuRegistry.InvalidateSearchIndex();
+MenuRegistry.Open();
+MenuRegistry.RegisterOwnerAction(Mod owner, string id, Func<string> label, Action execute,
+    Func<bool> visible = null, Func<bool> enabled = null, Func<string> confirmation = null);
+MenuRegistry.RegisterOwnerAction(ModContentPack owner, string id, Func<string> label, Action execute,
+    Func<bool> visible = null, Func<bool> enabled = null, Func<string> confirmation = null);
+
+MenuRegistry.RegisterModNameAlias(Mod owner, string language, string alias);
+MenuRegistry.RegisterModNameAlias(ModContentPack content, string language, string alias);
+MenuRegistry.RegisterModNameAlias(string packageId, string language, string alias);
+string name = MenuRegistry.GetModDisplayName(Mod owner);
+string name = MenuRegistry.GetModDisplayName(ModContentPack content);
+
+new MenuSubItemListing(string pageId, Func<string> title, Action<Listing_Standard> draw,
+    Action save = null, Func<IEnumerable<MenuSearchEntry>> searchProvider = null);
+
+new MenuSearchEntry(string id, Func<string> title,
+    Func<string> keywords = null, Func<string> context = null);
+MenuControls.Anchor(Listing_Standard list, string id, float height = 30f);
+MenuControls.Markdown(Listing_Standard list, IMarkdown markdown);
+
+new MenuScrollView(); // Draw(Rect, Action<Listing_Standard>), Focus(string), Reset()
+new MenuSection(string id, Func<float, float> measure, Action<Rect> draw);
+new MenuSection(string id, Func<float, float> measure, Action<Rect> draw, Func<string> layoutKey);
+new MenuSectionView(IEnumerable<MenuSection> sections); // Draw(Rect), Focus(string), InvalidateLayout()
+
+IMarkdownParser parser = new MarkdownParser();
+IMarkdown live = Markdown.Dynamic(Func<string> getMarkdown, parser);
+IMarkdown file = Markdown.StaticFile(string filePath, parser);
+// IMarkdown exposes MarkdownText, RenderedText, Measure(float), and Draw(Rect).
+```
+
+The Markdown API converts the supported Markdown subset to RimWorld/Unity rich
+text. It is not an HTML adapter. Existing valid `<color=#RRGGBB>...</color>` or
+`<color=#RRGGBBAA>...</color>` tags pass through unchanged; invalid color
+tags are emitted verbatim. Only `<color>`, `<b>`, and `<i>` rich-text tags are retained,
+while other complete tag-shaped markup is removed so measurement and drawing
+use the same text. `**bold**` is parsed only when its opening delimiter is at
+the start, after whitespace, or after a letter/digit; punctuation immediately
+before the delimiter, such as `,**bold**`, keeps the source literal. Dynamic
+sources are re-parsed after their returned string changes. Static files are
+read once as UTF-8 when the object is constructed and are never watched or
+written. See `docs/markdown.md` for the complete usage contract.
+
+These are invocation/signature summaries, not a standalone compilable file. See `tests/ApiConsumer/ExampleMod.cs` for a compile-checked integration.
+
+## IDs, navigation and persistence
+
+- Owner identity is `Content.PackageIdPlayerFacing + ":" + GetType().FullName`; page identity appends `":" + pageId`. Keep IDs and owner type stable across versions. Renaming loses remembered navigation unless separately migrated.
+- Registration rejects null owner/title/draw and blank page ID; duplicate full page ID throws. Search declarations require an already registered page. Re-declaring a provider replaces its metadata provider and increments the registry revision.
+- `ReplaceSubItemListings` is scoped by owner identity plus `registrationId`. It validates the whole set, including nulls, blank registration/page IDs, duplicate IDs, and collisions with pages not owned by that registration, before changing the registry. An empty list removes only that registration. Stable page IDs keep their `MenuPage` and listing scroll object while title, draw, save and search callbacks update. Save defaults to `owner.WriteSettings`. Each successful replacement increments the registry revision once. An open window refresh keeps a same-ID page selected; a removed selection first falls back to the nearest declaration position in the same registration, then another page of that owner or the global catalog. Removed pages are no longer drawn.
+
+- All pages of an owner group together when there are multiple pages. A single legacy page opens directly; a single explicit SubItem retains a parent heading. Mixed legacy/SubItem registrations share one group.
+- Only the selected owner expands. Selecting the owner heading restores its last page, falling back to the first available page when removed. With default-on Remember last page, `LastSubItems`, `LastPage` and the host view persist through host settings. Disabling memory clears host navigation and opens the global catalog next time; geometry, appearance and consumer values are unaffected.
+- The global catalog is a directory of pages plus declared settings, not a combined settings editor. Search scope is all hosted pages or all categories of the selected owner.
+- Opening a search hit retains the original search scope, query, result-page index and scroll. Back returns to those results. Explicit navigation clears the query and resets result pagination. With memory enabled, reopen/restart also restores search/management mode, host scroll positions, compact navigation visibility and registered Listing scrolling. Explicit Mod entry routing takes precedence over saved search state. Custom/adapted page state remains consumer-owned.
+
+## Localized Mod names (1.1.1)
+
+- Register once on the game thread. `language` is `LoadedLanguage.folderName`, e.g. `English` or `ChineseSimplified`, not a locale code or friendly name. The package-ID overload lets translation mods name another package before its Mod handle exists. Mod/content overloads use `PackageIdPlayerFacing`.
+- Package IDs and language keys compare with `OrdinalIgnoreCase`. Registration trims inputs and rejects null/whitespace IDs, languages or aliases. Last registration wins for the same package/language; unrelated languages remain intact. Changed registrations increment the registry revision; identical re-registration does not rebuild the index.
+- `GetModDisplayName(Mod|ModContentPack)` returns the active language alias, otherwise `Content.Name`, including before language initialization. No cross-language fallback. It never mutates the game content name, metadata, stable IDs or persisted settings; aliases live in memory for this process only. Alias registration does not opt a Mod into hosting.
+- Owner headings, single-page Mod navigation, adapted page titles, action-only launcher titles, tooltips, search scope and result paths use localized names. Explicit native category titles remain unchanged; a blank/failing title or one equal to the raw Mod name resolves to the localized name. Search matches both the current alias and original name. An open window refreshes on alias revision or active-language object changes.
+- The add-mod-settings list draws `Content.ModMetaData.Icon`, using the game's cached ModIcon/custom-path/default-icon logic; IrisMenus does not load or own additional textures. A 32-unit aspect-fit icon occupies a fixed 40-unit column. Only visible rows request icons; wrapped row heights reserve both that column and the checkbox area.
+
+## Metadata and incremental work
+
+- `MenuSearchEntry.Id` is both the unique per-page metadata ID and the anchor passed to focus. There is no separate anchor property. Title is required; keywords/context are optional callbacks. Null returned title falls back to the page title.
+- Matching covers title, context, keywords, owner name and page title. Whitespace-separated terms use AND with `CurrentCultureIgnoreCase`. No fuzzy matching, ranking or private-control introspection.
+- Index construction never invokes page draws. Each frame advances at most 32 provider/page steps and 32 record matches, once across IMGUI events. Pagination draws at most 20 result rows. Partial results are visible while indexing.
+- This is a work-count budget, NOT a wall-clock guarantee. Provider invocation, each `MoveNext`, and text callbacks must be cheap. Prefer lazy `yield return`; avoid prebuilding large arrays, I/O or game-state mutation in providers.
+- All records/results remain in memory; pagination bounds drawn rows, not total index memory. Matching a changed query scans stored records incrementally. Unchanged queries do not rescan.
+- Language object changes, registry revisions and adapter selection changes rebuild the catalog. Call `InvalidateSearchIndex()` after other metadata changes. Do not invalidate every draw. Providers must be re-enumerable.
+- Null/duplicate entries or callback/enumerator exceptions log a page-specific failure, stop that provider and preserve already collected records and other pages. Enumerators are disposed on completion, failure, rebuild and close. A valid page-level fallback is added before enumeration.
+
+## Listing anchors
+
+- Registered Listing pages already own a persistent `MenuScrollView`, and search focus defaults to its `Focus`. With custom `Register` plus a scroll view, explicitly pass `scroll.Focus` to `RegisterSearchProvider`.
+- Call `MenuControls.Anchor` immediately before a control, using the active listing's content coordinates. It does not reserve height. Supply the actual highlight height when different from 30.
+- Anchor IDs must be nonblank and unique during each draw. Calling Anchor outside a host scroll view throws. Do not use it in nested independent listing coordinate spaces; use a custom focus implementation instead.
+- Focus stores an ID, never a cached pixel offset. The next draw resolves current layout and updates scrolling for the following draw. Highlight lasts four real-time seconds from Focus.
+- A missing conditional anchor logs a warning and consumes the pending focus. To reveal conditional content, install a callback that expands it then calls a separately owned scroll view's Focus, or index an always-visible section.
+- Passing a non-null focus to `RegisterSearchProvider` replaces the default listing focus. Passing null retains the existing focus. There is no public getter for a registered listing's private scroll view.
+- `Reset()` only resets scroll position. Listing clipping still executes the complete callback; do not claim virtualization.
+
+## Lazy sections
+
+- Construct a persistent `MenuSectionView` once. Constructor materializes the section sequence and rejects null sections and duplicate IDs. The section set is fixed; rebuild the view explicitly if membership must change.
+- Measure receives content width (viewport minus scrollbar allowance). Return finite, nonnegative height. Measurement must not draw or have side effects. Eight units of spacing follow each section.
+- All section heights are measured initially and on width/language changes; only intersecting positive-height sections draw. An optional `layoutKey` is checked before drawing and triggers a full remeasure when it changes. Measurement is otherwise cached, but visibility traversal still visits every section, so this is not an O(visible) index.
+- Draw receives a clipped local rect starting at (0,0). Keep content within measured height; balance all GUI groups. The host restores GUI state around each section.
+- Use `layoutKey` for dynamic content such as `() => markdown.MarkdownText`; use `InvalidateLayout` when conditional content, text, fonts or other non-width inputs change height without a key. Focus requires an existing section ID, scrolls using recomputed geometry and highlights for four real-time seconds. Search IDs must match sections, or a custom callback must map them explicitly.
+- Section virtualization can stop drawing offscreen text fields; own edit buffers and commit semantics in consumer state, not transient draws.
+
+## Adapters, errors and lifecycle
+
+- Manual adapters require a loaded Mod with nonempty `SettingsCategory()` and user opt-in. Explicit registrations take precedence. RegisterAdapterSearch alone does not enable hosting.
+- Without metadata, fallback records search owner/page name and open the whole page. With metadata but no focus, setting results also open only the page. Custom adapters own scrolling, expansion and highlighting; none can be inferred from `DoSettingsWindowContents(Rect)`.
+- Adapter metadata supports one original page, not automatic category splitting. Use explicit page registrations for real categories. The original dialog's lifecycle and mod-specific patches to it are not emulated.
+- The router redirects only exact `Dialog_ModSettings` entries for opted-in owners. Custom subclasses and unrelated settings remain untouched.
+- Character Editor (`CharacterEditor.CharacterEditorMod`, Workshop 1874644848) is a launcher adapter: its `DoSettingsWindowContents` opens a separate `CharacterEditor.CEditor+ModOptions+DialogConfigurate` and closes vanilla settings dialogs. The host invokes it only on an explicit Open-original-settings click, focusing an existing dialog instead of recreating it. Never reopen automatically after close; use Character Editor's own Save button. No third-party methods or private settings are patched/reflected. Both manual-page discovery and original-entry routing use this adapter; explicit registrations still win.
+- Save defaults to `owner.WriteSettings`. Leaving a different page, returning from a search hit, and normal close save; save errors are logged, surfaced and block navigation/close for retry. Same-page selection is a no-op. Forced window removal can only attempt saving, not veto removal.
+- Drawing exceptions log and enter a retry view; `ExitGUIException` propagates as required by IMGUI. Save still runs after draw failure. Consumer-unbalanced IMGUI groups cannot be reliably repaired by the host.
+- Focus errors are reported after destination selection; the destination remains selected. Fix the ID/callback rather than suppressing diagnostics.
+
+- `RegisterOwnerAction` is generic and stores no consumer state. `Mod` and `ModContentPack` registrations for the same content reference share one owner key: `PackageIdPlayerFacing + ":" + RootDir`. Re-registering the same owner key and action ID replaces callbacks and increments the registry revision once. Register on the game thread, not during draw.
+- Actions render in a wrapping strip above the selected owner's page. The global catalog has no selected owner and shows no strip. Click time rechecks `visible` and `enabled`; a nonblank confirmation opens `Dialog_MessageBox` before execute and rechecks again on accept. Blank confirmation runs immediately. Callback exceptions are logged and surfaced; they do not close the window or stop a consumer session.
+- A content pack with actions but no settings page gets one stable action-only launcher, ID `content-owner-key:actions`. It is not a native settings page: `HasPages` stays false, manual adapter opt-in remains available, and the launcher is omitted from search and from expanded settings children. The page stores its `ModContentPack` directly; its `Mod` owner is null until a real handle is available. It never creates a helper `Mod` subclass or adds a handle to `LoadedModManager`: the game discovers nonabstract `Mod` subclasses regardless of visibility. If that content later has a real Mod handle, the launcher adopts it and stays in the same group.
+- `MenuSettings.ShowMainButton` defaults to true, including legacy saves without `showMainButton`. The original IrisMenus settings dialog and the IrisMenus window footer share this preference; either control applies and saves changes immediately. `MainButtonWorker_IrisMenus.Visible` combines it with `base.Visible`, preserving engine restrictions and reclaiming button-bar space through RimWorld's normal layout. Hiding the button does not disable `MenuRegistry.Open`, the settings-page launcher or opted-in Mod entry routing.
+
+- Title callback errors log once for that page object and fall back to owner name. Do not depend on callback evaluation order or frequency.
+
+## Diagnosis and validation
+
+| Symptom | Check / correction |
+| --- | --- |
+| Duplicate page exception | Move registration out of Draw; ensure unique stable page IDs. For a dynamic SubItem set, call `ReplaceSubItemListings` with one registration ID instead of registering again. |
+
+| Search provider cannot find page | Register page first; use same owner identity and exact page ID. |
+| No setting-level results | Supply metadata; wait for incremental completion; confirm owner scope and adapter opt-in. |
+| Stale translated/dynamic text | Use text callbacks; invalidate after non-language changes, never each frame. |
+| Result opens without scrolling | Match metadata and anchor IDs; check focus installation and conditional visibility. |
+| Anchor outside scroll error | Use RegisterListing or persistent MenuScrollView; section views use their own Focus. |
+| High indexing frame time | Remove eager provider work and expensive callbacks; use lazy enumeration. |
+| Long page still expensive | Listing draws everything; split into independent measured MenuSections. |
+| Section clipped after expanding | Recompute height correctly and call InvalidateLayout. |
+| Text entry resets | Keep numeric edit buffers and view objects in persistent instance fields. |
+| Cannot leave/close | Inspect save exception and repair consumer WriteSettings/custom save. |
+| Adapter behaves unlike original dialog | Check dependency on original dialog lifecycle/patches; opt out or explicitly integrate. |
+
+Repository validation: `./scripts/validate.ps1 -SkipGpu` builds the API consumer, runs linked-production engine-double assertions, validates localization/XML and smoke-deploys with hashes. Full `./scripts/validate.ps1` additionally builds the shader with Unity 2022.3.35 and runs GPU/layout fixtures. Actual installed-game compile: `dotnet build Source/IrisMenus.csproj -c Release -p:RimWorldManagedDir=<game>/RimWorldWin64_Data/Managed` (DLL directory, not decompiled source directory).
+
+Deployment: `./scripts/build-and-deploy.ps1 -SkipBuild -GameModPath <game>/Mods/IrisMenus` after successful build. It checks target package identity, copies runtime files, both guides, and `docs/`, then verifies hashes. It does not edit ModsConfig, remove unrelated target files or hot-reload a running game.
+
+WSL build/deployment: `./scripts/deploy.sh` builds Release against the installed game and deploys to `/mnt/e/Apps/Steam/steamapps/common/RimWorld/Mods/IrisMenus`. `--build-only` skips deployment. Override the game directory with `RIMWORLD_DIR` (fallback `RimWorldDir`) and configuration with `CONFIGURATION=Debug|Release`. Reuses the existing shader bundle; no Unity invocation. Checks game processes before building and copying, validates the complete manifest/target identity and rejects destination symlink redirects before writing, then verifies SHA-256. Preserves unrelated files and ModsConfig.
+
+Acceptance still requires real RimWorld: grouped/legacy/mixed pages, global and scoped searches, page/back restoration, missing anchors, resized/translated targets, long lazy pages, save/draw failures, manual/self-scrolling adapters, UI scales, and reopen/restart persistence. Engine doubles do not execute the real MenuWindow; GPU fixtures cover background/layout, not game UI interactions or FPS.

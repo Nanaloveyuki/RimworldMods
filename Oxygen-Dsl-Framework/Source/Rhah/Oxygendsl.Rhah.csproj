@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Oxygendsl.Rhah</AssemblyName>
+    <RootNamespace>Oxygendsl.Rhah</RootNamespace>
+    <OutputPath>../../tmp/build/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RhahApiPath Condition="'$(RhahApiPath)' == ''">../../../Ratkin_Hunger_and_Havoc/1.6/Assemblies/HungerAndHavoc.Api.dll</RhahApiPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Core/Oxygendsl.Core.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="../Mod/Oxygendsl.Mod.csproj"><Private>false</Private></ProjectReference>
+    <Reference Include="HungerAndHavoc.Api">
+      <HintPath>$(RhahApiPath)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

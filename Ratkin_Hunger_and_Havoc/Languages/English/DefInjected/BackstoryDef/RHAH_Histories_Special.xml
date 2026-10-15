@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_Newborn.title>famine-born child</RHAH_History_Newborn.title>
+  <RHAH_History_Newborn.titleShort>famine-born</RHAH_History_Newborn.titleShort>
+  <RHAH_History_Newborn.description>[PAWN_nameDef] was born into a ratkin settlement already suffering famine. Before [PAWN_pronoun] was old enough to help with work, life on the road had already begun.</RHAH_History_Newborn.description>
+  <RHAH_History_Refugee.title>famine refugee</RHAH_History_Refugee.title>
+  <RHAH_History_Refugee.titleShort>refugee</RHAH_History_Refugee.titleShort>
+  <RHAH_History_Refugee.description>[PAWN_nameDef] left the ratkin settlement after the storehouse ran empty. Elsewhere, [PAWN_pronoun] still had to find work to pay for the next meal.</RHAH_History_Refugee.description>
+</LanguageData>

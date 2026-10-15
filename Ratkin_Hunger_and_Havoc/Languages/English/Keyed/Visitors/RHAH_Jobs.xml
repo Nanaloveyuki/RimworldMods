@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Job_Beg_Report>begging for food</RHAH_Job_Beg_Report>
+  <RHAH_Job_Gnaw_Report>gnawing bark</RHAH_Job_Gnaw_Report>
+  <RHAH_Menu_Expel>expel {0}</RHAH_Menu_Expel>
+  <RHAH_Job_Expel_Report>expelling {0}</RHAH_Job_Expel_Report>
+  <RHAH_Job_CarryYoung_Report>carrying {0}.</RHAH_Job_CarryYoung_Report>
+  <RHAH_Beg_Text_Success_1>Something to eat...</RHAH_Beg_Text_Success_1>
+  <RHAH_Beg_Text_Success_2>Thank you... thank you for the food...</RHAH_Beg_Text_Success_2>
+  <RHAH_Beg_Text_Success_3>One more day...</RHAH_Beg_Text_Success_3>
+  <RHAH_Beg_Text_Fail_1>{0} gave me nothing...</RHAH_Beg_Text_Fail_1>
+  <RHAH_Beg_Text_Fail_2>{0} chased me away...</RHAH_Beg_Text_Fail_2>
+  <RHAH_Beg_Text_Fail_3>{0} wouldn't even look at me...</RHAH_Beg_Text_Fail_3>
+  <RHAH_Beg_Text_Slap>They slapped me...</RHAH_Beg_Text_Slap>
+</LanguageData>

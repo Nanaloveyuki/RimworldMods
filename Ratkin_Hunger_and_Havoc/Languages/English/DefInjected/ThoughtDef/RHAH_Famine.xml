@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_ClaySatiety.stages.0.label>ate guanyin clay</RHAH_Thought_ClaySatiety.stages.0.label>
+  <RHAH_Thought_ClaySatiety.stages.0.description>I swallowed some guanyin clay. There is something in my stomach, but I still want a proper meal.</RHAH_Thought_ClaySatiety.stages.0.description>
+  <RHAH_Thought_ClaySatiety.stages.1.label>ate more guanyin clay</RHAH_Thought_ClaySatiety.stages.1.label>
+  <RHAH_Thought_ClaySatiety.stages.1.description>I swallowed another lump of clay, and my stomach feels uncomfortably full. This is not what I want to eat.</RHAH_Thought_ClaySatiety.stages.1.description>
+  <RHAH_Thought_ClaySatiety.stages.2.label>enough guanyin clay</RHAH_Thought_ClaySatiety.stages.2.label>
+  <RHAH_Thought_ClaySatiety.stages.2.description>I have eaten several lumps of clay. I can still taste the dirt. Please, no more of this.</RHAH_Thought_ClaySatiety.stages.2.description>
+  <RHAH_Thought_FamineHunger.stages.0.label>still hungry</RHAH_Thought_FamineHunger.stages.0.label>
+  <RHAH_Thought_FamineHunger.stages.0.description>I am hungry. My stomach aches for food.</RHAH_Thought_FamineHunger.stages.0.description>
+  <RHAH_Thought_FamineHunger.stages.1.label>plea for food went unanswered</RHAH_Thought_FamineHunger.stages.1.label>
+  <RHAH_Thought_FamineHunger.stages.1.description>I am hungry. I asked for food, but never got a bite.</RHAH_Thought_FamineHunger.stages.1.description>
+  <RHAH_Thought_FamineFed.stages.0.label>finally full</RHAH_Thought_FamineFed.stages.0.label>
+  <RHAH_Thought_FamineFed.stages.0.description>That meal filled me up. At last, I can stop thinking about my empty stomach.</RHAH_Thought_FamineFed.stages.0.description>
+  <RHAH_Thought_Sheltered.stages.0.label>taken in, squeak! so happy!</RHAH_Thought_Sheltered.stages.0.label>
+  <RHAH_Thought_Sheltered.stages.0.description>They let me stay, squeak! At last, I have somewhere to go.</RHAH_Thought_Sheltered.stages.0.description>
+  <RHAH_Thought_Captured.stages.0.label>locked in a cage, squeak...</RHAH_Thought_Captured.stages.0.label>
+  <RHAH_Thought_Captured.stages.0.description>They locked me up, squeak... I want to get out.</RHAH_Thought_Captured.stages.0.description>
+  <RHAH_Thought_EnslavedFed.stages.0.label>there's food, squeak...</RHAH_Thought_EnslavedFed.stages.0.label>
+  <RHAH_Thought_EnslavedFed.stages.0.description>I have to work for my master now... But there's food here. At least I won't go hungry, squeak.</RHAH_Thought_EnslavedFed.stages.0.description>
+  <RHAH_Thought_EnslavedServing.stages.0.label>must serve my master, squeak...</RHAH_Thought_EnslavedServing.stages.0.label>
+  <RHAH_Thought_EnslavedServing.stages.0.description>Now I have to obey my master and work for them, squeak... I don't want to be ordered around.</RHAH_Thought_EnslavedServing.stages.0.description>
+  <RHAH_Thought_Expelled.stages.0.label>chased away</RHAH_Thought_Expelled.stages.0.label>
+  <RHAH_Thought_Expelled.stages.0.description>They chased me away, squeak... Where else can I go?</RHAH_Thought_Expelled.stages.0.description>
+  <RHAH_Thought_Expelled.stages.1.label>I want food, squeak!</RHAH_Thought_Expelled.stages.1.label>
+  <RHAH_Thought_Expelled.stages.1.description>How dare they chase me away! I want food, squeak! I still need something to eat!</RHAH_Thought_Expelled.stages.1.description>
+  <RHAH_Thought_AteFood.stages.0.label>something to eat, squeak</RHAH_Thought_AteFood.stages.0.label>
+  <RHAH_Thought_AteFood.stages.0.description>There's food in my belly, squeak. That feels good.</RHAH_Thought_AteFood.stages.0.description>
+  <RHAH_Thought_AteFood.stages.1.label>yummy, squeak squeak!</RHAH_Thought_AteFood.stages.1.label>
+  <RHAH_Thought_AteFood.stages.1.description>That was a good bite, squeak! I want another.</RHAH_Thought_AteFood.stages.1.description>
+</LanguageData>

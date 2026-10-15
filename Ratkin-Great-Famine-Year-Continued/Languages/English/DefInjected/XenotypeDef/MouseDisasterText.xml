@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisasterSubtype_ratkin.label>Ratkin</MouseDisasterSubtype_ratkin.label>
+  <MouseDisasterSubtype_ratkin.description>The common Ratkin lineage among famine refugees.</MouseDisasterSubtype_ratkin.description>
+  <MouseDisasterSubtype_hamster.label>Hamsterkin</MouseDisasterSubtype_hamster.label>
+  <MouseDisasterSubtype_hamster.description>A hamster-like lineage among famine Ratkin.</MouseDisasterSubtype_hamster.description>
+  <MouseDisasterSubtype_mole.label>Molekin</MouseDisasterSubtype_mole.label>
+  <MouseDisasterSubtype_mole.description>A mole-like lineage among famine Ratkin.</MouseDisasterSubtype_mole.description>
+  <MouseDisasterSubtype_white.label>White Ratkin</MouseDisasterSubtype_white.label>
+  <MouseDisasterSubtype_white.description>A white-furred lineage among famine Ratkin.</MouseDisasterSubtype_white.description>
+  <MouseDisasterSubtype_experiment.label>Test subject</MouseDisasterSubtype_experiment.label>
+  <MouseDisasterSubtype_experiment.description>A laboratory-bred lineage among famine Ratkin.</MouseDisasterSubtype_experiment.description>
+  <MouseDisasterSubtype_gerbil.label>Gerbilkin</MouseDisasterSubtype_gerbil.label>
+  <MouseDisasterSubtype_gerbil.description>A gerbil-like lineage among famine Ratkin.</MouseDisasterSubtype_gerbil.description>
+  <MouseDisasterSubtype_shrew.label>Shrewkin</MouseDisasterSubtype_shrew.label>
+  <MouseDisasterSubtype_shrew.description>A shrew-like lineage among famine Ratkin.</MouseDisasterSubtype_shrew.description>
+</LanguageData>

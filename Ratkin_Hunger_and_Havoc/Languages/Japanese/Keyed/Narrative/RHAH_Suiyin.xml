@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Suiyin_N001_Label>スイインからの最初の手紙</RHAH_Suiyin_N001_Label>
+  <RHAH_Suiyin_N001_Text>スイインといいます。二十歳で、絵を描くのがいちばん得意です。以前は庭の絵ばかり描いていました。そのあと、壁の外でラットキンを見ました。荷物を持つだけでも心配になるほど痩せていて、一口の食べ物をめぐって争う人もいました。帰ってからは、あの花の続きを描けなくなりました。\n\n少しでも役に立ちたくて、お金を出して物資を運んでもらいました。そちらの拠点についての手紙も、何通か人づてに届いています。でも、私に分かることはわずかですし、手紙もなかなか届きません。\n\nこの手紙を書く前に、日記で書き出しを何度も直しました。まずは、名前をお伝えするところから始めます。</RHAH_Suiyin_N001_Text>
+  <RHAH_Suiyin_N002_Label>日記に増えた数ページ</RHAH_Suiyin_N002_Label>
+  <RHAH_Suiyin_N002_Text>届いた手紙には、このところそちらで {0} 種類の訪問者に出会ったとありました。その出来事を日記に書きましたが、途中で手が止まって、長いこと考え込んだページもあります。\n\n前は、お金を出せば何か助けられると思っていました。実際に物資を運ぶ人を雇ってみると、旅費だけでもずいぶんかかるのですね。残ったお金で何人のラットキンを助けられるのか、私にも分かりません。\n\nその訪問者たちがその後どうなったのか、まだ全部は知りません。いろいろな頼み事を読むだけで、「分かります」とは書きづらくなりました。</RHAH_Suiyin_N002_Text>
+  <RHAH_Suiyin_N003_Label>私が工面したお金</RHAH_Suiyin_N003_Label>
+  <RHAH_Suiyin_N003_Text>今回そちらの拠点に届いたシルバー {0} は、私が工面したものです。\n\n運び手に頼んで、遠回りしてもらいました。これっぽっちでは割に合わないと文句を言っていたのに、戻ってくると次はいつかと聞いてきました。次の約束はしていません。今回の旅費だけでも、何度も計算し直したくらいですから。\n\n今必要なことに使ってください。助けたいとは思うのですが、すべてのラットキンがお腹いっぱい食べられるようにするにはどうすればいいか、聞かれてもまだ答えられません。</RHAH_Suiyin_N003_Text>
+  <RHAH_Suiyin_N004ChildAlone_Label>ママはどこ</RHAH_Suiyin_N004ChildAlone_Label>
+  <RHAH_Suiyin_N004ChildAlone_Text>あのとき託された子供たちは、もう大人になりました。でも、母親は亡くなりました。そう書いて初めて、私はずっと、来たばかりのころの姿を思い浮かべていたのだと気づきました。\n\n私が小さいころ、母が見つからなければ、声をかけるだけで誰かが連れていってくれました。それを思うと、大人になったあの子たちに、ほかに何を書けばいいのか分かりません。</RHAH_Suiyin_N004ChildAlone_Text>
+  <RHAH_Suiyin_N004FamilyHere_Label>まだいてくれた</RHAH_Suiyin_N004FamilyHere_Label>
+  <RHAH_Suiyin_N004FamilyHere_Text>あのとき託された子供たちは大人になり、母親もまだそちらにいます。日記の、子供たちを預けた話を書いたページに、やっと「まだ一緒にいる」と付け足せました。\n\nその言葉だけで、しばらくうれしくなりました。前は母が口うるさいと文句を言って、遊びに出るのも隠れていたのを思い出しました。</RHAH_Suiyin_N004FamilyHere_Text>
+  <RHAH_Suiyin_N004Captive_Label>生き延びる</RHAH_Suiyin_N004Captive_Label>
+  <RHAH_Suiyin_N004Captive_Text>あのとき託された子供たちは大人になりました。母親は亡くなり、あの子たちは今、囚人か奴隷になっています。\n\n日記に「少なくとも生きている」と書いて、長いこと見つめていました。壁の外で、立っているのもやっとなのに重い仕事をしていたラットキンたちも、生きてはいました。その言葉は消しましたが、続きは怖くて書けませんでした。</RHAH_Suiyin_N004Captive_Text>
+  <RHAH_Suiyin_N004Story_Label>もう分からない</RHAH_Suiyin_N004Story_Label>
+  <RHAH_Suiyin_N004Story_Text>あの母親も、託された子供たちも、みんな亡くなりました。\n\n日記で初めてあの人たちのことを書いたページを開きました。あとで良い知らせを書き足せるように、下半分を空けてありました。今はこの一文だけを書き足して、本を閉じました。</RHAH_Suiyin_N004Story_Text>
+  <RHAH_Suiyin_N004Banished_Label>追放</RHAH_Suiyin_N004Banished_Label>
+  <RHAH_Suiyin_N004Banished_Text>あなたたちは、あの人たちを境界の向こうへ送り出したそうです。拠点では世話をする相手が減り、ベッドも空いたとか。\n\n生きているほうとは、{0} 年以内にキャラバンがまた出会うかもしれないと思います。</RHAH_Suiyin_N004Banished_Text>
+  <RHAH_Suiyin_N004Revisit_Label>再会</RHAH_Suiyin_N004Revisit_Label>
+  <RHAH_Suiyin_N004Revisit_Text>キャラバンが、街道であの人たちに出会ったそうです。生きているほうは、もう自分で食べ物を見つけられるとか。古い布には、まだそちらの拠点の色が残っています。\n\n道端に残していってもいいでしょう。シルバー {0} を渡せば、{1} 年後にシルバー {2} を受け取れます。相手を殺せば、この件はそこで終わります。</RHAH_Suiyin_N004Revisit_Text>
+  <RHAH_Suiyin_N004RescuePaid_Label>約束のお返し</RHAH_Suiyin_N004RescuePaid_Label>
+  <RHAH_Suiyin_N004RescuePaid_Text>シルバー {0} は、もう支払ったそうです。相手は {1} 年後にシルバー {2} を届けると約束したとか。そのころにも、あの人たちの知らせが届くといいのですが。</RHAH_Suiyin_N004RescuePaid_Text>
+  <RHAH_Suiyin_N004Killed_Label>ここで終わり</RHAH_Suiyin_N004Killed_Label>
+  <RHAH_Suiyin_N004Killed_Text>私が書いたのは、一文だけです。「ここで終わりです。」</RHAH_Suiyin_N004Killed_Text>
+  <RHAH_Suiyin_N004Regret_Label>もしあの日</RHAH_Suiyin_N004Regret_Label>
+  <RHAH_Suiyin_N004Regret_Text>母親はまだそちらにいますが、託された子供たちはみんな亡くなりました。\n\n日記に「もし、あの日…」と書きました。続きはいくつか考えてみたのに、結局どれも消しました。長いこと考えても、子供たちが亡くなったと書くことしかできませんでした。</RHAH_Suiyin_N004Regret_Text>
+  <RHAH_Suiyin_N005Accepted_Text>交換が成立しました。引き取った子供たちは拠点に残り、あなたたちの世話を必要としています。</RHAH_Suiyin_N005Accepted_Text>
+  <RHAH_Suiyin_N005Cared_Label>前の名前</RHAH_Suiyin_N005Cared_Label>
+  <RHAH_Suiyin_N005Cared_Text>このところ子供たちの世話をしてくださって、ありがとうございます。交換で引き取った子供たちは、元気にそちらで暮らしています。\n\n日記には「交換された子供たち」と書いていましたが、今日は「交換された」を消しました。あの子たちにも、それぞれの名前があるはずです。でも、交換のために子供を差し出さなければならない人のことを思うと、あのページをどう書き終えればいいのか、まだ分かりません。</RHAH_Suiyin_N005Cared_Text>
+  <RHAH_Suiyin_N005Dead_Label>悲劇</RHAH_Suiyin_N005Dead_Label>
+  <RHAH_Suiyin_N005Dead_Text>あの子は生き延びられなかったと聞きました。あの子が行ったグリッターワールドには、飢饉も災いもありませんように。</RHAH_Suiyin_N005Dead_Text>
+  <RHAH_Suiyin_N005Left_Label>もうここにはいない</RHAH_Suiyin_N005Left_Label>
+  <RHAH_Suiyin_N005Left_Text>あの子は、もうあなたたちの世話の届くところにはいないそうです。次の人たちがどう育てるのか、私には分かりません。</RHAH_Suiyin_N005Left_Text>
+  <RHAH_Suiyin_N005Missing_Label>落ち着けないまま</RHAH_Suiyin_N005Missing_Label>
+  <RHAH_Suiyin_N005Missing_Text>あの子は、そちらの拠点で落ち着ける場所を見つけられなかったそうです。そのあいだに何があったのか、私には分かりません。あの子に、まだ先の日々があることだけを願っています。</RHAH_Suiyin_N005Missing_Text>
+  <RHAH_Suiyin_N005Rejected_Text>あなたたちは交換を断りました。相手は子供たちを連れて立ち去ります。</RHAH_Suiyin_N005Rejected_Text>
+  <RHAH_Suiyin_N005TimedOut_Text>返事を待つ期限が過ぎました。相手は子供たちを連れて立ち去ります。</RHAH_Suiyin_N005TimedOut_Text>
+  <RHAH_Suiyin_N005Broken_Text>交換は成立せず、取り決めた条件も無効になりました。</RHAH_Suiyin_N005Broken_Text>
+  <RHAH_Suiyin_N006Entry_Label>壁際から消える食糧</RHAH_Suiyin_N006Entry_Label>
+  <RHAH_Suiyin_N006Entry_Text>そちらの拠点の食べ物が、何口か分なくなったと聞きました。壁際には狭い穴があり、縁には食べかすが残っているそうです。ラットキンが床をかじり抜いて、食べ物までたどり着いたのでしょう。\n\n木材 {0} で塞ぐか、食べ物を一つおとりに置くか、穴の周りを片づけることができます。片づけると、近くの食べ物が最大 {1} 個失われます。放っておけば、穴は {2} 日で消えます。</RHAH_Suiyin_N006Entry_Text>
+  <RHAH_Suiyin_N006Sealed_Text>食糧を盗むための穴を塞ぎました。</RHAH_Suiyin_N006Sealed_Text>
+  <RHAH_Suiyin_N006BaitSet_Text>穴のそばに食べ物を一つ、おとりとして置きました。一日後に跡を確かめられます。</RHAH_Suiyin_N006BaitSet_Text>
+  <RHAH_Suiyin_N006BaitGone_Label>引きずっていった跡</RHAH_Suiyin_N006BaitGone_Label>
+  <RHAH_Suiyin_N006BaitGone_Text>おとりはなくなり、穴の外には新しい引きずり跡が残っているそうです。次の雨が降れば、その跡をたどるのは難しくなるでしょう。</RHAH_Suiyin_N006BaitGone_Text>
+  <RHAH_Suiyin_N006Traced_Label>場所を一つ印した</RHAH_Suiyin_N006Traced_Label>
+  <RHAH_Suiyin_N006Traced_Text>跡に沿って、一か所に印をつけたそうです。中に何があるのかは、誰かが歩いて行って見なければなりません。</RHAH_Suiyin_N006Traced_Text>
+  <RHAH_Suiyin_N006Stopped_Text>あなたたちは跡を追うのをやめ、穴も塞ぎました。</RHAH_Suiyin_N006Stopped_Text>
+  <RHAH_Suiyin_N006Cleaned_Text>穴の周りを片づけ、穴もなくなりました。</RHAH_Suiyin_N006Cleaned_Text>
+  <RHAH_Suiyin_N006Gone_Label>穴がなくなった</RHAH_Suiyin_N006Gone_Label>
+  <RHAH_Suiyin_N006Gone_Text>もう一度見に行くと、穴はなくなっていたそうです。その跡は、これ以上たどれません。</RHAH_Suiyin_N006Gone_Text>
+  <RHAH_Hole_Seal>塞ぐ（木材 {0}）</RHAH_Hole_Seal>
+  <RHAH_Hole_Bait>おとりを一つ置く</RHAH_Hole_Bait>
+  <RHAH_Hole_Clean>穴の周りを片づける（食べ物を最大 {0} 個失う）</RHAH_Hole_Clean>
+  <RHAH_Hole_Ignore>今は放っておく</RHAH_Hole_Ignore>
+  <RHAH_Hole_Trace>跡をたどる</RHAH_Hole_Trace>
+  <RHAH_Hole_Stop>追うのをやめる</RHAH_Hole_Stop>
+  <RHAH_Hole_NoWood>穴を塞ぐには木材 {0} が必要です。足りるまで集めてから、もう一度試してください。</RHAH_Hole_NoWood>
+  <RHAH_Hole_NoFood>穴のそばに、おとりとして置ける食べ物がありません。</RHAH_Hole_NoFood>
+  <RHAH_Hole_Stale>この穴は、もう対処済みです。</RHAH_Hole_Stale>
+  <RHAH_Suiyin_N008Arrive_Label>道を尋ねる訪問者</RHAH_Suiyin_N008Arrive_Label>
+  <RHAH_Suiyin_N008Arrive_Text>そちらの拠点で道を尋ねる訪問者がいると、誰かが知らせてくれました。最初、その人はこう言っただけだそうです。「私たち…食べ物と、交換したい。」\n\n{0} はもう一度言い直しました。「食べ物が必要なんだ。それに、まだ通れる道を知りたい。簡単な食事を {1} 個くれるなら、昔使っていた保管場所の位置を教える。先に、話が本当か確かめてもいい。」\n\nその人は {2} 日待つそうです。</RHAH_Suiyin_N008Arrive_Text>
+  <RHAH_Suiyin_N008Trade_Text>{0} が、約束していた昔の保管場所の位置を教えてくれました。</RHAH_Suiyin_N008Trade_Text>
+  <RHAH_Suiyin_N008Proof_Text>訪問者の話は、{0} 種類の来訪の記録と一致しました。交換を進められます。</RHAH_Suiyin_N008Proof_Text>
+  <RHAH_Suiyin_N008NoProof_Label>場所を間違えたのかも</RHAH_Suiyin_N008NoProof_Label>
+  <RHAH_Suiyin_N008NoProof_Text>その人は「来る場所を間違えたのかもしれない」と言って、立ち去ったそうです。</RHAH_Suiyin_N008NoProof_Text>
+  <RHAH_Suiyin_N008Refuse_Text>あなたたちは交換を断り、訪問者は立ち去る準備をしています。</RHAH_Suiyin_N008Refuse_Text>
+  <RHAH_Suiyin_N008Drive_Text>あなたたちは訪問者を武力で追い払いました。</RHAH_Suiyin_N008Drive_Text>
+  <RHAH_Suiyin_N008Dead_Label>訪問者の死</RHAH_Suiyin_N008Dead_Label>
+  <RHAH_Suiyin_N008Dead_Text>道を尋ねに来た人は、死んだそうです。場所への手掛かりも、一緒に途絶えました。</RHAH_Suiyin_N008Dead_Text>
+  <RHAH_Suiyin_N008Left_Label>訪問者は去った</RHAH_Suiyin_N008Left_Label>
+  <RHAH_Suiyin_N008Left_Text>道を尋ねに来た人は、そちらの場所を離れたそうです。</RHAH_Suiyin_N008Left_Text>
+  <RHAH_Suiyin_N008Missing_Label>訪問者が見つからない</RHAH_Suiyin_N008Missing_Label>
+  <RHAH_Suiyin_N008Missing_Text>私も聞いてみました。道を尋ねに来た人は、行方不明です。</RHAH_Suiyin_N008Missing_Text>
+  <RHAH_Suiyin_N008Timeout_Label>待ち時間の終わり</RHAH_Suiyin_N008Timeout_Label>
+  <RHAH_Suiyin_N008Timeout_Text>相手の言った時間は過ぎ、交換は行われなかったそうです。その人は、うつむいたまま去りました。</RHAH_Suiyin_N008Timeout_Text>
+  <RHAH_Envoy_Trade>簡単な食事を {0} 個渡す</RHAH_Envoy_Trade>
+  <RHAH_Envoy_Proof>先に話を確かめる</RHAH_Envoy_Proof>
+  <RHAH_Envoy_Refuse>断る</RHAH_Envoy_Refuse>
+  <RHAH_Envoy_Drive>追い払う（信頼の変化 {0}）</RHAH_Envoy_Drive>
+  <RHAH_Envoy_NoMeals>簡単な食事が足りません。今回は {0} 個必要です。</RHAH_Envoy_NoMeals>
+  <RHAH_Envoy_Stale>この訪問者とのやり取りは、もう終わりました。</RHAH_Envoy_Stale>
+  <RHAH_Suiyin_N009Arrive_Label>昔の保管場所</RHAH_Suiyin_N009Arrive_Label>
+  <RHAH_Suiyin_N009Arrive_Text>昔の保管場所の位置が、地図に記されました。私に届いた手掛かりには、運搬の一覧と配給記録が入った箱のことが書かれています。あるページの数字は二度直され、最後の訂正には署名がありません。\n\nその数字を長いこと見つめて、壁の外で一口の食べ物をめぐって争っていたラットキンを思い出しました。この紙を調べれば、当時の食糧がどこへ行ったのか分かるかもしれません。\n\nこの地点はあと {0} 日残ります。そのあいだに、現地へ調べに行けます。</RHAH_Suiyin_N009Arrive_Text>
+  <RHAH_Suiyin_N009Take_Text>古い記録を持ち帰りました。一緒にシルバー {0} も見つかりました。</RHAH_Suiyin_N009Take_Text>
+  <RHAH_Suiyin_N009Leave_Text>古い記録をその場に残しました。</RHAH_Suiyin_N009Leave_Text>
+  <RHAH_Suiyin_N009Hand_Text>古い記録を訪問者に渡し、相手はお返しにシルバー {0} を残しました。</RHAH_Suiyin_N009Hand_Text>
+  <RHAH_Suiyin_N009Share_Text>あなたたちと訪問者は、古い記録の写しを一部ずつ手元に残しました。</RHAH_Suiyin_N009Share_Text>
+  <RHAH_Suiyin_N009Destroy_Text>古い記録は壊されました。一覧の内容は、もう確かめられません。</RHAH_Suiyin_N009Destroy_Text>
+  <RHAH_Suiyin_N009Empty_Label>空の貯蔵穴</RHAH_Suiyin_N009Empty_Label>
+  <RHAH_Suiyin_N009Empty_Text>約束された場所は見つかったものの、持ち帰れるものはもうなかったそうです。無駄足でした。</RHAH_Suiyin_N009Empty_Text>
+  <RHAH_Record_Take>持ち帰る</RHAH_Record_Take>
+  <RHAH_Record_Leave>残す</RHAH_Record_Leave>
+  <RHAH_Record_Hand>渡す</RHAH_Record_Hand>
+  <RHAH_Record_Share>一部ずつ分ける</RHAH_Record_Share>
+  <RHAH_Record_Destroy>破棄する</RHAH_Record_Destroy>
+  <RHAH_Revisit_Leave>道端に残していく</RHAH_Revisit_Leave>
+  <RHAH_Revisit_Pay>シルバー {0} を払う</RHAH_Revisit_Pay>
+  <RHAH_Revisit_Kill>殺す</RHAH_Revisit_Kill>
+  <RHAH_Revisit_NoSilver>キャラバンのシルバーが {0} に足りません。</RHAH_Revisit_NoSilver>
+  <RHAH_Revisit_Stale>この旧知との再会は、もう終わりました。</RHAH_Revisit_Stale>
+</LanguageData>

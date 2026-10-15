@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Long_Label>后续来客</RHAH_Long_Label>
+  <RHAH_Long_Stale>现在已无法作出这项选择。</RHAH_Long_Stale>
+  <RHAH_Long_NoFood>可用食物不足。</RHAH_Long_NoFood>
+  <RHAH_Long_RecognizeFeed>由{0}承认交易，并给来客食物</RHAH_Long_RecognizeFeed>
+  <RHAH_Long_Recognize>由{0}承认交易，但不给食物</RHAH_Long_Recognize>
+  <RHAH_Long_Deny>不承认</RHAH_Long_Deny>
+  <RHAH_Long_Capture>俘虏来客</RHAH_Long_Capture>
+  <RHAH_Long_Pay>交出{0}份食物</RHAH_Long_Pay>
+  <RHAH_Long_Refuse>不给</RHAH_Long_Refuse>
+  <RHAH_Long_Welcome>让它进来，给{0}份食物</RHAH_Long_Welcome>
+  <RHAH_Long_RejectEntry>不让进</RHAH_Long_RejectEntry>
+  <RHAH_Long_Point>指出交出它的人是{0}</RHAH_Long_Point>
+  <RHAH_Long_NoPoint>不指出任何人</RHAH_Long_NoPoint>
+  <RHAH_Long_AskNext>等下一批难民来时询问</RHAH_Long_AskNext>
+  <RHAH_Long_StopAsking>不再追问</RHAH_Long_StopAsking>
+  <RHAH_Long_MatchCloth>对照布片</RHAH_Long_MatchCloth>
+  <RHAH_Long_DoNotMatch>不对照</RHAH_Long_DoNotMatch>
+  <RHAH_Long_AskChild>问孩子，等到14岁再听回答</RHAH_Long_AskChild>
+  <RHAH_Long_Expel>让它离开</RHAH_Long_Expel>
+  <RHAH_Long_UnselectChild>取消选择：{0}</RHAH_Long_UnselectChild>
+  <RHAH_Long_SelectChild>选择带走：{0}</RHAH_Long_SelectChild>
+  <RHAH_Long_SendSelected>让选中的孩子跟去</RHAH_Long_SendSelected>
+  <RHAH_Long_KeepAll>全部留下</RHAH_Long_KeepAll>
+  <RHAH_Long_GiveFood>给{0}份食物</RHAH_Long_GiveFood>
+  <RHAH_Long_RequestReturn>让这只孩子回来</RHAH_Long_RequestReturn>
+  <RHAH_Long_NoReturn>让孩子留在那边</RHAH_Long_NoReturn>
+  <RHAH_Long_KeepFeeding>继续给一份食物</RHAH_Long_KeepFeeding>
+  <RHAH_Long_StopFeeding>停止给食物</RHAH_Long_StopFeeding>
+  <RHAH_Long_Rehome>交给{0}养</RHAH_Long_Rehome>
+  <RHAH_Long_I-013_1>来客要你承认当年的换子交易，还想要{2}份食物。给了食物，来客会在这里留三天。</RHAH_Long_I-013_1>
+  <RHAH_Long_I-013_8>有人送来了写着消息的纸，索要{2}份食物作为报酬。若不给食物，下一支商队还会提起这件事。</RHAH_Long_I-013_8>
+  <RHAH_Long_I-019_1>{1}还记得当年被交出去的事。它想进来，需要给它{2}份食物；若拒绝，它会在外面等到天黑。</RHAH_Long_I-019_1>
+  <RHAH_Long_I-019_2>来客想知道，当年是谁把自己交了出去。你可以指出那个人；被指出的人获得永久 -8 心情，来客获得 +2 心情，持续15天。</RHAH_Long_I-019_2>
+  <RHAH_Long_I-019_7>来客记得当年被带走的方向。下一批索要婴儿的难民到来时，你可以向他们打听这个孩子后来的去向。</RHAH_Long_I-019_7>
+  <RHAH_Long_I-019_9>来客有的承认见过它，有的说没见过。愿意提供消息的来客要{2}份食物作为交换。</RHAH_Long_I-019_9>
+  <RHAH_Long_I-032_1>{0}带来了一块布片，与孩子留下的那块对得上，想来领走孩子。你可以让几只孩子跟去，也可以拒绝。</RHAH_Long_I-032_1>
+  <RHAH_Long_I-032_2>请逐个选择要让来客带走的孩子。可选对象为仍在殖民地的孩子，其余孩子留在这里。</RHAH_Long_I-032_2>
+  <RHAH_Long_I-032_3>来客改口讨要{2}份食物，拿到食物就离开。</RHAH_Long_I-032_3>
+  <RHAH_Long_I-032_7>孩子已经到了那边，但那里缺粮。若想接它回来，对方会在五天后把它送回。</RHAH_Long_I-032_7>
+  <RHAH_Long_I-033_1>{1}仍跟着当年被它喊作妈妈的人，等着要一份食物。停止给食物后，它可能咬人或偷食物。第一次交给别人养，它第二天就会回来；第二次才会留在新照料者身边。</RHAH_Long_I-033_1>
+  <RHAH_Long_TraderDirection>它说出了当年商人离开的方向。</RHAH_Long_TraderDirection>
+  <RHAH_Long_ExchangeRetraction>来客改口，说自己只是听说过这笔换子交易。</RHAH_Long_ExchangeRetraction>
+  <RHAH_Long_ExchangeMention>商队有人又提了一次当年的换子。</RHAH_Long_ExchangeMention>
+  <RHAH_Long_CannotRecognize>过了一天，它改口说认不出当年交出自己的人了。</RHAH_Long_CannotRecognize>
+  <RHAH_Long_DirectionMatches>来客说的去向，与它记得的方向对上了。</RHAH_Long_DirectionMatches>
+  <RHAH_Long_DirectionDoesNotMatch>来客说的去向，与它记得的方向对不上。它不再追问。</RHAH_Long_DirectionDoesNotMatch>
+  <RHAH_Long_ChildCannotRemember>孩子太小，只会喊母亲。等孩子长到14岁后再问。</RHAH_Long_ChildCannotRemember>
+  <RHAH_Long_RememberedMeals>孩子只记得空投到这里以后吃过的饭。</RHAH_Long_RememberedMeals>
+  <RHAH_Long_ReturnedThin>当初跟去的那只孩子被送回来了，比离开时更瘦。</RHAH_Long_ReturnedThin>
+  <RHAH_Long_CameBackNextDay>它第二天又回到原来那个人身边。</RHAH_Long_CameBackNextDay>
+  <RHAH_Long_CalledAgain>孩子跟着乞丐队伍回来，见到当年的照料者，又喊了一声妈妈。</RHAH_Long_CalledAgain>
+</LanguageData>

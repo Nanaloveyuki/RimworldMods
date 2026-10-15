@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_VisitorControl_ForcedAway_Success>已武力驱逐 {0} 名鼠灾访客；访客按该次事件的态度撤离或反击。</MouseDisaster_VisitorControl_ForcedAway_Success>
+  <MouseDisaster_Attitude_Neutral>态度：中立</MouseDisaster_Attitude_Neutral>
+  <MouseDisaster_Attitude_Hostile>态度：敌对</MouseDisaster_Attitude_Hostile>
+  <MouseDisaster_Attitude_HostileLeaning>态度：偏向敌对</MouseDisaster_Attitude_HostileLeaning>
+  <MouseDisaster_Attitude_FriendlyLeaning>态度：偏向友善</MouseDisaster_Attitude_FriendlyLeaning>
+  <MouseDisaster_Attitude_Friendly>态度：友善</MouseDisaster_Attitude_Friendly>
+  <MouseDisaster_AttitudeTip_Neutral>新事件默认中立，受击不触发整组敌对，保留事件本身的行为。选择武力驱逐时该事件成员变为敌对。仅影响后续生成的此类事件。</MouseDisaster_AttitudeTip_Neutral>
+  <MouseDisaster_AttitudeTip_Hostile>新事件成员生成后即与殖民地敌对，能够行动的成员会进攻。仅影响后续生成的此类事件。</MouseDisaster_AttitudeTip_Hostile>
+  <MouseDisaster_AttitudeTip_HostileLeaning>新事件最初中立。任一成员受到殖民者、殖民地武器或炮塔的实际伤害后，仅该次事件的成员变为敌对。</MouseDisaster_AttitudeTip_HostileLeaning>
+  <MouseDisaster_AttitudeTip_FriendlyLeaning>新事件最初中立。遭到殖民地攻击或武力驱逐时，该次事件的成员逃离，不转为敌对。</MouseDisaster_AttitudeTip_FriendlyLeaning>
+  <MouseDisaster_AttitudeTip_Friendly>新事件成员与殖民地友善，不偷取殖民地的食物，可使用救济区食物。遭到攻击或武力驱逐时逃离，不转为敌对。</MouseDisaster_AttitudeTip_Friendly>
+</LanguageData>

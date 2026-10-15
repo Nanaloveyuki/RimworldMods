@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Suiyin_N001_Label>穗音的第一封信</RHAH_Suiyin_N001_Label>
+  <RHAH_Suiyin_N001_Text>我叫穗音，今年二十岁，最拿手的事是画画。以前我总画花园，后来见到墙外的鼠，瘦得连搬东西都让人担心，还有人为了一口吃的打起来。回去以后，那些花我就画不下去了。\n\n我拿了一些钱请人运东西，想帮得上忙。你们那边的消息，也有几封辗转送到了我手里。可我知道得很少，信又来得慢。\n\n写这封信之前，我在日记里改了好几遍开头。还是先告诉你我的名字吧。</RHAH_Suiyin_N001_Text>
+  <RHAH_Suiyin_N002_Label>日记里多了几页</RHAH_Suiyin_N002_Label>
+  <RHAH_Suiyin_N002_Text>来信里提到，你们这些日子遇到了 {0} 种不同的来客。我把那些事写进了日记，有几页写到一半，又停下来想了很久。\n\n以前我以为，肯出钱总能帮上忙。真的请人运东西，才发现路费就能花掉不少，剩下的钱能照顾几只鼠，我心里也没底。\n\n他们来要食物、找住处，还有人带着孩子。每封信里的难处都不一样，我得多读几遍。</RHAH_Suiyin_N002_Text>
+  <RHAH_Suiyin_N003_Label>我凑的路费</RHAH_Suiyin_N003_Label>
+  <RHAH_Suiyin_N003_Text>这次送到你们据点的 {0} 白银，是我凑出来的。\n\n我请人绕了路。那人抱怨运这么一点东西不划算，回来又问我下次什么时候走。我还没答应他，光是这次的路费，我就算了好几遍。\n\n这些钱你们按眼下的需要用吧。我想帮忙，可真要问我怎么让所有鼠都吃饱，我还是答不上来。</RHAH_Suiyin_N003_Text>
+  <RHAH_Suiyin_N004ChildAlone_Label>妈妈去哪里了</RHAH_Suiyin_N004ChildAlone_Label>
+  <RHAH_Suiyin_N004ChildAlone_Text>当年留下的孩子已经长大，母亲却已经去世。写下这句话的时候，我才发觉，自己一直把他们记成刚被送来的样子。\n\n我小时候找不到母亲，只要喊一声，就有人带我去见她。想到这里，我不知道还能给这些已经长大的孩子写些什么。</RHAH_Suiyin_N004ChildAlone_Text>
+  <RHAH_Suiyin_N004FamilyHere_Label>还在</RHAH_Suiyin_N004FamilyHere_Label>
+  <RHAH_Suiyin_N004FamilyHere_Text>当年留下的孩子已经长大，母亲也还在你们那里。日记里那页托孤的事，我终于能添上一句：“还在一起。”\n\n这几个字让我高兴了很久。我想起自己以前嫌母亲管得太多，连出门玩也要瞒着她。</RHAH_Suiyin_N004FamilyHere_Text>
+  <RHAH_Suiyin_N004Captive_Label>活下来</RHAH_Suiyin_N004Captive_Label>
+  <RHAH_Suiyin_N004Captive_Text>当年留下的孩子已经长大，母亲死了，他们如今是囚犯或奴隶。\n\n我在日记里写了“至少活着”，盯着看了很久。墙外那些瘦得站不稳、还在做重活的鼠，当时也活着。我把那四个字划掉了，可接下来的话又不敢写。</RHAH_Suiyin_N004Captive_Text>
+  <RHAH_Suiyin_N004Story_Label>日记里的死讯</RHAH_Suiyin_N004Story_Label>
+  <RHAH_Suiyin_N004Story_Text>那位母亲和她留下的孩子，都没能活下来。\n\n我翻回日记里第一次写到他们的那页，当时还空着后半页，想着以后可以添些好消息。现在只补上了这句话，就合上了本子。</RHAH_Suiyin_N004Story_Text>
+  <RHAH_Suiyin_N004Banished_Label>放逐</RHAH_Suiyin_N004Banished_Label>
+  <RHAH_Suiyin_N004Banished_Text>我听说，你把他们放逐了。据点少了要照料的人，床也空了下来。\n\n往后 {0} 年内，商队还有可能遇见活下来的母亲或孩子。</RHAH_Suiyin_N004Banished_Text>
+  <RHAH_Suiyin_N004Revisit_Label>又见面了</RHAH_Suiyin_N004Revisit_Label>
+  <RHAH_Suiyin_N004Revisit_Text>我听说，商队在路上遇见了他们。活下来的母亲或孩子已经会自己找吃的，身上的旧布还留着你们据点的颜色。\n\n你们可以把对方留在路边，也可以付 {0} 白银，等 {1} 年后收到 {2} 白银的回礼。你们还可以杀掉对方。</RHAH_Suiyin_N004Revisit_Text>
+  <RHAH_Suiyin_N004RescuePaid_Label>约好的回礼</RHAH_Suiyin_N004RescuePaid_Label>
+  <RHAH_Suiyin_N004RescuePaid_Text>我听说 {0} 白银已经付过。对方答应在 {1} 年后送来 {2} 白银。我希望到时还能听到他们的消息。</RHAH_Suiyin_N004RescuePaid_Text>
+  <RHAH_Suiyin_N004Killed_Label>到此为止</RHAH_Suiyin_N004Killed_Label>
+  <RHAH_Suiyin_N004Killed_Text>我听说，你们杀掉了再次遇见的那个人。我在日记里写了句：“到此为止。”</RHAH_Suiyin_N004Killed_Text>
+  <RHAH_Suiyin_N004Regret_Label>要是</RHAH_Suiyin_N004Regret_Label>
+  <RHAH_Suiyin_N004Regret_Text>母亲还在你们那里，她留下的孩子却都死了。\n\n我在日记里写：“要是那天……”后面接了好几种想法，最后都划掉了。我想了很久，还是只写下了孩子的死讯。</RHAH_Suiyin_N004Regret_Text>
+  <RHAH_Suiyin_N005Accepted_Text>交换已经完成，换来的孩子留在了据点，需要你们照顾。</RHAH_Suiyin_N005Accepted_Text>
+  <RHAH_Suiyin_N005Cared_Label>旧名字还在</RHAH_Suiyin_N005Cared_Label>
+  <RHAH_Suiyin_N005Cared_Text>谢谢你们这些日子的照料，那些被换来的孩子还好好地留在你们那里。\n\n我在日记上写过“换来的孩子”，今天把前面几个字划掉了。他们该有自己的名字。可想到有人得拿孩子来交换，我还是不知道该怎么把那一页写完。</RHAH_Suiyin_N005Cared_Text>
+  <RHAH_Suiyin_N005Dead_Label>悲剧</RHAH_Suiyin_N005Dead_Label>
+  <RHAH_Suiyin_N005Dead_Text>我听说，那孩子没有活下来。愿那孩子去的闪耀世界没有灾荒。</RHAH_Suiyin_N005Dead_Text>
+  <RHAH_Suiyin_N005Left_Label>不在了</RHAH_Suiyin_N005Left_Label>
+  <RHAH_Suiyin_N005Left_Text>我听说，那孩子已经不在你们的照料下了。接手的人会怎么养那孩子？我说不上来。</RHAH_Suiyin_N005Left_Text>
+  <RHAH_Suiyin_N005Missing_Label>没有安顿下来</RHAH_Suiyin_N005Missing_Label>
+  <RHAH_Suiyin_N005Missing_Text>我听说，那孩子没能在你们据点安顿下来。我还不知道出了什么事，只盼着以后能听到孩子平安的消息。</RHAH_Suiyin_N005Missing_Text>
+  <RHAH_Suiyin_N005Rejected_Text>你们拒绝了交换，换子的人将带着孩子离开。</RHAH_Suiyin_N005Rejected_Text>
+  <RHAH_Suiyin_N005TimedOut_Text>等待答复的期限已过，换子的人将带着孩子离开。</RHAH_Suiyin_N005TimedOut_Text>
+  <RHAH_Suiyin_N005Broken_Text>交换没能完成，先前谈妥的条件已经作废。</RHAH_Suiyin_N005Broken_Text>
+  <RHAH_Suiyin_N006Entry_Label>墙根漏粮</RHAH_Suiyin_N006Entry_Label>
+  <RHAH_Suiyin_N006Entry_Text>我听说，你们据点的粮食被偷吃了一些。墙根有个窄洞，洞边挂着碎屑，像是鼠族啃穿地板钻上来吃的。\n\n你们可以用 {0} 木材把洞封上，也可以在洞边留一份诱饵，或者清理洞口周围。如果选择清理，最多会毁掉 {1} 份食物；如果放着不管，洞口会在 {2} 天后消失。</RHAH_Suiyin_N006Entry_Text>
+  <RHAH_Suiyin_N006Sealed_Text>粮洞已经封好。</RHAH_Suiyin_N006Sealed_Text>
+  <RHAH_Suiyin_N006BaitSet_Text>洞边已经留下一份食物作诱饵，一天后可以查看痕迹。</RHAH_Suiyin_N006BaitSet_Text>
+  <RHAH_Suiyin_N006BaitGone_Label>拖出去的痕迹</RHAH_Suiyin_N006BaitGone_Label>
+  <RHAH_Suiyin_N006BaitGone_Text>我听说，诱饵没了，洞外多出一段拖拽的痕迹。下一场雨过后，那段痕迹大概就看不清了。</RHAH_Suiyin_N006BaitGone_Text>
+  <RHAH_Suiyin_N006Traced_Label>标出了一个地方</RHAH_Suiyin_N006Traced_Label>
+  <RHAH_Suiyin_N006Traced_Text>我听说，你们沿着痕迹找到了一个地点，已经标在地图上了。那里有什么，还得有人去看。</RHAH_Suiyin_N006Traced_Text>
+  <RHAH_Suiyin_N006Stopped_Text>你们停止了追踪，也封上了洞口。</RHAH_Suiyin_N006Stopped_Text>
+  <RHAH_Suiyin_N006Cleaned_Text>粮洞周围已经清理，洞口也消失了。</RHAH_Suiyin_N006Cleaned_Text>
+  <RHAH_Suiyin_N006Gone_Label>洞口不见了</RHAH_Suiyin_N006Gone_Label>
+  <RHAH_Suiyin_N006Gone_Text>我听说，你们再去看时，洞口已经消失，追踪的线索也断了。</RHAH_Suiyin_N006Gone_Text>
+  <RHAH_Hole_Seal>封上（{0} 木材）</RHAH_Hole_Seal>
+  <RHAH_Hole_Bait>留一份诱饵</RHAH_Hole_Bait>
+  <RHAH_Hole_Clean>清掉洞边（至多 {0} 份食物）</RHAH_Hole_Clean>
+  <RHAH_Hole_Ignore>先不管</RHAH_Hole_Ignore>
+  <RHAH_Hole_Trace>顺着痕迹找</RHAH_Hole_Trace>
+  <RHAH_Hole_Stop>不再追</RHAH_Hole_Stop>
+  <RHAH_Hole_NoWood>封洞需要 {0} 木材，请备齐后再来。</RHAH_Hole_NoWood>
+  <RHAH_Hole_NoFood>洞边没有能拿来当诱饵的食物。</RHAH_Hole_NoFood>
+  <RHAH_Hole_Stale>这个粮洞已经处理完毕。</RHAH_Hole_Stale>
+  <RHAH_Suiyin_N008Arrive_Label>来问路的人</RHAH_Suiyin_N008Arrive_Label>
+  <RHAH_Suiyin_N008Arrive_Text>有人给我捎来消息，说你们那儿有个问路的来客。一开始，他只说：“我们...换吃的。”\n\n{0}又把话说了一遍：“我们要吃的，也想知道哪条路还能走。你给我 {1} 份简单餐食，我就告诉你一处旧存放点的位置。你也可以先查查我说的是不是实话。”\n\n听说他会等 {2} 天。</RHAH_Suiyin_N008Arrive_Text>
+  <RHAH_Suiyin_N008Trade_Text>{0}告诉了你们约好的旧存放点位置。</RHAH_Suiyin_N008Trade_Text>
+  <RHAH_Suiyin_N008Proof_Text>来客的说法与 {0} 种来访经历对得上，你们可以继续这桩交换。</RHAH_Suiyin_N008Proof_Text>
+  <RHAH_Suiyin_N008NoProof_Label>可能找错地方了</RHAH_Suiyin_N008NoProof_Label>
+  <RHAH_Suiyin_N008NoProof_Text>我听说，那人说了句“我可能找错地方了”，就离开了。</RHAH_Suiyin_N008NoProof_Text>
+  <RHAH_Suiyin_N008Refuse_Text>你们拒绝了交换，来客准备离开。</RHAH_Suiyin_N008Refuse_Text>
+  <RHAH_Suiyin_N008Drive_Text>你们用武力赶走了来客。</RHAH_Suiyin_N008Drive_Text>
+  <RHAH_Suiyin_N008Dead_Label>人死了</RHAH_Suiyin_N008Dead_Label>
+  <RHAH_Suiyin_N008Dead_Text>我听说，来问路的人死了，位置的线索也断了。</RHAH_Suiyin_N008Dead_Text>
+  <RHAH_Suiyin_N008Left_Label>人走了</RHAH_Suiyin_N008Left_Label>
+  <RHAH_Suiyin_N008Left_Text>我听说，来问路的人离开了你们那片地方。</RHAH_Suiyin_N008Left_Text>
+  <RHAH_Suiyin_N008Missing_Label>找不到人</RHAH_Suiyin_N008Missing_Label>
+  <RHAH_Suiyin_N008Missing_Text>我打听过了，来问路的人失联了。</RHAH_Suiyin_N008Missing_Text>
+  <RHAH_Suiyin_N008Timeout_Label>等候结束</RHAH_Suiyin_N008Timeout_Label>
+  <RHAH_Suiyin_N008Timeout_Text>我听说，来客等到了约定的期限，双方仍没能达成交换。他垂头丧气地走了。</RHAH_Suiyin_N008Timeout_Text>
+  <RHAH_Envoy_Trade>交出 {0} 份简单餐食</RHAH_Envoy_Trade>
+  <RHAH_Envoy_Proof>先核对他说的</RHAH_Envoy_Proof>
+  <RHAH_Envoy_Refuse>拒绝</RHAH_Envoy_Refuse>
+  <RHAH_Envoy_Drive>赶走（信任变化 {0}）</RHAH_Envoy_Drive>
+  <RHAH_Envoy_NoMeals>这次交换需要 {0} 份简单餐食，请备齐后再来。</RHAH_Envoy_NoMeals>
+  <RHAH_Envoy_Stale>这次与来客的交涉已经结束。</RHAH_Envoy_Stale>
+  <RHAH_Suiyin_N009Arrive_Label>旧存放点</RHAH_Suiyin_N009Arrive_Label>
+  <RHAH_Suiyin_N009Arrive_Text>旧存放点的位置已经标在地图上了。传到我这里的线索提到一箱搬运清单和配给记录，其中一页的数字改过两遍，最后一次没有签名。\n\n我盯着那些数目看了很久，想起墙外曾经为一口吃的打起来的鼠。这些纸也许能让我们知道，当时的粮食去了哪里。\n\n这个地点还会保留 {0} 天，你们可以趁这段时间前往查看。</RHAH_Suiyin_N009Arrive_Text>
+  <RHAH_Suiyin_N009Take_Text>你们带走了旧记录，一起找到的还有 {0} 白银。</RHAH_Suiyin_N009Take_Text>
+  <RHAH_Suiyin_N009Leave_Text>你们把旧记录留在了原地。</RHAH_Suiyin_N009Leave_Text>
+  <RHAH_Suiyin_N009Hand_Text>你们把旧记录交给了来者，对方留下了 {0} 白银。</RHAH_Suiyin_N009Hand_Text>
+  <RHAH_Suiyin_N009Share_Text>你们和来者各留了一份旧记录。</RHAH_Suiyin_N009Share_Text>
+  <RHAH_Suiyin_N009Destroy_Text>旧记录已经毁掉，清单上的内容无从核对了。</RHAH_Suiyin_N009Destroy_Text>
+  <RHAH_Suiyin_N009Empty_Label>空窖</RHAH_Suiyin_N009Empty_Label>
+  <RHAH_Suiyin_N009Empty_Text>我听说，你们找到了约定的位置，可里面能拿的东西已经没了，这趟路算是白走了。</RHAH_Suiyin_N009Empty_Text>
+  <RHAH_Record_Take>取走</RHAH_Record_Take>
+  <RHAH_Record_Leave>留下</RHAH_Record_Leave>
+  <RHAH_Record_Hand>交付</RHAH_Record_Hand>
+  <RHAH_Record_Share>各留一份</RHAH_Record_Share>
+  <RHAH_Record_Destroy>毁弃</RHAH_Record_Destroy>
+  <RHAH_Revisit_Leave>留在路边</RHAH_Revisit_Leave>
+  <RHAH_Revisit_Pay>付 {0} 白银</RHAH_Revisit_Pay>
+  <RHAH_Revisit_Kill>杀掉</RHAH_Revisit_Kill>
+  <RHAH_Revisit_NoSilver>商队白银不足 {0}。</RHAH_Revisit_NoSilver>
+  <RHAH_Revisit_Stale>这次与故人的会面已经结束。</RHAH_Revisit_Stale>
+</LanguageData>

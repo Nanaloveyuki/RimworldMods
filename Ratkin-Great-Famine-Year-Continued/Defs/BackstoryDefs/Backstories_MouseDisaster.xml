@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <BackstoryDef>
+    <defName>MouseDisaster_Newborn</defName>
+    <identifier>MouseDisaster_Newborn</identifier>
+    <title>鼠灾新生儿</title>
+    <titleShort>鼠灾新生儿</titleShort>
+    <description>灾荒下出生的鼠族婴儿，自幼饥饿而瘦弱，对食物和活命有着近乎本能的执念。</description>
+    <slot>Childhood</slot>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <skillGains>
+      <Social>1</Social>
+    </skillGains>
+    <workDisables>
+      <li>Artistic</li>
+    </workDisables>
+    <spawnCategories>
+      <li>MouseDisasterChild</li>
+      <li>MouseDisasterAll</li>
+    </spawnCategories>
+  </BackstoryDef>
+
+  <BackstoryDef>
+    <defName>MouseDisaster_Refugee</defName>
+    <identifier>MouseDisaster_Refugee</identifier>
+    <title>鼠灾流民</title>
+    <titleShort>鼠灾流民</titleShort>
+    <description>在大荒年里四处流亡的鼠族难民，只能为了下一口吃的继续活着。</description>
+    <slot>Adulthood</slot>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <skillGains>
+      <Social>1</Social>
+      <Plants>1</Plants>
+      <Cooking>1</Cooking>
+    </skillGains>
+    <workDisables>
+      <li>Artistic</li>
+    </workDisables>
+    <spawnCategories>
+      <li>MouseDisasterAdult</li>
+      <li>MouseDisasterAll</li>
+    </spawnCategories>
+  </BackstoryDef>
+</Defs>

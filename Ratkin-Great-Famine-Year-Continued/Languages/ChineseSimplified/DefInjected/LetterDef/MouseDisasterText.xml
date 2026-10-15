@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_AcceptFamineRefugees.label>灾荒逃难者</MouseDisaster_AcceptFamineRefugees.label>
+  <MouseDisaster_AbandonedChildrenLetter.label>鼠疫托孤</MouseDisaster_AbandonedChildrenLetter.label>
+  <MouseDisaster_ChildExchangeLetter.label>易子而食</MouseDisaster_ChildExchangeLetter.label>
+  <MouseDisaster_N006Letter.label>粮仓鼠洞</MouseDisaster_N006Letter.label>
+  <MouseDisaster_N007Letter.label>检疫封锁</MouseDisaster_N007Letter.label>
+  <MouseDisaster_VisitorControlLetter.label>鼠灾访客</MouseDisaster_VisitorControlLetter.label>
+  <MouseDisaster_FoodGiveLetter.label>鼠灾投喂</MouseDisaster_FoodGiveLetter.label>
+  <MouseDisaster_MisguidedKinshipLetter.label>错误认知</MouseDisaster_MisguidedKinshipLetter.label>
+  <MouseDisaster_RequestLetter.label>鼠灾请求</MouseDisaster_RequestLetter.label>
+  <MouseDisaster_StoryLetter.label>来信与约定</MouseDisaster_StoryLetter.label>
+</LanguageData>

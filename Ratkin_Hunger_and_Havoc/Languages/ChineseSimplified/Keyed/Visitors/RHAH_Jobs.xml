@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Job_Beg_Report>乞讨食物</RHAH_Job_Beg_Report>
+  <RHAH_Job_Gnaw_Report>啃树皮</RHAH_Job_Gnaw_Report>
+  <RHAH_Menu_Expel>驱逐{0}</RHAH_Menu_Expel>
+  <RHAH_Job_Expel_Report>驱逐{0}</RHAH_Job_Expel_Report>
+  <RHAH_Job_CarryYoung_Report>抬走{0}。</RHAH_Job_CarryYoung_Report>
+  <RHAH_Beg_Text_Success_1>求到吃的啦……</RHAH_Beg_Text_Success_1>
+  <RHAH_Beg_Text_Success_2>谢谢……谢谢给窝吃的……</RHAH_Beg_Text_Success_2>
+  <RHAH_Beg_Text_Success_3>今天还能活一下……</RHAH_Beg_Text_Success_3>
+  <RHAH_Beg_Text_Fail_1>{0}没有给吃的……</RHAH_Beg_Text_Fail_1>
+  <RHAH_Beg_Text_Fail_2>{0}把窝赶开了……</RHAH_Beg_Text_Fail_2>
+  <RHAH_Beg_Text_Fail_3>{0}连看都不看窝……</RHAH_Beg_Text_Fail_3>
+  <RHAH_Beg_Text_Slap>窝被人抽了……</RHAH_Beg_Text_Slap>
+</LanguageData>

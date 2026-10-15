@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThinkTreeDef>
+    <defName>RHAH_VisitorFallback</defName>
+    <insertTag>Humanlike_PostDuty</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="HungerAndHavoc.Pawn.ThinkNode_ConditionalRHAH_Visitor">
+      <subNodes>
+        <li Class="HungerAndHavoc.Pawn.JobGiver_RHAH_Visitor" />
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+  <ThinkTreeDef>
+    <defName>RHAH_PrisonerNeeds</defName>
+    <insertTag>Humanlike_PostDuty</insertTag>
+    <insertPriority>90</insertPriority>
+    <thinkRoot Class="ThinkNode_ConditionalPrisoner">
+      <subNodes>
+        <li Class="HungerAndHavoc.Pawn.JobGiver_RHAH_Scavenge" />
+        <li Class="HungerAndHavoc.Pawn.JobGiver_RHAH_TailBite" />
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+</Defs>

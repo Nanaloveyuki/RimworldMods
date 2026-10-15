@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Choice_Shelter>收留为短工（{0}）</RHAH_Choice_Shelter>
+  <RHAH_Choice_Label>来客</RHAH_Choice_Label>
+  <RHAH_Choice_Text>来客停在据点附近，提出了条件。\n\n他们索要 {1} {2}。我们应该怎么做？</RHAH_Choice_Text>
+  <RHAH_Choice_Aid_Label>接济</RHAH_Choice_Aid_Label>
+  <RHAH_Choice_Aid_Text>一只鼠族逃难者来到据点附近，请我们接济 {1} {2}。\n\n我们应该怎么做？</RHAH_Choice_Aid_Text>
+  <RHAH_Choice_Intel_Label>情报</RHAH_Choice_Intel_Label>
+  <RHAH_Choice_Intel_Text>一只鼠族来到据点附近，愿意用一处地点的线索换 {1} {2}。\n\n交付物资后，对方会将地点标在世界地图上。</RHAH_Choice_Intel_Text>
+  <RHAH_Choice_Baby_Label>索要婴儿</RHAH_Choice_Baby_Label>
+  <RHAH_Choice_Baby_Text>一只鼠族来到我们据点附近，开口索要一个婴儿。\n\n我们可以从信中选择一名符合条件的殖民地孩子交给对方，也可以拒绝或暂不答复。</RHAH_Choice_Baby_Text>
+  <RHAH_Choice_Abandoned_Label>幼年鼠族遗弃</RHAH_Choice_Abandoned_Label>
+  <RHAH_Choice_Abandoned_Text>一只鼠妈把孩子留在了我们据点附近。我们不知道她为何这样做，也许她已经养不起这些鼠蛋，希望我们收养他们。\n\n这些鼠蛋需要食物和照料，我们应该怎么做？</RHAH_Choice_Abandoned_Text>
+  <RHAH_Choice_Refugees_Label>逃难者</RHAH_Choice_Refugees_Label>
+  <RHAH_Choice_Refugees_Text>鼠族逃难者来到我们据点附近，想留下来。他们一路逃荒，眼下需要吃的和落脚的地方。\n\n我们应该怎么做？</RHAH_Choice_Refugees_Text>
+  <RHAH_Choice_ChildExchange_Label>易子而食</RHAH_Choice_ChildExchange_Label>
+  <RHAH_Choice_ChildExchange_Text>鼠妈把一只鼠蛋送到了我们据点附近。临走时，她断断续续地说着：“我实在喂不起这只鼠蛋了吱，能不能给我一些食物，或者，我们来交换一下？”\n\n这位鼠妈想要用这只鼠蛋换一些食物或者“食物”，我们应该怎么做？</RHAH_Choice_ChildExchange_Text>
+  <RHAH_Choice_Kinship_Label>认错亲人</RHAH_Choice_Kinship_Label>
+  <RHAH_Choice_Kinship_Text>“泥似不似窝滴麻麻叽？”\n\n“叽叽叽！肯定似叽！”\n\n“就似窝滴麻麻叽！”\n\n一只鼠蛋来到我们的据点附近，见到一位殖民者就叽叽喳喳地喊妈妈，说话还有些吐字不清。\n\n我们应该怎么做？</RHAH_Choice_Kinship_Text>
+  <RHAH_Choice_Airdrop_Label>空投失误</RHAH_Choice_Airdrop_Label>
+  <RHAH_Choice_Airdrop_Text>这些鼠蛋被送到了我们据点附近。我们不知道是谁送来的，也不知道他们原本该去哪里。鼠蛋需要有人喂食和照料，否则很可能饿死。接纳这么多孩子，会让据点的粮食和人手更加紧张。\n\n我们应该怎么做？</RHAH_Choice_Airdrop_Text>
+  <RHAH_Choice_Visitors_Label>来客</RHAH_Choice_Visitors_Label>
+  <RHAH_Choice_Visitors_Text>鼠族来客到了我们据点附近，还没有决定去留。要让他们进来，还是让他们继续走？</RHAH_Choice_Visitors_Text>
+  <RHAH_Choice_BeggarFamily_Label>来客</RHAH_Choice_BeggarFamily_Label>
+  <RHAH_Choice_BeggarFamily_Text>{0}到了。\n\n饥荒把一只鼠妈和她的{1}个鼠蛋逼到我们据点附近，鼠妈向我们乞讨吃的，鼠蛋挤在她的脚边。\n\n“求求您了吱，给我们母子一些粮食吧。”\n\n她顿了顿，“哪怕给您当牛做马，我们也绝无意见。”\n\n我们应该怎么做？</RHAH_Choice_BeggarFamily_Text>
+  <RHAH_Choice_LaboringRefugees_Label>待产流民</RHAH_Choice_LaboringRefugees_Label>
+  <RHAH_Choice_LaboringRefugees_Text>{1}只挺着大肚子的鼠族缓缓走到了我们的据点附近。她们已经开始分娩，在野外生产让母亲和孩子都面临危险。\n\n我们应该怎么做？</RHAH_Choice_LaboringRefugees_Text>
+  <RHAH_Choice_PlagueAbandoned_Label>鼠疫托孤</RHAH_Choice_PlagueAbandoned_Label>
+  <RHAH_Choice_PlagueAbandoned_Text>鼠妈已经站不稳了。她把孩子往前推了一点，又立刻伸手把孩子挡回去。\n\n“帮...帮...我的...孩子吱。”\n\n她没有说自己叫什么。能带来的东西都放在孩子旁边。\n\n鼠妈离开了，孩子还留在这里。</RHAH_Choice_PlagueAbandoned_Text>
+  <RHAH_Choice_ShatteredMother_Label>耗子分妈</RHAH_Choice_ShatteredMother_Label>
+  <RHAH_Choice_ShatteredMother_Text>一只鼠妈带着{1}只孩子来到我们据点附近。她受了重伤，失血严重。\n\n我们应该怎么做？</RHAH_Choice_ShatteredMother_Text>
+  <RHAH_Choice_BeggarGroup_Label>乞讨的鼠族</RHAH_Choice_BeggarGroup_Label>
+  <RHAH_Choice_BeggarGroup_Text>鼠族乞食者来到我们据点附近，想讨些吃的。他们的下一顿饭还没有着落。\n\n我们应该怎么做？</RHAH_Choice_BeggarGroup_Text>
+  <RHAH_Choice_Thieves_Label>偷窃的鼠族</RHAH_Choice_Thieves_Label>
+  <RHAH_Choice_Thieves_Text>鼠族窃贼来到我们据点附近。他们也饿，但比起开口讨饭，更愿意自己拿走能吃的东西。\n\n我们应该怎么处理他们？</RHAH_Choice_Thieves_Text>
+  <RHAH_Choice_YoungThieves_Label>偷窃的幼年鼠族</RHAH_Choice_YoungThieves_Label>
+  <RHAH_Choice_YoungThieves_Text>几只鼠蛋来到我们据点附近，学着偷东西填肚子。\n\n我们应该怎么处理他们？</RHAH_Choice_YoungThieves_Text>
+  <RHAH_Choice_Wild_Label>游荡的鼠族</RHAH_Choice_Wild_Label>
+  <RHAH_Choice_Wild_Text>野生鼠族游荡到了我们据点附近，正在寻找食物。\n\n要接纳他们吗？</RHAH_Choice_Wild_Text>
+  <RHAH_Choice_WildYoung_Label>游荡的幼年鼠族</RHAH_Choice_WildYoung_Label>
+  <RHAH_Choice_WildYoung_Text>一只野生鼠蛋游荡到了我们据点附近，独自在这里寻找食物。\n\n我们应该怎么做？</RHAH_Choice_WildYoung_Text>
+  <RHAH_Choice_Passersby_Label>路过的鼠族</RHAH_Choice_Passersby_Label>
+  <RHAH_Choice_Passersby_Text>一队鼠族流民从我们据点附近路过，仍在为下一顿饭奔波。\n\n要留下他们，还是让他们继续走？</RHAH_Choice_Passersby_Text>
+  <RHAH_Choice_Siege_Label>围攻乞食者</RHAH_Choice_Siege_Label>
+  <RHAH_Choice_Siege_Text>鼠族乞食者围到了我们据点附近，索要食物。他们可能与我们敌对，请留意这批来客的态度。\n\n我们应该怎么做？</RHAH_Choice_Siege_Text>
+  <RHAH_Choice_Orphan_Label>鼠疫孤儿</RHAH_Choice_Orphan_Label>
+  <RHAH_Choice_Orphan_Text>一只鼠族孤儿来到我们据点附近，独自在灾荒中寻找食物和落脚处。\n\n我们应该怎么做？</RHAH_Choice_Orphan_Text>
+  <RHAH_Choice_KinshipGrown_Text>一只鼠族来到我们据点附近，见到殖民者就喊妈妈。眼前的人明明不认识这只鼠族，对方却认定没有找错。\n\n我们应该怎么做？</RHAH_Choice_KinshipGrown_Text>
+  <RHAH_Choice_VisitorHint>我们有 {0} 天答复。如果要交食物，先选中殖民者，再右键来客安排投喂。拒绝或超过期限后，来客会根据当前态度和整批反应设置离开或转为敌对。</RHAH_Choice_VisitorHint>
+  <RHAH_Choice_RequestHint>我们有 {0} 天答复。拒绝或超过期限后，来客会根据当前态度和整批反应设置离开或转为敌对。</RHAH_Choice_RequestHint>
+  <RHAH_Choice_IntelHint>我们有 {0} 天答复。交付物资后，对方才会提供地点。拒绝或超过期限后，来客会根据当前态度和整批反应设置离开或转为敌对。</RHAH_Choice_IntelHint>
+  <RHAH_Choice_PlagueHint>这批来客患有鼠疫，需要治疗和照料，接触他们也有传播疾病的风险。请在这封信里决定如何对待他们。</RHAH_Choice_PlagueHint>
+  <RHAH_Choice_PlagueDisabledHint>鼠疫已关闭，这批来客会健康到来。</RHAH_Choice_PlagueDisabledHint>
+  <RHAH_Choice_ChildExchangeFoodHint>也可用简单餐完成交换：每个来客孩子需要 {0} 份，本次共 {1} 份。交换完成后，来客孩子加入殖民地。</RHAH_Choice_ChildExchangeFoodHint>
+  <RHAH_Choice_ChildExchangeNoFoodHint>食物替代已关闭。要完成交换，请从信中选择一名符合条件的殖民地孩子交给对方。</RHAH_Choice_ChildExchangeNoFoodHint>
+  <RHAH_Choice_ChildExchangeZeroFoodHint>每个孩子所需的简单餐设为 0，此时选择食物替代可直接完成交换。也可选择交出殖民地孩子。</RHAH_Choice_ChildExchangeZeroFoodHint>
+  <RHAH_Choice_AbandonedGrown_Text>一只鼠妈把孩子留在了我们据点附近。我们不知道她为何这样做，也许她已经养不起他们，希望我们接纳这些孩子。\n\n他们需要食物和住处，我们应该怎么做？</RHAH_Choice_AbandonedGrown_Text>
+  <RHAH_Choice_ChildExchangeGrown_Text>鼠妈把一只鼠族送到了我们据点附近。临走时，她断断续续地说着：“我实在喂不起这孩子了吱，能不能给我一些食物，或者，我们来交换一下？”\n\n这位鼠妈想要用自己的孩子换一些食物或者“食物”，我们应该怎么做？</RHAH_Choice_ChildExchangeGrown_Text>
+  <RHAH_Choice_BeggarFamilyGrown_Text>{0}到了。\n\n饥荒把一只鼠妈和她的{1}个孩子逼到我们据点附近，鼠妈向我们乞讨吃的，孩子在她身边。\n\n“求求您了吱，给我们母子一些粮食吧。”\n\n她顿了顿，“哪怕给您当牛做马，我们也绝无意见。”\n\n我们应该怎么做？</RHAH_Choice_BeggarFamilyGrown_Text>
+  <RHAH_Choice_AirdropGrown_Text>这些鼠族被送到了我们据点附近。我们不知道是谁送来的，也不知道他们原本该去哪里。他们需要食物和住处，否则很可能饿死。接纳这么多人，会让据点的粮食和住处更加紧张。\n\n我们应该怎么做？</RHAH_Choice_AirdropGrown_Text>
+  <RHAH_Choice_KinshipInfant_Text>一只鼠族婴儿被留在了我们据点附近，哭着等人照料。\n\n我们应该怎么做？</RHAH_Choice_KinshipInfant_Text>
+  <RHAH_Choice_AbandonedSingle_Text>一只鼠妈把孩子留在了我们据点附近。我们不知道她为何这样做，也许她已经养不起这只鼠蛋，希望我们收养孩子。\n\n这只鼠蛋需要食物和照料，我们应该怎么做？</RHAH_Choice_AbandonedSingle_Text>
+  <RHAH_Choice_AbandonedSingleGrown_Text>一只鼠妈把孩子留在了我们据点附近。我们不知道她为何这样做，也许她已经养不起这孩子，希望我们接纳孩子。\n\n这只鼠族需要食物和住处，我们应该怎么做？</RHAH_Choice_AbandonedSingleGrown_Text>
+  <RHAH_Choice_WildSingle_Text>一只野生鼠族游荡到了我们据点附近，正在寻找食物。\n\n要接纳这只来客吗？</RHAH_Choice_WildSingle_Text>
+  <RHAH_Choice_SimpleMeal>简单餐</RHAH_Choice_SimpleMeal>
+  <RHAH_Choice_FineMeal>精致餐</RHAH_Choice_FineMeal>
+  <RHAH_Choice_Medicine>药品</RHAH_Choice_Medicine>
+  <RHAH_Choice_HerbalMedicine>草药</RHAH_Choice_HerbalMedicine>
+  <RHAH_Choice_Silver>白银</RHAH_Choice_Silver>
+  <RHAH_Choice_Deliver>交付（交出物资）</RHAH_Choice_Deliver>
+  <RHAH_Choice_Reject>拒绝（可能离开，也可能敌对）</RHAH_Choice_Reject>
+  <RHAH_Choice_Ignore>忽视（先不管他们）</RHAH_Choice_Ignore>
+  <RHAH_Choice_Join>收留（加入殖民地）</RHAH_Choice_Join>
+  <RHAH_Choice_Hire>雇为长工（{0}后离开）</RHAH_Choice_Hire>
+  <RHAH_Choice_Feed>投喂（他们等着拿食物）</RHAH_Choice_Feed>
+  <RHAH_Choice_Recruit>收为短工（{0}后离开）</RHAH_Choice_Recruit>
+  <RHAH_Choice_Enslave>奴役（当场变成奴隶，反抗意志清零）</RHAH_Choice_Enslave>
+  <RHAH_Choice_Capture>俘虏（当场变成囚犯，麻醉 12 小时）</RHAH_Choice_Capture>
+  <RHAH_Choice_Attack>攻击（整批转为敌对）</RHAH_Choice_Attack>
+  <RHAH_Choice_ChooseAlly>送往盟友…</RHAH_Choice_ChooseAlly>
+  <RHAH_Choice_Ally>送到{0}</RHAH_Choice_Ally>
+  <RHAH_Choice_AllyPageText>选择接纳他们的盟友（第{0}/{1}页）。\n\n来客成功离开地图后，才会按他们的市场价值增加盟友好感：每500价值约+1，本次转送合计最高+10。工业及以上的盟友有50%概率在三天内空投少量物资作为回礼。</RHAH_Choice_AllyPageText>
+  <RHAH_Choice_AllyPrevious>上一页</RHAH_Choice_AllyPrevious>
+  <RHAH_Choice_AllyNext>下一页</RHAH_Choice_AllyNext>
+  <RHAH_Choice_AllyBack>返回</RHAH_Choice_AllyBack>
+  <RHAH_Choice_NoAlly>没有盟友派系能接收他们。</RHAH_Choice_NoAlly>
+  <RHAH_Choice_AllySent>{0}人已开始前往{1}，成功离开这张地图后才会成为该派系的成员，并按离场者的市场价值增加盟友好感。本次转送合计最高+10好感。对方据点里无法直接找到他们。</RHAH_Choice_AllySent>
+  <RHAH_Choice_AllyGiftLabel>盟友的回礼</RHAH_Choice_AllyGiftLabel>
+  <RHAH_Choice_AllyGiftText>{0}已经空投了一些物资，答谢我们将这批来客送给他们接纳。</RHAH_Choice_AllyGiftText>
+  <RHAH_Choice_AllyGoodwillReason>接纳来客</RHAH_Choice_AllyGoodwillReason>
+  <RHAH_Choice_NoCustodyTarget>当前没有可以俘虏或奴役的来客。他们可能正在精神崩溃、已经离开，或受到囚禁限制。</RHAH_Choice_NoCustodyTarget>
+  <RHAH_Choice_NoPresent>来客已经离开，现场无人可以接受这项安排。</RHAH_Choice_NoPresent>
+  <RHAH_Choice_NoRecruit>这些来客都不能被收留、雇佣或加入殖民地。</RHAH_Choice_NoRecruit>
+  <RHAH_Choice_NoTransfer>当前没有可以送往盟友、且能够离开地图的来客。</RHAH_Choice_NoTransfer>
+  <RHAH_Choice_NoIdeology>奴役需要开启文化扩展。</RHAH_Choice_NoIdeology>
+  <RHAH_Choice_CustodyFailed>这次俘虏或奴役未能成功，你可以在信中重新选择。</RHAH_Choice_CustodyFailed>
+  <RHAH_Choice_FeedHint>来客会在原地等你安排送餐。先选中一名殖民者，再右键正在等待的来客，选择要交给他们的食物。</RHAH_Choice_FeedHint>
+  <RHAH_Choice_FeedHintDismiss>不再提示</RHAH_Choice_FeedHintDismiss>
+  <RHAH_Choice_FeedWaiting>{0}名来客正在等食物。</RHAH_Choice_FeedWaiting>
+  <RHAH_Choice_FeedBlocked>{0}现在不能接受投喂。</RHAH_Choice_FeedBlocked>
+  <RHAH_Choice_FeedNoVisitor>{0}当前不属于可以投喂的来客。</RHAH_Choice_FeedNoVisitor>
+  <RHAH_Choice_FeedNotHungry>{0}现在不需要食物。</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_GiveFood>交给{1} {0}</RHAH_Choice_GiveFood>
+  <RHAH_Choice_NoFood>没有能交给{1}的食物</RHAH_Choice_NoFood>
+  <RHAH_Choice_Short>库存不足，还缺 {0}。</RHAH_Choice_Short>
+  <RHAH_Choice_NoBaby>当前没有可交出的殖民地孩子。若此请求支持食物替代，可以启用该选项并备齐简单餐。</RHAH_Choice_NoBaby>
+  <RHAH_Choice_Stale>这封信已经不能再选这一项。</RHAH_Choice_Stale>
+  <RHAH_Choice_Delivered>物资已经交出。</RHAH_Choice_Delivered>
+  <RHAH_Choice_SiteUnavailable>对方没能提供地点，物资仍在你手里。你可以在信中重新选择。</RHAH_Choice_SiteUnavailable>
+  <RHAH_Choice_Fed>来客吃过了。</RHAH_Choice_Fed>
+  <RHAH_Choice_MouseSwarm_Label>鼠潮</RHAH_Choice_MouseSwarm_Label>
+  <RHAH_Choice_MouseSwarm_Text>据观测，有一大批鼠族因为荒年流离失所，正在朝我们赶来，如果不想被这些鼠族吃完粮仓里所有的粮食，那么需要尽快做出选择。</RHAH_Choice_MouseSwarm_Text>
+  <RHAH_Choice_PleadingJoin_Label>祈求加入</RHAH_Choice_PleadingJoin_Label>
+  <RHAH_Choice_PleadingJoin_Text>一只精神萎靡的鼠族跌跌撞撞的来到了这里，看起来是长途奔波导致的。\n\n“请问可以收留我吗？我很能干的！只需要一点点食物，非常感谢！”</RHAH_Choice_PleadingJoin_Text>
+</LanguageData>

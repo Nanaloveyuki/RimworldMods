@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Genes>基因</RHAH_Menu_Genes>
+  <RHAH_Menu_Genes_Gap>这里还不能调整基因。</RHAH_Menu_Genes_Gap>
+  <RHAH_Menu_Genes_NoBiotech>安装并启用生物科技后，可在这里调整来客的异种。</RHAH_Menu_Genes_NoBiotech>
+  <RHAH_Menu_Genes_Note>开启“加快来客出现”后，新来客按本页权重选择异种，显示的百分比为抽中几率。权重范围为 0 到 100，设为 0 时该异种退出抽取。列表只显示鼠族可用的异种，初鼠种默认权重为 100。\n\n全部权重为 0 时，优先使用允许的初鼠种；初鼠种不可用时，按鼠族模组的异种比例选择。如果这些异种也不可用，再尝试允许的饥荒鼠族。没有可用异种时，来客停止生成。\n\n关闭“加快来客出现”后，新来客直接按鼠族模组的异种比例选择。</RHAH_Menu_Genes_Note>
+  <RHAH_Menu_Genes_Reset>恢复默认权重</RHAH_Menu_Genes_Reset>
+  <RHAH_Menu_Genes_Fallback>当前全部权重为 0。新来客优先使用允许的初鼠种，其次按鼠族模组的异种比例选择，最后尝试允许的饥荒鼠族。没有可用异种时，来客停止生成。</RHAH_Menu_Genes_Fallback>
+  <RHAH_Menu_Genes_WeightTip>建议权重 {1}。抽中几率为此权重占全部启用权重的比例。</RHAH_Menu_Genes_WeightTip>
+  <RHAH_Menu_Genes_Missing>这个异种当前没加载：{0}</RHAH_Menu_Genes_Missing>
+  <RHAH_Menu_Genes_Switches>本模组基因</RHAH_Menu_Genes_Switches>
+  <RHAH_Menu_Genes_Join>可加入的鼠族异种</RHAH_Menu_Genes_Join>
+  <RHAH_Menu_Genes_JoinOne>加入 {0}</RHAH_Menu_Genes_JoinOne>
+  <RHAH_Menu_Genes_Remove>移出</RHAH_Menu_Genes_Remove>
+  <RHAH_Menu_Genes_UnknownMod>未知来源</RHAH_Menu_Genes_UnknownMod>
+  <RHAH_Menu_Genes_NoOwned>当前没有可开关的饥与祸基因。</RHAH_Menu_Genes_NoOwned>
+  <RHAH_Settings_LitterMin>最少幼崽 {0}</RHAH_Settings_LitterMin>
+  <RHAH_Settings_LitterPeak>最常见幼崽 {0}</RHAH_Settings_LitterPeak>
+  <RHAH_Settings_LitterMax>最多幼崽 {0}</RHAH_Settings_LitterMax>
+  <RHAH_Settings_FertileAge>最早可孕年龄 {0}</RHAH_Settings_FertileAge>
+  <RHAH_Settings_FertilityPercent>怀孕几率 {0}%</RHAH_Settings_FertilityPercent>
+  <RHAH_Settings_GestationDays>最短孕期 {0} 天</RHAH_Settings_GestationDays>
+  <RHAH_Settings_LovinPregnancy>爱爱受孕几率 {0}%</RHAH_Settings_LovinPregnancy>
+  <RHAH_Menu_Genes_LitterCurve>幼崽数量</RHAH_Menu_Genes_LitterCurve>
+  <RHAH_Menu_Genes_LitterTip>{0} 只，相对几率 {1}</RHAH_Menu_Genes_LitterTip>
+  <RHAH_Menu_Genes_LitterMinTip>每次分娩的最少幼崽数，范围 1 到 12。</RHAH_Menu_Genes_LitterMinTip>
+  <RHAH_Menu_Genes_LitterPeakTip>最常见的幼崽数，须在最少与最多数量之间。</RHAH_Menu_Genes_LitterPeakTip>
+  <RHAH_Menu_Genes_LitterMaxTip>每次分娩的最多幼崽数，须不低于最少数量。</RHAH_Menu_Genes_LitterMaxTip>
+  <RHAH_Menu_Genes_FertileAgeTip>双方生理年龄达到这个岁数后可以受孕。范围 1 到 14。</RHAH_Menu_Genes_FertileAgeTip>
+  <RHAH_Menu_Genes_FertilityTip>相对常人的怀孕几率。范围 100% 到 1000%。</RHAH_Menu_Genes_FertilityTip>
+  <RHAH_Menu_Genes_GestationTip>可设置的最短孕期为 3 天，上限为原版孕期下限。</RHAH_Menu_Genes_GestationTip>
+  <RHAH_Menu_Genes_LovinPregnancyTip>爱爱正常结束后的受孕几率，范围 0% 到 100%。实际几率还会乘以双方各自的怀孕几率。</RHAH_Menu_Genes_LovinPregnancyTip>
+  <RHAH_Settings_MaternalMilk>母爱：产奶速度和储奶上限 {0}%</RHAH_Settings_MaternalMilk>
+  <RHAH_Settings_MaternalHunger>母爱：饥饿速度 {0}%</RHAH_Settings_MaternalHunger>
+  <RHAH_Settings_MaternalNutrition>母爱：食物需求上限 {0}%</RHAH_Settings_MaternalNutrition>
+  <RHAH_Settings_PaternalWork>父爱：工作速度 {0}%</RHAH_Settings_PaternalWork>
+  <RHAH_Settings_PaternalHunger>父爱：饥饿速度 {0}%</RHAH_Settings_PaternalHunger>
+  <RHAH_Settings_PaternalLearning>父爱：全局学习速度 {0}%</RHAH_Settings_PaternalLearning>
+  <RHAH_Settings_PaternalDamage>父爱：承受伤害 {0}%</RHAH_Settings_PaternalDamage>
+  <RHAH_Menu_Genes_MaternalMilkTip>母爱本能生效且处于哺乳期时，产奶速度和储奶上限均乘以此倍率。100%为原速度和原上限，默认150%。范围1%至1000%。</RHAH_Menu_Genes_MaternalMilkTip>
+  <RHAH_Menu_Genes_MaternalHungerTip>母爱本能生效且处于哺乳期时，饥饿速度乘以此倍率。100%为原速度，默认115%。范围1%至1000%。</RHAH_Menu_Genes_MaternalHungerTip>
+  <RHAH_Menu_Genes_MaternalNutritionTip>母爱本能生效且处于哺乳期时，食物需求上限乘以此倍率。100%为原上限，默认125%。范围1%至1000%。</RHAH_Menu_Genes_MaternalNutritionTip>
+  <RHAH_Menu_Genes_PaternalWorkTip>父爱本能生效且同一地图上有活着的直接亲生子女时，工作速度乘以此倍率。子女年龄不限。100%为原速度，默认120%。范围1%至1000%。</RHAH_Menu_Genes_PaternalWorkTip>
+  <RHAH_Menu_Genes_PaternalHungerTip>父爱本能生效且同一地图上有活着的直接亲生子女时，饥饿速度乘以此倍率。子女年龄不限。100%为原速度，默认110%。范围1%至1000%。</RHAH_Menu_Genes_PaternalHungerTip>
+  <RHAH_Menu_Genes_PaternalLearningTip>父爱本能生效且同一地图上有活着的直接亲生子女时，全局学习速度乘以此倍率。子女年龄不限。100%为原速度，默认110%。范围1%至1000%。</RHAH_Menu_Genes_PaternalLearningTip>
+  <RHAH_Menu_Genes_PaternalDamageTip>父爱本能生效且同一地图上有活着的直接亲生子女时，承受伤害乘以此倍率。子女年龄不限。100%为原伤害，默认90%。范围1%至100%。</RHAH_Menu_Genes_PaternalDamageTip>
+</LanguageData>

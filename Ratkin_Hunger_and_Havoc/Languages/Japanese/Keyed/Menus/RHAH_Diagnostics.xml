@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Narrative_Kingdom>穂音の王国編</RHAH_Menu_Narrative_Kingdom>
+  <RHAH_Menu_Pawns>訪問者</RHAH_Menu_Pawns>
+  <RHAH_Menu_CompatDiagnostics>互換性と診断</RHAH_Menu_CompatDiagnostics>
+  <RHAH_Menu_Developer>開発者モード</RHAH_Menu_Developer>
+  <RHAH_Menu_Pawns_NoMap>現在のマップがありません。</RHAH_Menu_Pawns_NoMap>
+  <RHAH_Menu_Pawns_None>このマップに「飢えと災い」の訪問者はいません。</RHAH_Menu_Pawns_None>
+  <RHAH_Menu_Pawns_Invalid>この訪問者はもういません。</RHAH_Menu_Pawns_Invalid>
+  <RHAH_Menu_PawnMeta>{0}。{1}。イベント：{2}。</RHAH_Menu_PawnMeta>
+  <RHAH_Menu_PawnRelation>関係グループ：{0}。親：{1}。子供：{2}。給餌済み：{3}。ペスト：{4}。</RHAH_Menu_PawnRelation>
+  <RHAH_Menu_Compat_Active>有効（{0}）</RHAH_Menu_Compat_Active>
+  <RHAH_Menu_Compat_Inactive>無効</RHAH_Menu_Compat_Inactive>
+  <RHAH_Menu_Compat_MissingRequired>必須ですが、有効になっていません</RHAH_Menu_Compat_MissingRequired>
+  <RHAH_Menu_Diagnostics_NoGame>診断にはゲームの読み込みが必要です。</RHAH_Menu_Diagnostics_NoGame>
+  <RHAH_Menu_Diagnostics_Pending>待機中のイベント</RHAH_Menu_Diagnostics_Pending>
+  <RHAH_Menu_Diagnostics_Batches>進行中の集団</RHAH_Menu_Diagnostics_Batches>
+  <RHAH_Menu_Diagnostics_Map>現在のマップ</RHAH_Menu_Diagnostics_Map>
+  <RHAH_Menu_Developer_Note>開発者モードの予約は、イベントを手動で発生させるページにあります。バージョンとIrisMenusの情報は「互換性と診断」にあります。</RHAH_Menu_Developer_Note>
+  <RHAH_Menu_Developer_LastPawn>最後に一覧に表示した訪問者</RHAH_Menu_Developer_LastPawn>
+</LanguageData>

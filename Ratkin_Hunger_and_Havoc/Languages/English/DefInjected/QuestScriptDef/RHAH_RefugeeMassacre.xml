@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_RefugeeMassacre.questNameRules.rulesStrings.0>questName->Clear the ratkin camp</RHAH_RefugeeMassacre.questNameRules.rulesStrings.0>
+  <RHAH_RefugeeMassacre.questDescriptionRules.rulesStrings.0>questDescription->[sponsorName] says a nearby temporary ratkin camp may threaten their settlement. They want every refugee there killed within [campDays] days to prevent what they call a 'ratkin surge'. Completing the task changes goodwill by [campGoodwill].\n\nThe camp is expected to hold [campMinAdults] to [campMaxAdults] adult ratkin and [campMinChildren] to [campMaxChildren] young ratkin. There are no turrets or electricity, but the adults may be armed and predators may appear nearby. Downing or capturing residents does not count as completion.</RHAH_RefugeeMassacre.questDescriptionRules.rulesStrings.0>
+</LanguageData>

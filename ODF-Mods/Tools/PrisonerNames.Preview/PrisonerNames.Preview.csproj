@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OxygenSourceDir)/Source/Core/Oxygendsl.Core.csproj" />
+    <Compile Include="../../Mods/PrisonerNames/Source/NamingRules.cs" Link="NamingRules.cs" />
+    <Compile Include="../../Mods/PrisonerNames/Source/NamingPreview.cs" Link="NamingPreview.cs" />
+    <Compile Include="../../Mods/PrisonerNames/Source/NamePolicy.cs" Link="NamePolicy.cs" />
+    <Compile Include="../../Mods/PrisonerNames/Source/NameFormatter.cs" Link="NameFormatter.cs" />
+    <Compile Include="../../Mods/PrisonerNames/Source/JsonFacts.cs" Link="JsonFacts.cs" />
+    <EmbeddedResource Include="../../Mods/PrisonerNames/Oxygen/default-zh.oxy" LogicalName="DefaultNaming.zh.oxy" />
+    <EmbeddedResource Include="../../Mods/PrisonerNames/Oxygen/default-en.oxy" LogicalName="DefaultNaming.en.oxy" />
+  </ItemGroup>
+</Project>

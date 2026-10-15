@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Guard_DuplicateTitle>Ratkin: Hunger and Havoc の本体は読み込まれませんでした</RHAH_Guard_DuplicateTitle>
+  <RHAH_Guard_DuplicateBody>旧Mod「鼠灾-大荒年」も有効になっています。今回は Hunger and Havoc の内容を読み込んでいません。旧Modも無効にはしていません。\n\nどちらか一方だけを有効にして、RimWorldを再起動してください。再起動するまでは、セーブの読み込みも保存もしないでください。Hunger and Havoc は旧Modのセーブデータを引き継げません。</RHAH_Guard_DuplicateBody>
+  <RHAH_Guard_OxygenRequiredTitle>Ratkin: Hunger and Havoc — 前提Modが不足しています</RHAH_Guard_OxygenRequiredTitle>
+  <RHAH_Guard_OxygenRequiredBody>このModを正常に有効化するには Oxygen DSL Framework が必要です。Steamワークショップからダウンロードできます。途中で前提Modを追加することになり、申し訳ありません。プレイ中のパフォーマンスのために必要な依存関係ですので、ご理解いただけると幸いです。</RHAH_Guard_OxygenRequiredBody>
+</LanguageData>

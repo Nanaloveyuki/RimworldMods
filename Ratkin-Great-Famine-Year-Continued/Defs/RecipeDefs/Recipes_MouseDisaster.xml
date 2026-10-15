@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <RecipeDef>
+    <defName>MouseDisaster_MakeGuanyinTu</defName>
+    <label>make Guanyin clay</label>
+    <description>Grind one stone chunk into three portions of Guanyin clay.</description>
+    <jobString>Grinding Guanyin clay.</jobString>
+    <workAmount>1600</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>CutStone</effectWorking>
+    <soundWorking>Recipe_MakeStoneBlocks</soundWorking>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>0</workSkillLearnFactor>
+    <ingredients>
+      <li><filter><categories><li>StoneChunks</li></categories></filter><count>1</count></li>
+    </ingredients>
+    <fixedIngredientFilter><categories><li>StoneChunks</li></categories></fixedIngredientFilter>
+    <products><MouseDisaster_GuanyinTu>3</MouseDisaster_GuanyinTu></products>
+    <recipeUsers><li>TableStonecutter</li></recipeUsers>
+  </RecipeDef>
+</Defs>

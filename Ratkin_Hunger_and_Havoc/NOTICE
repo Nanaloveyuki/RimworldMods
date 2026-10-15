@@ -1,0 +1,10 @@
+鼠族: 饥与祸
+Ratkin: Hunger and Havoc
+
+独立作品。玩法对照社区中的“鼠灾-大荒年”及其续作，但使用新的 packageId、Def 前缀与存档字段。
+
+本模组不是 Continued 替换包，不读取、不迁移旧鼠灾存档。请勿与下列模组同时启用：
+
+- lezhizhong.mouse.disaster.famine
+- nanaloveyuki.mouse.disaster.famine.continued
+- local.mousedisaster.greatfamine

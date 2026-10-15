@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_BeggingSucceeded.stages.0.label>someone gave me food</RHAH_Thought_BeggingSucceeded.stages.0.label>
+  <RHAH_Thought_BeggingSucceeded.stages.0.description>At last, something I can eat. I can last another day.</RHAH_Thought_BeggingSucceeded.stages.0.description>
+  <RHAH_Thought_BeggingRejected.stages.0.label>turned away</RHAH_Thought_BeggingRejected.stages.0.label>
+  <RHAH_Thought_BeggingRejected.stages.0.description>I only wanted something to eat. They sent me off.</RHAH_Thought_BeggingRejected.stages.0.description>
+  <RHAH_Thought_BeggingSlapped.stages.0.label>slapped</RHAH_Thought_BeggingSlapped.stages.0.label>
+  <RHAH_Thought_BeggingSlapped.stages.0.description>They slapped me. My face still stings.</RHAH_Thought_BeggingSlapped.stages.0.description>
+  <RHAH_Thought_ScavengedFilth.label>licked the floor</RHAH_Thought_ScavengedFilth.label>
+  <RHAH_Thought_ScavengedFilth.description>I licked something off the ground. Disgusting.</RHAH_Thought_ScavengedFilth.description>
+  <RHAH_Thought_ScavengedFilth.stages.0.label>licked the floor</RHAH_Thought_ScavengedFilth.stages.0.label>
+  <RHAH_Thought_ScavengedFilth.stages.0.description>I licked something off the ground. Disgusting.</RHAH_Thought_ScavengedFilth.stages.0.description>
+  <RHAH_Thought_TailBitten.label>tail bitten off</RHAH_Thought_TailBitten.label>
+  <RHAH_Thought_TailBitten.description>My tail is gone. It was bitten off while I slept.</RHAH_Thought_TailBitten.description>
+  <RHAH_Thought_TailBitten.stages.0.label>tail bitten off</RHAH_Thought_TailBitten.stages.0.label>
+  <RHAH_Thought_BitATail.label>bit a tail</RHAH_Thought_BitATail.label>
+  <RHAH_Thought_BitATail.description>I bit off a tail. It filled me up.</RHAH_Thought_BitATail.description>
+  <RHAH_Thought_BitATail.stages.0.label>bit a tail</RHAH_Thought_BitATail.stages.0.label>
+  <RHAH_Thought_AteRatEggMeal.label>ate food made from young ratkin</RHAH_Thought_AteRatEggMeal.label>
+  <RHAH_Thought_AteRatEggMeal.description>I ate food made from young ratkin. It tasted good, but I am scared I might be made into food too.</RHAH_Thought_AteRatEggMeal.description>
+  <RHAH_Thought_AteRatEggMeal.stages.0.label>ate food made from young ratkin</RHAH_Thought_AteRatEggMeal.stages.0.label>
+  <RHAH_Thought_AteRatEggMeal.stages.0.description>I ate food made from young ratkin. It tasted good, but I am scared I might be made into food too.</RHAH_Thought_AteRatEggMeal.stages.0.description>
+  <RHAH_Thought_TailBitten.stages.0.description>My tail is gone. Someone bit it off while I slept.</RHAH_Thought_TailBitten.stages.0.description>
+  <RHAH_Thought_BitATail.stages.0.description>I bit off a tail. It filled me up.</RHAH_Thought_BitATail.stages.0.description>
+</LanguageData>

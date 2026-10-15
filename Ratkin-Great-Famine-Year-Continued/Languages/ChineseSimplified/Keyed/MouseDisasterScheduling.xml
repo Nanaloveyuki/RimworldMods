@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <MouseDisaster_Settings_LeaveAfterFed>事件鼠吃饱后离开</MouseDisaster_Settings_LeaveAfterFed>
+  <MouseDisaster_Settings_PositiveDays>正面鼠灾事件平均间隔：{0} 天（0 为关闭）</MouseDisaster_Settings_PositiveDays>
+  <MouseDisaster_Settings_NegativeDays>负面鼠灾事件平均间隔：{0} 天（0 为关闭）</MouseDisaster_Settings_NegativeDays>
+  <MouseDisaster_Settings_CountWithoutSuin>非穗音叙事者下也累计鼠灾进度与信任</MouseDisaster_Settings_CountWithoutSuin>
+  <MouseDisaster_Settings_EndingsWithoutSuin>非穗音叙事者下也允许触发结局</MouseDisaster_Settings_EndingsWithoutSuin>
+  <MouseDisaster_Settings_Positive>对玩家：正面事件</MouseDisaster_Settings_Positive>
+  <MouseDisaster_Settings_Negative>对玩家：负面事件</MouseDisaster_Settings_Negative>
+  <MouseDisaster_Settings_ReplaceRaid>可替代原版随机袭击（不受独立池间隔限制）</MouseDisaster_Settings_ReplaceRaid>
+  <MouseDisaster_Story_Trust>穗音的信任：{0}</MouseDisaster_Story_Trust>
+  <MouseDisaster_Story_AlertTrustLabel>鼠灾事件追踪（信任：{0}）</MouseDisaster_Story_AlertTrustLabel>
+</LanguageData>

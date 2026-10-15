@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Removal>Save and removal</RHAH_Menu_Removal>
+  <RHAH_RemovalSection>This save</RHAH_RemovalSection>
+  <RHAH_RemovalNoGame>Load a save before turning off its new content or exporting a copy for removal.</RHAH_RemovalNoGame>
+  <RHAH_EventChainsFailure>Event follow-ups are paused. The old event records are kept, and new incidents are blocked. Reason: {0}\nKeep both this mod and Oxygen DSL Framework installed. Check the log before continuing or export a removal copy.</RHAH_EventChainsFailure>
+  <RHAH_RemovalDisable>Turn off new content for this save only</RHAH_RemovalDisable>
+  <RHAH_RemovalDisabled>This save no longer starts new Hunger and Havoc content. Event follow-ups and pending predator arrivals are stopped. Save once more before that state is in the original file. Event records, visitors, letters, and places already here stay. The global switch is unchanged.</RHAH_RemovalDisabled>
+  <RHAH_RemovalExport>Back up and export a removal copy</RHAH_RemovalExport>
+  <RHAH_RemovalConfirm>The game will pause and save a backup of its current state. It then turns off this save's new content and event follow-ups and saves a cleaned copy. The original file is not overwritten.\n\nThe cleaned copy changes ratkin kinds, histories, hidden factions, and the storyteller. It removes this mod's traits, genes, health conditions, memories, items, zones, letters, quests in progress, and event records. The people stay. Oxygen DSL Framework and other mods' event records stay.\n\nAfter it succeeds, quit, remove only this mod, and keep the ratkin mod, Harmony, Biotech, and Oxygen DSL Framework. Restart and load the cleaned copy. The world still running is not cleaned. An unknown reference stops the export. Continue?</RHAH_RemovalConfirm>
+  <RHAH_RemovalDone>Exported: {0}\nBackup: {1}\nReplaced {2}, removed {3}.\n\nQuit, remove only this mod, and keep the ratkin mod, Harmony, Biotech, and Oxygen DSL Framework. Restart and load the exported copy. The world still running was not cleaned and is still paused. Load, run, save, and load the copy again before deleting an old file. Loading the backup requires this mod.</RHAH_RemovalDone>
+  <RHAH_RemovalFailed>The cleaned export did not finish. Do not remove the mod because of it.\nBackup: {0}. If saving failed, that file may not exist.\nReason: {1}\n\nThe full error is in the log. The original file was not overwritten. The backup is not a cleaned copy. Check whether new content for this save is off before continuing.</RHAH_RemovalFailed>
+</LanguageData>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Genes>遺伝子</RHAH_Menu_Genes>
+  <RHAH_Menu_Genes_Gap>ここではまだ遺伝子を調整できません。</RHAH_Menu_Genes_Gap>
+  <RHAH_Menu_Genes_NoBiotech>Biotechが必要です。有効にすると、ここで訪問者のゼノタイプを調整できます。</RHAH_Menu_Genes_NoBiotech>
+  <RHAH_Menu_Genes_Note>表示される割合は、訪問者の出現を速くしているときの確率です。重みは0～100です。0のゼノタイプは現れません。ここに出るのは、ラットキンが使えるゼノタイプだけです。原種ラットキンの初期の相対重みは100で、ほかのゼノタイプと一緒に選ばれます。確率は、その重みを合計で割った値です。すべての重みが0なら、許可された原種ラットキンを使います。原種が使えない場合は、ラットキン自身のゼノタイプの割合を使います。それも空なら、許可された飢饉ラットキンを試します。出現を速くする設定をオフにすると、その割合を直接使います。使えるゼノタイプがなければ、訪問者の生成は止まります。</RHAH_Menu_Genes_Note>
+  <RHAH_Menu_Genes_Reset>重みを初期値に戻す</RHAH_Menu_Genes_Reset>
+  <RHAH_Menu_Genes_Fallback>現在の重みの合計は0です。訪問者は、許可された原種ラットキンか、ラットキン自身の割合を使います。それも空なら、許可された飢饉ラットキンを試します。どれも使えなければ、訪問者の生成は止まります。</RHAH_Menu_Genes_Fallback>
+  <RHAH_Menu_Genes_WeightTip>推奨の重み：{1}。抽選確率は、この重みを有効な重みの合計で割った値です。</RHAH_Menu_Genes_WeightTip>
+  <RHAH_Menu_Genes_Missing>現在、このゼノタイプは読み込まれていません：{0}</RHAH_Menu_Genes_Missing>
+  <RHAH_Menu_Genes_Switches>このModの遺伝子</RHAH_Menu_Genes_Switches>
+  <RHAH_Menu_Genes_Join>候補に追加できるラットキンのゼノタイプ</RHAH_Menu_Genes_Join>
+  <RHAH_Menu_Genes_JoinOne>{0}を追加</RHAH_Menu_Genes_JoinOne>
+  <RHAH_Menu_Genes_Remove>候補から外す</RHAH_Menu_Genes_Remove>
+  <RHAH_Menu_Genes_UnknownMod>出典不明</RHAH_Menu_Genes_UnknownMod>
+  <RHAH_Menu_Genes_NoOwned>現在、有効・無効を切り替えられる「飢えと災い」の遺伝子はありません。</RHAH_Menu_Genes_NoOwned>
+  <RHAH_Settings_LitterMin>1回の出産で生まれる最少人数：{0}</RHAH_Settings_LitterMin>
+  <RHAH_Settings_LitterPeak>最も多い出産人数：{0}</RHAH_Settings_LitterPeak>
+  <RHAH_Settings_LitterMax>1回の出産で生まれる最多人数：{0}</RHAH_Settings_LitterMax>
+  <RHAH_Settings_FertileAge>妊娠可能な最低年齢：{0}</RHAH_Settings_FertileAge>
+  <RHAH_Settings_FertilityPercent>妊娠確率：{0}%</RHAH_Settings_FertilityPercent>
+  <RHAH_Settings_GestationDays>最短妊娠期間：{0}日</RHAH_Settings_GestationDays>
+  <RHAH_Settings_LovinPregnancy>愛し合った後の妊娠確率：{0}%</RHAH_Settings_LovinPregnancy>
+  <RHAH_Menu_Genes_LitterCurve>出産する子供の数</RHAH_Menu_Genes_LitterCurve>
+  <RHAH_Menu_Genes_LitterTip>{0}人、相対確率：{1}</RHAH_Menu_Genes_LitterTip>
+  <RHAH_Menu_Genes_LitterMinTip>1回の出産で生まれる子供の最少人数です。範囲は1～12。</RHAH_Menu_Genes_LitterMinTip>
+  <RHAH_Menu_Genes_LitterPeakTip>この人数が最も生まれやすくなります。下限以上、上限以下に設定してください。</RHAH_Menu_Genes_LitterPeakTip>
+  <RHAH_Menu_Genes_LitterMaxTip>1回の出産で生まれる子供の最多人数です。下限未満には設定できません。</RHAH_Menu_Genes_LitterMaxTip>
+  <RHAH_Menu_Genes_FertileAgeTip>双方の生物学的年齢がこの年齢に達すると、妊娠可能になります。範囲は1～14歳。</RHAH_Menu_Genes_FertileAgeTip>
+  <RHAH_Menu_Genes_FertilityTip>通常の人と比べた妊娠確率です。範囲は100～1000%。</RHAH_Menu_Genes_FertilityTip>
+  <RHAH_Menu_Genes_GestationTip>最短3日。上限はバニラの妊娠期間の下限を超えません。</RHAH_Menu_Genes_GestationTip>
+  <RHAH_Menu_Genes_LovinPregnancyTip>愛し合いが正常に終わった後の妊娠確率です。範囲は0～100%。双方それぞれの妊娠確率も引き続き掛けられます。</RHAH_Menu_Genes_LovinPregnancyTip>
+  <RHAH_Settings_MaternalMilk>母性本能：乳汁分泌速度と貯蔵上限 {0}%</RHAH_Settings_MaternalMilk>
+  <RHAH_Settings_MaternalHunger>母性本能：空腹速度 {0}%</RHAH_Settings_MaternalHunger>
+  <RHAH_Settings_MaternalNutrition>母性本能：最大食料欲求量 {0}%</RHAH_Settings_MaternalNutrition>
+  <RHAH_Settings_PaternalWork>父性本能：作業速度 {0}%</RHAH_Settings_PaternalWork>
+  <RHAH_Settings_PaternalHunger>父性本能：空腹速度 {0}%</RHAH_Settings_PaternalHunger>
+  <RHAH_Settings_PaternalLearning>父性本能：全般的な学習速度 {0}%</RHAH_Settings_PaternalLearning>
+  <RHAH_Settings_PaternalDamage>父性本能：被ダメージ {0}%</RHAH_Settings_PaternalDamage>
+  <RHAH_Menu_Genes_MaternalMilkTip>母性本能が有効で、本人が授乳期にある間、乳汁分泌速度と乳汁貯蔵量の上限の両方にこの倍率を掛けます。100%なら元の速度と上限、初期値は150%。範囲は1～1000%。</RHAH_Menu_Genes_MaternalMilkTip>
+  <RHAH_Menu_Genes_MaternalHungerTip>母性本能が有効で、本人が授乳期にある間、空腹速度にこの倍率を掛けます。100%なら元の速度、初期値は115%。範囲は1～1000%。</RHAH_Menu_Genes_MaternalHungerTip>
+  <RHAH_Menu_Genes_MaternalNutritionTip>母性本能が有効で、本人が授乳期にある間、最大食料欲求量にこの倍率を掛けます。100%なら元の上限、初期値は125%。範囲は1～1000%。</RHAH_Menu_Genes_MaternalNutritionTip>
+  <RHAH_Menu_Genes_PaternalWorkTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、作業速度にこの倍率を掛けます。子の年齢は問いません。100%なら元の速度、初期値は120%。範囲は1～1000%。</RHAH_Menu_Genes_PaternalWorkTip>
+  <RHAH_Menu_Genes_PaternalHungerTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、空腹速度にこの倍率を掛けます。子の年齢は問いません。100%なら元の速度、初期値は110%。範囲は1～1000%。</RHAH_Menu_Genes_PaternalHungerTip>
+  <RHAH_Menu_Genes_PaternalLearningTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、全般的な学習速度にこの倍率を掛けます。子の年齢は問いません。100%なら元の速度、初期値は110%。範囲は1～1000%。</RHAH_Menu_Genes_PaternalLearningTip>
+  <RHAH_Menu_Genes_PaternalDamageTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、被ダメージにこの倍率を掛けます。子の年齢は問いません。100%なら元のダメージ、初期値は90%。範囲は1～100%。</RHAH_Menu_Genes_PaternalDamageTip>
+</LanguageData>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_MotherCameWithoutTaking.stages.0.label>could not bring my child home</RHAH_Thought_MotherCameWithoutTaking.stages.0.label>
+  <RHAH_Thought_MotherCameWithoutTaking.stages.0.description>I came back for my child, but I have to leave alone.</RHAH_Thought_MotherCameWithoutTaking.stages.0.description>
+  <RHAH_Thought_MotherOutside.stages.0.label>mother waiting outside</RHAH_Thought_MotherOutside.stages.0.label>
+  <RHAH_Thought_MotherOutside.stages.0.description>My mother is waiting outside, but I cannot see her.</RHAH_Thought_MotherOutside.stages.0.description>
+  <RHAH_Thought_MotherDiedAtDoor.stages.0.label>mother died at the door</RHAH_Thought_MotherDiedAtDoor.stages.0.label>
+  <RHAH_Thought_MotherDiedAtDoor.stages.0.description>My mother came back for me and died at the door.</RHAH_Thought_MotherDiedAtDoor.stages.0.description>
+  <RHAH_Thought_ChildStillAlive.stages.0.label>my child is alive</RHAH_Thought_ChildStillAlive.stages.0.label>
+  <RHAH_Thought_ChildStillAlive.stages.0.description>My child is alive. At least I know that now.</RHAH_Thought_ChildStillAlive.stages.0.description>
+  <RHAH_LongKeepsakeTaken.stages.0.label>keepsake taken</RHAH_LongKeepsakeTaken.stages.0.label>
+  <RHAH_LongKeepsakeTaken.stages.0.description>They took my keepsake. I brought it with me from my old home.</RHAH_LongKeepsakeTaken.stages.0.description>
+  <RHAH_LongKeepsakeLost.stages.0.label>keepsake lost</RHAH_LongKeepsakeLost.stages.0.label>
+  <RHAH_LongKeepsakeLost.stages.0.description>The keepsake I brought from my old home is gone.</RHAH_LongKeepsakeLost.stages.0.description>
+  <RHAH_LongClaimScared.stages.0.label>afraid to speak of my past</RHAH_LongClaimScared.stages.0.label>
+  <RHAH_LongClaimScared.stages.0.description>The people who came for me were killed. I am afraid to speak of my past again.</RHAH_LongClaimScared.stages.0.description>
+  <RHAH_LongClaimRelieved.stages.0.label>my pursuers died</RHAH_LongClaimRelieved.stages.0.label>
+  <RHAH_LongClaimRelieved.stages.0.description>The people who came to take me are dead. I can finally breathe easy.</RHAH_LongClaimRelieved.stages.0.description>
+  <RHAH_LongClaimRecognized.stages.0.label>my identity was recognized</RHAH_LongClaimRecognized.stages.0.label>
+  <RHAH_LongClaimRecognized.stages.0.description>They finally believe what I told them about who I am.</RHAH_LongClaimRecognized.stages.0.description>
+  <RHAH_LongClaimDenied.stages.0.label>treated as a stray again</RHAH_LongClaimDenied.stages.0.label>
+  <RHAH_LongClaimDenied.stages.0.description>I told them who I am. They still treat me as a stray.</RHAH_LongClaimDenied.stages.0.description>
+  <RHAH_LongClaimRetracted.stages.0.label>unsure of my own story</RHAH_LongClaimRetracted.stages.0.label>
+  <RHAH_LongClaimRetracted.stages.0.description>They questioned my story. Now I am not even sure of it myself.</RHAH_LongClaimRetracted.stages.0.description>
+  <RHAH_LongClaimViolent.stages.0.label>kill them and return</RHAH_LongClaimViolent.stages.0.label>
+  <RHAH_LongClaimViolent.stages.0.description>The people contesting my identity are dead. So killing them is how I get back.</RHAH_LongClaimViolent.stages.0.description>
+  <RHAH_LongClaimUnchallenged.stages.0.label>my claim stands</RHAH_LongClaimUnchallenged.stages.0.label>
+  <RHAH_LongClaimUnchallenged.stages.0.description>The people contesting my identity have scattered. No one is left to challenge my claim.</RHAH_LongClaimUnchallenged.stages.0.description>
+  <RHAH_LongExchangeAlive.stages.0.label>the traded child is alive</RHAH_LongExchangeAlive.stages.0.label>
+  <RHAH_LongExchangeAlive.stages.0.description>The child traded away all those years ago is still alive.</RHAH_LongExchangeAlive.stages.0.description>
+  <RHAH_LongRecognizedUnfed.stages.0.label>recognized but left hungry</RHAH_LongRecognizedUnfed.stages.0.label>
+  <RHAH_LongRecognizedUnfed.stages.0.description>They acknowledged me as family, but would not give me any food.</RHAH_LongRecognizedUnfed.stages.0.description>
+  <RHAH_LongFoodAnyway.stages.0.label>at least there is food</RHAH_LongFoodAnyway.stages.0.label>
+  <RHAH_LongFoodAnyway.stages.0.description>They gave me food. At least I will not go hungry this time.</RHAH_LongFoodAnyway.stages.0.description>
+  <RHAH_LongYouHandedMeAway.stages.0.label>the child recognized me</RHAH_LongYouHandedMeAway.stages.0.label>
+  <RHAH_LongYouHandedMeAway.stages.0.description>That child recognized me as the one who handed them away.</RHAH_LongYouHandedMeAway.stages.0.description>
+  <RHAH_LongFoundYou.stages.0.label>found the person who handed me away</RHAH_LongFoundYou.stages.0.label>
+  <RHAH_LongFoundYou.stages.0.description>I found the person who handed me away all those years ago.</RHAH_LongFoundYou.stages.0.description>
+  <RHAH_LongWhyMe.stages.0.label>mistaken for someone else</RHAH_LongWhyMe.stages.0.label>
+  <RHAH_LongWhyMe.stages.0.description>That child thinks I was the one who handed them away. Why blame me?</RHAH_LongWhyMe.stages.0.description>
+  <RHAH_LongHandedAwayAgain.stages.0.label>handed away again</RHAH_LongHandedAwayAgain.stages.0.label>
+  <RHAH_LongHandedAwayAgain.stages.0.description>They handed me to someone else again. I have to leave this place too.</RHAH_LongHandedAwayAgain.stages.0.description>
+  <RHAH_LongSomeoneCameForMe.stages.0.label>someone came for me</RHAH_LongSomeoneCameForMe.stages.0.label>
+  <RHAH_LongSomeoneCameForMe.stages.0.description>Someone came looking for me and was willing to take me with them.</RHAH_LongSomeoneCameForMe.stages.0.description>
+  <RHAH_LongTradedEverywhere.stages.0.label>always being traded</RHAH_LongTradedEverywhere.stages.0.label>
+  <RHAH_LongTradedEverywhere.stages.0.description>Wherever I go, someone wants to trade me for something.</RHAH_LongTradedEverywhere.stages.0.description>
+  <RHAH_LongBiteForFood.stages.0.label>bite them for food</RHAH_LongBiteForFood.stages.0.label>
+  <RHAH_LongBiteForFood.stages.0.description>I am hungry. If they still will not feed me, I will bite them.</RHAH_LongBiteForFood.stages.0.description>
+  <RHAH_LongDoorChildGone.stages.0.label>the child at my door died</RHAH_LongDoorChildGone.stages.0.label>
+  <RHAH_LongDoorChildGone.stages.0.description>The child who used to wait at my door has died.</RHAH_LongDoorChildGone.stages.0.description>
+  <RHAH_LongPushedAway.stages.0.label>pushed away again</RHAH_LongPushedAway.stages.0.label>
+  <RHAH_LongPushedAway.stages.0.description>They have pushed me onto someone else more than once.</RHAH_LongPushedAway.stages.0.description>
+  <RHAH_LongMealsWereReal.stages.0.label>I remember those meals</RHAH_LongMealsWereReal.stages.0.label>
+  <RHAH_LongMealsWereReal.stages.0.description>That person gave me food. I still remember that.</RHAH_LongMealsWereReal.stages.0.description>
+  <RHAH_LongFollowedForYears.stages.0.label>a child followed me for years</RHAH_LongFollowedForYears.stages.0.label>
+  <RHAH_LongFollowedForYears.stages.0.description>That child grew up following me. I remember all those years.</RHAH_LongFollowedForYears.stages.0.description>
+</LanguageData>

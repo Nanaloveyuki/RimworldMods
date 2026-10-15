@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Odf.PrisonerNames</AssemblyName>
+    <RootNamespace>Odf.PrisonerNames</RootNamespace>
+    <OutputPath>../../../tmp/build/PrisonerNames/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OxygenSourceDir)/Source/Core/Oxygendsl.Core.csproj" Private="false" />
+    <EmbeddedResource Include="../Oxygen/default-zh.oxy" LogicalName="DefaultNaming.zh.oxy" />
+    <EmbeddedResource Include="../Oxygen/default-en.oxy" LogicalName="DefaultNaming.en.oxy" />
+    <ProjectReference Include="$(OxygenSourceDir)/Source/Mod/Oxygendsl.Mod.csproj" Private="false" />
+    <ProjectReference Include="$(OxygenSourceDir)/../IrisMenus/Source/IrisMenus.csproj" Private="false" />
+    <Reference Include="Assembly-CSharp"><HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(HarmonyPath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(RimWorldManagedDir)/UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

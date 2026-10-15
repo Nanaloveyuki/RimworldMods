@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ModName>鼠族: 饥与祸</RHAH_ModName>
+  <RHAH_Settings_EnableNewContent>启用新内容</RHAH_Settings_EnableNewContent>
+  <RHAH_Settings_EnableNewContent_Tooltip>关闭后，新的饥与祸事件和来客停止出现。已经到来的访客照常乞讨、交易、偷窃或离开。</RHAH_Settings_EnableNewContent_Tooltip>
+  <RHAH_Settings_Reset>重置本模组配置</RHAH_Settings_Reset>
+  <RHAH_Settings_ResetConfirm>将鼠族: 饥与祸的全部配置恢复为默认值？已修改的开关、数值和列表选择都会重置。存档中的剧情进度和来客保持不变。</RHAH_Settings_ResetConfirm>
+  <RHAH_Menu_Visitors>来客</RHAH_Menu_Visitors>
+  <RHAH_Menu_Overview>总览</RHAH_Menu_Overview>
+  <RHAH_Menu_Other>其他</RHAH_Menu_Other>
+  <RHAH_Menu_Field_Mod>模组</RHAH_Menu_Field_Mod>
+  <RHAH_Menu_Field_Version>版本</RHAH_Menu_Field_Version>
+  <RHAH_Menu_Field_Game>游戏</RHAH_Menu_Field_Game>
+  <RHAH_Menu_Field_IrisMenus>IrisMenus</RHAH_Menu_Field_IrisMenus>
+  <RHAH_Menu_On>开</RHAH_Menu_On>
+  <RHAH_Menu_Off>关</RHAH_Menu_Off>
+  <RHAH_Menu_Yes>是</RHAH_Menu_Yes>
+  <RHAH_Menu_No>否</RHAH_Menu_No>
+  <RHAH_Menu_None>无</RHAH_Menu_None>
+  <RHAH_Menu_NoGame>没有已加载的游戏</RHAH_Menu_NoGame>
+  <RHAH_Menu_GameLoaded>游戏已加载</RHAH_Menu_GameLoaded>
+  <RHAH_Menu_Unavailable>不可用</RHAH_Menu_Unavailable>
+  <RHAH_Menu_Settings_Missing>模组设置尚未就绪，请重新打开此页面后再试。</RHAH_Menu_Settings_Missing>
+</LanguageData>

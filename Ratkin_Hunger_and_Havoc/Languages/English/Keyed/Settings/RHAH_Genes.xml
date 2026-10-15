@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Genes>Genes</RHAH_Menu_Genes>
+  <RHAH_Menu_Genes_Gap>Gene settings are not available here yet.</RHAH_Menu_Genes_Gap>
+  <RHAH_Menu_Genes_NoBiotech>Biotech is required. With it, you can set the xenotypes of visitors here.</RHAH_Menu_Genes_NoBiotech>
+  <RHAH_Menu_Genes_Note>The percent is the chance while faster arrival is on. Weights run from 0 to 100. At 0, that xenotype stays out. Only ratkin xenotypes the race allows are listed. The base ratkin xenotype starts at a relative weight of 100 and stays in with the others. Each chance is its weight divided by the total. If every weight is 0, visitors use the allowed base ratkin xenotype, or the ratkin's own xenotype mix if that base is unavailable. An empty mix then tries the allowed famine ratkin xenotype. With faster arrival off, visitors use that mix directly. If no xenotype is available, visitor generation stops.</RHAH_Menu_Genes_Note>
+  <RHAH_Menu_Genes_Reset>Restore default weights</RHAH_Menu_Genes_Reset>
+  <RHAH_Menu_Genes_Fallback>The enabled weights add up to 0. Visitors use the allowed base ratkin xenotype, or the ratkin's own mix. If that is also empty, they try the allowed famine ratkin xenotype. If none of those is available, visitor generation stops.</RHAH_Menu_Genes_Fallback>
+  <RHAH_Menu_Genes_WeightTip>Suggested weight {1}. Chance is this weight divided by the sum of enabled weights.</RHAH_Menu_Genes_WeightTip>
+  <RHAH_Menu_Genes_Missing>This xenotype is not loaded: {0}</RHAH_Menu_Genes_Missing>
+  <RHAH_Menu_Genes_Switches>Mod genes</RHAH_Menu_Genes_Switches>
+  <RHAH_Menu_Genes_Join>Ratkin xenotypes available to join</RHAH_Menu_Genes_Join>
+  <RHAH_Menu_Genes_JoinOne>Join {0}</RHAH_Menu_Genes_JoinOne>
+  <RHAH_Menu_Genes_Remove>Remove</RHAH_Menu_Genes_Remove>
+  <RHAH_Menu_Genes_UnknownMod>Unknown source</RHAH_Menu_Genes_UnknownMod>
+  <RHAH_Menu_Genes_NoOwned>No Hunger and Havoc genes are available to toggle.</RHAH_Menu_Genes_NoOwned>
+  <RHAH_Settings_LitterMin>Fewest young {0}</RHAH_Settings_LitterMin>
+  <RHAH_Settings_LitterPeak>Most common young {0}</RHAH_Settings_LitterPeak>
+  <RHAH_Settings_LitterMax>Most young {0}</RHAH_Settings_LitterMax>
+  <RHAH_Settings_FertileAge>Earliest fertile age {0}</RHAH_Settings_FertileAge>
+  <RHAH_Settings_FertilityPercent>Pregnancy chance {0}%</RHAH_Settings_FertilityPercent>
+  <RHAH_Settings_GestationDays>Shortest pregnancy {0} days</RHAH_Settings_GestationDays>
+  <RHAH_Settings_LovinPregnancy>Lovin' pregnancy chance {0}%</RHAH_Settings_LovinPregnancy>
+  <RHAH_Menu_Genes_LitterCurve>Litter size</RHAH_Menu_Genes_LitterCurve>
+  <RHAH_Menu_Genes_LitterTip>{0} young, relative chance {1}</RHAH_Menu_Genes_LitterTip>
+  <RHAH_Menu_Genes_LitterMinTip>A birth has at least this many young. Range 1 to 12.</RHAH_Menu_Genes_LitterMinTip>
+  <RHAH_Menu_Genes_LitterPeakTip>This count is the most common. It stays between the minimum and the maximum.</RHAH_Menu_Genes_LitterPeakTip>
+  <RHAH_Menu_Genes_LitterMaxTip>A birth has at most this many young. It cannot fall below the minimum.</RHAH_Menu_Genes_LitterMaxTip>
+  <RHAH_Menu_Genes_FertileAgeTip>Both partners can conceive once they reach this age. Range 1 to 14.</RHAH_Menu_Genes_FertileAgeTip>
+  <RHAH_Menu_Genes_FertilityTip>Pregnancy chance compared with normal. Range 100% to 1000%.</RHAH_Menu_Genes_FertilityTip>
+  <RHAH_Menu_Genes_GestationTip>The shortest pregnancy is 3 days. It cannot run longer than the vanilla lower bound.</RHAH_Menu_Genes_GestationTip>
+  <RHAH_Menu_Genes_LovinPregnancyTip>Chance of pregnancy after lovin' finishes. Range 0% to 100%. Each partner's own pregnancy chance is still applied.</RHAH_Menu_Genes_LovinPregnancyTip>
+  <RHAH_Settings_MaternalMilk>Maternal instinct: milk production and storage {0}%</RHAH_Settings_MaternalMilk>
+  <RHAH_Settings_MaternalHunger>Maternal instinct: hunger rate {0}%</RHAH_Settings_MaternalHunger>
+  <RHAH_Settings_MaternalNutrition>Maternal instinct: maximum food need {0}%</RHAH_Settings_MaternalNutrition>
+  <RHAH_Settings_PaternalWork>Paternal instinct: work speed {0}%</RHAH_Settings_PaternalWork>
+  <RHAH_Settings_PaternalHunger>Paternal instinct: hunger rate {0}%</RHAH_Settings_PaternalHunger>
+  <RHAH_Settings_PaternalLearning>Paternal instinct: global learning speed {0}%</RHAH_Settings_PaternalLearning>
+  <RHAH_Settings_PaternalDamage>Paternal instinct: incoming damage {0}%</RHAH_Settings_PaternalDamage>
+  <RHAH_Menu_Genes_MaternalMilkTip>While maternal instinct is active and the carrier is lactating, milk production rate and milk storage capacity are both multiplied by this value. 100% keeps the original rate and capacity; default 150%. Range 1% to 1000%.</RHAH_Menu_Genes_MaternalMilkTip>
+  <RHAH_Menu_Genes_MaternalHungerTip>While maternal instinct is active and the carrier is lactating, hunger rate is multiplied by this value. 100% keeps the original rate; default 115%. Range 1% to 1000%.</RHAH_Menu_Genes_MaternalHungerTip>
+  <RHAH_Menu_Genes_MaternalNutritionTip>While maternal instinct is active and the carrier is lactating, maximum food need is multiplied by this value. 100% keeps the original capacity; default 125%. Range 1% to 1000%.</RHAH_Menu_Genes_MaternalNutritionTip>
+  <RHAH_Menu_Genes_PaternalWorkTip>While paternal instinct is active and a living biological son or daughter is on the same map, work speed is multiplied by this value. Children of any age qualify. 100% keeps the original rate; default 120%. Range 1% to 1000%.</RHAH_Menu_Genes_PaternalWorkTip>
+  <RHAH_Menu_Genes_PaternalHungerTip>While paternal instinct is active and a living biological son or daughter is on the same map, hunger rate is multiplied by this value. Children of any age qualify. 100% keeps the original rate; default 110%. Range 1% to 1000%.</RHAH_Menu_Genes_PaternalHungerTip>
+  <RHAH_Menu_Genes_PaternalLearningTip>While paternal instinct is active and a living biological son or daughter is on the same map, global learning speed is multiplied by this value. Children of any age qualify. 100% keeps the original rate; default 110%. Range 1% to 1000%.</RHAH_Menu_Genes_PaternalLearningTip>
+  <RHAH_Menu_Genes_PaternalDamageTip>While paternal instinct is active and a living biological son or daughter is on the same map, incoming damage is multiplied by this value. Children of any age qualify. 100% keeps the original damage; default 90%. Range 1% to 100%.</RHAH_Menu_Genes_PaternalDamageTip>
+</LanguageData>

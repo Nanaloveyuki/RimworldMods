@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/GeneDef[defName="RHAH_Gene_Cannibalism"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThoughtDef[defName="AteCorpse" or defName="AteHumanlikeMeatDirect" or defName="AteHumanlikeMeatAsIngredient" or defName="ObservedLayingCorpse" or defName="ObservedLayingRottingCorpse"][not(nullifyingGenes)]</xpath>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/ThoughtDef[defName="AteCorpse" or defName="AteHumanlikeMeatDirect" or defName="AteHumanlikeMeatAsIngredient" or defName="ObservedLayingCorpse" or defName="ObservedLayingRottingCorpse"][not(nullifyingGenes)]</xpath>
+            <value>
+              <nullifyingGenes />
+            </value>
+          </match>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/ThoughtDef[defName="AteCorpse" or defName="AteHumanlikeMeatDirect" or defName="AteHumanlikeMeatAsIngredient" or defName="ObservedLayingCorpse" or defName="ObservedLayingRottingCorpse"]/nullifyingGenes</xpath>
+          <value>
+            <li>RHAH_Gene_Cannibalism</li>
+          </value>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThoughtDef[defName="AteHumanMeat_Abhorrent"]</xpath>
+          <match Class="PatchOperationSequence">
+            <operations>
+              <li Class="PatchOperationConditional">
+                <xpath>Defs/ThoughtDef[defName="AteHumanMeat_Abhorrent" or defName="AteHumanMeat_Horrible" or defName="AteHumanMeat_Disapproved"][not(nullifyingGenes)]</xpath>
+                <match Class="PatchOperationAdd">
+                  <xpath>Defs/ThoughtDef[defName="AteHumanMeat_Abhorrent" or defName="AteHumanMeat_Horrible" or defName="AteHumanMeat_Disapproved"][not(nullifyingGenes)]</xpath>
+                  <value>
+                    <nullifyingGenes />
+                  </value>
+                </match>
+              </li>
+              <li Class="PatchOperationAdd">
+                <xpath>Defs/ThoughtDef[defName="AteHumanMeat_Abhorrent" or defName="AteHumanMeat_Horrible" or defName="AteHumanMeat_Disapproved"]/nullifyingGenes</xpath>
+                <value>
+                  <li>RHAH_Gene_Cannibalism</li>
+                </value>
+              </li>
+            </operations>
+          </match>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>

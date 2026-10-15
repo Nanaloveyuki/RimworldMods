@@ -1,0 +1,8 @@
+use events.ctx@event as event
+
+fn evaluate(ctx) {
+    if ctx.tick < ctx.next_tick {
+        return event.wait(ctx.next_tick)
+    }
+    return event.action("arrive_predator", next_tick: -1, stage: 2)
+}

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>鼠族: 饥与祸 Ratkin: Hunger and Havoc</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.ratkin.hungerandhavoc</packageId>
+  <modVersion>1.1.0</modVersion>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>荒年、战乱，或是别的原因，让这些流离失所的鼠族过上饥一顿饱一顿的日子。这些故事有的像喜剧，有的像悲剧。在边缘世界，很少有人真的肯救济他们。
+
+**独立作品，使用新的包名与存档字段，不读取“鼠灾-大荒年”或其 Continued 的旧档。请勿与那些模组同时启用。**
+
+需要 NewRatkinPlus、Harmony、Biotech 和 Oxygen DSL Framework。推荐加上 IrisMenus，设置太多，需要分页。
+
+## 新增内容
+
+### 事件
+
+一共 51 个事件，包括原作鼠灾事件。
+
+有些是长事件，触发之后还可能引出后续。具体是哪些，保密。
+
+大多数事件会先在地图上刷出一支远行队，目标是玩家随机一个有地图的据点。开了多据点也不会毫无准备地迎来一大群鼠。
+
+### 特质
+
+新增了很多特质。多数和角色经历有关，所以有时会看到不太着调的特质。
+
+生成时，鼠的经历决定特质。可以在设置里调整。
+
+### 角色经历
+
+近百条角色经历，用来补人物的额外过去。同样可以在设置里调整。
+
+### 叙事者
+
+穗音。她的信任度决定事件频率和事件类型。
+
+背景：穗音是鼠族王国受过宫廷教育的公主。一次贪玩离开皇宫，她看见一墙之隔的平民区。鼠族满身脏污，眼神麻木，干着和瘦得像骷髅的身体不相称的重活。地面和沟渠里堆着垃圾、废物和排泄物。有人为一口吃的打得你死我活。皇宫里的婢女从小说，外面花红柳绿，所有鼠都富有、善良、慷慨。这里只有成瘾品、酒精，和墓园一样的死寂。
+
+她跑回皇宫，反复问父母。得到的回答是：「你怎么又跑出去玩了！」「不要离开皇宫，外边的世界都是虚假的。」「不要相信你所看见的一切。」随后她被关了禁闭。
+
+墙这边是花天酒地、金钱和权力。非富即贵，人人戴着面具，金碧辉煌，地板是金或玉，空气里是奢靡的气味。墙那边是苦难和绝望。非死即伤，眼神空洞，呼吸带着腐臭，到处是腐烂的气味，活下去要耗尽全身的力气。
+
+禁闭中的某一天，她顺着树翻出宫墙，走到平民区。华丽的仪容和周围格格不入。她从正在做工的鼠旁边慢慢走过，怕自己一靠近，他们就会倒下。她什么都做不了。踩到一具新鲜的尸体时，她没有注意到，和踩着地面没有区别。
+
+善良要怎么做出来？教堂里的鼠神几乎每天都有贵族和富人去祷告，求的是钱和家族。谁真正按传播爱的教义生活？
+
+一只手拦住了她。面前的男人有红色的头发，脸色平静，左手夹着一根没点着的烟，紫色外套上有一张笑脸，像在笑她想这些没有用。「来吧，让我们见证超凡智能会做些什么。」他随意地笑着，伸出右手。穗音盯着他的眼睛，把自己的右手放了上去。
+
+### 衣物和食物
+
+地图温度不适合普通装备时，事件鼠会穿自适应温度的衣服，好让低温和高温地图也能正常生成事件。这些衣服抗寒、祛热很强，没有防御，也不能制作。
+
+食物方面，事件鼠可以啃墙皮或树皮。另有可制作的观音土：饥饿消耗降到 0%，但 15 天内最多吃 3 次。
+
+## 反馈
+
+请优先反馈到：https://rimworld.naloveyuki.top/
+
+QQ 群：753723637
+
+Steam 评论区可能会看晚一些。
+
+作者目前在读高三，修复不会特别勤，请见谅。
+
+## 兼容性
+
+- 中途加入：支持。加载完成时会补齐缺失的五个态度派系并固定对玩家的好感，已有派系保留，不重复创建
+- 中途移出：需要先在本模组设置里处理存档，把 RHAH 字段移除
+
+和 Combat Extended 的兼容性未知。可能冲突的地方是自适应衣物，大概率不会。
+
+---
+
+Famine, war, or something else has left these ratkin with one meal and then none. The stories play as comedy or tragedy. On the rim, few people actually feed them.
+
+**A separate mod, with its own package ID and save fields. It does not load saves from Great Famine Year or its Continued versions. Do not enable those mods together with this one.**
+
+Requires NewRatkinPlus, Harmony, Biotech, and Oxygen DSL Framework. IrisMenus is recommended. There are too many settings for one page.
+
+## Additions
+
+### Incidents
+
+51 incidents, including the ones from the original famine mod.
+
+Some are long incidents and can lead into follow-ups. Which ones stay a secret.
+
+Most of them first appear as a map caravan, aimed at a random player settlement that has a map. With multiple settlements, you are not dropped a crowd of ratkin with no warning.
+
+### Traits
+
+Many new traits. Most come from a character's history, so some of them will look odd.
+
+The histories rolled at generation decide the traits. This can be changed in the settings.
+
+### Histories
+
+Nearly a hundred histories, used as extra pasts. These can be changed in the settings too.
+
+### Storyteller
+
+Suiyin. Her trust decides how often incidents fire, and which kinds.
+
+Backstory: Suiyin is a princess of the ratkin kingdom, raised in the court. She slipped out of the palace to play and saw the common quarter on the other side of one wall. The ratkin there were filthy. Their eyes were dull. They did work their skeleton-thin bodies could not carry. Garbage, refuse, and waste filled the ground and the ditches. People fought to the death over a mouthful of food. The maids had told her, since she was small, that the world outside was bright, and that every rat was rich, kind, and generous. What she found was drugs, alcohol, and a silence like a graveyard.
+
+She ran back and kept asking her parents. They said, "Why did you sneak out again?" "Do not leave the palace. The world outside is false." "Do not believe what you see." Then they locked her in.
+
+On this side of the wall: feasting, money, and power. Everyone was rich or noble. Everyone wore a mask. The floors were gold or jade, and the air smelled of luxury. On the other side: suffering and despair. People were dying or already hurt. Their eyes were empty. Their breath stank of rot. Staying alive took everything they had.
+
+One day she climbed a tree over the palace wall and walked into the common quarter. Her fine clothes did not belong there. She passed the working ratkin slowly, afraid that coming too close would make one of them fall. She could do nothing. She stepped on a fresh corpse and did not notice. It felt no different from the ground.
+
+How does kindness actually get done? Nobles and the rich prayed to the rat god almost every day. They asked for money, and for their families. Who actually lived by the teaching to spread love?
+
+A hand stopped her. The man had red hair and a calm face. An unlit cigarette hung from his left hand. His purple coat bore a smiling face, as if her questions were a joke. "Come on. Let's see what an archotech will do." He smiled without much effort and held out his right hand. Suiyin looked him in the eye and put her right hand in his.
+
+### Clothes and food
+
+If the map is too cold or too hot for ordinary gear, incident ratkin wear temperature-adaptive clothes so the incident can still spawn. The clothes handle cold and heat well. They have no armor and cannot be crafted.
+
+Incident ratkin can gnaw wall hide or bark. Guanyin clay can be crafted. It sets hunger drain to 0%, but it can be eaten at most 3 times in 15 days.
+
+## Feedback
+
+Prefer: https://rimworld.naloveyuki.top/
+
+QQ group: 753723637
+
+Steam comments may be seen late.
+
+The author is in the last year of high school, so fixes will not be frequent.
+
+## Compatibility
+
+- Adding mid-save: supported. Once loading finishes, missing attitude factions are created and their goodwill toward the player is fixed. Existing factions are kept, without duplicates.
+- Removing mid-save: use this mod's settings first, and strip the RHAH fields from the save.
+
+Compatibility with Combat Extended is unknown. The likely clash is the temperature-adaptive clothes. It probably will not clash.</description>
+  <modDependencies>
+    <li>
+      <packageId>Solaris.RatkinRaceMod</packageId>
+      <displayName>NewRatkinPlus[1.6]</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3497673755</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Nanaloveyuki.IrisMenus</packageId>
+      <displayName>Iris Menus</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3798502474</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Ludeon.RimWorld.Biotech</packageId>
+      <displayName>Biotech</displayName>
+    </li>
+    <li>
+      <packageId>nanaloveyuki.oxygendsl</packageId>
+      <displayName>Oxygen DSL Framework</displayName>
+    </li>
+  </modDependencies>
+  <incompatibleWith>
+    <li>lezhizhong.mouse.disaster.famine</li>
+    <li>nanaloveyuki.mouse.disaster.famine.continued</li>
+    <li>local.mousedisaster.greatfamine</li>
+  </incompatibleWith>
+  <loadAfter>
+    <li>Nanaloveyuki.IrisMenus</li>
+    <li>brrainz.harmony</li>
+    <li>nanaloveyuki.oxygendsl</li>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+    <li>Solaris.RatkinRaceMod</li>
+    <li>LeZhizhong.PrisonerWorkExpansion</li>
+    <li>cyanobot.toddlers</li>
+    <li>nanaloveyuki.leadyourpet.continued</li>
+    <li>EoralMilk.RatkinGeneExpanded</li>
+  </loadAfter>
+</ModMetaData>

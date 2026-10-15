@@ -1,0 +1,10 @@
+Tools/Unity/Library/
+Tools/Unity/Temp/
+Tools/Unity/Logs/
+Tools/Unity/obj/
+Tools/Unity/UserSettings/
+artifacts/
+Source/obj/
+Source/bin/
+Assemblies/*.pdb
+Tools/Unity/ProjectSettings/*.asset

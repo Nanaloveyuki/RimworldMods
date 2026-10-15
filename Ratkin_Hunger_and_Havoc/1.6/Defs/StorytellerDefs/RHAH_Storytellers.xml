@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <StorytellerDef ParentName="BaseStoryteller">
+    <defName>RHAH_Suiyin</defName>
+    <label>穗音</label>
+    <description>穗音是鼠族王国受过宫廷教育的公主。一次贪玩时，她离开皇宫，看见一墙之隔的平民区。鼠族满身脏污，眼神麻木，干着和瘦得像骷髅的身体不相称的重活。地面和沟渠里堆着垃圾、废物和排泄物。有人为一口吃的打得你死我活。皇宫里的婢女从她小时候起就告诉她，外面花红柳绿，所有鼠都富有、善良、慷慨。这里只有成瘾品、酒精，和墓园一样的死寂。\n\n她跑回皇宫，反复问父母，墙外为什么会是这副模样。得到的回答是：「你怎么又跑出去玩了！」「不要离开皇宫，外边的世界都是虚假的。」「不要相信你所看见的一切。」随后她被关了禁闭。\n\n宫墙内的人非富即贵，花天酒地，人人戴着面具。宫殿金碧辉煌，地板铺着金或玉，空气里是奢靡的气味。宫墙外的鼠族却在挨饿，有人受伤，有人死去。活着的人眼神空洞，呼吸带着腐臭，光是活下去就要耗尽全身的力气。\n\n禁闭中的某一天，她顺着树翻出宫墙，走到平民区。她华丽的衣着和周围格格不入。她从正在做工的鼠旁边慢慢走过，怕自己一靠近，他们就会倒下。她什么都做不了。踩到一具新鲜的尸体时，她没有注意到，和踩着地面没有区别。\n\n她想，怎样才能真正帮助这些鼠族？贵族和富人几乎每天都去教堂向鼠神祷告，求的是钱财和家族兴旺。谁真正按传播爱的教义生活？\n\n一只手拦住了她。面前的男人有红色的头发，脸色平静，左手夹着一根没点着的烟，紫色外套上有一张笑脸，像在笑她想这些没有用。「来吧，让我们见证超凡智能会做些什么。」他随意地笑着，伸出右手。穗音盯着他的眼睛，把自己的右手放了上去。\n\n她会记下殖民地遇到的鼠族、饥荒和鼠疫，再写信谈起你的选择和来客的遭遇。\n\n她安排事件的节奏接近兰迪，另有鼠族饥荒事件，因此整体难度更高。她信任这处殖民地时，大型威胁的间隔会拉长；信任较低时，间隔会缩短。</description>
+    <portraitLarge>Storyteller/RHAH_Suiyin</portraitLarge>
+    <portraitTiny>Storyteller/RHAH_SuiyinTiny</portraitTiny>
+    <listOrder>55</listOrder>
+    <comps>
+      <li Class="StorytellerCompProperties_RandomMain">
+        <allowedTargetTags>
+          <li>Map_PlayerHome</li>
+        </allowedTargetTags>
+        <minDaysPassed>1</minDaysPassed>
+        <spaceMtbDayFactor>2</spaceMtbDayFactor>
+        <spaceMinSpacingDays>2</spaceMinSpacingDays>
+        <mtbDays>1.35</mtbDays>
+        <maxThreatBigIntervalDays>13</maxThreatBigIntervalDays>
+        <minIncChancePopulationIntentFactor>0.2</minIncChancePopulationIntentFactor>
+        <randomPointsFactorRange>0.5~1.5</randomPointsFactorRange>
+        <skipThreatBigIfRaidBeacon>true</skipThreatBigIfRaidBeacon>
+        <categoryWeights>
+          <Misc>3.5</Misc>
+          <ThreatBig>1.4</ThreatBig>
+          <OrbitalVisitor>1.1</OrbitalVisitor>
+          <FactionArrival>2.4</FactionArrival>
+          <ThreatSmall>0.6</ThreatSmall>
+          <ShipChunkDrop>0.22</ShipChunkDrop>
+        </categoryWeights>
+      </li>
+      <li Class="StorytellerCompProperties_Disease">
+        <category>DiseaseHuman</category>
+        <minDaysPassed>0</minDaysPassed>
+      </li>
+      <li Class="StorytellerCompProperties_Disease">
+        <category>DiseaseAnimal</category>
+        <minDaysPassed>0</minDaysPassed>
+      </li>
+      <li Class="StorytellerCompProperties_ThreatsGenerator">
+        <allowedTargetTags>
+          <li>Map_RaidBeacon</li>
+        </allowedTargetTags>
+        <parms>
+          <allowedThreats>Raids</allowedThreats>
+          <onDays>1.0</onDays>
+          <offDays>0.5</offDays>
+          <minSpacingDays>0.04</minSpacingDays>
+          <numIncidentsRange>1~2</numIncidentsRange>
+          <minThreatPoints>500</minThreatPoints>
+        </parms>
+      </li>
+      <li Class="StorytellerCompProperties_FactionInteraction">
+        <incident>RaidFriendly</incident>
+        <baseIncidentsPerYear>10</baseIncidentsPerYear>
+        <minSpacingDays>0.4</minSpacingDays>
+        <fullAlliesOnly>true</fullAlliesOnly>
+        <minDanger>High</minDanger>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>Misc</category>
+        <allowedTargetTags>
+          <li>Caravan</li>
+          <li>Map_TempIncident</li>
+        </allowedTargetTags>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>ThreatSmall</category>
+        <applyCaravanVisibility>true</applyCaravanVisibility>
+        <allowedTargetTags>
+          <li>Caravan</li>
+          <li>Map_TempIncident</li>
+        </allowedTargetTags>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>ThreatBig</category>
+        <applyCaravanVisibility>true</applyCaravanVisibility>
+        <allowedTargetTags>
+          <li>Caravan</li>
+          <li>Map_TempIncident</li>
+        </allowedTargetTags>
+      </li>
+      <li Class="StorytellerCompProperties_RandomQuest">
+        <category>GiveQuest</category>
+        <allowedTargetTags>
+          <li>World</li>
+        </allowedTargetTags>
+        <onDays>10</onDays>
+        <numIncidentsRange>1</numIncidentsRange>
+        <acceptFractionByDaysPassedCurve>
+          <points>
+            <li>(8, 0)</li>
+            <li>(15, 1)</li>
+          </points>
+        </acceptFractionByDaysPassedCurve>
+        <minSpacingDays>3</minSpacingDays>
+        <disableIfAnyModActive>
+          <li>Ludeon.RimWorld.Royalty</li>
+        </disableIfAnyModActive>
+      </li>
+      <li Class="StorytellerCompProperties_RandomQuest">
+        <category>GiveQuest</category>
+        <allowedTargetTags>
+          <li>World</li>
+        </allowedTargetTags>
+        <onDays>12</onDays>
+        <numIncidentsRange>1~3</numIncidentsRange>
+        <acceptFractionByDaysPassedCurve>
+          <points>
+            <li>(8, 0)</li>
+            <li>(15, 1)</li>
+          </points>
+        </acceptFractionByDaysPassedCurve>
+        <minSpacingDays>3</minSpacingDays>
+        <enableIfAnyModActive>
+          <li>Ludeon.RimWorld.Royalty</li>
+        </enableIfAnyModActive>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryMTB">
+        <category>Misc</category>
+        <allowedTargetTags>
+          <li>World</li>
+        </allowedTargetTags>
+        <minDaysPassed>1</minDaysPassed>
+        <mtbDays>15</mtbDays>
+      </li>
+      <li Class="StorytellerCompProperties_Triggered">
+        <incident>StrangerInBlackJoin</incident>
+        <delayTicks>180</delayTicks>
+      </li>
+    </comps>
+  </StorytellerDef>
+
+</Defs>

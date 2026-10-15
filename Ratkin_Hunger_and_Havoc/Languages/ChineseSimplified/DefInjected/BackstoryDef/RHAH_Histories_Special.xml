@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_Newborn.title>饥与祸 荒年初生</RHAH_History_Newborn.title>
+  <RHAH_History_Newborn.titleShort>饥与祸 初生</RHAH_History_Newborn.titleShort>
+  <RHAH_History_Newborn.description>[PAWN_nameDef]出生时，鼠族聚落已经闹起了饥荒。还没到能帮忙干活的年纪，就已经要上路。</RHAH_History_Newborn.description>
+  <RHAH_History_Refugee.title>饥与祸 逃荒难民</RHAH_History_Refugee.title>
+  <RHAH_History_Refugee.titleShort>饥与祸 难民</RHAH_History_Refugee.titleShort>
+  <RHAH_History_Refugee.description>仓房见底后，[PAWN_nameDef]离开了鼠族聚落。到了别处，还是得找活干，换下一顿饭。</RHAH_History_Refugee.description>
+</LanguageData>

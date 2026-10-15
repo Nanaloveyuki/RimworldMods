@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net9.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OxygenSourceDir)/Source/Core/Oxygendsl.Core.csproj" />
+    <Compile Include="../Mods/PrisonerNames/Source/NamingRules.cs" Link="NamingRules.cs" />
+    <Compile Include="../Mods/PrisonerNames/Source/NamingPreview.cs" Link="NamingPreview.cs" />
+    <Compile Include="../Mods/PrisonerNames/Source/NamePolicy.cs" Link="NamePolicy.cs" />
+    <Compile Include="../Mods/PrisonerNames/Source/NameFormatter.cs" Link="NameFormatter.cs" />
+    <Compile Include="../Mods/PrisonerNames/Source/JsonFacts.cs" Link="JsonFacts.cs" />
+    <Compile Include="../Mods/PrisonerNames/Source/ScalarStore.cs" Link="ScalarStore.cs" />
+    <Compile Include="../Mods/PrisonerNames/Source/EventState.cs" Link="EventState.cs" />
+  </ItemGroup>
+</Project>

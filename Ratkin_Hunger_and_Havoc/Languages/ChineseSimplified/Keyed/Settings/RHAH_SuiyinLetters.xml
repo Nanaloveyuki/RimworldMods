@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Narrative_Nodes>信件</RHAH_Menu_Narrative_Nodes>
+  <RHAH_Menu_Narrative_Node>是否发送这封信</RHAH_Menu_Narrative_Node>
+  <RHAH_Menu_Narrative_Thresholds>门槛</RHAH_Menu_Narrative_Thresholds>
+  <RHAH_Menu_Narrative_Progress>阶段来信要先遇到的事件种类</RHAH_Menu_Narrative_Progress>
+  <RHAH_Menu_Narrative_Reward>白银来信要先遇到的事件种类</RHAH_Menu_Narrative_Reward>
+  <RHAH_Menu_Narrative_Envoy>使者要先遇到的事件种类</RHAH_Menu_Narrative_Envoy>
+  <RHAH_Menu_Narrative_Relic>记录地点要先遇到的事件种类</RHAH_Menu_Narrative_Relic>
+  <RHAH_Menu_Narrative_Journals>记录</RHAH_Menu_Narrative_Journals>
+  <RHAH_Menu_Narrative_JournalOpen>打开记录 {0}</RHAH_Menu_Narrative_JournalOpen>
+  <RHAH_Menu_Narrative_Aside>插话</RHAH_Menu_Narrative_Aside>
+  <RHAH_Menu_Narrative_TrustClosed>穗音对你的信任太低，已经停止寄送短札。事件有了结果，她仍会来信告知。</RHAH_Menu_Narrative_TrustClosed>
+</LanguageData>

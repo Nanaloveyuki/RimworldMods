@@ -1,0 +1,171 @@
+name: Protected local full gate
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Full CI, package, or local deploy (all run the complete gate)
+        type: choice
+        options: [ci, package, deploy, release]
+        default: ci
+        required: true
+      release_tag:
+        description: For release only, an existing reviewed tag matching About and implementation version
+        type: string
+        required: false
+      runtime_smoke:
+        description: Launch only the explicitly prepared isolated Carbon profile after deploying this build
+        type: boolean
+        default: false
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: rhah-local
+  cancel-in-progress: false
+jobs:
+  full:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: [self-hosted, Linux, X64, rhah]
+    environment: rhah-local
+    env:
+      RIMWORLD_DIR: ${{ vars.RIMWORLD_DIR || '/mnt/e/Apps/Steam/steamapps/common/RimWorld' }}
+      OXYGEN_DSL_DIR: ${{ vars.OXYGEN_DSL_DIR }}
+      HARMONY_PATH: ${{ vars.HARMONY_PATH }}
+      OPERATION: ${{ inputs.operation }}
+      RELEASE_TAG: ${{ inputs.release_tag }}
+      CARBON_PROFILE: ${{ vars.CARBON_PROFILE }}
+      CARBON_SOURCE_DIR: ${{ vars.CARBON_SOURCE_DIR }}
+      PACKAGE_OUTPUT: tmp/automation/workflow-${{ github.run_id }}-${{ github.run_attempt }}/release
+    outputs:
+      release_commit: ${{ steps.review.outputs.commit }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          clean: true
+          persist-credentials: false
+      - name: Reject invalid runtime smoke combinations
+        if: inputs.runtime_smoke && inputs.operation != 'deploy'
+        run: |
+          echo 'Runtime smoke is supported only for deploy of this build.' >&2
+          exit 1
+      - name: Use repository-pinned SDK
+        uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v4.3.1
+        with:
+          global-json-file: global.json
+      - name: Require pre-reviewed local ODF configuration
+        shell: bash
+        run: |
+          if [[ -z "$OXYGEN_DSL_DIR" || ! -d "$OXYGEN_DSL_DIR" ]]; then
+            echo 'Configure rhah-local OXYGEN_DSL_DIR to the locally reviewed ODF checkout.' >&2
+            exit 1
+          fi
+      - name: Require release tag to identify checked-out default-branch HEAD
+        id: review
+        if: inputs.operation == 'release'
+        shell: bash
+        run: |
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([-+][A-Za-z0-9.-]+)?$ ]]; then
+            echo 'Release tag is missing or invalid.' >&2
+            exit 1
+          fi
+          tag_commit="$(git rev-parse --verify "refs/tags/$RELEASE_TAG^{commit}")"
+          head_commit="$(git rev-parse HEAD)"
+          if [[ "$tag_commit" != "$head_commit" ]]; then
+            echo 'Reviewed release tag must identify current default-branch HEAD.' >&2
+            exit 1
+          fi
+          echo "commit=$head_commit" >> "$GITHUB_OUTPUT"
+      - name: Execute requested operation with full gate
+        shell: bash
+        run: |
+          case "$OPERATION" in
+            ci) python3 scripts/rhah_pipeline.py ci ;;
+            deploy) python3 scripts/rhah_pipeline.py deploy ;;
+            package) python3 scripts/rhah_pipeline.py package --output-dir "$PACKAGE_OUTPUT" ;;
+            release) python3 scripts/rhah_pipeline.py package --output-dir "$PACKAGE_OUTPUT" --release-tag "$RELEASE_TAG" ;;
+            *) echo 'Unknown operation.' >&2; exit 1 ;;
+          esac
+      - name: Require explicitly prepared isolated runtime profile
+        if: inputs.runtime_smoke
+        shell: bash
+        run: |
+          if [[ -z "$CARBON_PROFILE" ]]; then
+            echo 'Prepare a dedicated carbon --minimal profile and configure CARBON_PROFILE.' >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json, subprocess, sys
+          command = [sys.executable, 'scripts/rhah.py', 'carbon', 'status', '--select', 'ownedProcessAlive']
+          result = subprocess.run(command, capture_output=True, text=True)
+          try:
+              owned = json.loads(result.stdout)['result']
+          except (ValueError, KeyError, TypeError):
+              sys.exit('Cannot establish Carbon ownership; runtime smoke refused.')
+          if owned is not False:
+              sys.exit('An owned Carbon game is already active or ownership is unknown; runtime smoke refused.')
+          PY
+      - name: Start isolated game for this deployment
+        id: carbon_start
+        if: inputs.runtime_smoke
+        run: python3 scripts/rhah.py carbon start
+      - name: Create fresh runtime test colony and assert build behavior
+        if: inputs.runtime_smoke
+        run: python3 scripts/rhah.py carbon run scripts/carbon/rhah-new-test.json
+      - name: Execute read-only runtime observations
+        if: inputs.runtime_smoke
+        run: python3 scripts/rhah.py carbon run
+      - name: Stop only the Carbon process owned by this runtime attempt
+        if: always() && inputs.runtime_smoke && (steps.carbon_start.outcome == 'success' || steps.carbon_start.outcome == 'failure')
+        run: python3 scripts/rhah.py carbon stop
+      - name: Report optional runtime gate separately
+        if: always()
+        env:
+          REQUESTED: ${{ inputs.runtime_smoke }}
+          START_STATUS: ${{ steps.carbon_start.outcome }}
+        shell: bash
+        run: |
+          if [[ "$REQUESTED" == 'true' ]]; then
+            echo "Runtime smoke requested; start status: $START_STATUS. Check the runtime steps, independently of the build gate."
+          else
+            echo 'Runtime smoke NOT RUN (explicitly disabled); the full build/test gate does not claim runtime verification.'
+          fi
+      - name: Upload only package, hash manifest, and sanitized reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: rhah-reviewed-release
+          path: |
+            ${{ env.PACKAGE_OUTPUT }}/*.zip
+            ${{ env.PACKAGE_OUTPUT }}/*.sha256.json
+            tmp/automation/*/safe-report.json
+          if-no-files-found: warn
+          retention-days: 14
+  release:
+    if: inputs.operation == 'release'
+    needs: full
+    runs-on: ubuntu-latest
+    environment: rhah-release
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RELEASE_TAG: ${{ inputs.release_tag }}
+      RELEASE_COMMIT: ${{ needs.full.outputs.release_commit }}
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: rhah-reviewed-release
+          path: reviewed
+      - name: Publish only reviewed package and manifest
+        shell: bash
+        run: |
+          mapfile -t assets < <(find reviewed -type f \( -name '*.zip' -o -name '*.sha256.json' \))
+          if [[ "${#assets[@]}" != 2 ]]; then
+            echo 'Expected exactly one package and its SHA-256 manifest.' >&2
+            exit 1
+          fi
+          gh release create "$RELEASE_TAG" "${assets[@]}" --verify-tag --target "$RELEASE_COMMIT" --title "$RELEASE_TAG" --notes 'Reviewed full-gate release. See the SHA-256 manifest for package contents.'

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Oxygen DSL Framework</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.oxygendsl</packageId>
+  <modVersion>0.0.1</modVersion>
+  <supportedVersions><li>1.6</li></supportedVersions>
+  <modDependencies><li><packageId>brrainz.harmony</packageId><displayName>Harmony</displayName><steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl></li></modDependencies>
+  <loadAfter><li>brrainz.harmony</li><li>Nanaloveyuki.IrisMenus</li></loadAfter>
+  <description>用脚本定义原生特质和思想或修改内容,并在存档中重载规则. 提供动态心情、限时记忆和运行检查. Declare native traits and thoughts, modify content, and reload rules in a running save. Includes dynamic mood, timed memories and runtime inspection.</description>
+</ModMetaData>

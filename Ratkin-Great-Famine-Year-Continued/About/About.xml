@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>鼠灾-大荒年 (Continued)</name>
+  <author>乐织终；Continued by Nanaloveyuki</author>
+  <packageId>nanaloveyuki.mouse.disaster.famine.continued</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>大荒年里，饥饿的鼠族走到了你的门前。有人乞讨、有人交易，也有人偷窃或带来鼠疫。你可以施舍、收留、雇佣或驱逐；穗音会在来信中记下他们后来的命运。
+
+包含难民与商队事件、赈灾区、粮仓鼠洞、检疫、遗物线索和多种剧情结局。事件频率、访客态度、角色行为和繁殖规则均可单独调整。支持 IrisMenus 分类设置，不安装也能使用完整设置。
+
+需要 NewRatkinPlus、Harmony 和 Biotech。仅卸载本模组前，请在设置中备份并导出卸载用存档，并保留鼠族前置。
+
+Ratkin: Great Famine Year (Continued)
+
+Hungry Ratkin arrive at your gates. Some beg, some trade, others steal or bring plague. Offer food, take them in, hire them or send them away. Suin's letters follow what becomes of them.
+
+Includes refugees, traders, relief areas, a granary mystery, quarantine, old records and multiple story endings. Adjust incident frequency, visitor attitudes, character behavior and reproduction separately. IrisMenus adds categorized settings but is optional.
+
+Requires NewRatkinPlus, Harmony and Biotech. Before removing this mod, export a removal save from its settings and keep the Ratkin dependency installed.</description>
+  <modDependencies>
+    <li>
+      <packageId>Solaris.RatkinRaceMod</packageId>
+      <displayName>NewRatkinPlus[1.6]</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3497673755</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Ludeon.RimWorld.Biotech</packageId>
+      <displayName>Biotech</displayName>
+    </li>
+  </modDependencies>
+  <incompatibleWith>
+    <li>lezhizhong.mouse.disaster.famine</li>
+    <li>local.mousedisaster.greatfamine</li>
+  </incompatibleWith>
+  <loadAfter>
+    <li>Nanaloveyuki.IrisMenus</li>
+    <li>brrainz.harmony</li>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+    <li>Solaris.RatkinRaceMod</li>
+    <li>LeZhizhong.PrisonerWorkExpansion</li>
+    <li>cyanobot.toddlers</li>
+  </loadAfter>
+</ModMetaData>

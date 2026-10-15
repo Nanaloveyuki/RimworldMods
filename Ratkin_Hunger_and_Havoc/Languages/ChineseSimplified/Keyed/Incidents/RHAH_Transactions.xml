@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Transaction_Food>食物</RHAH_Transaction_Food>
+  <RHAH_ChildExchange_LegacyHint>选择要交给来客的殖民地孩子。孩子会随来客所属的派系离开。</RHAH_ChildExchange_LegacyHint>
+  <RHAH_ChildExchange_LegacyChoose>把{0}交给来客</RHAH_ChildExchange_LegacyChoose>
+  <RHAH_Transaction_Accept>交换食物</RHAH_Transaction_Accept>
+  <RHAH_Transaction_Quote>这次要交出：{0} × {1}。来客带来的报酬：{2}。</RHAH_Transaction_Quote>
+  <RHAH_Transaction_NoQuote>仓库里没有可用的食物，或来客没有带齐报酬，这次无法交换。</RHAH_Transaction_NoQuote>
+  <RHAH_Transaction_Hint>双方按这份报价交换。来客带走食物，报酬当场放在殖民者能到达的交接处，有时还会附赠情报。请在{0}天内答复，期限过后来客会离开。</RHAH_Transaction_Hint>
+  <RHAH_Transaction_Unavailable>食物不足、报酬不齐，或没有双方都能到达的交接处。</RHAH_Transaction_Unavailable>
+  <RHAH_Transaction_Completed>食物已交给来客，报酬已放在交接处。</RHAH_Transaction_Completed>
+  <RHAH_ChildExchange_Choose>交出{0}，换回鼠蛋</RHAH_ChildExchange_Choose>
+  <RHAH_ChildExchange_ChooseNone>选择要交出的孩子</RHAH_ChildExchange_ChooseNone>
+  <RHAH_ChildExchange_NoChild>地图上没有能交出的殖民地孩子。</RHAH_ChildExchange_NoChild>
+  <RHAH_ChildExchange_Food>给予食物：{0} 份简单餐，换回鼠蛋</RHAH_ChildExchange_Food>
+  <RHAH_ChildExchange_SelectionHint>请在信中选择要交出的殖民地孩子。交换完成后，来客中的鼠蛋加入殖民地，成年来客准备离开。</RHAH_ChildExchange_SelectionHint>
+  <RHAH_ChildExchange_LegacyFood>给予食物：{0} 份简单餐，代替交出孩子</RHAH_ChildExchange_LegacyFood>
+  <RHAH_ChildExchange_LegacyFoodHint>也可交出 {1} 份简单餐代替孩子，数量是“易子而食”每个孩子所需 {0} 份的两倍。来客拿到食物后离开，不带走殖民地孩子。</RHAH_ChildExchange_LegacyFoodHint>
+  <RHAH_ChildExchange_NoIncoming>来客中的鼠蛋还不能加入殖民地。</RHAH_ChildExchange_NoIncoming>
+  <RHAH_ChildExchange_FoodDisabled>食物替代已在设置中关闭。</RHAH_ChildExchange_FoodDisabled>
+  <RHAH_ChildExchange_NoFood>需要 {0} 份简单餐，地图上的数量不足。</RHAH_ChildExchange_NoFood>
+  <RHAH_ChildExchange_Completed>交换完成。</RHAH_ChildExchange_Completed>
+</LanguageData>

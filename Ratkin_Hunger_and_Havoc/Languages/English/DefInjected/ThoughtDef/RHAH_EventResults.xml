@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_LeftAlone.stages.0.label>left alone</RHAH_Thought_LeftAlone.stages.0.label>
+  <RHAH_Thought_LeftAlone.stages.0.description>The basket is gone. Nobody came back for me today.</RHAH_Thought_LeftAlone.stages.0.description>
+  <RHAH_Thought_CaptiveYear.stages.0.label>captive for a year</RHAH_Thought_CaptiveYear.stages.0.label>
+  <RHAH_Thought_CaptiveYear.stages.0.description>I have been captive for a year. Whenever someone comes, I hope they will open that door for me.</RHAH_Thought_CaptiveYear.stages.0.description>
+  <RHAH_Thought_FamilyHere.stages.0.label>my child is still with me</RHAH_Thought_FamilyHere.stages.0.label>
+  <RHAH_Thought_FamilyHere.stages.0.description>My child is still with me. I can watch my child grow up day by day.</RHAH_Thought_FamilyHere.stages.0.description>
+  <RHAH_Thought_Regret.stages.0.label>regret for my lost child</RHAH_Thought_Regret.stages.0.label>
+  <RHAH_Thought_Regret.stages.0.description>My child is dead. I keep wishing I had done more that day.</RHAH_Thought_Regret.stages.0.description>
+  <RHAH_Thought_MotherGoneBad.stages.0.description>My mother left me here. I still remember where she put me.</RHAH_Thought_MotherGoneBad.stages.0.description>
+  <RHAH_Thought_MotherGoneBad.stages.0.label>my mother left me here</RHAH_Thought_MotherGoneBad.stages.0.label>
+  <RHAH_Thought_MotherGoneGood.stages.0.description>After my mother left, the people here fed me. I finally had enough to eat.</RHAH_Thought_MotherGoneGood.stages.0.description>
+  <RHAH_Thought_MotherGoneGood.stages.0.label>fed after my mother left</RHAH_Thought_MotherGoneGood.stages.0.label>
+  <RHAH_Thought_AteMotherGuilt.stages.0.description>I ate my own mother. I still remember that bite.</RHAH_Thought_AteMotherGuilt.stages.0.description>
+  <RHAH_Thought_AteMotherGuilt.stages.0.label>guilt over eating my mother</RHAH_Thought_AteMotherGuilt.stages.0.label>
+  <RHAH_Thought_AteMotherFine.stages.0.description>I was starving, so I ate my mother. All I wanted then was a full stomach.</RHAH_Thought_AteMotherFine.stages.0.description>
+  <RHAH_Thought_AteMotherFine.stages.0.label>ate my mother to fill my stomach</RHAH_Thought_AteMotherFine.stages.0.label>
+  <RHAH_Thought_AidAgain.stages.0.description>They gave me food this time. I want to ask them again the next time I am hungry.</RHAH_Thought_AidAgain.stages.0.description>
+  <RHAH_Thought_AidAgain.stages.0.label>ask for food again</RHAH_Thought_AidAgain.stages.0.label>
+  <RHAH_Thought_AidEmpty.stages.0.description>The food I received will run out. I need to find someone else willing to help.</RHAH_Thought_AidEmpty.stages.0.description>
+  <RHAH_Thought_AidEmpty.stages.0.label>need another source of food</RHAH_Thought_AidEmpty.stages.0.label>
+  <RHAH_Thought_TraderSilent.stages.0.description>I caught the disease that caravan brought. They never mentioned it when they arrived.</RHAH_Thought_TraderSilent.stages.0.description>
+  <RHAH_Thought_TraderSilent.stages.0.label>the caravan hid its sickness</RHAH_Thought_TraderSilent.stages.0.label>
+  <RHAH_Thought_MotherSorry.stages.0.description>I was so hungry that I bit my mother. She is alive, but I feel guilty whenever I think of it.</RHAH_Thought_MotherSorry.stages.0.description>
+  <RHAH_Thought_MotherSorry.stages.0.label>guilt over biting my mother</RHAH_Thought_MotherSorry.stages.0.label>
+  <RHAH_Thought_MotherFine.stages.0.description>I bit my mother when I was hungry. She is still alive. I do not think it mattered.</RHAH_Thought_MotherFine.stages.0.description>
+  <RHAH_Thought_MotherFine.stages.0.label>bit my mother and felt fine</RHAH_Thought_MotherFine.stages.0.label>
+  <RHAH_Thought_ChildDeadGlad.stages.0.description>The child who bit me is dead. I can finally stop fearing those bites.</RHAH_Thought_ChildDeadGlad.stages.0.description>
+  <RHAH_Thought_ChildDeadGlad.stages.0.label>the child who bit me died</RHAH_Thought_ChildDeadGlad.stages.0.label>
+  <RHAH_Thought_ChildDeadSad.stages.0.description>My child is dead. The child who once bit me out of hunger.</RHAH_Thought_ChildDeadSad.stages.0.description>
+  <RHAH_Thought_ChildDeadSad.stages.0.label>my child died</RHAH_Thought_ChildDeadSad.stages.0.label>
+  <RHAH_Thought_ChildStarvedSad.stages.0.description>I brought my child out to beg for food, but my child still starved to death.</RHAH_Thought_ChildStarvedSad.stages.0.description>
+  <RHAH_Thought_ChildStarvedSad.stages.0.label>my child still starved</RHAH_Thought_ChildStarvedSad.stages.0.label>
+  <RHAH_Thought_ChildStarvedGlad.stages.0.description>My child starved to death. All I can think is that I have one less mouth to feed.</RHAH_Thought_ChildStarvedGlad.stages.0.description>
+  <RHAH_Thought_ChildStarvedGlad.stages.0.label>one less mouth</RHAH_Thought_ChildStarvedGlad.stages.0.label>
+  <RHAH_Thought_StealHurtBad.stages.0.description>They hurt me when I took food. It still hurts to think about it.</RHAH_Thought_StealHurtBad.stages.0.description>
+  <RHAH_Thought_StealHurtBad.stages.0.label>hurt while taking food</RHAH_Thought_StealHurtBad.stages.0.label>
+  <RHAH_Thought_StealHurtGood.stages.0.description>They beat me when I took food. Now I live here with them. I think it was worth it.</RHAH_Thought_StealHurtGood.stages.0.description>
+  <RHAH_Thought_StealHurtGood.stages.0.label>the beating was worth it</RHAH_Thought_StealHurtGood.stages.0.label>
+  <RHAH_Thought_StealMine.stages.0.description>I grabbed the food in front of me. I felt that no one should take it from me.</RHAH_Thought_StealMine.stages.0.description>
+  <RHAH_Thought_StealMine.stages.0.label>the food I took was mine</RHAH_Thought_StealMine.stages.0.label>
+  <RHAH_Thought_StealGot.stages.0.description>I grabbed something to eat. Filling my stomach mattered more than anything then.</RHAH_Thought_StealGot.stages.0.description>
+  <RHAH_Thought_StealGot.stages.0.label>got food by force</RHAH_Thought_StealGot.stages.0.label>
+  <RHAH_Thought_SoldAway.stages.0.description>I was bought like a piece of merchandise. Someone else even decided where I would go.</RHAH_Thought_SoldAway.stages.0.description>
+  <RHAH_Thought_SoldAway.stages.0.label>bought and taken away</RHAH_Thought_SoldAway.stages.0.label>
+  <RHAH_Thought_SoldFed.stages.0.description>I was bought and brought here. At least they feed me here.</RHAH_Thought_SoldFed.stages.0.description>
+  <RHAH_Thought_SoldFed.stages.0.label>fed after being bought</RHAH_Thought_SoldFed.stages.0.label>
+  <RHAH_Thought_TradedAway.stages.0.description>They traded me for food and left me with strangers.</RHAH_Thought_TradedAway.stages.0.description>
+  <RHAH_Thought_TradedAway.stages.0.label>they traded me away</RHAH_Thought_TradedAway.stages.0.label>
+  <RHAH_Thought_TradedFed.stages.0.description>I was traded to this place. There is food here, and I want to stay.</RHAH_Thought_TradedFed.stages.0.description>
+  <RHAH_Thought_TradedFed.stages.0.label>traded to a place with food</RHAH_Thought_TradedFed.stages.0.label>
+  <RHAH_Thought_FineGood.stages.0.description>The meal they gave me was delicious. I had not eaten anything like it in a long time.</RHAH_Thought_FineGood.stages.0.description>
+  <RHAH_Thought_FineGood.stages.0.label>a good meal</RHAH_Thought_FineGood.stages.0.label>
+  <RHAH_Thought_FineKeep.stages.0.description>The food they gave me is too good to eat all at once. I want to save some for the next time I am hungry.</RHAH_Thought_FineKeep.stages.0.description>
+  <RHAH_Thought_FineKeep.stages.0.label>saving the good food</RHAH_Thought_FineKeep.stages.0.label>
+  <RHAH_Thought_MedicineEnough.stages.0.description>They gave me medicine. I finally have something for this illness or injury.</RHAH_Thought_MedicineEnough.stages.0.description>
+  <RHAH_Thought_MedicineEnough.stages.0.label>enough medicine for now</RHAH_Thought_MedicineEnough.stages.0.label>
+  <RHAH_Thought_MedicineNext.stages.0.description>I got medicine this time. Who will I ask if I fall ill again?</RHAH_Thought_MedicineNext.stages.0.description>
+  <RHAH_Thought_MedicineNext.stages.0.label>worried about medicine</RHAH_Thought_MedicineNext.stages.0.label>
+  <RHAH_Thought_SilverLight.stages.0.description>They gave me silver. I can carry it with me and look for someone selling food.</RHAH_Thought_SilverLight.stages.0.description>
+  <RHAH_Thought_SilverLight.stages.0.label>received silver</RHAH_Thought_SilverLight.stages.0.label>
+  <RHAH_Thought_SilverHard.stages.0.description>I have the silver, but I am still hungry. I still have to find someone selling food.</RHAH_Thought_SilverHard.stages.0.description>
+  <RHAH_Thought_SilverHard.stages.0.label>silver but still hungry</RHAH_Thought_SilverHard.stages.0.label>
+  <RHAH_Thought_TakenBad.stages.0.description>Strangers took me away from the adults I was with. After that, I had to live with them.</RHAH_Thought_TakenBad.stages.0.description>
+  <RHAH_Thought_TakenBad.stages.0.label>taken by strangers</RHAH_Thought_TakenBad.stages.0.label>
+  <RHAH_Thought_TakenFed.stages.0.description>They took me and brought me here. At least they feed me.</RHAH_Thought_TakenFed.stages.0.description>
+  <RHAH_Thought_TakenFed.stages.0.label>fed after being taken in</RHAH_Thought_TakenFed.stages.0.label>
+  <RHAH_Thought_ExtraMouth.stages.0.description>My child was born, but I still worry about the next meal. Now I have someone else to feed.</RHAH_Thought_ExtraMouth.stages.0.description>
+  <RHAH_Thought_ExtraMouth.stages.0.label>another mouth</RHAH_Thought_ExtraMouth.stages.0.label>
+  <RHAH_Thought_BornAlive.stages.0.description>My child was born and survived. I am happy just to see my child here.</RHAH_Thought_BornAlive.stages.0.description>
+  <RHAH_Thought_BornAlive.stages.0.label>my child survived</RHAH_Thought_BornAlive.stages.0.label>
+  <RHAH_Thought_FellBad.stages.0.description>My drop pod landed here. There was no one I knew around me.</RHAH_Thought_FellBad.stages.0.description>
+  <RHAH_Thought_FellBad.stages.0.label>landed among strangers</RHAH_Thought_FellBad.stages.0.label>
+  <RHAH_Thought_FellGood.stages.0.description>My drop pod landed here, and the people here gave me food.</RHAH_Thought_FellGood.stages.0.description>
+  <RHAH_Thought_FellGood.stages.0.label>fed after my pod landed</RHAH_Thought_FellGood.stages.0.label>
+  <RHAH_Thought_WrongKinBad.stages.0.description>I mistook a stranger for my mother. I still do not know where my mother is.</RHAH_Thought_WrongKinBad.stages.0.description>
+  <RHAH_Thought_WrongKinBad.stages.0.label>mistook a stranger for my mother</RHAH_Thought_WrongKinBad.stages.0.label>
+  <RHAH_Thought_WrongKinGood.stages.0.description>I mistook someone here for my mother. Even though I was wrong, they gave me food.</RHAH_Thought_WrongKinGood.stages.0.description>
+  <RHAH_Thought_WrongKinGood.stages.0.label>mistaken but still fed</RHAH_Thought_WrongKinGood.stages.0.label>
+  <RHAH_Thought_PlagueMotherDeadBad.stages.0.description>My mother left me here and later died. I cannot even see her once more.</RHAH_Thought_PlagueMotherDeadBad.stages.0.description>
+  <RHAH_Thought_PlagueMotherDeadBad.stages.0.label>my mother left me and died</RHAH_Thought_PlagueMotherDeadBad.stages.0.label>
+  <RHAH_Thought_PlagueMotherDeadGood.stages.0.description>My mother died, but I survived the plague. I can still eat and keep living.</RHAH_Thought_PlagueMotherDeadGood.stages.0.description>
+  <RHAH_Thought_PlagueMotherDeadGood.stages.0.label>survived after my mother died</RHAH_Thought_PlagueMotherDeadGood.stages.0.label>
+  <RHAH_Thought_PlagueLeft.stages.0.description>I had the plague when my mother left. I still remember those days of sickness.</RHAH_Thought_PlagueLeft.stages.0.description>
+  <RHAH_Thought_PlagueLeft.stages.0.label>sick when my mother left</RHAH_Thought_PlagueLeft.stages.0.label>
+  <RHAH_Thought_PlagueLived.stages.0.description>I was still sick when my mother left. At least I survived the plague.</RHAH_Thought_PlagueLived.stages.0.description>
+  <RHAH_Thought_PlagueLived.stages.0.label>survived the plague</RHAH_Thought_PlagueLived.stages.0.label>
+  <RHAH_Thought_OrphanBad.stages.0.description>The plague nearly killed me. I am still afraid of catching it again.</RHAH_Thought_OrphanBad.stages.0.description>
+  <RHAH_Thought_OrphanBad.stages.0.label>nearly died of plague</RHAH_Thought_OrphanBad.stages.0.label>
+  <RHAH_Thought_OrphanGood.stages.0.description>I survived the plague. I can still eat now.</RHAH_Thought_OrphanGood.stages.0.description>
+  <RHAH_Thought_OrphanGood.stages.0.label>survived and can still eat</RHAH_Thought_OrphanGood.stages.0.label>
+  <RHAH_Thought_CleanBirth.stages.0.description>I had the plague, but my child has not caught it. Seeing my child well is a relief.</RHAH_Thought_CleanBirth.stages.0.description>
+  <RHAH_Thought_CleanBirth.stages.0.label>my child is free of plague</RHAH_Thought_CleanBirth.stages.0.label>
+  <RHAH_Thought_NextBirth.stages.0.description>This child has not caught the plague. If I have another, I am afraid we may not be so lucky.</RHAH_Thought_NextBirth.stages.0.description>
+  <RHAH_Thought_NextBirth.stages.0.label>afraid for my next child</RHAH_Thought_NextBirth.stages.0.label>
+  <RHAH_Thought_BornSick.stages.0.description>My child had the plague at birth. So young, and already suffering.</RHAH_Thought_BornSick.stages.0.description>
+  <RHAH_Thought_BornSick.stages.0.label>my child was born with plague</RHAH_Thought_BornSick.stages.0.label>
+  <RHAH_Thought_DropSick.stages.0.description>I already had the plague when my drop pod landed here. I was afraid I would not survive.</RHAH_Thought_DropSick.stages.0.description>
+  <RHAH_Thought_DropSick.stages.0.label>had plague when my pod landed</RHAH_Thought_DropSick.stages.0.label>
+  <RHAH_Thought_DropLived.stages.0.description>I had the plague when my drop pod landed here. Now I have survived it.</RHAH_Thought_DropLived.stages.0.description>
+  <RHAH_Thought_DropLived.stages.0.label>survived plague after landing</RHAH_Thought_DropLived.stages.0.label>
+  <RHAH_Thought_WrongSick.stages.0.description>I mistook someone here for my mother while I had the plague. I remember the confusion and the sickness.</RHAH_Thought_WrongSick.stages.0.description>
+  <RHAH_Thought_WrongSick.stages.0.label>mistook someone for mother while sick</RHAH_Thought_WrongSick.stages.0.label>
+  <RHAH_Thought_WrongFed.stages.0.description>I mistook someone here for my mother. They took me in and fed me anyway.</RHAH_Thought_WrongFed.stages.0.description>
+  <RHAH_Thought_WrongFed.stages.0.label>taken in despite my mistake</RHAH_Thought_WrongFed.stages.0.label>
+</LanguageData>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_A041_GrainThiefOutcast.title>饥与祸 被排斥的盗粮者</RHAH_History_A041_GrainThiefOutcast.title>
+  <RHAH_History_A041_GrainThiefOutcast.titleShort>饥与祸 盗粮者</RHAH_History_A041_GrainThiefOutcast.titleShort>
+  <RHAH_History_A041_GrainThiefOutcast.description>[PAWN_nameDef]跟一群饿疯的鼠族抢粮，进了仓库，分赃又很快变成内斗。[PAWN_pronoun]虽然逃出来，别的聚落却都把[PAWN_objective]当盗粮者，只得在荒地间躲藏。</RHAH_History_A041_GrainThiefOutcast.description>
+  <RHAH_History_A042_ScarredHunter.title>饥与祸 带伤猎手</RHAH_History_A042_ScarredHunter.title>
+  <RHAH_History_A042_ScarredHunter.titleShort>饥与祸 猎手</RHAH_History_A042_ScarredHunter.titleShort>
+  <RHAH_History_A042_ScarredHunter.description>[PAWN_nameDef]靠猎场谋生，旱灾让猎物没了踪影，贵族又封了山林。后来追踪一头受伤野兽时，[PAWN_pronoun]遭鼠群围攻，留下伤疤。失去住处后，便随流民去找新的猎场。</RHAH_History_A042_ScarredHunter.description>
+  <RHAH_History_A043_GranaryRatcatcher.title>饥与祸 粮仓驱鼠工</RHAH_History_A043_GranaryRatcatcher.title>
+  <RHAH_History_A043_GranaryRatcatcher.titleShort>饥与祸 驱鼠工</RHAH_History_A043_GranaryRatcatcher.titleShort>
+  <RHAH_History_A043_GranaryRatcatcher.description>[PAWN_nameDef]替粮仓清鼠洞，鼠群暴增后，仓主却把所有损失算在工人头上。存粮被咬坏的那晚，[PAWN_pronoun]被赶出了村，只好到下一处营地继续做驱鼠的活。</RHAH_History_A043_GranaryRatcatcher.description>
+  <RHAH_History_A044_QuarantinePorter.title>饥与祸 疫棚搬运工</RHAH_History_A044_QuarantinePorter.title>
+  <RHAH_History_A044_QuarantinePorter.titleShort>饥与祸 搬运工</RHAH_History_A044_QuarantinePorter.titleShort>
+  <RHAH_History_A044_QuarantinePorter.description>[PAWN_nameDef]的家人困在鼠疫隔离棚里，[PAWN_pronoun]便在村口搬药和饮水。病区被焚毁时，亲人和聚落一起没了。[PAWN_pronoun]离开后，仍记得那些疫棚。</RHAH_History_A044_QuarantinePorter.description>
+  <RHAH_History_A045_QuarantineWatcher.title>饥与祸 隔离棚看守</RHAH_History_A045_QuarantineWatcher.title>
+  <RHAH_History_A045_QuarantineWatcher.titleShort>饥与祸 看守</RHAH_History_A045_QuarantineWatcher.titleShort>
+  <RHAH_History_A045_QuarantineWatcher.description>[PAWN_nameDef]看守村口的隔离棚，试着把发热的人和健康的人分开。药和粮都耗尽后，村民却把责任推给了看守。[PAWN_pronoun]被迫离村，继续找愿意接纳病人的地方。</RHAH_History_A045_QuarantineWatcher.description>
+  <RHAH_History_A046_PostPlagueCaretaker.title>饥与祸 病后照料者</RHAH_History_A046_PostPlagueCaretaker.title>
+  <RHAH_History_A046_PostPlagueCaretaker.titleShort>饥与祸 照料者</RHAH_History_A046_PostPlagueCaretaker.titleShort>
+  <RHAH_History_A046_PostPlagueCaretaker.description>[PAWN_nameDef]熬过了鼠疫封锁，病愈的人却既领不到粮，也不许回家。原来的住处被烧成空地后，[PAWN_pronoun]带着还没痊愈的同伴离开，去找能歇脚的棚屋。</RHAH_History_A046_PostPlagueCaretaker.description>
+  <RHAH_History_A047_DisguisedGrainThief.title>饥与祸 伪装逃犯</RHAH_History_A047_DisguisedGrainThief.title>
+  <RHAH_History_A047_DisguisedGrainThief.titleShort>饥与祸 逃犯</RHAH_History_A047_DisguisedGrainThief.titleShort>
+  <RHAH_History_A047_DisguisedGrainThief.description>家人几天没吃上东西，[PAWN_nameDef]便夜里潜进粮仓偷粮。败露后，同伴把[PAWN_objective]交出去换通行。后来逃出来，[PAWN_pronoun]便学着装成普通难民，混过一道道关卡。</RHAH_History_A047_DisguisedGrainThief.description>
+  <RHAH_History_A048_SiegeTunnelDigger.title>饥与祸 围营掘地者</RHAH_History_A048_SiegeTunnelDigger.title>
+  <RHAH_History_A048_SiegeTunnelDigger.titleShort>饥与祸 掘地者</RHAH_History_A048_SiegeTunnelDigger.titleShort>
+  <RHAH_History_A048_SiegeTunnelDigger.description>抢粮队围住营地，外援始终没来，[PAWN_nameDef]和同伴便从墙下掘出窄洞，带人逃走。回头望时，营地已经着火，家人留下的东西也都烧了。</RHAH_History_A048_SiegeTunnelDigger.description>
+  <RHAH_History_A049_GranaryBreaker.title>饥与祸 破仓木匠</RHAH_History_A049_GranaryBreaker.title>
+  <RHAH_History_A049_GranaryBreaker.titleShort>饥与祸 木匠</RHAH_History_A049_GranaryBreaker.titleShort>
+  <RHAH_History_A049_GranaryBreaker.description>[PAWN_nameDef]靠修门谋生。灾荒来了，粮仓仍锁着，仓主宁愿让粮食发霉也不分给饥民。听见仓内有人求救，[PAWN_pronoun]撞开大门，事后却遭追捕，只得离乡。</RHAH_History_A049_GranaryBreaker.description>
+  <RHAH_History_A050_ElderSisterProtector.title>饥与祸 护幼长姐</RHAH_History_A050_ElderSisterProtector.title>
+  <RHAH_History_A050_ElderSisterProtector.titleShort>饥与祸 长姐</RHAH_History_A050_ElderSisterProtector.titleShort>
+  <RHAH_History_A050_ElderSisterProtector.description>父母死在逃难路上后，弟妹只剩[PAWN_nameDef]这个姐姐照看。队伍为减轻负担，又把[PAWN_objective]和孩子们留在路边。[PAWN_pronoun]只好自己带着弟妹，寻找肯收留鼠蛋的地方。</RHAH_History_A050_ElderSisterProtector.description>
+  <RHAH_History_A051_IllMotherLeavingA.title>饥与祸 托孤病母</RHAH_History_A051_IllMotherLeavingA.title>
+  <RHAH_History_A051_IllMotherLeavingA.titleShort>饥与祸 病母</RHAH_History_A051_IllMotherLeavingA.titleShort>
+  <RHAH_History_A051_IllMotherLeavingA.description>[PAWN_nameDef]带着孩子逃出鼠疫失控的村子，靠碎粮和草药支撑。病情越来越重，[PAWN_pronoun]知道自己撑不了多久了，仍把孩子送到了陌生聚落门口，这才倒下。</RHAH_History_A051_IllMotherLeavingA.description>
+  <RHAH_History_A052_BeggingRatkinMother.title>饥与祸 乞食鼠妈</RHAH_History_A052_BeggingRatkinMother.title>
+  <RHAH_History_A052_BeggingRatkinMother.titleShort>饥与祸 鼠妈</RHAH_History_A052_BeggingRatkinMother.titleShort>
+  <RHAH_History_A052_BeggingRatkinMother.description>[PAWN_nameDef]靠洗衣和看牲畜养活孩子，灾荒后，雇主连粮食和工钱也收了回去。[PAWN_pronoun]不愿把孩子交给路边的陌生人，便一次次去敲别人的门，求一口吃的。</RHAH_History_A052_BeggingRatkinMother.description>
+  <RHAH_History_A053_GrainThiefForFamily.title>饥与祸 为家人盗粮者</RHAH_History_A053_GrainThiefForFamily.title>
+  <RHAH_History_A053_GrainThiefForFamily.titleShort>饥与祸 盗粮者</RHAH_History_A053_GrainThiefForFamily.titleShort>
+  <RHAH_History_A053_GrainThiefForFamily.description>[PAWN_nameDef]家里最后一袋粮也快吃完了，孩子还是饿倒了。求粮无门，[PAWN_pronoun]便在夜里摸进仓房。偷粮被发现后，只得丢下粮食逃走，最后带着家人留下的空碗离开。</RHAH_History_A053_GrainThiefForFamily.description>
+  <RHAH_History_A054_WastelandSurvivor.title>饥与祸 荒地求生者</RHAH_History_A054_WastelandSurvivor.title>
+  <RHAH_History_A054_WastelandSurvivor.titleShort>饥与祸 求生者</RHAH_History_A054_WastelandSurvivor.titleShort>
+  <RHAH_History_A054_WastelandSurvivor.description>抢粮者夜里冲散了[PAWN_nameDef]所在的聚落。醒来时，身边只剩破衣，眼前是陌生的荒路。找不到家人，[PAWN_pronoun]便沿着野兽脚印和远处的炊烟去找活人。</RHAH_History_A054_WastelandSurvivor.description>
+  <RHAH_History_A055_RefugeeCampSteward.title>饥与祸 难民营管事</RHAH_History_A055_RefugeeCampSteward.title>
+  <RHAH_History_A055_RefugeeCampSteward.titleShort>饥与祸 管事</RHAH_History_A055_RefugeeCampSteward.titleShort>
+  <RHAH_History_A055_RefugeeCampSteward.description>[PAWN_nameDef]在难民营分铺位和饮水，来的人却越来越多，粮、柴和大家的耐心都不够了。营地解散时，[PAWN_pronoun]也无家可回，只得跟最后一批人去找新聚落。</RHAH_History_A055_RefugeeCampSteward.description>
+  <RHAH_History_A056_CageWatcher.title>饥与祸 囚笼看守</RHAH_History_A056_CageWatcher.title>
+  <RHAH_History_A056_CageWatcher.titleShort>饥与祸 看守</RHAH_History_A056_CageWatcher.titleShort>
+  <RHAH_History_A056_CageWatcher.description>[PAWN_nameDef]替商队看守货物和囚笼。商路断了，笼里的孩子竟成了换粮的筹码。领头人先抛下队伍逃走，[PAWN_pronoun]便带着还活着的囚犯，去找肯谈价的人。</RHAH_History_A056_CageWatcher.description>
+  <RHAH_History_A057_RatEggMerchant.title>饥与祸 鼠蛋贩子</RHAH_History_A057_RatEggMerchant.title>
+  <RHAH_History_A057_RatEggMerchant.titleShort>饥与祸 贩子</RHAH_History_A057_RatEggMerchant.titleShort>
+  <RHAH_History_A057_RatEggMerchant.description>[PAWN_nameDef]曾相信，把孩子卖给有粮的人，至少能让他们熬过冬天。可买家拿不出承诺的粮食，交易一次次落空。[PAWN_pronoun]只好带着一串沉默的鼠蛋继续走，渐渐不敢再看他们的脸。</RHAH_History_A057_RatEggMerchant.description>
+  <RHAH_History_A058_OutwallBeggar.title>饥与祸 城外乞丐</RHAH_History_A058_OutwallBeggar.title>
+  <RHAH_History_A058_OutwallBeggar.titleShort>饥与祸 乞丐</RHAH_History_A058_OutwallBeggar.titleShort>
+  <RHAH_History_A058_OutwallBeggar.description>[PAWN_nameDef]和其他难民在城墙外搭棚，以为不进城就能躲开冲突。城门一关，他们进不了城领粮，只好离开棚子。[PAWN_pronoun]到了下一处聚落，仍得反复求接济。</RHAH_History_A058_OutwallBeggar.description>
+  <RHAH_History_A059_ReliefKitchenCook.title>饥与祸 接济厨子</RHAH_History_A059_ReliefKitchenCook.title>
+  <RHAH_History_A059_ReliefKitchenCook.titleShort>饥与祸 厨子</RHAH_History_A059_ReliefKitchenCook.titleShort>
+  <RHAH_History_A059_ReliefKitchenCook.description>[PAWN_nameDef]把逃难队伍从各处凑来的粮食煮成一锅，后来连锅也拿去换了食物。接济的人来时，[PAWN_pronoun]便凭着做饭和筛霉粮的经验，帮他们准备饭食，只求让大家都吃上这一顿。</RHAH_History_A059_ReliefKitchenCook.description>
+  <RHAH_History_A060_RefugeeMedic.title>饥与祸 随队药师</RHAH_History_A060_RefugeeMedic.title>
+  <RHAH_History_A060_RefugeeMedic.titleShort>饥与祸 药师</RHAH_History_A060_RefugeeMedic.titleShort>
+  <RHAH_History_A060_RefugeeMedic.description>[PAWN_nameDef]在小诊所搬药草。诊所关闭后，药成了逃难队伍里最容易招来争抢的东西。[PAWN_pronoun]把最后几份药藏进衣服，带着发热的同伴到殖民地边缘求援。</RHAH_History_A060_RefugeeMedic.description>
+  <RHAH_History_A061_SilverTrader.title>饥与祸 持银商人</RHAH_History_A061_SilverTrader.title>
+  <RHAH_History_A061_SilverTrader.titleShort>饥与祸 商人</RHAH_History_A061_SilverTrader.titleShort>
+  <RHAH_History_A061_SilverTrader.description>[PAWN_nameDef]把家里的工具、牲畜和房契换成白银，以为有钱就能买到一条安全的路。关卡不断涨价，商队又改了道。银子只够再走一段，[PAWN_pronoun]便去找肯交易的聚落。</RHAH_History_A061_SilverTrader.description>
+  <RHAH_History_A062_FragmentMapInformant.title>饥与祸 残图卖家</RHAH_History_A062_FragmentMapInformant.title>
+  <RHAH_History_A062_FragmentMapInformant.titleShort>饥与祸 卖图者</RHAH_History_A062_FragmentMapInformant.titleShort>
+  <RHAH_History_A062_FragmentMapInformant.description>[PAWN_nameDef]从路边死去的情报贩子手里得到半张藏宝图，地点却没标完整。为了换继续上路的粮、药或白银，[PAWN_pronoun]带着这张残图来到殖民地。</RHAH_History_A062_FragmentMapInformant.description>
+  <RHAH_History_A063_RuinInformant.title>饥与祸 废墟线人</RHAH_History_A063_RuinInformant.title>
+  <RHAH_History_A063_RuinInformant.titleShort>饥与祸 线人</RHAH_History_A063_RuinInformant.titleShort>
+  <RHAH_History_A063_RuinInformant.description>[PAWN_nameDef]躲进过被鼠群和暴雨毁坏的建筑，记住了还能用的门、井和地下室，并记在地图上。同行的人为这张地图翻了脸。[PAWN_pronoun]带着残图逃出来，想用它换一次安全通行。</RHAH_History_A063_RuinInformant.description>
+  <RHAH_History_A064_SmallSettlementClerk.title>饥与祸 逃走的寨吏</RHAH_History_A064_SmallSettlementClerk.title>
+  <RHAH_History_A064_SmallSettlementClerk.titleShort>饥与祸 寨吏</RHAH_History_A064_SmallSettlementClerk.titleShort>
+  <RHAH_History_A064_SmallSettlementClerk.description>[PAWN_nameDef]在一个小聚落记事。粮仓账目被人篡改后，居民为分粮吵得不可开交。[PAWN_pronoun]逃了出来，想用自己知道的另一处小聚落的位置，换些路上能用的物资。</RHAH_History_A064_SmallSettlementClerk.description>
+  <RHAH_History_A065_PregnantRefugee.title>饥与祸 待产流民</RHAH_History_A065_PregnantRefugee.title>
+  <RHAH_History_A065_PregnantRefugee.titleShort>饥与祸 流民</RHAH_History_A065_PregnantRefugee.titleShort>
+  <RHAH_History_A065_PregnantRefugee.description>[PAWN_nameDef]怀着孩子跟队伍找遮雨处，营地却只收能马上干活的人。疫病蔓延，队伍里又起了抢粮冲突，同行的人陆续散了。[PAWN_pronoun]已经临近生产，只得去陌生殖民地求一个能容身的角落。</RHAH_History_A065_PregnantRefugee.description>
+  <RHAH_History_A066_MisdeliveredCargoCarrier.title>饥与祸 错运脚夫</RHAH_History_A066_MisdeliveredCargoCarrier.title>
+  <RHAH_History_A066_MisdeliveredCargoCarrier.titleShort>饥与祸 脚夫</RHAH_History_A066_MisdeliveredCargoCarrier.titleShort>
+  <RHAH_History_A066_MisdeliveredCargoCarrier.description>[PAWN_nameDef]在运输队核对货单、搬运补给。一次坐标填错，整批物资被投到了无人荒地，发货的人先逃了。[PAWN_pronoun]找到错投地点，带着还能找到的几件东西，到附近的殖民地求助。</RHAH_History_A066_MisdeliveredCargoCarrier.description>
+  <RHAH_History_A067_MisidentifiedKin.title>饥与祸 错认亲属者</RHAH_History_A067_MisidentifiedKin.title>
+  <RHAH_History_A067_MisidentifiedKin.titleShort>饥与祸 寻亲者</RHAH_History_A067_MisidentifiedKin.titleShort>
+  <RHAH_History_A067_MisidentifiedKin.description>[PAWN_nameDef]在夜间撤离时与家人失散，后来听到有人描述相似的孩子，便把陌生孩子错认成亲属。真相弄清时，原来的队伍早走远了。[PAWN_pronoun]留不住孩子，也回不了家。</RHAH_History_A067_MisidentifiedKin.description>
+  <RHAH_History_A068_FamineFarmer.title>饥与祸 荒年农户</RHAH_History_A068_FamineFarmer.title>
+  <RHAH_History_A068_FamineFarmer.titleShort>饥与祸 农户</RHAH_History_A068_FamineFarmer.titleShort>
+  <RHAH_History_A068_FamineFarmer.description>[PAWN_nameDef]守着旧田，想着熬过这一季就能等到雨水，最后却连种子也没保住。征粮一次接一次，家人又陆续死于鼠疫。[PAWN_pronoun]分完最后的食物，离开了村子。</RHAH_History_A068_FamineFarmer.description>
+  <RHAH_History_A069_AmbushedEscort.title>饥与祸 遇袭商队护卫</RHAH_History_A069_AmbushedEscort.title>
+  <RHAH_History_A069_AmbushedEscort.titleShort>饥与祸 护卫</RHAH_History_A069_AmbushedEscort.titleShort>
+  <RHAH_History_A069_AmbushedEscort.description>[PAWN_nameDef]跟商队护送药品和粮食，途中被一群走投无路的流民拦住。商队丢下货物和伤员逃命。[PAWN_pronoun]从被翻空的车厢里爬出来，此后再不相信那面商队旗帜。</RHAH_History_A069_AmbushedEscort.description>
+  <RHAH_History_A070_PlaguezoneExile.title>饥与祸 疫区流亡者</RHAH_History_A070_PlaguezoneExile.title>
+  <RHAH_History_A070_PlaguezoneExile.titleShort>饥与祸 流亡者</RHAH_History_A070_PlaguezoneExile.titleShort>
+  <RHAH_History_A070_PlaguezoneExile.description>[PAWN_nameDef]住的营地被划成疫区，沿途聚落封了路，也拒绝向营地的人供粮。队伍里有人倒下，被同伴留在路边。[PAWN_pronoun]带着还能走的人绕开各处聚落，最后走到陌生殖民地附近。</RHAH_History_A070_PlaguezoneExile.description>
+  <RHAH_History_A071_QuarantineGatekeeper.title>饥与祸 检疫门卫</RHAH_History_A071_QuarantineGatekeeper.title>
+  <RHAH_History_A071_QuarantineGatekeeper.titleShort>饥与祸 门卫</RHAH_History_A071_QuarantineGatekeeper.titleShort>
+  <RHAH_History_A071_QuarantineGatekeeper.description>[PAWN_nameDef]守着村口检疫棚，每天得决定谁能进去、谁领药、谁留在门外。药和粮一起耗尽后，病人连同看守都被赶了出去。[PAWN_pronoun]只好带幸存者另找收容处。</RHAH_History_A071_QuarantineGatekeeper.description>
+  <RHAH_History_A072_PlagueCampTunnelDigger.title>饥与祸 疫营掘地者</RHAH_History_A072_PlagueCampTunnelDigger.title>
+  <RHAH_History_A072_PlagueCampTunnelDigger.titleShort>饥与祸 掘地者</RHAH_History_A072_PlagueCampTunnelDigger.titleShort>
+  <RHAH_History_A072_PlagueCampTunnelDigger.description>[PAWN_nameDef]困在疫区营地，营内的粮食吃完了，营外又聚着饥民和感染者，看守不敢开门。[PAWN_pronoun]从墙脚掘出一条仅容一人通过的通道逃走。留下的人有没有活下来，[PAWN_pronoun]至今不知道。</RHAH_History_A072_PlagueCampTunnelDigger.description>
+  <RHAH_History_A073_EscapedPlagueMessenger.title>饥与祸 逃离的疫区信使</RHAH_History_A073_EscapedPlagueMessenger.title>
+  <RHAH_History_A073_EscapedPlagueMessenger.titleShort>饥与祸 信使</RHAH_History_A073_EscapedPlagueMessenger.titleShort>
+  <RHAH_History_A073_EscapedPlagueMessenger.description>[PAWN_nameDef]替一支染上鼠疫的鼠族队伍传话。队伍里的人声称要报复害过自己的仇人，却连对方的名字都没法核实。见他们一心只想报复，[PAWN_pronoun]便带着那封没有收件人的信逃走了。</RHAH_History_A073_EscapedPlagueMessenger.description>
+  <RHAH_History_A074_EvacuationGuide.title>饥与祸 撤营向导</RHAH_History_A074_EvacuationGuide.title>
+  <RHAH_History_A074_EvacuationGuide.titleShort>饥与祸 向导</RHAH_History_A074_EvacuationGuide.titleShort>
+  <RHAH_History_A074_EvacuationGuide.description>[PAWN_nameDef]在临时难民营修木屋、分饮水，附近势力却限他们几天内离开。袭击到来前，[PAWN_pronoun]带着还能走的人从后门撤了。回头看时，自己搭过的屋子都烧了起来。</RHAH_History_A074_EvacuationGuide.description>
+</LanguageData>

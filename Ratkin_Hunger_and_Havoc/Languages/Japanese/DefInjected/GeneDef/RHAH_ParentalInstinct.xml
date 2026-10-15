@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Gene_MaternalInstinct.label>母性本能</RHAH_Gene_MaternalInstinct.label>
+  <RHAH_Gene_MaternalInstinct.description>この遺伝子を持つ人は授乳期の間、乳汁分泌速度と乳汁貯蔵量の上限、空腹速度、最大食料欲求量がMOD設定の倍率に応じて変化します。初期設定では乳汁をより速く分泌し、より多く貯蔵でき、空腹になるのも速くなり、より多くの食料栄養を蓄えられます。3つの倍率を調整でき、乳汁分泌速度と乳汁貯蔵量の上限には同じ倍率を使います。すべての効果は授乳期に限り有効です。父性本能も持つ場合、女性は母性本能が、男性は父性本能が有効になります。片方だけを持つ場合は性別を問いません。</RHAH_Gene_MaternalInstinct.description>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.0>すべての効果は授乳期のみ有効</RHAH_Gene_MaternalInstinct.customEffectDescriptions.0>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.1>乳汁分泌速度と乳汁貯蔵量の上限：どちらも初期倍率150%、MOD設定で調整可能</RHAH_Gene_MaternalInstinct.customEffectDescriptions.1>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.2>空腹速度：初期倍率115%、MOD設定で調整可能</RHAH_Gene_MaternalInstinct.customEffectDescriptions.2>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.3>最大食料欲求量：初期倍率125%、MOD設定で調整可能</RHAH_Gene_MaternalInstinct.customEffectDescriptions.3>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.4>両方の本能を持つ場合、女性は母性本能が、男性は父性本能が有効</RHAH_Gene_MaternalInstinct.customEffectDescriptions.4>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.5>片方だけを持つ場合は性別を問わない</RHAH_Gene_MaternalInstinct.customEffectDescriptions.5>
+  <RHAH_Gene_PaternalInstinct.label>父性本能</RHAH_Gene_PaternalInstinct.label>
+  <RHAH_Gene_PaternalInstinct.description>この遺伝子を持つ人は、生きている実の息子か娘が同じマップにいる間、作業速度、空腹速度、全般的な学習速度、被ダメージがMOD設定の倍率に応じて変化します。子の年齢は問いません。初期設定では作業と学習が速くなり、受けるダメージが減りますが、空腹になるのも速くなります。4つの効果はいずれも、生きている実の子が同じマップにいることが条件です。母性本能も持つ場合、男性は父性本能が、女性は母性本能が有効になります。片方だけを持つ場合は性別を問いません。</RHAH_Gene_PaternalInstinct.description>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.0>生きている実の息子か娘が同じマップにいる間、すべての効果が有効。子の年齢は問わない</RHAH_Gene_PaternalInstinct.customEffectDescriptions.0>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.1>作業速度：初期倍率120%、MOD設定で調整可能</RHAH_Gene_PaternalInstinct.customEffectDescriptions.1>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.2>空腹速度：初期倍率110%、MOD設定で調整可能</RHAH_Gene_PaternalInstinct.customEffectDescriptions.2>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.3>全般的な学習速度：初期倍率110%、MOD設定で調整可能</RHAH_Gene_PaternalInstinct.customEffectDescriptions.3>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.4>被ダメージ：初期倍率90%、MOD設定で調整可能</RHAH_Gene_PaternalInstinct.customEffectDescriptions.4>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.5>両方の本能を持つ場合、男性は父性本能が、女性は母性本能が有効</RHAH_Gene_PaternalInstinct.customEffectDescriptions.5>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.6>片方だけを持つ場合は性別を問わない</RHAH_Gene_PaternalInstinct.customEffectDescriptions.6>
+</LanguageData>

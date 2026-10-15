@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_History_A001_FleeingTenantFarmer.title>fleeing tenant farmer</RHAH_History_A001_FleeingTenantFarmer.title>
+  <RHAH_History_A001_FleeingTenantFarmer.titleShort>tenant</RHAH_History_A001_FleeingTenantFarmer.titleShort>
+  <RHAH_History_A001_FleeingTenantFarmer.description>[PAWN_nameDef] worked the family's rented fields for ratkin nobles. After rent, there was barely enough grain to keep the household half-fed. When war reached the fields, the family lost the land they depended on, and [PAWN_pronoun] left the ancestral plots with the refugees.</RHAH_History_A001_FleeingTenantFarmer.description>
+  <RHAH_History_A002_DroughtFieldWatcher.title>drought farmer</RHAH_History_A002_DroughtFieldWatcher.title>
+  <RHAH_History_A002_DroughtFieldWatcher.titleShort>farmer</RHAH_History_A002_DroughtFieldWatcher.titleShort>
+  <RHAH_History_A002_DroughtFieldWatcher.description>[PAWN_nameDef] tended the last dry plots at home, but year after year the rains failed and the seedlings shriveled in the sun. The landlord still demanded food grain and seed. In the end, [PAWN_pronoun] left with the other tenants and their empty sacks; there was nothing left to tend.</RHAH_History_A002_DroughtFieldWatcher.description>
+  <RHAH_History_A003_ScavengerOfFallowFields.title>fallow field gleaner</RHAH_History_A003_ScavengerOfFallowFields.title>
+  <RHAH_History_A003_ScavengerOfFallowFields.titleShort>gleaner</RHAH_History_A003_ScavengerOfFallowFields.titleShort>
+  <RHAH_History_A003_ScavengerOfFallowFields.description>[PAWN_nameDef]'s household ran out of food before the grain collectors even arrived, and the fields had gone to weeds. Gleaning at night meant being chased by rats and grain patrols. When [PAWN_pronoun] left home, only a few salvaged seeds remained.</RHAH_History_A003_ScavengerOfFallowFields.description>
+  <RHAH_History_A004_FamineHerdTender.title>famine herder</RHAH_History_A004_FamineHerdTender.title>
+  <RHAH_History_A004_FamineHerdTender.titleShort>herder</RHAH_History_A004_FamineHerdTender.titleShort>
+  <RHAH_History_A004_FamineHerdTender.description>[PAWN_nameDef] tended livestock for a ranch. During the famine, the owner sold some animals and surrendered most of the rest for army rations. With only a few animals left in the pens, [PAWN_pronoun] led them out with the refugees in search of grazing.</RHAH_History_A004_FamineHerdTender.description>
+  <RHAH_History_A005_DroughtWellWaterCarrier.title>drought water hauler</RHAH_History_A005_DroughtWellWaterCarrier.title>
+  <RHAH_History_A005_DroughtWellWaterCarrier.titleShort>hauler</RHAH_History_A005_DroughtWellWaterCarrier.titleShort>
+  <RHAH_History_A005_DroughtWellWaterCarrier.description>[PAWN_nameDef] hauled water from the village well in exchange for grain. By late summer the well was down to mud, and each day brought a longer walk for water. After the villages fought over the remaining source, [PAWN_pronoun] left the old well with empty buckets and the water crew.</RHAH_History_A005_DroughtWellWaterCarrier.description>
+  <RHAH_History_A006_GranaryBookkeeper.title>granary bookkeeper</RHAH_History_A006_GranaryBookkeeper.title>
+  <RHAH_History_A006_GranaryBookkeeper.titleShort>bookkeeper</RHAH_History_A006_GranaryBookkeeper.titleShort>
+  <RHAH_History_A006_GranaryBookkeeper.description>[PAWN_nameDef] kept the granary books and found far more sacks listed than actually stored. The steward planned to blame [PAWN_objective] for the shortage. Before the inquiry, [PAWN_pronoun] fled with a copy of the accounts.</RHAH_History_A006_GranaryBookkeeper.description>
+  <RHAH_History_A007_MoldyGrainSifter.title>moldy grain sifter</RHAH_History_A007_MoldyGrainSifter.title>
+  <RHAH_History_A007_MoldyGrainSifter.titleShort>sifter</RHAH_History_A007_MoldyGrainSifter.titleShort>
+  <RHAH_History_A007_MoldyGrainSifter.description>[PAWN_nameDef] sifted grain at a mill, where spoiled grain that should have been discarded was mixed into famine rations. After seeing children receive it, [PAWN_pronoun] refused to keep quiet. That cost [PAWN_objective] both the job and the lodging, and [PAWN_pronoun] left with those fleeing town.</RHAH_History_A007_MoldyGrainSifter.description>
+  <RHAH_History_A008_OrphanedMillhand.title>abandoned mill worker</RHAH_History_A008_OrphanedMillhand.title>
+  <RHAH_History_A008_OrphanedMillhand.titleShort>mill worker</RHAH_History_A008_OrphanedMillhand.titleShort>
+  <RHAH_History_A008_OrphanedMillhand.description>[PAWN_nameDef] worked at a mill whose owner fled one night over grain debts, leaving a failing millstone and unpaid wages. When the owner did not return, [PAWN_pronoun] salvaged the usable tools and sought work in another camp.</RHAH_History_A008_OrphanedMillhand.description>
+  <RHAH_History_A009_GranaryCarpenter.title>granary carpenter</RHAH_History_A009_GranaryCarpenter.title>
+  <RHAH_History_A009_GranaryCarpenter.titleShort>carpenter</RHAH_History_A009_GranaryCarpenter.titleShort>
+  <RHAH_History_A009_GranaryCarpenter.description>[PAWN_nameDef] repaired the village granary, whose walls had been hollowed out by rats. Lumber for repairs went to the landlord's own roof instead. When heavy rain brought the granary down, the workers lost their shed too, and [PAWN_pronoun] left the village with them.</RHAH_History_A009_GranaryCarpenter.description>
+  <RHAH_History_A010_RagStitcher.title>old clothes mender</RHAH_History_A010_RagStitcher.title>
+  <RHAH_History_A010_RagStitcher.titleShort>tailor</RHAH_History_A010_RagStitcher.titleShort>
+  <RHAH_History_A010_RagStitcher.description>After the weaving shop closed and the cloth was requisitioned, [PAWN_nameDef] mended old clothes for grain. Poor customers had no new fabric, only garments to take apart and sew again. When a fire destroyed the remaining cloth and the lodging, [PAWN_pronoun] packed up the needles and thread and left with the refugees.</RHAH_History_A010_RagStitcher.description>
+  <RHAH_History_A011_DiseasedHideTanner.title>famine hide tanner</RHAH_History_A011_DiseasedHideTanner.title>
+  <RHAH_History_A011_DiseasedHideTanner.titleShort>tanner</RHAH_History_A011_DiseasedHideTanner.titleShort>
+  <RHAH_History_A011_DiseasedHideTanner.description>[PAWN_nameDef] tanned hides for a hunting estate until the nobles closed the hills and the steady supply stopped. That winter, even hides from diseased livestock had to be traded for grain. When that work dried up too, [PAWN_pronoun] left with a caravan.</RHAH_History_A011_DiseasedHideTanner.description>
+  <RHAH_History_A012_HerbSorter.title>replacement herbalist</RHAH_History_A012_HerbSorter.title>
+  <RHAH_History_A012_HerbSorter.titleShort>herbalist</RHAH_History_A012_HerbSorter.titleShort>
+  <RHAH_History_A012_HerbSorter.description>[PAWN_nameDef] had only been an herb gatherer's assistant. When plague killed the village herbalist, all that remained were incomplete notes. To treat the family's fevers, [PAWN_pronoun] took over the medicine basket and the quarantine work, but was driven out when the shed closed.</RHAH_History_A012_HerbSorter.description>
+  <RHAH_History_A013_KilnWatcher.title>displaced kiln worker</RHAH_History_A013_KilnWatcher.title>
+  <RHAH_History_A013_KilnWatcher.titleShort>kiln worker</RHAH_History_A013_KilnWatcher.titleShort>
+  <RHAH_History_A013_KilnWatcher.description>[PAWN_nameDef] tended a landlord's brick kiln all winter as fuel dwindled and the workers lost their lodging. When the kiln went cold, [PAWN_pronoun] left with soot-blackened hands and sought repair work at shelters.</RHAH_History_A013_KilnWatcher.description>
+  <RHAH_History_A014_NightFamineEscapee.title>night famine escapee</RHAH_History_A014_NightFamineEscapee.title>
+  <RHAH_History_A014_NightFamineEscapee.titleShort>refugee</RHAH_History_A014_NightFamineEscapee.titleShort>
+  <RHAH_History_A014_NightFamineEscapee.description>After years of failed harvests, the village's last sack of grain went to the elderly and the children, leaving [PAWN_nameDef] without food. On the night people began barring doors and seizing grain, [PAWN_pronoun] took an old waterskin and slipped away.</RHAH_History_A014_NightFamineEscapee.description>
+  <RHAH_History_A015_RiverbankBridgeBuilder.title>bridge-building boatwright</RHAH_History_A015_RiverbankBridgeBuilder.title>
+  <RHAH_History_A015_RiverbankBridgeBuilder.titleShort>boatwright</RHAH_History_A015_RiverbankBridgeBuilder.titleShort>
+  <RHAH_History_A015_RiverbankBridgeBuilder.description>[PAWN_nameDef] repaired boats by the river. When a flood broke the wooden bridge and stranded refugees on the bank, [PAWN_pronoun] built a shaky makeshift bridge so the family could cross. By the time the water receded, the home village was empty.</RHAH_History_A015_RiverbankBridgeBuilder.description>
+  <RHAH_History_A016_RuinedVillageSearcher.title>ruined village scavenger</RHAH_History_A016_RuinedVillageSearcher.title>
+  <RHAH_History_A016_RuinedVillageSearcher.titleShort>scavenger</RHAH_History_A016_RuinedVillageSearcher.titleShort>
+  <RHAH_History_A016_RuinedVillageSearcher.description>[PAWN_nameDef] repeatedly returned to a looted village for pots, cloth, and seeds still fit to sow. Patrols eventually blocked the old road, cutting off even those scraps. Only then did [PAWN_pronoun] leave with the other refugees.</RHAH_History_A016_RuinedVillageSearcher.description>
+  <RHAH_History_A017_SnowpathGuide.title>snow road guide</RHAH_History_A017_SnowpathGuide.title>
+  <RHAH_History_A017_SnowpathGuide.titleShort>guide</RHAH_History_A017_SnowpathGuide.titleShort>
+  <RHAH_History_A017_SnowpathGuide.description>[PAWN_nameDef] guided caravans until early winter snow closed the mountain road and left a refugee party lost in the snow. Unable even to find the way home, [PAWN_pronoun] led them across the wilderness by footprints and wind direction.</RHAH_History_A017_SnowpathGuide.description>
+  <RHAH_History_A018_DustwayPorter.title>dryland porter</RHAH_History_A018_DustwayPorter.title>
+  <RHAH_History_A018_DustwayPorter.titleShort>porter</RHAH_History_A018_DustwayPorter.titleShort>
+  <RHAH_History_A018_DustwayPorter.description>[PAWN_nameDef] hauled cargo for a caravan crossing dry country when thieves took the waterskins and pack animals began collapsing. While waiting for the employer to pay the overdue wages, [PAWN_pronoun] kept tending the remaining animals. When the caravan broke up, [PAWN_pronoun] had to keep walking with them.</RHAH_History_A018_DustwayPorter.description>
+  <RHAH_History_A019_CampNightWatch.title>camp night guard</RHAH_History_A019_CampNightWatch.title>
+  <RHAH_History_A019_CampNightWatch.titleShort>guard</RHAH_History_A019_CampNightWatch.titleShort>
+  <RHAH_History_A019_CampNightWatch.description>After several nights of grain raids at the camp where [PAWN_nameDef] was staying, the guards fled with their weapons. [PAWN_pronoun] took over the night watch and message runs. When the camp moved, [PAWN_pronoun] kept listening for trouble at night in the new group.</RHAH_History_A019_CampNightWatch.description>
+  <RHAH_History_A020_LostAtTheCheckpoint.title>checkpoint kin seeker</RHAH_History_A020_LostAtTheCheckpoint.title>
+  <RHAH_History_A020_LostAtTheCheckpoint.titleShort>kin seeker</RHAH_History_A020_LostAtTheCheckpoint.titleShort>
+  <RHAH_History_A020_LostAtTheCheckpoint.description>[PAWN_nameDef] traveled with family past grain-tax checkpoints, where refugees without papers could be detained. A failed detour separated them. [PAWN_pronoun] learned the patrol hours, but had to walk the rest of the road alone.</RHAH_History_A020_LostAtTheCheckpoint.description>
+  <RHAH_History_A021_OldMapmaker.title>waystation mapmaker</RHAH_History_A021_OldMapmaker.title>
+  <RHAH_History_A021_OldMapmaker.titleShort>mapmaker</RHAH_History_A021_OldMapmaker.titleShort>
+  <RHAH_History_A021_OldMapmaker.description>[PAWN_nameDef] drew routes for a waystation until a warehouse fire destroyed the old maps. With only broken signposts left for refugees to follow, [PAWN_pronoun] sketched remembered roads on scraps of cloth and was chosen to guide them.</RHAH_History_A021_OldMapmaker.description>
+  <RHAH_History_A022_KinSeekingExile.title>kin-seeking refugee</RHAH_History_A022_KinSeekingExile.title>
+  <RHAH_History_A022_KinSeekingExile.titleShort>kin seeker</RHAH_History_A022_KinSeekingExile.titleShort>
+  <RHAH_History_A022_KinSeekingExile.description>[PAWN_nameDef] was separated from family when refugees were forcibly divided between groups, and rain ruined the temporary registers. [PAWN_pronoun] asked for their names at campfires along the road. No relatives were found, so the search continued with the moving camps.</RHAH_History_A022_KinSeekingExile.description>
+  <RHAH_History_A023_RefugeeConvoyGuide.title>refugee convoy leader</RHAH_History_A023_RefugeeConvoyGuide.title>
+  <RHAH_History_A023_RefugeeConvoyGuide.titleShort>leader</RHAH_History_A023_RefugeeConvoyGuide.titleShort>
+  <RHAH_History_A023_RefugeeConvoyGuide.description>[PAWN_nameDef] had never been a leader. When a grain fight killed the old guide and left the group without directions to the next water source, the others put [PAWN_objective] in charge of routes and rations. Even after the group broke up, [PAWN_pronoun] led those still willing to follow.</RHAH_History_A023_RefugeeConvoyGuide.description>
+  <RHAH_History_A024_ShackRepairer.title>ruined house mender</RHAH_History_A024_ShackRepairer.title>
+  <RHAH_History_A024_ShackRepairer.titleShort>repairer</RHAH_History_A024_ShackRepairer.titleShort>
+  <RHAH_History_A024_ShackRepairer.description>Rats chewed through the walls of [PAWN_nameDef]'s home, and a storm brought down the beams. Usable timber had been requisitioned for a granary. [PAWN_pronoun] repaired ruined houses for grain until that no longer paid, then left with refugees to find another roof.</RHAH_History_A024_ShackRepairer.description>
+  <RHAH_History_A025_DisasterBurier.title>famine gravedigger</RHAH_History_A025_DisasterBurier.title>
+  <RHAH_History_A025_DisasterBurier.titleShort>gravedigger</RHAH_History_A025_DisasterBurier.titleShort>
+  <RHAH_History_A025_DisasterBurier.description>[PAWN_nameDef] buried the dead along village roads devastated by famine, where diseased and unclaimed bodies lay in numbers that frightened everyone away. The settlement then expelled [PAWN_objective] for contact with disease. Among the refugees, someone still had to do the same dirty work.</RHAH_History_A025_DisasterBurier.description>
+  <RHAH_History_A026_GrainPetitionSpeaker.title>ration petitioner</RHAH_History_A026_GrainPetitionSpeaker.title>
+  <RHAH_History_A026_GrainPetitionSpeaker.titleShort>petitioner</RHAH_History_A026_GrainPetitionSpeaker.titleShort>
+  <RHAH_History_A026_GrainPetitionSpeaker.description>[PAWN_nameDef] petitioned the granary for the village's allotted rations, but every negotiation required another passage fee. When the village refused to pay, its grain was cut off. [PAWN_pronoun] took the register and empty bowls to unfamiliar settlements and begged from door to door.</RHAH_History_A026_GrainPetitionSpeaker.description>
+  <RHAH_History_A027_ReliefGoodsBroker.title>famine goods broker</RHAH_History_A027_ReliefGoodsBroker.title>
+  <RHAH_History_A027_ReliefGoodsBroker.titleShort>broker</RHAH_History_A027_ReliefGoodsBroker.titleShort>
+  <RHAH_History_A027_ReliefGoodsBroker.description>[PAWN_nameDef] brokered exchanges at the market until soaring grain prices made every valuation unreliable overnight. To obtain medicine and seed for the family, [PAWN_pronoun] traveled with one refugee group after another, eventually losing [PAWN_possessive] own market stall.</RHAH_History_A027_ReliefGoodsBroker.description>
+  <RHAH_History_A028_EscapedLedgerCopyist.title>exiled copyist</RHAH_History_A028_EscapedLedgerCopyist.title>
+  <RHAH_History_A028_EscapedLedgerCopyist.titleShort>copyist</RHAH_History_A028_EscapedLedgerCopyist.titleShort>
+  <RHAH_History_A028_EscapedLedgerCopyist.description>[PAWN_nameDef] copied household registers and grain ledgers, saving only a few pages when the records building burned. On the road, [PAWN_pronoun] continued recording names and grain debts for people without papers. Every settlement treated [PAWN_objective] as a suspicious outsider.</RHAH_History_A028_EscapedLedgerCopyist.description>
+  <RHAH_History_A029_ReliefCook.title>replacement cook</RHAH_History_A029_ReliefCook.title>
+  <RHAH_History_A029_ReliefCook.titleShort>cook</RHAH_History_A029_ReliefCook.titleShort>
+  <RHAH_History_A029_ReliefCook.description>[PAWN_nameDef] did odd jobs in a public kitchen until plague killed the cook and no one dared distribute the remaining grain. [PAWN_pronoun] took over cooking and distributing rations so the children could eat first. When the kitchen closed, [PAWN_pronoun] left with the refugees.</RHAH_History_A029_ReliefCook.description>
+  <RHAH_History_A030_InfirmaryCaretaker.title>infirmary caretaker</RHAH_History_A030_InfirmaryCaretaker.title>
+  <RHAH_History_A030_InfirmaryCaretaker.titleShort>caretaker</RHAH_History_A030_InfirmaryCaretaker.titleShort>
+  <RHAH_History_A030_InfirmaryCaretaker.description>[PAWN_nameDef] had cared only for sick relatives until a granary fight filled the camp with wounded people. With doctors and medicine scarce, [PAWN_pronoun] learned to clean wounds and change dressings. When the camp was dispersed, [PAWN_pronoun] left with that incomplete training.</RHAH_History_A030_InfirmaryCaretaker.description>
+  <RHAH_History_A031_RatEggCaretaker.title>caretaker of young ratkin</RHAH_History_A031_RatEggCaretaker.title>
+  <RHAH_History_A031_RatEggCaretaker.titleShort>caretaker</RHAH_History_A031_RatEggCaretaker.titleShort>
+  <RHAH_History_A031_RatEggCaretaker.description>[PAWN_nameDef] took turns carrying children in a refugee column until [PAWN_possessive] own relatives fell sick beside the road. When the column abandoned the sick and the young, [PAWN_pronoun] left with the young ratkin who could still walk. Promises that the adults would return became hard to trust.</RHAH_History_A031_RatEggCaretaker.description>
+  <RHAH_History_A032_NightStoryteller.title>camp storyteller</RHAH_History_A032_NightStoryteller.title>
+  <RHAH_History_A032_NightStoryteller.titleShort>storyteller</RHAH_History_A032_NightStoryteller.titleShort>
+  <RHAH_History_A032_NightStoryteller.description>[PAWN_nameDef] spun thread and knew old stories. Hunger and alarms kept the camp's children awake all night. On the dark roads between camps, [PAWN_pronoun] told them stories and walked with them, eventually staying with the refugee column.</RHAH_History_A032_NightStoryteller.description>
+  <RHAH_History_A033_SealedVillageMessenger.title>sealed village messenger</RHAH_History_A033_SealedVillageMessenger.title>
+  <RHAH_History_A033_SealedVillageMessenger.titleShort>messenger</RHAH_History_A033_SealedVillageMessenger.titleShort>
+  <RHAH_History_A033_SealedVillageMessenger.description>[PAWN_nameDef] supported the family by carrying letters in exchange for grain. Once several villages were sealed off, messengers on foot became the only way to pass news. When a patrol blocked the way home, [PAWN_pronoun] could not return and kept carrying letters for other camps.</RHAH_History_A033_SealedVillageMessenger.description>
+  <RHAH_History_A034_MarketSackPorter.title>market porter</RHAH_History_A034_MarketSackPorter.title>
+  <RHAH_History_A034_MarketSackPorter.titleShort>porter</RHAH_History_A034_MarketSackPorter.titleShort>
+  <RHAH_History_A034_MarketSackPorter.description>[PAWN_nameDef] hauled cargo at a market until it closed and the employer withheld the wages. [PAWN_pronoun] moved grain sacks into a temporary camp for their owner to keep them out of the looting. When the owner fled that night, [PAWN_pronoun] moved on with the refugees left behind.</RHAH_History_A034_MarketSackPorter.description>
+  <RHAH_History_A035_UsedGoodsAppraiser.title>used goods appraiser</RHAH_History_A035_UsedGoodsAppraiser.title>
+  <RHAH_History_A035_UsedGoodsAppraiser.titleShort>appraiser</RHAH_History_A035_UsedGoodsAppraiser.titleShort>
+  <RHAH_History_A035_UsedGoodsAppraiser.description>[PAWN_nameDef] appraised old pots and tools to earn the family's rations. During the famine, people would accept only grain. After a few exchanges, robbers took the last possessions, and [PAWN_pronoun] left the market empty-handed.</RHAH_History_A035_UsedGoodsAppraiser.description>
+  <RHAH_History_A036_RationMediator.title>ration mediator</RHAH_History_A036_RationMediator.title>
+  <RHAH_History_A036_RationMediator.titleShort>mediator</RHAH_History_A036_RationMediator.titleShort>
+  <RHAH_History_A036_RationMediator.description>[PAWN_nameDef] had settled irrigation disputes in the village, so two refugee groups chose [PAWN_objective] to mediate a fight over grain. The argument outside the granary still got out of hand. [PAWN_pronoun] left with the few willing to listen and sought another place to go.</RHAH_History_A036_RationMediator.description>
+  <RHAH_History_A037_RationTicketKeeper.title>ration ticket keeper</RHAH_History_A037_RationTicketKeeper.title>
+  <RHAH_History_A037_RationTicketKeeper.titleShort>ticket keeper</RHAH_History_A037_RationTicketKeeper.titleShort>
+  <RHAH_History_A037_RationTicketKeeper.description>[PAWN_nameDef] kept ration tickets promising a week's grain, but the distributors withheld the food. When [PAWN_pronoun] refused to falsify the books, they expelled [PAWN_objective] from the ration office. All [PAWN_pronoun] took away was a small stack of tickets that could no longer be redeemed.</RHAH_History_A037_RationTicketKeeper.description>
+  <RHAH_History_A038_GranaryRefuser.title>defiant granary guard</RHAH_History_A038_GranaryRefuser.title>
+  <RHAH_History_A038_GranaryRefuser.titleShort>guard</RHAH_History_A038_GranaryRefuser.titleShort>
+  <RHAH_History_A038_GranaryRefuser.description>[PAWN_nameDef] was hired to guard a granary, expecting to keep outside thieves away. Instead, the owner secretly removed the grain and locked hungry people inside. [PAWN_pronoun] refused to keep watch and became a refugee alongside the abandoned guards.</RHAH_History_A038_GranaryRefuser.description>
+  <RHAH_History_A039_HomeboundDeserter.title>homebound deserter</RHAH_History_A039_HomeboundDeserter.title>
+  <RHAH_History_A039_HomeboundDeserter.titleShort>deserter</RHAH_History_A039_HomeboundDeserter.titleShort>
+  <RHAH_History_A039_HomeboundDeserter.description>[PAWN_nameDef] was drafted into a unit short of food, while the officer kept the last sack of grain. During a retreat, [PAWN_pronoun] abandoned [PAWN_possessive] weapon and went back to look for family. The unit branded [PAWN_objective] a deserter, and the home village was already empty.</RHAH_History_A039_HomeboundDeserter.description>
+  <RHAH_History_A040_CampTrapSetter.title>camp trapper</RHAH_History_A040_CampTrapSetter.title>
+  <RHAH_History_A040_CampTrapSetter.titleShort>trapper</RHAH_History_A040_CampTrapSetter.titleShort>
+  <RHAH_History_A040_CampTrapSetter.description>When the old camp fence failed to stop nightly attacks by animals and grain thieves, [PAWN_nameDef] set traps outside it. After the camp burned, [PAWN_pronoun] used the same trapcraft learned while hunting to protect [PAWN_objective] on the road.</RHAH_History_A040_CampTrapSetter.description>
+</LanguageData>

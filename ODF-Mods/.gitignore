@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+tmp/
+artifacts/
+Mods/*/1.6/Assemblies/
+**/__pycache__/
+*.py[cod]

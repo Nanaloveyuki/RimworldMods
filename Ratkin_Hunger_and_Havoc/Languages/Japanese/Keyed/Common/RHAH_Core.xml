@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ModName>Ratkin: Hunger and Havoc</RHAH_ModName>
+  <RHAH_Settings_EnableNewContent>新しいコンテンツを有効にする</RHAH_Settings_EnableNewContent>
+  <RHAH_Settings_EnableNewContent_Tooltip>オフにすると、新しい「飢えと災い」のイベントや訪問者が現れなくなります。すでにいる訪問者は、物乞い、取引、盗み、退去を通常どおり行います。</RHAH_Settings_EnableNewContent_Tooltip>
+  <RHAH_Settings_Reset>このModの設定を初期化</RHAH_Settings_Reset>
+  <RHAH_Settings_ResetConfirm>Ratkin: Hunger and Havocの設定をすべて初期値に戻しますか？変更したスイッチ、数値、リストの選択が初期化されます。セーブ内の物語の進行や訪問者は変わりません。</RHAH_Settings_ResetConfirm>
+  <RHAH_Menu_Visitors>訪問者</RHAH_Menu_Visitors>
+  <RHAH_Menu_Overview>概要</RHAH_Menu_Overview>
+  <RHAH_Menu_Other>その他</RHAH_Menu_Other>
+  <RHAH_Menu_Field_Mod>Mod</RHAH_Menu_Field_Mod>
+  <RHAH_Menu_Field_Version>バージョン</RHAH_Menu_Field_Version>
+  <RHAH_Menu_Field_Game>ゲーム</RHAH_Menu_Field_Game>
+  <RHAH_Menu_Field_IrisMenus>IrisMenus</RHAH_Menu_Field_IrisMenus>
+  <RHAH_Menu_On>オン</RHAH_Menu_On>
+  <RHAH_Menu_Off>オフ</RHAH_Menu_Off>
+  <RHAH_Menu_Yes>はい</RHAH_Menu_Yes>
+  <RHAH_Menu_No>いいえ</RHAH_Menu_No>
+  <RHAH_Menu_None>なし</RHAH_Menu_None>
+  <RHAH_Menu_NoGame>ゲーム未読み込み</RHAH_Menu_NoGame>
+  <RHAH_Menu_GameLoaded>ゲーム読み込み済み</RHAH_Menu_GameLoaded>
+  <RHAH_Menu_Unavailable>利用不可</RHAH_Menu_Unavailable>
+  <RHAH_Menu_Settings_Missing>設定の準備ができていません。このページを開き直してから、もう一度試してください。</RHAH_Menu_Settings_Missing>
+</LanguageData>

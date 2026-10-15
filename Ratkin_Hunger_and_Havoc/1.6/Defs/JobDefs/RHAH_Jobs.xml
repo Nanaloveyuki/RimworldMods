@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <JobDef>
+    <defName>RHAH_Beg</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_Beg</driverClass>
+    <reportString>乞讨食物</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>RHAH_Gnaw</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_Gnaw</driverClass>
+    <reportString>啃食树皮或墙皮</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_DropChild</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_DropChild</driverClass>
+    <reportString>放下孩子</reportString>
+    <dropThingBeforeJob>false</dropThingBeforeJob>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_MotherFeed</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_MotherFeed</driverClass>
+    <reportString>给孩子喂食</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_Scavenge</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_Scavenge</driverClass>
+    <reportString>在地上找能吃的东西</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_TailBite</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_TailBite</driverClass>
+    <reportString>咬尾巴</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_Expel</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_Expel</driverClass>
+    <reportString>驱逐目标</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_CarryYoung</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung</driverClass>
+    <reportString>抬走TargetA。</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <checkOverrideOnDamage>Never</checkOverrideOnDamage>
+  </JobDef>
+ <JobDef>
+ <defName>RHAH_BroadcastHope</defName>
+ <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_BroadcastHope</driverClass>
+ <reportString>广播希望</reportString>
+ </JobDef>
+</Defs>

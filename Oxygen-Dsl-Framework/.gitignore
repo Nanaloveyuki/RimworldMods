@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+tmp/
+1.6/Assemblies/
+Tools/vscode/node_modules/
+Tools/vscode/server/
+Tools/vscode/media/
+WebEditor/
+.tmp.md

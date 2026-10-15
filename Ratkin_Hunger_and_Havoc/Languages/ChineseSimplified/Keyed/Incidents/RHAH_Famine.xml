@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ArmedDemand_LetterTitle>索粮的鼠族</RHAH_ArmedDemand_LetterTitle>
+  <RHAH_ArmedDemand_LetterText>一队饥荒鼠族围到了我们据点附近，开口索要食物。\n\n“我们要吃的吱。给我们饭，我们就走。”\n\n他们要求 {0} 份简单餐，愿意等 {1} 天。拒绝会让他们立即进攻，未按期限交付也会引发进攻；无视或暂缓答复，期限仍会继续。即使进攻已经开始，仍可在信中交足食物，让他们停止进攻，带上食物离开。</RHAH_ArmedDemand_LetterText>
+  <RHAH_ArmedDemand_Attack>{0}的队伍没等到要求的食物，开始进攻。仍可交足简单餐，让他们停止进攻并离开。</RHAH_ArmedDemand_Attack>
+  <RHAH_ArmedDemand_Paid>要求的简单餐已经交给索粮来客。他们收下食物，准备离开。</RHAH_ArmedDemand_Paid>
+  <RHAH_ArmedDemand_Unavailable>无法交付 {0} 份简单餐：食物不足，或来客无法领取食物。</RHAH_ArmedDemand_Unavailable>
+</LanguageData>

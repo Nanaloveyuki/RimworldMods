@@ -1,0 +1,28 @@
+use helpers@nanaloveyuki.oxygendsl
+use math@std
+use logic@std
+use cs@std
+
+struct RuleConfig {
+    id: string
+    embed stats: helpers.Stats = helpers.Stats()
+    labels: list<string> = []
+    thresholds: array<float> = [0.25, 0.5]
+}
+
+let cfg = RuleConfig(id: "fed_comfort", labels: ["吃饱了"])
+let amount: int = helpers.clamp_bonus(cfg.bonus)
+let limit: float = math.clamp(cfg.thresholds[0], 0, 1)
+let native: cs.Int32 = cs.int32(amount)
+
+fn comfortable(pawn): bool {
+    if pawn.food == null { return false }
+    return logic.all([pawn.food > limit, !pawn.downed])
+}
+
+mood(cfg.id,
+    label: cfg.labels[0],
+    description: f"心情增加 {int(native)} 点。",
+    offset: amount,
+    target: "colonists",
+    when: comfortable)

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_LongClaim_KeepsakeOpening>{1}が小さな持ち物を取り出しました。子ラットキンは自分の物だと言い張りますが、どこから来た物なのかは説明できません。
+
+今尋ねることも、成人するまで待つこともできます。取り上げると返すまで心情が-6になります。目の前で捨てると、永続する心情-8が残ります。</RHAH_LongClaim_KeepsakeOpening>
+  <RHAH_LongClaim_KeepsakeCustody>その品は{1}の持ち物から取り出され、拠点に置かれています。返せば心情-6は消えます。成人しても返さなければ、その由来を話さなくなります。捨てると永続する心情-8が残ります。</RHAH_LongClaim_KeepsakeCustody>
+  <RHAH_LongClaim_KeepsakeOrigin>{1}はその品について説明できるようになりました。売られる前に暮らしていたラットキンの集落の印だそうです。ただ、集落の名前は話すたびに少しずつ違います。</RHAH_LongClaim_KeepsakeOrigin>
+  <RHAH_LongClaim_KeepsakeClaimant>成人ラットキンが拠点を訪れ、{1}の持ち物を見覚えがあると言っています。その集落の者だと名乗り、この子を連れ帰りたいそうです。
+
+一緒に行かせることも、ここに残すこともできます。来客は手ぶらで帰るつもりはなさそうです。</RHAH_LongClaim_KeepsakeClaimant>
+  <RHAH_LongClaim_ClaimOpening>{1}は疫病から回復し、昔のことを詳しく説明できるようになりました。この子はラットキンの王国で疎まれていた子供で、病気になって追い出されたと言います。地名や呼び名は合っていますが、細部は混乱しています。
+
+認めると本人だけが信じる称号と、15日間の心情+6を得ます。認めなければ15日間の心情-4になります。さらに問いただすこともできます。</RHAH_LongClaim_ClaimOpening>
+  <RHAH_LongClaim_ClaimDemand>{1}の話はますます混乱していますが、戻って王位を取り返したいと言い張ります。今も忠義を尽くしているという者たちに連絡してほしいそうです。
+
+同意すると、数日後に少人数のラットキンがこの子を迎えに来ます。断ると15日間の心情-4になります。</RHAH_LongClaim_ClaimDemand>
+  <RHAH_LongClaim_ClaimRetract>{1}が話を変えました。地名も呼び名も、道中で耳にした話だったそうです。
+
+この子は15日間の心情-2を受け、帰還を求めなくなります。</RHAH_LongClaim_ClaimRetract>
+  <RHAH_LongClaim_ClaimLegacy>数人のラットキンが拠点を訪れ、{1}の旧臣だと名乗っています。この子を連れ帰り、王位を取り戻すつもりだそうです。
+
+引き渡せば、一緒に去っていきます。ここに残すと恨まれ、後に穀物とナイフを携えて戻ってきます。</RHAH_LongClaim_ClaimLegacy>
+  <RHAH_LongClaim_AskNow>今尋ねる</RHAH_LongClaim_AskNow>
+  <RHAH_LongClaim_WaitAdult>成人するまで待つ</RHAH_LongClaim_WaitAdult>
+  <RHAH_LongClaim_TakeKeepsake>持ち物を取り上げる</RHAH_LongClaim_TakeKeepsake>
+  <RHAH_LongClaim_DiscardKeepsake>持ち物を捨てる</RHAH_LongClaim_DiscardKeepsake>
+  <RHAH_LongClaim_ReturnKeepsake>持ち物を返す</RHAH_LongClaim_ReturnKeepsake>
+  <RHAH_LongClaim_ItemUnavailable>その品はこのマップにないか、既に失われています。</RHAH_LongClaim_ItemUnavailable>
+  <RHAH_LongClaim_HearOrigin>話を最後まで聞く</RHAH_LongClaim_HearOrigin>
+  <RHAH_LongClaim_LetLeave>一緒に行かせる</RHAH_LongClaim_LetLeave>
+  <RHAH_LongClaim_KeepChild>ここに残す</RHAH_LongClaim_KeepChild>
+  <RHAH_LongClaim_AcceptClaim>身分を認める</RHAH_LongClaim_AcceptClaim>
+  <RHAH_LongClaim_DenyClaim>認めない</RHAH_LongClaim_DenyClaim>
+  <RHAH_LongClaim_ProbeClaim>さらに問いただす</RHAH_LongClaim_ProbeClaim>
+  <RHAH_LongClaim_ApproveReturn>帰還を手助けする</RHAH_LongClaim_ApproveReturn>
+  <RHAH_LongClaim_RefuseReturn>帰還を認めない</RHAH_LongClaim_RefuseReturn>
+  <RHAH_LongClaim_AcceptRetraction>撤回を聞き入れる</RHAH_LongClaim_AcceptRetraction>
+  <RHAH_LongClaim_PrivateTitle>自称王位継承者</RHAH_LongClaim_PrivateTitle>
+  <RHAH_LongClaim_EarlyAnswer>{0}は自分の物だと繰り返すばかりで、以前の持ち主は言えません。その品は持ち物に残っています。成人してからまた尋ねることができます。</RHAH_LongClaim_EarlyAnswer>
+  <RHAH_LongClaim_KeepsakeWithheld>{0}は成人し、取り上げられた品を今も覚えていますが、由来はもう話しません。返せば心情-6を消すことはできます。</RHAH_LongClaim_KeepsakeWithheld>
+  <RHAH_LongClaim_KeepsakeDestroyed>{0}は自分の持ち物が失われたのを見ました。取り上げられたことによる心情-6は消え、永続する心情-8に変わりました。</RHAH_LongClaim_KeepsakeDestroyed>
+  <RHAH_LongClaim_NobodyCame>{0}を迎えに来るラットキンはいませんでした。その品は持ち物に残り、集落の話もしなくなりました。</RHAH_LongClaim_NobodyCame>
+  <RHAH_LongClaim_KeptAfterClaim>{0}をここに残すことにしました。迎えに来たラットキンは怒り、悪口を言ってから帰るつもりです。今後、別のラットキンからも売れ残りと呼ばれるかもしれません。</RHAH_LongClaim_KeptAfterClaim>
+  <RHAH_LongClaim_Recognized>{0}は本人だけが信じる称号を得ました。別のラットキンにも身分を話すようになります。15日間、心情+6。</RHAH_LongClaim_Recognized>
+  <RHAH_LongClaim_LegacyRefused>{0}をここに残しました。小さな一隊は去っていきましたが、拒まれたことは覚えています。</RHAH_LongClaim_LegacyRefused>
+  <RHAH_LongClaim_RevengeArrived>ラットキンが穀物とナイフを携えて戻ってきました。{0}を引き渡さなかったことへの報復に、拠点を攻撃しています。</RHAH_LongClaim_RevengeArrived>
+  <RHAH_LongClaim_GroupScattered>{0}を迎えに来た一隊は散り散りになりました。この子はここに残り、王位はまだ自分のものだと思っています。15日間、心情+8。これ以上迎えは来ません。</RHAH_LongClaim_GroupScattered>
+  <RHAH_LongClaim_KilledScared>あなたの仲間が{0}を迎えに来たラットキンを殺しました。この子は怯え、その話をしなくなりました。15日間、心情-6。</RHAH_LongClaim_KilledScared>
+  <RHAH_LongClaim_KilledRelieved>あなたの仲間が{0}を迎えに来たラットキンを殺しました。捕まえに来た相手だったのだと考え、むしろ安心しています。15日間、心情+4。</RHAH_LongClaim_KilledRelieved>
+  <RHAH_LongClaim_KilledViolent>あなたの仲間が{0}を迎えに来たラットキンを殺しました。この子は死体を見て、王位を取り戻すにもこの方法が使えると思っています。15日間、心情+4。</RHAH_LongClaim_KilledViolent>
+  <RHAH_LongClaim_SellingMention>{1}は{0}の目の前で売れ残りと呼びました。</RHAH_LongClaim_SellingMention>
+  <RHAH_LongClaim_TitleMention>{0}が{1}に自分の称号を話しました。相手は信じていません。</RHAH_LongClaim_TitleMention>
+</LanguageData>

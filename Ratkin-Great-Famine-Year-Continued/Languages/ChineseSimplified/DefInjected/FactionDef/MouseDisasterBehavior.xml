@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_NeutralVisitors.label>中立灾荒幸存者</MouseDisaster_NeutralVisitors.label>
+  <MouseDisaster_NeutralVisitors.fixedName>中立灾荒幸存者</MouseDisaster_NeutralVisitors.fixedName>
+  <MouseDisaster_HostileVisitors.label>敌对灾荒幸存者</MouseDisaster_HostileVisitors.label>
+  <MouseDisaster_HostileVisitors.fixedName>敌对灾荒幸存者</MouseDisaster_HostileVisitors.fixedName>
+  <MouseDisaster_FriendlyVisitors.label>友善灾荒幸存者</MouseDisaster_FriendlyVisitors.label>
+  <MouseDisaster_FriendlyVisitors.fixedName>友善灾荒幸存者</MouseDisaster_FriendlyVisitors.fixedName>
+</LanguageData>

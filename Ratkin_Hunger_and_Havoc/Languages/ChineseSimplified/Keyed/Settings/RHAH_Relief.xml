@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Menu_Relief>赈灾区</RHAH_Menu_Relief>
+  <RHAH_Menu_Relief_Note>来客优先在赈灾区内寻找能取用的食物。下方选项决定他们能否在区外取食，以及吃饱后是否继续留在地图上。</RHAH_Menu_Relief_Note>
+  <RHAH_Settings_ReliefEnabled>启用赈灾区</RHAH_Settings_ReliefEnabled>
+  <RHAH_Settings_ReliefEnabled_Tooltip>关闭后，来客不再受划出的格子限制。已经画好的区域留在地图上。</RHAH_Settings_ReliefEnabled_Tooltip>
+  <RHAH_Settings_EatOutsideRelief>允许取用赈灾区外的食物</RHAH_Settings_EatOutsideRelief>
+  <RHAH_Settings_EatOutsideRelief_Tooltip>关闭后，来客只能吃区内能拿到的食物。区内没有时，他们会乞讨、等待或离开。</RHAH_Settings_EatOutsideRelief_Tooltip>
+  <RHAH_Settings_IgnoreReliefAfterFed>吃完后不再受赈灾区限制</RHAH_Settings_IgnoreReliefAfterFed>
+  <RHAH_Settings_IgnoreReliefAfterFed_Tooltip>开启后，吃饱的来客下一顿可以吃区外的食物。</RHAH_Settings_IgnoreReliefAfterFed_Tooltip>
+  <RHAH_Settings_LeaveAfterFed>吃完后离开地图</RHAH_Settings_LeaveAfterFed>
+  <RHAH_Settings_LeaveAfterFed_Tooltip>开启后，能走到出口的来客吃饱后离开。太小或走不动的幼年鼠族由大人带出。关闭后，吃饱的来客留在地图上。</RHAH_Settings_LeaveAfterFed_Tooltip>
+  <RHAH_Settings_ReliefScore>赈灾区食物加分：{0}%</RHAH_Settings_ReliefScore>
+  <RHAH_Settings_ReliefScore_Tooltip>来客选择食物时，会综合距离和食物是否合适评分。赈灾区内的食物在总分上额外加成，范围 0 到 100%，默认 10%。</RHAH_Settings_ReliefScore_Tooltip>
+  <RHAH_Settings_FedWander>吃饱后闲逛再离开</RHAH_Settings_FedWander>
+  <RHAH_Settings_FedWander_Tooltip>开启后，吃饱的来客会闲逛一段时间再离开；关闭后，他们会直接走向出口。此项仅在“吃完后离开地图”开启时生效。</RHAH_Settings_FedWander_Tooltip>
+  <RHAH_Settings_FedWanderHours>吃饱后闲逛：{0} 小时</RHAH_Settings_FedWanderHours>
+  <RHAH_Settings_FedWanderHours_Tooltip>来客吃饱后闲逛的时间，范围 1 到 48 小时，默认 12 小时。此项仅在“吃饱后闲逛再离开”开启时生效。</RHAH_Settings_FedWanderHours_Tooltip>
+  <RHAH_Settings_WaitFood>找不到食物时等待</RHAH_Settings_WaitFood>
+  <RHAH_Settings_WaitFood_Tooltip>开启后，找不到食物的来客会在设定期限内继续寻找。找到食物后，如果再次断粮，他们可以重新等待。关闭后，找不到食物的来客会直接离开。</RHAH_Settings_WaitFood_Tooltip>
+  <RHAH_Settings_FoodWait>断粮等待：{0} 天</RHAH_Settings_FoodWait>
+  <RHAH_Settings_FoodWait_Tooltip>来客找不到食物时的最长等待时间，范围 0 到 5 天，默认半天。</RHAH_Settings_FoodWait_Tooltip>
+  <RHAH_Settings_ReliefFoods>启用的食物</RHAH_Settings_ReliefFoods>
+  <RHAH_Settings_ReliefFoods_Tooltip>来客可以取用列表中已启用的食物。</RHAH_Settings_ReliefFoods_Tooltip>
+  <RHAH_Settings_ReliefFoods_All>全部启用</RHAH_Settings_ReliefFoods_All>
+  <RHAH_Settings_ReliefFoods_None>全部禁用</RHAH_Settings_ReliefFoods_None>
+  <RHAH_Settings_ReliefFoods_Search>搜索食物或模组</RHAH_Settings_ReliefFoods_Search>
+  <RHAH_Settings_ReliefFoods_Empty>没有符合的食物。</RHAH_Settings_ReliefFoods_Empty>
+  <RHAH_ReliefArea_Label>赈灾区</RHAH_ReliefArea_Label>
+  <RHAH_ReliefArea_Expand>扩展赈灾区</RHAH_ReliefArea_Expand>
+  <RHAH_ReliefArea_Expand_Desc>划定来客可以取食的格子。赈灾区为空时，受区域限制的来客需要在区外取食获准后才能寻找食物。</RHAH_ReliefArea_Expand_Desc>
+  <RHAH_ReliefArea_Clear>清除赈灾区</RHAH_ReliefArea_Clear>
+  <RHAH_ReliefArea_Clear_Desc>清除已划定的赈灾区格子。清空后，受区域限制且未获准在区外取食的来客将无处取食。</RHAH_ReliefArea_Clear_Desc>
+  <RHAH_Settings_ReliefFoods_Quote>来客只取用已启用的食物。新增食物默认允许取用。</RHAH_Settings_ReliefFoods_Quote>
+  <RHAH_Settings_GiveFoods>可交给来客的食物</RHAH_Settings_GiveFoods>
+  <RHAH_Settings_GiveFoods_Tooltip>右键投喂菜单只列出已允许的食物。</RHAH_Settings_GiveFoods_Tooltip>
+  <RHAH_Settings_GiveFoods_All>全部允许</RHAH_Settings_GiveFoods_All>
+  <RHAH_Settings_GiveFoods_None>全部禁止</RHAH_Settings_GiveFoods_None>
+  <RHAH_Settings_GiveFoods_Search>搜索食物或模组</RHAH_Settings_GiveFoods_Search>
+  <RHAH_Settings_GiveFoods_Empty>没有符合的食物。</RHAH_Settings_GiveFoods_Empty>
+  <RHAH_Settings_GiveFoods_Quote>右键投喂时可以交出已允许的食物。新增食物默认允许投喂。</RHAH_Settings_GiveFoods_Quote>
+  <RHAH_Settings_GiveFoods_Sort>给予食物分类</RHAH_Settings_GiveFoods_Sort>
+  <RHAH_Settings_GiveFoods_Sort_0>按模组</RHAH_Settings_GiveFoods_Sort_0>
+  <RHAH_Settings_GiveFoods_Sort_1>按名称</RHAH_Settings_GiveFoods_Sort_1>
+  <RHAH_Settings_GiveFoods_Sort_2>按原版分类</RHAH_Settings_GiveFoods_Sort_2>
+  <RHAH_Settings_GiveFoods_Other>其他</RHAH_Settings_GiveFoods_Other>
+  <RHAH_Settings_FoodFull>吃饱：{0}%</RHAH_Settings_FoodFull>
+  <RHAH_Settings_FoodFull_Tooltip>来客的食物需求条达到此百分比时，视为吃饱。范围 1 到 100%，默认 82%。</RHAH_Settings_FoodFull_Tooltip>
+  <RHAH_Settings_FoodRefeed>再吃的营养不良：{0}</RHAH_Settings_FoodRefeed>
+  <RHAH_Settings_FoodRefeed_Tooltip>营养不良达到此严重度时，已经吃饱的来客仍会继续寻找食物。范围 0 到 1，默认 0.40。</RHAH_Settings_FoodRefeed_Tooltip>
+</LanguageData>

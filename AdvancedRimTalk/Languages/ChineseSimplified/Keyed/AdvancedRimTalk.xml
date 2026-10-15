@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AdvancedRimTalk.Settings.Incompatible>RimTalk 集成已停用：{0}</AdvancedRimTalk.Settings.Incompatible>
+  <AdvancedRimTalk.Init.Enable>启用提示词声明的记忆来源</AdvancedRimTalk.Init.Enable>
+  <AdvancedRimTalk.ArtiLog.Title>Arti 日志</AdvancedRimTalk.ArtiLog.Title>
+  <AdvancedRimTalk.ArtiLog.Clear>清空</AdvancedRimTalk.ArtiLog.Clear>
+  <AdvancedRimTalk.Settings.Unavailable>Advanced RimTalk 设置不可用。</AdvancedRimTalk.Settings.Unavailable>
+  <AdvancedRimTalk.Init.None>没有提示词初始化声明</AdvancedRimTalk.Init.None>
+  <AdvancedRimTalk.Init.ImportedTitle>导入的记忆来源</AdvancedRimTalk.Init.ImportedTitle>
+  <AdvancedRimTalk.PromptParts.Export>导出</AdvancedRimTalk.PromptParts.Export>
+  <AdvancedRimTalk.PromptParts.Exported>提示词已导出。</AdvancedRimTalk.PromptParts.Exported>
+  <AdvancedRimTalk.PromptParts.ExportFailed>提示词导出失败。</AdvancedRimTalk.PromptParts.ExportFailed>
+  <AdvancedRimTalk.Settings.PromptIntegrationMode>Prompt 接入模式</AdvancedRimTalk.Settings.PromptIntegrationMode>
+  <AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPrompt>将 Arti 嵌入现有 RimTalk Prompt</AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPrompt>
+  <AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPromptTooltip>保留 RimTalk 的预设、消息角色、聊天历史和 assembler，在现有 Prompt 条目渲染时执行 {{% ... %}} Arti 代码块。</AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPromptTooltip>
+  <AdvancedRimTalk.Settings.TakeoverRimTalkPrompt>由 Advanced RimTalk 完全接管 Prompt</AdvancedRimTalk.Settings.TakeoverRimTalkPrompt>
+  <AdvancedRimTalk.Settings.TakeoverRimTalkPromptTooltip>使用接管模式 Arti 文档构建 system 和 user 消息。RimTalk 仍负责触发、模型客户端和回复处理。</AdvancedRimTalk.Settings.TakeoverRimTalkPromptTooltip>
+  <AdvancedRimTalk.Settings.EnablePlaceholderLayer>启用动态 Prompt 占位符</AdvancedRimTalk.Settings.EnablePlaceholderLayer>
+  <AdvancedRimTalk.Settings.EnablePlaceholderLayerTooltip>在嵌入模式下，于生成 Prompt 时展开 Advanced RimTalk 占位符。</AdvancedRimTalk.Settings.EnablePlaceholderLayerTooltip>
+  <AdvancedRimTalk.Settings.ArtiEditorUndoLimit>编辑器撤销步数</AdvancedRimTalk.Settings.ArtiEditorUndoLimit>
+  <AdvancedRimTalk.Settings.ArtiEditorCompletionLimit>最大补全联想数量</AdvancedRimTalk.Settings.ArtiEditorCompletionLimit>
+  <AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanism>接管 RimTalk Prompt 构建</AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanism>
+  <AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanismTooltip>改由 Advanced RimTalk 的 Prompt Parts 构建请求消息，跳过 RimTalk 预设组装，但保留 Scriban 渲染。RimTalk 仍负责触发和模型客户端。</AdvancedRimTalk.Settings.ReplaceRimTalkPromptMechanismTooltip>
+  <AdvancedRimTalk.ArtiRepl.Title>Arti REPL</AdvancedRimTalk.ArtiRepl.Title>
+  <AdvancedRimTalk.ArtiRepl.Run>运行</AdvancedRimTalk.ArtiRepl.Run>
+  <AdvancedRimTalk.ArtiRepl.Clear>重置</AdvancedRimTalk.ArtiRepl.Clear>
+  <AdvancedRimTalk.ArtiEditor.Title>Arti 编辑器</AdvancedRimTalk.ArtiEditor.Title>
+  <AdvancedRimTalk.ArtiEditor.Reset>重置</AdvancedRimTalk.ArtiEditor.Reset>
+  <AdvancedRimTalk.ArtiEditor.NoDiagnostics>无错误</AdvancedRimTalk.ArtiEditor.NoDiagnostics>
+  <AdvancedRimTalk.ArtiEditor.DiagnosticSummary>错误 {0}，警告 {1}</AdvancedRimTalk.ArtiEditor.DiagnosticSummary>
+  <AdvancedRimTalk.ArtiEditor.Open>打开提示词…</AdvancedRimTalk.ArtiEditor.Open>
+  <AdvancedRimTalk.ArtiEditor.Detach>脱离为窗口</AdvancedRimTalk.ArtiEditor.Detach>
+  <AdvancedRimTalk.ArtiEditor.Move>移动标签…</AdvancedRimTalk.ArtiEditor.Move>
+  <AdvancedRimTalk.ArtiEditor.Dock>归并到编辑器页</AdvancedRimTalk.ArtiEditor.Dock>
+  <AdvancedRimTalk.ArtiEditor.Windows>切换窗口…</AdvancedRimTalk.ArtiEditor.Windows>
+  <AdvancedRimTalk.ArtiEditor.Documentation>文档</AdvancedRimTalk.ArtiEditor.Documentation>
+  <AdvancedRimTalk.ArtiEditor.DocumentationHint>按住 Control 并左键点击关键词，查看内置或非玩家注册关键词的文档。</AdvancedRimTalk.ArtiEditor.DocumentationHint>
+  <AdvancedRimTalk.ArtiEditor.OpenDocumentation>Control + 左键：查看 {0} 文档</AdvancedRimTalk.ArtiEditor.OpenDocumentation>
+  <AdvancedRimTalk.ArtiEditor.CloseTab>关闭标签（Ctrl+W）；修改已写入提示词。</AdvancedRimTalk.ArtiEditor.CloseTab>
+  <AdvancedRimTalk.ArtiEditor.Empty>通过“打开提示词”选择不同预设的片段；标签可脱离为窗口并排参照，也可移动回编辑器页。Ctrl+Tab / Ctrl+Shift+Tab 切换标签，Ctrl+W 关闭标签。修改即时写入对应片段，不会激活预设或执行提示词。</AdvancedRimTalk.ArtiEditor.Empty>
+  <AdvancedRimTalk.PromptParts.Title>接管 Prompt 片段</AdvancedRimTalk.PromptParts.Title>
+  <AdvancedRimTalk.PromptParts.Parts>Prompt 片段</AdvancedRimTalk.PromptParts.Parts>
+  <AdvancedRimTalk.PromptParts.NewPart>新 Prompt 片段</AdvancedRimTalk.PromptParts.NewPart>
+  <AdvancedRimTalk.PromptParts.AddTooltip>新增一个 Advanced RimTalk 接管 Prompt 片段。</AdvancedRimTalk.PromptParts.AddTooltip>
+  <AdvancedRimTalk.PromptParts.ImportLocal>导入本地</AdvancedRimTalk.PromptParts.ImportLocal>
+  <AdvancedRimTalk.PromptParts.ImportShared>导入分享</AdvancedRimTalk.PromptParts.ImportShared>
+  <AdvancedRimTalk.PromptParts.OpenSharedFolder>打开分享目录</AdvancedRimTalk.PromptParts.OpenSharedFolder>
+  <AdvancedRimTalk.PromptParts.ResetDefaults>重置为默认</AdvancedRimTalk.PromptParts.ResetDefaults>
+  <AdvancedRimTalk.PromptParts.ResetDefaultsConfirm>将 Advanced RimTalk 接管 Prompt 片段重置为默认值？</AdvancedRimTalk.PromptParts.ResetDefaultsConfirm>
+  <AdvancedRimTalk.PromptParts.SelectPart>选择一个 Prompt 片段进行编辑。</AdvancedRimTalk.PromptParts.SelectPart>
+  <AdvancedRimTalk.PromptParts.Name>片段名称:</AdvancedRimTalk.PromptParts.Name>
+  <AdvancedRimTalk.PromptParts.Enabled>启用</AdvancedRimTalk.PromptParts.Enabled>
+  <AdvancedRimTalk.PromptParts.Role>角色:</AdvancedRimTalk.PromptParts.Role>
+  <AdvancedRimTalk.PromptParts.CustomRole>自定义角色:</AdvancedRimTalk.PromptParts.CustomRole>
+  <AdvancedRimTalk.PromptParts.NoLocalPrompts>没有找到 RimTalk 本地 Prompt 预设。</AdvancedRimTalk.PromptParts.NoLocalPrompts>
+  <AdvancedRimTalk.PromptParts.NoSharedPrompts>没有找到 RimTalk 分享 Prompt 文件；可先打开分享目录放入 .json 预设。</AdvancedRimTalk.PromptParts.NoSharedPrompts>
+  <AdvancedRimTalk.PromptParts.ImportFailed>导入 Prompt 失败。</AdvancedRimTalk.PromptParts.ImportFailed>
+  <AdvancedRimTalk.PromptParts.Imported>已从 {1} 导入 {0} 个 Prompt 片段。</AdvancedRimTalk.PromptParts.Imported>
+  <AdvancedRimTalk.Documentation.Title>Arti 文档</AdvancedRimTalk.Documentation.Title>
+  <AdvancedRimTalk.Documentation.Overview>概览</AdvancedRimTalk.Documentation.Overview>
+  <AdvancedRimTalk.Documentation.Index>文档索引</AdvancedRimTalk.Documentation.Index>
+  <AdvancedRimTalk.Documentation.Guide>使用指南</AdvancedRimTalk.Documentation.Guide>
+  <AdvancedRimTalk.Documentation.Language>语法</AdvancedRimTalk.Documentation.Language>
+  <AdvancedRimTalk.Documentation.Global>全局函数</AdvancedRimTalk.Documentation.Global>
+  <AdvancedRimTalk.Documentation.Core>core 函数</AdvancedRimTalk.Documentation.Core>
+  <AdvancedRimTalk.Documentation.CoreString>core.string 函数</AdvancedRimTalk.Documentation.CoreString>
+  <AdvancedRimTalk.Documentation.Data>游戏数据</AdvancedRimTalk.Documentation.Data>
+  <AdvancedRimTalk.Documentation.Memory>memory 模块</AdvancedRimTalk.Documentation.Memory>
+  <AdvancedRimTalk.Documentation.Examples>示例</AdvancedRimTalk.Documentation.Examples>
+  <AdvancedRimTalk.Documentation.Regex>正则表达式</AdvancedRimTalk.Documentation.Regex>
+  <AdvancedRimTalk.Documentation.Compatibility>兼容</AdvancedRimTalk.Documentation.Compatibility>
+  <AdvancedRimTalk.Documentation.SelectDocument>选择一个文档。</AdvancedRimTalk.Documentation.SelectDocument>
+  <AdvancedRimTalk.Documentation.Unavailable>Arti 文档库不可用。</AdvancedRimTalk.Documentation.Unavailable>
+  <AdvancedRimTalk.Documentation.Source>源文本</AdvancedRimTalk.Documentation.Source>
+  <AdvancedRimTalk.Documentation.Copy>复制全文</AdvancedRimTalk.Documentation.Copy>
+  <AdvancedRimTalk.Settings.PawnLimit>接管模式角色上下文数量上限</AdvancedRimTalk.Settings.PawnLimit>
+  <AdvancedRimTalk.Settings.HistoryLimit>接管模式历史消息数量上限</AdvancedRimTalk.Settings.HistoryLimit>
+  <AdvancedRimTalk.Settings.CharacterBudget>接管模式提示词字符预算</AdvancedRimTalk.Settings.CharacterBudget>
+  <AdvancedRimTalk.Preview.Title>提示词预览</AdvancedRimTalk.Preview.Title>
+  <AdvancedRimTalk.Presets.Title>预设</AdvancedRimTalk.Presets.Title>
+  <AdvancedRimTalk.Presets.New>新预设</AdvancedRimTalk.Presets.New>
+  <AdvancedRimTalk.Presets.Activate>激活</AdvancedRimTalk.Presets.Activate>
+  <AdvancedRimTalk.Presets.Copy>复制</AdvancedRimTalk.Presets.Copy>
+  <AdvancedRimTalk.Presets.Delete>删除预设</AdvancedRimTalk.Presets.Delete>
+  <AdvancedRimTalk.Presets.DeleteConfirm>删除预设“{0}”？</AdvancedRimTalk.Presets.DeleteConfirm>
+  <AdvancedRimTalk.Preview.Active>正在使用：{0} / {1}</AdvancedRimTalk.Preview.Active>
+  <AdvancedRimTalk.Preview.Preset>预览预设</AdvancedRimTalk.Preview.Preset>
+  <AdvancedRimTalk.Preview.Takeover>接管模式</AdvancedRimTalk.Preview.Takeover>
+  <AdvancedRimTalk.Preview.Embed>RimTalk</AdvancedRimTalk.Preview.Embed>
+  <AdvancedRimTalk.Preview.ResultSource>{0}：{1}</AdvancedRimTalk.Preview.ResultSource>
+  <AdvancedRimTalk.Documentation.Back>返回</AdvancedRimTalk.Documentation.Back>
+  <AdvancedRimTalk.Documentation.LinkUnavailable>无法打开文档链接：{0}</AdvancedRimTalk.Documentation.LinkUnavailable>
+  <AdvancedRimTalk.Preview.Text>纯文本</AdvancedRimTalk.Preview.Text>
+  <AdvancedRimTalk.Preview.Json>原始消息 JSON</AdvancedRimTalk.Preview.Json>
+  <AdvancedRimTalk.Preview.NoCapture>当前存档尚无此模式生成的提示词。</AdvancedRimTalk.Preview.NoCapture>
+  <AdvancedRimTalk.Preview.Experimental>实验性上下文执行</AdvancedRimTalk.Preview.Experimental>
+  <AdvancedRimTalk.Preview.Generate>生成上下文预览</AdvancedRimTalk.Preview.Generate>
+  <AdvancedRimTalk.Preview.ContextResult>上下文预览</AdvancedRimTalk.Preview.ContextResult>
+  <AdvancedRimTalk.Preview.CapturedResult>最近生成的消息</AdvancedRimTalk.Preview.CapturedResult>
+  <AdvancedRimTalk.Preview.Request>预览请求</AdvancedRimTalk.Preview.Request>
+  <AdvancedRimTalk.Response.IgnoreLogic>忽略逻辑</AdvancedRimTalk.Response.IgnoreLogic>
+  <AdvancedRimTalk.Response.Enable>启用响应处理</AdvancedRimTalk.Response.Enable>
+  <AdvancedRimTalk.Response.Json>尝试 JSON 格式化</AdvancedRimTalk.Response.Json>
+  <AdvancedRimTalk.Response.RegexIgnore>按正则策略忽略</AdvancedRimTalk.Response.RegexIgnore>
+  <AdvancedRimTalk.Response.Whitelist>启用白名单</AdvancedRimTalk.Response.Whitelist>
+  <AdvancedRimTalk.Response.WhitelistPatterns>白名单正则（每行一个）</AdvancedRimTalk.Response.WhitelistPatterns>
+  <AdvancedRimTalk.Response.Blacklist>启用黑名单</AdvancedRimTalk.Response.Blacklist>
+  <AdvancedRimTalk.Response.BlacklistPatterns>黑名单正则（每行一个）</AdvancedRimTalk.Response.BlacklistPatterns>
+  <AdvancedRimTalk.Response.IntervalIgnore>按时间间隔忽略</AdvancedRimTalk.Response.IntervalIgnore>
+  <AdvancedRimTalk.Response.IntervalSeconds>间隔秒数</AdvancedRimTalk.Response.IntervalSeconds>
+  <AdvancedRimTalk.Response.ModelIgnore>按模型忽略</AdvancedRimTalk.Response.ModelIgnore>
+  <AdvancedRimTalk.Response.ModelIds>模型 ID（每行一个）</AdvancedRimTalk.Response.ModelIds>
+  <AdvancedRimTalk.Once.Title>一次性执行记录</AdvancedRimTalk.Once.Title>
+  <AdvancedRimTalk.Once.Open>一次性执行记录</AdvancedRimTalk.Once.Open>
+  <AdvancedRimTalk.Once.Help>core.once 成功执行后会写入这条记录。删除记录后，相同 id 会在下次提示词生成或 REPL 中再次执行。预览不会写入记录，也不会执行一次性函数。</AdvancedRimTalk.Once.Help>
+  <AdvancedRimTalk.Once.Empty>没有一次性执行记录。</AdvancedRimTalk.Once.Empty>
+  <AdvancedRimTalk.Once.Delete>删除</AdvancedRimTalk.Once.Delete>
+  <AdvancedRimTalk.Once.DeleteConfirm>删除一次性记录“{0}”？下次将重新执行。</AdvancedRimTalk.Once.DeleteConfirm>
+  <AdvancedRimTalk.Once.Clear>全部清空</AdvancedRimTalk.Once.Clear>
+  <AdvancedRimTalk.Once.ClearConfirm>清空全部一次性执行记录？已记录的 id 都会再次执行。</AdvancedRimTalk.Once.ClearConfirm>
+  <AdvancedRimTalk.Once.CurrentWorldOnly>只看当前世界</AdvancedRimTalk.Once.CurrentWorldOnly>
+  <AdvancedRimTalk.Once.Global>全局</AdvancedRimTalk.Once.Global>
+  <AdvancedRimTalk.Once.OwnerRepl>Arti REPL</AdvancedRimTalk.Once.OwnerRepl>
+  <AdvancedRimTalk.Once.OwnerPrompt>提示词</AdvancedRimTalk.Once.OwnerPrompt>
+  <AdvancedRimTalk.Once.Entry>{0}  ·  {1}
+世界：{2}    动作：{3}
+说明：{4}    来源：{5}</AdvancedRimTalk.Once.Entry>
+</LanguageData>

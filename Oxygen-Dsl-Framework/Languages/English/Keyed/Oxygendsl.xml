@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Oxygendsl_SettingsIntro>Edit mood rules in the current game. Applied changes take effect without restarting; unapplied text stays in the draft.</Oxygendsl_SettingsIntro>
+  <Oxygendsl_NoGame>Load a save to open the script window.</Oxygendsl_NoGame>
+  <Oxygendsl_OpenWindow>Open script window</Oxygendsl_OpenWindow>
+  <Oxygendsl_GameChanged>The current save has changed. Close this window and open it in the new save.</Oxygendsl_GameChanged>
+  <Oxygendsl_Enabled>Rules enabled</Oxygendsl_Enabled>
+  <Oxygendsl_Disabled>Rules disabled</Oxygendsl_Disabled>
+  <Oxygendsl_Revision>Active revision</Oxygendsl_Revision>
+  <Oxygendsl_Unapplied>Unapplied changes</Oxygendsl_Unapplied>
+  <Oxygendsl_Apply>Apply script</Oxygendsl_Apply>
+  <Oxygendsl_Applied>Script applied.</Oxygendsl_Applied>
+  <Oxygendsl_KeepActive>Changes were not applied. The last valid script remains active. Fix the error below.</Oxygendsl_KeepActive>
+  <Oxygendsl_Evaluate>Evaluate now</Oxygendsl_Evaluate>
+  <Oxygendsl_Evaluated>Current rules evaluated.</Oxygendsl_Evaluated>
+  <Oxygendsl_EvaluationFailed>The operation did not finish. Check the error below.</Oxygendsl_EvaluationFailed>
+  <Oxygendsl_Disable>Disable and clear effects</Oxygendsl_Disable>
+  <Oxygendsl_Enable>Enable rules</Oxygendsl_Enable>
+  <Oxygendsl_Cleaned>Rules disabled and this script's effects cleared.</Oxygendsl_Cleaned>
+  <Oxygendsl_CaptureSelection>Capture selection again</Oxygendsl_CaptureSelection>
+  <Oxygendsl_SelectionCaptured>Selected pawns captured again.</Oxygendsl_SelectionCaptured>
+  <Oxygendsl_Interval>Interval ticks</Oxygendsl_Interval>
+  <Oxygendsl_SetInterval>Set interval</Oxygendsl_SetInterval>
+  <Oxygendsl_IntervalSet>Evaluation interval updated.</Oxygendsl_IntervalSet>
+  <Oxygendsl_PositiveInterval>The interval must be a positive integer.</Oxygendsl_PositiveInterval>
+  <Oxygendsl_RestoreActive>Restore active text</Oxygendsl_RestoreActive>
+  <Oxygendsl_DraftRestored>Draft restored to the active script.</Oxygendsl_DraftRestored>
+  <Oxygendsl_TimingHint>Evaluate while paused; time and cooldowns do not advance.</Oxygendsl_TimingHint>
+  <Oxygendsl_Source>Script source</Oxygendsl_Source>
+  <Oxygendsl_Inspection>Runtime inspection</Oxygendsl_Inspection>
+  <Oxygendsl_Error>Error</Oxygendsl_Error>
+  <Oxygendsl_FilePath>File path</Oxygendsl_FilePath>
+  <Oxygendsl_FileHint>Enter the full path to a UTF-8 script file. A valid script is applied after reading; errors leave the last valid rules active.</Oxygendsl_FileHint>
+  <Oxygendsl_ReadFile>Read from file</Oxygendsl_ReadFile>
+  <Oxygendsl_FileRequired>Enter a script file path first.</Oxygendsl_FileRequired>
+  <Oxygendsl_FileApplied>File read and applied</Oxygendsl_FileApplied>
+  <Oxygendsl_FileFailed>Could not read file</Oxygendsl_FileFailed>
+  <Oxygendsl_ActiveEffects>Active effects</Oxygendsl_ActiveEffects>
+  <Oxygendsl_LastTick>Last evaluation tick</Oxygendsl_LastTick>
+  <Oxygendsl_EvaluationMs>Evaluation time</Oxygendsl_EvaluationMs>
+  <Oxygendsl_Allocated>Allocated this evaluation</Oxygendsl_Allocated>
+  <Oxygendsl_Unavailable>Unavailable</Oxygendsl_Unavailable>
+  <Oxygendsl_EvaluationCount>Evaluation count</Oxygendsl_EvaluationCount>
+  <Oxygendsl_Matched>Matched</Oxygendsl_Matched>
+  <Oxygendsl_Skipped>Skipped</Oxygendsl_Skipped>
+  <Oxygendsl_Active>Active</Oxygendsl_Active>
+  <Oxygendsl_ReloadMods>Reload Mod rules</Oxygendsl_ReloadMods>
+  <Oxygendsl_ModRulesReloaded>Mod rules reloaded. Native content changes require restarting.</Oxygendsl_ModRulesReloaded>
+  <Oxygendsl_ModRulesFailed>Some Mod rules were not changed. Check content inspection.</Oxygendsl_ModRulesFailed>
+  <Oxygendsl_PreviewPawn>Preview selected pawn</Oxygendsl_PreviewPawn>
+  <Oxygendsl_ChooseProvider>Choose content provider</Oxygendsl_ChooseProvider>
+  <Oxygendsl_DisableProvider>Disable provider rules</Oxygendsl_DisableProvider>
+  <Oxygendsl_EnableProvider>Enable provider rules</Oxygendsl_EnableProvider>
+  <Oxygendsl_ProviderUpdated>Provider rules updated. Native definitions and granted traits were not removed.</Oxygendsl_ProviderUpdated>
+  <Oxygendsl_ModContent>Native Mod content and rules</Oxygendsl_ModContent>
+  <Oxygendsl_EventChains>Event chain providers and lifecycle</Oxygendsl_EventChains>
+  <Oxygendsl_SettingsNeedGame>Load a save to change these save-scoped settings.</Oxygendsl_SettingsNeedGame>
+  <Oxygendsl_EditMod>Edit Mod in browser</Oxygendsl_EditMod>
+  <Oxygendsl_EditModConfirm>Open the local Oxygen editor for {0}? Saved file changes affect this installed Mod. Applying runtime rules affects the current save; native content changes need a restart. Keep a backup before making changes. Closing the browser or returning to the main menu leaves the editor running. Use Exit editor in IrisMenus to stop it.</Oxygendsl_EditModConfirm>
+  <Oxygendsl_ExitEditor>Exit editor</Oxygendsl_ExitEditor>
+  <Oxygendsl_ExitEditorConfirm>Stop the local Oxygen editor? All editor tabs will disconnect. Unsaved browser edits will not be saved.</Oxygendsl_ExitEditorConfirm>
+</LanguageData>

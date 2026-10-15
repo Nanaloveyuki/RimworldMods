@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/StatDef[defName="MaxNutrition" or defName="WorkSpeedGlobal" or defName="GlobalLearningFactor" or defName="IncomingDamageFactor"][not(parts)]</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/StatDef[defName="MaxNutrition" or defName="WorkSpeedGlobal" or defName="GlobalLearningFactor" or defName="IncomingDamageFactor"][not(parts)]</xpath>
+      <value>
+        <parts />
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="MaxNutrition" or defName="WorkSpeedGlobal" or defName="GlobalLearningFactor" or defName="IncomingDamageFactor"]/parts</xpath>
+    <value>
+      <li Class="HungerAndHavoc.Pawn.StatPart_RHAH_ParentalInstinct" />
+    </value>
+  </Operation>
+</Patch>

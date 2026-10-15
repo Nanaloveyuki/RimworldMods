@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_Kingdom_Summary>当前开放 K1–K5 的背景与初次合作，后续章节尚未完成。王国篇只由你在这里手动开启；开始前，请将叙事者设为穗音。</RHAH_Settings_Kingdom_Summary>
+  <RHAH_Settings_Kingdom_Start>开启王国篇</RHAH_Settings_Kingdom_Start>
+  <RHAH_Settings_Kingdom_Continue>继续王国篇</RHAH_Settings_Kingdom_Continue>
+  <RHAH_Settings_Kingdom_Read>回读穗音的来信</RHAH_Settings_Kingdom_Read>
+  <RHAH_Settings_Kingdom_NoGame>加载存档后，可手动开启王国篇。</RHAH_Settings_Kingdom_NoGame>
+  <RHAH_Settings_Kingdom_RequiresSuiyin>将叙事者设为穗音后，可开启王国篇或接收她的新委托。</RHAH_Settings_Kingdom_RequiresSuiyin>
+  <RHAH_Settings_Kingdom_Disabled>当前已停用饥与祸的新内容，王国篇暂停。</RHAH_Settings_Kingdom_Disabled>
+  <RHAH_Settings_Kingdom_Unavailable>王国篇暂时无法开启，请查看游戏日志。</RHAH_Settings_Kingdom_Unavailable>
+  <RHAH_Settings_BroadcastCooldown>广播冷却：{0} 天</RHAH_Settings_BroadcastCooldown>
+  <RHAH_Settings_BroadcastCooldown_Tooltip>两次广播之间的最短间隔，范围 0 到 10 天，默认 3 天。</RHAH_Settings_BroadcastCooldown_Tooltip>
+  <RHAH_Menu_Narrative>叙事</RHAH_Menu_Narrative>
+  <RHAH_Menu_Narrative_NoGame>加载存档后，可查看叙事进度。</RHAH_Menu_Narrative_NoGame>
+  <RHAH_Menu_Narrative_Revealed>已揭示</RHAH_Menu_Narrative_Revealed>
+  <RHAH_Menu_Narrative_Trust>信任</RHAH_Menu_Narrative_Trust>
+  <RHAH_Menu_Narrative_Rescued>获救</RHAH_Menu_Narrative_Rescued>
+  <RHAH_Menu_Narrative_Lost>失踪</RHAH_Menu_Narrative_Lost>
+  <RHAH_Menu_Narrative_Failed>失败</RHAH_Menu_Narrative_Failed>
+  <RHAH_Menu_Narrative_Outcome>结局</RHAH_Menu_Narrative_Outcome>
+  <RHAH_Menu_Outcome_Unresolved>未了结</RHAH_Menu_Outcome_Unresolved>
+  <RHAH_Menu_Outcome_Rescue>救援</RHAH_Menu_Outcome_Rescue>
+  <RHAH_Menu_Outcome_Loss>失去</RHAH_Menu_Outcome_Loss>
+  <RHAH_Menu_Outcome_Exposure>暴露</RHAH_Menu_Outcome_Exposure>
+  <RHAH_Menu_Outcome_Failure>失败</RHAH_Menu_Outcome_Failure>
+  <RHAH_Menu_Outcome_Massacre>屠杀</RHAH_Menu_Outcome_Massacre>
+  <RHAH_Settings_Broadcast>允许广播希望</RHAH_Settings_Broadcast>
+  <RHAH_Settings_Broadcast_Tooltip>殖民者可在通讯台广播，召来饥荒鼠族。通常召来一支队伍；饥荒年会按来客倍率向上取整，尝试召来更多不同的队伍。广播遵循事件开关、出现限制和下方冷却。关闭后停止新的广播，已经上路的队伍继续赶来。</RHAH_Settings_Broadcast_Tooltip>
+  <RHAH_Settings_IdentityPartialTrust>部分身份披露信任：{0}</RHAH_Settings_IdentityPartialTrust>
+  <RHAH_Settings_IdentityPartialTrust_Tooltip>穗音愿意讲述宫廷生活所需的最低信任。遗物事件须已完成。范围 -100 到 100，默认 50。</RHAH_Settings_IdentityPartialTrust_Tooltip>
+  <RHAH_Settings_IdentityFullTrust>完整身份披露信任：{0}</RHAH_Settings_IdentityFullTrust>
+  <RHAH_Settings_IdentityFullTrust_Tooltip>穗音愿意说明公主身份所需的最低信任。不得低于部分披露门槛，最高 100，默认 75。</RHAH_Settings_IdentityFullTrust_Tooltip>
+  <RHAH_Menu_Narrative_TrustDeltas>信任变化</RHAH_Menu_Narrative_TrustDeltas>
+  <RHAH_Settings_NarrativeKinds_Tooltip>至少经历这么多种事件后，穗音才会寄来这封信。范围 1 到 14。</RHAH_Settings_NarrativeKinds_Tooltip>
+  <RHAH_Settings_NarrativeTheft>粮洞偷窃次数：{0}</RHAH_Settings_NarrativeTheft>
+  <RHAH_Settings_NarrativeTheft_Tooltip>同一处据点发生这么多次偷窃后，才可能出现粮洞。范围 1 到 14 次，默认 2 次。</RHAH_Settings_NarrativeTheft_Tooltip>
+  <RHAH_Settings_NarrativeSilver>记录白银：{0}</RHAH_Settings_NarrativeSilver>
+  <RHAH_Settings_NarrativeSilver_Tooltip>穗音随记录来信送出的基础白银数量。如果她对你的信任大于 0，还会按信任高低追加白银。范围 0 到 10000，默认 300。</RHAH_Settings_NarrativeSilver_Tooltip>
+  <RHAH_Settings_NarrativeBonus>信任加成：{0}%</RHAH_Settings_NarrativeBonus>
+  <RHAH_Settings_NarrativeBonus_Tooltip>穗音的信任达到 100 时，额外送出相当于基础白银这么多百分比的白银。信任处于 0 到 100 之间时，加成按比例减少。范围 0 到 100%，默认 25%。</RHAH_Settings_NarrativeBonus_Tooltip>
+  <RHAH_Settings_NarrativeRescue>赎回白银：{0}</RHAH_Settings_NarrativeRescue>
+  <RHAH_Settings_NarrativeRescue_Tooltip>放逐回访时，留下母亲或孩子需要支付的白银。范围 0 到 10000，默认 250。</RHAH_Settings_NarrativeRescue_Tooltip>
+  <RHAH_Settings_NarrativeRescueReward>回馈白银：{0}</RHAH_Settings_NarrativeRescueReward>
+  <RHAH_Settings_NarrativeRescueReward_Tooltip>支付赎回费用后，对方到期空投的回礼白银。范围 0 到 20000，默认 2500。</RHAH_Settings_NarrativeRescueReward_Tooltip>
+  <RHAH_Settings_NarrativeTake>取走记录：{0}</RHAH_Settings_NarrativeTake>
+  <RHAH_Settings_NarrativeTake_Tooltip>把迁徙记录拿走时得到的白银。0 到 10000，默认 200。</RHAH_Settings_NarrativeTake_Tooltip>
+  <RHAH_Settings_NarrativeHand>交出记录：{0}</RHAH_Settings_NarrativeHand>
+  <RHAH_Settings_NarrativeHand_Tooltip>把迁徙记录交出去时得到的白银。0 到 10000，默认 100。</RHAH_Settings_NarrativeHand_Tooltip>
+  <RHAH_Settings_NarrativeMissing>失踪天数：{0}</RHAH_Settings_NarrativeMissing>
+  <RHAH_Settings_NarrativeMissing_Tooltip>来客持续失联这么多天后，穗音会认为对方失踪。范围 0 到 60 天，默认 1 天。</RHAH_Settings_NarrativeMissing_Tooltip>
+  <RHAH_Settings_NarrativeObserve>观察天数：{0}</RHAH_Settings_NarrativeObserve>
+  <RHAH_Settings_NarrativeObserve_Tooltip>普通救济等待来客去向明确的期限，也是托付家庭等待孩子长到儿童阶段的观察期限。仍在场的救济来客可以继续累计存活时间。范围 0 到 120 天，默认 30 天。</RHAH_Settings_NarrativeObserve_Tooltip>
+  <RHAH_Settings_NarrativeHole>粮洞消失时间：{0} 天</RHAH_Settings_NarrativeHole>
+  <RHAH_Settings_NarrativeHole_Tooltip>如果你一直放着粮洞不管，洞口会在这么多天后消失，追踪线索也会中断。范围 0 到 30 天，默认 3 天。</RHAH_Settings_NarrativeHole_Tooltip>
+  <RHAH_Settings_NarrativeEnvoyWait>使者等待：{0} 天</RHAH_Settings_NarrativeEnvoyWait>
+  <RHAH_Settings_NarrativeEnvoyWait_Tooltip>使者最多等待这么多天。如果你一直没有答复，他就会离开。范围 0 到 30 天，默认 3 天。</RHAH_Settings_NarrativeEnvoyWait_Tooltip>
+  <RHAH_Settings_NarrativeEnvoyCheck>使者核对：{0} 天</RHAH_Settings_NarrativeEnvoyCheck>
+  <RHAH_Settings_NarrativeEnvoyCheck_Tooltip>答应核对使者的话后，他会再等待这么多天。范围 0 到 30 天，默认 1 天。</RHAH_Settings_NarrativeEnvoyCheck_Tooltip>
+  <RHAH_Settings_NarrativeRelicDays>记录地点：{0} 天</RHAH_Settings_NarrativeRelicDays>
+  <RHAH_Settings_NarrativeRelicDays_Tooltip>迁徙记录所在的地点保留这么多天，之后会从世界地图上消失。范围 0 到 120 天，默认 15 天。</RHAH_Settings_NarrativeRelicDays_Tooltip>
+  <RHAH_Settings_NarrativeYears>放逐回访：{0} 年</RHAH_Settings_NarrativeYears>
+  <RHAH_Settings_NarrativeYears_Tooltip>母亲或孩子被放逐后，商队可能在这么多年内再次遇见对方。范围 0 到 20 年，默认 4 年；一年为 60 天。</RHAH_Settings_NarrativeYears_Tooltip>
+  <RHAH_Settings_NarrativeAside>插话间隔：{0} 天</RHAH_Settings_NarrativeAside>
+  <RHAH_Settings_NarrativeAside_Tooltip>穗音的两封短札至少间隔这么多天。范围 0 到 30 天，默认 3 天。</RHAH_Settings_NarrativeAside_Tooltip>
+  <RHAH_Settings_NarrativeCutoff>插话关闭：{0}</RHAH_Settings_NarrativeCutoff>
+  <RHAH_Settings_NarrativeCutoff_Tooltip>穗音的信任降到这个值或更低时，会停止寄送短札，仍会来信告知事件结果。范围 -100 到 0，默认 -75。</RHAH_Settings_NarrativeCutoff_Tooltip>
+  <RHAH_Settings_NarrativeAdult>使者年龄：{0}</RHAH_Settings_NarrativeAdult>
+  <RHAH_Settings_NarrativeAdult_Tooltip>穗音派来的使者年龄。范围 1 到 80 岁，默认 18 岁。</RHAH_Settings_NarrativeAdult_Tooltip>
+  <RHAH_Settings_TrustRange_Tooltip>发生这件事时，穗音对你的信任增加或减少的数值。范围 -100 到 100；设为 0 时，信任保持原样。</RHAH_Settings_TrustRange_Tooltip>
+  <RHAH_Settings_TrustKill>杀死：{0}</RHAH_Settings_TrustKill>
+  <RHAH_Settings_TrustCaptive>俘虏：{0}</RHAH_Settings_TrustCaptive>
+  <RHAH_Settings_TrustEntrust>托孤安顿：{0}</RHAH_Settings_TrustEntrust>
+  <RHAH_Settings_TrustEntrustCaptive>托孤被俘：{0}</RHAH_Settings_TrustEntrustCaptive>
+  <RHAH_Settings_TrustStory>托孤只听故事：{0}</RHAH_Settings_TrustStory>
+  <RHAH_Settings_TrustRegret>托孤后悔：{0}</RHAH_Settings_TrustRegret>
+  <RHAH_Settings_TrustBanished>托孤放逐：{0}</RHAH_Settings_TrustBanished>
+  <RHAH_Settings_TrustExchange>交换照料：{0}</RHAH_Settings_TrustExchange>
+  <RHAH_Settings_TrustHoleOpen>封上粮洞：{0}</RHAH_Settings_TrustHoleOpen>
+  <RHAH_Settings_TrustHoleIgnore>清掉粮洞：{0}</RHAH_Settings_TrustHoleIgnore>
+  <RHAH_Settings_TrustHoleBait>粮洞追踪：{0}</RHAH_Settings_TrustHoleBait>
+  <RHAH_Settings_TrustEnvoy>赶走使者：{0}</RHAH_Settings_TrustEnvoy>
+  <RHAH_Settings_TrustRelic>毁掉记录：{0}</RHAH_Settings_TrustRelic>
+  <RHAH_Settings_TrustHold>扣下：{0}</RHAH_Settings_TrustHold>
+  <RHAH_Settings_TrustDeliver>交付：{0}</RHAH_Settings_TrustDeliver>
+  <RHAH_Settings_TrustLeave>安全离开：{0}</RHAH_Settings_TrustLeave>
+  <RHAH_Settings_TrustExpel>驱逐：{0}</RHAH_Settings_TrustExpel>
+  <RHAH_Settings_EnvoyMeals>使者简单餐：{0}</RHAH_Settings_EnvoyMeals>
+  <RHAH_Settings_EnvoyMeals_Tooltip>与使者交换情报需要交出的简单餐份数。范围 0 到 100，默认 6。</RHAH_Settings_EnvoyMeals_Tooltip>
+</LanguageData>

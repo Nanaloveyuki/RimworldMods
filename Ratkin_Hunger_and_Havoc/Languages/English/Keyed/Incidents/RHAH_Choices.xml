@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Choice_Shelter>Take in short-term ({0})</RHAH_Choice_Shelter>
+  <RHAH_Choice_Label>Visitors</RHAH_Choice_Label>
+  <RHAH_Choice_Text>The visitors have stopped near the colony and stated their terms.\n\nThey want {1} {2}. What should we do?</RHAH_Choice_Text>
+  <RHAH_Choice_Aid_Label>Aid</RHAH_Choice_Aid_Label>
+  <RHAH_Choice_Aid_Text>A ratkin refugee has arrived near the colony, asking us for {1} {2}. There is plenty missing in a famine. This time, that is what they need.\n\nWhat should we do?</RHAH_Choice_Aid_Text>
+  <RHAH_Choice_Intel_Label>Intel</RHAH_Choice_Intel_Label>
+  <RHAH_Choice_Intel_Text>A ratkin has arrived near the colony with a lead on a place, willing to trade it for {1} {2}. The information is not free: goods first, directions afterward.\n\nDelivering the goods marks the corresponding site on the world map.</RHAH_Choice_Intel_Text>
+  <RHAH_Choice_Baby_Label>Asking for a baby</RHAH_Choice_Baby_Label>
+  <RHAH_Choice_Baby_Text>A ratkin has arrived near our colony and asked us for a baby.\n\nWe can refuse or leave the request unanswered. If food substitution is enabled, we can hand over the required simple meals instead; a child cannot be handed over.</RHAH_Choice_Baby_Text>
+  <RHAH_Choice_Abandoned_Label>Abandoned young ratkin</RHAH_Choice_Abandoned_Label>
+  <RHAH_Choice_Abandoned_Text>A ratkin mother has left her children near our colony for reasons unknown. Perhaps she could no longer feed them, but could not bear to abandon them completely, so she brought them here. It seems she wants us to adopt them.\n\nThese young ratkin probably cannot survive on their own. What should we do?</RHAH_Choice_Abandoned_Text>
+  <RHAH_Choice_Refugees_Label>Refugees</RHAH_Choice_Refugees_Label>
+  <RHAH_Choice_Refugees_Text>Ratkin refugees have arrived near our colony. The famine has driven them all the way here. They want to stay, somewhere they can find food and a place to sleep.\n\nWhat should we do?</RHAH_Choice_Refugees_Text>
+  <RHAH_Choice_ChildExchange_Label>Child exchange</RHAH_Choice_ChildExchange_Label>
+  <RHAH_Choice_ChildExchange_Text>A ratkin mother has brought a young ratkin near our colony. Before leaving, she says haltingly, "I really can't feed this child anymore, squeak. Could you give me some food? Or... could we make a trade?"\n\nShe wants food in exchange for her child. Or perhaps a different child who would count as 'food'. What should we do?</RHAH_Choice_ChildExchange_Text>
+  <RHAH_Choice_Kinship_Label>Mistaken family</RHAH_Choice_Kinship_Label>
+  <RHAH_Choice_Kinship_Text>"Are you my mommy, squeak?"\n\n"Squeak, squeak, squeak! You must be!"\n\n"You're my mommy, squeak!"\n\nA young ratkin has arrived near our colony, chattering away. Upon seeing a colonist, the child starts calling them Mommy in a strange, unclear little voice.\n\nWhat should we do?</RHAH_Choice_Kinship_Text>
+  <RHAH_Choice_Airdrop_Label>Airdrop mistake</RHAH_Choice_Airdrop_Label>
+  <RHAH_Choice_Airdrop_Text>Someone has sent these young ratkin near our colony. We do not know who, or where they were meant to go. Left alone, they will probably starve. But taking them in also means finding enough food and people to care for them. Too many young ratkin may be more than the colony can manage. We should think carefully.\n\nWhat should we do?</RHAH_Choice_Airdrop_Text>
+  <RHAH_Choice_Visitors_Label>Visitors</RHAH_Choice_Visitors_Label>
+  <RHAH_Choice_Visitors_Text>Ratkin visitors have arrived near our colony, with nowhere settled yet. Should we let them in, or let them keep walking?</RHAH_Choice_Visitors_Text>
+  <RHAH_Choice_BeggarFamily_Label>Visitors</RHAH_Choice_BeggarFamily_Label>
+  <RHAH_Choice_BeggarFamily_Text>{0} has arrived.\n\nFamine has driven a ratkin mother and her {1} children near our colony. She begs us for food while the young ratkin crowd around her feet.\n\n"Please, squeak. Give me and my children some food."\n\nShe pauses. "We wouldn't complain even if you worked us like beasts."\n\nWhat should we do?</RHAH_Choice_BeggarFamily_Text>
+  <RHAH_Choice_LaboringRefugees_Label>Refugees in labor</RHAH_Choice_LaboringRefugees_Label>
+  <RHAH_Choice_LaboringRefugees_Text>{1} heavily pregnant ratkin have arrived near our colony, dragging their feet slowly. They have already gone into labor. Giving birth out in the wild is dangerous; it is hard not to worry whether the mothers and children will survive.\n\nWhat should we do?</RHAH_Choice_LaboringRefugees_Text>
+  <RHAH_Choice_PlagueAbandoned_Label>Children left in the plague</RHAH_Choice_PlagueAbandoned_Label>
+  <RHAH_Choice_PlagueAbandoned_Text>The mother can barely stand. She pushes her child forward a little, then immediately reaches out to shield the child again.\n\n"Help... help... my... child, squeak."\n\nShe never gives her name. Everything she could bring is left beside the child.\n\nThe mother has gone. The child is still here.</RHAH_Choice_PlagueAbandoned_Text>
+  <RHAH_Choice_ShatteredMother_Label>Shattered mother</RHAH_Choice_ShatteredMother_Label>
+  <RHAH_Choice_ShatteredMother_Text>A ratkin mother has brought her children near our colony. She is badly injured and has lost a great deal of blood, with {1} children beside her.\n\nWhat should we do?</RHAH_Choice_ShatteredMother_Text>
+  <RHAH_Choice_BeggarGroup_Label>Begging ratkin</RHAH_Choice_BeggarGroup_Label>
+  <RHAH_Choice_BeggarGroup_Text>Ratkin beggars have arrived near our colony, hoping for something to eat. The famine has driven them here, and their next meal is still uncertain.\n\nWhat should we do?</RHAH_Choice_BeggarGroup_Text>
+  <RHAH_Choice_Thieves_Label>Thieving ratkin</RHAH_Choice_Thieves_Label>
+  <RHAH_Choice_Thieves_Text>Ratkin thieves have arrived near our colony. They are hungry too, but would rather take something edible than ask for a meal.\n\nHow should we deal with them?</RHAH_Choice_Thieves_Text>
+  <RHAH_Choice_YoungThieves_Label>Thieving young ratkin</RHAH_Choice_YoungThieves_Label>
+  <RHAH_Choice_YoungThieves_Text>Young ratkin have arrived near our colony, learning to steal to fill their bellies. They are small, but hunger has already taught them to look for places with food.\n\nHow should we deal with them?</RHAH_Choice_YoungThieves_Text>
+  <RHAH_Choice_Wild_Label>Wandering ratkin</RHAH_Choice_Wild_Label>
+  <RHAH_Choice_Wild_Text>Wild ratkin have wandered near our colony, without a caravan or anyone to speak for them. They are looking for food here.\n\nShould we take them in?</RHAH_Choice_Wild_Text>
+  <RHAH_Choice_WildYoung_Label>Wandering young ratkin</RHAH_Choice_WildYoung_Label>
+  <RHAH_Choice_WildYoung_Text>A wild young ratkin has wandered near our colony without an adult. There is food here, and people too, but not everything is safe.\n\nWhat should we do?</RHAH_Choice_WildYoung_Text>
+  <RHAH_Choice_Passersby_Label>Passing ratkin</RHAH_Choice_Passersby_Label>
+  <RHAH_Choice_Passersby_Text>A group of ratkin refugees is passing near our colony. They still need to find their next meal; passing through may not be all they do.\n\nShould we keep them here, or let them keep walking?</RHAH_Choice_Passersby_Text>
+  <RHAH_Choice_Siege_Label>Besieging beggars</RHAH_Choice_Siege_Label>
+  <RHAH_Choice_Siege_Text>Ratkin beggars have gathered around our colony. They want food, but do not act as though they are merely asking for a meal. Check whether they are hostile before deciding what to do.\n\nWhat should we do?</RHAH_Choice_Siege_Text>
+  <RHAH_Choice_Orphan_Label>Plague orphan</RHAH_Choice_Orphan_Label>
+  <RHAH_Choice_Orphan_Text>A ratkin orphan has arrived near our colony without a mother. In this famine, one less adult means many fewer ways to stay alive.\n\nWhat should we do?</RHAH_Choice_Orphan_Text>
+  <RHAH_Choice_KinshipGrown_Text>A ratkin has arrived near our colony and started calling a colonist Mother. The colonist has never met this ratkin, but the visitor insists there is no mistake.\n\nWhat should we do?</RHAH_Choice_KinshipGrown_Text>
+  <RHAH_Choice_VisitorHint>We have {0} days to answer. To arrange food delivery, select a colonist and right-click a visitor. If we refuse or the deadline passes, they will leave or turn hostile according to their attitude and the group reaction settings.</RHAH_Choice_VisitorHint>
+  <RHAH_Choice_RequestHint>We have {0} days to answer. If we refuse or the deadline passes, they will leave or turn hostile according to their attitude and the group reaction settings.</RHAH_Choice_RequestHint>
+  <RHAH_Choice_IntelHint>We have {0} days to answer. The visitor will reveal the site after we deliver the goods. If we refuse or the deadline passes, they will leave or turn hostile according to their attitude and the group reaction settings.</RHAH_Choice_IntelHint>
+  <RHAH_Choice_PlagueHint>These visitors have ratkin plague and need treatment and care. Contact with them also risks spreading the disease. Use this letter to decide how to treat them.</RHAH_Choice_PlagueHint>
+  <RHAH_Choice_PlagueDisabledHint>The plague is disabled, so this group arrives healthy.</RHAH_Choice_PlagueDisabledHint>
+  <RHAH_Choice_ChildExchangeFoodHint>You can give simple meals instead of a child: {0} per visiting child, {1} in total. After the exchange, the visiting children join the colony.</RHAH_Choice_ChildExchangeFoodHint>
+  <RHAH_Choice_ChildExchangeNoFoodHint>Food substitution is disabled. To fulfill the request, choose an eligible colony child to hand over.</RHAH_Choice_ChildExchangeNoFoodHint>
+  <RHAH_Choice_ChildExchangeZeroFoodHint>Simple meals per child is set to 0, so food substitution requires no meals. You can also choose to hand over a colony child.</RHAH_Choice_ChildExchangeZeroFoodHint>
+  <RHAH_Choice_AbandonedGrown_Text>A ratkin mother has left her children near our colony for reasons unknown. Perhaps she could no longer feed them, but could not bear to abandon them completely, so she brought them here. It seems she wants us to take them in.\n\nWithout anyone looking out for them, they will probably struggle to survive. What should we do?</RHAH_Choice_AbandonedGrown_Text>
+  <RHAH_Choice_ChildExchangeGrown_Text>A ratkin mother has brought one of her children near our colony. Before leaving, she says haltingly, "I really can't feed my child anymore, squeak. Could you give me some food? Or... could we make a trade?"\n\nShe wants food in exchange for her child. Or perhaps a different child who would count as 'food'. What should we do?</RHAH_Choice_ChildExchangeGrown_Text>
+  <RHAH_Choice_BeggarFamilyGrown_Text>{0} has arrived.\n\nFamine has driven a ratkin mother and her {1} children near our colony. She begs us for food while they stand beside her.\n\n"Please, squeak. Give me and my children some food."\n\nShe pauses. "We wouldn't complain even if you worked us like beasts."\n\nWhat should we do?</RHAH_Choice_BeggarFamilyGrown_Text>
+  <RHAH_Choice_AirdropGrown_Text>Someone has sent these ratkin near our colony. We do not know who, or where they were meant to go. Left alone, they will probably starve. But taking them in means finding enough food and shelter. Too many arrivals may be more than the colony can manage. We should think carefully.\n\nWhat should we do?</RHAH_Choice_AirdropGrown_Text>
+  <RHAH_Choice_KinshipInfant_Text>A ratkin baby has been left near our colony. Too young even to say Mommy, the baby can only cry and wait for someone to help.\n\nWhat should we do?</RHAH_Choice_KinshipInfant_Text>
+  <RHAH_Choice_AbandonedSingle_Text>A ratkin mother has left her child near our colony for reasons unknown. Perhaps she could no longer feed the young ratkin, but could not bear to abandon the child completely, so she brought the child here. It seems she wants us to adopt the child.\n\nThis young ratkin probably cannot survive alone. What should we do?</RHAH_Choice_AbandonedSingle_Text>
+  <RHAH_Choice_AbandonedSingleGrown_Text>A ratkin mother has left one of her children near our colony for reasons unknown. Perhaps she could no longer feed her child, but could not bear to abandon the child completely, so she brought the child here. It seems she wants us to take the child in.\n\nWithout anyone looking out for this ratkin, survival will probably be difficult. What should we do?</RHAH_Choice_AbandonedSingleGrown_Text>
+  <RHAH_Choice_WildSingle_Text>A wild ratkin has wandered near our colony, without a caravan or anyone to speak for them. The visitor is looking for food here.\n\nShould we take them in?</RHAH_Choice_WildSingle_Text>
+  <RHAH_Choice_SimpleMeal>simple meals</RHAH_Choice_SimpleMeal>
+  <RHAH_Choice_FineMeal>fine meals</RHAH_Choice_FineMeal>
+  <RHAH_Choice_Medicine>medicine</RHAH_Choice_Medicine>
+  <RHAH_Choice_HerbalMedicine>herbal medicine</RHAH_Choice_HerbalMedicine>
+  <RHAH_Choice_Silver>silver</RHAH_Choice_Silver>
+  <RHAH_Choice_Deliver>Deliver (hand over the goods)</RHAH_Choice_Deliver>
+  <RHAH_Choice_Reject>Refuse (may leave or turn hostile)</RHAH_Choice_Reject>
+  <RHAH_Choice_Ignore>Ignore (leave them for now)</RHAH_Choice_Ignore>
+  <RHAH_Choice_Join>Take in (join the colony)</RHAH_Choice_Join>
+  <RHAH_Choice_Hire>Hire long-term (leave after {0})</RHAH_Choice_Hire>
+  <RHAH_Choice_Feed>Feed (they wait for the food)</RHAH_Choice_Feed>
+  <RHAH_Choice_Recruit>Take in short-term (leave after {0})</RHAH_Choice_Recruit>
+  <RHAH_Choice_Enslave>Enslave (become slaves where they stand, will cleared)</RHAH_Choice_Enslave>
+  <RHAH_Choice_Capture>Capture (become prisoners where they stand, asleep for 12 hours)</RHAH_Choice_Capture>
+  <RHAH_Choice_Attack>Attack (the whole group turns hostile)</RHAH_Choice_Attack>
+  <RHAH_Choice_ChooseAlly>Send to an ally…</RHAH_Choice_ChooseAlly>
+  <RHAH_Choice_Ally>Send to {0}</RHAH_Choice_Ally>
+  <RHAH_Choice_AllyPageText>Choose an ally to take them in (page {0}/{1}).\n\nGoodwill increases only after visitors successfully leave the map, based on their market value: about +1 per 500 value, up to +10 for this whole transfer. Allies with industrial or higher technology have a 50% chance of sending a small thank-you gift by drop pod within three days.</RHAH_Choice_AllyPageText>
+  <RHAH_Choice_AllyPrevious>Previous page</RHAH_Choice_AllyPrevious>
+  <RHAH_Choice_AllyNext>Next page</RHAH_Choice_AllyNext>
+  <RHAH_Choice_AllyBack>Back</RHAH_Choice_AllyBack>
+  <RHAH_Choice_NoAlly>No allied faction can take them.</RHAH_Choice_NoAlly>
+  <RHAH_Choice_AllySent>{0} people are on their way to {1}. They will become members of that faction only after successfully leaving this map, increasing its goodwill based on the market value of those who leave. This whole transfer can grant up to +10 goodwill. They cannot be found directly at its settlement.</RHAH_Choice_AllySent>
+  <RHAH_Choice_AllyGiftLabel>A gift from an ally</RHAH_Choice_AllyGiftLabel>
+  <RHAH_Choice_AllyGiftText>{0} has sent supplies by drop pod to thank us for sending these visitors to join them.</RHAH_Choice_AllyGiftText>
+  <RHAH_Choice_AllyGoodwillReason>Taking in visitors</RHAH_Choice_AllyGoodwillReason>
+  <RHAH_Choice_NoCustodyTarget>No visitor can currently be captured or enslaved. They may be in a mental break, have already left, or be protected from imprisonment.</RHAH_Choice_NoCustodyTarget>
+  <RHAH_Choice_NoPresent>The visitors have left. Nobody remains to receive this arrangement.</RHAH_Choice_NoPresent>
+  <RHAH_Choice_NoRecruit>None of these visitors can be taken in, hired, or joined to the colony.</RHAH_Choice_NoRecruit>
+  <RHAH_Choice_NoTransfer>No visitor can currently be sent to an ally and leave the map.</RHAH_Choice_NoTransfer>
+  <RHAH_Choice_NoIdeology>Enslaving needs the Ideology expansion.</RHAH_Choice_NoIdeology>
+  <RHAH_Choice_CustodyFailed>The attempt to capture or enslave the visitors failed. You can choose again in the letter.</RHAH_Choice_CustodyFailed>
+  <RHAH_Choice_FeedHint>The visitors will wait for you to arrange food delivery. Select a colonist, then right-click a waiting visitor and choose the food to give them.</RHAH_Choice_FeedHint>
+  <RHAH_Choice_FeedHintDismiss>Do not show this again</RHAH_Choice_FeedHintDismiss>
+  <RHAH_Choice_FeedWaiting>{0} visitors are waiting for food.</RHAH_Choice_FeedWaiting>
+  <RHAH_Choice_FeedBlocked>{0} cannot take food right now.</RHAH_Choice_FeedBlocked>
+  <RHAH_Choice_FeedNoVisitor>{0} is not one of the visitors you can feed.</RHAH_Choice_FeedNoVisitor>
+  <RHAH_Choice_FeedNotHungry>{0} needs no food right now.</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_GiveFood>Give {0} to {1}</RHAH_Choice_GiveFood>
+  <RHAH_Choice_NoFood>No food to give {1}</RHAH_Choice_NoFood>
+  <RHAH_Choice_Short>Storage is short. They still need {0}.</RHAH_Choice_Short>
+  <RHAH_Choice_NoBaby>A child cannot be handed over this time. To use simple meals instead, turn food substitution on, set meals per child above 0, and have enough simple meals.</RHAH_Choice_NoBaby>
+  <RHAH_Choice_Stale>This letter can no longer take that choice.</RHAH_Choice_Stale>
+  <RHAH_Choice_Delivered>The goods have been handed over.</RHAH_Choice_Delivered>
+  <RHAH_Choice_SiteUnavailable>The visitor could not provide a site. You still have the goods and can choose again in the letter.</RHAH_Choice_SiteUnavailable>
+  <RHAH_Choice_Fed>The visitors have eaten.</RHAH_Choice_Fed>
+  <RHAH_Choice_MouseSwarm_Label>Mouse swarm</RHAH_Choice_MouseSwarm_Label>
+  <RHAH_Choice_MouseSwarm_Text>A large group of ratkin displaced by famine has been spotted heading our way. If we do not want them eating every last scrap in our food stores, we need to make a choice quickly.</RHAH_Choice_MouseSwarm_Text>
+  <RHAH_Choice_PleadingJoin_Label>Pleading to join</RHAH_Choice_PleadingJoin_Label>
+  <RHAH_Choice_PleadingJoin_Text>A dejected ratkin has stumbled into our colony, apparently worn out by a long journey.\n\n“Could you please take me in? I can work hard! I only need a little food. Thank you so much!”</RHAH_Choice_PleadingJoin_Text>
+</LanguageData>

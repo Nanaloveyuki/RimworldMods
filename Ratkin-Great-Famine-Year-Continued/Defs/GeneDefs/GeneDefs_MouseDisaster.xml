@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisaster_Gene_MoreLitter</defName>
+    <label>鼠灾多崽</label>
+    <description>携带者每次分娩至少会产下 4 个后代，并有概率继续追加，不设上限。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>201</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>1</biostatMet>
+    <customEffectDescriptions>
+      <li>单次分娩至少 4 个后代</li>
+      <li>有概率继续追加，不设上限</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisaster_Gene_PrimalFertility</defName>
+    <label>鼠灾早熟</label>
+    <description>携带者可突破原版年龄阶段限制参与受孕判定，但双方生理年龄仍需达到 1 岁。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>202</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>1</biostatMet>
+    <customEffectDescriptions>
+      <li>可突破年龄阶段限制参与受孕判定</li>
+      <li>双方生理年龄需达到 1 岁</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisaster_Gene_HyperBreeding</defName>
+    <label>鼠灾高育</label>
+    <description>携带者参与繁殖时，整体怀孕概率提高至原来的 300%。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>203</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>2</biostatMet>
+    <customEffectDescriptions>
+      <li>怀孕几率 x300%</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisaster_Gene_ChaosFertility</defName>
+    <label>鼠灾乱起</label>
+    <description>携带者与同阵营异性同处室内时，会按间隔自动判定受孕；可在哺乳期受孕。双方生理年龄需达到 1 岁。每次判定概率与间隔由模组设置面板控制（默认 2%）。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>204</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>3</biostatMet>
+    <customEffectDescriptions>
+      <li>与同阵营异性同房间时有概率自发怀孕</li>
+      <li>双方生理年龄需达到 1 岁</li>
+      <li>每次判定概率可在设置中调整（默认 2%）</li>
+      <li>判定间隔可在设置中调整</li>
+      <li>可在哺乳期受孕</li>
+    </customEffectDescriptions>
+  </GeneDef>
+
+  <GeneDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisaster_Gene_MoreComing</defName>
+    <label>鼠灾速产</label>
+    <description>携带者妊娠进程改为固定节奏：总孕期固定为 12 天，不受其他速度修正影响。</description>
+    <iconPath>UI/Icons/Genes/Gene_Fertile</iconPath>
+    <displayCategory>Reproduction</displayCategory>
+    <displayOrderInCategory>205</displayOrderInCategory>
+    <canGenerateInGeneSet>false</canGenerateInGeneSet>
+    <selectionWeight>0</selectionWeight>
+    <biostatMet>2</biostatMet>
+    <customEffectDescriptions>
+      <li>总孕期固定为 12 天</li>
+    </customEffectDescriptions>
+  </GeneDef>
+</Defs>

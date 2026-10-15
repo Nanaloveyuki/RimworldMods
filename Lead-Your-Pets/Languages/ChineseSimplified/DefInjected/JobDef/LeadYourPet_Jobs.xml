@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <LeadYourPet_BeginLeash.reportString>正在牵引TargetA。</LeadYourPet_BeginLeash.reportString>
+  <LeadYourPet_EndLeash.reportString>正在解除TargetA的牵引。</LeadYourPet_EndLeash.reportString>
+  <LeadYourPet_FollowMaster.reportString>被牵着跟随TargetA。</LeadYourPet_FollowMaster.reportString>
+  <LeadYourPet_MouseEggInteraction.reportString>正在与TargetA互动。</LeadYourPet_MouseEggInteraction.reportString>
+</LanguageData>

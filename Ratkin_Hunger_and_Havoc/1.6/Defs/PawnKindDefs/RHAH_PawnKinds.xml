@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <PawnKindDef>
+    <defName>RHAH_PawnKind_Ratkin</defName>
+    <label>饥荒鼠族</label>
+    <race>Ratkin</race>
+    <defaultFactionType>RHAH_Faction_Neutral</defaultFactionType>
+    <combatPower>30</combatPower>
+    <initialWillRange>0~0</initialWillRange>
+    <initialResistanceRange>0~0</initialResistanceRange>
+    <isFighter>false</isFighter>
+    <apparelMoney>80~250</apparelMoney>
+    <apparelAllowHeadgearChance>0.2</apparelAllowHeadgearChance>
+    <apparelTags>
+      <li>RK_Apparel_CommonClothes</li>
+    </apparelTags>
+    <weaponMoney>0~0</weaponMoney>
+    <weaponTags />
+    <techHediffsChance>0</techHediffsChance>
+    <backstoryCryptosleepCommonality>0</backstoryCryptosleepCommonality>
+  </PawnKindDef>
+</Defs>

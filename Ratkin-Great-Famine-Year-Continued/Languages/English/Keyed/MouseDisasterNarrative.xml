@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_Story_WaitGrowth>Waiting for the children to grow</MouseDisaster_Story_WaitGrowth>
+  <MouseDisaster_Story_ClosedCounts>Closed visits: {0}; successful aid: {1}.</MouseDisaster_Story_ClosedCounts>
+  <MouseDisaster_Story_ChildAge>Child's age: {0} years</MouseDisaster_Story_ChildAge>
+  <MouseDisaster_Story_WaitMissing>Awaiting news</MouseDisaster_Story_WaitMissing>
+  <MouseDisaster_Story_WaitTransferred>In colony custody</MouseDisaster_Story_WaitTransferred>
+  <MouseDisaster_Story_WaitDeparture>Awaiting departure or settlement</MouseDisaster_Story_WaitDeparture>
+  <MouseDisaster_Story_WaitTreatment>Needs treatment or food</MouseDisaster_Story_WaitTreatment>
+  <MouseDisaster_Story_WaitDecision>Awaiting a decision</MouseDisaster_Story_WaitDecision>
+  <MouseDisaster_Story_WaitCare>Receiving care</MouseDisaster_Story_WaitCare>
+  <MouseDisaster_Story_CareDays>{0} / {1} days</MouseDisaster_Story_CareDays>
+  <MouseDisaster_Story_ObservationDays>Observation time left: {0} days</MouseDisaster_Story_ObservationDays>
+  <MouseDisaster_Story_EndLeft>Left</MouseDisaster_Story_EndLeft>
+  <MouseDisaster_Story_EndSettled>Settled</MouseDisaster_Story_EndSettled>
+  <MouseDisaster_Story_EndDead>Died</MouseDisaster_Story_EndDead>
+  <MouseDisaster_Story_EndDetained>Imprisoned or enslaved</MouseDisaster_Story_EndDetained>
+  <MouseDisaster_Story_EndMissing>Whereabouts or care uncertain</MouseDisaster_Story_EndMissing>
+  <MouseDisaster_Story_ExchangeRejected>You refused the exchange. The trader is gathering the Ratkin young and preparing to leave.</MouseDisaster_Story_ExchangeRejected>
+  <MouseDisaster_Story_ExchangeAccepted>The exchange is confirmed. The Ratkin young staying here become colony prisoners; the trader is taking away the babies you handed over.</MouseDisaster_Story_ExchangeAccepted>
+  <MouseDisaster_Story_ExchangeTimedOut>The waiting period has ended. The trader is gathering the Ratkin young and preparing to leave.</MouseDisaster_Story_ExchangeTimedOut>
+  <MouseDisaster_Story_AlertLabel>Ratkin journal</MouseDisaster_Story_AlertLabel>
+  <MouseDisaster_Story_AlertText>Unread entries: {0}.\nStill being followed: {1}.</MouseDisaster_Story_AlertText>
+  <MouseDisaster_Story_Progress>Ongoing matters</MouseDisaster_Story_Progress>
+  <MouseDisaster_Story_AlertProgress>Visitor groups: {0}\nCare after the child exchange: {1}\nPlague observations: {2}\nEnvoys: {3}\nOld record chests: {4}</MouseDisaster_Story_AlertProgress>
+  <MouseDisaster_Story_MarkRead>Mark as read</MouseDisaster_Story_MarkRead>
+  <MouseDisaster_Story_DebugOriginal>Original incidents</MouseDisaster_Story_DebugOriginal>
+  <MouseDisaster_Story_DebugContinued>Continued incidents</MouseDisaster_Story_DebugContinued>
+  <MouseDisaster_Story_DebugNarratives>Stories and endings</MouseDisaster_Story_DebugNarratives>
+  <MouseDisaster_Story_Settings>Suin's story and endings</MouseDisaster_Story_Settings>
+  <MouseDisaster_Story_AidGoal>Aid goal: {0}</MouseDisaster_Story_AidGoal>
+  <MouseDisaster_Story_BroadcastGoal>Successful broadcasts: {0}</MouseDisaster_Story_BroadcastGoal>
+  <MouseDisaster_Story_DriveLimit>Maximum forcible expulsions: {0}</MouseDisaster_Story_DriveLimit>
+  <MouseDisaster_Story_AdultGoal>Adult famine Ratkin in one colony: {0}</MouseDisaster_Story_AdultGoal>
+  <MouseDisaster_Story_Stale>The people or location involved have changed. This action is no longer available.</MouseDisaster_Story_Stale>
+  <MouseDisaster_Story_NoMeals>Six available simple meals are required.</MouseDisaster_Story_NoMeals>
+  <MouseDisaster_Story_NoWood>Sealing the hole requires twenty available wood.</MouseDisaster_Story_NoWood>
+  <MouseDisaster_Story_ChoiceTrade>Trade for the lead (6 simple meals)</MouseDisaster_Story_ChoiceTrade>
+  <MouseDisaster_Story_ChoiceVerify>Verify the story (wait 1 day)</MouseDisaster_Story_ChoiceVerify>
+  <MouseDisaster_Story_ChoiceReject>Refuse and ask the visitor to leave</MouseDisaster_Story_ChoiceReject>
+  <MouseDisaster_Story_ChoiceDrive>Drive away by force (1 expulsion; trust -2)</MouseDisaster_Story_ChoiceDrive>
+  <MouseDisaster_Story_ChoiceReceive>Offer a meal (2 simple meals)</MouseDisaster_Story_ChoiceReceive>
+  <MouseDisaster_Story_ChoiceAsk>Hear Suin's explanation</MouseDisaster_Story_ChoiceAsk>
+  <MouseDisaster_Story_ChoiceQuiet>Do not ask this time</MouseDisaster_Story_ChoiceQuiet>
+  <MouseDisaster_Story_RelicChoice1>Take the records</MouseDisaster_Story_RelicChoice1>
+  <MouseDisaster_Story_RelicChoice2>Leave them here</MouseDisaster_Story_RelicChoice2>
+  <MouseDisaster_Story_RelicChoice3>Give them to the contact</MouseDisaster_Story_RelicChoice3>
+  <MouseDisaster_Story_RelicChoice4>Share custody and keep a copy</MouseDisaster_Story_RelicChoice4>
+  <MouseDisaster_Story_RelicChoice5>Destroy the records</MouseDisaster_Story_RelicChoice5>
+  <MouseDisaster_Story_RelicCost>Silver received: {0}. Taking or sharing the records lets you keep a copy. Destroying them gives no reward and reduces trust by 2. This choice cannot be changed afterward.</MouseDisaster_Story_RelicCost>
+  <MouseDisaster_Story_VisitCounts>Confirmed departures: {0}; settled: {1}; dead: {2}; detained: {3}; whereabouts or care uncertain: {4}.</MouseDisaster_Story_VisitCounts>
+  <MouseDisaster_Story_AidCounted>Successful aid +1.</MouseDisaster_Story_AidCounted>
+  <MouseDisaster_Story_AidNotCounted>This visit is closed. No successful aid was added.</MouseDisaster_Story_AidNotCounted>
+  <MouseDisaster_Story_N005Care_Label>Give the child a name</MouseDisaster_Story_N005Care_Label>
+  <MouseDisaster_Story_N005Care_Text>These past few days, someone has always had to put down their work to care for the children. At least now, every cry no longer starts with asking whom to call.\n\nTheir old names remain. Whether to change them is up to you.</MouseDisaster_Story_N005Care_Text>
+  <MouseDisaster_Story_N005Dead_Label>An empty place</MouseDisaster_Story_N005Dead_Label>
+  <MouseDisaster_Story_N005Dead_Text>The children did not survive. That trade was paid in full. Nobody will come back to refund anything.</MouseDisaster_Story_N005Dead_Text>
+  <MouseDisaster_Story_N005Left_Label>No longer here</MouseDisaster_Story_N005Left_Label>
+  <MouseDisaster_Story_N005Left_Text>The children have left your care. How they will be looked after elsewhere is not yet known.</MouseDisaster_Story_N005Left_Text>
+  <MouseDisaster_Story_N005Missing_Label>Still unsettled</MouseDisaster_Story_N005Missing_Label>
+  <MouseDisaster_Story_N005Missing_Text>Some time has passed since the handover, with no news that the children have settled in. Suin has written to ask how they are doing.</MouseDisaster_Story_N005Missing_Text>
+  <MouseDisaster_Story_BroadcastEcho_Label>The broadcast continues</MouseDisaster_Story_BroadcastEcho_Label>
+  <MouseDisaster_Story_BroadcastEcho_Text>"The broadcast is still going out. Those who hear it will not know why the gate is closed today."</MouseDisaster_Story_BroadcastEcho_Text>
+  <MouseDisaster_Story_N008Entry_Label>Someone asking the way</MouseDisaster_Story_N008Entry_Label>
+  <MouseDisaster_Story_N008Entry_Text>"I came to ask for those of us still alive."\n\n{0} grips the hem of their clothes and pauses before continuing.\n\n"We need food. I know an old store. Give me six simple meals and I will tell you where it is. You can check my story first. I can wait here for three days."</MouseDisaster_Story_N008Entry_Text>
+  <MouseDisaster_Story_N008Verified_Label>The story checks out</MouseDisaster_Story_N008Verified_Label>
+  <MouseDisaster_Story_N008Verified_Text>"That part matches. I cannot promise the rest, and you need not believe me yet."\n\nThe visitor's account matches something in your records. The offer still stands.</MouseDisaster_Story_N008Verified_Text>
+  <MouseDisaster_Story_N008Unverified_Label>The wrong place</MouseDisaster_Story_N008Unverified_Label>
+  <MouseDisaster_Story_N008Unverified_Text>There is no past event here to match the account.\n\n"Perhaps I came to the wrong place." The visitor does not insist.</MouseDisaster_Story_N008Unverified_Text>
+  <MouseDisaster_Story_N008Traded_Label>Supplies for the way back</MouseDisaster_Story_N008Traded_Label>
+  <MouseDisaster_Story_N008Traded_Text>"Enough. Don't bring any more. I cannot carry it all alone."\n\nThe visitor handed over the promised location and checked the route home once more.</MouseDisaster_Story_N008Traded_Text>
+  <MouseDisaster_Story_N008Rejected_Label>Keep moving</MouseDisaster_Story_N008Rejected_Label>
+  <MouseDisaster_Story_N008Rejected_Text>"Then never mind. I still have to get out before dark."\n\nThe visitor gathers their things and prepares to leave.</MouseDisaster_Story_N008Rejected_Text>
+  <MouseDisaster_Story_N008Dead_Label>The message ends here</MouseDisaster_Story_N008Dead_Label>
+  <MouseDisaster_Story_N008Dead_Text>The envoy has died, leaving the message unfinished.</MouseDisaster_Story_N008Dead_Text>
+  <MouseDisaster_Story_N008Missing_Label>Contact lost</MouseDisaster_Story_N008Missing_Label>
+  <MouseDisaster_Story_N008Missing_Text>The envoy can no longer be found at the meeting place. The unfinished exchange has fallen through.</MouseDisaster_Story_N008Missing_Text>
+  <MouseDisaster_Story_N008Left_Label>A broken meeting</MouseDisaster_Story_N008Left_Label>
+  <MouseDisaster_Story_N008Left_Text>The envoy has left the meeting. The offer has been withdrawn.</MouseDisaster_Story_N008Left_Text>
+  <MouseDisaster_Story_N008Timeout_Label>The wait is over</MouseDisaster_Story_N008Timeout_Label>
+  <MouseDisaster_Story_N008Timeout_Text>Three days have passed. The envoy has stopped waiting. Supplies not yet handed over remain in the colony.</MouseDisaster_Story_N008Timeout_Text>
+  <MouseDisaster_Story_N008ExtraSite>The visitor marked another place on the map. What remains there is anyone's guess.</MouseDisaster_Story_N008ExtraSite>
+  <MouseDisaster_Story_N009Entry_Label>An old store</MouseDisaster_Story_N009Entry_Label>
+  <MouseDisaster_Story_N009Entry_Text>The visitor pointed out an old store on the map, said to hold lists left during the migration.\n\n"Someone is coming to clear the place out. If you mean to go, get there within fifteen days."</MouseDisaster_Story_N009Entry_Text>
+  <MouseDisaster_Story_N009Result1_Label>Bring it back</MouseDisaster_Story_N009Result1_Label>
+  <MouseDisaster_Story_N009Result1_Text>Everything that can be carried has been packed. A few pages are stuck together. Do not pull them apart yet.\n\nThe records and silver are beside the chest. Remember to collect them.</MouseDisaster_Story_N009Result1_Text>
+  <MouseDisaster_Story_N009Result2_Label>Leave it for those who follow</MouseDisaster_Story_N009Result2_Label>
+  <MouseDisaster_Story_N009Result2_Text>You did not take the chest. The location has been noted, but what the next visitors do with it is no longer yours to decide.</MouseDisaster_Story_N009Result2_Text>
+  <MouseDisaster_Story_N009Result3_Label>Pass it on</MouseDisaster_Story_N009Result3_Label>
+  <MouseDisaster_Story_N009Result3_Text>You handed the records to the people contacted earlier. They left the agreed silver and carefully wrapped the old papers.</MouseDisaster_Story_N009Result3_Text>
+  <MouseDisaster_Story_N009Result4_Label>A copy each</MouseDisaster_Story_N009Result4_Label>
+  <MouseDisaster_Story_N009Result4_Text>"Leave us a copy. Once you take it away, don't make us ask you again."\n\nThe arrangement is settled. Your copy is at the site. There is no silver payment this time.</MouseDisaster_Story_N009Result4_Text>
+  <MouseDisaster_Story_N009Result5_Label>A ruined list</MouseDisaster_Story_N009Result5_Label>
+  <MouseDisaster_Story_N009Result5_Text>The paper and wooden chest are beyond use. There is no other copy here to check the names against.</MouseDisaster_Story_N009Result5_Text>
+  <MouseDisaster_Story_N009Result6_Label>An empty cellar</MouseDisaster_Story_N009Result6_Label>
+  <MouseDisaster_Story_N009Result6_Text>When you asked about the cellar again, nobody could be found to lead the way. The trail has gone cold.</MouseDisaster_Story_N009Result6_Text>
+  <MouseDisaster_Story_N007Return_Label>Back for a visit</MouseDisaster_Story_N007Return_Label>
+  <MouseDisaster_Story_N007Return_Text>A familiar face is at the gate again. The Ratkin plague had cleared before they left last time.\n\nThis time, they ask only for a meal and a chance to share news of a shorter route. You can welcome them or let them continue. They will wait one day.</MouseDisaster_Story_N007Return_Text>
+  <MouseDisaster_Story_N007ReturnReceived_Label>Another stretch of road</MouseDisaster_Story_N007ReturnReceived_Label>
+  <MouseDisaster_Story_N007ReturnReceived_Text>Two meals have been handed over. The visitor is preparing to leave again, with no further requests.</MouseDisaster_Story_N007ReturnReceived_Text>
+  <MouseDisaster_Story_E01_Label>A Year of Plenty</MouseDisaster_Story_E01_Label>
+  <MouseDisaster_Story_E01_Text>As the final act of aid was entered in the ledger, Suin wrote a name in the margin. Halfway through, she stopped for a long time.\n\n"I once promised to take her child somewhere there would be food. That time, I failed. Ever since, I have looked for that child on every list that reached me. I never found them."\n\nThe next page lists food sent, patients tended and visitors allowed to leave.\n\n"There are many people here whom I have never met. You helped them keep living. I should say that properly, at least once."\n\n"Thank you. And to the children growing up there: eat your meals without fear. Someone has already set aside your share."\n\nAid completed: {0}. Successful broadcasts: {1}. The famine is not over, but this colony has become somewhere people can reach.</MouseDisaster_Story_E01_Text>
+  <MouseDisaster_Story_E02_Label>A Squeak of Hope</MouseDisaster_Story_E02_Label>
+  <MouseDisaster_Story_E02_Text>This year's roll lists {2} adult famine Ratkin in one colony. Suin had to add several pages. Children who once trailed behind the crowd can now sign beside their own names.\n\n"When I used to ask where they were going, the answer was often: a little farther."\n\n"Now some give the name of your colony. Some count the days of the return journey; some ask a visitor to carry a message. Someone will be waiting for them."\n\nShe enclosed the first crumpled plea for help.\n\n"Keep this for me. I have a copy. The original belongs where they live."\n\n"You still have many years to share. Houses will age, people will argue, and harvests will be good or bad. When they grow old and speak of this year, I hope someone beside them will remember it too."</MouseDisaster_Story_E02_Text>
+  <MouseDisaster_Story_E03_Label>An Unanswered Record</MouseDisaster_Story_E03_Label>
+  <MouseDisaster_Story_E03_Text>Suin sent an account of the past months. It lists dates when food arrived, and blank spaces where nothing was heard after a group left.\n\n"This is as far as I can confirm. I am still looking for where the people who left alive went, and whether those who could not stay found somewhere else."\n\n"Sometimes you reached out. Sometimes the gate stayed closed. I recorded both. From so far away, I cannot know how much food was left inside that day."\n\nA blank reply slip is enclosed.\n\n"If you hear anything, send it to me. Even a single name. I would like to fill these spaces, little by little."\n\nThe record closes for now. The colony carries on, and new visitors may still appear on the road.</MouseDisaster_Story_E03_Text>
+  <MouseDisaster_Story_E04_Label>A Disappointed Witness</MouseDisaster_Story_E04_Label>
+  <MouseDisaster_Story_E04_Text>This time, Suin did not ask how you were. She returned several pages, marking the most troubling entries.\n\n"I have read them and checked them. You may have your reasons. Those people have already borne the consequences."\n\n"I cannot keep writing beside the pleas for help: try going here. Someone will believe those words and take their children onto the road."\n\nShe still left a return address.\n\n"I hope those already entrusted to you will still be cared for. I will keep watching what happens. But I cannot offer you my trust now."\n\nThe address is unchanged. The voice of the letters is not.</MouseDisaster_Story_E04_Text>
+  <MouseDisaster_Story_E05_Label>The Record Ends</MouseDisaster_Story_E05_Label>
+  <MouseDisaster_Story_E05_Text>The letter is short, with a clear signature.\n\n"I will no longer vouch for this place. I will give the records of what happened to those affected."\n\n"Someone asked why I trusted you in the first place. I must answer them in person."\n\n"Those who remain with you still need food, treatment and sleep. I will send no more idle news, but their lives go on. Necessary handovers and reports will still reach you."\n\n"Suin."\n\nNo new pleas for help are enclosed. She asks for no reply. Others will continue reading those records.</MouseDisaster_Story_E05_Text>
+  <MouseDisaster_Story_PublicEnding_Label>A chronicle of Ratkin aid</MouseDisaster_Story_PublicEnding_Label>
+  <MouseDisaster_Story_PublicEnding_Text>The aid given over these months now fills a register. Some found food along the road; others made a home here.\n\nAid given: {0}. Broadcasts sent: {1}. At the last count, one settlement was home to {2} adult famine Ratkin.</MouseDisaster_Story_PublicEnding_Text>
+  <MouseDisaster_Story_IdentityEntry_Label>What you never told us</MouseDisaster_Story_IdentityEntry_Label>
+  <MouseDisaster_Story_IdentityEntry_Text>"I know some old storehouse numbers, and I can reach people who arrange transport.\n\nI have not explained that properly before. We can talk about it now."</MouseDisaster_Story_IdentityEntry_Text>
+  <MouseDisaster_Story_IdentityFull_Label>Her Name</MouseDisaster_Story_IdentityFull_Label>
+  <MouseDisaster_Story_IdentityFull_Text>"I am a princess of the kingdom. My name really is Suin. I have never changed it.\n\nI know there are still so many people begging outside. I keep asking those who can afford to leave grain in their stores.\n\nThis money is what I can spare. The transport, too. I do not have an army that can open every road.\n\nNow you know. Do not start addressing me differently because of a title. I have not done enough to deserve that."</MouseDisaster_Story_IdentityFull_Text>
+  <MouseDisaster_Story_IdentityPartial_Label>Enough for today</MouseDisaster_Story_IdentityPartial_Label>
+  <MouseDisaster_Story_IdentityPartial_Text>"I used to keep some accounts for the kingdom, and I can contact a few people who arrange transport. There are other things I do not wish to say yet.\n\nOnce spoken, they cannot be unsaid. That is enough for today."</MouseDisaster_Story_IdentityPartial_Text>
+  <MouseDisaster_Story_BridgeChild_Label>Another handover</MouseDisaster_Story_BridgeChild_Label>
+  <MouseDisaster_Story_BridgeChild_Text>"Once again, someone is deciding where the children will go. What happened last time cannot make this decision for you."</MouseDisaster_Story_BridgeChild_Text>
+  <MouseDisaster_Story_BridgeGrain_Label>Another location</MouseDisaster_Story_BridgeGrain_Label>
+  <MouseDisaster_Story_BridgeGrain_Text>"There is another place along that food route. Whether the two are connected, someone will have to go and see."</MouseDisaster_Story_BridgeGrain_Text>
+  <MouseDisaster_Story_BridgePlague_Label>News from the road</MouseDisaster_Story_BridgePlague_Label>
+  <MouseDisaster_Story_BridgePlague_Text>"News can travel only when someone survives to carry it. This visitor has not mentioned the quarantine."</MouseDisaster_Story_BridgePlague_Text>
+  <MouseDisaster_Story_BridgeEnvoy_Label>Found it</MouseDisaster_Story_BridgeEnvoy_Label>
+  <MouseDisaster_Story_BridgeEnvoy_Text>"The place they spoke of has been found. This time, at least, the promised lead went somewhere."</MouseDisaster_Story_BridgeEnvoy_Text>
+  <MouseDisaster_Story_S12Paid_Label>Supplies surrendered on the road</MouseDisaster_Story_S12Paid_Label>
+  <MouseDisaster_Story_S12Paid_Text>After handing over the supplies, the caravan was allowed to continue. The remaining food will need to stretch further.</MouseDisaster_Story_S12Paid_Text>
+  <MouseDisaster_Story_S12Fight_Label>The caravan fights</MouseDisaster_Story_S12Fight_Label>
+  <MouseDisaster_Story_S12Fight_Text>The caravan refused to surrender its supplies. Its members set down their packs and took up their weapons.</MouseDisaster_Story_S12Fight_Text>
+  <MouseDisaster_Story_S01_Label>Children sent to the wrong place</MouseDisaster_Story_S01_Label>
+  <MouseDisaster_Story_S01_Text>At first, it was a mistaken destination. Once the pod opened, someone still had to decide where the children would go.</MouseDisaster_Story_S01_Text>
+  <MouseDisaster_Story_S02_Label>The wrong name</MouseDisaster_Story_S02_Label>
+  <MouseDisaster_Story_S02_Text>The visitor who mistook you for someone else is already here. The mistake can be corrected. Their future needs a separate answer.</MouseDisaster_Story_S02_Text>
+  <MouseDisaster_Story_S03_Label>Born before the decision</MouseDisaster_Story_S03_Label>
+  <MouseDisaster_Story_S03_Text>There is another child on the road. Among the mother's few belongings, room must be found for a swaddling cloth.</MouseDisaster_Story_S03_Text>
+  <MouseDisaster_Story_S04_Label>Those passing through</MouseDisaster_Story_S04_Label>
+  <MouseDisaster_Story_S04_Text>There is news of where this group went. Some visitors pass through only once.</MouseDisaster_Story_S04_Text>
+  <MouseDisaster_Story_S05_Label>After the theft</MouseDisaster_Story_S05_Label>
+  <MouseDisaster_Story_S05_Text>The grain sacks still bear signs of being searched. Some count what remains; others ask after the visitors.</MouseDisaster_Story_S05_Text>
+  <MouseDisaster_Story_S06_Label>A crowd at the gate</MouseDisaster_Story_S06_Label>
+  <MouseDisaster_Story_S06_Text>News becomes confused when there are so many people. This time, at least some of their fates are known.</MouseDisaster_Story_S06_Text>
+  <MouseDisaster_Story_S07_Label>The price of a map</MouseDisaster_Story_S07_Label>
+  <MouseDisaster_Story_S07_Text>The visitors' account placed a food cache only roughly on the map. Their description of the hills and waterways was much more precise.</MouseDisaster_Story_S07_Text>
+  <MouseDisaster_Story_S08_Label>The caravan's road</MouseDisaster_Story_S08_Label>
+  <MouseDisaster_Story_S08_Text>The caravan left behind a few trades and news of some of its people. A few more lines fill the ledger by the counter.</MouseDisaster_Story_S08_Text>
+  <MouseDisaster_Story_S09_Label>After the siege</MouseDisaster_Story_S09_Label>
+  <MouseDisaster_Story_S09_Text>The wall is quiet again. The guards change shifts while someone goes out to inspect the traces left by the visitors.</MouseDisaster_Story_S09_Text>
+  <MouseDisaster_Story_S10_Label>The famine that passed through</MouseDisaster_Story_S10_Label>
+  <MouseDisaster_Story_S10_Text>News of the group has come back in fragments. Suin gathers the scraps and checks the names one by one.</MouseDisaster_Story_S10_Text>
+  <MouseDisaster_Story_S11_Label>Where the infected went</MouseDisaster_Story_S11_Label>
+  <MouseDisaster_Story_S11_Text>The visitors were infected. A claim of revenge is not proof of who sent them. Names not yet found remain blank.</MouseDisaster_Story_S11_Text>
+  <MouseDisaster_Story_S12_Label>Beyond the caravan</MouseDisaster_Story_S12_Label>
+  <MouseDisaster_Story_S12_Text>News has arrived from the caravan. Its members spoke of the people who blocked the road and counted their remaining supplies.</MouseDisaster_Story_S12_Text>
+  <MouseDisaster_Story_S13_Label>With no one beside them</MouseDisaster_Story_S13_Label>
+  <MouseDisaster_Story_S13_Text>They arrived alone, without even a companion to carry a message. It took Suin several inquiries to piece together their journey.</MouseDisaster_Story_S13_Text>
+  <MouseDisaster_Story_S14_Label>After they leave</MouseDisaster_Story_S14_Label>
+  <MouseDisaster_Story_S14_Text>News of the visitors seeking help has arrived. Suin recognized the names: this was the group that had sent someone to ask the way.</MouseDisaster_Story_S14_Text>
+  <MouseDisaster_Story_N007Counts>Recorded recoveries: {0}; deaths: {1}; departures: {2}; other arrangements or contact lost: {3}. Someone may count as both recovered and departed.</MouseDisaster_Story_N007Counts>
+  <MouseDisaster_Story_ControlSection>Stories, reports and endings</MouseDisaster_Story_ControlSection>
+  <MouseDisaster_Story_EnableNarrative>Allow new stories to begin</MouseDisaster_Story_EnableNarrative>
+  <MouseDisaster_Story_AttitudeMixed>Attitude: varies by source incident</MouseDisaster_Story_AttitudeMixed>
+  <MouseDisaster_Story_AttitudeSharedTip>Shares attitude settings with: {0}. Changes here also apply to those incidents, affecting only future arrivals. Stories, quarantines and departures already underway continue as arranged.</MouseDisaster_Story_AttitudeSharedTip>
+  <MouseDisaster_Story_AttitudeIndependentTip>Sets the attitude of future envoys and how they respond to attacks or expulsion. Envoys already present are unchanged.</MouseDisaster_Story_AttitudeIndependentTip>
+  <MouseDisaster_Story_EnableNarrativeTip>Controls whether new stories begin naturally. Care, quarantine, meetings and site visits already underway can still conclude. Planned recovery visits not yet arrived are canceled when disabled. Ordinary incidents have their own switches.</MouseDisaster_Story_EnableNarrativeTip>
+  <MouseDisaster_Story_ToggleTip>Controls this story or report. S-series switches affect reports for new visitor groups; aid totals are still recorded. Events already underway can still conclude.</MouseDisaster_Story_ToggleTip>
+  <MouseDisaster_Story_TriggerSection>Story milestones</MouseDisaster_Story_TriggerSection>
+  <MouseDisaster_Story_ProgressGoal>A record takes shape: {0} kinds of incidents</MouseDisaster_Story_ProgressGoal>
+  <MouseDisaster_Story_RewardGoal>First thanks: {0} kinds of incidents</MouseDisaster_Story_RewardGoal>
+  <MouseDisaster_Story_TheftGoal>Granary hole: {0} theft incidents on one map</MouseDisaster_Story_TheftGoal>
+  <MouseDisaster_Story_EnvoyGoal>Envoy arrival: {0} kinds of incidents (care records may also qualify)</MouseDisaster_Story_EnvoyGoal>
+  <MouseDisaster_Story_RelicGoal>Relic lead: {0} kinds of incidents (an envoy's trade may also qualify)</MouseDisaster_Story_RelicGoal>
+  <MouseDisaster_Story_EndingDelay>Minimum time before an ordinary ending: {0} days</MouseDisaster_Story_EndingDelay>
+  <MouseDisaster_Story_FrequencySection>Return visits and letters</MouseDisaster_Story_FrequencySection>
+  <MouseDisaster_Story_N004ReturnChance>Mother's return: {0}% of the usual chance</MouseDisaster_Story_N004ReturnChance>
+  <MouseDisaster_Story_ReturnChance>Chance of a visit after recovering and leaving: {0}%</MouseDisaster_Story_ReturnChance>
+  <MouseDisaster_Story_ReturnDelay>Recovery visit delay: {0} days (new visits only)</MouseDisaster_Story_ReturnDelay>
+  <MouseDisaster_Story_EchoChance>Suin's letters: {0}% of the trust-based chance</MouseDisaster_Story_EchoChance>
+  <MouseDisaster_Story_EchoCooldown>Time between letters: {0} days (current wait is unchanged)</MouseDisaster_Story_EchoCooldown>
+  <MouseDisaster_Story_DebugMenu>Story actions</MouseDisaster_Story_DebugMenu>
+  <MouseDisaster_Story_DebugSuccess>Action completed: {0}. The result is in the log.</MouseDisaster_Story_DebugSuccess>
+  <MouseDisaster_Story_DebugPreview>Previewed {0}. Progress and rewards are unchanged.</MouseDisaster_Story_DebugPreview>
+  <MouseDisaster_Story_DebugFailed>The action failed. Details are in the log.</MouseDisaster_Story_DebugFailed>
+  <MouseDisaster_Story_DebugAlready>This story is already underway or finished. Existing progress and rewards are not replaced. Load an earlier save to try again.</MouseDisaster_Story_DebugAlready>
+  <MouseDisaster_Story_DebugNeedHome>Open one of your colony maps first.</MouseDisaster_Story_DebugNeedHome>
+  <MouseDisaster_Story_DebugNeedReturn>No original return visitor or player caravan is available. No substitute is created and nobody is revived.</MouseDisaster_Story_DebugNeedReturn>
+  <MouseDisaster_Story_DebugNeedFood>The granary hole needs edible food in an existing storage area.</MouseDisaster_Story_DebugNeedFood>
+  <MouseDisaster_Story_DebugSpawnFailed>The incident could not begin. A suitable map, caravan, faction or arrival point may be missing.</MouseDisaster_Story_DebugSpawnFailed>
+  <MouseDisaster_Story_DebugNoNarrative>The incident occurred, but its story did not begin. Check the visitors and available location.</MouseDisaster_Story_DebugNoNarrative>
+  <MouseDisaster_Story_DebugCheck>Resolve due tasks (no time skip or extra care)</MouseDisaster_Story_DebugCheck>
+  <MouseDisaster_Story_DebugInspect>Show story progress</MouseDisaster_Story_DebugInspect>
+  <MouseDisaster_Story_ToggleN001>N-001 First Contact</MouseDisaster_Story_ToggleN001>
+  <MouseDisaster_Story_DebugN001>N-001 First Contact / trigger</MouseDisaster_Story_DebugN001>
+  <MouseDisaster_Story_ToggleN002>N-002 A Record Takes Shape</MouseDisaster_Story_ToggleN002>
+  <MouseDisaster_Story_DebugN002>N-002 A Record Takes Shape / trigger</MouseDisaster_Story_DebugN002>
+  <MouseDisaster_Story_ToggleN003>N-003 First Thanks</MouseDisaster_Story_ToggleN003>
+  <MouseDisaster_Story_DebugN003>N-003 First Thanks / trigger</MouseDisaster_Story_DebugN003>
+  <MouseDisaster_Story_ToggleN004>N-004 A Mother's Last Request</MouseDisaster_Story_ToggleN004>
+  <MouseDisaster_Story_DebugN004>N-004 A Mother's Last Request / trigger</MouseDisaster_Story_DebugN004>
+  <MouseDisaster_Story_ToggleN005>N-005 After the Exchange</MouseDisaster_Story_ToggleN005>
+  <MouseDisaster_Story_DebugN005>N-005 After the Exchange / trigger</MouseDisaster_Story_DebugN005>
+  <MouseDisaster_Story_ToggleN006>N-006 The Granary Hole</MouseDisaster_Story_ToggleN006>
+  <MouseDisaster_Story_DebugN006>N-006 The Granary Hole / trigger</MouseDisaster_Story_DebugN006>
+  <MouseDisaster_Story_ToggleN007>N-007 Quarantine</MouseDisaster_Story_ToggleN007>
+  <MouseDisaster_Story_DebugN007>N-007 Quarantine / trigger</MouseDisaster_Story_DebugN007>
+  <MouseDisaster_Story_ToggleN008>N-008 The Survivors' Envoy</MouseDisaster_Story_ToggleN008>
+  <MouseDisaster_Story_DebugN008>N-008 The Survivors' Envoy / trigger</MouseDisaster_Story_DebugN008>
+  <MouseDisaster_Story_ToggleN009>N-009 The Old Records</MouseDisaster_Story_ToggleN009>
+  <MouseDisaster_Story_DebugN009>N-009 The Old Records / trigger</MouseDisaster_Story_DebugN009>
+  <MouseDisaster_Story_ToggleN010>N-010 Allow story endings</MouseDisaster_Story_ToggleN010>
+  <MouseDisaster_Story_ToggleE01>E-01 A Year of Plenty</MouseDisaster_Story_ToggleE01>
+  <MouseDisaster_Story_DebugE01>E-01 A Year of Plenty / preview only</MouseDisaster_Story_DebugE01>
+  <MouseDisaster_Story_ToggleE02>E-02 A Squeak of Hope</MouseDisaster_Story_ToggleE02>
+  <MouseDisaster_Story_DebugE02>E-02 A Squeak of Hope / preview only</MouseDisaster_Story_DebugE02>
+  <MouseDisaster_Story_ToggleE03>E-03 An Unanswered Record</MouseDisaster_Story_ToggleE03>
+  <MouseDisaster_Story_DebugE03>E-03 An Unanswered Record / preview only</MouseDisaster_Story_DebugE03>
+  <MouseDisaster_Story_ToggleE04>E-04 A Disappointed Witness</MouseDisaster_Story_ToggleE04>
+  <MouseDisaster_Story_DebugE04>E-04 A Disappointed Witness / preview only</MouseDisaster_Story_DebugE04>
+  <MouseDisaster_Story_ToggleE05>E-05 The Record Ends</MouseDisaster_Story_ToggleE05>
+  <MouseDisaster_Story_DebugE05>E-05 The Record Ends / preview only</MouseDisaster_Story_DebugE05>
+  <MouseDisaster_Story_ToggleR01>R-01 Her Name</MouseDisaster_Story_ToggleR01>
+  <MouseDisaster_Story_DebugR01>R-01 Her Name / preview only</MouseDisaster_Story_DebugR01>
+  <MouseDisaster_Story_ToggleN004Return>N-004-R Meeting Again</MouseDisaster_Story_ToggleN004Return>
+  <MouseDisaster_Story_DebugN004Return>N-004-R Meeting Again / trigger</MouseDisaster_Story_DebugN004Return>
+  <MouseDisaster_Story_ToggleN007Return>N-007-R A Return Visit</MouseDisaster_Story_ToggleN007Return>
+  <MouseDisaster_Story_DebugN007Return>N-007-R A Return Visit / trigger</MouseDisaster_Story_DebugN007Return>
+  <MouseDisaster_Story_ToggleEcho>Suin's letters and chapter transitions</MouseDisaster_Story_ToggleEcho>
+  <MouseDisaster_Story_ToggleS01>S-01 Misdelivered Children</MouseDisaster_Story_ToggleS01>
+  <MouseDisaster_Story_DebugS01>S-01 Misdelivered Children / trigger</MouseDisaster_Story_DebugS01>
+  <MouseDisaster_Story_ToggleS02>S-02 Mistaken Identity</MouseDisaster_Story_ToggleS02>
+  <MouseDisaster_Story_DebugS02>S-02 Mistaken Identity / trigger</MouseDisaster_Story_DebugS02>
+  <MouseDisaster_Story_ToggleS03>S-03 Refugees in Labor</MouseDisaster_Story_ToggleS03>
+  <MouseDisaster_Story_DebugS03>S-03 Refugees in Labor / trigger</MouseDisaster_Story_DebugS03>
+  <MouseDisaster_Story_ToggleS04>S-04 Passing Through</MouseDisaster_Story_ToggleS04>
+  <MouseDisaster_Story_DebugS04>S-04 Passing Through / trigger</MouseDisaster_Story_DebugS04>
+  <MouseDisaster_Story_ToggleS05>S-05 After the Theft</MouseDisaster_Story_ToggleS05>
+  <MouseDisaster_Story_DebugS05>S-05 After the Theft / trigger</MouseDisaster_Story_DebugS05>
+  <MouseDisaster_Story_ToggleS06>S-06 The Refugee Wave</MouseDisaster_Story_ToggleS06>
+  <MouseDisaster_Story_DebugS06>S-06 The Refugee Wave / trigger</MouseDisaster_Story_DebugS06>
+  <MouseDisaster_Story_ToggleS07>S-07 Buying a Lead</MouseDisaster_Story_ToggleS07>
+  <MouseDisaster_Story_DebugS07>S-07 Buying a Lead / trigger</MouseDisaster_Story_DebugS07>
+  <MouseDisaster_Story_ToggleS08>S-08 The Traders' Journey</MouseDisaster_Story_ToggleS08>
+  <MouseDisaster_Story_DebugS08>S-08 The Traders' Journey / trigger</MouseDisaster_Story_DebugS08>
+  <MouseDisaster_Story_ToggleS09>S-09 After the Siege</MouseDisaster_Story_ToggleS09>
+  <MouseDisaster_Story_DebugS09>S-09 After the Siege / trigger</MouseDisaster_Story_DebugS09>
+  <MouseDisaster_Story_ToggleS10>S-10 The Great Famine</MouseDisaster_Story_ToggleS10>
+  <MouseDisaster_Story_DebugS10>S-10 The Great Famine / trigger</MouseDisaster_Story_DebugS10>
+  <MouseDisaster_Story_ToggleS11>S-11 Plague Revenge</MouseDisaster_Story_ToggleS11>
+  <MouseDisaster_Story_DebugS11>S-11 Plague Revenge / trigger</MouseDisaster_Story_DebugS11>
+  <MouseDisaster_Story_ToggleS12>S-12 Caravan Extortion</MouseDisaster_Story_ToggleS12>
+  <MouseDisaster_Story_DebugS12>S-12 Caravan Extortion / trigger</MouseDisaster_Story_DebugS12>
+  <MouseDisaster_Story_ToggleS13>S-13 Wild Ratkin</MouseDisaster_Story_ToggleS13>
+  <MouseDisaster_Story_DebugS13>S-13 Wild Ratkin / trigger</MouseDisaster_Story_DebugS13>
+  <MouseDisaster_Story_ToggleS14>S-14 Aid</MouseDisaster_Story_ToggleS14>
+  <MouseDisaster_Story_DebugS14>S-14 Aid / trigger</MouseDisaster_Story_DebugS14>
+</LanguageData>

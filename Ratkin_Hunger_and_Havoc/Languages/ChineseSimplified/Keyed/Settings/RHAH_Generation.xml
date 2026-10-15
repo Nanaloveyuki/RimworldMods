@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_MaxEventPawns>单次来客上限：{0}</RHAH_Settings_MaxEventPawns>
+  <RHAH_Settings_MaxEventPawns_Tooltip>普通事件的来客人数上限，范围 1 到 100，默认 30。如果上限低于事件要求的最少人数，仍按最少人数生成。母子等特殊事件使用各自的人数规则。</RHAH_Settings_MaxEventPawns_Tooltip>
+  <RHAH_Settings_MinAge>最低到来年龄：{0}</RHAH_Settings_MinAge>
+  <RHAH_Settings_MaxAge>最高到来年龄：{0}</RHAH_Settings_MaxAge>
+  <RHAH_Settings_Age_Tooltip>普通来客的年龄范围，允许设置为 0 到 100 岁，默认 0 到 50 岁。母亲还须达到单独设置的最低年龄。幼年鼠族使用各事件的年龄范围，也可通过下方开关改用本项设置。</RHAH_Settings_Age_Tooltip>
+  <RHAH_Settings_YoungAge>幼年鼠族使用这个年龄区间</RHAH_Settings_YoungAge>
+  <RHAH_Settings_YoungAge_Tooltip>开启后，新来的幼年鼠族使用上方的年龄范围。关闭时，乞讨幼崽为 1 天到 2.9 岁，其它幼年鼠族为 3 到 6.9 岁。母亲的年龄仍须达到单独设置的下限。</RHAH_Settings_YoungAge_Tooltip>
+  <RHAH_Settings_MotherAge>母亲最低年龄：{0}</RHAH_Settings_MotherAge>
+  <RHAH_Settings_MotherAge_Tooltip>母亲来客的最低年龄，范围 1 到 14 岁，默认 14 岁。普通来客的年龄下限更高时，使用较高的下限；幼年鼠族仍使用各自的年龄范围。</RHAH_Settings_MotherAge_Tooltip>
+  <RHAH_Settings_ImmobileBabies>允许不能走路的婴幼到来</RHAH_Settings_ImmobileBabies>
+  <RHAH_Settings_ImmobileBabies_Tooltip>未启用 Toddler 模组时，4 岁以下的鼠族婴幼儿只能躺着，离场时需要大人抱走。关闭本项后，新来的幼年鼠族至少 4 岁。</RHAH_Settings_ImmobileBabies_Tooltip>
+  <RHAH_Settings_ImmobileBabies_Toddlers>Toddler 模组已启用，3 岁以下的幼儿也能自行移动。此开关对幼年鼠族最低年龄的限制已解除。</RHAH_Settings_ImmobileBabies_Toddlers>
+  <RHAH_Settings_Gender>性别</RHAH_Settings_Gender>
+  <RHAH_Settings_Gender_0>随机</RHAH_Settings_Gender_0>
+  <RHAH_Settings_Gender_1>按比例</RHAH_Settings_Gender_1>
+  <RHAH_Settings_Gender_2>全部女性</RHAH_Settings_Gender_2>
+  <RHAH_Settings_Gender_3>全部男性</RHAH_Settings_Gender_3>
+  <RHAH_Settings_FemaleShare>女性比例：{0}%</RHAH_Settings_FemaleShare>
+  <RHAH_Settings_FemaleShare_Tooltip>选择“按比例”时，新来客中的女性比例。0 表示全部男性，100 表示全部女性。事件指定性别的角色使用指定性别。</RHAH_Settings_FemaleShare_Tooltip>
+  <RHAH_Settings_PlayerIdeo>玩家文化：{0}%</RHAH_Settings_PlayerIdeo>
+  <RHAH_Settings_PlayerIdeo_Tooltip>新来客和后来入籍的角色中，采用玩家派系主要文化的比例。100 表示全部采用，0 表示保留生成时的文化。此项需要启用文化扩展，且玩家派系拥有主要文化。</RHAH_Settings_PlayerIdeo_Tooltip>
+  <RHAH_Settings_Apparel>衣物</RHAH_Settings_Apparel>
+  <RHAH_Settings_Apparel_0>平民衣装</RHAH_Settings_Apparel_0>
+  <RHAH_Settings_Apparel_1>平民衣装</RHAH_Settings_Apparel_1>
+  <RHAH_Settings_Apparel_2>平民衣装，再加温度自适应衣物</RHAH_Settings_Apparel_2>
+  <RHAH_Settings_Apparel_3>不穿衣</RHAH_Settings_Apparel_3>
+  <RHAH_Settings_MaxTraits>本模组特质上限：{0}</RHAH_Settings_MaxTraits>
+  <RHAH_Settings_MaxTraits_Tooltip>每名新来客可获得的本模组特质数量上限，范围 0 到 3。设为 0 时停止分配。已经在场的角色保留原有特质。</RHAH_Settings_MaxTraits_Tooltip>
+  <RHAH_Settings_VanillaTraits>保留原版特质</RHAH_Settings_VanillaTraits>
+  <RHAH_Settings_VanillaTraits_Tooltip>关闭后，新来客不再获得随年龄出现的原版特质。本模组特质仍按上面的上限挑选。</RHAH_Settings_VanillaTraits_Tooltip>
+  <RHAH_Settings_TraitAge>特质跟随年龄</RHAH_Settings_TraitAge>
+  <RHAH_Settings_TraitAge_Tooltip>开启后，新来客按年龄获得幼年或成年特质。关闭后，两个年龄段的特质都可被选中。</RHAH_Settings_TraitAge_Tooltip>
+  <RHAH_Settings_ContentSort>列表分类</RHAH_Settings_ContentSort>
+  <RHAH_Settings_ContentSort_0>按来源</RHAH_Settings_ContentSort_0>
+  <RHAH_Settings_ContentSort_1>按名称</RHAH_Settings_ContentSort_1>
+  <RHAH_Settings_ContentSort_2>按类别</RHAH_Settings_ContentSort_2>
+  <RHAH_Settings_ContentSearch>搜索经历或特质</RHAH_Settings_ContentSearch>
+  <RHAH_Menu_Content_Owned>饥与祸</RHAH_Menu_Content_Owned>
+  <RHAH_Menu_Content_vanilla>原版</RHAH_Menu_Content_vanilla>
+  <RHAH_Menu_Content_none>普通</RHAH_Menu_Content_none>
+  <RHAH_Menu_Content_plague>鼠疫</RHAH_Menu_Content_plague>
+  <RHAH_Menu_Content_theft>偷窃</RHAH_Menu_Content_theft>
+  <RHAH_Menu_Content_conflict>冲突</RHAH_Menu_Content_conflict>
+  <RHAH_Menu_Content_siege>围攻</RHAH_Menu_Content_siege>
+  <RHAH_Settings_RefugeeApparel>可生成的衣物</RHAH_Settings_RefugeeApparel>
+  <RHAH_Settings_RefugeeApparel_Tooltip>新来客只获得已允许的普通衣物。温度衣在环境页单独设置，会优先穿上；普通衣物再补充到与温度衣兼容的位置。</RHAH_Settings_RefugeeApparel_Tooltip>
+  <RHAH_Settings_RefugeeApparel_All>全部允许</RHAH_Settings_RefugeeApparel_All>
+  <RHAH_Settings_RefugeeApparel_None>全部禁止</RHAH_Settings_RefugeeApparel_None>
+  <RHAH_Settings_RefugeeApparel_Search>搜索衣物或模组</RHAH_Settings_RefugeeApparel_Search>
+  <RHAH_Settings_RefugeeApparel_Empty>没有符合的衣物。</RHAH_Settings_RefugeeApparel_Empty>
+  <RHAH_Settings_RefugeeApparel_Quote>默认衣物名单包括原版部落服、NewRatkinPlus 指定鼠族衣物和原版幼年基本衣物。新来客优先穿温度衣，再搭配兼容的普通衣物。</RHAH_Settings_RefugeeApparel_Quote>
+  <RHAH_Settings_RefugeeApparel_Sort>衣物分类</RHAH_Settings_RefugeeApparel_Sort>
+  <RHAH_Settings_RefugeeApparel_Sort_0>按模组</RHAH_Settings_RefugeeApparel_Sort_0>
+  <RHAH_Settings_RefugeeApparel_Sort_1>按名称</RHAH_Settings_RefugeeApparel_Sort_1>
+  <RHAH_Settings_RefugeeApparel_Sort_2>按原版分类</RHAH_Settings_RefugeeApparel_Sort_2>
+  <RHAH_Menu_PawnHistory>来客经历</RHAH_Menu_PawnHistory>
+  <RHAH_Menu_Experimental>实验性</RHAH_Menu_Experimental>
+  <RHAH_Menu_PawnHistory_Note>新来客从已勾选的经历中随机获得一条。事件指定了身世的角色使用指定经历，仍可获得特质。</RHAH_Menu_PawnHistory_Note>
+  <RHAH_Menu_PawnHistory_EnableAll>启用全部经历</RHAH_Menu_PawnHistory_EnableAll>
+  <RHAH_Menu_PawnHistory_DisableAll>停用全部经历</RHAH_Menu_PawnHistory_DisableAll>
+  <RHAH_Menu_PawnHistory_ItemTip>关闭后，新来客不再获得这条经历。已经在场的人继续用原来的经历。</RHAH_Menu_PawnHistory_ItemTip>
+  <RHAH_Menu_PawnTrait>特质</RHAH_Menu_PawnTrait>
+  <RHAH_Menu_PawnTrait_EnableAll>启用全部特质</RHAH_Menu_PawnTrait_EnableAll>
+  <RHAH_Menu_PawnTrait_DisableAll>停用全部特质</RHAH_Menu_PawnTrait_DisableAll>
+  <RHAH_Menu_PawnTrait_ItemTip>关闭后，新来客不再获得这条特质。已经在场的人继续带着原来的特质。</RHAH_Menu_PawnTrait_ItemTip>
+  <RHAH_Menu_PawnTrait_Weight>权重</RHAH_Menu_PawnTrait_Weight>
+  <RHAH_Menu_PawnTrait_WeightTip>特质权重越高，越容易被选中。设为 0 时停止分配。选中特质后，来客实际获得它的几率为权重除以 100。拖动滑条可粗略调整，输入框可填写精确值。</RHAH_Menu_PawnTrait_WeightTip>
+  <RHAH_Settings_PawnHistories>给新来客一段经历</RHAH_Settings_PawnHistories>
+  <RHAH_Settings_PawnHistories_Tooltip>关闭后，新来客不再获得这些经历。已经在场的人继续用原来的经历。</RHAH_Settings_PawnHistories_Tooltip>
+  <RHAH_Settings_PawnTraits>给新来客本模组特质</RHAH_Settings_PawnTraits>
+  <RHAH_Settings_PawnTraits_Tooltip>关闭后，新来客不再获得本模组特质。已经在场的人继续带着原来的特质。每人仍受上面的上限限制。</RHAH_Settings_PawnTraits_Tooltip>
+  <RHAH_Menu_Experimental_Gap>当前可用选项为“加快来客出现”。</RHAH_Menu_Experimental_Gap>
+  <RHAH_Menu_Experimental_Note>此页选项用于缩短生成新来客所需的时间。关闭后，新来客按各事件的正常流程生成装备、经历、健康状态和基因。</RHAH_Menu_Experimental_Note>
+  <RHAH_Settings_OptimizeGeneration>加快来客出现</RHAH_Settings_OptimizeGeneration>
+  <RHAH_Settings_OptimizeGeneration_Tooltip>来客出现得更快，随机衣着和身份更少。没有指定异种时，按基因页的权重决定。</RHAH_Settings_OptimizeGeneration_Tooltip>
+  <RHAH_Settings_ApparelAwful>破旧衣：{0}%</RHAH_Settings_ApparelAwful>
+  <RHAH_Settings_ApparelAwful_Tooltip>新来客衣物为破旧品质的几率。其余衣物先按较差品质的几率选择，剩余使用普通品质。范围 0 到 100%，默认 35%。</RHAH_Settings_ApparelAwful_Tooltip>
+  <RHAH_Settings_ApparelPoor>较差衣：{0}%</RHAH_Settings_ApparelPoor>
+  <RHAH_Settings_ApparelPoor_Tooltip>新来客衣物为较差品质的几率。与破旧品质的几率之和须不超过 100%，默认 50%。</RHAH_Settings_ApparelPoor_Tooltip>
+  <RHAH_Settings_ApparelDurability_Tooltip>新来客衣物的耐久百分比范围。最低值须不高于最高值，两者均可设为 1 到 100%。</RHAH_Settings_ApparelDurability_Tooltip>
+  <RHAH_Settings_ApparelMin>衣服耐久最低：{0}%</RHAH_Settings_ApparelMin>
+  <RHAH_Settings_ApparelMax>衣服耐久最高：{0}%</RHAH_Settings_ApparelMax>
+  <RHAH_Settings_ApparelCorpse>尸衣：{0}%</RHAH_Settings_ApparelCorpse>
+  <RHAH_Settings_ApparelCorpse_Tooltip>新来客衣物带有尸衣标记的几率。范围 0 到 100%，默认 25%。</RHAH_Settings_ApparelCorpse_Tooltip>
+  <RHAH_Settings_ApparelCloth>布料：{0}%</RHAH_Settings_ApparelCloth>
+  <RHAH_Settings_ApparelCloth_Tooltip>衣物同时支持布料和人皮时，选用布料的几率，其余使用人皮。范围 0 到 100%，默认 65%。</RHAH_Settings_ApparelCloth_Tooltip>
+  <RHAH_Settings_ApparelPieces>最多衣物：{0}</RHAH_Settings_ApparelPieces>
+  <RHAH_Settings_ApparelPieces_Tooltip>每名成年来客穿着的衣物数量上限。范围 1 到 8 件，默认 4 件。</RHAH_Settings_ApparelPieces_Tooltip>
+</LanguageData>

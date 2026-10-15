@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <MentalStateDef ParentName="BaseMentalState">
+    <defName>MouseDisaster_BeggingState</defName>
+    <label>鼠灾乞讨</label>
+    <baseInspectLine>精神状态：鼠灾乞讨</baseInspectLine>
+    <minTicksBeforeRecovery>120000</minTicksBeforeRecovery>
+    <maxTicksBeforeRecovery>900000</maxTicksBeforeRecovery>
+    <recoveryMtbDays>99</recoveryMtbDays>
+    <stopsJobs>false</stopsJobs>
+    <allowGuilty>false</allowGuilty>
+  </MentalStateDef>
+
+  <MentalStateDef ParentName="BaseMentalState">
+    <defName>MouseDisaster_ThievingState</defName>
+    <label>鼠灾偷窃</label>
+    <baseInspectLine>精神状态：鼠灾偷窃</baseInspectLine>
+    <minTicksBeforeRecovery>120000</minTicksBeforeRecovery>
+    <maxTicksBeforeRecovery>900000</maxTicksBeforeRecovery>
+    <recoveryMtbDays>99</recoveryMtbDays>
+    <stopsJobs>false</stopsJobs>
+    <allowGuilty>false</allowGuilty>
+  </MentalStateDef>
+</Defs>

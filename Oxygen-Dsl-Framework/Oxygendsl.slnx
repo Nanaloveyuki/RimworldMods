@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/Source/" />
+  <Folder Name="/Source/Core/">
+    <Project Path="Source/Core/Oxygendsl.Core.csproj" />
+  </Folder>
+  <Folder Name="/Source/Mod/">
+    <Project Path="Source/Mod/Oxygendsl.Mod.csproj" />
+  </Folder>
+  <Folder Name="/Source/Rhah/">
+    <Project Path="Source/Rhah/Oxygendsl.Rhah.csproj" />
+  </Folder>
+  <Folder Name="/Source/IrisMenus/">
+    <Project Path="Source/IrisMenus/Oxygendsl.IrisMenus.csproj" />
+  </Folder>
+  <Folder Name="/Source/Check/">
+    <Project Path="Source/Check/Oxygendsl.Tool.csproj" />
+  </Folder>
+  <Folder Name="/Source/Editor/">
+    <Project Path="Source/Editor/Oxygendsl.Editor.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Oxygendsl.Checks.csproj" />
+    <Project Path="Tests/AdapterLoading/AdapterLoading.csproj" />
+  </Folder>
+</Solution>

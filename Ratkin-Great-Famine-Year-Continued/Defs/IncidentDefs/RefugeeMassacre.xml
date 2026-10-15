@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <IncidentDef>
+    <defName>MouseDisaster_RefugeeMassacre</defName>
+    <label>refugee massacre</label>
+    <workerClass>MouseDisaster.IncidentWorker_MouseDisasterRefugeeMassacre</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0.05</baseChance>
+    <minRefireDays>15</minRefireDays>
+    <pointsScaleable>false</pointsScaleable>
+    <letterDef>NeutralEvent</letterDef>
+  </IncidentDef>
+  <QuestScriptDef>
+    <defName>MouseDisaster_RefugeeMassacre</defName>
+    <root Class="MouseDisaster.QuestNode_MouseDisasterRefugeeMassacre" />
+    <expireDaysRange>5~8</expireDaysRange>
+    <questNameRules><rulesStrings><li>questName->Refugee massacre</li></rulesStrings></questNameRules>
+    <questDescriptionRules><rulesStrings><li>questDescription->[sponsorName] claims a temporary Ratkin refugee camp threatens their settlement and asks you to kill all of its residents within 15 days of accepting. The camp contains 2-4 adults and 8-16 children aged 0-8. It has wooden huts, no turrets or electricity, and only tribalwear, low-tech melee weapons and wooden short bows. Completing the task grants 12 goodwill. Downing or capturing residents does not complete this task.</li></rulesStrings></questDescriptionRules>
+  </QuestScriptDef>
+  <WorldObjectDef ParentName="StaticWorldObjectBase">
+    <defName>MouseDisaster_RefugeeCamp</defName>
+    <label>temporary refugee camp</label>
+    <worldObjectClass>MouseDisaster.MouseDisasterRefugeeSite</worldObjectClass>
+    <mapGenerator>MouseDisaster_RefugeeCamp</mapGenerator>
+    <expandingIcon>true</expandingIcon>
+    <comps>
+      <li Class="WorldObjectCompProperties_Timeout" />
+      <li Class="WorldObjectCompProperties_FormCaravan" />
+      <li Class="WorldObjectCompProperties_EnterCooldown" />
+    </comps>
+    <IncidentTargetTags><li>Map_Misc</li></IncidentTargetTags>
+  </WorldObjectDef>
+  <SitePartDef>
+    <defName>MouseDisaster_RefugeeCamp</defName>
+    <label>temporary refugee camp</label>
+    <description>A group of Ratkin refugees has built wooden huts here.</description>
+    <siteTexture>World/WorldObjects/DefaultSettlement</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/Camp</expandingIconTexture>
+    <disallowsAutomaticDetectionTimerStart>true</disallowsAutomaticDetectionTimerStart>
+    <considerEnteringAsAttack>false</considerEnteringAsAttack>
+  </SitePartDef>
+  <MapGeneratorDef>
+    <defName>MouseDisaster_RefugeeCamp</defName>
+    <genSteps>
+      <li>ElevationFertility</li><li>Terrain</li><li>RocksFromGrid_NoMinerals</li>
+      <li>MouseDisaster_RefugeeCamp</li><li>FindPlayerStartSpot</li>
+      <li>Plants</li><li>Snow</li><li>Animals</li><li>Fog</li>
+    </genSteps>
+  </MapGeneratorDef>
+  <GenStepDef>
+    <defName>MouseDisaster_RefugeeCamp</defName>
+    <order>450</order>
+    <genStep Class="MouseDisaster.GenStep_MouseDisasterRefugeeCamp" />
+  </GenStepDef>
+</Defs>

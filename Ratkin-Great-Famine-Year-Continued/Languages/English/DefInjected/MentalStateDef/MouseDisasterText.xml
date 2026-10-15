@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_BeggingState.label>begging for food</MouseDisaster_BeggingState.label>
+  <MouseDisaster_BeggingState.baseInspectLine>Mental state: begging for food</MouseDisaster_BeggingState.baseInspectLine>
+  <MouseDisaster_ThievingState.label>stealing food</MouseDisaster_ThievingState.label>
+  <MouseDisaster_ThievingState.baseInspectLine>Mental state: stealing food</MouseDisaster_ThievingState.baseInspectLine>
+</LanguageData>

@@ -1,0 +1,32 @@
+name: Offline contracts and automation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: static-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validate Actions workflows and runner labels
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
+          "$(go env GOPATH)/bin/actionlint" -color .github/workflows/static.yml .github/workflows/local.yml
+      - name: Python automation behavior tests (not the full gate)
+        run: python3 scripts/rhah_pipeline.py test --tools-only
+      - name: Clean-checkout structure and content contracts
+        run: python3 scripts/rhah_pipeline.py check
+      - name: Upload only sanitized status reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: offline-safe-reports
+          path: tmp/automation/*/safe-report.json
+          if-no-files-found: warn
+          retention-days: 7

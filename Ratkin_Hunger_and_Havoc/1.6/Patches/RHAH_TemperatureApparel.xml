@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="Insulation_Cold" or defName="Insulation_Heat"]/parts</xpath>
+    <value>
+      <li Class="HungerAndHavoc.Pawn.StatPart_RHAH_TemperatureApparel" />
+    </value>
+  </Operation>
+  <!-- 幼童设置会重写 Baby 许可 通过公开名单保留温度衣资格 -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Cold_ThinHemp"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Cold_ThinHemp</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Cold_LayeredHemp"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Cold_LayeredHemp</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Cold_StrawQuilt"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Cold_StrawQuilt</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Cold_FurCloak"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Cold_FurCloak</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Cold_SmokedBlanket"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Cold_SmokedBlanket</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Cold_HideWrap"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Cold_HideWrap</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Heat_WetCloth"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Heat_WetCloth</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Heat_MudCoat"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Heat_MudCoat</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Heat_ReedWrap"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Heat_ReedWrap</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Heat_BarkWrap"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Heat_BarkWrap</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Heat_MudMantle"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Heat_MudMantle</li>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist/li[normalize-space(text())="RHAH_Heat_MudShell"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs/Toddlers.DefListDef[defName="WearableByBaby"]/whitelist</xpath>
+            <value>
+              <li>RHAH_Heat_MudShell</li>
+            </value>
+          </nomatch>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>

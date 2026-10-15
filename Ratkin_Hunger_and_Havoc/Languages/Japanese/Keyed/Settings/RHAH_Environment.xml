@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_ColdClothes>新しい訪問者に耐寒・耐暑服を支給</RHAH_Settings_ColdClothes>
+  <RHAH_Settings_ColdClothes_Tooltip>マップの気温が新しい訪問者の耐えられる範囲を外れた場合、必要な防護を満たす最も薄い耐寒・耐暑服を支給します。どれも足りなければ最も厚い服を使います。すでに着ている服は交換しません。オフの場合、追加の衣服は支給しません。</RHAH_Settings_ColdClothes_Tooltip>
+  <RHAH_Settings_TempMin>イベントが発生する最低気温：{0}°C</RHAH_Settings_TempMin>
+  <RHAH_Settings_TempMax>イベントが発生する最高気温：{0}°C</RHAH_Settings_TempMax>
+  <RHAH_Settings_Temp_Tooltip>マップの気温がこの範囲を外れると、マップを対象とする新しいイベントは発生しません。初期値は-35°C～70°C。キャラバンはこの制限を受けません。</RHAH_Settings_Temp_Tooltip>
+  <RHAH_Menu_Environment>環境への適応</RHAH_Menu_Environment>
+  <RHAH_Menu_Environment_Note>気温が新しい訪問者の耐えられる範囲を外れた場合、必要な防護を満たす最も薄い耐寒・耐暑服を渡します。どれも足りなければ、最も厚い服を使います。すでにいる人は、着ている衣服のままです。</RHAH_Menu_Environment_Note>
+  <RHAH_Menu_Environment_Disabled>耐寒・耐暑服は無効です。新しい訪問者には追加で支給されません。</RHAH_Menu_Environment_Disabled>
+  <RHAH_Menu_Environment_Cold>耐寒</RHAH_Menu_Environment_Cold>
+  <RHAH_Menu_Environment_Heat>耐暑</RHAH_Menu_Environment_Heat>
+  <RHAH_Settings_TemperatureApparel>{0}を使用</RHAH_Settings_TemperatureApparel>
+  <RHAH_Settings_TemperatureApparel_Tooltip>オフにすると、新しい訪問者はこの耐寒・耐暑服を受け取りません。すでに着ている人は、そのまま着続けます。</RHAH_Settings_TemperatureApparel_Tooltip>
+  <RHAH_Settings_TemperatureInsulation>{0}：{2} +{1}°C</RHAH_Settings_TemperatureInsulation>
+  <RHAH_Settings_TemperatureInsulation_Tooltip>ドラッグでこの耐寒・耐暑服の防護性能を設定します。範囲は0～100。0にすると、この防護はなくなります。</RHAH_Settings_TemperatureInsulation_Tooltip>
+</LanguageData>

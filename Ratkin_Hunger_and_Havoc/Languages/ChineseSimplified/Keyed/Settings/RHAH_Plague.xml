@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_PlagueSpreading>鼠疫开始在殖民地里传播。</RHAH_PlagueSpreading>
+  <RHAH_Menu_Plague>鼠疫</RHAH_Menu_Plague>
+  <RHAH_Settings_Plague>允许鼠疫</RHAH_Settings_Plague>
+  <RHAH_Settings_Plague_Tooltip>开启后，新来客可能携带鼠疫，疾病也可能传播给殖民者。关闭后，新的感染停止发生，已经患病的人仍需治疗。</RHAH_Settings_Plague_Tooltip>
+  <RHAH_Settings_PlaguePerCarrier>每个病人增加的传播几率：{0}%</RHAH_Settings_PlaguePerCarrier>
+  <RHAH_Settings_PlaguePerCarrier_Tooltip>地图上每多一名患病鼠族，殖民者被传染的几率增加的百分比。范围 0 到 100%，默认 0.5%。</RHAH_Settings_PlaguePerCarrier_Tooltip>
+  <RHAH_Settings_PlagueCap>传播几率上限：{0}%</RHAH_Settings_PlagueCap>
+  <RHAH_Settings_PlagueCap_Tooltip>每次传播检查中，单名殖民者被传染的几率上限。范围 0 到 100%，默认 30%。</RHAH_Settings_PlagueCap_Tooltip>
+  <RHAH_Settings_PlagueDays>传播间隔：{0} 天</RHAH_Settings_PlagueDays>
+  <RHAH_Settings_PlagueDays_Tooltip>两次鼠疫传播检查之间的间隔，范围 1 到 30 天，默认 3 天。</RHAH_Settings_PlagueDays_Tooltip>
+  <RHAH_Settings_PlagueHour>检查时刻：{0} 点</RHAH_Settings_PlagueHour>
+  <RHAH_Settings_PlagueHour_Tooltip>鼠疫传播检查的钟点，范围 0 到 23 点，默认 6 点。</RHAH_Settings_PlagueHour_Tooltip>
+  <RHAH_Settings_PlagueBlood>血液泵送达到 {0}% 时不感染</RHAH_Settings_PlagueBlood>
+  <RHAH_Settings_PlagueBlood_Tooltip>血液泵送不低于这个百分比的人不会被传染。0 到 300，默认 120。</RHAH_Settings_PlagueBlood_Tooltip>
+  <RHAH_Settings_PlagueSafe>鼠疫安全模式</RHAH_Settings_PlagueSafe>
+  <RHAH_Settings_PlagueSafe_Tooltip>默认关闭。开启后，鼠疫发展到病人无法行动时便停止加重，病人可免于鼠疫致死。</RHAH_Settings_PlagueSafe_Tooltip>
+  <RHAH_Settings_PlagueSeverity>鼠疫严重度：{0}</RHAH_Settings_PlagueSeverity>
+  <RHAH_Settings_PlagueSeverity_Tooltip>新感染鼠疫的病人可能获得的最高初始严重度。范围 0.01 到 1，默认 0.10。</RHAH_Settings_PlagueSeverity_Tooltip>
+</LanguageData>

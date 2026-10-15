@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Kingdom_Stage_None>This letter is awaiting your reply.</RHAH_Kingdom_Stage_None>
+  <RHAH_Kingdom_Stage_Parcel>Suiyin has arranged a messenger to bring the two copies. The originals remain in the palace.</RHAH_Kingdom_Stage_Parcel>
+  <RHAH_Kingdom_Stage_Receipts>The copies have arrived. They carry the same shipment number. One says delivered; the other is still awaiting permission to leave the storehouse.\n\nI checked the dates. I still do not understand how one load can have two accounts. Would you help me ask?</RHAH_Kingdom_Stage_Receipts>
+  <RHAH_Kingdom_Stage_InterviewTransit>The inquiry has been sent. The messenger will bring the clerk’s reply.</RHAH_Kingdom_Stage_InterviewTransit>
+  <RHAH_Kingdom_Stage_Interview>The statement has arrived. The clerk permits private verification. Publishing his name and arranging a transfer require separate replies from him.\n\nThe original ledger can be used to compare the handwriting. Will you go?</RHAH_Kingdom_Stage_Interview>
+  <RHAH_Kingdom_Stage_Hall>They will let you inspect the ledger after closing. Carry both receipt copies with the caravan.\n\nOne able adult must spend a continuous hour verifying it to obtain an independent copy. The original stays in the hall.</RHAH_Kingdom_Stage_Hall>
+  <RHAH_Kingdom_Stage_InquiryClose_Verified>The issue quantity was altered twice. The last alteration has no signature, and the receipt field is empty. The page and alterations were copied.\n\nThe clerk’s account still needs explanation from others. Those few fields cannot account for the whole load.</RHAH_Kingdom_Stage_InquiryClose_Verified>
+  <RHAH_Kingdom_Stage_InquiryClose_Unverified>We did not see the ledger. The copies only show that the two receipts disagree.\n\nThe hall has announced that these records are being reorganized and are closed to inspection. I am waiting for their explanation too.</RHAH_Kingdom_Stage_InquiryClose_Unverified>
+  <RHAH_Kingdom_Stage_Envoy>The transport office asks you to register the source of your copies. You may retain them and ask questions, or hand over individual documents for a receipt.\n\nHandover takes place at home. Bring caravan documents back first.</RHAH_Kingdom_Stage_Envoy>
+  <RHAH_Kingdom_Stage_Charity>They asked me to stand beside the distribution table. They said people would be pleased to see the princess.\n\nIf you come, you can see which door the grain comes from and whose hands receive it. Observe for two hours for a full report; leaving early records only what you saw.</RHAH_Kingdom_Stage_Charity>
+  <RHAH_Kingdom_Stage_Guard_Observed>Some listed ratkin received grain. The side door was already closed when late registrants reached it. We recorded the time and notice.</RHAH_Kingdom_Stage_Guard_Observed>
+  <RHAH_Kingdom_Stage_Guard_Interrupted>We recorded only what we saw. We did not observe the remaining distribution.</RHAH_Kingdom_Stage_Guard_Interrupted>
+  <RHAH_Kingdom_Stage_Guard_Hearsay>I stood behind the table and passed out grain bags. By the time I checked the end of the queue, the side door had closed. I do not know who received grain afterward.</RHAH_Kingdom_Stage_Guard_Hearsay>
+  <RHAH_Kingdom_Stage_GuardTransit>The question went out with the loading order. An arrival receipt only establishes delivery to the ration point; the late-registration petition still needs a recipient reply.</RHAH_Kingdom_Stage_GuardTransit>
+  <RHAH_Kingdom_Stage_Routes>I have thought of three things we could do: accompany late registrants to collect their grain, send our documents to two independent groups, or escort the clerk away.\n\nLet us take on one for now. Tell me when you are ready.</RHAH_Kingdom_Stage_Routes>
+  <RHAH_Kingdom_Stage_Action_Repair>The transport office provides this grain. Five recipients each require half an hour of verification. Only grain actually placed in their hands is recorded.\n\nYou provide the personnel and travel supplies. Unfinished names can be resumed after interruption.</RHAH_Kingdom_Stage_Action_Repair>
+  <RHAH_Kingdom_Stage_Action_Publish>Two packets of selected copies have been sent: one to ration-point representatives and one to the transport guild.\n\nEach counts as delivered only after its own confirmation. Without the clerk’s separate permission his name is redacted. You retain the originals.</RHAH_Kingdom_Stage_Action_Publish>
+  <RHAH_Kingdom_Stage_Action_Protect>The clerk’s reply agrees to the external refuge. His departure permit is ready, but someone still has to walk the route.\n\nMeet this same clerk, then escort him safely to the agreed home. Residence does not make him a colonist.</RHAH_Kingdom_Stage_Action_Protect>
+  <RHAH_Kingdom_Response_Repair_Success>The distribution is complete. Everyone signed for their grain. I will keep the receipt record.</RHAH_Kingdom_Response_Repair_Success>
+  <RHAH_Kingdom_Response_Repair_Partial>Some received grain and others did not. The unfinished names remain on the list. I kept both records.</RHAH_Kingdom_Response_Repair_Partial>
+  <RHAH_Kingdom_Response_Repair_Failed>This attempt did not succeed. The outstanding list remains, and the window has closed. Thank you for helping me this far.</RHAH_Kingdom_Response_Repair_Failed>
+  <RHAH_Kingdom_Response_Repair_None>Let us stop here for now. There are unanswered questions and things we cannot manage today.</RHAH_Kingdom_Response_Repair_None>
+  <RHAH_Kingdom_Response_Publish_Success>Both groups have their own copies, including what we have not established. Some want me to name who is at fault. I cannot answer that yet.</RHAH_Kingdom_Response_Publish_Success>
+  <RHAH_Kingdom_Response_Publish_Partial>Only one group confirmed receipt. The other packet is unconfirmed. At least one group can continue checking.</RHAH_Kingdom_Response_Publish_Partial>
+  <RHAH_Kingdom_Response_Publish_Failed>There was no receipt confirmation this time. I kept the dispatch record to ask again when we can make contact.</RHAH_Kingdom_Response_Publish_Failed>
+  <RHAH_Kingdom_Response_Publish_None>Let us stop here for now. There are unanswered questions and things we cannot manage today.</RHAH_Kingdom_Response_Publish_None>
+  <RHAH_Kingdom_Response_Protect_Success>He has reached the place he agreed to go. I have put the inquiry away; today I will not pursue him for another answer.</RHAH_Kingdom_Response_Protect_Success>
+  <RHAH_Kingdom_Response_Protect_Partial>This escort was not completed. The permit and the statement we received remain. I recorded where we stopped.</RHAH_Kingdom_Response_Protect_Partial>
+  <RHAH_Kingdom_Response_Protect_Failed>This escort was not completed. The permit and the statement we received remain. I recorded where we stopped.</RHAH_Kingdom_Response_Protect_Failed>
+  <RHAH_Kingdom_Response_Protect_None>This escort was not completed. The permit and the statement we received remain. I recorded where we stopped.</RHAH_Kingdom_Response_Protect_None>
+  <RHAH_Kingdom_Response_Pause_Success>Let us stop here for now. There are unanswered questions and things we cannot manage today.</RHAH_Kingdom_Response_Pause_Success>
+  <RHAH_Kingdom_Response_Pause_Partial>Let us stop here for now. There are unanswered questions and things we cannot manage today.</RHAH_Kingdom_Response_Pause_Partial>
+  <RHAH_Kingdom_Response_Pause_Failed>Let us stop here for now. There are unanswered questions and things we cannot manage today.</RHAH_Kingdom_Response_Pause_Failed>
+  <RHAH_Kingdom_Response_Pause_None>Let us stop here for now. There are unanswered questions and things we cannot manage today.</RHAH_Kingdom_Response_Pause_None>
+  <RHAH_Kingdom_Scene_ClerkWords>I wrote those words: delivered.\n\nThe cart had not left. My supervisor told me to fill it in first. When I asked where to sign, he told me to finish the figures. Later they asked for the recipients’ signatures. I could not produce them, so they told me to pack my things.</RHAH_Kingdom_Scene_ClerkWords>
+  <RHAH_Kingdom_Scene_ClerkRequest>These are the words he sent. He does not want his name on a public notice.\n\nHis account alone cannot tell me where the grain went afterward. I can obtain a letter admitting you to the hall.</RHAH_Kingdom_Scene_ClerkRequest>
+  <RHAH_Kingdom_Scene_EnvoyWords>I represent the transport office regarding the sealed ledger.\n\nWe are checking dispatch dates and receipt formalities. I can issue a receipt for any copies you return. You may also keep them and tell me which fields you question.</RHAH_Kingdom_Scene_EnvoyWords>
+  <RHAH_Kingdom_Scene_FatherStamp>I knew this seal as a child. Letters like this were always on Father’s desk. I thought that with this seal, someone would take care of everything.\n\nI want to leave the question with them, yet I still hope Father will think I did the right thing when he sees the letter.</RHAH_Kingdom_Scene_FatherStamp>
+  <RHAH_Kingdom_Scene_GuardCommander>This cart goes to the eastern ration point. The receiver will sign when it arrives.\n\nWe do not break seals or change the list on the road. Your Highness, I cannot amend the list. If you sign, I can carry your request with it.</RHAH_Kingdom_Scene_GuardCommander>
+  <RHAH_Kingdom_Scene_GuardQuestion>What about those not on the list? They are waiting too.\n\nI signed. Only afterward did I remember that he had merely agreed to carry my words. Would you leave a question too?</RHAH_Kingdom_Scene_GuardQuestion>
+  <RHAH_Kingdom_Scene_WaitingDiary>I used to leave a question with Father and return to the garden.\n\nNow I wait for letters. Each has a greeting, a seal, and something I have not yet understood.</RHAH_Kingdom_Scene_WaitingDiary>
+  <RHAH_Kingdom_Scene_GuardReceipt>The arrival receipt came back. It records delivery to the ration point. The recipients’ list is kept in a different ledger.</RHAH_Kingdom_Scene_GuardReceipt>
+  <RHAH_Kingdom_Scene_GuardPetition>The late-registration petition went with the cart. The receiver has not answered.</RHAH_Kingdom_Scene_GuardPetition>
+  <RHAH_Kingdom_Scene_GuardUnknown>We received no arrival receipt. We cannot confirm whether the cart arrived.</RHAH_Kingdom_Scene_GuardUnknown>
+  <RHAH_Kingdom_Scene_PhaseClosing>I still want to ask, and I do not want to set Father and Mother against me.\n\nGo tend to your own affairs. I will keep these letters so that when I return to this page I remember how far we got.</RHAH_Kingdom_Scene_PhaseClosing>
+  <RHAH_Kingdom_Scene_ProtectDeath>He died. The permit remains; he cannot use it now.\n\nI remember how he looked when he first told us those things.</RHAH_Kingdom_Scene_ProtectDeath>
+  <RHAH_Kingdom_Scene_ProtectSafe>He wrote the date he arrived and said he wanted a full night’s sleep. I did not ask about that figure in my reply.</RHAH_Kingdom_Scene_ProtectSafe>
+  <RHAH_Kingdom_Scene_ProtectFailed>We did not complete his transfer. I recorded what we can establish; uncertain parts still await a reply.</RHAH_Kingdom_Scene_ProtectFailed>
+  <RHAH_Kingdom_Materials>Documents at home</RHAH_Kingdom_Materials>
+  <RHAH_Kingdom_MaterialProvenance>No. {0}; source: {1}; {2}</RHAH_Kingdom_MaterialProvenance>
+  <RHAH_Kingdom_MaterialEntry>No. {0}: {1} ({2})</RHAH_Kingdom_MaterialEntry>
+  <RHAH_Kingdom_Redacted>Name redacted</RHAH_Kingdom_Redacted>
+  <RHAH_Kingdom_Unredacted>Signature retained</RHAH_Kingdom_Unredacted>
+  <RHAH_Kingdom_Deadline>Deadline: {0}</RHAH_Kingdom_Deadline>
+  <RHAH_Kingdom_CharitySchedule>Begins: {0}\nEnds: {1}</RHAH_Kingdom_CharitySchedule>
+  <RHAH_Kingdom_Location>Location: {0} ({1}); messenger journey about {2} days. Caravan time varies with members and load.</RHAH_Kingdom_Location>
+  <RHAH_Kingdom_SafeDestination>Clerk’s agreed refuge: {0}</RHAH_Kingdom_SafeDestination>
+  <RHAH_Kingdom_ClerkIdentity>Clerk: {0}; {1}</RHAH_Kingdom_ClerkIdentity>
+  <RHAH_Kingdom_Alive>Alive</RHAH_Kingdom_Alive>
+  <RHAH_Kingdom_Dead>Dead</RHAH_Kingdom_Dead>
+  <RHAH_Kingdom_NameConsentYes>The clerk agreed by reply to publication of his name.</RHAH_Kingdom_NameConsentYes>
+  <RHAH_Kingdom_NameConsentNo>Publication of the clerk’s name is not authorized.</RHAH_Kingdom_NameConsentNo>
+  <RHAH_Kingdom_ConsentPending>Waiting for the clerk’s reply for this purpose, expected {0}.</RHAH_Kingdom_ConsentPending>
+  <RHAH_Kingdom_ConsentTitle>The clerk’s reply</RHAH_Kingdom_ConsentTitle>
+  <RHAH_Kingdom_ConsentNamed>{0}: You may give my name with the statement to those two groups checking it.</RHAH_Kingdom_ConsentNamed>
+  <RHAH_Kingdom_ConsentTransfer>{0}: I agree to go to the external refuge in your letter. Meet me at the agreed point.</RHAH_Kingdom_ConsentTransfer>
+  <RHAH_Kingdom_ConsentUnavailable>No consent from {0} for this purpose was received.</RHAH_Kingdom_ConsentUnavailable>
+  <RHAH_Kingdom_NeedAdult>An able adult caravan member is required.</RHAH_Kingdom_NeedAdult>
+  <RHAH_Kingdom_NeedReceipts>Bring both physical receipt copies to the hall.</RHAH_Kingdom_NeedReceipts>
+  <RHAH_Kingdom_NotStarted>The charity observation window is not open now.</RHAH_Kingdom_NotStarted>
+  <RHAH_Kingdom_WorkStarted>A member has begun. Leaving or becoming unable to act interrupts the work.</RHAH_Kingdom_WorkStarted>
+  <RHAH_Kingdom_ClerkMet>{0} has joined the caravan. Escort them to the agreed refuge.</RHAH_Kingdom_ClerkMet>
+  <RHAH_Kingdom_Interact>Begin agreed interaction</RHAH_Kingdom_Interact>
+  <RHAH_Kingdom_Travel>Travel to meeting point</RHAH_Kingdom_Travel>
+  <RHAH_Kingdom_Arrived>The caravan reached {0}. Begin the agreed interaction.</RHAH_Kingdom_Arrived>
+  <RHAH_Kingdom_SiteInspect>{0}: begin interaction after arrival</RHAH_Kingdom_SiteInspect>
+  <RHAH_Kingdom_Clerk>Clerk</RHAH_Kingdom_Clerk>
+  <RHAH_Kingdom_Envoy>Royal envoy</RHAH_Kingdom_Envoy>
+  <RHAH_Kingdom_Commander>Grain guard commander</RHAH_Kingdom_Commander>
+  <RHAH_Kingdom_Material_ReceiptA>Delivered receipt copy</RHAH_Kingdom_Material_ReceiptA>
+  <RHAH_Kingdom_Material_ReceiptB>Pending dispatch receipt copy</RHAH_Kingdom_Material_ReceiptB>
+  <RHAH_Kingdom_Material_Statement>Clerk’s statement</RHAH_Kingdom_Material_Statement>
+  <RHAH_Kingdom_Material_VerifiedCopy>Verified ledger copy</RHAH_Kingdom_Material_VerifiedCopy>
+  <RHAH_Kingdom_Material_CharityReport>Charity observation report</RHAH_Kingdom_Material_CharityReport>
+  <RHAH_Kingdom_Material_EnvoyReceipt>Envoy handover receipt</RHAH_Kingdom_Material_EnvoyReceipt>
+  <RHAH_Kingdom_Material_GuardReceipt>Grain arrival receipt</RHAH_Kingdom_Material_GuardReceipt>
+  <RHAH_Kingdom_Material_DistributionRecord>Distribution receipt record</RHAH_Kingdom_Material_DistributionRecord>
+  <RHAH_Kingdom_Source_Palace>Palace copy</RHAH_Kingdom_Source_Palace>
+  <RHAH_Kingdom_Source_Clerk>Clerk’s own letter</RHAH_Kingdom_Source_Clerk>
+  <RHAH_Kingdom_Source_Hall>Player’s ledger inspection</RHAH_Kingdom_Source_Hall>
+  <RHAH_Kingdom_Source_Observation>Player’s observation</RHAH_Kingdom_Source_Observation>
+  <RHAH_Kingdom_Source_Envoy>Royal envoy</RHAH_Kingdom_Source_Envoy>
+  <RHAH_Kingdom_Source_Guard>Grain guards’ reply</RHAH_Kingdom_Source_Guard>
+  <RHAH_Kingdom_Source_Distribution>Actual recipients this time</RHAH_Kingdom_Source_Distribution>
+  <RHAH_Kingdom_Source_>Source not recorded</RHAH_Kingdom_Source_>
+  <RHAH_Kingdom_Site_Hall>Ration hall</RHAH_Kingdom_Site_Hall>
+  <RHAH_Kingdom_Site_Charity>Charity ceremony</RHAH_Kingdom_Site_Charity>
+  <RHAH_Kingdom_Site_Distribution>Distribution window</RHAH_Kingdom_Site_Distribution>
+  <RHAH_Kingdom_Site_Meeting>Clerk meeting point</RHAH_Kingdom_Site_Meeting>
+  <RHAH_Kingdom_Site_SafeHouse>Clerk’s refuge</RHAH_Kingdom_Site_SafeHouse>
+  <RHAH_Kingdom_Action_Formal>Ask the hall formally</RHAH_Kingdom_Action_Formal>
+  <RHAH_Kingdom_Action_Private>Contact clerk privately</RHAH_Kingdom_Action_Private>
+  <RHAH_Kingdom_Action_Stop>Stop inquiry</RHAH_Kingdom_Action_Stop>
+  <RHAH_Kingdom_Action_Verify>Request ledger inspection</RHAH_Kingdom_Action_Verify>
+  <RHAH_Kingdom_Action_Named>Ask permission to publish name</RHAH_Kingdom_Action_Named>
+  <RHAH_Kingdom_Action_Decline>Decline this arrangement</RHAH_Kingdom_Action_Decline>
+  <RHAH_Kingdom_Action_Continue>Continue to kingdom response</RHAH_Kingdom_Action_Continue>
+  <RHAH_Kingdom_Action_Keep>Retain and ask questions</RHAH_Kingdom_Action_Keep>
+  <RHAH_Kingdom_Action_Handover>Select documents to hand over</RHAH_Kingdom_Action_Handover>
+  <RHAH_Kingdom_Action_Refuse>Refuse registration</RHAH_Kingdom_Action_Refuse>
+  <RHAH_Kingdom_Action_Receipt>Request arrival receipt</RHAH_Kingdom_Action_Receipt>
+  <RHAH_Kingdom_Action_Petition>Petition for late registrants</RHAH_Kingdom_Action_Petition>
+  <RHAH_Kingdom_Action_Repair>Assist distribution</RHAH_Kingdom_Action_Repair>
+  <RHAH_Kingdom_Action_Publish>Select materials to publish</RHAH_Kingdom_Action_Publish>
+  <RHAH_Kingdom_Action_Protect>Request consent and escort clerk</RHAH_Kingdom_Action_Protect>
+  <RHAH_Kingdom_Action_Defer>Decide later</RHAH_Kingdom_Action_Defer>
+  <RHAH_Kingdom_Action_Pause>Pause this collaboration</RHAH_Kingdom_Action_Pause>
+  <RHAH_Kingdom_Action_Locate>Show location</RHAH_Kingdom_Action_Locate>
+  <RHAH_Kingdom_Action_Cancel>Cancel accepted action</RHAH_Kingdom_Action_Cancel>
+  <RHAH_Kingdom_Action_Close>Keep the reply</RHAH_Kingdom_Action_Close>
+  <RHAH_Kingdom_Action_Reconsider>Reconsider available actions</RHAH_Kingdom_Action_Reconsider>
+  <RHAH_Kingdom_Failure_Cancelled>This arrangement was cancelled.</RHAH_Kingdom_Failure_Cancelled>
+  <RHAH_Kingdom_Failure_Expired>The agreed deadline passed.</RHAH_Kingdom_Failure_Expired>
+  <RHAH_Kingdom_Failure_Unavailable>No suitable location or communication route was available.</RHAH_Kingdom_Failure_Unavailable>
+  <RHAH_Kingdom_Failure_Withdrawn>The clerk withdrew consent.</RHAH_Kingdom_Failure_Withdrawn>
+  <RHAH_Kingdom_Failure_LostContact>The clerk’s whereabouts are unknown.</RHAH_Kingdom_Failure_LostContact>
+  <RHAH_Kingdom_Failure_Death>The clerk has died.</RHAH_Kingdom_Failure_Death>
+  <RHAH_Kingdom_Failure_Obstructed>The action was obstructed.</RHAH_Kingdom_Failure_Obstructed>
+  <RHAH_Kingdom_PublicGroup_1>Regional records office</RHAH_Kingdom_PublicGroup_1>
+  <RHAH_Kingdom_PublicGroup_2>Independent relief registry</RHAH_Kingdom_PublicGroup_2>
+  <RHAH_Kingdom_RepairProgress>Recipients supplied: {0}/5</RHAH_Kingdom_RepairProgress>
+  <RHAH_Kingdom_PublicProgress>Publication receipts: {0}/2</RHAH_Kingdom_PublicProgress>
+</LanguageData>

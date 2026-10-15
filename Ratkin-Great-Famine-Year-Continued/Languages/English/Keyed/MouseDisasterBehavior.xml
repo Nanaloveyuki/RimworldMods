@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_VisitorControl_ForcedAway_Success>Forced expulsion affected {0} visitors. They will withdraw or retaliate according to their incident attitude.</MouseDisaster_VisitorControl_ForcedAway_Success>
+  <MouseDisaster_Attitude_Neutral>Attitude: neutral</MouseDisaster_Attitude_Neutral>
+  <MouseDisaster_Attitude_Hostile>Attitude: hostile</MouseDisaster_Attitude_Hostile>
+  <MouseDisaster_Attitude_HostileLeaning>Attitude: leaning hostile</MouseDisaster_Attitude_HostileLeaning>
+  <MouseDisaster_Attitude_FriendlyLeaning>Attitude: leaning friendly</MouseDisaster_Attitude_FriendlyLeaning>
+  <MouseDisaster_Attitude_Friendly>Attitude: friendly</MouseDisaster_Attitude_Friendly>
+  <MouseDisaster_AttitudeTip_Neutral>New arrivals are neutral. Damage does not make the whole group hostile; incident behavior is retained. Forcible expulsion makes that event group hostile. Applies to future occurrences of this incident.</MouseDisaster_AttitudeTip_Neutral>
+  <MouseDisaster_AttitudeTip_Hostile>New arrivals are hostile. Members able to act will assault the colony. Applies to future occurrences of this incident.</MouseDisaster_AttitudeTip_Hostile>
+  <MouseDisaster_AttitudeTip_HostileLeaning>New arrivals are neutral. Actual damage from colonists, colony weapons or turrets makes only that incident's group hostile.</MouseDisaster_AttitudeTip_HostileLeaning>
+  <MouseDisaster_AttitudeTip_FriendlyLeaning>New arrivals are neutral. Colony attacks or forcible expulsion make that event group leave without becoming hostile.</MouseDisaster_AttitudeTip_FriendlyLeaning>
+  <MouseDisaster_AttitudeTip_Friendly>New arrivals are friendly and do not steal colony food. Relief-area food remains available. Colony attacks or forcible expulsion make them leave without becoming hostile.</MouseDisaster_AttitudeTip_Friendly>
+</LanguageData>

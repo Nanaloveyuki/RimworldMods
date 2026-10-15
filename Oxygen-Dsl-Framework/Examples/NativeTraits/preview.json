@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "name": "Preview pawn",
+  "colonist": true,
+  "downed": false,
+  "young_hungry": true,
+  "young_sick": true,
+  "sick": false,
+  "group_sick": true
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Thought_EggKeeperYoung.stages.0.label>young one hungry</RHAH_Thought_EggKeeperYoung.stages.0.label>
+  <RHAH_Thought_EggKeeperYoung.stages.0.description>A young one nearby is still hungry. It hurts to watch.</RHAH_Thought_EggKeeperYoung.stages.0.description>
+  <RHAH_Thought_EggKeeperYoung.stages.1.label>young one sick</RHAH_Thought_EggKeeperYoung.stages.1.label>
+  <RHAH_Thought_EggKeeperYoung.stages.1.description>A young one nearby is sick or unable to stand. I am worried.</RHAH_Thought_EggKeeperYoung.stages.1.description>
+  <RHAH_Thought_HungerRage.stages.0.label>red-eyed</RHAH_Thought_HungerRage.stages.0.label>
+  <RHAH_Thought_HungerRage.stages.0.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.0.description>
+  <RHAH_Thought_HungerRage.stages.1.label>red-eyed</RHAH_Thought_HungerRage.stages.1.label>
+  <RHAH_Thought_HungerRage.stages.1.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.1.description>
+  <RHAH_Thought_HungerRage.stages.2.label>red-eyed</RHAH_Thought_HungerRage.stages.2.label>
+  <RHAH_Thought_HungerRage.stages.2.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.2.description>
+  <RHAH_Thought_HungerRage.stages.3.label>red-eyed</RHAH_Thought_HungerRage.stages.3.label>
+  <RHAH_Thought_HungerRage.stages.3.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.3.description>
+  <RHAH_Thought_HungerRage.stages.4.label>red-eyed</RHAH_Thought_HungerRage.stages.4.label>
+  <RHAH_Thought_HungerRage.stages.4.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.4.description>
+  <RHAH_Thought_HungerRage.stages.5.label>red-eyed</RHAH_Thought_HungerRage.stages.5.label>
+  <RHAH_Thought_HungerRage.stages.5.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.5.description>
+  <RHAH_Thought_HungerRage.stages.6.label>red-eyed</RHAH_Thought_HungerRage.stages.6.label>
+  <RHAH_Thought_HungerRage.stages.6.description>I need to eat. Now.</RHAH_Thought_HungerRage.stages.6.description>
+  <RHAH_Thought_FoodSnatcher.stages.0.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.0.label>
+  <RHAH_Thought_FoodSnatcher.stages.0.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.0.description>
+  <RHAH_Thought_FoodSnatcher.stages.1.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.1.label>
+  <RHAH_Thought_FoodSnatcher.stages.1.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.1.description>
+  <RHAH_Thought_FoodSnatcher.stages.2.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.2.label>
+  <RHAH_Thought_FoodSnatcher.stages.2.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.2.description>
+  <RHAH_Thought_FoodSnatcher.stages.3.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.3.label>
+  <RHAH_Thought_FoodSnatcher.stages.3.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.3.description>
+  <RHAH_Thought_FoodSnatcher.stages.4.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.4.label>
+  <RHAH_Thought_FoodSnatcher.stages.4.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.4.description>
+  <RHAH_Thought_FoodSnatcher.stages.5.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.5.label>
+  <RHAH_Thought_FoodSnatcher.stages.5.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.5.description>
+  <RHAH_Thought_FoodSnatcher.stages.6.label>want to snatch food</RHAH_Thought_FoodSnatcher.stages.6.label>
+  <RHAH_Thought_FoodSnatcher.stages.6.description>I am so hungry I want to snatch food from someone else.</RHAH_Thought_FoodSnatcher.stages.6.description>
+  <RHAH_Thought_PlagueDreadSick.stages.0.label>afraid of sickness</RHAH_Thought_PlagueDreadSick.stages.0.label>
+  <RHAH_Thought_PlagueDreadSick.stages.0.description>I am sick. I am afraid it might be serious.</RHAH_Thought_PlagueDreadSick.stages.0.description>
+  <RHAH_Thought_PlagueDreadNearby.stages.0.label>afraid of plague</RHAH_Thought_PlagueDreadNearby.stages.0.label>
+  <RHAH_Thought_PlagueDreadNearby.stages.0.description>Someone nearby is sick. I don't want it on me.</RHAH_Thought_PlagueDreadNearby.stages.0.description>
+  <RHAH_Thought_NightTerrors.stages.0.label>jumpy</RHAH_Thought_NightTerrors.stages.0.label>
+  <RHAH_Thought_NightTerrors.stages.0.description>I'm too tired. Every sound makes me flinch.</RHAH_Thought_NightTerrors.stages.0.description>
+  <RHAH_Thought_NightTerrors.stages.1.label>jumpy</RHAH_Thought_NightTerrors.stages.1.label>
+  <RHAH_Thought_NightTerrors.stages.1.description>I'm too tired. Every sound makes me flinch.</RHAH_Thought_NightTerrors.stages.1.description>
+  <RHAH_Thought_NightTerrors.stages.2.label>jumpy</RHAH_Thought_NightTerrors.stages.2.label>
+  <RHAH_Thought_NightTerrors.stages.2.description>I'm too tired. Every sound makes me flinch.</RHAH_Thought_NightTerrors.stages.2.description>
+  <RHAH_Thought_GrainGreed.stages.0.label>still hungry</RHAH_Thought_GrainGreed.stages.0.label>
+  <RHAH_Thought_GrainGreed.stages.0.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.0.description>
+  <RHAH_Thought_GrainGreed.stages.1.label>still hungry</RHAH_Thought_GrainGreed.stages.1.label>
+  <RHAH_Thought_GrainGreed.stages.1.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.1.description>
+  <RHAH_Thought_GrainGreed.stages.2.label>still hungry</RHAH_Thought_GrainGreed.stages.2.label>
+  <RHAH_Thought_GrainGreed.stages.2.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.2.description>
+  <RHAH_Thought_GrainGreed.stages.3.label>still hungry</RHAH_Thought_GrainGreed.stages.3.label>
+  <RHAH_Thought_GrainGreed.stages.3.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.3.description>
+  <RHAH_Thought_GrainGreed.stages.4.label>still hungry</RHAH_Thought_GrainGreed.stages.4.label>
+  <RHAH_Thought_GrainGreed.stages.4.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.4.description>
+  <RHAH_Thought_GrainGreed.stages.5.label>still hungry</RHAH_Thought_GrainGreed.stages.5.label>
+  <RHAH_Thought_GrainGreed.stages.5.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.5.description>
+  <RHAH_Thought_GrainGreed.stages.6.label>still hungry</RHAH_Thought_GrainGreed.stages.6.label>
+  <RHAH_Thought_GrainGreed.stages.6.description>I have not eaten enough. I want to eat the food while it is still here.</RHAH_Thought_GrainGreed.stages.6.description>
+  <RHAH_Thought_Chillblood.stages.0.label>too cold</RHAH_Thought_Chillblood.stages.0.label>
+  <RHAH_Thought_Chillblood.stages.0.description>It's too cold. I take it worse than the others.</RHAH_Thought_Chillblood.stages.0.description>
+  <RHAH_Thought_Chillblood.stages.1.label>too cold</RHAH_Thought_Chillblood.stages.1.label>
+  <RHAH_Thought_Chillblood.stages.1.description>It's too cold. I take it worse than the others.</RHAH_Thought_Chillblood.stages.1.description>
+  <RHAH_Thought_Chillblood.stages.2.label>too cold</RHAH_Thought_Chillblood.stages.2.label>
+  <RHAH_Thought_Chillblood.stages.2.description>It's too cold. I take it worse than the others.</RHAH_Thought_Chillblood.stages.2.description>
+  <RHAH_Thought_Chillblood.stages.3.label>too cold</RHAH_Thought_Chillblood.stages.3.label>
+  <RHAH_Thought_Chillblood.stages.3.description>It's too cold. I take it worse than the others.</RHAH_Thought_Chillblood.stages.3.description>
+  <RHAH_Thought_FamineGloom.stages.0.label>gloomy</RHAH_Thought_FamineGloom.stages.0.label>
+  <RHAH_Thought_FamineGloom.stages.0.description>The next thing probably won't be good either.</RHAH_Thought_FamineGloom.stages.0.description>
+  <RHAH_Thought_AilingMother.stages.0.label>child hungry</RHAH_Thought_AilingMother.stages.0.label>
+  <RHAH_Thought_AilingMother.stages.0.description>A child nearby is still hungry, and I cannot help.</RHAH_Thought_AilingMother.stages.0.description>
+  <RHAH_Thought_AilingMother.stages.1.label>child sick</RHAH_Thought_AilingMother.stages.1.label>
+  <RHAH_Thought_AilingMother.stages.1.description>A child nearby is sick or unable to stand. I am worried.</RHAH_Thought_AilingMother.stages.1.description>
+  <RHAH_Thought_FamilyThief.stages.0.label>child still hungry</RHAH_Thought_FamilyThief.stages.0.label>
+  <RHAH_Thought_FamilyThief.stages.0.description>A child nearby is still hungry. It hurts to watch.</RHAH_Thought_FamilyThief.stages.0.description>
+  <RHAH_Thought_FamilyThief.stages.1.label>child sick</RHAH_Thought_FamilyThief.stages.1.label>
+  <RHAH_Thought_FamilyThief.stages.1.description>A child nearby is sick or unable to stand. I am worried.</RHAH_Thought_FamilyThief.stages.1.description>
+</LanguageData>

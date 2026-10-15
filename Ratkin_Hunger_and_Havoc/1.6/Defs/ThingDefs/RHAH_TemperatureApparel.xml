@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef Name="RHAH_TemperatureApparelBase" ParentName="ApparelBase" Abstract="True">
+    <thingClass>Apparel</thingClass>
+    <techLevel>Neolithic</techLevel>
+    <smeltable>false</smeltable>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/TribalA/TribalA</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.65</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>45</MaxHitPoints>
+      <Mass>0.1</Mass>
+      <MarketValue>1</MarketValue>
+      <Flammability>0.4</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <thingCategories>
+      <li>ApparelUtility</li>
+    </thingCategories>
+    <tradeability>None</tradeability>
+    <apparel>
+      <bodyPartGroups>
+        <li>Waist</li>
+      </bodyPartGroups>
+      <layers>
+        <li>Belt</li>
+      </layers>
+      <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+      <countsAsClothingForNudity>false</countsAsClothingForNudity>
+      <canBeGeneratedToSatisfyWarmth>false</canBeGeneratedToSatisfyWarmth>
+      <canBeDesiredForIdeo>false</canBeDesiredForIdeo>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+      <wearPerDay>0</wearPerDay>
+    </apparel>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Heat_WetCloth</defName>
+    <label>陈旧的湿布</label>
+    <description>一块吸了水的旧布，搭在腰上，能稍微抵挡炎热。</description>
+    <statBases>
+      <Insulation_Heat>8</Insulation_Heat>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Heat_MudCoat</defName>
+    <label>干硬的泥涂层</label>
+    <description>晒干的厚泥巴糊在身上。裂开会掉渣，但能挡住日头。</description>
+    <statBases>
+      <Insulation_Heat>12</Insulation_Heat>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Heat_ReedWrap</defName>
+    <label>芦苇遮阳裹布</label>
+    <description>干芦苇编成的松散裹布。能挡住阳光，热气也透得出去。</description>
+    <statBases>
+      <Insulation_Heat>20</Insulation_Heat>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Heat_BarkWrap</defName>
+    <label>浸水的树皮遮热衣</label>
+    <description>浸过水的树皮条，绑在身上遮挡暑热。气味难闻。</description>
+    <statBases>
+      <Insulation_Heat>28</Insulation_Heat>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Heat_MudMantle</defName>
+    <label>泥芦降温披肩</label>
+    <description>泥巴和芦苇压成的厚垫，披在身上遮挡烈日。又湿又重。</description>
+    <statBases>
+      <Insulation_Heat>36</Insulation_Heat>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Heat_MudShell</defName>
+    <label>厚重的降温泥壳</label>
+    <description>几层晒干的泥巴裹在身上，能抵挡酷热，走动时容易开裂。</description>
+    <statBases>
+      <Insulation_Heat>44</Insulation_Heat>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Cold_ThinHemp</defName>
+    <label>单层麻布</label>
+    <description>一小片粗糙麻布。挡不住多少风，总比光着强。</description>
+    <statBases>
+      <Insulation_Cold>8</Insulation_Cold>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Cold_LayeredHemp</defName>
+    <label>层层麻布</label>
+    <description>几层粗糙麻布叠在一起。不好看，能留住一点热。</description>
+    <statBases>
+      <Insulation_Cold>12</Insulation_Cold>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Cold_StrawQuilt</defName>
+    <label>草梗树皮絮衣</label>
+    <description>干草梗和树皮缝在旧布中间。走动时作响，能挡住寒气。</description>
+    <statBases>
+      <Insulation_Cold>20</Insulation_Cold>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Cold_FurCloak</defName>
+    <label>拼接毛皮短披肩</label>
+    <description>毛皮碎片拼成的短披肩。接缝有些松散，仍能挡住一部分寒风。</description>
+    <statBases>
+      <Insulation_Cold>28</Insulation_Cold>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Cold_SmokedBlanket</defName>
+    <label>烟熏油渍旧毯</label>
+    <description>被烟和油脂熏硬的旧毯子。又脏又硬，能把寒气挡在外面。</description>
+    <statBases>
+      <Insulation_Cold>40</Insulation_Cold>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="RHAH_TemperatureApparelBase">
+    <defName>RHAH_Cold_HideWrap</defName>
+    <label>厚皮麻布裹衣</label>
+    <description>几层兽皮和麻布绑成的裹衣。手脚活动方便，保暖比看起来好。</description>
+    <statBases>
+      <Insulation_Cold>56</Insulation_Cold>
+    </statBases>
+  </ThingDef>
+</Defs>

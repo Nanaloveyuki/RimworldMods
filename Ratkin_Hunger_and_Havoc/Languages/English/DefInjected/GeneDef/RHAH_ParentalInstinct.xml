@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Gene_MaternalInstinct.label>maternal instinct</RHAH_Gene_MaternalInstinct.label>
+  <RHAH_Gene_MaternalInstinct.description>While lactating, carriers of this gene have their milk production rate and milk storage capacity, hunger rate, and maximum food need multiplied by the values chosen in the mod settings. At the defaults, they produce milk faster, store more milk, become hungry faster, and store more food nutrition. Three multipliers are adjustable; milk production rate and milk storage capacity share one multiplier. All effects apply only during lactation. If both maternal and paternal instinct are carried, females retain maternal instinct and males retain paternal instinct. Either gene works regardless of gender when carried alone.</RHAH_Gene_MaternalInstinct.description>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.0>All effects apply only during lactation</RHAH_Gene_MaternalInstinct.customEffectDescriptions.0>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.1>Milk production rate and milk storage capacity: both use a default multiplier of 150%, adjustable in the mod settings</RHAH_Gene_MaternalInstinct.customEffectDescriptions.1>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.2>Hunger rate: default multiplier 115%, adjustable in the mod settings</RHAH_Gene_MaternalInstinct.customEffectDescriptions.2>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.3>Maximum food need: default multiplier 125%, adjustable in the mod settings</RHAH_Gene_MaternalInstinct.customEffectDescriptions.3>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.4>When both instincts are carried, females retain maternal instinct and males retain paternal instinct</RHAH_Gene_MaternalInstinct.customEffectDescriptions.4>
+  <RHAH_Gene_MaternalInstinct.customEffectDescriptions.5>No gender restriction when carried alone</RHAH_Gene_MaternalInstinct.customEffectDescriptions.5>
+  <RHAH_Gene_PaternalInstinct.label>paternal instinct</RHAH_Gene_PaternalInstinct.label>
+  <RHAH_Gene_PaternalInstinct.description>When a living biological son or daughter is on the same map, carriers of this gene have their work speed, hunger rate, global learning speed, and incoming damage multiplied by the values chosen in the mod settings. Children of any age qualify. At the defaults, carriers work and learn faster, take less damage, and become hungry faster. All four effects require a living child on the same map. If both paternal and maternal instinct are carried, males retain paternal instinct and females retain maternal instinct. Either gene works regardless of gender when carried alone.</RHAH_Gene_PaternalInstinct.description>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.0>All effects apply when a living biological son or daughter of any age is on the same map</RHAH_Gene_PaternalInstinct.customEffectDescriptions.0>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.1>Work speed: default multiplier 120%, adjustable in the mod settings</RHAH_Gene_PaternalInstinct.customEffectDescriptions.1>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.2>Hunger rate: default multiplier 110%, adjustable in the mod settings</RHAH_Gene_PaternalInstinct.customEffectDescriptions.2>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.3>Global learning speed: default multiplier 110%, adjustable in the mod settings</RHAH_Gene_PaternalInstinct.customEffectDescriptions.3>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.4>Incoming damage: default multiplier 90%, adjustable in the mod settings</RHAH_Gene_PaternalInstinct.customEffectDescriptions.4>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.5>When both instincts are carried, males retain paternal instinct and females retain maternal instinct</RHAH_Gene_PaternalInstinct.customEffectDescriptions.5>
+  <RHAH_Gene_PaternalInstinct.customEffectDescriptions.6>No gender restriction when carried alone</RHAH_Gene_PaternalInstinct.customEffectDescriptions.6>
+</LanguageData>

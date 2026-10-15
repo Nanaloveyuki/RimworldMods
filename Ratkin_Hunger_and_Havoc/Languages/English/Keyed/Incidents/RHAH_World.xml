@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Approach_Intercept>Intercept Ratkin</RHAH_Approach_Intercept>
+  <RHAH_Approach_InterceptBlocked>Cannot intercept the Ratkin right now</RHAH_Approach_InterceptBlocked>
+  <RHAH_Approach_InterceptFailed>The interception map failed to generate. The Ratkin caravan is still where it was.</RHAH_Approach_InterceptFailed>
+  <RHAH_Predation_Label>Predator</RHAH_Predation_Label>
+  <RHAH_Predation_Text>A wild predator has started hunting these Ratkin refugees. It goes for the young first.</RHAH_Predation_Text>
+  <RHAH_OutsidePredators_Label>Outside predator</RHAH_OutsidePredators_Label>
+  <RHAH_OutsidePredators_Text>A predator followed the Ratkin refugees here and is looking for one it can eat.</RHAH_OutsidePredators_Text>
+  <RHAH_Intel_Label>Intel site</RHAH_Intel_Label>
+  <RHAH_Intel_Text>The trade is done. A site has appeared nearby.</RHAH_Intel_Text>
+</LanguageData>

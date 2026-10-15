@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Beg.reportString>begging for food</RHAH_Beg.reportString>
+  <RHAH_Gnaw.reportString>gnawing bark or wall plaster</RHAH_Gnaw.reportString>
+  <RHAH_DropChild.reportString>putting a child down</RHAH_DropChild.reportString>
+  <RHAH_MotherFeed.reportString>feeding a child</RHAH_MotherFeed.reportString>
+  <RHAH_Scavenge.reportString>searching the ground for something to eat</RHAH_Scavenge.reportString>
+  <RHAH_TailBite.reportString>biting a tail</RHAH_TailBite.reportString>
+  <RHAH_Expel.reportString>expelling target</RHAH_Expel.reportString>
+  <RHAH_BroadcastHope.reportString>broadcasting hope</RHAH_BroadcastHope.reportString>
+  <RHAH_CarryYoung.reportString>carrying TargetA.</RHAH_CarryYoung.reportString>
+</LanguageData>

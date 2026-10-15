@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_LongClaim_KeepsakeOpening>{1} has brought out a small keepsake. The young ratkin insists it belongs to them, but cannot explain where it came from.
+
+You can ask now or wait until adulthood. Taking it causes a -6 mood penalty until it is returned. Destroying it in front of the child causes a permanent -8 mood penalty.</RHAH_LongClaim_KeepsakeOpening>
+  <RHAH_LongClaim_KeepsakeCustody>The keepsake has been taken from {1}'s inventory and placed in the colony. Returning it removes the -6 mood penalty. If it is still withheld at adulthood, the child will stop explaining its origins. Destroying it causes a permanent -8 mood penalty.</RHAH_LongClaim_KeepsakeCustody>
+  <RHAH_LongClaim_KeepsakeOrigin>{1} can now explain the keepsake. It marks a ratkin settlement where they lived before being sold. The settlement's name is a little different each time they say it.</RHAH_LongClaim_KeepsakeOrigin>
+  <RHAH_LongClaim_KeepsakeClaimant>An adult ratkin has arrived and recognized {1}'s keepsake. The visitor claims to come from that settlement and wants to take its former resident home.
+
+You can let them go together or keep the child here. The visitor does not want to leave empty-handed.</RHAH_LongClaim_KeepsakeClaimant>
+  <RHAH_LongClaim_ClaimOpening>{1} has recovered from plague and can explain more of their past. The child claims to be an unwanted child of a ratkin kingdom, driven out after falling ill. The names and places fit, but the details are confused.
+
+Recognition grants a title that only the child believes, and +6 mood for 15 days. Denial causes -4 mood for 15 days. You can also ask more questions.</RHAH_LongClaim_ClaimOpening>
+  <RHAH_LongClaim_ClaimDemand>{1}'s story grows more confused, but the child insists on returning to claim the throne. They want your help contacting people who supposedly remain loyal.
+
+If you agree, a small ratkin group will arrive in a few days to take the child away. Refusal causes -4 mood for 15 days.</RHAH_LongClaim_ClaimDemand>
+  <RHAH_LongClaim_ClaimRetract>{1} has changed their story. The names and places were things they heard on the road.
+
+The child receives -2 mood for 15 days and stops asking to return.</RHAH_LongClaim_ClaimRetract>
+  <RHAH_LongClaim_ClaimLegacy>A few ratkin have arrived, claiming to be {1}'s former loyalists. They intend to take the child back to claim the throne.
+
+Hand the child over and they will leave together. Keep the child here and the group will bear a grudge, returning later with grain and knives.</RHAH_LongClaim_ClaimLegacy>
+  <RHAH_LongClaim_AskNow>Ask now</RHAH_LongClaim_AskNow>
+  <RHAH_LongClaim_WaitAdult>Wait until adulthood</RHAH_LongClaim_WaitAdult>
+  <RHAH_LongClaim_TakeKeepsake>Take the keepsake</RHAH_LongClaim_TakeKeepsake>
+  <RHAH_LongClaim_DiscardKeepsake>Destroy the keepsake</RHAH_LongClaim_DiscardKeepsake>
+  <RHAH_LongClaim_ReturnKeepsake>Return the keepsake</RHAH_LongClaim_ReturnKeepsake>
+  <RHAH_LongClaim_ItemUnavailable>The keepsake is no longer on this map or has been destroyed.</RHAH_LongClaim_ItemUnavailable>
+  <RHAH_LongClaim_HearOrigin>Hear them out</RHAH_LongClaim_HearOrigin>
+  <RHAH_LongClaim_LetLeave>Let them go together</RHAH_LongClaim_LetLeave>
+  <RHAH_LongClaim_KeepChild>Keep the child here</RHAH_LongClaim_KeepChild>
+  <RHAH_LongClaim_AcceptClaim>Recognize the claim</RHAH_LongClaim_AcceptClaim>
+  <RHAH_LongClaim_DenyClaim>Deny the claim</RHAH_LongClaim_DenyClaim>
+  <RHAH_LongClaim_ProbeClaim>Ask more questions</RHAH_LongClaim_ProbeClaim>
+  <RHAH_LongClaim_ApproveReturn>Agree to send the child back</RHAH_LongClaim_ApproveReturn>
+  <RHAH_LongClaim_RefuseReturn>Refuse to send the child back</RHAH_LongClaim_RefuseReturn>
+  <RHAH_LongClaim_AcceptRetraction>Hear the retraction</RHAH_LongClaim_AcceptRetraction>
+  <RHAH_LongClaim_PrivateTitle>self-proclaimed heir</RHAH_LongClaim_PrivateTitle>
+  <RHAH_LongClaim_EarlyAnswer>{0} keeps insisting the keepsake belongs to them, but cannot name its former owner. It remains in their inventory. You can ask again at adulthood.</RHAH_LongClaim_EarlyAnswer>
+  <RHAH_LongClaim_KeepsakeWithheld>{0} has reached adulthood and still remembers the confiscated keepsake, but will no longer explain its origins. Returning it can still remove the -6 mood penalty.</RHAH_LongClaim_KeepsakeWithheld>
+  <RHAH_LongClaim_KeepsakeDestroyed>{0} has seen the keepsake destroyed. The -6 penalty for confiscation has been replaced by a permanent -8 mood penalty.</RHAH_LongClaim_KeepsakeDestroyed>
+  <RHAH_LongClaim_NobodyCame>No ratkin came to claim {0}. The keepsake stays in their inventory, and they stop mentioning the settlement.</RHAH_LongClaim_NobodyCame>
+  <RHAH_LongClaim_KeptAfterClaim>You have decided to keep {0}. The claimant is angry and intends to leave after a few insults. Other ratkin may also call the child unsold stock.</RHAH_LongClaim_KeptAfterClaim>
+  <RHAH_LongClaim_Recognized>{0} has received a title that only they believe. They will mention their identity to other ratkin. Mood +6 for 15 days.</RHAH_LongClaim_Recognized>
+  <RHAH_LongClaim_LegacyRefused>You have kept {0} here. The little group has left, but they remember the refusal.</RHAH_LongClaim_LegacyRefused>
+  <RHAH_LongClaim_RevengeArrived>The ratkin have returned with grain and knives to settle the refusal to hand over {0}. They are attacking the colony.</RHAH_LongClaim_RevengeArrived>
+  <RHAH_LongClaim_GroupScattered>The group that came for {0} has been scattered. The child stays and still believes the throne belongs to them. Mood +8 for 15 days. No further claimants will come.</RHAH_LongClaim_GroupScattered>
+  <RHAH_LongClaim_KilledScared>Your people killed a ratkin who came to claim {0}. The child is frightened and stops talking about it. Mood -6 for 15 days.</RHAH_LongClaim_KilledScared>
+  <RHAH_LongClaim_KilledRelieved>Your people killed the ratkin who came to claim {0}. They believe the visitor meant to capture them and feel relieved. Mood +4 for 15 days.</RHAH_LongClaim_KilledRelieved>
+  <RHAH_LongClaim_KilledViolent>Your people killed a ratkin who came to claim {0}. Looking at the body, the child decides this might also be a way to reclaim the throne. Mood +4 for 15 days.</RHAH_LongClaim_KilledViolent>
+  <RHAH_LongClaim_SellingMention>{1} has called {0} unsold stock to their face.</RHAH_LongClaim_SellingMention>
+  <RHAH_LongClaim_TitleMention>{0} has told {1} about their title. The listener does not believe it.</RHAH_LongClaim_TitleMention>
+</LanguageData>

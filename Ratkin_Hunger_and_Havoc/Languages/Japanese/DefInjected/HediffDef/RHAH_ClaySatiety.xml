@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ClaySatiety.label>観音土による満腹</RHAH_ClaySatiety.label>
+  <RHAH_ClaySatiety.description>食べた観音土が胃の中で固まり、一時的に空腹の進みが遅くなっています。固まりは徐々に崩れます。摂取上限に達すると次の観音土まで間隔を空ける必要がありますが、普通の食べ物は食べられます。上限と間隔はMOD設定で調整できます。</RHAH_ClaySatiety.description>
+  <RHAH_ClaySatiety.stages.0.label>胃の中の固まり</RHAH_ClaySatiety.stages.0.label>
+</LanguageData>

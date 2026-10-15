@@ -1,0 +1,19 @@
+// 将本文件的内容粘贴到代号窗口，预览后应用。
+// null 表示显示原名；手动代号优先于规则。
+fn codename(pawn): string? {
+    if pawn.age < 3 { return f"幼{pawn.number_text}·{pawn.original_name}" }
+    let prefix = "囚"
+    if pawn.race == "Ratkin" { prefix = "鼠" }
+    let alias = f"{prefix}{pawn.number_text}"
+    if pawn.has_interaction("HemogenFarm") { alias += "·供血" }
+    if pawn.interaction == "AttemptRecruit" {
+        alias += "·招募"
+        if pawn.resistance <= 0 { alias += "就绪" }
+    }
+    if pawn.skill("Crafting") >= 10 { alias += "·工" }
+    if pawn.skill("Medicine") >= 8 { alias += "·医" }
+    if pawn.passion("Plants") == 2 { alias += "·农★" }
+    if pawn.bleeding { alias += "·出血" }
+    else if pawn.has_hediff("Flu") { alias += "·流感" }
+    return alias
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_LongMother_Recognition>{0} has returned to the map edge and recognized {1}. You can arrange a meeting, refuse, or give her {2} units of food to leave. If refused, she waits another day; the grown child receives -2 mood for 15 days.</RHAH_LongMother_Recognition>
+  <RHAH_LongMother_Meeting>{1} is going to meet {0} at the map edge. Afterwards, you can decide whether the child leaves with her.</RHAH_LongMother_Meeting>
+  <RHAH_LongMother_TakeChild>{0} has met {1} and wants to take this child away. Only the child she recognized will leave. If refused, she leaves alone and receives -3 mood for 15 days.</RHAH_LongMother_TakeChild>
+  <RHAH_LongMother_RefusedWait>The mother will wait at the map edge for another day, then leave. The child she recognized receives -2 mood for 15 days.</RHAH_LongMother_RefusedWait>
+  <RHAH_LongMother_LivingChild>{1} is still alive. {0} intends to take a look and leave, but you can call her back. Otherwise, she leaves today and receives +2 mood for 15 days.</RHAH_LongMother_LivingChild>
+  <RHAH_LongMother_CalledMother>{0} asks for {2} units of food and {3} units of medicine. If you give them, she stays another day; otherwise, she leaves today. This visit gives her +2 mood for 15 days.</RHAH_LongMother_CalledMother>
+  <RHAH_LongMother_PaidStay>The mother has received the food and medicine. She will stay another day, then leave.</RHAH_LongMother_PaidStay>
+  <RHAH_LongMother_Burial>{1} has died. {0} waits at the map edge, asking where the child was buried. You can tell her where the grave is, or explain that the child has not been buried. Without an answer, she waits until dusk.</RHAH_LongMother_Burial>
+  <RHAH_LongMother_DuskWait>The mother has received no answer. She will wait at the map edge until dusk, then leave.</RHAH_LongMother_DuskWait>
+  <RHAH_LongMother_TransferredChild>{1} has been sold or sent away. {0} has heard about it and is preparing to leave. After some time, two adult ratkin will come to ask where the child went.</RHAH_LongMother_TransferredChild>
+  <RHAH_LongMother_Begging>{0} has returned with {1}, the same child who left with her last time. This time she only asks for {2} units of food. They will leave whether you give it or refuse.</RHAH_LongMother_Begging>
+  <RHAH_LongMother_Inquiry>Two adult ratkin have come to ask where {1} was sent. Tell them, and they leave. Refuse, and they will steal whatever food they can carry before leaving.</RHAH_LongMother_Inquiry>
+  <RHAH_LongMother_Theft>The ratkin asking about the child are looking for food to steal before leaving. If they cannot take any, they will leave empty-handed.</RHAH_LongMother_Theft>
+  <RHAH_LongMother_Leaving>The visitors are preparing to leave the map.</RHAH_LongMother_Leaving>
+  <RHAH_LongMother_TreatmentUntilHealed>The mother has been kept for treatment. Your colonists can provide a medical bed and care. She will stay until her injuries and illness have healed, then the visit still needs a decision.</RHAH_LongMother_TreatmentUntilHealed>
+  <RHAH_LongMother_TreatmentUntilWalking>The mother has been kept for treatment. Your colonists can provide a medical bed and care. Once she can walk, you can decide about the meeting and her departure.</RHAH_LongMother_TreatmentUntilWalking>
+  <RHAH_LongMother_Meet>Let her meet the child she recognized</RHAH_LongMother_Meet>
+  <RHAH_LongMother_RefuseMeeting>Refuse the meeting</RHAH_LongMother_RefuseMeeting>
+  <RHAH_LongMother_PayLeave>Give food and ask her to leave</RHAH_LongMother_PayLeave>
+  <RHAH_LongMother_AllowTake>Let this child leave with her</RHAH_LongMother_AllowTake>
+  <RHAH_LongMother_KeepChild>Keep the child and let her leave alone</RHAH_LongMother_KeepChild>
+  <RHAH_LongMother_Call>Call the mother back</RHAH_LongMother_Call>
+  <RHAH_LongMother_LetLeave>Let her leave</RHAH_LongMother_LetLeave>
+  <RHAH_LongMother_PayStay>Give food and medicine for another day</RHAH_LongMother_PayStay>
+  <RHAH_LongMother_AnswerBurial>Tell her about the burial</RHAH_LongMother_AnswerBurial>
+  <RHAH_LongMother_DoNotAnswer>Do not answer</RHAH_LongMother_DoNotAnswer>
+  <RHAH_LongMother_AcknowledgeTransfer>Tell her the child has left</RHAH_LongMother_AcknowledgeTransfer>
+  <RHAH_LongMother_GiveFood>Give them food and let them leave</RHAH_LongMother_GiveFood>
+  <RHAH_LongMother_RefuseFood>Refuse food</RHAH_LongMother_RefuseFood>
+  <RHAH_LongMother_TellDestination>Tell them where the child went</RHAH_LongMother_TellDestination>
+  <RHAH_LongMother_HideDestination>Withhold the child's destination</RHAH_LongMother_HideDestination>
+  <RHAH_LongMother_Treat>Keep the mother for treatment</RHAH_LongMother_Treat>
+  <RHAH_LongMother_WaitUntreated>Wait without arranging treatment</RHAH_LongMother_WaitUntreated>
+  <RHAH_LongMother_MeetingPending>The child has not reached the map edge yet. You can escort the child there yourself.</RHAH_LongMother_MeetingPending>
+  <RHAH_LongMother_Collapsed>The mother has collapsed and cannot leave yet. You can arrange treatment or leave her without care. If she dies at the edge, the child she recognized will have a permanent -6 mood memory once grown.</RHAH_LongMother_Collapsed>
+  <RHAH_LongMother_CollapsedIll>The mother has collapsed and cannot leave yet. You can keep her for treatment. Once her injuries and illness have healed, the visit still needs a decision.</RHAH_LongMother_CollapsedIll>
+  <RHAH_LongMother_ChildUnavailable>The recognized child is no longer here, or has not grown up yet.</RHAH_LongMother_ChildUnavailable>
+  <RHAH_LongMother_CannotDepart>The child cannot walk out yet, or is still in custody.</RHAH_LongMother_CannotDepart>
+  <RHAH_LongMother_InsufficientSupplies>Not enough food or medicine.</RHAH_LongMother_InsufficientSupplies>
+  <RHAH_LongMother_MotherUnavailable>The original mother's whereabouts could not be found.</RHAH_LongMother_MotherUnavailable>
+  <RHAH_LongMother_MotherDied>The mother has died at the map edge. Once grown, the child she recognized will have a permanent -6 mood memory.</RHAH_LongMother_MotherDied>
+  <RHAH_LongMother_Recovered>The mother has recovered. You can now decide how this visit ends.</RHAH_LongMother_Recovered>
+  <RHAH_LongMother_MeetingUnavailable>The child is no longer here, so the meeting could not take place. The mother is preparing to leave.</RHAH_LongMother_MeetingUnavailable>
+  <RHAH_LongMother_MetQuietly>The child spoke with the mother at the map edge. She wants to take this child away.</RHAH_LongMother_MetQuietly>
+  <RHAH_LongMother_MetAngrily>The child shouted at the mother at the map edge. She still wants to take this child away.</RHAH_LongMother_MetAngrily>
+  <RHAH_LongMother_WaitedAndLeft>The mother has waited a full day and is preparing to leave.</RHAH_LongMother_WaitedAndLeft>
+  <RHAH_LongMother_PaidAndLeft>The mother has taken the food and is preparing to leave alone.</RHAH_LongMother_PaidAndLeft>
+  <RHAH_LongMother_ChildLeaving>The recognized child is preparing to leave with the mother.</RHAH_LongMother_ChildLeaving>
+  <RHAH_LongMother_ChildStayed>The child has stayed. The mother is preparing to leave alone and receives -3 mood for 15 days.</RHAH_LongMother_ChildStayed>
+  <RHAH_LongMother_BegPaid>The mother and child have received the food and are preparing to leave.</RHAH_LongMother_BegPaid>
+  <RHAH_LongMother_BegRefused>The mother received no food. She and the child are preparing to leave.</RHAH_LongMother_BegRefused>
+  <RHAH_LongMother_LivingVisitFinished>The mother has seen her living child and is preparing to leave. She receives +2 mood for 15 days.</RHAH_LongMother_LivingVisitFinished>
+  <RHAH_LongMother_BurialAnswered>The mother has been told where the child's grave is and is preparing to leave.</RHAH_LongMother_BurialAnswered>
+  <RHAH_LongMother_NotBuried>The mother has been told that the child has not been buried and is preparing to leave.</RHAH_LongMother_NotBuried>
+  <RHAH_LongMother_DuskDeparture>Dusk has come. With no answer, the mother is preparing to leave.</RHAH_LongMother_DuskDeparture>
+  <RHAH_LongMother_TransferHeard>The mother has learned that the child was sold or sent away and is preparing to leave.</RHAH_LongMother_TransferHeard>
+  <RHAH_LongMother_DestinationTold>The ratkin have been told where the child went and are preparing to leave.</RHAH_LongMother_DestinationTold>
+</LanguageData>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_History_A001.title>鼠灾 佃户逃难</MouseDisaster_History_A001.title>
+  <MouseDisaster_History_A001.titleShort>鼠灾 佃户逃难</MouseDisaster_History_A001.titleShort>
+  <MouseDisaster_History_A001.description>[PAWN_nameDef] 成年前后一直跟着家族给鼠族贵族种地，租子压得家里常年半饥半饱。战乱烧到田边时，佃农名册和耕地一起失去保障，[PAWN_nameDef] 只能离开祖辈耕种的土地，随难民在陌生道路上求生。</MouseDisaster_History_A001.description>
+  <MouseDisaster_History_A002.title>鼠灾 旱田守望</MouseDisaster_History_A002.title>
+  <MouseDisaster_History_A002.titleShort>鼠灾 旱田守望</MouseDisaster_History_A002.titleShort>
+  <MouseDisaster_History_A002.description>成年以后，[PAWN_nameDef] 守着家乡最后几畦旱田，雨季连年失约，刚发芽的种子被太阳晒死。地主仍催收粮种，田埂旁再无可守之物，[PAWN_nameDef] 只得和佃户们带着空袋离开。</MouseDisaster_History_A002.description>
+  <MouseDisaster_History_A003.title>鼠灾 废田拾穗</MouseDisaster_History_A003.title>
+  <MouseDisaster_History_A003.titleShort>鼠灾 废田拾穗</MouseDisaster_History_A003.titleShort>
+  <MouseDisaster_History_A003.description>[PAWN_nameDef] 成年时家里已经在征粮前断炊，原本照看的田地荒成草丛。夜里回废田拾穗只换来鼠群和巡粮队的追赶，[PAWN_nameDef] 从此把残种和饥饿一并带上逃难路。</MouseDisaster_History_A003.description>
+  <MouseDisaster_History_A004.title>鼠灾 灾年牧鼠</MouseDisaster_History_A004.title>
+  <MouseDisaster_History_A004.titleShort>鼠灾 灾年牧鼠</MouseDisaster_History_A004.titleShort>
+  <MouseDisaster_History_A004.description>成年那几年，[PAWN_nameDef] 替牧场照料牲畜，灾年里牧场主先卖掉牲口，又把剩下的交作军粮。围栏空下后，[PAWN_nameDef] 牵着少数活下来的牲畜离开，跟着难民队伍寻找下一处草地。</MouseDisaster_History_A004.description>
+  <MouseDisaster_History_A005.title>鼠灾 旱井挑水</MouseDisaster_History_A005.title>
+  <MouseDisaster_History_A005.titleShort>鼠灾 旱井挑水</MouseDisaster_History_A005.titleShort>
+  <MouseDisaster_History_A005.description>刚成年时，[PAWN_nameDef] 在村井边挑水换粮，夏末井底见泥，取水的路一天比一天远。几个村落为水源冲突后，[PAWN_nameDef] 背着空水桶离开熟悉的井台，随取水队迁往外地。</MouseDisaster_History_A005.description>
+  <MouseDisaster_History_A006.title>鼠灾 谷仓旧账</MouseDisaster_History_A006.title>
+  <MouseDisaster_History_A006.titleShort>鼠灾 谷仓旧账</MouseDisaster_History_A006.titleShort>
+  <MouseDisaster_History_A006.description>作为成年鼠族，[PAWN_nameDef] 在谷仓记账，清点粮袋时发现账面存粮远多于实际仓廪。管事人要把亏空推到他身上，追责临近时，[PAWN_nameDef] 带着自己记下的名单逃出谷仓。</MouseDisaster_History_A006.description>
+  <MouseDisaster_History_A007.title>鼠灾 霉粮筛手</MouseDisaster_History_A007.title>
+  <MouseDisaster_History_A007.titleShort>鼠灾 霉粮筛手</MouseDisaster_History_A007.titleShort>
+  <MouseDisaster_History_A007.description>成年谋生时，[PAWN_nameDef] 在粮坊筛粮，原本会丢弃的霉谷在荒年也被混进配给。孩子们领到坏粮后，[PAWN_nameDef] 拒绝继续隐瞒，失去差事和住处，只能加入外逃队伍。</MouseDisaster_History_A007.description>
+  <MouseDisaster_History_A008.title>鼠灾 石磨孤徒</MouseDisaster_History_A008.title>
+  <MouseDisaster_History_A008.titleShort>鼠灾 石磨孤徒</MouseDisaster_History_A008.titleShort>
+  <MouseDisaster_History_A008.description>[PAWN_nameDef] 成年不久就在磨坊做工，主人欠下粮债后夜里逃走，只剩将散的石磨和未结的工钱。等不到归来的大人，[PAWN_nameDef] 拆下能用的工具，带着磨坊手艺去找新的营地。</MouseDisaster_History_A008.description>
+  <MouseDisaster_History_A009.title>鼠灾 修仓木匠</MouseDisaster_History_A009.title>
+  <MouseDisaster_History_A009.titleShort>鼠灾 修仓木匠</MouseDisaster_History_A009.titleShort>
+  <MouseDisaster_History_A009.description>到成年年纪，[PAWN_nameDef] 帮村里修粮仓，发现仓壁早被鼠群蛀空，地主却把木料留给自家屋顶。暴雨冲塌粮仓那晚，[PAWN_nameDef] 和帮工们失去工棚，只能随着流民离村。</MouseDisaster_History_A009.description>
+  <MouseDisaster_History_A010.title>鼠灾 破布缝匠</MouseDisaster_History_A010.title>
+  <MouseDisaster_History_A010.titleShort>鼠灾 破布缝匠</MouseDisaster_History_A010.titleShort>
+  <MouseDisaster_History_A010.description>成年以后，[PAWN_nameDef] 靠缝补旧衣换粮，织坊停工，布匹先被征走，穷人只剩拆衣重缝。最后一场火烧掉布料和住处，[PAWN_nameDef] 收起针线，跟着难民往外地逃。</MouseDisaster_History_A010.description>
+  <MouseDisaster_History_A011.title>鼠灾 病皮鞣工</MouseDisaster_History_A011.title>
+  <MouseDisaster_History_A011.titleShort>鼠灾 病皮鞣工</MouseDisaster_History_A011.titleShort>
+  <MouseDisaster_History_A011.description>成年那几年，[PAWN_nameDef] 替猎场鞣制皮张，贵族封山后再也换不到稳定皮革。寒冬里病死牲畜也被拿来换粮，这条生路断绝后，[PAWN_nameDef] 只能随商队离开。</MouseDisaster_History_A011.description>
+  <MouseDisaster_History_A012.title>鼠灾 草药辨者</MouseDisaster_History_A012.title>
+  <MouseDisaster_History_A012.titleShort>鼠灾 草药辨者</MouseDisaster_History_A012.titleShort>
+  <MouseDisaster_History_A012.description>刚成年时，[PAWN_nameDef] 只是采药帮工，鼠疫初起时村中药师病死，只留下缺页的草药记录。为了给家人退热，[PAWN_nameDef] 接过药篮和隔离棚的差事，病棚关闭后也被赶出村子。</MouseDisaster_History_A012.description>
+  <MouseDisaster_History_A013.title>鼠灾 熄窑守工</MouseDisaster_History_A013.title>
+  <MouseDisaster_History_A013.titleShort>鼠灾 熄窑守工</MouseDisaster_History_A013.titleShort>
+  <MouseDisaster_History_A013.description>作为成年鼠族，[PAWN_nameDef] 在砖窑守火，给地主烧了一冬天砖，却换不到足够燃料和住处。炉火熄灭时，[PAWN_nameDef] 带着被烟熏坏的手离开窑场，在避难所间寻找修屋活计。</MouseDisaster_History_A013.description>
+  <MouseDisaster_History_A014.title>鼠灾 断粮夜逃</MouseDisaster_History_A014.title>
+  <MouseDisaster_History_A014.titleShort>鼠灾 断粮夜逃</MouseDisaster_History_A014.titleShort>
+  <MouseDisaster_History_A014.description>成年谋生时，[PAWN_nameDef] 见家乡连续歉收，最后一袋粮分给老人孩子后很快见底。村里开始封门抢粮的夜里，[PAWN_nameDef] 背起旧水袋离开，把断粮的家乡留在身后。</MouseDisaster_History_A014.description>
+  <MouseDisaster_History_A015.title>鼠灾 河滩搭桥</MouseDisaster_History_A015.title>
+  <MouseDisaster_History_A015.titleShort>鼠灾 河滩搭桥</MouseDisaster_History_A015.titleShort>
+  <MouseDisaster_History_A015.description>到成年年纪，[PAWN_nameDef] 曾在河边替人修船，洪水冲断木桥时，逃难队伍被困在河滩。为了让家人渡河，[PAWN_nameDef] 临时搭出一座危桥，水退后故乡已空，只能继续上路。</MouseDisaster_History_A015.description>
+  <MouseDisaster_History_A016.title>鼠灾 废村搜寻</MouseDisaster_History_A016.title>
+  <MouseDisaster_History_A016.titleShort>鼠灾 废村搜寻</MouseDisaster_History_A016.titleShort>
+  <MouseDisaster_History_A016.description>成年以后，[PAWN_nameDef] 一次次回到被劫掠的废村，寻找锅、布和还能播种的种子。巡逻者封锁旧路后，废墟再也不能养活任何人，[PAWN_nameDef] 才跟着别的难民离开。</MouseDisaster_History_A016.description>
+  <MouseDisaster_History_A017.title>鼠灾 雪路引者</MouseDisaster_History_A017.title>
+  <MouseDisaster_History_A017.titleShort>鼠灾 雪路引者</MouseDisaster_History_A017.titleShort>
+  <MouseDisaster_History_A017.description>成年那几年，[PAWN_nameDef] 给商队认路，冬雪提前封住山道，一支难民队伍在白地里迷失。回头也找不到家时，[PAWN_nameDef] 只能用脚印和风向带人穿过荒野。</MouseDisaster_History_A017.description>
+  <MouseDisaster_History_A018.title>鼠灾 沙尘驮夫</MouseDisaster_History_A018.title>
+  <MouseDisaster_History_A018.titleShort>鼠灾 沙尘驮夫</MouseDisaster_History_A018.titleShort>
+  <MouseDisaster_History_A018.description>刚成年时，[PAWN_nameDef] 在商队里搬货，干旱地带的水袋被抢，驮兽一匹匹倒下。为讨回被扣的工钱，[PAWN_nameDef] 接下驮运差事，商队解散后仍牵着剩余驮兽继续走。</MouseDisaster_History_A018.description>
+  <MouseDisaster_History_A019.title>鼠灾 营地守夜</MouseDisaster_History_A019.title>
+  <MouseDisaster_History_A019.titleShort>鼠灾 营地守夜</MouseDisaster_History_A019.titleShort>
+  <MouseDisaster_History_A019.description>作为成年鼠族，[PAWN_nameDef] 寄居临时营地，连续几夜的盗粮袭击让原守卫带着武器逃走。混乱中，[PAWN_nameDef] 接过守夜和报信的职责，营地迁走后也把这份警觉带进新队伍。</MouseDisaster_History_A019.description>
+  <MouseDisaster_History_A020.title>鼠灾 绕关失亲</MouseDisaster_History_A020.title>
+  <MouseDisaster_History_A020.titleShort>鼠灾 绕关失亲</MouseDisaster_History_A020.titleShort>
+  <MouseDisaster_History_A020.description>成年谋生时，[PAWN_nameDef] 带家人穿越收粮税的关卡，没有凭证的难民随时会被扣下。一次绕行失败让家人失散，[PAWN_nameDef] 记住巡查时辰，却只能独自走完后面的路。</MouseDisaster_History_A020.description>
+  <MouseDisaster_History_A021.title>鼠灾 旧标绘路</MouseDisaster_History_A021.title>
+  <MouseDisaster_History_A021.titleShort>鼠灾 旧标绘路</MouseDisaster_History_A021.titleShort>
+  <MouseDisaster_History_A021.description>到成年年纪，[PAWN_nameDef] 曾替驿站画路线，仓库火灾烧掉旧地图后，逃难队伍只能看残破路标前进。[PAWN_nameDef] 把记忆画在布片上，也因此被推成带路者，离乡时再无退路。</MouseDisaster_History_A021.description>
+  <MouseDisaster_History_A022.title>鼠灾 寻亲流亡</MouseDisaster_History_A022.title>
+  <MouseDisaster_History_A022.titleShort>鼠灾 寻亲流亡</MouseDisaster_History_A022.titleShort>
+  <MouseDisaster_History_A022.description>成年以后，[PAWN_nameDef] 在强制分流中和家人被拆散，雨水又泡烂了临时名册。一路沿营火和姓名寻找时，[PAWN_nameDef] 没找到亲人，反而把自己留在无尽的流亡路上。</MouseDisaster_History_A022.description>
+  <MouseDisaster_History_A023.title>鼠灾 难队领路</MouseDisaster_History_A023.title>
+  <MouseDisaster_History_A023.titleShort>鼠灾 难队领路</MouseDisaster_History_A023.titleShort>
+  <MouseDisaster_History_A023.description>成年那几年，[PAWN_nameDef] 本不是领队，只是在抢粮冲突中看见原领队死去，队伍也失去下一处水源的消息。众人推他分路线和口粮，队伍散掉后，[PAWN_nameDef] 仍带着愿意跟随的人前行。</MouseDisaster_History_A023.description>
+  <MouseDisaster_History_A024.title>鼠灾 破屋补匠</MouseDisaster_History_A024.title>
+  <MouseDisaster_History_A024.titleShort>鼠灾 破屋补匠</MouseDisaster_History_A024.titleShort>
+  <MouseDisaster_History_A024.description>刚成年时，[PAWN_nameDef] 家屋被鼠群啃穿墙体，一场暴雨又压塌屋梁，可用木料还被征去修粮仓。靠修补废屋换粮的日子结束后，[PAWN_nameDef] 跟着难民寻找能落脚的下一间屋。</MouseDisaster_History_A024.description>
+  <MouseDisaster_History_A025.title>鼠灾 灾后掩埋</MouseDisaster_History_A025.title>
+  <MouseDisaster_History_A025.titleShort>鼠灾 灾后掩埋</MouseDisaster_History_A025.titleShort>
+  <MouseDisaster_History_A025.description>作为成年鼠族，[PAWN_nameDef] 在灾荒最重的村路上清尸掩埋，病死者和无人认领的尸体多到无人愿意靠近。因接触疫病被聚落驱逐后，[PAWN_nameDef] 只能在迁徙队伍里继续做这份脏活。</MouseDisaster_History_A025.description>
+  <MouseDisaster_History_A026.title>鼠灾 讨粮说客</MouseDisaster_History_A026.title>
+  <MouseDisaster_History_A026.titleShort>鼠灾 讨粮说客</MouseDisaster_History_A026.titleShort>
+  <MouseDisaster_History_A026.description>成年谋生时，[PAWN_nameDef] 替村里去粮仓讨回应得配给，却发现每次交涉都要再缴通行费。村子拒缴后被断粮，[PAWN_nameDef] 带着名单和空碗，到陌生聚落一家家求粮。</MouseDisaster_History_A026.description>
+  <MouseDisaster_History_A027.title>鼠灾 物资换手</MouseDisaster_History_A027.title>
+  <MouseDisaster_History_A027.titleShort>鼠灾 物资换手</MouseDisaster_History_A027.titleShort>
+  <MouseDisaster_History_A027.description>到成年年纪，[PAWN_nameDef] 在集市替人换物，粮价暴涨让货物一夜之间失去定价。为了给家人换药和种子，[PAWN_nameDef] 跟着不同难民队伍奔走，最后连自己的铺位也丢了。</MouseDisaster_History_A027.description>
+  <MouseDisaster_History_A028.title>鼠灾 逃册抄手</MouseDisaster_History_A028.title>
+  <MouseDisaster_History_A028.titleShort>鼠灾 逃册抄手</MouseDisaster_History_A028.titleShort>
+  <MouseDisaster_History_A028.description>成年以后，[PAWN_nameDef] 替人抄写户籍和粮册，保存账本的房屋被烧毁时只抢出几页纸。迁徙路上，[PAWN_nameDef] 给无凭证者记下姓名和欠粮，也因此被每个聚落当成可疑外人。</MouseDisaster_History_A028.description>
+  <MouseDisaster_History_A029.title>鼠灾 临灶分粮</MouseDisaster_History_A029.title>
+  <MouseDisaster_History_A029.titleShort>鼠灾 临灶分粮</MouseDisaster_History_A029.titleShort>
+  <MouseDisaster_History_A029.description>成年那几年，[PAWN_nameDef] 只在公共厨房打杂，鼠疫夺走厨子后，剩下的粮食没人敢分。为了让孩子们先吃上一口，[PAWN_nameDef] 接手灶台，厨房关闭时便和难民一起离开。</MouseDisaster_History_A029.description>
+  <MouseDisaster_History_A030.title>鼠灾 伤棚照料</MouseDisaster_History_A030.title>
+  <MouseDisaster_History_A030.titleShort>鼠灾 伤棚照料</MouseDisaster_History_A030.titleShort>
+  <MouseDisaster_History_A030.description>刚成年时，[PAWN_nameDef] 原本照顾家中病弱者，粮仓冲突却把满营伤员推到他面前。缺医少药的临时营地里，[PAWN_nameDef] 学会清创换药，营地被驱散后只能带着半套医术上路。</MouseDisaster_History_A030.description>
+  <MouseDisaster_History_A031.title>鼠灾 鼠蛋保育</MouseDisaster_History_A031.title>
+  <MouseDisaster_History_A031.titleShort>鼠灾 鼠蛋保育</MouseDisaster_History_A031.titleShort>
+  <MouseDisaster_History_A031.description>作为成年鼠族，[PAWN_nameDef] 在逃难队伍里轮流抱孩子，直到自己的家人也病倒在路边。队伍遗下病人和幼崽时，[PAWN_nameDef] 带着还能走的鼠蛋离开，从此不再轻信大人会回来。</MouseDisaster_History_A031.description>
+  <MouseDisaster_History_A032.title>鼠灾 夜故事者</MouseDisaster_History_A032.title>
+  <MouseDisaster_History_A032.titleShort>鼠灾 夜故事者</MouseDisaster_History_A032.titleShort>
+  <MouseDisaster_History_A032.description>成年谋生时，[PAWN_nameDef] 是会讲旧故事的纺线工，营地孩子却因饥饿和警报整夜不睡。迁营的黑路上，[PAWN_nameDef] 用故事稳住孩子们的脚步，也因此留在难民队伍里。</MouseDisaster_History_A032.description>
+  <MouseDisaster_History_A033.title>鼠灾 封村传讯</MouseDisaster_History_A033.title>
+  <MouseDisaster_History_A033.titleShort>鼠灾 封村传讯</MouseDisaster_History_A033.titleShort>
+  <MouseDisaster_History_A033.description>到成年年纪，[PAWN_nameDef] 替家人送信换粮，几座村落被封锁后，步行者成了仅有的消息通道。巡逻队截断回程那天，[PAWN_nameDef] 回不了家，只能继续替别的营地传讯。</MouseDisaster_History_A033.description>
+  <MouseDisaster_History_A034.title>鼠灾 集市搬袋</MouseDisaster_History_A034.title>
+  <MouseDisaster_History_A034.titleShort>鼠灾 集市搬袋</MouseDisaster_History_A034.titleShort>
+  <MouseDisaster_History_A034.description>成年以后，[PAWN_nameDef] 靠集市搬货谋生，集市倒闭后工钱和雇主同时消失。为躲避哄抢，[PAWN_nameDef] 把粮袋搬进临时营地，货主夜逃后只好跟着留下的难民转移。</MouseDisaster_History_A034.description>
+  <MouseDisaster_History_A035.title>鼠灾 旧货估价</MouseDisaster_History_A035.title>
+  <MouseDisaster_History_A035.titleShort>鼠灾 旧货估价</MouseDisaster_History_A035.titleShort>
+  <MouseDisaster_History_A035.description>成年那几年，[PAWN_nameDef] 靠估价旧锅旧工具给家里换口粮，灾荒里所有人却只认粮食。几次换粮后，抢劫夺走最后的家当，[PAWN_nameDef] 连可估价之物也不剩，只能离开。</MouseDisaster_History_A035.description>
+  <MouseDisaster_History_A036.title>鼠灾 分粮调停</MouseDisaster_History_A036.title>
+  <MouseDisaster_History_A036.titleShort>鼠灾 分粮调停</MouseDisaster_History_A036.titleShort>
+  <MouseDisaster_History_A036.description>刚成年时，[PAWN_nameDef] 曾在村里调水分渠，两支难民队伍争粮时被推出来调停。粮仓前的争执失控后，[PAWN_nameDef] 带走少数还愿意听解释的人，踏上新的逃难路。</MouseDisaster_History_A036.description>
+  <MouseDisaster_History_A037.title>鼠灾 粮票守者</MouseDisaster_History_A037.title>
+  <MouseDisaster_History_A037.titleShort>鼠灾 粮票守者</MouseDisaster_History_A037.titleShort>
+  <MouseDisaster_History_A037.description>作为成年鼠族，[PAWN_nameDef] 保管粮票，票据所承诺的一周口粮却被发放者连同粮食扣下。拒绝替人改账后，[PAWN_nameDef] 被赶出所里，只带着一小叠失效粮票逃往外地。</MouseDisaster_History_A037.description>
+  <MouseDisaster_History_A038.title>鼠灾 粮仓拒守</MouseDisaster_History_A038.title>
+  <MouseDisaster_History_A038.titleShort>鼠灾 粮仓拒守</MouseDisaster_History_A038.titleShort>
+  <MouseDisaster_History_A038.description>成年谋生时，[PAWN_nameDef] 受雇守粮仓，本以为要防外来的盗粮者。仓主暗中转移存粮并锁住饥民时，[PAWN_nameDef] 拒绝继续看门，和被放弃的守卫一起成了逃难者。</MouseDisaster_History_A038.description>
+  <MouseDisaster_History_A039.title>鼠灾 返乡逃兵</MouseDisaster_History_A039.title>
+  <MouseDisaster_History_A039.titleShort>鼠灾 返乡逃兵</MouseDisaster_History_A039.titleShort>
+  <MouseDisaster_History_A039.description>到成年年纪，[PAWN_nameDef] 被征进缺粮队伍，军官却独占最后的粮袋。一次撤退中，[PAWN_nameDef] 丢下武器回头找家人，部队把他当逃兵，村子也已无人可回。</MouseDisaster_History_A039.description>
+  <MouseDisaster_History_A040.title>鼠灾 营外设陷</MouseDisaster_History_A040.title>
+  <MouseDisaster_History_A040.titleShort>鼠灾 营外设陷</MouseDisaster_History_A040.titleShort>
+  <MouseDisaster_History_A040.description>成年以后，[PAWN_nameDef] 在营地外布陷阱，野兽和盗粮者的夜袭让旧围栏形同虚设。营地被烧毁后，[PAWN_nameDef] 靠打猎时学来的设陷手艺，护着自己继续迁徙。</MouseDisaster_History_A040.description>
+  <MouseDisaster_History_A041.title>鼠灾 盗粮弃徒</MouseDisaster_History_A041.title>
+  <MouseDisaster_History_A041.titleShort>鼠灾 盗粮弃徒</MouseDisaster_History_A041.titleShort>
+  <MouseDisaster_History_A041.description>成年那几年，[PAWN_nameDef] 曾跟一群饿疯的鼠族抢粮，仓库里的分赃很快变成内斗。逃出后，[PAWN_nameDef] 被别的聚落视为盗粮者，不得不在荒地间躲藏求生。</MouseDisaster_History_A041.description>
+  <MouseDisaster_History_A042.title>鼠灾 伤疤猎手</MouseDisaster_History_A042.title>
+  <MouseDisaster_History_A042.titleShort>鼠灾 伤疤猎手</MouseDisaster_History_A042.titleShort>
+  <MouseDisaster_History_A042.description>刚成年时，[PAWN_nameDef] 靠猎场谋生，旱灾烧光猎物，贵族又封锁山林。一次追踪受伤野兽时遭遇鼠群，[PAWN_nameDef] 留下伤疤、失去住处，只能随流民寻找新猎场。</MouseDisaster_History_A042.description>
+  <MouseDisaster_History_A043.title>鼠灾 驱鼠仓工</MouseDisaster_History_A043.title>
+  <MouseDisaster_History_A043.titleShort>鼠灾 驱鼠仓工</MouseDisaster_History_A043.titleShort>
+  <MouseDisaster_History_A043.description>作为成年鼠族，[PAWN_nameDef] 替粮仓清理鼠洞，鼠群暴增后仓主却把损失全算在工人身上。存粮被咬坏的那晚，[PAWN_nameDef] 被赶出村子，只好把驱鼠经验带到下一处营地。</MouseDisaster_History_A043.description>
+  <MouseDisaster_History_A044.title>鼠灾 疫棚搬运</MouseDisaster_History_A044.title>
+  <MouseDisaster_History_A044.titleShort>鼠灾 疫棚搬运</MouseDisaster_History_A044.titleShort>
+  <MouseDisaster_History_A044.description>成年谋生时，[PAWN_nameDef] 在鼠疫爆发的村口搬药和饮水，因为家人被困在隔离棚里。病区被焚毁时，[PAWN_nameDef] 同时失去亲人和聚落，只能带着疫棚记忆上路。</MouseDisaster_History_A044.description>
+  <MouseDisaster_History_A045.title>鼠灾 隔棚看守</MouseDisaster_History_A045.title>
+  <MouseDisaster_History_A045.titleShort>鼠灾 隔棚看守</MouseDisaster_History_A045.titleShort>
+  <MouseDisaster_History_A045.description>到成年年纪，[PAWN_nameDef] 曾在村口看守隔离棚，试图把发热者和健康者分开。药物与粮食耗尽后，村民把责任推给看守，[PAWN_nameDef] 被迫离村，继续寻找愿意接纳病人的地方。</MouseDisaster_History_A045.description>
+  <MouseDisaster_History_A046.title>鼠灾 疫后照料</MouseDisaster_History_A046.title>
+  <MouseDisaster_History_A046.titleShort>鼠灾 疫后照料</MouseDisaster_History_A046.titleShort>
+  <MouseDisaster_History_A046.description>成年以后，[PAWN_nameDef] 从鼠疫封锁街区活下来，病愈者却没有粮食也没有回家的许可。原住处被烧成空地后，[PAWN_nameDef] 带着尚未痊愈的同伴离开，寻找下一处能休息的棚屋。</MouseDisaster_History_A046.description>
+  <MouseDisaster_History_A047.title>鼠灾 伪装潜粮</MouseDisaster_History_A047.title>
+  <MouseDisaster_History_A047.titleShort>鼠灾 伪装潜粮</MouseDisaster_History_A047.titleShort>
+  <MouseDisaster_History_A047.description>成年那几年，[PAWN_nameDef] 曾夜潜粮仓偷粮，因为家人已经多日没有进食。败露后同伴把他交出去换通行，[PAWN_nameDef] 只能学会伪装成普通难民，在关卡间继续逃亡。</MouseDisaster_History_A047.description>
+  <MouseDisaster_History_A048.title>鼠灾 围营掘路</MouseDisaster_History_A048.title>
+  <MouseDisaster_History_A048.titleShort>鼠灾 围营掘路</MouseDisaster_History_A048.titleShort>
+  <MouseDisaster_History_A048.description>刚成年时，[PAWN_nameDef] 困在被抢粮队围住的营地里，外援始终没有到来。[PAWN_nameDef] 和同伴从墙下掘出窄洞带人逃生，回头时营地和家人遗物都已被火吞没。</MouseDisaster_History_A048.description>
+  <MouseDisaster_History_A049.title>鼠灾 破仓救饥</MouseDisaster_History_A049.title>
+  <MouseDisaster_History_A049.titleShort>鼠灾 破仓救饥</MouseDisaster_History_A049.titleShort>
+  <MouseDisaster_History_A049.description>作为成年鼠族，[PAWN_nameDef] 本是修门的工匠，灾荒后却看见粮仓被锁起，粮食宁愿发霉也不分给饥民。听见仓内有人求救时，[PAWN_nameDef] 撞开大门，事后遭追捕离乡。</MouseDisaster_History_A049.description>
+  <MouseDisaster_History_Y001.title>鼠灾 废墟幼崽</MouseDisaster_History_Y001.title>
+  <MouseDisaster_History_Y001.titleShort>鼠灾 废墟幼崽</MouseDisaster_History_Y001.titleShort>
+  <MouseDisaster_History_Y001.description>年少那阵，[PAWN_nameDef] 在一场纵火里与母亲失散，倒塌屋舍成了唯一藏身处。靠碎粮撑过几天后，救援队已经离开，[PAWN_nameDef] 只好跟着后来经过的难民继续走。</MouseDisaster_History_Y001.description>
+  <MouseDisaster_History_Y002.title>鼠灾 失田幼崽</MouseDisaster_History_Y002.title>
+  <MouseDisaster_History_Y002.titleShort>鼠灾 失田幼崽</MouseDisaster_History_Y002.titleShort>
+  <MouseDisaster_History_Y002.description>还未成年时，[PAWN_nameDef] 在小农场长大，农场主卖掉土地后带走成年劳力，只剩孩子和被征走的庄稼。熟悉的田地无法再养活它，[PAWN_nameDef] 便跟着流民去找食物。</MouseDisaster_History_Y002.description>
+  <MouseDisaster_History_Y003.title>鼠灾 洞隙信童</MouseDisaster_History_Y003.title>
+  <MouseDisaster_History_Y003.titleShort>鼠灾 洞隙信童</MouseDisaster_History_Y003.titleShort>
+  <MouseDisaster_History_Y003.description>尚是孩子时，[PAWN_nameDef] 住在洞穴聚居地，大人因争粮分成几队，它反而成了能钻过缝隙的信使。烟雾和鼠群逼得洞穴不能住后，[PAWN_nameDef] 跟着最后一队人来到地面。</MouseDisaster_History_Y003.description>
+  <MouseDisaster_History_Y004.title>鼠灾 粮坊筛徒</MouseDisaster_History_Y004.title>
+  <MouseDisaster_History_Y004.titleShort>鼠灾 粮坊筛徒</MouseDisaster_History_Y004.titleShort>
+  <MouseDisaster_History_Y004.description>年纪尚轻时，[PAWN_nameDef] 跟母亲在粮坊旁讨生活，碎粮曾是家里最稳定的食物。粮坊被征用后，霉粮也被混进配给，[PAWN_nameDef] 和母亲一起被赶上逃难路。</MouseDisaster_History_Y004.description>
+  <MouseDisaster_History_Y005.title>鼠灾 护蛋学徒</MouseDisaster_History_Y005.title>
+  <MouseDisaster_History_Y005.titleShort>鼠灾 护蛋学徒</MouseDisaster_History_Y005.titleShort>
+  <MouseDisaster_History_Y005.description>童年里的 [PAWN_nameDef] 所在队伍里大人接连病倒，它被迫照看比自己更小的鼠蛋。夜迁时队伍散乱，[PAWN_nameDef] 带着孩子们跟丢亲人，从此跟着能分食物的人走。</MouseDisaster_History_Y005.description>
+  <MouseDisaster_History_Y006.title>鼠灾 认路孤童</MouseDisaster_History_Y006.title>
+  <MouseDisaster_History_Y006.titleShort>鼠灾 认路孤童</MouseDisaster_History_Y006.titleShort>
+  <MouseDisaster_History_Y006.description>幼年记忆里，[PAWN_nameDef] 在转移途中与家人走散，只记得枯树、裂桥和几处危险路口。它靠这些路标避开追赶，最后被另一支难民队伍收留，却再没找到原来的家。</MouseDisaster_History_Y006.description>
+  <MouseDisaster_History_Y007.title>鼠灾 看畜学徒</MouseDisaster_History_Y007.title>
+  <MouseDisaster_History_Y007.titleShort>鼠灾 看畜学徒</MouseDisaster_History_Y007.titleShort>
+  <MouseDisaster_History_Y007.description>年少那阵，[PAWN_nameDef] 负责赶家中剩下的牲畜，农场先断水，后又被征走大半牲口。围栏废弃那天，[PAWN_nameDef] 赶着几只活物追上逃难队，农场再也没有回去。</MouseDisaster_History_Y007.description>
+  <MouseDisaster_History_Y008.title>鼠灾 磨坊孤徒</MouseDisaster_History_Y008.title>
+  <MouseDisaster_History_Y008.titleShort>鼠灾 磨坊孤徒</MouseDisaster_History_Y008.titleShort>
+  <MouseDisaster_History_Y008.description>还未成年时，[PAWN_nameDef] 被留在欠粮的磨坊里，大人离开后只剩推不动的石磨。它在磨盘旁学会最简单的活，磨坊被拆后，[PAWN_nameDef] 只能带着这点手艺流亡。</MouseDisaster_History_Y008.description>
+  <MouseDisaster_History_Y009.title>鼠灾 营火听童</MouseDisaster_History_Y009.title>
+  <MouseDisaster_History_Y009.titleShort>鼠灾 营火听童</MouseDisaster_History_Y009.titleShort>
+  <MouseDisaster_History_Y009.description>尚是孩子时，[PAWN_nameDef] 出生在从未见过丰年的难民队伍里，夜里靠大人讲旧收成入睡。队伍断粮解散后，它被留在营火旁，直到另一批流民经过才重新上路。</MouseDisaster_History_Y009.description>
+  <MouseDisaster_History_Y010.title>鼠灾 隔棚幼童</MouseDisaster_History_Y010.title>
+  <MouseDisaster_History_Y010.titleShort>鼠灾 隔棚幼童</MouseDisaster_History_Y010.titleShort>
+  <MouseDisaster_History_Y010.description>年纪尚轻时，[PAWN_nameDef] 和家人一起被送进隔离棚，最初还有人隔着门送饭送水。鼠疫恶化后门外无人再来，亲人先后离开或死去，棚子拆除时它跟着幸存者逃出。</MouseDisaster_History_Y010.description>
+  <MouseDisaster_History_Y011.title>鼠灾 废屋孤童</MouseDisaster_History_Y011.title>
+  <MouseDisaster_History_Y011.titleShort>鼠灾 废屋孤童</MouseDisaster_History_Y011.titleShort>
+  <MouseDisaster_History_Y011.description>童年里的 [PAWN_nameDef] 在夜袭中与家人冲散，躲进废屋靠根茎和雨水活下来。搜寻的人再没回来，[PAWN_nameDef] 只能在一个个难民营之间独自寻找能停留的角落。</MouseDisaster_History_Y011.description>
+  <MouseDisaster_History_Y012.title>鼠灾 守夜学徒</MouseDisaster_History_Y012.title>
+  <MouseDisaster_History_Y012.titleShort>鼠灾 守夜学徒</MouseDisaster_History_Y012.titleShort>
+  <MouseDisaster_History_Y012.description>幼年记忆里，[PAWN_nameDef] 住在屡遭偷袭的难民营，大人轮流守夜仍挡不住盗粮者。它因睡不着记住巡查路线，一次袭击后跟丢家人，从此把守营火当成活法。</MouseDisaster_History_Y012.description>
+  <MouseDisaster_History_A050.title>鼠灾 护弟长姐</MouseDisaster_History_A050.title>
+  <MouseDisaster_History_A050.titleShort>鼠灾 护弟长姐</MouseDisaster_History_A050.titleShort>
+  <MouseDisaster_History_A050.description>成年谋生时，[PAWN_nameDef] 在小聚落照顾弟妹，父母死在逃难路上，孩子们便只剩她照看。队伍为减负把她们留在路边后，[PAWN_nameDef] 只能独自寻找愿意收留鼠蛋的地方。</MouseDisaster_History_A050.description>
+  <MouseDisaster_History_A051.title>鼠灾 托孤病母</MouseDisaster_History_A051.title>
+  <MouseDisaster_History_A051.titleShort>鼠灾 托孤病母</MouseDisaster_History_A051.titleShort>
+  <MouseDisaster_History_A051.description>到成年年纪，[PAWN_nameDef] 带孩子逃离鼠疫失控的村子，一路靠碎粮和草药撑着。病情恶化时，她知道自己走不到下一处营地，仍把孩子送到陌生聚落门口才倒下。</MouseDisaster_History_A051.description>
+  <MouseDisaster_History_A052.title>鼠灾 讨粮鼠母</MouseDisaster_History_A052.title>
+  <MouseDisaster_History_A052.titleShort>鼠灾 讨粮鼠母</MouseDisaster_History_A052.titleShort>
+  <MouseDisaster_History_A052.description>成年以后，[PAWN_nameDef] 靠洗衣和看牲畜养活孩子，灾荒后雇主收回粮食和工钱。她不愿把孩子交给路边陌生人，只能一次次来到别人门前求一口吃的。</MouseDisaster_History_A052.description>
+  <MouseDisaster_History_A053.title>鼠灾 为家盗粮</MouseDisaster_History_A053.title>
+  <MouseDisaster_History_A053.titleShort>鼠灾 为家盗粮</MouseDisaster_History_A053.titleShort>
+  <MouseDisaster_History_A053.description>成年那几年，[PAWN_nameDef] 替家人守着最后一袋粮，却看着孩子先因饥饿倒下。求粮无门后，[PAWN_nameDef] 夜里摸进仓房，败露时没能逃远，只带着家人留下的空碗离开。</MouseDisaster_History_A053.description>
+  <MouseDisaster_History_A054.title>鼠灾 荒地求生</MouseDisaster_History_A054.title>
+  <MouseDisaster_History_A054.titleShort>鼠灾 荒地求生</MouseDisaster_History_A054.titleShort>
+  <MouseDisaster_History_A054.description>刚成年时，[PAWN_nameDef] 所在聚落被抢粮者在夜里冲散，醒来时身边只剩破衣和陌生荒路。找不到家人后，[PAWN_nameDef] 只能沿野兽脚印和远处炊烟寻找活人。</MouseDisaster_History_A054.description>
+  <MouseDisaster_History_A055.title>鼠灾 难营管事</MouseDisaster_History_A055.title>
+  <MouseDisaster_History_A055.titleShort>鼠灾 难营管事</MouseDisaster_History_A055.titleShort>
+  <MouseDisaster_History_A055.description>作为成年鼠族，[PAWN_nameDef] 在流民营分配铺位和饮水，直到人数超过粮食、木柴和耐心的极限。营地解散时他也无处可回，[PAWN_nameDef] 只能跟最后一批人走向新聚落。</MouseDisaster_History_A055.description>
+  <MouseDisaster_History_A056.title>鼠灾 囚笼看守</MouseDisaster_History_A056.title>
+  <MouseDisaster_History_A056.titleShort>鼠灾 囚笼看守</MouseDisaster_History_A056.titleShort>
+  <MouseDisaster_History_A056.description>成年谋生时，[PAWN_nameDef] 在商队看守货物和囚笼，商路断绝后，笼中孩子竟成了换粮的筹码。领头人抛下队伍逃走，[PAWN_nameDef] 带着还活着的囚犯寻找能谈判的人。</MouseDisaster_History_A056.description>
+  <MouseDisaster_History_A057.title>鼠灾 鼠蛋商人</MouseDisaster_History_A057.title>
+  <MouseDisaster_History_A057.titleShort>鼠灾 鼠蛋商人</MouseDisaster_History_A057.titleShort>
+  <MouseDisaster_History_A057.description>到成年年纪，[PAWN_nameDef] 曾相信把孩子交给有粮者，至少能让他们熬过冬天。交易双方都拿不出承诺时，[PAWN_nameDef] 被迫带着一串沉默的鼠蛋继续走，逐渐不敢再看他们的脸。</MouseDisaster_History_A057.description>
+  <MouseDisaster_History_A058.title>鼠灾 城外乞食</MouseDisaster_History_A058.title>
+  <MouseDisaster_History_A058.titleShort>鼠灾 城外乞食</MouseDisaster_History_A058.titleShort>
+  <MouseDisaster_History_A058.description>成年以后，[PAWN_nameDef] 和难民在废弃围墙外搭棚，以为不进城就能避开冲突。城门关闭后，棚外既无退路也无粮食，[PAWN_nameDef] 只得围着下一处聚落反复乞求接济。</MouseDisaster_History_A058.description>
+  <MouseDisaster_History_A059.title>鼠灾 接济厨子</MouseDisaster_History_A059.title>
+  <MouseDisaster_History_A059.titleShort>鼠灾 接济厨子</MouseDisaster_History_A059.titleShort>
+  <MouseDisaster_History_A059.description>成年那几年，[PAWN_nameDef] 负责把逃难队伍里不同来源的粮食煮成一锅，后来连锅都被换成木柴。接济队伍到来时，[PAWN_nameDef] 带着配方和筛霉粮的经验，只求让所有人吃同一顿饭。</MouseDisaster_History_A059.description>
+  <MouseDisaster_History_A060.title>鼠灾 难队药师</MouseDisaster_History_A060.title>
+  <MouseDisaster_History_A060.titleShort>鼠灾 难队药师</MouseDisaster_History_A060.titleShort>
+  <MouseDisaster_History_A060.description>刚成年时，[PAWN_nameDef] 在小诊所搬药草，诊所关闭后，药品成了队伍里最容易引发争抢的东西。[PAWN_nameDef] 把最后几份药藏进衣服，带着发热同伴走到殖民地边缘求援。</MouseDisaster_History_A060.description>
+  <MouseDisaster_History_A061.title>鼠灾 白银交易</MouseDisaster_History_A061.title>
+  <MouseDisaster_History_A061.titleShort>鼠灾 白银交易</MouseDisaster_History_A061.titleShort>
+  <MouseDisaster_History_A061.description>作为成年鼠族，[PAWN_nameDef] 把家中工具、牲畜和房契换成白银，以为钱能买到安全道路。关卡涨价、商队改道后，银子只够再走一段，[PAWN_nameDef] 只好寻找愿意交易的聚落。</MouseDisaster_History_A061.description>
+  <MouseDisaster_History_A062.title>鼠灾 残图情报</MouseDisaster_History_A062.title>
+  <MouseDisaster_History_A062.titleShort>鼠灾 残图情报</MouseDisaster_History_A062.titleShort>
+  <MouseDisaster_History_A062.description>成年谋生时，[PAWN_nameDef] 从路边死去的情报贩子手里得到半张藏宝图，图上的地点却残缺不全。为换取继续上路的粮、药或白银，[PAWN_nameDef] 带着残图来到殖民地。</MouseDisaster_History_A062.description>
+  <MouseDisaster_History_A063.title>鼠灾 废墟情报</MouseDisaster_History_A063.title>
+  <MouseDisaster_History_A063.titleShort>鼠灾 废墟情报</MouseDisaster_History_A063.titleShort>
+  <MouseDisaster_History_A063.description>到成年年纪，[PAWN_nameDef] 曾躲进被鼠群和暴雨掏空的建筑群，记住尚能使用的门、井和地下室。同行者为地图翻脸后，[PAWN_nameDef] 只带着残缺位置逃出，希望用情报换一次安全离开。</MouseDisaster_History_A063.description>
+  <MouseDisaster_History_A064.title>鼠灾 小寨记事</MouseDisaster_History_A064.title>
+  <MouseDisaster_History_A064.titleShort>鼠灾 小寨记事</MouseDisaster_History_A064.titleShort>
+  <MouseDisaster_History_A064.description>成年以后，[PAWN_nameDef] 在一个小聚落短暂停留，那里原本还能维持秩序，直到粮仓账目被改写。内部争粮分裂后，[PAWN_nameDef] 带着另一处小居住点的位置逃出，只想换到能带走的物资。</MouseDisaster_History_A064.description>
+  <MouseDisaster_History_A065.title>鼠灾 待产流民</MouseDisaster_History_A065.title>
+  <MouseDisaster_History_A065.titleShort>鼠灾 待产流民</MouseDisaster_History_A065.titleShort>
+  <MouseDisaster_History_A065.description>成年那几年，[PAWN_nameDef] 怀着孩子跟队伍寻找遮雨处，却发现营地只收能立刻劳动的人。鼠疫或抢粮冲突冲散队伍时，[PAWN_nameDef] 临近生产，只能来到陌生殖民地求一个角落。</MouseDisaster_History_A065.description>
+  <MouseDisaster_History_A066.title>鼠灾 误投搬运</MouseDisaster_History_A066.title>
+  <MouseDisaster_History_A066.titleShort>鼠灾 误投搬运</MouseDisaster_History_A066.titleShort>
+  <MouseDisaster_History_A066.description>刚成年时，[PAWN_nameDef] 在运输队核对货单和搬运补给，一次坐标错误让整批物资落进无人荒地。发货者先逃走，[PAWN_nameDef] 带着还能找到的几件东西追到错地，最后向真正的殖民地求助。</MouseDisaster_History_A066.description>
+  <MouseDisaster_History_A067.title>鼠灾 认亲错影</MouseDisaster_History_A067.title>
+  <MouseDisaster_History_A067.titleShort>鼠灾 认亲错影</MouseDisaster_History_A067.titleShort>
+  <MouseDisaster_History_A067.description>作为成年鼠族，[PAWN_nameDef] 在夜间撤离中失去家人，后来听见有人描述相似的孩子，便把陌生人错认成亲属。真相暴露时原队伍已远去，[PAWN_nameDef] 既留不住孩子，也回不了家。</MouseDisaster_History_A067.description>
+  <MouseDisaster_History_A068.title>鼠灾 荒年农户</MouseDisaster_History_A068.title>
+  <MouseDisaster_History_A068.titleShort>鼠灾 荒年农户</MouseDisaster_History_A068.titleShort>
+  <MouseDisaster_History_A068.description>成年谋生时，[PAWN_nameDef] 守着荒年里的旧田，以为熬过上一季就会等到雨水，却发现连种子也没留下。土地被反复征粮，家人又在鼠疫中减少，[PAWN_nameDef] 分完最后的食物后离村。</MouseDisaster_History_A068.description>
+  <MouseDisaster_History_A069.title>鼠灾 遇袭护运</MouseDisaster_History_A069.title>
+  <MouseDisaster_History_A069.titleShort>鼠灾 遇袭护运</MouseDisaster_History_A069.titleShort>
+  <MouseDisaster_History_A069.description>到成年年纪，[PAWN_nameDef] 跟商队护送药品和粮食，途中被另一群走投无路的流民拦下。车队丢下货物和伤员逃命，[PAWN_nameDef] 从翻空的车厢里爬出，从此不再信任商队旗帜。</MouseDisaster_History_A069.description>
+  <MouseDisaster_History_A070.title>鼠灾 疫区流亡</MouseDisaster_History_A070.title>
+  <MouseDisaster_History_A070.titleShort>鼠灾 疫区流亡</MouseDisaster_History_A070.titleShort>
+  <MouseDisaster_History_A070.description>成年以后，[PAWN_nameDef] 所在营地被认定为疫区，健康道路和安全食物都不再对他们开放。队伍里有人倒下、有人被留下，[PAWN_nameDef] 带着还能走的同伴绕过聚落，直到靠近陌生殖民地。</MouseDisaster_History_A070.description>
+  <MouseDisaster_History_A071.title>鼠灾 检棚守门</MouseDisaster_History_A071.title>
+  <MouseDisaster_History_A071.titleShort>鼠灾 检棚守门</MouseDisaster_History_A071.titleShort>
+  <MouseDisaster_History_A071.description>成年那几年，[PAWN_nameDef] 看守村口检疫棚，每天决定谁能进去、谁拿到药、谁必须留在门外。药物和粮食同时耗尽后，病人连同看守都被赶走，[PAWN_nameDef] 只好带着幸存者寻找收容处。</MouseDisaster_History_A071.description>
+  <MouseDisaster_History_A072.title>鼠灾 疫营掘路</MouseDisaster_History_A072.title>
+  <MouseDisaster_History_A072.titleShort>鼠灾 疫营掘路</MouseDisaster_History_A072.titleShort>
+  <MouseDisaster_History_A072.description>刚成年时，[PAWN_nameDef] 困在疫区营地，饥饿者和感染者同时逼近，外面不敢开门，里面也没有粮。[PAWN_nameDef] 从墙脚掘出单人通道逃出，却再也不知道留下的人是否活着。</MouseDisaster_History_A072.description>
+  <MouseDisaster_History_A073.title>鼠灾 疫信逃使</MouseDisaster_History_A073.title>
+  <MouseDisaster_History_A073.titleShort>鼠灾 疫信逃使</MouseDisaster_History_A073.titleShort>
+  <MouseDisaster_History_A073.description>作为成年鼠族，[PAWN_nameDef] 替感染鼠族队伍传话，对方声称要报复某个害他们的人，却没有能核实的名字。队伍把报复当作唯一目标时，[PAWN_nameDef] 带着无收件人的信逃走。</MouseDisaster_History_A073.description>
+  <MouseDisaster_History_A074.title>鼠灾 撤营向导</MouseDisaster_History_A074.title>
+  <MouseDisaster_History_A074.titleShort>鼠灾 撤营向导</MouseDisaster_History_A074.titleShort>
+  <MouseDisaster_History_A074.description>成年谋生时，[PAWN_nameDef] 在临时难民营修木屋、分饮水，直到附近势力要求他们几天内消失。袭击前，[PAWN_nameDef] 带还能走的人从后门撤离，回头只见自己搭过的屋子被火吞没。</MouseDisaster_History_A074.description>
+  <MouseDisaster_History_Y013.title>鼠灾 人潮幼童</MouseDisaster_History_Y013.title>
+  <MouseDisaster_History_Y013.titleShort>鼠灾 人潮幼童</MouseDisaster_History_Y013.titleShort>
+  <MouseDisaster_History_Y013.description>年少那阵，[PAWN_nameDef] 被大人抱在大型流民队伍中间，人数太多，每次停下都有人被挤出队列。抢粮混乱后，[PAWN_nameDef] 只记得家人的声音，最后被另一支队伍带走。</MouseDisaster_History_Y013.description>
+  <MouseDisaster_History_Y014.title>鼠灾 弃屋鼠蛋</MouseDisaster_History_Y014.title>
+  <MouseDisaster_History_Y014.titleShort>鼠灾 弃屋鼠蛋</MouseDisaster_History_Y014.titleShort>
+  <MouseDisaster_History_Y014.description>还未成年时，[PAWN_nameDef] 被放在空屋门后，身边只有一块发硬的食物。留下它的大人说很快回来，可门外脚步越来越少，直到路过难民发现，[PAWN_nameDef] 才离开那间屋。</MouseDisaster_History_Y014.description>
+  <MouseDisaster_History_Y015.title>鼠灾 门前托蛋</MouseDisaster_History_Y015.title>
+  <MouseDisaster_History_Y015.titleShort>鼠灾 门前托蛋</MouseDisaster_History_Y015.titleShort>
+  <MouseDisaster_History_Y015.description>尚是孩子时，[PAWN_nameDef] 被母亲抱到陌生聚落门口，发热中只记得母亲反复摸额头。母亲没有力气继续走，把它推向门内后留在门外，这段空白成了 [PAWN_nameDef] 最早的记忆。</MouseDisaster_History_Y015.description>
+  <MouseDisaster_History_Y016.title>鼠灾 分粮学徒</MouseDisaster_History_Y016.title>
+  <MouseDisaster_History_Y016.titleShort>鼠灾 分粮学徒</MouseDisaster_History_Y016.titleShort>
+  <MouseDisaster_History_Y016.description>年纪尚轻时，[PAWN_nameDef] 跟着乞讨队伍分粮，大人越来越少，它被安排记住谁领过一勺。求来的食物不够分时，[PAWN_nameDef] 把最后一份留给更小的鼠蛋，却被赶出队伍。</MouseDisaster_History_Y016.description>
+  <MouseDisaster_History_Y017.title>鼠灾 仓桶藏童</MouseDisaster_History_Y017.title>
+  <MouseDisaster_History_Y017.titleShort>鼠灾 仓桶藏童</MouseDisaster_History_Y017.titleShort>
+  <MouseDisaster_History_Y017.description>童年里的 [PAWN_nameDef] 被家人带进仓房偷粮，计划失败后，大人们各自逃命，无人回头找它。它在空粮桶里躲到天亮，后来学会先找退路再相信同伴。</MouseDisaster_History_Y017.description>
+  <MouseDisaster_History_Y018.title>鼠灾 荒洞幼崽</MouseDisaster_History_Y018.title>
+  <MouseDisaster_History_Y018.titleShort>鼠灾 荒洞幼崽</MouseDisaster_History_Y018.titleShort>
+  <MouseDisaster_History_Y018.description>幼年记忆里，[PAWN_nameDef] 跟鼠族住在荒地洞穴，暴雨灌满洞口后，大人带着能走的成员先离开。[PAWN_nameDef] 在灌木和废墟间躲了几天，直到路过队伍听见哭声。</MouseDisaster_History_Y018.description>
+  <MouseDisaster_History_Y019.title>鼠灾 笼旁幼童</MouseDisaster_History_Y019.title>
+  <MouseDisaster_History_Y019.titleShort>鼠灾 笼旁幼童</MouseDisaster_History_Y019.titleShort>
+  <MouseDisaster_History_Y019.description>年少那阵，[PAWN_nameDef] 在商队货车旁长大，看见药品、粮袋和鼠蛋被分别锁进笼子。商路断掉后，领头人把货物和孩子一起丢下，[PAWN_nameDef] 只能跟着看守寻找新交易地。</MouseDisaster_History_Y019.description>
+  <MouseDisaster_History_Y020.title>鼠灾 交易藏童</MouseDisaster_History_Y020.title>
+  <MouseDisaster_History_Y020.titleShort>鼠灾 交易藏童</MouseDisaster_History_Y020.titleShort>
+  <MouseDisaster_History_Y020.description>还未成年时，[PAWN_nameDef] 听大人反复谈粮价和谁能带走孩子，却不知道自己正是交易物。交易失败时，[PAWN_nameDef] 被藏在货车底下，随商人和其他鼠蛋离开原营地。</MouseDisaster_History_Y020.description>
+  <MouseDisaster_History_Y021.title>鼠灾 围营水童</MouseDisaster_History_Y021.title>
+  <MouseDisaster_History_Y021.titleShort>鼠灾 围营水童</MouseDisaster_History_Y021.titleShort>
+  <MouseDisaster_History_Y021.description>尚是孩子时，[PAWN_nameDef] 困在被围营地，取水只剩贴墙根的一条窄缝。因为个子小，[PAWN_nameDef] 被派去给守门人和更小的孩子送半碗水，围墙失守后只能跟逃出的人离开。</MouseDisaster_History_Y021.description>
+  <MouseDisaster_History_Y022.title>鼠灾 接济记童</MouseDisaster_History_Y022.title>
+  <MouseDisaster_History_Y022.titleShort>鼠灾 接济记童</MouseDisaster_History_Y022.titleShort>
+  <MouseDisaster_History_Y022.description>年纪尚轻时，[PAWN_nameDef] 在接济营地记住每批物资，也记住哪些人拿到食物却没等到药。接济队伍离开时，[PAWN_nameDef] 把剩余袋子和名字抄在木片上，带着残缺名单迁徙。</MouseDisaster_History_Y022.description>
+  <MouseDisaster_History_Y023.title>鼠灾 地图迷童</MouseDisaster_History_Y023.title>
+  <MouseDisaster_History_Y023.titleShort>鼠灾 地图迷童</MouseDisaster_History_Y023.titleShort>
+  <MouseDisaster_History_Y023.description>童年里的 [PAWN_nameDef] 跟情报客走过宝藏、废墟和小居住点标记，以为地图圆圈就是能睡觉的地方。一次交易失败后，情报客独逃，[PAWN_nameDef] 只留下几处模糊路标。</MouseDisaster_History_Y023.description>
+  <MouseDisaster_History_Y024.title>鼠灾 产队幼童</MouseDisaster_History_Y024.title>
+  <MouseDisaster_History_Y024.titleShort>鼠灾 产队幼童</MouseDisaster_History_Y024.titleShort>
+  <MouseDisaster_History_Y024.description>幼年记忆里，[PAWN_nameDef] 和即将生产的母亲挤在队伍末尾，每次停下都先找挡风处。大人因疫病和粮食把她们分开后，[PAWN_nameDef] 抱着母亲空袋来到殖民地边缘。</MouseDisaster_History_Y024.description>
+  <MouseDisaster_History_Y025.title>鼠灾 错投幼童</MouseDisaster_History_Y025.title>
+  <MouseDisaster_History_Y025.titleShort>鼠灾 错投幼童</MouseDisaster_History_Y025.titleShort>
+  <MouseDisaster_History_Y025.description>年少那阵，[PAWN_nameDef] 本应随补给被送往约定营地，却在错误地点的运输箱旁醒来。搬运者发现坐标不对便先走，[PAWN_nameDef] 只能在陌生物资堆里等到难民带它离开。</MouseDisaster_History_Y025.description>
+  <MouseDisaster_History_Y026.title>鼠灾 错名幼童</MouseDisaster_History_Y026.title>
+  <MouseDisaster_History_Y026.titleShort>鼠灾 错名幼童</MouseDisaster_History_Y026.titleShort>
+  <MouseDisaster_History_Y026.description>还未成年时，[PAWN_nameDef] 撤离时被人叫成另一个孩子的名字，因为怕走失没有纠正。真正家人没有出现，认错它的人也在争执后离开，[PAWN_nameDef] 带着陌生名字继续找队伍。</MouseDisaster_History_Y026.description>
+  <MouseDisaster_History_Y027.title>鼠灾 荒年营童</MouseDisaster_History_Y027.title>
+  <MouseDisaster_History_Y027.titleShort>鼠灾 荒年营童</MouseDisaster_History_Y027.titleShort>
+  <MouseDisaster_History_Y027.description>尚是孩子时，[PAWN_nameDef] 见到的第一块田就是被征粮后的空地，大人总说等下一季，下一季却只带来霉种和病人。家庭在分粮中散掉，[PAWN_nameDef] 跟着逃难队离开，从未真正见过收成。</MouseDisaster_History_Y027.description>
+  <MouseDisaster_History_Y028.title>鼠灾 疫区幼童</MouseDisaster_History_Y028.title>
+  <MouseDisaster_History_Y028.titleShort>鼠灾 疫区幼童</MouseDisaster_History_Y028.titleShort>
+  <MouseDisaster_History_Y028.description>年纪尚轻时，[PAWN_nameDef] 和家人被疫区逐出，每到聚落都要站在门外等待检查。送饭的人越来越少，亲人也在路上停下，[PAWN_nameDef] 带着空药袋和未写完的名字寻找下一处隔离棚。</MouseDisaster_History_Y028.description>
+  <MouseDisaster_History_Y029.title>鼠灾 木屋遗童</MouseDisaster_History_Y029.title>
+  <MouseDisaster_History_Y029.titleShort>鼠灾 木屋遗童</MouseDisaster_History_Y029.titleShort>
+  <MouseDisaster_History_Y029.description>童年里的 [PAWN_nameDef] 在难民营木屋里长大，记得哪扇门漏风、哪口井还有水。营地被要求撤离时，大人把孩子分给不同队伍，[PAWN_nameDef] 夜里跟丢家人，只带出刻记号的木板。</MouseDisaster_History_Y029.description>
+  <MouseDisaster_History_Y030.title>鼠灾 旱地学徒</MouseDisaster_History_Y030.title>
+  <MouseDisaster_History_Y030.titleShort>鼠灾 旱地学徒</MouseDisaster_History_Y030.titleShort>
+  <MouseDisaster_History_Y030.description>幼年记忆里，[PAWN_nameDef] 家里的田已连续两季歉收，大人把最后的水留给种子。它每天守在田埂边捡回被风吹散的穗子，旱地被放弃后，[PAWN_nameDef] 跟着流民离开。</MouseDisaster_History_Y030.description>
+  <MouseDisaster_History_Y031.title>鼠灾 分种学徒</MouseDisaster_History_Y031.title>
+  <MouseDisaster_History_Y031.titleShort>鼠灾 分种学徒</MouseDisaster_History_Y031.titleShort>
+  <MouseDisaster_History_Y031.description>年少那阵，[PAWN_nameDef] 家人替粮坊收种，仓库受潮后，好种和霉种全混在一起。它跟大人逐袋挑选，粮坊关闭时，[PAWN_nameDef] 只带走记住的种子知识。</MouseDisaster_History_Y031.description>
+  <MouseDisaster_History_Y032.title>鼠灾 围栏牧童</MouseDisaster_History_Y032.title>
+  <MouseDisaster_History_Y032.titleShort>鼠灾 围栏牧童</MouseDisaster_History_Y032.titleShort>
+  <MouseDisaster_History_Y032.description>还未成年时，[PAWN_nameDef] 留在被遣散的农场围栏里，身边只有几只还没被征走的牲畜。水源断掉时，[PAWN_nameDef] 赶着牲畜追上逃难队，农场从此再无人回去。</MouseDisaster_History_Y032.description>
+  <MouseDisaster_History_Y033.title>鼠灾 枯井水童</MouseDisaster_History_Y033.title>
+  <MouseDisaster_History_Y033.titleShort>鼠灾 枯井水童</MouseDisaster_History_Y033.titleShort>
+  <MouseDisaster_History_Y033.description>尚是孩子时，[PAWN_nameDef] 村井在夏末干涸，大人为争一桶水开始封门对峙。它个子小，还能钻进远处枯井取水，村子被放弃后，[PAWN_nameDef] 跟着取水队走上远路。</MouseDisaster_History_Y033.description>
+  <MouseDisaster_History_Y034.title>鼠灾 粮袋记童</MouseDisaster_History_Y034.title>
+  <MouseDisaster_History_Y034.titleShort>鼠灾 粮袋记童</MouseDisaster_History_Y034.titleShort>
+  <MouseDisaster_History_Y034.description>年纪尚轻时，[PAWN_nameDef] 常在谷仓门口等家人下工，久而久之记住每种粮袋标记。仓主转移存粮并锁门后，[PAWN_nameDef] 带着这些记忆离开，却再也找不到原来的粮仓。</MouseDisaster_History_Y034.description>
+  <MouseDisaster_History_Y035.title>鼠灾 粮坊帮童</MouseDisaster_History_Y035.title>
+  <MouseDisaster_History_Y035.titleShort>鼠灾 粮坊帮童</MouseDisaster_History_Y035.titleShort>
+  <MouseDisaster_History_Y035.description>童年里的 [PAWN_nameDef] 在粮坊替大人清谷壳，留下的碎粮还能填饱肚子。粮坊被征用后，坏粮被强行混进配给，[PAWN_nameDef] 和家人只好在发粮前离开。</MouseDisaster_History_Y035.description>
+  <MouseDisaster_History_Y036.title>鼠灾 补轮学徒</MouseDisaster_History_Y036.title>
+  <MouseDisaster_History_Y036.titleShort>鼠灾 补轮学徒</MouseDisaster_History_Y036.titleShort>
+  <MouseDisaster_History_Y036.description>幼年记忆里，[PAWN_nameDef] 跟木匠修逃难车轮，泥地里断裂的轮辐一根接一根。洪水冲散队伍后，[PAWN_nameDef] 没等到家人，只能跟着下一辆还能走的车继续迁徙。</MouseDisaster_History_Y036.description>
+  <MouseDisaster_History_Y037.title>鼠灾 穿针学徒</MouseDisaster_History_Y037.title>
+  <MouseDisaster_History_Y037.titleShort>鼠灾 穿针学徒</MouseDisaster_History_Y037.titleShort>
+  <MouseDisaster_History_Y037.description>年少那阵，[PAWN_nameDef] 家中织坊停工，大人把旧衣拆成布条，它负责穿线补针。最后的布料在火灾里烧尽，[PAWN_nameDef] 带着学会的针脚和流民一起离开。</MouseDisaster_History_Y037.description>
+  <MouseDisaster_History_Y038.title>鼠灾 猎场跟班</MouseDisaster_History_Y038.title>
+  <MouseDisaster_History_Y038.titleShort>鼠灾 猎场跟班</MouseDisaster_History_Y038.titleShort>
+  <MouseDisaster_History_Y038.description>还未成年时，[PAWN_nameDef] 跟家人进被封锁的猎场边缘，寻找受伤野兽换肉。一次捕猎遇到鼠群，猎人没有回来，[PAWN_nameDef] 带着剩下的皮毛加入逃难队伍。</MouseDisaster_History_Y038.description>
+  <MouseDisaster_History_Y039.title>鼠灾 草篮学徒</MouseDisaster_History_Y039.title>
+  <MouseDisaster_History_Y039.titleShort>鼠灾 草篮学徒</MouseDisaster_History_Y039.titleShort>
+  <MouseDisaster_History_Y039.description>尚是孩子时，[PAWN_nameDef] 背着草药篮，在隔离棚和住家之间替病倒的药师跑腿。药师死去、棚门被封后，[PAWN_nameDef] 跟幸存者离开，仍记得哪些草能暂时退热。</MouseDisaster_History_Y039.description>
+  <MouseDisaster_History_Y040.title>鼠灾 窑边童工</MouseDisaster_History_Y040.title>
+  <MouseDisaster_History_Y040.titleShort>鼠灾 窑边童工</MouseDisaster_History_Y040.titleShort>
+  <MouseDisaster_History_Y040.description>年纪尚轻时，[PAWN_nameDef] 跟家人进砖窑做工，在炉边捡煤渣、搬碎砖。窑主拖欠工钱又关掉住处，炉火熄灭后，[PAWN_nameDef] 只能跟窑工寻找新的避难所。</MouseDisaster_History_Y040.description>
+  <MouseDisaster_History_Y041.title>鼠灾 营火孤童</MouseDisaster_History_Y041.title>
+  <MouseDisaster_History_Y041.titleShort>鼠灾 营火孤童</MouseDisaster_History_Y041.titleShort>
+  <MouseDisaster_History_Y041.description>童年里的 [PAWN_nameDef] 在分粮的人群中与家人冲散，只记得家人曾守在哪堆营火旁。它沿夜里的火光找了几天仍无结果，后来只能跟愿意分粮的人继续走。</MouseDisaster_History_Y041.description>
+  <MouseDisaster_History_Y042.title>鼠灾 河筏学徒</MouseDisaster_History_Y042.title>
+  <MouseDisaster_History_Y042.titleShort>鼠灾 河筏学徒</MouseDisaster_History_Y042.titleShort>
+  <MouseDisaster_History_Y042.description>幼年记忆里，[PAWN_nameDef] 在暴雨后的河滩被留下，只能和几个孩子用漂木、旧门板拼木筏。木筏把 [PAWN_nameDef] 送到陌生岸边，原来的村子已被洪水和饥荒抹去。</MouseDisaster_History_Y042.description>
+  <MouseDisaster_History_Y043.title>鼠灾 劫村幼童</MouseDisaster_History_Y043.title>
+  <MouseDisaster_History_Y043.titleShort>鼠灾 劫村幼童</MouseDisaster_History_Y043.titleShort>
+  <MouseDisaster_History_Y043.description>年少那阵，[PAWN_nameDef] 随家人回到被劫掠的村庄，想找回锅、布和旧毯子。空屋和鼠群占满村道，家人再次离开时把它落在后面，[PAWN_nameDef] 只好跟下一批搜寻者逃走。</MouseDisaster_History_Y043.description>
+  <MouseDisaster_History_Y044.title>鼠灾 雪印学徒</MouseDisaster_History_Y044.title>
+  <MouseDisaster_History_Y044.titleShort>鼠灾 雪印学徒</MouseDisaster_History_Y044.titleShort>
+  <MouseDisaster_History_Y044.description>还未成年时，[PAWN_nameDef] 靠记住雪地脚印寻找下一处营火，山路早被大雪封住。雪崩掩埋原路后，[PAWN_nameDef] 被商队捡起，从此学着把风向和脚印当作路标。</MouseDisaster_History_Y044.description>
+  <MouseDisaster_History_Y045.title>鼠灾 驮兽学徒</MouseDisaster_History_Y045.title>
+  <MouseDisaster_History_Y045.titleShort>鼠灾 驮兽学徒</MouseDisaster_History_Y045.titleShort>
+  <MouseDisaster_History_Y045.description>尚是孩子时，[PAWN_nameDef] 在商队水袋被抢后，负责把最后几只驮兽带到阴凉处。商队解散时无人来接它，[PAWN_nameDef] 只好跟着驮兽和另一队难民穿过干旱地带。</MouseDisaster_History_Y045.description>
+  <MouseDisaster_History_Y046.title>鼠灾 夜警学徒</MouseDisaster_History_Y046.title>
+  <MouseDisaster_History_Y046.titleShort>鼠灾 夜警学徒</MouseDisaster_History_Y046.titleShort>
+  <MouseDisaster_History_Y046.description>年纪尚轻时，[PAWN_nameDef] 住在屡遭盗粮的难民营，大人轮流守夜也挡不住袭击。它睡不着，记住每一种脚步声，营地搬走时，[PAWN_nameDef] 把这份警觉带在身上。</MouseDisaster_History_Y046.description>
+  <MouseDisaster_History_Y047.title>鼠灾 绕关学徒</MouseDisaster_History_Y047.title>
+  <MouseDisaster_History_Y047.titleShort>鼠灾 绕关学徒</MouseDisaster_History_Y047.titleShort>
+  <MouseDisaster_History_Y047.description>童年里的 [PAWN_nameDef] 和家人躲在车底绕过征粮税的关卡，巡查时辰成了它记住的路标。一次检查中家人被扣下，[PAWN_nameDef] 逃进另一支队伍，再也没等到他们。</MouseDisaster_History_Y047.description>
+</LanguageData>

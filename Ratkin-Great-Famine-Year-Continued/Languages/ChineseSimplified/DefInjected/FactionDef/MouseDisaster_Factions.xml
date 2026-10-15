@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_HiddenFaction.label>鼠灾幸存者</MouseDisaster_HiddenFaction.label>
+  <MouseDisaster_HiddenFaction.description>被灾荒冲散的鼠族幸存者，正在寻找食物与庇护。</MouseDisaster_HiddenFaction.description>
+  <MouseDisaster_HiddenFaction.pawnSingular>鼠族</MouseDisaster_HiddenFaction.pawnSingular>
+  <MouseDisaster_HiddenFaction.pawnsPlural>鼠族</MouseDisaster_HiddenFaction.pawnsPlural>
+  <MouseDisaster_HiddenFaction.fixedName>鼠灾幸存者</MouseDisaster_HiddenFaction.fixedName>
+</LanguageData>

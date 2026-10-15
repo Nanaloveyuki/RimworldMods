@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Gene_ThinRations.label>small appetite</RHAH_Gene_ThinRations.label>
+  <RHAH_Gene_ThinRations.description>Carriers of this gene have a smaller appetite. Their maximum food need is 85% of normal.</RHAH_Gene_ThinRations.description>
+  <RHAH_Gene_ThinRations.customEffectDescriptions.0>Maximum food need: 85% of normal</RHAH_Gene_ThinRations.customEffectDescriptions.0>
+  <RHAH_Gene_ThinRations.customEffectDescriptions.1>Slightly higher metabolic efficiency</RHAH_Gene_ThinRations.customEffectDescriptions.1>
+  <RHAH_Gene_LargeLitter.label>large litter</RHAH_Gene_LargeLitter.label>
+  <RHAH_Gene_LargeLitter.description>Carriers of this gene can give birth to several children at once. The minimum, most likely count, and maximum can be changed in the mod settings.</RHAH_Gene_LargeLitter.description>
+  <RHAH_Gene_LargeLitter.customEffectDescriptions.0>Litter size can be changed in the mod settings</RHAH_Gene_LargeLitter.customEffectDescriptions.0>
+  <RHAH_Gene_LargeLitter.customEffectDescriptions.1>Counts closer to the configured peak are more likely</RHAH_Gene_LargeLitter.customEffectDescriptions.1>
+  <RHAH_Gene_EarlyFertility.label>early fertility</RHAH_Gene_EarlyFertility.label>
+  <RHAH_Gene_EarlyFertility.description>Carriers of this gene become fertile earlier. Both partners must reach the minimum biological age selected in the mod settings.</RHAH_Gene_EarlyFertility.description>
+  <RHAH_Gene_EarlyFertility.customEffectDescriptions.0>Minimum fertile age can be changed in the mod settings</RHAH_Gene_EarlyFertility.customEffectDescriptions.0>
+  <RHAH_Gene_EarlyFertility.customEffectDescriptions.1>Both partners must reach that biological age</RHAH_Gene_EarlyFertility.customEffectDescriptions.1>
+  <RHAH_Gene_EarlyFertility.customEffectDescriptions.2>Minimum fertile age setting: 1 to 14 years</RHAH_Gene_EarlyFertility.customEffectDescriptions.2>
+  <RHAH_Gene_HighFertility.label>high fertility</RHAH_Gene_HighFertility.label>
+  <RHAH_Gene_HighFertility.description>Carriers of this gene are more likely to become pregnant or make a partner pregnant. The pregnancy chance multiplier can be set from 1 to 10 times normal.</RHAH_Gene_HighFertility.description>
+  <RHAH_Gene_HighFertility.customEffectDescriptions.0>Pregnancy chance multiplier can be changed in the mod settings</RHAH_Gene_HighFertility.customEffectDescriptions.0>
+  <RHAH_Gene_HighFertility.customEffectDescriptions.1>Multiplier setting: 1 to 10 times normal</RHAH_Gene_HighFertility.customEffectDescriptions.1>
+  <RHAH_Gene_RoomFertility.label>room fertility</RHAH_Gene_RoomFertility.label>
+  <RHAH_Gene_RoomFertility.description>Carriers of this gene initiate lovin' with someone of the other gender resting in the same non-medical bed indoors, once both partners' lovin' cooldowns have passed, even without a romantic relationship. Pregnancy can follow, including while lactating. Both partners must be at least 1 biological year old. The chance also depends on both partners' fertility and the mod settings.</RHAH_Gene_RoomFertility.description>
+  <RHAH_Gene_RoomFertility.customEffectDescriptions.0>Initiates lovin' with someone of the other gender in the same non-medical bed indoors once both partners' cooldowns have passed</RHAH_Gene_RoomFertility.customEffectDescriptions.0>
+  <RHAH_Gene_RoomFertility.customEffectDescriptions.1>Pregnancy may follow lovin'</RHAH_Gene_RoomFertility.customEffectDescriptions.1>
+  <RHAH_Gene_RoomFertility.customEffectDescriptions.2>Base pregnancy chance defaults to 50% and can be changed in the mod settings</RHAH_Gene_RoomFertility.customEffectDescriptions.2>
+  <RHAH_Gene_RoomFertility.customEffectDescriptions.3>Pregnancy is possible while lactating</RHAH_Gene_RoomFertility.customEffectDescriptions.3>
+  <RHAH_Gene_RoomFertility.customEffectDescriptions.4>Both partners must be at least 1 biological year old</RHAH_Gene_RoomFertility.customEffectDescriptions.4>
+  <RHAH_Gene_FastBirth.label>short pregnancy</RHAH_Gene_FastBirth.label>
+  <RHAH_Gene_FastBirth.description>Carriers of this gene have shorter pregnancies. The duration can be set between 3 and 5.661 days, and is also limited by the species' own gestation period.</RHAH_Gene_FastBirth.description>
+  <RHAH_Gene_FastBirth.customEffectDescriptions.0>Pregnancy duration can be changed in the mod settings</RHAH_Gene_FastBirth.customEffectDescriptions.0>
+  <RHAH_Gene_FastBirth.customEffectDescriptions.1>Minimum pregnancy duration: 3 days</RHAH_Gene_FastBirth.customEffectDescriptions.1>
+  <RHAH_Gene_FastBirth.customEffectDescriptions.2>Maximum: 5.661 days or the species' own gestation period, whichever is shorter</RHAH_Gene_FastBirth.customEffectDescriptions.2>
+</LanguageData>

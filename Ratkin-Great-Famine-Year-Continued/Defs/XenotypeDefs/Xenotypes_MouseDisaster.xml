@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_ratkin</defName>
+    <label>鼠族系</label>
+    <description>鼠灾默认亚种：鼠族系。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_MoreLitter</li>
+      <li>MouseDisaster_Gene_PrimalFertility</li>
+      <li>MouseDisaster_Gene_HyperBreeding</li>
+    </genes>
+  </XenotypeDef>
+
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_hamster</defName>
+    <label>仓鼠系</label>
+    <description>鼠灾亚种：仓鼠系。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_MoreLitter</li>
+      <li>MouseDisaster_Gene_HyperBreeding</li>
+    </genes>
+  </XenotypeDef>
+
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_mole</defName>
+    <label>鼹鼠系</label>
+    <description>鼠灾亚种：鼹鼠系。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_PrimalFertility</li>
+      <li>MouseDisaster_Gene_MoreComing</li>
+    </genes>
+  </XenotypeDef>
+
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_white</defName>
+    <label>白鼠系</label>
+    <description>鼠灾亚种：白鼠系。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_ChaosFertility</li>
+      <li>MouseDisaster_Gene_MoreComing</li>
+    </genes>
+  </XenotypeDef>
+
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_experiment</defName>
+    <label>实验体</label>
+    <description>鼠灾亚种：实验体。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_MoreLitter</li>
+      <li>MouseDisaster_Gene_PrimalFertility</li>
+      <li>MouseDisaster_Gene_HyperBreeding</li>
+      <li>MouseDisaster_Gene_ChaosFertility</li>
+      <li>MouseDisaster_Gene_MoreComing</li>
+    </genes>
+  </XenotypeDef>
+
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_gerbil</defName>
+    <label>沙鼠系</label>
+    <description>鼠灾亚种：沙鼠系。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_MoreLitter</li>
+      <li>MouseDisaster_Gene_PrimalFertility</li>
+    </genes>
+  </XenotypeDef>
+
+  <XenotypeDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>MouseDisasterSubtype_shrew</defName>
+    <label>鼩鼱系</label>
+    <description>鼠灾亚种：鼩鼱系。</description>
+    <iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+    <genes>
+      <li>MouseDisaster_Gene_HyperBreeding</li>
+      <li>MouseDisaster_Gene_ChaosFertility</li>
+    </genes>
+  </XenotypeDef>
+</Defs>

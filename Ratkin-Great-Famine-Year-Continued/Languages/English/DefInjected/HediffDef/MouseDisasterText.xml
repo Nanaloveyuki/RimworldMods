@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <MouseDisaster_GnawedTreeBark.label>gnawed tree bark</MouseDisaster_GnawedTreeBark.label>
+  <MouseDisaster_GnawedTreeBark.description>Rough bark has injured the mouth and digestive tract.</MouseDisaster_GnawedTreeBark.description>
+  <MouseDisaster_GnawedWall.label>gnawed wall plaster</MouseDisaster_GnawedWall.label>
+  <MouseDisaster_GnawedWall.description>Dust and rubble have kept the hunger at bay, at a heavy cost.</MouseDisaster_GnawedWall.description>
+  <MouseDisaster_OverGnawedWall.label>excess wall plaster</MouseDisaster_OverGnawedWall.label>
+  <MouseDisaster_OverGnawedWall.description>Swallowed plaster has almost overwhelmed this small body's ability to function.</MouseDisaster_OverGnawedWall.description>
+  <MouseDisaster_TemporaryShelterMark.label>temporary shelter</MouseDisaster_TemporaryShelterMark.label>
+  <MouseDisaster_TemporaryShelterMark.description>This Ratkin visitor has been taken in by the colony temporarily.</MouseDisaster_TemporaryShelterMark.description>
+  <MouseDisaster_HiredWorkerMark.label>hired worker</MouseDisaster_HiredWorkerMark.label>
+  <MouseDisaster_HiredWorkerMark.description>This Ratkin visitor is staying as a hired worker.</MouseDisaster_HiredWorkerMark.description>
+  <MouseDisaster_DisasterRefugeeMark.label>famine refugee</MouseDisaster_DisasterRefugeeMark.label>
+  <MouseDisaster_DisasterRefugeeMark.description>A Ratkin displaced by the Great Famine Year. Hungry and frail, they seek food and shelter.</MouseDisaster_DisasterRefugeeMark.description>
+  <MouseDisaster_GuanyinTuSatiety.label>Guanyin clay satiety</MouseDisaster_GuanyinTuSatiety.label>
+  <MouseDisaster_GuanyinTuSatiety.description>Guanyin clay clumps in the stomach, suppressing hunger for a while but hindering digestion. Eating more makes the effects worse.</MouseDisaster_GuanyinTuSatiety.description>
+  <MouseDisaster_GuanyinTuSatiety.stages.0.label>stomach clumps</MouseDisaster_GuanyinTuSatiety.stages.0.label>
+  <MouseDisaster_AbandonedEgg.label>soon to be abandoned</MouseDisaster_AbandonedEgg.label>
+  <MouseDisaster_AbandonedEgg.description>Moments ago they were arguing over who ate the most. Soon nobody will claim them.</MouseDisaster_AbandonedEgg.description>
+  <MouseDisaster_AbandoningMother.label>abandoning mother</MouseDisaster_AbandoningMother.label>
+  <MouseDisaster_AbandoningMother.description>Unable to feed her children any longer, she has chosen to leave them here.</MouseDisaster_AbandoningMother.description>
+  <MouseDisaster_ShatteredMother_Dying.label>a dying mother</MouseDisaster_ShatteredMother_Dying.label>
+  <MouseDisaster_ShatteredMother_Dying.description>Her own children ate part of her body. She barely clings to life. She bears no grudge; she knows they were hungry.</MouseDisaster_ShatteredMother_Dying.description>
+  <MouseDisaster_ShatteredMother_Children.label>children who abandoned their mother</MouseDisaster_ShatteredMother_Children.label>
+  <MouseDisaster_ShatteredMother_Children.description>With no food left, they ate part of their mother and left the rest behind. They kept walking, not understanding what they had done.</MouseDisaster_ShatteredMother_Children.description>
+  <MouseDisaster_BeggarMother.label>begging mother</MouseDisaster_BeggarMother.label>
+  <MouseDisaster_BeggarMother.description>She has not eaten for days, but saved the last food for her children. She begs only for enough to keep them alive.</MouseDisaster_BeggarMother.description>
+  <MouseDisaster_BeggarChild.label>begging with mother</MouseDisaster_BeggarChild.label>
+  <MouseDisaster_BeggarChild.description>They stay close to their mother, frightened and hungry. They do not know why she brought them here, only that they must follow.</MouseDisaster_BeggarChild.description>
+  <MouseDisaster_BeggarGroupAdult.label>hungry refugee</MouseDisaster_BeggarGroupAdult.label>
+  <MouseDisaster_BeggarGroupAdult.description>They have walked a long way and are faint with hunger. They want a little food before moving on.</MouseDisaster_BeggarGroupAdult.description>
+  <MouseDisaster_BeggarGroupChild.label>begging with the group</MouseDisaster_BeggarGroupChild.label>
+  <MouseDisaster_BeggarGroupChild.description>They follow the adults without knowing the destination. Their stomachs rumble, but they dare not stop.</MouseDisaster_BeggarGroupChild.description>
+  <MouseDisaster_ThiefAdult.label>hungry thief</MouseDisaster_ThiefAdult.label>
+  <MouseDisaster_ThiefAdult.description>Desperate hunger has driven them to steal food. They do not want trouble, but see no other choice.</MouseDisaster_ThiefAdult.description>
+  <MouseDisaster_ThiefChild.label>learning to steal</MouseDisaster_ThiefChild.label>
+  <MouseDisaster_ThiefChild.description>They copy the adults. They do not understand theft, only that it brings food.</MouseDisaster_ThiefChild.description>
+  <MouseDisaster_ThiefChildOnly.label>unattended young thief</MouseDisaster_ThiefChildOnly.label>
+  <MouseDisaster_ThiefChildOnly.description>With no adult to guide them, they learned to steal on their own. They know only that it keeps them alive.</MouseDisaster_ThiefChildOnly.description>
+  <MouseDisaster_LargeRefugeeAdult.label>refugee from the great wave</MouseDisaster_LargeRefugeeAdult.label>
+  <MouseDisaster_LargeRefugeeAdult.description>A survivor of the Great Famine Year, exhausted by a long journey and desperate for food.</MouseDisaster_LargeRefugeeAdult.description>
+  <MouseDisaster_LargeRefugeeChild.label>child of the great wave</MouseDisaster_LargeRefugeeChild.label>
+  <MouseDisaster_LargeRefugeeChild.description>They have followed the adults a long way and are desperately hungry. They understand little beyond the need to keep going.</MouseDisaster_LargeRefugeeChild.description>
+  <MouseDisaster_FamineRefugee.label>homeless famine refugee</MouseDisaster_FamineRefugee.label>
+  <MouseDisaster_FamineRefugee.description>The famine destroyed their home. They wander, frighteningly thin, but still alive.</MouseDisaster_FamineRefugee.description>
+  <MouseDisaster_WildWanderer.label>wild Ratkin wanderer</MouseDisaster_WildWanderer.label>
+  <MouseDisaster_WildWanderer.description>A starving Ratkin with no faction, roaming freely.</MouseDisaster_WildWanderer.description>
+  <MouseDisaster_WildChildWanderer.label>wild Ratkin child</MouseDisaster_WildChildWanderer.label>
+  <MouseDisaster_WildChildWanderer.description>A starving Ratkin child with no faction, roaming freely.</MouseDisaster_WildChildWanderer.description>
+  <MouseDisaster_WildGroupWanderer.label>wild Ratkin wanderers</MouseDisaster_WildGroupWanderer.label>
+  <MouseDisaster_WildGroupWanderer.description>Starving Ratkin with no faction, roaming freely.</MouseDisaster_WildGroupWanderer.description>
+  <MouseDisaster_TraderCaravanTrader.label>refugee trader</MouseDisaster_TraderCaravanTrader.label>
+  <MouseDisaster_TraderCaravanTrader.description>She brought captive Ratkin young to the edge of the colony and handles the trading.</MouseDisaster_TraderCaravanTrader.description>
+  <MouseDisaster_TraderCaravanEscort.label>refugee caravan guard</MouseDisaster_TraderCaravanEscort.label>
+  <MouseDisaster_TraderCaravanEscort.description>She protects the caravan and keeps the trade moving.</MouseDisaster_TraderCaravanEscort.description>
+  <MouseDisaster_TraderCaravanChild.label>Ratkin young for sale</MouseDisaster_TraderCaravanChild.label>
+  <MouseDisaster_TraderCaravanChild.description>Traded like goods, they have no idea what will become of them.</MouseDisaster_TraderCaravanChild.description>
+  <MouseDisaster_ChildExchangeTrader.label>child-exchange trader</MouseDisaster_ChildExchangeTrader.label>
+  <MouseDisaster_ChildExchangeTrader.description>She brought Ratkin young to the edge of the colony to exchange them for babies.</MouseDisaster_ChildExchangeTrader.description>
+  <MouseDisaster_ChildExchangeChild.label>Ratkin young for exchange</MouseDisaster_ChildExchangeChild.label>
+  <MouseDisaster_ChildExchangeChild.description>They are about to be handed over, unaware of what awaits them.</MouseDisaster_ChildExchangeChild.description>
+  <MouseDisaster_SiegeBeggar.label>besieging beggar</MouseDisaster_SiegeBeggar.label>
+  <MouseDisaster_SiegeBeggar.description>They surround the colony and repeatedly beg for food rather than attacking outright.</MouseDisaster_SiegeBeggar.description>
+  <MouseDisaster_GreatFamineAdult.label>frenzied famine Ratkin</MouseDisaster_GreatFamineAdult.label>
+  <MouseDisaster_GreatFamineAdult.description>Hunger has driven this adult Ratkin beyond reason. They want to eat anything they can reach.</MouseDisaster_GreatFamineAdult.description>
+  <MouseDisaster_GreatFamineChild.label>frenzied Ratkin young</MouseDisaster_GreatFamineChild.label>
+  <MouseDisaster_GreatFamineChild.description>Hunger has driven this young Ratkin beyond reason. They want to gnaw anything they can reach.</MouseDisaster_GreatFamineChild.description>
+  <MouseDisaster_Plague.label>Ratkin plague</MouseDisaster_Plague.label>
+  <MouseDisaster_Plague.description>A virulent disease brought by the famine refugees. It worsens faster than flu.</MouseDisaster_Plague.description>
+  <MouseDisaster_Plague.stages.0.label>infected</MouseDisaster_Plague.stages.0.label>
+  <MouseDisaster_FedOnce.label>fed</MouseDisaster_FedOnce.label>
+  <MouseDisaster_FedOnce.description>This visitor has completed their search for food.</MouseDisaster_FedOnce.description>
+  <MouseDisaster_RefeedingSyndrome.label>refeeding syndrome</MouseDisaster_RefeedingSyndrome.label>
+  <MouseDisaster_RefeedingSyndrome.description>A sudden large meal after prolonged starvation has disrupted the body's balance. Digestion, blood filtration and consciousness are temporarily reduced.</MouseDisaster_RefeedingSyndrome.description>
+</LanguageData>

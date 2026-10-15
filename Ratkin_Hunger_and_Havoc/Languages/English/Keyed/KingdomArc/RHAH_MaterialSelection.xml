@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_MaterialSelection_CopyOpen>Make kingdom document copies</RHAH_MaterialSelection_CopyOpen>
+  <RHAH_MaterialSelection_CopyTitle>Select documents to copy</RHAH_MaterialSelection_CopyTitle>
+  <RHAH_MaterialSelection_CopyHelp>Make free copies of the selected documents at home. You can load them into a caravan for verification. Originals stay with you; copies retain their source, number and name redaction.</RHAH_MaterialSelection_CopyHelp>
+  <RHAH_MaterialSelection_MakeCopies>Make selected copies</RHAH_MaterialSelection_MakeCopies>
+  <RHAH_MaterialSelection_PublicationTitle>Select document copies to send</RHAH_MaterialSelection_PublicationTitle>
+  <RHAH_MaterialSelection_HandoverTitle>Select documents to hand over</RHAH_MaterialSelection_HandoverTitle>
+  <RHAH_MaterialSelection_PublicationHelp>Two independent recipients will receive copies of the selected documents. Your originals stay in the colony. Receipt is confirmed after the couriers arrive.</RHAH_MaterialSelection_PublicationHelp>
+  <RHAH_MaterialSelection_HandoverHelp>The kingdom's envoy or courier will collect the selected documents from the colony. Unselected documents stay with you.</RHAH_MaterialSelection_HandoverHelp>
+  <RHAH_MaterialSelection_Redacted>The clerk has not agreed to publish their name. Statement copies will have the name removed.</RHAH_MaterialSelection_Redacted>
+  <RHAH_MaterialSelection_NamedConsent>The clerk has agreed to be named in published materials. Copies already redacted will be sent as they are.</RHAH_MaterialSelection_NamedConsent>
+  <RHAH_MaterialSelection_ChooseHelp>Select each document individually. Only materials currently held at this home are listed.</RHAH_MaterialSelection_ChooseHelp>
+  <RHAH_MaterialSelection_Count>{0} of {1} selected</RHAH_MaterialSelection_Count>
+  <RHAH_MaterialSelection_SendCopies>Send selected copies</RHAH_MaterialSelection_SendCopies>
+  <RHAH_MaterialSelection_HandOver>Hand over selected documents</RHAH_MaterialSelection_HandOver>
+  <RHAH_MaterialSelection_Empty>No kingdom documents are available at this home. Bring caravan-held documents home first.</RHAH_MaterialSelection_Empty>
+  <RHAH_MaterialSelection_Item>#{0}  {1} ({2})</RHAH_MaterialSelection_Item>
+  <RHAH_MaterialSelection_Provenance>Source: {0}. {1}.</RHAH_MaterialSelection_Provenance>
+  <RHAH_MaterialSelection_Stale>This commission has changed or paused. Close this window and reopen the current letter.</RHAH_MaterialSelection_Stale>
+  <RHAH_MaterialSelection_Missing>Select at least one document still at home. If the materials have changed, close this window and select again.</RHAH_MaterialSelection_Missing>
+  <RHAH_MaterialSelection_Failed>The documents have not been handed over. Check the materials and recipient, then try again.</RHAH_MaterialSelection_Failed>
+</LanguageData>

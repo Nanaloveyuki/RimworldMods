@@ -1,0 +1,475 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Oxygen",
+  "scopeName": "source.oxygen",
+  "fileTypes": ["oxy"],
+  "patterns": [{ "include": "#oxygen-body" }],
+  "repository": {
+    "oxygen-body": {
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#strings" },
+        { "include": "#function-declaration" },
+        { "include": "#struct-declaration" },
+        { "include": "#trait-declaration" },
+        { "include": "#impl-declaration" },
+        { "include": "#module-use" },
+        { "include": "#variable-declaration" },
+        { "include": "#for-declaration" },
+        { "include": "#literals" },
+        { "include": "#keywords" },
+        { "include": "#type-names" },
+        { "include": "#collection-type" },
+        { "include": "#generic-call" },
+        { "include": "#function-call" },
+        { "include": "#builtin-root" },
+        { "include": "#member-access" },
+        { "include": "#named-argument" },
+        { "include": "#number" },
+        { "include": "#invalid-operator" },
+        { "include": "#operators" },
+        { "include": "#punctuation" },
+        { "include": "#identifier" }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.oxygen",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.oxygen",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.interpolated.oxygen",
+          "begin": "(?<![\\p{L}\\p{N}_])f(\"\"\"|'''|[\"'])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.string.begin.oxygen" }
+          },
+          "end": "\\1",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.oxygen" }
+          },
+          "patterns": [
+            { "include": "#string-escape" },
+            { "include": "#invalid-string-escape" },
+            { "include": "#escaped-interpolation-braces" },
+            { "include": "#interpolation" }
+          ]
+        },
+        {
+          "name": "string.quoted.triple.oxygen",
+          "begin": "(\"\"\"|''')",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.string.begin.oxygen" }
+          },
+          "end": "\\1",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.oxygen" }
+          },
+          "patterns": [
+            { "include": "#string-escape" },
+            { "include": "#invalid-string-escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.oxygen",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.oxygen" }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.oxygen" }
+          },
+          "patterns": [
+            { "include": "#string-escape" },
+            { "include": "#invalid-string-escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.oxygen",
+          "begin": "'",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.oxygen" }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.oxygen" }
+          },
+          "patterns": [
+            { "include": "#string-escape" },
+            { "include": "#invalid-string-escape" }
+          ]
+        }
+      ]
+    },
+    "escaped-interpolation-braces": {
+      "name": "constant.character.escape.oxygen",
+      "match": "\\{\\{|\\}\\}"
+    },
+    "interpolation": {
+      "name": "meta.interpolation.oxygen",
+      "begin": "\\{(?!\\{)",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.interpolation.begin.oxygen" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.interpolation.end.oxygen" }
+      },
+      "patterns": [
+        { "include": "#escaped-interpolation-braces" },
+        { "include": "#oxygen-body" }
+      ]
+    },
+    "string-escape": {
+      "name": "constant.character.escape.oxygen",
+      "match": "\\\\(?:[nrt0\\\\\"']|u[0-9A-Fa-f]{4}|\\r\\n|[\\r\\n])"
+    },
+    "invalid-string-escape": {
+      "name": "invalid.illegal.escape.oxygen",
+      "match": "\\\\."
+    },
+    "type-reference": {
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "name": "storage.type.collection.oxygen",
+          "match": "\\b(?:list|array)\\b(?=[ \\t\\r\\n]*<)"
+        },
+        {
+          "name": "storage.type.oxygen",
+          "match": "\\b(?:any|int|float|bool|string|object|void|Self)\\b"
+        },
+        {
+          "name": "entity.name.type.oxygen",
+          "match": "[\\p{L}_][\\p{L}\\p{N}_]*(?:\\.[\\p{L}_][\\p{L}\\p{N}_]*)*"
+        },
+        {
+          "name": "punctuation.definition.generic.begin.oxygen",
+          "match": "<"
+        },
+        {
+          "name": "punctuation.definition.generic.end.oxygen",
+          "match": ">"
+        },
+        {
+          "name": "keyword.operator.optional.oxygen",
+          "match": "\\?(?!\\?)"
+        },
+        {
+          "name": "punctuation.accessor.dot.oxygen",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.separator.oxygen",
+          "match": ","
+        }
+      ]
+    },
+    "parameter-list": {
+      "begin": "\\(",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.parameters.begin.oxygen" }
+      },
+      "end": "\\)",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.parameters.end.oxygen" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "captures": {
+            "1": { "name": "variable.parameter.oxygen" },
+            "2": { "name": "punctuation.separator.type.oxygen" }
+          },
+          "match": "([\\p{L}_][\\p{L}\\p{N}_]*)[ \\t]*(:)"
+        },
+        { "include": "#type-reference" },
+        {
+          "name": "punctuation.separator.parameters.oxygen",
+          "match": ","
+        }
+      ]
+    },
+    "type-parameter-list": {
+      "begin": "<",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.generic.begin.oxygen" }
+      },
+      "end": ">",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.generic.end.oxygen" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "captures": {
+            "1": { "name": "entity.name.type.parameter.oxygen" },
+            "2": { "name": "punctuation.separator.type.oxygen" }
+          },
+          "match": "([\\p{L}_][\\p{L}\\p{N}_]*)[ \\t]*(:)"
+        },
+        { "include": "#type-reference" },
+        {
+          "name": "punctuation.separator.oxygen",
+          "match": ","
+        }
+      ]
+    },
+    "function-declaration": {
+      "begin": "(?:(\\bpub\\b)[ \\t]+)?(?:(\\bstatic\\b)[ \\t]+)?(\\bfn\\b)(?=[ \\t]+[\\p{L}_])",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.export.oxygen" },
+        "2": { "name": "keyword.other.static.oxygen" },
+        "3": { "name": "keyword.control.declaration.function.oxygen" }
+      },
+      "end": "(?=[{\\r\\n;])",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "name": "entity.name.function.oxygen",
+          "match": "[\\p{L}_][\\p{L}\\p{N}_]*(?=[ \\t]*[<(])"
+        },
+        { "include": "#type-parameter-list" },
+        { "include": "#parameter-list" },
+        {
+          "begin": ":",
+          "beginCaptures": {
+            "0": { "name": "punctuation.separator.type.oxygen" }
+          },
+          "end": "(?=[{\\r\\n;])",
+          "patterns": [
+            { "include": "#comments" },
+            { "include": "#type-reference" }
+          ]
+        }
+      ]
+    },
+    "struct-declaration": {
+      "begin": "(?:(\\bpub\\b)[ \\t]+)?(\\bstruct\\b)[ \\t]+([\\p{L}_][\\p{L}\\p{N}_]*)",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.export.oxygen" },
+        "2": { "name": "keyword.control.declaration.struct.oxygen" },
+        "3": { "name": "entity.name.type.struct.oxygen" }
+      },
+      "end": "(?=\\{)",
+      "patterns": [{ "include": "#comments" }]
+    },
+    "trait-declaration": {
+      "begin": "(?:(\\bpub\\b)[ \\t]+)?(\\btrait\\b)[ \\t]+([\\p{L}_][\\p{L}\\p{N}_]*)",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.export.oxygen" },
+        "2": { "name": "keyword.control.declaration.trait.oxygen" },
+        "3": { "name": "entity.name.type.trait.oxygen" }
+      },
+      "end": "(?=\\{)",
+      "patterns": [{ "include": "#comments" }]
+    },
+    "impl-declaration": {
+      "begin": "(\\bimpl\\b)",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.declaration.impl.oxygen" }
+      },
+      "end": "(?=\\{)",
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "name": "keyword.control.flow.oxygen",
+          "match": "\\bfor\\b"
+        },
+        { "include": "#type-reference" }
+      ]
+    },
+    "module-use": {
+      "name": "meta.import.oxygen",
+      "begin": "(?:(\\boptional\\b)[ \\t]+)?(\\buse\\b)",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.import.oxygen" },
+        "2": { "name": "keyword.control.import.oxygen" }
+      },
+      "end": "(?=[\\r\\n;}])",
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#strings" },
+        {
+          "captures": {
+            "1": { "name": "keyword.control.import.oxygen" },
+            "2": { "name": "entity.name.namespace.alias.oxygen" }
+          },
+          "match": "(\\bas\\b)[ \\t]+([\\p{L}_][\\p{L}\\p{N}_]*)"
+        },
+        {
+          "name": "punctuation.separator.namespace.oxygen",
+          "match": "@"
+        },
+        {
+          "name": "entity.name.namespace.oxygen",
+          "match": "[\\p{L}_][\\p{L}\\p{N}_]*(?:\\.[\\p{L}_][\\p{L}\\p{N}_]*)*"
+        }
+      ]
+    },
+    "variable-declaration": {
+      "patterns": [
+        {
+          "captures": {
+            "1": { "name": "keyword.control.export.oxygen" },
+            "2": { "name": "keyword.control.declaration.constant.oxygen" },
+            "3": { "name": "entity.name.constant.oxygen" }
+          },
+          "match": "(?:(\\bpub\\b)[ \\t]+)?(\\bconst\\b)(?![ \\t]+\\buse\\b)[ \\t]+([\\p{L}_][\\p{L}\\p{N}_]*)"
+        },
+        {
+          "captures": {
+            "1": { "name": "keyword.control.declaration.variable.oxygen" },
+            "2": { "name": "entity.name.variable.oxygen" }
+          },
+          "match": "(\\blet\\b)[ \\t]+([\\p{L}_][\\p{L}\\p{N}_]*)"
+        }
+      ]
+    },
+    "for-declaration": {
+      "captures": {
+        "1": { "name": "keyword.control.flow.oxygen" },
+        "2": { "name": "variable.other.loop.oxygen" },
+        "3": { "name": "keyword.control.flow.oxygen" }
+      },
+      "match": "(\\bfor\\b)[ \\t]+([\\p{L}_][\\p{L}\\p{N}_]*)[ \\t]+(\\bin\\b)"
+    },
+    "literals": {
+      "name": "constant.language.oxygen",
+      "match": "\\b(?:true|false|null)\\b"
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.import.oxygen",
+          "match": "\\b(?:use|optional|as)\\b"
+        },
+        {
+          "name": "keyword.control.export.oxygen",
+          "match": "\\bpub\\b"
+        },
+        {
+          "name": "keyword.control.declaration.oxygen",
+          "match": "\\b(?:const|let|fn|struct|trait|impl|embed)\\b"
+        },
+        {
+          "name": "keyword.other.static.oxygen",
+          "match": "\\bstatic\\b"
+        },
+        {
+          "name": "keyword.control.flow.oxygen",
+          "match": "\\b(?:if|else|for|in|while|return|break|continue)\\b"
+        },
+        {
+          "name": "variable.language.self.oxygen",
+          "match": "\\bself\\b"
+        },
+        {
+          "name": "storage.type.oxygen",
+          "match": "\\bSelf\\b"
+        }
+      ]
+    },
+    "type-names": {
+      "patterns": [
+        {
+          "name": "storage.type.collection.oxygen",
+          "match": "(?<![\\p{L}\\p{N}_.])(?:list|array)(?=[ \\t\\r\\n]*<)"
+        },
+        {
+          "name": "storage.type.oxygen",
+          "match": "(?<![\\p{L}\\p{N}_.])(?:any|int|float|bool|string|object|void)(?![\\p{L}\\p{N}_])(?![ \\t]*\\()"
+        },
+        {
+          "name": "entity.name.type.oxygen",
+          "match": "(?<=:)[ \\t]*[\\p{L}_][\\p{L}\\p{N}_]*(?:\\.[\\p{L}_][\\p{L}\\p{N}_]*)*(?:[ \\t]*\\?)?(?=[,)=\\r\\n;}{])"
+        }
+      ]
+    },
+    "collection-type": {
+      "begin": "(?<![\\p{L}\\p{N}_.])(list|array)[ \\t]*(<)",
+      "beginCaptures": {
+        "1": { "name": "storage.type.collection.oxygen" },
+        "2": { "name": "punctuation.definition.generic.begin.oxygen" }
+      },
+      "end": ">",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.generic.end.oxygen" }
+      },
+      "patterns": [
+        { "include": "#collection-type" },
+        { "include": "#type-reference" }
+      ]
+    },
+    "generic-call": {
+      "begin": "(?<![\\p{L}\\p{N}_.])([\\p{L}_][\\p{L}\\p{N}_]*)(?=[ \\t]*<(?:[ \\t]*(?:list|array)[ \\t]*<[^<>\\r\\n]*>|[ \\t]*[\\p{L}_][\\p{L}\\p{N}_.]*(?:[ \\t]*\\?)?)+(?:[ \\t]*,(?:[ \\t]*(?:list|array)[ \\t]*<[^<>\\r\\n]*>|[ \\t]*[\\p{L}_][\\p{L}\\p{N}_.]*(?:[ \\t]*\\?)?)+)*[ \\t]*>[ \\t]*\\()",
+      "beginCaptures": {
+        "1": { "name": "entity.name.function.call.oxygen" }
+      },
+      "end": ">",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.generic.end.oxygen" }
+      },
+      "patterns": [
+        { "include": "#type-reference" }
+      ]
+    },
+    "function-call": {
+      "name": "entity.name.function.call.oxygen",
+      "match": "(?<![\\p{L}\\p{N}_.])[\\p{L}_][\\p{L}\\p{N}_]*(?=[ \\t]*\\()"
+    },
+    "builtin-root": {
+      "name": "support.function.oxygen",
+      "match": "(?<![\\p{L}\\p{N}_.])(?:mood|memory|range|len|exists|lang|template|define|patch|thought_rule|gate_rule|def_ref|native_type)(?![\\p{L}\\p{N}_])"
+    },
+    "member-access": {
+      "name": "variable.other.property.oxygen",
+      "match": "(?<=\\.)[\\p{L}_][\\p{L}\\p{N}_]*"
+    },
+    "named-argument": {
+      "name": "entity.name.label.oxygen",
+      "match": "[\\p{L}_][\\p{L}\\p{N}_]*(?=[ \\t]*:(?!:))"
+    },
+    "number": {
+      "name": "constant.numeric.oxygen",
+      "match": "(?<![\\p{L}\\p{N}_.])[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?(?![\\p{L}\\p{N}_])"
+    },
+    "invalid-operator": {
+      "name": "invalid.illegal.operator.oxygen",
+      "match": "&(?!&)|~"
+    },
+    "operators": {
+      "name": "keyword.operator.oxygen",
+      "match": "(?:\\+=|-=|\\*=|/=|%=|==|!=|<=|>=|&&|\\|\\||\\?\\?|[+*/%<>=!|-])"
+    },
+    "punctuation": {
+      "patterns": [
+        { "name": "punctuation.section.block.begin.oxygen", "match": "\\{" },
+        { "name": "punctuation.section.block.end.oxygen", "match": "\\}" },
+        { "name": "punctuation.section.array.begin.oxygen", "match": "\\[" },
+        { "name": "punctuation.section.array.end.oxygen", "match": "\\]" },
+        { "name": "punctuation.section.parens.begin.oxygen", "match": "\\(" },
+        { "name": "punctuation.section.parens.end.oxygen", "match": "\\)" },
+        { "name": "punctuation.separator.oxygen", "match": "[,;]" },
+        { "name": "punctuation.separator.key-value.oxygen", "match": ":" },
+        { "name": "punctuation.accessor.dot.oxygen", "match": "\\." },
+        { "name": "punctuation.separator.namespace.oxygen", "match": "@" },
+        { "name": "keyword.operator.optional.oxygen", "match": "\\?(?!\\?)" }
+      ]
+    },
+    "identifier": {
+      "name": "variable.other.oxygen",
+      "match": "(?<![\\p{L}\\p{N}_])[\\p{L}_][\\p{L}\\p{N}_]*(?![\\p{L}\\p{N}_])"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+using System;
+using System.Runtime.CompilerServices;
+using AdvancedRimTalk.Arti;
+using AdvancedRimTalk.Prompt;
+using HarmonyLib;
+using RimTalk.Prompt;
+using Verse;
+
+namespace AdvancedRimTalk.Integration
+{
+    [HarmonyPatch(typeof(ScribanParser), nameof(ScribanParser.Render))]
+    internal static class ScribanRenderPatch
+    {
+        // RimTalk creates a new PromptContext for each BuildMessages call.
+        private static readonly ConditionalWeakTable<PromptContext, ArtiGlobalRuntime> Runtimes =
+            new ConditionalWeakTable<PromptContext, ArtiGlobalRuntime>();
+        private sealed class ScribanRenderState
+        {
+            public ArtiPromptRenderResult Arti;
+            public PromptExpansionResult Placeholders;
+        }
+
+        private static void Prefix(ref string templateText, PromptContext context, out ScribanRenderState __state)
+        {
+            __state = null;
+            // Context previews explicitly preprocess each entry before calling Scriban.
+            if (PromptPreviewSession.Variables != null && context != null && context.IsPreview) return;
+
+            ArtiPromptRenderResult arti = null;
+            if (AdvancedRimTalkMod.IsArtiPromptEmbeddingEnabled
+                && ArtiPromptDocumentRenderer.HasArtiBlocks(templateText))
+            {
+                try
+                {
+                    var runtime = context == null ? new ArtiGlobalRuntime()
+                        : Runtimes.GetValue(context, _ => new ArtiGlobalRuntime());
+                    arti = ArtiPromptDocumentRenderer.Render(templateText, context, runtime);
+                    templateText = arti.TemplateText;
+                }
+                catch (Exception exception)
+                {
+                    if (Prefs.DevMode)
+                    {
+                        Log.Warning("Advanced RimTalk Arti preprocessing failed: " + exception);
+                    }
+                }
+            }
+
+            PromptExpansionResult expansion = null;
+            if (!AdvancedRimTalkMod.IsPlaceholderLayerEnabled
+                || !PromptTemplateExpander.HasAdvancedExpressions(templateText))
+            {
+                if (arti != null)
+                {
+                    __state = new ScribanRenderState { Arti = arti };
+                }
+
+                return;
+            }
+
+            try
+            {
+                PromptSnapshot snapshot = PromptContextSnapshotFactory.From(context);
+                expansion = PromptTemplateExpander.Expand(templateText, snapshot);
+                templateText = expansion.Template;
+            }
+            catch (Exception exception)
+            {
+                if (Prefs.DevMode)
+                {
+                    Log.Warning("Advanced RimTalk placeholder preprocessing failed: " + exception);
+                }
+            }
+
+            if (arti != null || expansion != null)
+            {
+                __state = new ScribanRenderState
+                {
+                    Arti = arti,
+                    Placeholders = expansion
+                };
+            }
+        }
+
+        private static void Postfix(ref string __result, ScribanRenderState __state)
+        {
+            if (__state == null)
+            {
+                return;
+            }
+
+            if (__state.Placeholders != null)
+            {
+                __result = __state.Placeholders.Restore(__result);
+            }
+            if (__state.Arti != null) __result = __state.Arti.Restore(__result);
+
+            if (Prefs.DevMode)
+            {
+                if (__state.Arti != null && __state.Arti.Diagnostics.Count > 0)
+                {
+                    Log.Warning(
+                        "Advanced RimTalk Arti diagnostics:\n"
+                        + string.Join("\n", __state.Arti.Diagnostics));
+                }
+
+                if (__state.Placeholders != null && __state.Placeholders.Errors.Count > 0)
+                {
+                    Log.Warning("Advanced RimTalk placeholders:\n" + string.Join("\n", __state.Placeholders.Errors));
+                }
+            }
+        }
+    }
+}

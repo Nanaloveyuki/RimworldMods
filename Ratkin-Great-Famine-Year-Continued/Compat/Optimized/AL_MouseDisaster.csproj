@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <OutputType>Library</OutputType>
+    <AssemblyName>AL_MouseDisaster</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OutputPath>..\..\1.6\Assemblies\</OutputPath>
+    <LangVersion>latest</LangVersion>
+    <Optimize>true</Optimize>
+    <RimWorldManagedDir Condition=" '$(RimWorldManagedDir)' == '' ">..\..\..\Assemblies</RimWorldManagedDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Assembly-CSharp"><HintPath>$(RimWorldManagedDir)\Assembly-CSharp.dll</HintPath><Private>False</Private></Reference>
+    <ProjectReference Include="..\..\1.6\Source\MouseDisasterYear.csproj"><Private>False</Private></ProjectReference>
+    <Compile Include="TypeForwarders.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
