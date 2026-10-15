@@ -24,12 +24,20 @@ namespace IrisMenus
             AccessTools.TypeByName("RimWorldWaylith.Bootstrap"), "_sceneTargets");
         internal static readonly SceneTexture Texture = new SceneTexture();
 
-        private static MethodBase TargetMethod() => AccessTools.Method(
-            AccessTools.TypeByName("RimWorldWaylith.Imgui.ImGuiRenderFeature"), "Record",
-            new[] { typeof(FrameContext).MakeByRefType(), typeof(object) });
+        private static MethodBase TargetMethod()
+        {
+            var type = AccessTools.TypeByName("RimWorldWaylith.Imgui.ImGuiRenderFeature");
+            var mapping = type.GetInterfaceMap(typeof(IRenderPass));
+            for (int i = 0; i < mapping.InterfaceMethods.Length; i++)
+                if (mapping.InterfaceMethods[i].Name == nameof(IRenderPass.Record))
+                    // The public forwarding target can already be inlined before mods load.
+                    return mapping.TargetMethods[i];
+            throw new MissingMethodException(type.FullName, nameof(IRenderPass.Record));
+        }
 
         private static void Prefix(in FrameContext ctx)
         {
+            Texture.Native.GpuResource = null;
             if (Current.ProgramState != ProgramState.Playing) return;
             var targets = (SceneColorTargets)SceneTargets.GetValue(null);
             if (targets == null) return;
@@ -71,7 +79,10 @@ namespace IrisMenus
         public void DoWindowBackground(Rect rect)
         {
             if (Event.current.type != EventType.Repaint) return;
-            if (failed) { vanilla.DoWindowBackground(rect); return; }
+            Color fill = Widgets.WindowBGFillColor;
+            fill.a = 1f - Mathf.Clamp01(Settings.Transparency);
+            UnityStubs.Gui.GuiBackend.Current?.FillRectRounded(rect, fill, CornerRadius);
+            if (failed) return;
             try
             {
                 if (material == null)
@@ -98,14 +109,15 @@ namespace IrisMenus
                 material.SetVector("_Frost", new Vector4(frost ? 1f : 0f, Mathf.Clamp01(Settings.Blur) * 6f,
                     Mathf.Clamp01(Settings.Transparency), Current.ColorCorrectionCurves?.saturation ?? 1f));
                 material.SetColor("_Fill", Widgets.WindowBGFillColor);
-                Graphics.DrawTexture(rect, BaseContent.WhiteTex, new Rect(0f, 0f, 1f, 1f),
+                // Native material binding can fail without throwing. Its ordinary-image
+                // fallback must leave the rounded translucent fill above intact.
+                Graphics.DrawTexture(rect, BaseContent.ClearTex, new Rect(0f, 0f, 1f, 1f),
                     0, 0, 0, 0, Color.white, material, 0);
             }
             catch (Exception exception)
             {
                 failed = true;
                 Log.Error("[IrisMenus] Native frost background unavailable: " + exception);
-                vanilla.DoWindowBackground(rect);
             }
         }
 

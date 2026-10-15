@@ -204,5 +204,5 @@ Windows 或 PowerShell 7 下可使用：
 
 1.6 的原有 Def 和语言文件保持在 `1.6/`；1.7 使用 `Common/Defs`、`Common/Languages`。`LoadFolders.xml` 分别加载 `[1.6]` 和 `[1.7, Common]`，1.7 不会加载 1.6 DLL 或 Unity bundle。部署包包含 `1.7/Rendering/Frost17.frag.glsl`，游戏 shader 缓存直接读取源码路径。1.7 需要 Harmony Mod 中支持 .NET 10 的 Harmony 3。
 
-1.6 毛玻璃使用 Unity 相机和 bundle；1.7 在 `ImGuiRenderFeature.Record` 的渲染提交中借用场景颜色，由原生片段 shader 绘制模糊、圆角底色和边框。
+1.6 毛玻璃使用 Unity 相机和 bundle；1.7 通过接口映射定位 `ImGuiRenderFeature` 的显式 `IRenderPass.Record` 实现，在当前渲染提交中借用场景颜色。不能只补丁公开转发方法：它可能在 Mod 加载前已被 JIT 内联，导致场景纹理未绑定。背景先绘制原生圆角底色，再叠加模糊与边框；原生材质绑定失败时保留普通半透明背景，不再回退成白底。毛玻璃、模糊强度与透明度设置保留，不改已有偏好。
 

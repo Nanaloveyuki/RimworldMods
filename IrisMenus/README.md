@@ -191,8 +191,11 @@ There is no duplicate bundle load and no CPU pixel readback in
 the runtime path.
 
 RimWorld 1.7 uses the game's native renderer instead of Unity camera commands.
-A narrow `ImGuiRenderFeature.Record` hook borrows the scene color for the current
-submission; the native fragment shader applies blur and rounded fill/border.
+A narrow hook on `ImGuiRenderFeature`'s explicit `IRenderPass.Record` implementation
+borrows the scene color for the current submission. Hooking the public forwarding
+method is unsafe: the JIT can inline it before mods load and bypass the patch.
+The native fragment shader applies blur and the rounded border over a separately
+drawn native rounded fill.
 The game shader cache loads `1.7/Rendering/Frost17.frag.glsl` directly from its
 absolute source path. This path does not load the 1.6 Unity bundle or extract
 shader files from the DLL.
@@ -202,8 +205,10 @@ RimWorld 1.7 requires the Harmony mod's .NET 10-compatible Harmony 3 runtime.
 
 Outside a rendered game scene (including the main menu), the window uses an
 unblurred translucent background. Transparency works independently of frost;
-zero transparency uses an opaque rounded background. A native shader-load
-failure is logged and falls back to the vanilla window background.
+zero transparency uses an opaque rounded background. On 1.7, shader-load failures
+are logged and leave the ordinary rounded translucent fill intact. Native material
+binding can also fail silently on the render thread; its transparent base image
+preserves that same fill instead of producing an opaque white rectangle.
 Turning the background off and on retries loading without restarting the game.
 **Remember last page** is enabled by default in the window footer and the original
 IrisMenus settings dialog. It restores the page, global/owner search, result page,
@@ -225,6 +230,9 @@ unaffected.
 
 ### Unreleased
 
+- Fix the 1.7 scene-color hook being bypassed by optimized interface forwarding;
+  preserve a rounded translucent background when native material binding fails.
+  Keep the existing frost and transparency controls and stored preferences.
 - Add a default-on, persistent bottom-bar IrisMenus button visibility setting
   shared by the original Mod settings dialog and the IrisMenus window footer;
   changes apply and save immediately, and the settings-page launcher remains available.

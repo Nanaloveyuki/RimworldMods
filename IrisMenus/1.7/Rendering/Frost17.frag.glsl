@@ -26,7 +26,9 @@ void main()
     float coverage = 1.0 - smoothstep(-aa, aa, distance);
     float border = smoothstep(-_Shape.w - aa, -_Shape.w + aa, distance);
     vec3 rgb = _Fill.rgb;
-    float alpha = 1.0 - _Frost.z;
+    // The ordinary rounded fill is already beneath this optional material draw.
+    // Without a scene, overlay only the border; do not apply opacity twice.
+    float alpha = 0.0;
     if (_Frost.x > 0.5)
     {
         vec2 size = vec2(textureSize(_SceneTex, 0));
@@ -48,7 +50,7 @@ void main()
         }
         float luminance = dot(scene, vec3(0.22, 0.707, 0.071));
         scene = clamp(mix(vec3(luminance), scene, _Frost.w), 0.0, 1.0);
-        rgb = mix(scene, _Fill.rgb, alpha);
+        rgb = mix(scene, _Fill.rgb, 1.0 - _Frost.z);
         alpha = 1.0;
     }
     float borderAlpha = min(1.0, (1.0 - _Frost.z) * 1.6) * border;
