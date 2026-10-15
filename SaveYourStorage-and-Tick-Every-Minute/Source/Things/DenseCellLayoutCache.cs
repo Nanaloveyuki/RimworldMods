@@ -153,7 +153,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
                     result = new Vector3(
                         baseCenter.x - 0.5f + width * (rank + 0.5f),
                         altitude,
-                        baseCenter.z + ((adjacencyOffset % 2 == 0) ? -0.02f : 0.2f));
+                        baseCenter.z + (((adjacencyOffset + rank) % 2 == 0) ? -0.02f : 0.2f));
                 }
                 else if (allSameDef)
                 {
@@ -204,11 +204,11 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(GenThing), "ItemCenterAt")]
+    [HarmonyPatch(typeof(GenThing), "ItemCenterAt", new[] { typeof(Thing) })]
     internal static class Patch_GenThing_ItemCenterAt
     {
         private static readonly OriginalMethodGuard Guard = new OriginalMethodGuard(
-            AccessTools.Method(typeof(GenThing), "ItemCenterAt"));
+            AccessTools.Method(typeof(GenThing), "ItemCenterAt", new[] { typeof(Thing) }));
 
         [HarmonyPriority(Priority.Low)]
         private static bool Prefix(Thing thing, ref Vector3 __result)

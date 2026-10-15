@@ -31,7 +31,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(ThingGrid), nameof(ThingGrid.Register))]
+    [HarmonyPatch(typeof(ThingGrid), nameof(ThingGrid.Register), new[] { typeof(Thing) })]
     internal static class Patch_ThingGrid_Register_DenseThingCaches
     {
         [HarmonyPriority(Priority.Last)]
@@ -42,7 +42,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(ThingGrid), nameof(ThingGrid.Deregister))]
+    [HarmonyPatch(typeof(ThingGrid), nameof(ThingGrid.Deregister), new[] { typeof(Thing), typeof(bool) })]
     internal static class Patch_ThingGrid_Deregister_DenseThingCaches
     {
         [HarmonyPriority(Priority.First)]
@@ -53,7 +53,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(ListerMergeables), nameof(ListerMergeables.Notify_SlotGroupChanged))]
+    [HarmonyPatch(typeof(ListerMergeables), nameof(ListerMergeables.Notify_SlotGroupChanged), new[] { typeof(SlotGroup) })]
     internal static class Patch_ListerMergeables_NotifySlotGroupChanged_DenseThingCaches
     {
         [HarmonyPriority(Priority.Last)]

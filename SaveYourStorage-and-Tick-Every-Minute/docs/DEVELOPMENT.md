@@ -30,7 +30,7 @@
 
 1. 复制同格 Item 引用并按 `thingIDNumber` 排序。
 2. 一次计算是否包含武器、是否为同 Def，以及每个 Thing 的原版 rank。
-3. 使用与 RimWorld 1.6 相同的常量和分支生成所有中心点。
+3. 使用 RimWorld 1.7 的常量和分支生成所有中心点，武器错位的奇偶数包含当前物品 rank 与西侧连续格的贡献。
 4. `DenseCellItemCountCache` 按格缓存 `GetItemCount`，武器、普通物品及其他调用者共享同一精确计数。
 5. 按 Thing 引用缓存中心点，使同一批绘制从 O(N²) 降为一次 O(N log N) 布局构建、一次 O(N) 计数和 N 次 O(1) 查询。
 
@@ -83,11 +83,15 @@ UF Recipes 会为 `Building_SuperWorkbench` 把 `CompPowerTrader.CompInspectStri
 
 ## 构建
 
+在 monorepo 的 `SaveYourStorage-and-Tick-Every-Minute` 目录执行，需要 .NET 10 SDK、RimWorld 1.7 与 Harmony 3。直接引用游戏根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 和 Harmony 的 `1.7/Assemblies/0Harmony.dll`，不再使用 1.6 NuGet 引用。
+
 ```powershell
 dotnet build Source\SaveYourStorageAndTickEveryMinute.csproj -c Release
 ```
 
-输出位于 `1.6\Assemblies`，构建产物不提交到 Git。
+默认游戏路径为 `E:/Apps/Steam/steamapps/common/RimWorld`（WSL 使用 `/mnt/e/Apps/...`），Harmony 位于 workshop `2009463077/1.7/Assemblies`。可通过 MSBuild `-p:RimWorldDir=... -p:HarmonyAssemblyPath=...` 或 `RIMWORLD_DIR`、`HARMONY_ASSEMBLY_PATH` 覆盖。输出只写 `1.7/Assemblies`；DLL 可提交，中间文件位于各项目的 `tmp/obj`。
+
+`1.6/Assemblies` 保留从已有安装取回的发布文件，不能用当前 net10.0 项目覆盖。`LoadFolders.xml` 每个版本只选一个目录，因此两个程序集不会一起加载。中英文本保留在各自版本的 `Languages` 内，不再叠加根目录资源。
 
 ## 验证
 
@@ -95,31 +99,23 @@ dotnet build Source\SaveYourStorageAndTickEveryMinute.csproj -c Release
 .\scripts\verify.ps1
 ```
 
-该命令执行：
+此命令构建 1.7、运行不依赖游戏的调度器语义测试并解析 XML。`-DotNet` 可指定 SDK 路径。Harmony 行为必须另用游戏自带的 Windows CoreCLR 验证；Windows PowerShell 5 的 .NET Framework 反射宿主无法加载 1.7。旧 `verify-rimworld-contract.ps1` / `verify-outerrealm-contract.ps1` 已删除。
 
-- Release 构建
-- 调度器测试程序
-- XML 解析
-- 可选依赖引用检查
-- Outerrealm 已安装 DLL 私有合同检查
-- RimWorld 高密度 Thing 私有方法、字段及 IL 调用点检查
+本次迁移已通过临时独立 Windows apphost 加载游戏自带 CLR 和 Harmony 3，执行全部静态补丁安装及实际调用检查，结果见 [TESTING.md](TESTING.md)。临时宿主验证后已移除。后续运行时检查应使用独立游戏 CLR 进程，保留 `RimWorld.runtimeconfig.json` 的 WaylithClr 设置及 UnityEngine 到 UnityStubs 的重定向；不要在 PowerShell 的桌面 CLR 内再加载第二套 CLR，否则可能加载错误 JIT 并使 Harmony 版本检查失败。
 
-仅验证 Outerrealm 或 RimWorld 合同时可分别运行：
-
-```powershell
-.\scripts\verify-outerrealm-contract.ps1
-.\scripts\verify-rimworld-contract.ps1
-```
+游戏内 A/B、完整搬运、存读档及可选依赖兼容仍按 [TESTING.md](TESTING.md) 执行。
 
 ## 部署
 
-必须先完全退出 RimWorld：
+完全退出 RimWorld 后执行：
 
 ```powershell
 .\scripts\build-and-deploy.ps1
+# 已从 WSL 构建时，仅复制产物：
+.\scripts\build-and-deploy.ps1 -SkipBuild
 ```
 
-脚本核对目标 `packageId`，复制 About、Analyzer、程序集和语言文件，并比较源/目标哈希。
+`-RimWorldDir`、`-HarmonyAssemblyPath`、`-GameModPath` 和 `-DotNet` 可覆盖默认路径。脚本核对目标 `packageId`，逐文件比较哈希，只复制新 `1.7` 和共享元数据，不遍历或改写安装中的 `1.6`，也不覆盖 `PublishedFileId.txt`。
 
 ## 已知限制
 

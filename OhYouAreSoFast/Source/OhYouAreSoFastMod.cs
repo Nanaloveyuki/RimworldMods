@@ -14,7 +14,7 @@ namespace OhYouAreSoFast
         {
             Settings = GetSettings<OhYouAreSoFastSettings>();
             Settings.Normalize();
-            new Harmony(HarmonyId).PatchAll();
+            new Harmony(HarmonyId).PatchAll(typeof(OhYouAreSoFastMod).Assembly);
             Log.Message("[OhYouAreSoFast] Performance patches applied.");
             SaveLoadTrace.LogEnabledState();
         }

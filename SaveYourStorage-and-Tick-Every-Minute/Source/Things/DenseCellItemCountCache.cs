@@ -75,7 +75,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(GridsUtility), nameof(GridsUtility.GetItemCount))]
+    [HarmonyPatch(typeof(GridsUtility), nameof(GridsUtility.GetItemCount), new[] { typeof(IntVec3), typeof(Map) })]
     internal static class Patch_GridsUtility_GetItemCount
     {
         private static readonly OriginalMethodGuard Guard = new OriginalMethodGuard(

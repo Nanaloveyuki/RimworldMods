@@ -11,6 +11,7 @@ RimWorld 模组、框架与开发工具的统一源码仓库。原独立仓库�
 | [Lead-Your-Pets](Lead-Your-Pets/) | 牵着你的宠物续作；原作者授权范围见项目 NOTICE |
 | [MultiFloor-fork](MultiFloor-fork/) | MultiFloors 机制与兼容性调查，目前没有源码 fork |
 | [ODF-Mods](ODF-Mods/) | Oxygen DSL 消费端模组，各自独立打包 |
+| [OhYouAreSoFast](OhYouAreSoFast/) | 寻路与 AI 优化，保留 1.6 发布内容并适配 1.7 |
 | [Oxygen-Dsl-Framework](Oxygen-Dsl-Framework/) | Oxygen DSL 框架、适配器、编辑器和离线工具 |
 | [RadiusUI-MissionControl-Fixes](RadiusUI-MissionControl-Fixes/) | RadiusUI Mission Control 修复 |
 | [Ratkin-Great-Famine-Year-Continued](Ratkin-Great-Famine-Year-Continued/) | 旧鼠灾续作归档；不适用根目录双许可 |
@@ -18,6 +19,7 @@ RimWorld 模组、框架与开发工具的统一源码仓库。原独立仓库�
 | [RimCarbon14](RimCarbon14/) | 游戏运行时检查、调试与自动化桥接工具 |
 | [RimIrisShaders](RimIrisShaders/) | RimIris 着色器与控制界面 |
 | [rimworld-washingmachine-play](rimworld-washingmachine-play/) | 自动洗衣机模组 |
+| [SaveYourStorage-and-Tick-Every-Minute](SaveYourStorage-and-Tick-Every-Minute/) | 仓储与低频 Tick 调度优化，保留 1.6 发布内容并适配 1.7 |
 
 `Digital-Storage-fork` 不在迁移范围内，本地副本已按要求删除；其源码与提交历史不纳入本仓库。
 
@@ -49,6 +51,10 @@ python3 scripts/rhah.py --help
 迁移保留各项目原有已提交历史，并以合并提交接入本仓库；工作区中的未提交修改、暂存修改、未跟踪文件和本地忽略文件一并迁入。原仓库的 Git 元数据保存在本地 `.git/migration-backups/`，不属于源码，也不会上传。原分支与 tag 的本地备份引用位于 `refs/archive/<项目>/heads/` 和 `refs/archive/<项目>/tags/`。
 
 后续开发只使用本仓库的根 `.git`。旧仓库的归档由维护者在 GitHub 上操作；本地迁移不自动发布、推送或更改远端设置。
+
+`SaveYourStorage-and-Tick-Every-Minute` 与 `OhYouAreSoFast` 也已从原 GitHub 仓库迁入，保留完整提交历史及 `refs/archive/<项目>/heads/` 备份引用；原仓库归档后，源码与 Issue 统一在本仓库维护。这两个项目保留原 MIT 许可。其 `1.6/Assemblies/` 保全已部署二进制，1.7 构建与部署使用独立的 `1.7/` 目录，不重编译或覆盖 1.6。
+
+两个项目的 1.7 Release 构建及独立游戏 CLR/Harmony 烟雾验证通过，已部署至现有游戏 Mods 目录。部署文件逐项 SHA-256 校验一致，原 1.6 的 7 个文件及两个 PublishedFileId 均未变化；版本加载清单各只选择对应版本的一个程序集。完整存档、世界路径及性能压力回归未执行，具体范围见各项目验证说明。
 
 ### 迁移验证（2026-10-15）
 

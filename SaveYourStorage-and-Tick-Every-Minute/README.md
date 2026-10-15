@@ -1,6 +1,6 @@
 # Save Your Storage and Tick Every Minute
 
-RimWorld 1.6 存储与突发 Tick 性能兼容 Mod。
+RimWorld 1.7 存储与突发 Tick 性能兼容 Mod，同时保留 1.6 发布版。源码与问题反馈已迁入 [RimworldMods monorepo](https://github.com/Nanaloveyuki/RimworldMods/tree/main/SaveYourStorage-and-Tick-Every-Minute)，本目录保留原 MIT 许可证。
 
 ## 安装
 
@@ -11,6 +11,8 @@ RimWorld 1.6 存储与突发 Tick 性能兼容 Mod。
    - UF Light Industries / 联合轻工
    - Turn It On and Off - RePowered
 4. 重启游戏。已有存档可以直接使用，不会修改存档格式。
+
+`LoadFolders.xml` 按游戏版本只加载 `1.6` 或 `1.7`，语言文件各加载一次。1.6 程序集由既有安装原样保全；当前源码只构建 1.7，不重新生成或覆盖 1.6 DLL。更新部署脚本只写入 `1.7`、About、Analyzer 与 LoadFolders，保留安装中的 `1.6` 和 `PublishedFileId.txt`。
 
 ## 设置
 

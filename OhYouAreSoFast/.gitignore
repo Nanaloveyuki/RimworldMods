@@ -1,8 +1,6 @@
-# RimWorld mod build output
-1.6/Assemblies/*.dll
-1.6/Assemblies/*.pdb
-
-# MSBuild intermediate output
+# Keep versioned release DLL/PDB files in the repository.
+# MSBuild and temporary smoke output
+tmp/
 Source/bin/
 Source/obj/
 

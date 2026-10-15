@@ -5,8 +5,10 @@ using Verse.AI;
 
 namespace OhYouAreSoFast
 {
-    [HarmonyPatch(typeof(PathFinder), "ParameterizePathJob")]
-    internal static class Patch_PathFinder_ParameterizePathJob
+    // Both immediate and scheduled searches pass through this final 1.7 stage.
+    [HarmonyPatch(typeof(PathFinderMapData), nameof(PathFinderMapData.ParameterizePathJob),
+        new[] { typeof(PathFinderJob) }, new[] { ArgumentType.Ref })]
+    internal static class Patch_PathFinderMapData_ParameterizePathJob
     {
         private const float VanillaHeuristicCardinalCost = 13f;
         private const float DiagonalDistanceFactor = 1.41421356f;

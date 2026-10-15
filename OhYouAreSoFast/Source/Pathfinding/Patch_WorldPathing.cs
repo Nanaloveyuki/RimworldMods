@@ -8,7 +8,8 @@ using Verse;
 
 namespace OhYouAreSoFast
 {
-    [HarmonyPatch(typeof(WorldPathing), nameof(WorldPathing.FindPath))]
+    [HarmonyPatch(typeof(WorldPathing), nameof(WorldPathing.FindPath),
+        new[] { typeof(PlanetTile), typeof(PlanetTile), typeof(Caravan), typeof(Func<float, bool>) })]
     internal static class Patch_WorldPathing
     {
         private static readonly ConditionalWeakTable<WorldPathing, SearchState> SearchStates =

@@ -142,7 +142,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(ListerThings), nameof(ListerThings.Add))]
+    [HarmonyPatch(typeof(ListerThings), nameof(ListerThings.Add), new[] { typeof(Thing) })]
     internal static class Patch_ListerThings_Add
     {
         [HarmonyPriority(Priority.Last)]
@@ -161,7 +161,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(ListerThings), nameof(ListerThings.Remove))]
+    [HarmonyPatch(typeof(ListerThings), nameof(ListerThings.Remove), new[] { typeof(Thing) })]
     internal static class Patch_ListerThings_Remove
     {
         [HarmonyPriority(Priority.Last)]
@@ -180,7 +180,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(ListerThings), nameof(ListerThings.Contains))]
+    [HarmonyPatch(typeof(ListerThings), nameof(ListerThings.Contains), new[] { typeof(Thing) })]
     internal static class Patch_ListerThings_Contains
     {
         [HarmonyPriority(Priority.Last)]

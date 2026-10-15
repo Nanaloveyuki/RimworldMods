@@ -217,7 +217,7 @@ namespace SaveYourStorageAndTickEveryMinute.Things
         }
     }
 
-    [HarmonyPatch(typeof(WorkGiver_Merge), nameof(WorkGiver_Merge.JobOnThing))]
+    [HarmonyPatch(typeof(WorkGiver_Merge), nameof(WorkGiver_Merge.JobOnThing), new[] { typeof(Pawn), typeof(Thing), typeof(bool) })]
     internal static class Patch_WorkGiver_Merge_JobOnThing
     {
         private static IEnumerable<CodeInstruction> Transpiler(

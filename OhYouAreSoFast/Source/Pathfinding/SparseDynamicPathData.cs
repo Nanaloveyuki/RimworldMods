@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using Unity.Collections;
@@ -93,9 +94,22 @@ namespace OhYouAreSoFast
         }
     }
 
-    [HarmonyPatch(typeof(PathGridDoorsBlockedJob), nameof(PathGridDoorsBlockedJob.Execute))]
+    [HarmonyPatch]
     internal static class Patch_PathGridDoorsBlockedJob
     {
+        private static MethodBase TargetMethod()
+        {
+            // ManagedJob dispatches IJob.Execute; patch the actual interface
+            // implementation rather than assuming its public name is the target.
+            InterfaceMapping mapping = typeof(PathGridDoorsBlockedJob).GetInterfaceMap(typeof(Unity.Jobs.IJob));
+            for (int i = 0; i < mapping.InterfaceMethods.Length; i++)
+            {
+                if (mapping.InterfaceMethods[i].Name == nameof(Unity.Jobs.IJob.Execute))
+                    return mapping.TargetMethods[i];
+            }
+            throw new MissingMethodException(typeof(PathGridDoorsBlockedJob).FullName, "IJob.Execute");
+        }
+
         private static bool Prefix(PathGridDoorsBlockedJob __instance)
         {
             TouchedNativeIndices providerTouched = null;

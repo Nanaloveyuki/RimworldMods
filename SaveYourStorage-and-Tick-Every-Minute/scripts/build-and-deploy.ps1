@@ -2,96 +2,56 @@
 param(
     [ValidateSet("Debug", "Release")]
     [string]$Configuration = "Release",
-
-    [string]$GameModPath = "D:\Appdata\Steam\steamapps\common\RimWorld\Mods\SaveYourStorageAndTickEveryMinute",
-
+    [string]$RimWorldDir = "E:\Apps\Steam\steamapps\common\RimWorld",
+    [string]$HarmonyAssemblyPath = "E:\Apps\Steam\steamapps\workshop\content\294100\2009463077\1.7\Assemblies\0Harmony.dll",
+    [string]$GameModPath,
+    [string]$DotNet = "dotnet",
     [switch]$SkipBuild
 )
 
 $ErrorActionPreference = "Stop"
-
-$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
-$projectPath = Join-Path $repoRoot "Source\SaveYourStorageAndTickEveryMinute.csproj"
-$sourceAssembly = Join-Path $repoRoot "1.6\Assemblies\SaveYourStorageAndTickEveryMinute.dll"
-$sourceAbout = Join-Path $repoRoot "About\About.xml"
-$sourceAnalyzer = Join-Path $repoRoot "Analyzer.xml"
-$sourceLanguages = Join-Path $repoRoot "1.6\Languages"
-$targetAssemblyDirectory = Join-Path $GameModPath "1.6\Assemblies"
-$targetLanguageDirectory = Join-Path $GameModPath "1.6\Languages"
-
-if (-not (Test-Path -LiteralPath $projectPath)) {
-    throw "Project file not found: $projectPath"
+$repoRoot = (Get-Item -LiteralPath (Join-Path $PSScriptRoot "..")).FullName.TrimEnd([char[]]"\/")
+if (-not $GameModPath) {
+    $GameModPath = Join-Path $RimWorldDir "Mods\SaveYourStorageAndTickEveryMinute"
 }
-
+$sourceAssembly = Join-Path $repoRoot "1.7\Assemblies\SaveYourStorageAndTickEveryMinute.dll"
 if (-not $SkipBuild) {
-    Write-Host "Building $Configuration..."
-    & dotnet build $projectPath --configuration $Configuration --nologo
-    if ($LASTEXITCODE -ne 0) {
-        throw "Build failed with exit code $LASTEXITCODE."
-    }
+    & $DotNet build (Join-Path $repoRoot "Source\SaveYourStorageAndTickEveryMinute.csproj") `
+        --configuration $Configuration --nologo "-p:RimWorldDir=$RimWorldDir" "-p:HarmonyAssemblyPath=$HarmonyAssemblyPath"
+    if ($LASTEXITCODE -ne 0) { throw "Build failed with exit code $LASTEXITCODE." }
 }
-
-if (-not (Test-Path -LiteralPath $sourceAssembly)) {
+if (-not (Test-Path -LiteralPath $sourceAssembly -PathType Leaf)) {
     throw "Build output not found: $sourceAssembly"
 }
-if (-not (Test-Path -LiteralPath $sourceAbout)) {
-    throw "About.xml not found: $sourceAbout"
-}
-
 $targetAbout = Join-Path $GameModPath "About\About.xml"
-if (Test-Path -LiteralPath $GameModPath) {
-    if (-not (Test-Path -LiteralPath $targetAbout)) {
-        $existingEntries = @(Get-ChildItem -LiteralPath $GameModPath -Force)
-        if ($existingEntries.Count -gt 0) {
-            throw "Refusing to deploy into a non-empty directory without About.xml: $GameModPath"
-        }
-    }
-    else {
-        $aboutText = Get-Content -LiteralPath $targetAbout -Raw
-        if ($aboutText -notmatch "<packageId>\s*Nanaloveyuki\.SaveYourStorageAndTickEveryMinute\s*</packageId>") {
-            throw "Target directory is not the expected Mod: $GameModPath"
-        }
+if (Test-Path -LiteralPath $targetAbout) {
+    [xml]$about = Get-Content -LiteralPath $targetAbout -Raw
+    if ($about.ModMetaData.packageId -ne "Nanaloveyuki.SaveYourStorageAndTickEveryMinute") {
+        throw "Target directory is not the expected Mod: $GameModPath"
     }
 }
-else {
-    $modsDirectory = Split-Path -Parent $GameModPath
-    if (-not (Test-Path -LiteralPath $modsDirectory)) {
-        throw "RimWorld Mods directory not found: $modsDirectory"
+elseif ((Test-Path -LiteralPath $GameModPath) -and @(Get-ChildItem -LiteralPath $GameModPath -Force).Count -gt 0) {
+    throw "Refusing to deploy into a non-empty directory without About.xml: $GameModPath"
+}
+elseif (-not (Test-Path -LiteralPath (Split-Path -Parent $GameModPath))) {
+    throw "RimWorld Mods directory not found: $(Split-Path -Parent $GameModPath)"
+}
+
+# Copy only 1.7 and shared metadata. Never traverse installed 1.6 or PublishedFileId.txt.
+$files = @("About\About.xml", "Analyzer.xml", "LoadFolders.xml", "LICENSE")
+$preview = Join-Path $repoRoot "About\Preview.png"
+if (Test-Path -LiteralPath $preview) { $files += "About\Preview.png" }
+$files += @(Get-ChildItem -LiteralPath (Join-Path $repoRoot "1.7") -File -Recurse |
+    Where-Object { $_.Extension -in @(".dll", ".pdb", ".xml") } |
+    ForEach-Object { $_.FullName.Substring($repoRoot.Length).TrimStart([char[]]"\/") })
+foreach ($relativePath in $files) {
+    $source = Join-Path $repoRoot $relativePath
+    $target = Join-Path $GameModPath $relativePath
+    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $target) | Out-Null
+    Copy-Item -LiteralPath $source -Destination $target -Force
+    if ((Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash -ne
+        (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash) {
+        throw "Deployment verification failed: $target"
     }
 }
-
-New-Item -ItemType Directory -Force -Path `
-    (Split-Path -Parent $targetAbout), `
-    $targetAssemblyDirectory, `
-    $targetLanguageDirectory | Out-Null
-Copy-Item -LiteralPath $sourceAbout -Destination $targetAbout -Force
-Copy-Item -LiteralPath $sourceAnalyzer -Destination (Join-Path $GameModPath "Analyzer.xml") -Force
-$targetAssembly = Join-Path $targetAssemblyDirectory "SaveYourStorageAndTickEveryMinute.dll"
-Copy-Item -LiteralPath $sourceAssembly -Destination $targetAssembly -Force
-
-$sourcePdb = Join-Path $repoRoot "1.6\Assemblies\SaveYourStorageAndTickEveryMinute.pdb"
-if (Test-Path -LiteralPath $sourcePdb) {
-    Copy-Item -LiteralPath $sourcePdb -Destination (Join-Path $targetAssemblyDirectory "SaveYourStorageAndTickEveryMinute.pdb") -Force
-}
-
-$sourceHash = (Get-FileHash -LiteralPath $sourceAssembly -Algorithm SHA256).Hash
-$targetHash = (Get-FileHash -LiteralPath $targetAssembly -Algorithm SHA256).Hash
-if ($sourceHash -ne $targetHash) {
-    throw "Assembly verification failed: $targetAssembly"
-}
-
-$languageFiles = @(Get-ChildItem -LiteralPath $sourceLanguages -File -Recurse)
-foreach ($file in $languageFiles) {
-    $relativePath = $file.FullName.Substring($sourceLanguages.Length).TrimStart([char[]]"\/")
-    $destination = Join-Path $targetLanguageDirectory $relativePath
-    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $destination) | Out-Null
-    Copy-Item -LiteralPath $file.FullName -Destination $destination -Force
-
-    $sourceLanguageHash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
-    $targetLanguageHash = (Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash
-    if ($sourceLanguageHash -ne $targetLanguageHash) {
-        throw "Language file verification failed: $destination"
-    }
-}
-
-Write-Host "Deployed $Configuration build to: $GameModPath"
+Write-Host "Deployed RimWorld 1.7 to: $GameModPath (existing 1.6 and workshop metadata preserved)"

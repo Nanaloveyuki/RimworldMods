@@ -7,7 +7,8 @@ using Verse.AI;
 
 namespace OhYouAreSoFast
 {
-    [HarmonyPatch(typeof(JobGiver_Work), nameof(JobGiver_Work.TryIssueJobPackage))]
+    [HarmonyPatch(typeof(JobGiver_Work), nameof(JobGiver_Work.TryIssueJobPackage),
+        new[] { typeof(Pawn), typeof(JobIssueParams) })]
     internal static class Patch_JobGiver_Work
     {
         private sealed class PawnState

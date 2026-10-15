@@ -8,7 +8,8 @@ namespace OhYouAreSoFast
 {
     [HarmonyPatch(
         typeof(ThinkNode_PrioritySorter),
-        nameof(ThinkNode_PrioritySorter.TryIssueJobPackage))]
+        nameof(ThinkNode_PrioritySorter.TryIssueJobPackage),
+        new[] { typeof(Pawn), typeof(JobIssueParams) })]
     internal static class Patch_ThinkNode_PrioritySorter
     {
         private sealed class Scratch

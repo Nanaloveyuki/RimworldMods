@@ -37,6 +37,9 @@ Exceptions and retained rights
   its derived Textures/Things/Building/WashingMachine/ images and
   About/Preview.png are excluded from this grant. No new redistribution
   permission for those assets is asserted.
+- SaveYourStorage-and-Tick-Every-Minute and OhYouAreSoFast retain their
+  existing MIT licenses. Their project LICENSE files govern those directories;
+  migration does not add an Apache-2.0 grant to their existing content.
 - Third-party code, binaries, libraries, assets, fonts, quoted source and
   other material are not relicensed. Their original copyright notices,
   license texts and attribution requirements remain effective, including

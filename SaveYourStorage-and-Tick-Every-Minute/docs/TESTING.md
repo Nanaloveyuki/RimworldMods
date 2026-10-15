@@ -4,7 +4,7 @@
 
 ## 准备
 
-- RimWorld 1.6、Harmony、本 Mod、Dubs Performance Analyzer。
+- RimWorld 1.7、对应版本 Harmony、本 Mod、兼容 1.7 的 Dubs Performance Analyzer。
 - 能让单格容纳至少 25 个不同 Thing 组的高容量存储建筑或测试 Mod。
 - 一份可重复加载的测试存档。
 - 测试前关闭自动保存，并保持相同地图、镜头、倍速和 Mod 列表。
@@ -15,6 +15,7 @@
 - 不同 Def 的混合物品。
 - 武器混合物品。
 - 不能互相堆叠的带 Comp、品质或耐久物品。
+- 武器格分别覆盖偶数/奇数 rank，以及西侧连续格的奇数/偶数物品数。
 
 不要把普通地面格强行作为容量测试目标；目标建筑的 `MaxItemsInCell` 必须真实允许对应数量。
 
@@ -94,6 +95,13 @@ Analyzer 目标：
 - 没有 Pawn 反复领取后立即失败的工作。
 - 同一储存组的大量源堆不再各自完整枚举全部 `HeldThings`。
 
+
+## 1.7 原生宿主验证
+
+2026-10-15：Release 构建 0 警告、0 错误；既有 SchedulerHarness 通过（本机使用 `--roll-forward Major`）。临时独立 Windows 宿主加载游戏自带 Waylith CLR 和 Harmony 3，13 个静态补丁均成功安装。实际调用验证了同 Def、混合物品、武器奇偶位置及邻格变动时的原版/优化布局一致性，ThingGrid 增删使数量缓存失效，存储阻挡判断一致，ListerThings 增删/清空及第三方直接修改列表后成员索引正确，以及满堆合并任务提前返回。
+
+Outerrealm 运行时兼容检查未执行。完整搬运、游戏内压力/性能比较与存读档仍需按上文在真实游戏中验收；该宿主不替代这些检查。
+
 ## 4. 回归检查
 
 - 新建地图、加载旧存档、保存后重载。
@@ -102,6 +110,7 @@ Analyzer 目标：
 - 商队装载、交易、建造、烹饪、医疗取药。
 - Outerrealm 存入/取出、唯一物品、书籍、多人竞争预留。
 - 选中联合全息打印机，确认不再出现 `Parameter name: input`。
+- 另启 RimWorld 1.6 验证保留发布版；确认只加载 `1.6/Assemblies`，保存的原始 DLL 哈希与部署前一致。
 
 日志中不应出现：
 
