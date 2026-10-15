@@ -7,4 +7,5 @@ artifacts/
 Source/obj/
 Source/bin/
 Assemblies/*.pdb
+1.7/Assemblies/*.pdb
 Tools/Unity/ProjectSettings/*.asset

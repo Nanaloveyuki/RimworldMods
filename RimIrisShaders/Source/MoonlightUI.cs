@@ -22,6 +22,9 @@ namespace RimIrisShaders
                 RuntimeHelpers.RunClassConstructor(typeof(RimIrisInitializer).TypeHandle);
                 PackEntry entry = PackRegistry.Get(PackId);
                 if (entry == null) throw new InvalidOperationException("Moonlight pack was not registered.");
+#if RIMWORLD_1_7
+                MoonlightNative.Install(entry);
+#endif
                 // NameKey/DescKey are read on every draw. Bundle option panes are owned by
                 // PackEngine; replacing DrawOptions hides them and can fail the addon.
                 entry.NameKey = "Moonlight_Name";
