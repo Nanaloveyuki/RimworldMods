@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.6'">net48</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.7'">net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <OutputType>Library</OutputType>
     <AssemblyName>HungerAndHavoc</AssemblyName>
@@ -8,7 +9,7 @@
     <Version>1.1.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputPath>../1.6/Assemblies/</OutputPath>
+    <OutputPath>../$(RimWorldVersion)/Assemblies/</OutputPath>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <EnableSourceLink>false</EnableSourceLink>
   </PropertyGroup>
@@ -46,17 +47,25 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Oxygendsl.Core">
-      <HintPath>$(OxygenDslDir)/tmp/build/Oxygendsl.Core.dll</HintPath>
+      <HintPath>$(OxygenDslBuildDir)/Oxygendsl.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Oxygendsl.Mod">
-      <HintPath>$(OxygenDslDir)/tmp/build/Oxygendsl.Mod.dll</HintPath>
+      <HintPath>$(OxygenDslBuildDir)/Oxygendsl.Mod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.7'">
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldManagedDir)/UnityStubs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.6'">
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -75,7 +84,7 @@
     </Reference>
   </ItemGroup>
   <PropertyGroup>
-    <IrisMenusDll>$(RimWorldDir)\Mods\IrisMenus\1.6\Assemblies\IrisMenus.dll</IrisMenusDll>
+    <IrisMenusDll>$(RimWorldDir)/Mods/IrisMenus/$(RimWorldVersion)/Assemblies/IrisMenus.dll</IrisMenusDll>
   </PropertyGroup>
   <ItemGroup Condition="!Exists('$(IrisMenusDll)')">
     <Compile Remove="Pawn\Compat\RHAH_IrisMenusCompat.cs" />

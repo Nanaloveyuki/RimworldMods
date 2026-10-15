@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- RGE 替换白名单后只补回初鼠种 不重复添加或改其它候选 -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationTest">
+        <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="Ratkin"]/alienRace/raceRestriction/whiteXenotypeList</xpath>
+      </li>
+      <li Class="PatchOperationConditional">
+        <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="Ratkin"]/alienRace/raceRestriction/whiteXenotypeList/li[normalize-space(text())="RK_XenoType_Ratkin"]</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="Ratkin"]/alienRace/raceRestriction/whiteXenotypeList</xpath>
+          <value>
+            <li MayRequire="Ludeon.RimWorld.Biotech">RK_XenoType_Ratkin</li>
+          </value>
+        </nomatch>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

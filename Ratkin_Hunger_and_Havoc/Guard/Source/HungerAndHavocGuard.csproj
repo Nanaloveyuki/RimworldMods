@@ -1,10 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.6'">net472</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.7'">net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <AssemblyName>HungerAndHavocGuard</AssemblyName>
     <RootNamespace>HungerAndHavoc.Guard</RootNamespace>
-    <OutputPath>../Assemblies/</OutputPath>
+    <OutputPath Condition="'$(RimWorldVersion)' == '1.6'">../Assemblies/</OutputPath>
+    <OutputPath Condition="'$(RimWorldVersion)' == '1.7'">../../1.7/Guard/Assemblies/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <EnableSourceLink>false</EnableSourceLink>
@@ -17,9 +19,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(RimWorldDir)/RimWorldWin64_Data/Managed/Assembly-CSharp.dll</HintPath>
+      <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.7'">
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldManagedDir)/UnityStubs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.6'">
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(RimWorldDir)/RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>

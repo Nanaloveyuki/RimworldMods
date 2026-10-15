@@ -10,6 +10,9 @@ Guard/Assemblies/*.pdb
 Guard/Assemblies/*.xml
 1.6/Assemblies/0Harmony.dll
 Guard/Assemblies/0Harmony.dll
+1.7/**/*.pdb
+1.7/**/*.deps.json
+1.7/**/0Harmony.dll
 __pycache__/
 *.pyc
 .rhah.local.json

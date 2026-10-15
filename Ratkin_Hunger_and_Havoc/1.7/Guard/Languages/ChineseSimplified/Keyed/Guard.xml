@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Guard_DuplicateTitle>鼠族: 饥与祸 未加载主体内容</RHAH_Guard_DuplicateTitle>
+  <RHAH_Guard_DuplicateBody>同时启用了旧的鼠灾-大荒年。这次没有载入饥与祸的内容，也没有关掉那个旧模组。\n\n只留其中一个，然后重启 RimWorld。重启前不要读档或存档。饥与祸不能读取那些旧存档。</RHAH_Guard_DuplicateBody>
+  <RHAH_Guard_OxygenRequiredTitle>鼠族: 饥与祸 缺少前置模组</RHAH_Guard_OxygenRequiredTitle>
+  <RHAH_Guard_OxygenRequiredBody>当前模组需要依赖 Oxygen DSL Framework 才能正常启用, 可以在 Steam 创意工坊下载, 很抱歉中途加入了额外依赖, 但为了模组游玩性能考虑, 还请谅解</RHAH_Guard_OxygenRequiredBody>
+</LanguageData>

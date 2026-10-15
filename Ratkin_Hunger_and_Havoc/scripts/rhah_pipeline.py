@@ -29,6 +29,9 @@ FOLDERS = {
     "Guard/Languages": {".xml"},
     "1.6/Defs": {".xml"},
     "1.6/Patches": {".xml"},
+    "1.7/Defs": {".xml"},
+    "1.7/Patches": {".xml"},
+    "1.7/Guard/Languages": {".xml"},
     "Biotech": {".xml"},
     "Textures": {".png", ".jpg", ".jpeg", ".dds"},
 }
@@ -36,6 +39,9 @@ DLLS = (
     "1.6/Assemblies/HungerAndHavoc.Api.dll",
     "1.6/Assemblies/HungerAndHavoc.dll",
     "Guard/Assemblies/HungerAndHavocGuard.dll",
+    "1.7/Assemblies/HungerAndHavoc.Api.dll",
+    "1.7/Assemblies/HungerAndHavoc.dll",
+    "1.7/Guard/Assemblies/HungerAndHavocGuard.dll",
 )
 FILES = DLLS + ("LoadFolders.xml", "LICENSE", "NOTICE", "README.md")
 EXCLUDED_DIRS = {"bin", "obj", "tmp", "source", "scripts", ".git", ".github", "secrets", "credentials"}
@@ -180,7 +186,8 @@ def validate_target(rimworld, target):
     if os.path.lexists(target):
         assert_plain_tree(target)
         package_identity(target)
-        for folder, owned in (("1.6/Assemblies", set(DLLS[:2])), ("Guard/Assemblies", {DLLS[2]})):
+        for folder in sorted({str(Path(relative).parent) for relative in DLLS}):
+            owned = {relative for relative in DLLS if str(Path(relative).parent) == folder}
             base = target / folder
             if base.is_dir():
                 unexpected = [item.relative_to(target).as_posix() for item in base.rglob("*") if item.is_file() and item.relative_to(target).as_posix() not in owned]
@@ -374,9 +381,11 @@ class Pipeline:
         self.rimworld = Path(args.rimworld_dir).expanduser().absolute()
         self.oxygen = Path(args.oxygen_dsl_dir).expanduser().absolute()
         self.configuration = args.configuration
+        self.version = args.rimworld_version
         self.evidence = evidence or Evidence(root, args.command)
-        self.managed = self.rimworld / "RimWorldWin64_Data/Managed"
-        self.harmony = Path(args.harmony_path).expanduser().absolute() if args.harmony_path else self.rimworld / "../../workshop/content/294100/2009463077/1.6/Assemblies/0Harmony.dll"
+        self.managed = self.rimworld if self.version == "1.7" else self.rimworld / "RimWorldWin64_Data/Managed"
+        self.harmony = Path(args.harmony_path).expanduser().absolute() if args.harmony_path else self.rimworld / ("../../workshop/content/294100/2009463077/" + self.version + "/Assemblies/0Harmony.dll")
+        self.oxygen_build = self.oxygen / "tmp/build" / "1.7" if self.version == "1.7" else self.oxygen / "tmp/build"
         self.built = False
 
     def operation(self, name, function):
@@ -390,9 +399,10 @@ class Pipeline:
         def inspect():
             if not shutil.which("dotnet"):
                 raise PipelineError("dotnet SDK is required (see global.json)")
-            if platform.system() == "Linux" and not shutil.which("mono"):
+            if self.version == "1.6" and platform.system() == "Linux" and not shutil.which("mono"):
                 raise PipelineError("Mono is required for existing net48 Linux tests")
-            required = [self.managed / name for name in ("Assembly-CSharp.dll", "UnityEngine.CoreModule.dll", "UnityEngine.IMGUIModule.dll", "UnityEngine.SharedInternalsModule.dll", "UnityEngine.TextRenderingModule.dll", "UnityEngine.InputLegacyModule.dll", "UnityEngine.dll")]
+            names = ("Assembly-CSharp.dll", "UnityStubs.dll") if self.version == "1.7" else ("Assembly-CSharp.dll", "UnityEngine.CoreModule.dll", "UnityEngine.IMGUIModule.dll", "UnityEngine.SharedInternalsModule.dll", "UnityEngine.TextRenderingModule.dll", "UnityEngine.InputLegacyModule.dll", "UnityEngine.dll")
+            required = [self.managed / name for name in names]
             required.extend([self.oxygen / "Source/Mod/Oxygendsl.Mod.csproj", self.harmony])
             missing = [str(path) for path in required if not path.is_file()]
             if missing:
@@ -401,7 +411,7 @@ class Pipeline:
         self.operation("dependencies", inspect)
 
     def check(self):
-        for folder in ("1.6/Assemblies", "Guard/Assemblies"):
+        for folder in sorted({str(Path(relative).parent) for relative in DLLS}):
             assert_plain_path(self.root / folder).mkdir(parents=True, exist_ok=True)
         self.evidence.run("structure", [sys.executable, str(self.root / "scripts/verify-scaffold.py")])
 
@@ -409,12 +419,13 @@ class Pipeline:
         self.evidence.run("tool-tests", [sys.executable, "-m", "unittest", "discover", "-s", "scripts/tests", "-p", "test_*.py"])
 
     def dotnet(self, name, verb, project, extra=()):
-        command = ["dotnet", verb, str(project), "-c", self.configuration, "--nologo", "-v", "q", "-p:RimWorldDir=" + str(self.rimworld), "-p:RimWorldManagedDir=" + str(self.managed), "-p:OxygenDslDir=" + str(self.oxygen), "-p:HarmonyPath=" + str(self.harmony)]
+        command = ["dotnet", verb, str(project), "-c", self.configuration, "--nologo", "-v", "q", "-p:RimWorldVersion=" + self.version, "-p:RimWorldDir=" + str(self.rimworld), "-p:RimWorldManagedDir=" + str(self.managed), "-p:OxygenDslDir=" + str(self.oxygen), "-p:HarmonyPath=" + str(self.harmony)]
         self.evidence.run(name, command + list(extra))
 
     def build(self):
         self.dependencies()
-        self.dotnet("build-odf", "build", self.oxygen / "Source/Mod/Oxygendsl.Mod.csproj")
+        if self.version == "1.7":
+            self.dotnet("build-odf", "build", self.oxygen / "Source/Mod/Oxygendsl.Mod.csproj")
         self.operation("odf-outputs", lambda: self.require_odf_outputs())
         self.dotnet("build-rhah-api-and-main", "build", self.root / "Source/HungerAndHavoc.csproj")
         self.dotnet("build-guard", "build", self.root / "Guard/Source/HungerAndHavocGuard.csproj")
@@ -422,14 +433,15 @@ class Pipeline:
 
     def require_odf_outputs(self):
         for name in ("Oxygendsl.Core.dll", "Oxygendsl.Mod.dll"):
-            if not (self.oxygen / "tmp/build" / name).is_file():
+            if not (self.oxygen_build / name).is_file():
                 raise PipelineError("ODF build did not produce " + name)
         return {"required_outputs": ["Oxygendsl.Core.dll", "Oxygendsl.Mod.dll"]}
 
     def tests(self):
         if not self.built:
             self.build()
-        self.dotnet("net48-tests", "test", self.root / "Source/Tests/HungerAndHavoc.Tests.csproj", ["-p:BuildProjectReferences=false", "--logger", "trx;LogFileName=net48-tests.trx", "--results-directory", str(self.evidence.directory / "test-results")])
+        framework = "net10" if self.version == "1.7" else "net48"
+        self.dotnet(framework + "-tests", "test", self.root / "Source/Tests/HungerAndHavoc.Tests.csproj", ["-p:BuildProjectReferences=false", "--logger", "trx;LogFileName=" + framework + "-tests.trx", "--results-directory", str(self.evidence.directory / "test-results")])
 
     def ci(self):
         self.tools()
@@ -473,6 +485,7 @@ def parser():
     def options(target, defaults):
         absent = None if defaults else argparse.SUPPRESS
         target.add_argument("--rimworld-dir", default=(os.environ.get("RIMWORLD_DIR") or os.environ.get("RimWorldDir") or (r"E:\Apps\Steam\steamapps\common\RimWorld" if os.name == "nt" else "/mnt/e/Apps/Steam/steamapps/common/RimWorld")) if defaults else absent)
+        target.add_argument("--rimworld-version", choices=("1.6", "1.7"), default=os.environ.get("RIMWORLD_VERSION", "1.7") if defaults else absent)
         target.add_argument("--oxygen-dsl-dir", default=(os.environ.get("OXYGEN_DSL_DIR") or str(ROOT.parent / "Oxygen-Dsl-Framework")) if defaults else absent)
         target.add_argument("--configuration", choices=("Release", "Debug"), default=os.environ.get("CONFIGURATION", "Release") if defaults else absent)
         target.add_argument("--harmony-path", default=os.environ.get("HARMONY_PATH") if defaults else absent)

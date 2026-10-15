@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DutyDef>
+    <defName>RHAH_VisitorSeek</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="HungerAndHavoc.Pawn.JobGiver_RHAH_Visitor" />
+        <li Class="JobGiver_WanderNearDutyLocation">
+          <wanderRadius>10</wanderRadius>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>RHAH_VisitorLeave</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="HungerAndHavoc.Pawn.JobGiver_RHAH_Visitor" />
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+</Defs>

@@ -142,14 +142,18 @@ def check_about():
         errors.append("About.xml Chinese name")
     if "lezhizhong.mouse.disaster.famine" not in about:
         errors.append("About.xml incompatibleWith original")
-    if (ROOT / "1.6/Assemblies/0Harmony.dll").exists():
-        errors.append("do not ship 1.6/Assemblies/0Harmony.dll; Harmony is a mod dependency")
+    for relative in ("1.6/Assemblies/0Harmony.dll", "1.7/Assemblies/0Harmony.dll"):
+        if (ROOT / relative).exists():
+            errors.append("do not ship " + relative + "; Harmony is a mod dependency")
     if about:
         try:
             metadata = ET.fromstring(about)
         except ET.ParseError as exc:
             errors.append("invalid About.xml: " + str(exc))
         else:
+            supported = {(node.text or "").strip() for node in metadata.findall("supportedVersions/li")}
+            if not {"1.6", "1.7"}.issubset(supported):
+                errors.append("About.xml must support RimWorld 1.6 and 1.7")
             dependency_ids = {
                 (node.text or "").strip().casefold()
                 for node in metadata.findall("modDependencies/li/packageId")
@@ -170,11 +174,24 @@ def check_about():
 
 
 def check_load_folders():
-    load = read("LoadFolders.xml")
-    if "<li>Guard</li>" not in load or ">1.6</li>" not in load:
-        errors.append("LoadFolders.xml must load Guard and 1.6")
-    if "nanaloveyuki.mouse.disaster.famine.continued" not in load:
-        errors.append("LoadFolders.xml must skip body when old mods are active")
+    try:
+        load = ET.fromstring(read("LoadFolders.xml"))
+    except ET.ParseError as exc:
+        errors.append("invalid LoadFolders.xml: " + str(exc))
+        return
+    conflicts = {"lezhizhong.mouse.disaster.famine", "nanaloveyuki.mouse.disaster.famine.continued", "local.mousedisaster.greatfamine"}
+    for version, guard in (("1.6", "Guard"), ("1.7", "1.7/Guard")):
+        branch = load.find("v" + version)
+        if branch is None:
+            errors.append("LoadFolders.xml missing v" + version)
+            continue
+        entries = {(node.text or "").strip(): node for node in branch.findall("li")}
+        if guard not in entries:
+            errors.append("LoadFolders.xml must load " + guard)
+        for folder in ("/", version, "Biotech"):
+            entry = entries.get(folder)
+            if entry is None or entry.get("IfModActive") != "nanaloveyuki.oxygendsl" or not conflicts.issubset(set(entry.get("IfModNotActive", "").split(","))):
+                errors.append("LoadFolders.xml v" + version + " must gate " + folder + " on ODF and old-mod conflicts")
 
 
 def catalog_defs(catalog):
@@ -506,6 +523,8 @@ def check_required_files():
         errors.append("missing adr 0002")
     if not (ROOT / "1.6/Assemblies").is_dir():
         errors.append("missing 1.6/Assemblies")
+    if not (ROOT / "1.7/Assemblies").is_dir():
+        errors.append("missing 1.7/Assemblies")
 
 
 def main():

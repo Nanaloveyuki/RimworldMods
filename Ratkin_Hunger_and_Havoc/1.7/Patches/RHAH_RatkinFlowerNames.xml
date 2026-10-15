@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/RulePackDef[defName="RatkinKingdomNameUtility"]/rulePack/rulesFiles</xpath>
+    <value>
+      <li>RK_Noun_Prefix_Flower-&gt;Names/Noun/RHAH_FlowerNames</li>
+    </value>
+  </Operation>
+</Patch>

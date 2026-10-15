@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="BuildingBase">
+    <defName>RHAH_GrainHole</defName>
+    <label>粮洞</label>
+    <description>储粮附近出现的小洞。洞口敞着时，附近的餐食每天可能少一份，损失次数上限可在设置中调整。可以用木材堵住。</description>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>Standable</passability>
+    <fillPercent>0</fillPercent>
+    <pathCost>0</pathCost>
+    <size>(1,1)</size>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <WorkToBuild>0</WorkToBuild>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Building/Crater/2x2</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(0.8,0.8)</drawSize>
+    </graphicData>
+    <building>
+      <isInert>true</isInert>
+      <deconstructible>false</deconstructible>
+      <claimable>false</claimable>
+    </building>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+  </ThingDef>
+</Defs>

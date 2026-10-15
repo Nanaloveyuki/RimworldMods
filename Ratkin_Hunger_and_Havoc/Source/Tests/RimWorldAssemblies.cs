@@ -52,11 +52,20 @@ namespace HungerAndHavoc.Tests
             string env = Environment.GetEnvironmentVariable("RIMWORLD_DIR");
             if (!string.IsNullOrEmpty(env))
             {
+#if RIMWORLD_1_7
+                yield return env;
+#else
                 yield return Path.Combine(env, "RimWorldWin64_Data", "Managed");
+#endif
             }
 
+#if RIMWORLD_1_7
+            yield return "/mnt/e/Apps/Steam/steamapps/common/RimWorld";
+            yield return @"E:\Apps\Steam\steamapps\common\RimWorld";
+#else
             yield return "/mnt/e/Apps/Steam/steamapps/common/RimWorld/RimWorldWin64_Data/Managed";
             yield return @"E:\Apps\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed";
+#endif
             yield return AppDomain.CurrentDomain.BaseDirectory;
         }
     }

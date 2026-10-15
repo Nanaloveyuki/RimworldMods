@@ -1,6 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.6'">net48</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.7'">net10.0</TargetFramework>
+    <GenerateDependencyFile>true</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <IsPackable>false</IsPackable>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -16,8 +19,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.6'">
     <PackageReference Include="Lib.Harmony" Version="2.4.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.7'">
+    <Reference Include="0Harmony">
+      <HintPath>$(HarmonyPath)</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\HungerAndHavoc.Api.csproj" />
@@ -25,17 +34,26 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Oxygendsl.Core">
-      <HintPath>$(OxygenDslDir)/tmp/build/Oxygendsl.Core.dll</HintPath>
+      <HintPath>$(OxygenDslBuildDir)/Oxygendsl.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Oxygendsl.Mod">
-      <HintPath>$(OxygenDslDir)/tmp/build/Oxygendsl.Mod.dll</HintPath>
+      <HintPath>$(OxygenDslBuildDir)/Oxygendsl.Mod.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(RimWorldManagedDir)/Assembly-CSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.7'">
+    <Compile Remove="ModuleInitializerAttribute.cs" />
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldManagedDir)/UnityStubs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.6'">
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>True</Private>

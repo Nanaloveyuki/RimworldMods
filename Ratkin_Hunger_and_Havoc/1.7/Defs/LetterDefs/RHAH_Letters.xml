@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <LetterDef>
+    <defName>RHAH_ChoiceRequest</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Request</letterClass>
+    <color>(175, 176, 185)</color>
+    <flashColor>(160, 170, 180)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+  <LetterDef>
+    <defName>RHAH_ChoiceVisitors</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Visitors</letterClass>
+    <color>(175, 176, 185)</color>
+    <flashColor>(160, 170, 180)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+  <LetterDef>
+    <defName>RHAH_GreenIncident</defName>
+    <color>(0.68, 0.76, 0.56)</color>
+    <flashColor>(0.68, 0.76, 0.56)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+  <LetterDef>
+    <defName>RHAH_ChoiceRequestGreen</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Request</letterClass>
+    <color>(0.68, 0.76, 0.56)</color>
+    <flashColor>(0.68, 0.76, 0.56)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+  <LetterDef>
+    <defName>RHAH_ChoiceVisitorsGreen</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Visitors</letterClass>
+    <color>(0.68, 0.76, 0.56)</color>
+    <flashColor>(0.68, 0.76, 0.56)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+  <LetterDef>
+    <defName>RHAH_GrainHoleLetter</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_GrainHole</letterClass>
+    <color>(168, 176, 142)</color>
+    <flashColor>(168, 176, 142)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+  <LetterDef ParentName="ThreatBig">
+    <defName>RHAH_BanditAttackLetter</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_BanditAttack</letterClass>
+  </LetterDef>
+</Defs>

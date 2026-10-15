@@ -4,7 +4,7 @@
 面向开发者/Agent的放在开发者贡献文档或 Agents.md
 -->
 
-RimWorld 1.6 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`。
+RimWorld 1.6 / 1.7 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`。
 
 需要 NewRatkinPlus、Harmony、Biotech 和 Oxygen DSL Framework（`nanaloveyuki.oxygendsl`）。Oxygen DSL Framework 必须排在本模组前面。IrisMenus 用于分页设置。
 
@@ -139,10 +139,11 @@ The ratkin name pool now includes 179 additional real-world flower names, with C
 
 ## 结构
 
-- `1.6/`：当前版本的程序集、Def、Patch
-- `Guard/`：与旧鼠灾包冲突时只加载提示，不加载主体
+- `1.6/`：保留的 1.6 程序集、Def、Patch
+- `1.7/`：1.7 的 .NET 10 程序集、Def、Patch 与 Guard
+- `Guard/`：1.6 与旧鼠灾包冲突时只加载提示，不加载主体
 - `docs/adr/`：设计决策
-- `Source/`：SDK-style 工程，输出到 `1.6/Assemblies/`
+- `Source/`：SDK-style 工程，默认构建 1.7，输出到 `1.7/Assemblies/`
 
 其它模组请使用 `HungerAndHavoc.Api.RHAH_Api`，不要扫描经历或私有类型。
 
@@ -156,7 +157,11 @@ The ratkin name pool now includes 179 additional real-world flower names, with C
 scripts/deploy.sh
 ```
 
-脚本通过结构检查、Release 构建和测试后，部署到游戏 `Mods/RatkinHungerAndHavoc` 并核对 SHA-256。游戏目录用 `RIMWORLD_DIR`。开发自动化与 MCP 调试见 [自动化说明](docs/automation.md)。只检查仓库结构：
+脚本通过结构检查、Release 构建和测试后，部署到游戏 `Mods/RatkinHungerAndHavoc` 并核对 SHA-256。游戏目录用 `RIMWORLD_DIR`。开发自动化与 MCP 调试见 [自动化说明](docs/automation.md)。
+
+默认构建和部署 RimWorld 1.7，使用游戏根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 与对应 1.7 前置。1.6 的程序集和加载分支保留，不在 1.7 构建时重编译。显式构建 1.6 时使用 `--rimworld-version 1.6 --rimworld-dir <1.6 游戏目录>`，并通过 `--oxygen-dsl-dir` 指向保有 1.6 构建产物的 ODF 目录。
+
+只检查仓库结构：
 
 ```bash
 python3 scripts/verify-scaffold.py

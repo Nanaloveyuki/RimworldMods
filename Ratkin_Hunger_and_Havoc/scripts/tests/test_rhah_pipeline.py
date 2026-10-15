@@ -50,7 +50,7 @@ class ReleaseTests(unittest.TestCase):
     def test_package_is_strict_whitelist_and_hashes(self):
         flowers = "Languages/ChineseSimplified/Strings/Names/Noun/RHAH_FlowerNames.txt"
         write(self.root, flowers, "牡丹\n芍药\n")
-        excluded = ("1.6/Assemblies/0Harmony.dll", "Guard/Assemblies/ThirdParty.dll", "About/secret.txt", "About/token.xml", "About/.env", "Textures/Source/code.cs", "Textures/bin/fake.png", "Textures/image.pdb", "Languages/English/credentials/key.xml", "Languages/English/notes.txt", "Languages/English/Strings/secret.txt", "tmp/automation/private.json", "Source/private.cs")
+        excluded = ("1.6/Assemblies/0Harmony.dll", "1.7/Assemblies/0Harmony.dll", "1.7/Guard/Assemblies/ThirdParty.dll", "Guard/Assemblies/ThirdParty.dll", "About/secret.txt", "About/token.xml", "About/.env", "Textures/Source/code.cs", "Textures/bin/fake.png", "Textures/image.pdb", "Languages/English/credentials/key.xml", "Languages/English/notes.txt", "Languages/English/Strings/secret.txt", "tmp/automation/private.json", "Source/private.cs")
         for path in excluded:
             write(self.root, path)
         archive, manifest_path, manifest = pipeline.make_package(self.root, self.base / "package", "v1.2.3")
@@ -337,6 +337,22 @@ class CliTests(unittest.TestCase):
         for argv in (["--configuration", "Debug", "build"], ["build", "--configuration", "Debug"]):
             self.assertEqual(pipeline.parser().parse_args(argv).configuration, "Debug")
 
+    def test_version_selects_runtime_references_without_touching_legacy_outputs(self):
+        for version in ("1.6", "1.7"):
+            with self.subTest(version=version):
+                args = pipeline.parser().parse_args(["build", "--rimworld-version", version])
+                evidence = mock.Mock()
+                instance = pipeline.Pipeline(args, evidence=evidence)
+                expected = instance.rimworld if version == "1.7" else instance.rimworld / "RimWorldWin64_Data/Managed"
+                self.assertEqual(instance.managed, expected)
+                self.assertIn("/" + version + "/Assemblies/0Harmony.dll", instance.harmony.as_posix())
+                instance.dotnet("build", "build", Path("Source/HungerAndHavoc.csproj"))
+                self.assertIn("-p:RimWorldVersion=" + version, evidence.run.call_args.args[1])
+
+    def test_default_game_version_is_17(self):
+        with mock.patch.dict(os.environ, {"RIMWORLD_VERSION": "1.7"}):
+            self.assertEqual(pipeline.parser().parse_args(["build"]).rimworld_version, "1.7")
+
     def test_no_skip_gate_option(self):
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
             pipeline.parser().parse_args(["deploy", "--skip-checks"])
@@ -359,6 +375,8 @@ class CliTests(unittest.TestCase):
             instance.check()
             self.assertTrue((root / "1.6/Assemblies").is_dir())
             self.assertTrue((root / "Guard/Assemblies").is_dir())
+            self.assertTrue((root / "1.7/Assemblies").is_dir())
+            self.assertTrue((root / "1.7/Guard/Assemblies").is_dir())
             self.assertIn("verify-scaffold.py", evidence.run.call_args.args[1][1])
 
 

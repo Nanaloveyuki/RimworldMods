@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <FactionDef Name="RHAH_AttitudeFactionBase" Abstract="True">
+    <pawnSingular>鼠族</pawnSingular>
+    <pawnsPlural>鼠族</pawnsPlural>
+    <categoryTag>RHAH_Famine</categoryTag>
+    <humanlikeFaction>true</humanlikeFaction>
+    <hidden>true</hidden>
+    <displayInFactionSelection>false</displayInFactionSelection>
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>
+    <maxConfigurableAtWorldCreation>0</maxConfigurableAtWorldCreation>
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <settlementGenerationWeight>0</settlementGenerationWeight>
+    <canGenerateQuestSites>false</canGenerateQuestSites>
+    <canRequestTraders>false</canRequestTraders>
+    <canRequestMilitaryAid>false</canRequestMilitaryAid>
+    <canRequestOrbitalTrader>false</canRequestOrbitalTrader>
+    <rescueesCanJoin>false</rescueesCanJoin>
+    <mustStartOneEnemy>false</mustStartOneEnemy>
+    <raidsForbidden>true</raidsForbidden>
+    <canSiege>false</canSiege>
+    <canStageAttacks>false</canStageAttacks>
+    <canPsychicRitualSiege>false</canPsychicRitualSiege>
+    <permanentEnemy>false</permanentEnemy>
+    <hostileToFactionlessHumanlikes>false</hostileToFactionlessHumanlikes>
+    <techLevel>Neolithic</techLevel>
+    <factionIconPath>Icon/RK_icon</factionIconPath>
+    <basicMemberKind>Colonist</basicMemberKind>
+    <raidLootValueFromPointsCurve>
+      <points>
+        <li>(0, 0)</li>
+      </points>
+    </raidLootValueFromPointsCurve>
+    <backstoryFilters>
+      <li>
+        <categories>
+          <li>Outlander</li>
+        </categories>
+      </li>
+    </backstoryFilters>
+    <allowedArrivalTemperatureRange>-1000~1000</allowedArrivalTemperatureRange>
+  </FactionDef>
+
+  <FactionDef ParentName="RHAH_AttitudeFactionBase">
+    <defName>RHAH_Faction_Hostile</defName>
+    <label>敌对的饥荒鼠族</label>
+    <fixedName>敌对的饥荒鼠族</fixedName>
+    <description>这些鼠族逃离了被灾荒毁掉的定居点，存粮所剩无几。他们对殖民地抱有敌意，可能攻击殖民者。</description>
+    <naturalEnemy>true</naturalEnemy>
+  </FactionDef>
+
+  <FactionDef ParentName="RHAH_AttitudeFactionBase">
+    <defName>RHAH_Faction_LeaningHostile</defName>
+    <label>警惕的饥荒鼠族</label>
+    <fixedName>警惕的饥荒鼠族</fixedName>
+    <description>这些鼠族逃离了被灾荒毁掉的定居点。他们警惕地观察殖民地；殖民者伤害其中一人，同行的来客可能一起转为敌对。</description>
+    <naturalEnemy>false</naturalEnemy>
+  </FactionDef>
+
+  <FactionDef ParentName="RHAH_AttitudeFactionBase">
+    <defName>RHAH_Faction_Neutral</defName>
+    <label>饥荒鼠族</label>
+    <fixedName>饥荒鼠族</fixedName>
+    <description>这些鼠族逃离了被灾荒毁掉的定居点。有的来乞讨，有的偷窃，有的只是路过。他们目前对殖民地保持中立；强行驱逐可能使同行的来客一起转为敌对。</description>
+    <naturalEnemy>false</naturalEnemy>
+  </FactionDef>
+
+  <FactionDef ParentName="RHAH_AttitudeFactionBase">
+    <defName>RHAH_Faction_LeaningFriendly</defName>
+    <label>愿意靠近的饥荒鼠族</label>
+    <fixedName>愿意靠近的饥荒鼠族</fixedName>
+    <description>这些鼠族逃离了被灾荒毁掉的定居点，愿意接近殖民地寻求食物。殖民者伤害其中一人时，同行的来客可能一起离开。</description>
+    <naturalEnemy>false</naturalEnemy>
+  </FactionDef>
+
+  <FactionDef ParentName="RHAH_AttitudeFactionBase">
+    <defName>RHAH_Faction_Friendly</defName>
+    <label>友善的饥荒鼠族</label>
+    <fixedName>友善的饥荒鼠族</fixedName>
+    <description>这些鼠族逃离了被灾荒毁掉的定居点，对殖民地抱有善意。你划出赈灾区后，他们会在那里寻找食物。殖民者伤害其中一人时，同行的来客可能一起离开。</description>
+    <naturalEnemy>false</naturalEnemy>
+  </FactionDef>
+</Defs>

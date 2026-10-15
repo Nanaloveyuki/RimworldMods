@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <LetterDef>
+    <defName>RHAH_KingdomArcLetter</defName>
+    <letterClass>HungerAndHavoc.Storyteller.Suiyin.ChoiceLetter_RHAH_KingdomArc</letterClass>
+    <color>(0.82, 0.72, 0.55)</color>
+  </LetterDef>
+</Defs>

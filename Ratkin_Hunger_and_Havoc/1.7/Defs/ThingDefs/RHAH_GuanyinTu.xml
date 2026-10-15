@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="MealBaseIngredientless">
+    <defName>RHAH_GuanyinTu</defName>
+    <label>观音土</label>
+    <description>石块磨成的土团，只有少量营养，吃下后能暂时减缓饥饿。吃到摄入上限后，需要等一段时间才能再吃观音土；上限和间隔可在设置中调整。</description>
+    <graphicData>
+      <texPath>Things/Item/RHAH_GuanyinTu</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.2</MarketValue>
+      <Mass>0.2</Mass>
+      <Nutrition>0.1</Nutrition>
+    </statBases>
+    <ingestible>
+      <foodType>Meal</foodType>
+      <preferability>MealAwful</preferability>
+      <ingestEffect>EatVegetarian</ingestEffect>
+      <ingestSound>Meal_Eat</ingestSound>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <defaultNumToIngestAtOnce>1</defaultNumToIngestAtOnce>
+      <optimalityOffsetHumanlikes>-40</optimalityOffsetHumanlikes>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Forbiddable" />
+      <li Class="HungerAndHavoc.Pawn.CompProperties_RHAH_Clay" />
+    </comps>
+    <tradeability>None</tradeability>
+  </ThingDef>
+
+  <RecipeDef>
+    <defName>RHAH_MakeGuanyinTu</defName>
+    <label>磨观音土</label>
+    <description>把一块石块磨成三份观音土。</description>
+    <jobString>磨观音土。</jobString>
+    <workAmount>1600</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>CutStone</effectWorking>
+    <soundWorking>Recipe_MakeStoneBlocks</soundWorking>
+    <workSkill>Crafting</workSkill>
+    <workSkillLearnFactor>0</workSkillLearnFactor>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>StoneChunks</li>
+          </categories>
+          <disallowedThingDefs>
+            <li>ChunkSlagSteel</li>
+          </disallowedThingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>StoneChunks</li>
+      </categories>
+      <disallowedThingDefs>
+        <li>ChunkSlagSteel</li>
+      </disallowedThingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <RHAH_GuanyinTu>3</RHAH_GuanyinTu>
+    </products>
+    <recipeUsers>
+      <li>TableStonecutter</li>
+    </recipeUsers>
+  </RecipeDef>
+</Defs>

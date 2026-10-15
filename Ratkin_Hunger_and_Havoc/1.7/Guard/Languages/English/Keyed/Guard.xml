@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Guard_DuplicateTitle>Ratkin: Hunger and Havoc was not fully loaded</RHAH_Guard_DuplicateTitle>
+  <RHAH_Guard_DuplicateBody>An older Great Famine Year mod is also enabled. Hunger and Havoc did not load its content this session, and it did not disable the other mod.\n\nEnable only one of them, then restart RimWorld. Do not load or save a game before the restart. Hunger and Havoc cannot read those older saves.</RHAH_Guard_DuplicateBody>
+  <RHAH_Guard_OxygenRequiredTitle>Ratkin: Hunger and Havoc — missing dependency</RHAH_Guard_OxygenRequiredTitle>
+  <RHAH_Guard_OxygenRequiredBody>This mod requires Oxygen DSL Framework to work properly. You can download it from the Steam Workshop. I'm sorry for adding another dependency along the way, but it is needed for the mod's gameplay performance. Thank you for understanding.</RHAH_Guard_OxygenRequiredBody>
+</LanguageData>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="ResourceBase">
+    <defName>RHAH_KingdomMaterial</defName>
+    <label>王国文书</label>
+    <description>一份带有来源与编号的文书。抄件、声明和现场记录分别说明写信者的说法与亲眼核验的部分。</description>
+    <thingClass>ThingWithComps</thingClass>
+    <graphicData><texPath>Things/Item/Unfinished/UnfinishedComponent</texPath><graphicClass>Graphic_Single</graphicClass></graphicData>
+    <stackLimit>1</stackLimit>
+    <statBases><MaxHitPoints>60</MaxHitPoints><Mass>0.05</Mass><MarketValue>0</MarketValue><Flammability>1</Flammability></statBases>
+    <comps><li Class="HungerAndHavoc.Storyteller.Suiyin.CompProperties_RHAH_KingdomMaterial" /></comps>
+  </ThingDef>
+</Defs>

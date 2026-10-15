@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorldObjectDef>
+    <defName>RHAH_KingdomSite</defName>
+    <label>王国会面地点</label>
+    <description>这处地点接待约好的远行队。抵达后可开始核验、观察、核对名单或接应。</description>
+    <worldObjectClass>HungerAndHavoc.Storyteller.Suiyin.WorldObject_RHAH_KingdomSite</worldObjectClass>
+    <texture>World/WorldObjects/Settlement</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>World/WorldObjects/Expanding/Settlement</expandingIconTexture>
+    <expandingIconPriority>60</expandingIconPriority>
+    <validLaunchTarget>false</validLaunchTarget>
+  </WorldObjectDef>
+</Defs>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <LetterDef>
+    <defName>RHAH_RevisitLetter</defName>
+    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Revisit</letterClass>
+    <color>(168, 176, 142)</color>
+    <flashColor>(168, 176, 142)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+</Defs>

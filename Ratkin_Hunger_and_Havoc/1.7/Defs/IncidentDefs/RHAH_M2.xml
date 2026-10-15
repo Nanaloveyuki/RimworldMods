@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <IncidentDef><defName>RHAH_AidSimpleMeal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_AidFineMeal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_AidMedicine</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_AidSilver</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_AidBaby</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelTreasureSimpleMeal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelTreasureHerbal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelTreasureSilver</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelStructureSimpleMeal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelStructureHerbal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelStructureSilver</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelSettlementSimpleMeal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelSettlementHerbal</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_IntelSettlementSilver</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_LaboringRefugees</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_StrongSiege</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_Passersby</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_AirdropMistake</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_MisguidedKinship</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_GreatFamine</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_CaravanMuggers</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Caravan</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueWanderers</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueAbandonedBabies</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueTraderCaravan</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlaguePassersby</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueRefugees</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueOrphan</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueBeggarGroup</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueThiefGroup</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueLaboringRefugees</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueStrongSiege</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueAirdropMistake</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueMisguidedKinship</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueGreatFamine</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueCaravanMuggers</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Caravan</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PlagueRevenge</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_RefugeeMassacre</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_Sequel</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_MouseSwarm</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_MouseSwarm</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_PleadingJoin</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_PleadingJoin</workerClass><category>Misc</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <IncidentDef><defName>RHAH_BanditAttack</defName><workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_BanditAttack</workerClass><category>ThreatBig</category><targetTags><li>Map_PlayerHome</li></targetTags><baseChance>0</baseChance></IncidentDef>
+  <QuestScriptDef>
+    <defName>RHAH_RefugeeMassacre</defName>
+    <root Class="HungerAndHavoc.Incidents.QuestNode_RHAH_RefugeeCamp" />
+    <expireDaysRange>15</expireDaysRange>
+    <questNameRules>
+      <rulesStrings>
+        <li>questName->清掉鼠族营地</li>
+      </rulesStrings>
+    </questNameRules>
+    <questDescriptionRules>
+      <rulesStrings>
+        <li>questDescription->[sponsorName]说附近有一处鼠族临时营地，可能威胁他们的定居点。他们要你在 [campDays] 天内杀掉那里的全部灾民，以防止他们所说的“鼠灾狂潮”。完成后，双方好感变化 [campGoodwill] 点。\n\n营地预计有 [campMinAdults] 到 [campMaxAdults] 名成年鼠族，以及 [campMinChildren] 到 [campMaxChildren] 名鼠蛋。没有炮台，也没有电力，但大人可能带着武器，附近也可能出现捕食者。只击倒或俘虏，不算完成。</li>
+      </rulesStrings>
+    </questDescriptionRules>
+  </QuestScriptDef>
+  <WorldObjectDef ParentName="StaticWorldObjectBase">
+    <defName>RHAH_RefugeeCamp</defName>
+    <label>临时安居点</label>
+    <worldObjectClass>HungerAndHavoc.Incidents.WorldObject_RHAH_RefugeeCamp</worldObjectClass>
+    <mapGenerator>RHAH_RefugeeCamp</mapGenerator>
+    <expandingIcon>true</expandingIcon>
+    <comps>
+      <li Class="WorldObjectCompProperties_FormCaravan" />
+      <li Class="WorldObjectCompProperties_EnterCooldown" />
+    </comps>
+    <IncidentTargetTags><li>Map_Misc</li></IncidentTargetTags>
+  </WorldObjectDef>
+  <SitePartDef>
+    <defName>RHAH_RefugeeCamp</defName>
+    <label>临时安居点</label>
+    <description>一群鼠族在这处营地搭了木屋。</description>
+    <siteTexture>World/WorldObjects/DefaultSettlement</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/Camp</expandingIconTexture>
+    <disallowsAutomaticDetectionTimerStart>true</disallowsAutomaticDetectionTimerStart>
+    <considerEnteringAsAttack>false</considerEnteringAsAttack>
+  </SitePartDef>
+  <MapGeneratorDef>
+    <defName>RHAH_RefugeeCamp</defName>
+    <genSteps>
+      <li>ElevationFertility</li>
+      <li>Terrain</li>
+      <li>RocksFromGrid_NoMinerals</li>
+      <li>RHAH_RefugeeCamp</li>
+      <li>FindPlayerStartSpot</li>
+      <li>Plants</li>
+      <li>Snow</li>
+      <li>Animals</li>
+      <li>Fog</li>
+    </genSteps>
+  </MapGeneratorDef>
+  <GenStepDef>
+    <defName>RHAH_RefugeeCamp</defName>
+    <order>450</order>
+    <genStep Class="HungerAndHavoc.Incidents.GenStep_RHAH_RefugeeCamp" />
+  </GenStepDef>
+</Defs>

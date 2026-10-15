@@ -9,8 +9,8 @@
 | `make doctor` | 查看工具链、游戏、ODF 与发布版本前置条件 |
 | `make check` | 结构、Def、语言键、API 与存档归属静态门禁 |
 | `make tools-test` | 离线运行自动化工具的行为测试 |
-| `make build` | Release 构建 ODF、主体及其 API、Guard |
-| `make test` | 构建并运行现有 net48 测试 |
+| `make build` | Release 构建 1.7 ODF、主体及其 API、Guard；保留 1.6 产物 |
+| `make test` | 构建并运行所选游戏版本的测试（默认 .NET 10） |
 | `make ci` | 工具测试、静态检查、完整构建和游戏契约测试 |
 | `make package` | 完整 CI 通过后制作发布 zip 和 SHA-256 清单 |
 | `make deploy` | 完整 CI 通过后安全同步到本机 Mods |
@@ -33,7 +33,7 @@ python3 scripts/rhah.py logs --match 'HungerAndHavoc.*Exception|RHAH_' --limit 5
 
 `build` 不是完整门禁；只有完整 CI 成功才允许部署或打包。没有绕过检查的发布参数。发布版要求 `About/About.xml` 的 `modVersion` 与主体项目 `Version` 一致，tag 必须是对应的 `v<版本>`；API 的独立契约版本、稳定 `AssemblyVersion` 不随内容版本强制改变。版本不一致时报告失败，不自动修改版本号。
 
-环境覆盖：`RIMWORLD_DIR`（也接受 `RimWorldDir`）、`OXYGEN_DSL_DIR`、`CONFIGURATION`、`HARMONY_PATH`。ODF 默认使用 monorepo 内同级的 `Oxygen-Dsl-Framework/` 目录，路径由 RHAH 源码位置推导，不依赖 checkout 的绝对位置；完整 CI 先构建该目录的 `Source/Mod/Oxygendsl.Mod.csproj`。受保护 runner 默认使用本次审核的同一 checkout；只有需要独立依赖时才设置 `OXYGEN_DSL_DIR`，该外部源码也必须先审核。
+环境覆盖：`RIMWORLD_DIR`（也接受 `RimWorldDir`）、`RIMWORLD_VERSION`（默认 `1.7`）、`OXYGEN_DSL_DIR`、`CONFIGURATION`、`HARMONY_PATH`。命令行可用 `--rimworld-version 1.6` 显式选择旧版，必须提供对应 1.6 游戏目录和保有旧版 `tmp/build` 产物的 ODF 目录；1.7 构建不重编译 1.6。ODF 默认使用 monorepo 内同级的 `Oxygen-Dsl-Framework/` 目录；1.7 CI 先构建该目录的 `Source/Mod/Oxygendsl.Mod.csproj`，引用 `tmp/build/1.7/` 产物。1.7 游戏程序集来自游戏根目录，Harmony 与可选 IrisMenus 使用各自 `1.7/Assemblies`。受保护 runner 默认使用本次审核的同一 checkout；独立依赖设置 `OXYGEN_DSL_DIR` 时也必须先审核外部源码。
 
 ## CI/CD
 
@@ -45,7 +45,7 @@ python3 scripts/rhah.py logs --match 'HungerAndHavoc.*Exception|RHAH_' --limit 5
 
 完整工作流可选择 `ci`、`package`、`deploy`、`release`。`runtime_smoke` 只允许与 `deploy` 一起启用，确保游戏观察的是本次部署；它启动独立 profile、创建新测试地图、执行只读场景，最后只停止该 profile 拥有的进程。已有测试游戏仍运行时拒绝接管。未启用时不声称通过运行时验收。`release` 要求既有 `v<版本>` tag 正好指向默认分支本次 checkout 的 HEAD，完整门禁成功后才经 `rhah-release` 发布 GitHub Release。当前只有 RHAH 发布工作流，`v<版本>` 对应 RHAH 的版本，并非各项目的统一版本。
 
-发布与部署共用本地门禁。发布产物只包含 `About`、语言、Guard、`1.6`、Biotech、纹理、加载配置与许可证等白名单内容；三个本模组 DLL 必须存在。第三方程序集、PDB、源码、存档、发现令牌和原始测试日志不得入包或公共 artifact。私有游戏文件、登录凭据及玩家存档只留在本机，不上传 CI 或 Release。需要 Steam Workshop 发布时，仍通过游戏的 Workshop 上传流程，不在 CI 中保存 Steam 登录凭据。
+发布与部署共用本地门禁。发布产物只包含 `About`、语言、Guard、`1.6`、`1.7`、Biotech、纹理、加载配置与许可证等白名单内容；两版各三个本模组 DLL 必须存在。第三方程序集、PDB、源码、存档、发现令牌和原始测试日志不得入包或公共 artifact。私有游戏文件、登录凭据及玩家存档只留在本机，不上传 CI 或 Release。需要 Steam Workshop 发布时，仍通过游戏的 Workshop 上传流程，不在 CI 中保存 Steam 登录凭据。
 
 语言发布内容包括 XML 和 `Languages/<语言>/Strings/**/*.txt` 姓名库；其它语言目录中的文本文件不入包。漏发 `Strings` 文本会导致姓名规则找不到词库，不能只同步语言 XML。
 

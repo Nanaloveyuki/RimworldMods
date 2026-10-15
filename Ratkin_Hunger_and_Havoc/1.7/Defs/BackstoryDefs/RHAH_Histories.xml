@@ -1,0 +1,1719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <BackstoryDef>
+    <defName>RHAH_History_A001_FleeingTenantFarmer</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 逃难佃户</title>
+    <titleShort>饥与祸 佃户</titleShort>
+    <description>[PAWN_nameDef]一家替鼠族贵族种地，交完租子，剩下的粮食只够吃个半饱。战乱烧到田边后，连赖以谋生的土地也保不住了。[PAWN_pronoun]随难民离开了祖辈耕种的土地。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A002_DroughtFieldWatcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 旱田农户</title>
+    <titleShort>饥与祸 农户</titleShort>
+    <description>[PAWN_nameDef]守着家乡最后几畦旱田，连年等不到雨，刚发芽的种子就被晒死。地主照旧催收粮食和谷种。[PAWN_pronoun]最后和其他佃户一起提着空袋离开，田里已没什么可守的了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A003_ScavengerOfFallowFields</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 荒田拾穗者</title>
+    <titleShort>饥与祸 拾穗者</titleShort>
+    <description>征粮的人还没来，[PAWN_nameDef]家里就已经断炊，照看的田地也长满了杂草。夜里去荒田拾穗，又会被鼠群和巡粮队追赶。[PAWN_pronoun]离乡时，身上只剩些捡来的零散谷种。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A004_FamineHerdTender</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 灾年牧工</title>
+    <titleShort>饥与祸 牧工</titleShort>
+    <description>[PAWN_nameDef]替牧场照料牲畜。灾年里，牧场主先卖掉一批，又把剩下的大半交作军粮。围栏里只剩几头牲畜，[PAWN_pronoun]便牵着它们随难民去找草地。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A005_DroughtWellWaterCarrier</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 旱村挑水工</title>
+    <titleShort>饥与祸 挑水工</titleShort>
+    <description>[PAWN_nameDef]在村井边挑水换粮，夏末井底见了泥，取水的路一天比一天远。几个村落又为水源打了起来。[PAWN_pronoun]背着空桶，随取水队离开了旧井。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A006_GranaryBookkeeper</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 粮仓账房</title>
+    <titleShort>饥与祸 账房</titleShort>
+    <description>[PAWN_nameDef]在粮仓管账，清点时发现账上的粮袋比仓里的多得多。管事人却打算把亏空推到[PAWN_objective]身上。追责前，[PAWN_pronoun]带着抄下的账目逃出了粮仓。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A007_MoldyGrainSifter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 霉粮筛工</title>
+    <titleShort>饥与祸 筛工</titleShort>
+    <description>[PAWN_nameDef]在粮坊筛粮，原本该丢掉的霉谷，到了荒年也被混进配给。看见孩子领到坏粮，[PAWN_pronoun]不肯再替粮坊隐瞒。差事和住处都没了，只好随外逃的人离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A008_OrphanedMillhand</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 被弃的磨工</title>
+    <titleShort>饥与祸 磨工</titleShort>
+    <description>[PAWN_nameDef]在磨坊做工，主人欠下粮债，夜里一走了之，留下快散架的石磨和没结的工钱。等不到雇主回来，[PAWN_pronoun]便拆下还能用的工具，去别的营地找活。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A009_GranaryCarpenter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 粮仓木匠</title>
+    <titleShort>饥与祸 木匠</titleShort>
+    <description>[PAWN_nameDef]替村里修粮仓，仓壁早被鼠群啃空，地主却把木料留给自家屋顶。暴雨冲塌粮仓那晚，帮工们连工棚也没保住。[PAWN_pronoun]和他们一起离了村。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A010_RagStitcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 旧衣裁缝</title>
+    <titleShort>饥与祸 裁缝</titleShort>
+    <description>织坊停工，布匹又被征走，[PAWN_nameDef]靠拆补旧衣换粮。穷人没有新布，只能把旧衣拆了再缝。一场火连剩下的布料和住处也烧掉后，[PAWN_pronoun]收起针线，跟着难民离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A011_DiseasedHideTanner</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 灾年鞣皮工</title>
+    <titleShort>饥与祸 鞣皮工</titleShort>
+    <description>[PAWN_nameDef]替猎场鞣皮，贵族封山后，皮张便没了稳定来路。寒冬里，连病死牲畜的皮也得拿来换粮。这份活最后也断了，[PAWN_pronoun]便随商队离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A012_HerbSorter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 接班的草药师</title>
+    <titleShort>饥与祸 草药师</titleShort>
+    <description>[PAWN_nameDef]原本只是采药帮工。鼠疫初起，村中药师病死，只留下缺页的草药记录。为了给家人退热，[PAWN_pronoun]接过药篮，也接了隔离棚的差事；病棚关闭后，却一并被赶出了村。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A013_KilnWatcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 熄火的窑工</title>
+    <titleShort>饥与祸 窑工</titleShort>
+    <description>[PAWN_nameDef]替地主守了一冬天砖窑，窑里的燃料却越来越少，工人也没了安身处。窑火熄灭后，[PAWN_pronoun]带着熏得发黑的双手离开，在各处避难所找修屋的活。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A014_NightFamineEscapee</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 夜逃的饥民</title>
+    <titleShort>饥与祸 饥民</titleShort>
+    <description>家乡连年歉收，最后一袋粮分给老人和孩子后，[PAWN_nameDef]也没了吃的。村里开始封门抢粮的那晚，[PAWN_pronoun]背起旧水袋，趁夜离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A015_RiverbankBridgeBuilder</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 搭桥的船匠</title>
+    <titleShort>饥与祸 船匠</titleShort>
+    <description>[PAWN_nameDef]在河边替人修船。洪水冲断木桥，把逃难队伍困在河滩，[PAWN_pronoun]便临时搭出一座摇摇欲坠的桥，让家人渡河。水退以后，故乡已经空了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A016_RuinedVillageSearcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 废村拾荒者</title>
+    <titleShort>饥与祸 拾荒者</titleShort>
+    <description>[PAWN_nameDef]一次次回到被劫掠的村子，翻找锅、布和还能播种的种子。后来巡逻者封了旧路，连这点东西也找不到了。[PAWN_pronoun]才随其他难民离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A017_SnowpathGuide</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 雪路向导</title>
+    <titleShort>饥与祸 向导</titleShort>
+    <description>[PAWN_nameDef]给商队认路，提前到来的冬雪却封住山道，把一支难民队伍困在雪地里。连回家的路也找不到时，[PAWN_pronoun]只能凭脚印和风向，带他们穿过荒野。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A018_DustwayPorter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 旱路脚夫</title>
+    <titleShort>饥与祸 脚夫</titleShort>
+    <description>[PAWN_nameDef]在商队搬货，穿过旱地时，水袋被抢，驮兽接连倒下。为了等雇主结清拖欠的工钱，[PAWN_pronoun]继续照料余下的驮兽。商队解散后，也只能牵着它们继续走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A019_CampNightWatch</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 营地守夜人</title>
+    <titleShort>饥与祸 守夜人</titleShort>
+    <description>[PAWN_nameDef]寄住的营地连续几夜遭人盗粮，原来的守卫带着武器跑了。混乱中，[PAWN_pronoun]接下守夜和报信的差事。营地迁走后，到了新队伍里也照样留心夜里的动静。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A020_LostAtTheCheckpoint</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 关卡失亲者</title>
+    <titleShort>饥与祸 失亲者</titleShort>
+    <description>[PAWN_nameDef]带家人经过征粮税的关卡，没有凭证的难民随时会被扣下。一次绕行失败，家人就此失散。[PAWN_pronoun]记住了巡查时辰，后面的路却只能独自走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A021_OldMapmaker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 驿站绘图员</title>
+    <titleShort>饥与祸 绘图员</titleShort>
+    <description>[PAWN_nameDef]替驿站画路线，仓库失火，把旧地图烧了个干净。逃难的人只能认残破路标，[PAWN_pronoun]便把记得的道路画在布片上，被众人推作向导。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A022_KinSeekingExile</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 寻亲流民</title>
+    <titleShort>饥与祸 寻亲者</titleShort>
+    <description>难民被强制分流时，[PAWN_nameDef]与家人拆散了，临时名册又被雨水泡烂。[PAWN_pronoun]沿途寻着营火打听名字，始终没有找到亲人，便随着一个个迁移的营地继续找。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A023_RefugeeConvoyGuide</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 难民领队</title>
+    <titleShort>饥与祸 领队</titleShort>
+    <description>[PAWN_nameDef]原本不是领队。抢粮冲突中，旧领队死了，下一处水源的消息也断了，众人便推[PAWN_objective]来定路线、分口粮。后来队伍散了，[PAWN_pronoun]还带着愿意跟随的人往前走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A024_ShackRepairer</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 废屋修补匠</title>
+    <titleShort>饥与祸 修补匠</titleShort>
+    <description>[PAWN_nameDef]家的墙被鼠群啃穿，暴雨又压塌屋梁，可用的木料却被征去修粮仓。[PAWN_pronoun]靠修补废屋换粮，直到再也换不到吃的，只得随难民去找下一处住屋。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A025_DisasterBurier</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 灾荒掩埋工</title>
+    <titleShort>饥与祸 掩埋工</titleShort>
+    <description>[PAWN_nameDef]在灾荒最重的村路上清尸掩埋，病死者和无人认领的尸体多得没人敢靠近。聚落却因[PAWN_pronoun]接触过疫病，把[PAWN_objective]赶了出去。到了迁徙队伍里，这份脏活仍得有人做。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A026_GrainPetitionSpeaker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 讨粮说客</title>
+    <titleShort>饥与祸 说客</titleShort>
+    <description>[PAWN_nameDef]替村里去粮仓讨应得的配给，每谈一次，却都得再交一笔通行费。村子拒缴后，被断了粮。[PAWN_pronoun]带着名单和空碗，转到陌生聚落一家家求粮。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A027_ReliefGoodsBroker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 灾年掮客</title>
+    <titleShort>饥与祸 掮客</titleShort>
+    <description>[PAWN_nameDef]在集市替人换物，粮价暴涨后，货物一夜之间没了准价。为了给家人换到药和种子，[PAWN_pronoun]跟着不同的难民队伍奔走，最后连自己的铺位也丢了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A028_EscapedLedgerCopyist</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 流亡书吏</title>
+    <titleShort>饥与祸 书吏</titleShort>
+    <description>[PAWN_nameDef]抄写户籍和粮册，存放账本的屋子失火时，只抢出了几页纸。迁徙路上，[PAWN_pronoun]继续给没有凭证的人登记姓名和粮债。每到一个聚落，却都被当成可疑的外人。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A029_ReliefCook</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 临时厨子</title>
+    <titleShort>饥与祸 厨子</titleShort>
+    <description>[PAWN_nameDef]原本在公共厨房打杂，鼠疫夺走厨子后，剩下的粮食没人敢分。为了让孩子先吃上一口，[PAWN_pronoun]接下了做饭分粮的活。厨房关闭时，也随难民离开了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A030_InfirmaryCaretaker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 伤棚看护</title>
+    <titleShort>饥与祸 看护</titleShort>
+    <description>[PAWN_nameDef]本来只照顾家里的病弱者，粮仓冲突却把一营伤员推到了面前。临时营地缺医少药，[PAWN_pronoun]只得学着清创换药。营地被驱散后，便带着这点没学全的医术上路。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A031_RatEggCaretaker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 鼠蛋看护</title>
+    <titleShort>饥与祸 看护</titleShort>
+    <description>[PAWN_nameDef]在逃难队伍里轮流抱孩子，后来自己的家人也病倒在路边。队伍抛下病人和幼崽时，[PAWN_pronoun]带着还能走的鼠蛋离开。此后，大人说会回来，[PAWN_pronoun]也不敢轻信。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A032_NightStoryteller</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 营地说书人</title>
+    <titleShort>饥与祸 说书人</titleShort>
+    <description>[PAWN_nameDef]是个会讲旧故事的纺线工，营地的孩子被饥饿和警报闹得整夜睡不着。在夜里迁营的路上，[PAWN_pronoun]给孩子们讲故事，陪着他们继续走，就这样留在了难民队伍里。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A033_SealedVillageMessenger</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 封村信使</title>
+    <titleShort>饥与祸 信使</titleShort>
+    <description>[PAWN_nameDef]靠送信换粮养家。几座村落被封锁后，步行的信使成了仅有的消息通道。巡逻队截断回程那天，[PAWN_pronoun]回不了家，只能继续替别的营地送信。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A034_MarketSackPorter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 集市搬运工</title>
+    <titleShort>饥与祸 搬运工</titleShort>
+    <description>[PAWN_nameDef]在集市搬货谋生，集市倒闭后，雇主拖着工钱不发。为了躲开哄抢，[PAWN_pronoun]替货主把粮袋搬进临时营地。货主却在夜里逃走，只好与留下的难民一起转移。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A035_UsedGoodsAppraiser</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 旧货估价人</title>
+    <titleShort>饥与祸 估价人</titleShort>
+    <description>[PAWN_nameDef]靠替旧锅和工具估价，给家里换口粮。灾荒一来，大家却只认粮食了。几次换粮后，抢劫又夺走最后的家当，[PAWN_pronoun]空着手离开了集市。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A036_RationMediator</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 分粮调停人</title>
+    <titleShort>饥与祸 调停人</titleShort>
+    <description>[PAWN_nameDef]曾在村里调解灌溉用水的争执，两支难民队伍争粮时，便被推出来调停。粮仓前的争执还是失了控。[PAWN_pronoun]带着少数愿意听解释的人离开，另找去处。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A037_RationTicketKeeper</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 粮票保管员</title>
+    <titleShort>饥与祸 粮票保管员</titleShort>
+    <description>[PAWN_nameDef]保管粮票，票上承诺的一周口粮，却被发粮的人扣了下来。[PAWN_pronoun]不肯替他们改账，被赶出了发粮所。离开时，手里只有一小叠已经兑不了粮的票。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A038_GranaryRefuser</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 拒命仓卫</title>
+    <titleShort>饥与祸 仓卫</titleShort>
+    <description>[PAWN_nameDef]受雇守粮仓，以为要防的是外来的盗粮者。仓主却偷偷转走存粮，把饥民锁在里面。[PAWN_pronoun]不肯继续看门，最后与被抛弃的守卫一起成了难民。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A039_HomeboundDeserter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 返乡逃兵</title>
+    <titleShort>饥与祸 逃兵</titleShort>
+    <description>[PAWN_nameDef]被征进一支缺粮的队伍，军官却独占最后的粮袋。撤退时，[PAWN_pronoun]丢下武器回去找家人。部队把[PAWN_objective]列为逃兵，家乡的村子也已经空了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A040_CampTrapSetter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 营地设陷者</title>
+    <titleShort>饥与祸 设陷者</titleShort>
+    <description>野兽和盗粮者夜夜来袭，旧围栏挡不住，[PAWN_nameDef]便在营地外布陷阱。营地被烧毁后，[PAWN_pronoun]还靠打猎时学来的设陷手艺，在迁徙路上保护自己。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A041_GrainThiefOutcast</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 被排斥的盗粮者</title>
+    <titleShort>饥与祸 盗粮者</titleShort>
+    <description>[PAWN_nameDef]跟一群饿疯的鼠族抢粮，进了仓库，分赃又很快变成内斗。[PAWN_pronoun]虽然逃出来，别的聚落却都把[PAWN_objective]当盗粮者，只得在荒地间躲藏。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A042_ScarredHunter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 带伤猎手</title>
+    <titleShort>饥与祸 猎手</titleShort>
+    <description>[PAWN_nameDef]靠猎场谋生，旱灾让猎物没了踪影，贵族又封了山林。后来追踪一头受伤野兽时，[PAWN_pronoun]遭鼠群围攻，留下伤疤。失去住处后，便随流民去找新的猎场。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A043_GranaryRatcatcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 粮仓驱鼠工</title>
+    <titleShort>饥与祸 驱鼠工</titleShort>
+    <description>[PAWN_nameDef]替粮仓清鼠洞，鼠群暴增后，仓主却把所有损失算在工人头上。存粮被咬坏的那晚，[PAWN_pronoun]被赶出了村，只好到下一处营地继续做驱鼠的活。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A044_QuarantinePorter</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 疫棚搬运工</title>
+    <titleShort>饥与祸 搬运工</titleShort>
+    <description>[PAWN_nameDef]的家人困在鼠疫隔离棚里，[PAWN_pronoun]便在村口搬药和饮水。病区被焚毁时，亲人和聚落一起没了。[PAWN_pronoun]离开后，仍记得那些疫棚。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A045_QuarantineWatcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 隔离棚看守</title>
+    <titleShort>饥与祸 看守</titleShort>
+    <description>[PAWN_nameDef]看守村口的隔离棚，试着把发热的人和健康的人分开。药和粮都耗尽后，村民却把责任推给了看守。[PAWN_pronoun]被迫离村，继续找愿意接纳病人的地方。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A046_PostPlagueCaretaker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 病后照料者</title>
+    <titleShort>饥与祸 照料者</titleShort>
+    <description>[PAWN_nameDef]熬过了鼠疫封锁，病愈的人却既领不到粮，也不许回家。原来的住处被烧成空地后，[PAWN_pronoun]带着还没痊愈的同伴离开，去找能歇脚的棚屋。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A047_DisguisedGrainThief</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 伪装逃犯</title>
+    <titleShort>饥与祸 逃犯</titleShort>
+    <description>家人几天没吃上东西，[PAWN_nameDef]便夜里潜进粮仓偷粮。败露后，同伴把[PAWN_objective]交出去换通行。后来逃出来，[PAWN_pronoun]便学着装成普通难民，混过一道道关卡。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A048_SiegeTunnelDigger</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 围营掘地者</title>
+    <titleShort>饥与祸 掘地者</titleShort>
+    <description>抢粮队围住营地，外援始终没来，[PAWN_nameDef]和同伴便从墙下掘出窄洞，带人逃走。回头望时，营地已经着火，家人留下的东西也都烧了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A049_GranaryBreaker</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 破仓木匠</title>
+    <titleShort>饥与祸 木匠</titleShort>
+    <description>[PAWN_nameDef]靠修门谋生。灾荒来了，粮仓仍锁着，仓主宁愿让粮食发霉也不分给饥民。听见仓内有人求救，[PAWN_pronoun]撞开大门，事后却遭追捕，只得离乡。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y001_RuinsLitter</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 火后失散的幼崽</title>
+    <titleShort>饥与祸 失散幼崽</titleShort>
+    <description>有人纵火烧村时，[PAWN_nameDef]和母亲失散，只能躲进倒塌的屋舍。[PAWN_pronoun]靠碎粮撑过几天，出来时救援队已经走了，最后跟着后来经过的难民离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y002_LostFieldLitter</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 失去农场的孩子</title>
+    <titleShort>饥与祸 农场孩童</titleShort>
+    <description>[PAWN_nameDef]在小农场长大。农场主卖掉土地，带走成年劳力，留下的孩子连地里仅剩的庄稼也没保住，全被征粮的人收走了。[PAWN_pronoun]只好跟着流民去找吃的。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y003_CreviceMessenger</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 洞穴小信使</title>
+    <titleShort>饥与祸 小信使</titleShort>
+    <description>[PAWN_nameDef]住在洞穴聚居地，大人为粮食分成了几队。孩子个子小，能钻过缝隙，[PAWN_pronoun]便成了他们之间的信使。后来烟雾和鼠群逼得洞里不能住，只得跟最后一队人来到地面。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y004_GrainMillApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 粮坊小帮工</title>
+    <titleShort>饥与祸 小帮工</titleShort>
+    <description>[PAWN_nameDef]跟母亲在粮坊做帮工，家里最靠得住的吃食就是碎粮。粮坊被征用后，连霉粮也混进了配给。母亲和孩子一起被赶了出去。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y005_RatEggGuardApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 照看鼠蛋的孩子</title>
+    <titleShort>饥与祸 小看护</titleShort>
+    <description>队伍里的大人接连病倒，[PAWN_nameDef]只得照看比自己更小的鼠蛋。夜里迁移时，孩子们跟着[PAWN_objective]，却一起跟丢了亲人。此后，只能跟肯分食物的人走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y006_LandmarkRememberingOrphan</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 认路的失亲孩童</title>
+    <titleShort>饥与祸 认路孩童</titleShort>
+    <description>转移途中，[PAWN_nameDef]与家人走散，只记得枯树、裂桥和几处危险路口。[PAWN_pronoun]靠这些路标避开险路，被另一支难民队伍收留，却一直没找到原来的家。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y007_LivestockApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 离乡牧童</title>
+    <titleShort>饥与祸 牧童</titleShort>
+    <description>[PAWN_nameDef]年小时就负责赶家里剩下的牲畜。农场先断了水，大半牲口又被征走。围栏被放弃那天，[PAWN_pronoun]赶着几只活下来的牲畜追上难民队，再没回过农场。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y008_OrphanedMillApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 磨坊弃童</title>
+    <titleShort>饥与祸 弃童</titleShort>
+    <description>[PAWN_nameDef]在磨坊做小帮工，学会了最简单的活计。主人欠下粮债后，大人都走了，只把[PAWN_objective]留在推不动的石磨旁。磨坊被拆时，[PAWN_pronoun]便带着这点本事离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y009_CampfireListener</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 营地里听故事的孩子</title>
+    <titleShort>饥与祸 营地孩童</titleShort>
+    <description>[PAWN_nameDef]出生在难民队伍里，从没见过丰年，夜里听大人讲旧收成才能睡着。队伍断粮解散，把[PAWN_objective]留在营火旁。另一批流民经过时，[PAWN_pronoun]才跟着走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y010_QuarantineShedChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 隔离棚孩童</title>
+    <titleShort>饥与祸 隔离孩童</titleShort>
+    <description>[PAWN_nameDef]和家人被送进隔离棚，最初还有人隔着门送饭送水。鼠疫加重后，门外再没人来，亲人陆续离开或死去。棚子拆除时，[PAWN_pronoun]跟着幸存者逃了出来。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y011_RuinedHouseOrphan</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 废屋失亲孩童</title>
+    <titleShort>饥与祸 失亲孩童</titleShort>
+    <description>夜袭把[PAWN_nameDef]和家人冲散了。[PAWN_pronoun]躲进废屋，靠根茎和雨水活下来。搜寻的人再没回来，后来便独自在一个个难民营里找容身处。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y012_NightWatchApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 守夜小帮手</title>
+    <titleShort>饥与祸 小守夜人</titleShort>
+    <description>难民营屡遭偷袭，大人轮流守夜也挡不住盗粮者。[PAWN_nameDef]睡不着，便记下了巡查路线。一次袭击后，[PAWN_pronoun]跟丢家人，此后仍替人守着营火。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A050_ElderSisterProtector</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 护幼长姐</title>
+    <titleShort>饥与祸 长姐</titleShort>
+    <description>父母死在逃难路上后，弟妹只剩[PAWN_nameDef]这个姐姐照看。队伍为减轻负担，又把[PAWN_objective]和孩子们留在路边。[PAWN_pronoun]只好自己带着弟妹，寻找肯收留鼠蛋的地方。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A051_IllMotherLeavingA</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 托孤病母</title>
+    <titleShort>饥与祸 病母</titleShort>
+    <description>[PAWN_nameDef]带着孩子逃出鼠疫失控的村子，靠碎粮和草药支撑。病情越来越重，[PAWN_pronoun]知道自己撑不了多久了，仍把孩子送到了陌生聚落门口，这才倒下。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A052_BeggingRatkinMother</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 乞食鼠妈</title>
+    <titleShort>饥与祸 鼠妈</titleShort>
+    <description>[PAWN_nameDef]靠洗衣和看牲畜养活孩子，灾荒后，雇主连粮食和工钱也收了回去。[PAWN_pronoun]不愿把孩子交给路边的陌生人，便一次次去敲别人的门，求一口吃的。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A053_GrainThiefForFamily</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 为家人盗粮者</title>
+    <titleShort>饥与祸 盗粮者</titleShort>
+    <description>[PAWN_nameDef]家里最后一袋粮也快吃完了，孩子还是饿倒了。求粮无门，[PAWN_pronoun]便在夜里摸进仓房。偷粮被发现后，只得丢下粮食逃走，最后带着家人留下的空碗离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A054_WastelandSurvivor</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 荒地求生者</title>
+    <titleShort>饥与祸 求生者</titleShort>
+    <description>抢粮者夜里冲散了[PAWN_nameDef]所在的聚落。醒来时，身边只剩破衣，眼前是陌生的荒路。找不到家人，[PAWN_pronoun]便沿着野兽脚印和远处的炊烟去找活人。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A055_RefugeeCampSteward</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 难民营管事</title>
+    <titleShort>饥与祸 管事</titleShort>
+    <description>[PAWN_nameDef]在难民营分铺位和饮水，来的人却越来越多，粮、柴和大家的耐心都不够了。营地解散时，[PAWN_pronoun]也无家可回，只得跟最后一批人去找新聚落。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A056_CageWatcher</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 囚笼看守</title>
+    <titleShort>饥与祸 看守</titleShort>
+    <description>[PAWN_nameDef]替商队看守货物和囚笼。商路断了，笼里的孩子竟成了换粮的筹码。领头人先抛下队伍逃走，[PAWN_pronoun]便带着还活着的囚犯，去找肯谈价的人。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A057_RatEggMerchant</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 鼠蛋贩子</title>
+    <titleShort>饥与祸 贩子</titleShort>
+    <description>[PAWN_nameDef]曾相信，把孩子卖给有粮的人，至少能让他们熬过冬天。可买家拿不出承诺的粮食，交易一次次落空。[PAWN_pronoun]只好带着一串沉默的鼠蛋继续走，渐渐不敢再看他们的脸。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A058_OutwallBeggar</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 城外乞丐</title>
+    <titleShort>饥与祸 乞丐</titleShort>
+    <description>[PAWN_nameDef]和其他难民在城墙外搭棚，以为不进城就能躲开冲突。城门一关，他们进不了城领粮，只好离开棚子。[PAWN_pronoun]到了下一处聚落，仍得反复求接济。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A059_ReliefKitchenCook</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 接济厨子</title>
+    <titleShort>饥与祸 厨子</titleShort>
+    <description>[PAWN_nameDef]把逃难队伍从各处凑来的粮食煮成一锅，后来连锅也拿去换了食物。接济的人来时，[PAWN_pronoun]便凭着做饭和筛霉粮的经验，帮他们准备饭食，只求让大家都吃上这一顿。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A060_RefugeeMedic</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 随队药师</title>
+    <titleShort>饥与祸 药师</titleShort>
+    <description>[PAWN_nameDef]在小诊所搬药草。诊所关闭后，药成了逃难队伍里最容易招来争抢的东西。[PAWN_pronoun]把最后几份药藏进衣服，带着发热的同伴到殖民地边缘求援。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A061_SilverTrader</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 持银商人</title>
+    <titleShort>饥与祸 商人</titleShort>
+    <description>[PAWN_nameDef]把家里的工具、牲畜和房契换成白银，以为有钱就能买到一条安全的路。关卡不断涨价，商队又改了道。银子只够再走一段，[PAWN_pronoun]便去找肯交易的聚落。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A062_FragmentMapInformant</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 残图卖家</title>
+    <titleShort>饥与祸 卖图者</titleShort>
+    <description>[PAWN_nameDef]从路边死去的情报贩子手里得到半张藏宝图，地点却没标完整。为了换继续上路的粮、药或白银，[PAWN_pronoun]带着这张残图来到殖民地。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A063_RuinInformant</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 废墟线人</title>
+    <titleShort>饥与祸 线人</titleShort>
+    <description>[PAWN_nameDef]躲进过被鼠群和暴雨毁坏的建筑，记住了还能用的门、井和地下室，并记在地图上。同行的人为这张地图翻了脸。[PAWN_pronoun]带着残图逃出来，想用它换一次安全通行。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A064_SmallSettlementClerk</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 逃走的寨吏</title>
+    <titleShort>饥与祸 寨吏</titleShort>
+    <description>[PAWN_nameDef]在一个小聚落记事。粮仓账目被人篡改后，居民为分粮吵得不可开交。[PAWN_pronoun]逃了出来，想用自己知道的另一处小聚落的位置，换些路上能用的物资。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A065_PregnantRefugee</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 待产流民</title>
+    <titleShort>饥与祸 流民</titleShort>
+    <description>[PAWN_nameDef]怀着孩子跟队伍找遮雨处，营地却只收能马上干活的人。疫病蔓延，队伍里又起了抢粮冲突，同行的人陆续散了。[PAWN_pronoun]已经临近生产，只得去陌生殖民地求一个能容身的角落。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A066_MisdeliveredCargoCarrier</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 错运脚夫</title>
+    <titleShort>饥与祸 脚夫</titleShort>
+    <description>[PAWN_nameDef]在运输队核对货单、搬运补给。一次坐标填错，整批物资被投到了无人荒地，发货的人先逃了。[PAWN_pronoun]找到错投地点，带着还能找到的几件东西，到附近的殖民地求助。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A067_MisidentifiedKin</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 错认亲属者</title>
+    <titleShort>饥与祸 寻亲者</titleShort>
+    <description>[PAWN_nameDef]在夜间撤离时与家人失散，后来听到有人描述相似的孩子，便把陌生孩子错认成亲属。真相弄清时，原来的队伍早走远了。[PAWN_pronoun]留不住孩子，也回不了家。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A068_FamineFarmer</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 荒年农户</title>
+    <titleShort>饥与祸 农户</titleShort>
+    <description>[PAWN_nameDef]守着旧田，想着熬过这一季就能等到雨水，最后却连种子也没保住。征粮一次接一次，家人又陆续死于鼠疫。[PAWN_pronoun]分完最后的食物，离开了村子。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A069_AmbushedEscort</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 遇袭商队护卫</title>
+    <titleShort>饥与祸 护卫</titleShort>
+    <description>[PAWN_nameDef]跟商队护送药品和粮食，途中被一群走投无路的流民拦住。商队丢下货物和伤员逃命。[PAWN_pronoun]从被翻空的车厢里爬出来，此后再不相信那面商队旗帜。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A070_PlaguezoneExile</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 疫区流亡者</title>
+    <titleShort>饥与祸 流亡者</titleShort>
+    <description>[PAWN_nameDef]住的营地被划成疫区，沿途聚落封了路，也拒绝向营地的人供粮。队伍里有人倒下，被同伴留在路边。[PAWN_pronoun]带着还能走的人绕开各处聚落，最后走到陌生殖民地附近。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A071_QuarantineGatekeeper</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 检疫门卫</title>
+    <titleShort>饥与祸 门卫</titleShort>
+    <description>[PAWN_nameDef]守着村口检疫棚，每天得决定谁能进去、谁领药、谁留在门外。药和粮一起耗尽后，病人连同看守都被赶了出去。[PAWN_pronoun]只好带幸存者另找收容处。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A072_PlagueCampTunnelDigger</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 疫营掘地者</title>
+    <titleShort>饥与祸 掘地者</titleShort>
+    <description>[PAWN_nameDef]困在疫区营地，营内的粮食吃完了，营外又聚着饥民和感染者，看守不敢开门。[PAWN_pronoun]从墙脚掘出一条仅容一人通过的通道逃走。留下的人有没有活下来，[PAWN_pronoun]至今不知道。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A073_EscapedPlagueMessenger</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 逃离的疫区信使</title>
+    <titleShort>饥与祸 信使</titleShort>
+    <description>[PAWN_nameDef]替一支染上鼠疫的鼠族队伍传话。队伍里的人声称要报复害过自己的仇人，却连对方的名字都没法核实。见他们一心只想报复，[PAWN_pronoun]便带着那封没有收件人的信逃走了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_A074_EvacuationGuide</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 撤营向导</title>
+    <titleShort>饥与祸 向导</titleShort>
+    <description>[PAWN_nameDef]在临时难民营修木屋、分饮水，附近势力却限他们几天内离开。袭击到来前，[PAWN_pronoun]带着还能走的人从后门撤了。回头看时，自己搭过的屋子都烧了起来。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_AdultHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y013_CrowdBornChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 人群中走失的孩子</title>
+    <titleShort>饥与祸 走失孩童</titleShort>
+    <description>[PAWN_nameDef]被大人抱在庞大的难民队伍中间，每次停步，都有人被挤出队列。一场抢粮混乱后，[PAWN_pronoun]只记得家人的声音，最后被另一支队伍带走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y014_AbandonedHouseRatEgg</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 空屋弃蛋</title>
+    <titleShort>饥与祸 弃蛋</titleShort>
+    <description>[PAWN_nameDef]被留在空屋门后，身边只有一块硬了的食物。大人说很快回来，门外的脚步却越来越少。路过的难民发现[PAWN_objective]，才把[PAWN_objective]带出了那间屋。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y015_DoorstepRatEgg</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 门口托孤的鼠蛋</title>
+    <titleShort>饥与祸 托孤鼠蛋</titleShort>
+    <description>[PAWN_nameDef]发着热，被母亲抱到陌生聚落门口，只记得母亲反复摸[PAWN_possessive]额头。母亲没力气再走，把[PAWN_objective]推向门内，自己留在门外。这是[PAWN_pronoun]最早记得的事。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y016_RationingApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 分粮小帮工</title>
+    <titleShort>饥与祸 小帮工</titleShort>
+    <description>乞讨队伍里的大人越来越少，[PAWN_nameDef]便被安排记住谁已经领过一勺吃的。食物不够分时，[PAWN_pronoun]把最后一份留给更小的鼠蛋。争粮的人把这算在[PAWN_objective]头上，将[PAWN_objective]赶出了队伍。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y017_GrainBarrelHiddenChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 粮桶里的孩子</title>
+    <titleShort>饥与祸 藏桶孩童</titleShort>
+    <description>家人带[PAWN_nameDef]进仓房偷粮，计划失败，大人各自逃命，没人回头找[PAWN_objective]。[PAWN_pronoun]躲在空粮桶里直到天亮。后来再跟人同行，总要先找好退路。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y018_WastelandBurrowLitter</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 洞穴弃崽</title>
+    <titleShort>饥与祸 弃崽</titleShort>
+    <description>[PAWN_nameDef]幼时和鼠族住在荒地洞穴。暴雨灌满洞口，大人匆忙离开，却把[PAWN_objective]留了下来。[PAWN_pronoun]逃到洞外，在灌木和废墟间躲了几天，才被听见哭声的过路队伍发现。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y019_ChildByTheCage</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 囚笼旁的孩子</title>
+    <titleShort>饥与祸 笼旁孩童</titleShort>
+    <description>[PAWN_nameDef]在商队货车旁长大，看着药品、粮袋和鼠蛋分别被锁进笼子。商路断绝后，领头人把货物和孩子一起丢下。[PAWN_pronoun]只能跟着看守去找新的交易地。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y020_HiddenTradeChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 货车下的鼠蛋</title>
+    <titleShort>饥与祸 藏车鼠蛋</titleShort>
+    <description>[PAWN_nameDef]听大人反复谈粮价、谈谁能带走孩子，却不知道自己也是交易物。交易没成，[PAWN_pronoun]被藏进货车底下，随商人和其他鼠蛋离开营地。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y021_SiegeCampWaterRunner</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 围营送水童</title>
+    <titleShort>饥与祸 送水童</titleShort>
+    <description>[PAWN_nameDef]困在被围的营地，取水只能走墙根的一条窄缝。孩子个子小，便被派去给守门人和更小的孩子送半碗水。围墙失守后，[PAWN_pronoun]随逃出来的人离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y022_ReliefLedgerChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 接济营小记账员</title>
+    <titleShort>饥与祸 小记账员</titleShort>
+    <description>[PAWN_nameDef]在接济营地记下每批物资，也记得哪些人吃到了饭，却没等到药。接济队伍走时，[PAWN_pronoun]把剩下的粮袋数量和人名抄在木片上，带着这份没写全的名单迁移。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y023_MapLostChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 地图边的迷途童</title>
+    <titleShort>饥与祸 迷途童</titleShort>
+    <description>[PAWN_nameDef]跟着情报客走过地图标出的藏宝地、废墟和小聚落，以为每个圆圈都是能睡觉的地方。一次交易失败，情报客独自逃走。[PAWN_pronoun]只记得沿途几处模糊的路标。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y024_BirthConvoyChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 与母失散的孩子</title>
+    <titleShort>饥与祸 失散孩童</titleShort>
+    <description>[PAWN_nameDef]和即将生产的母亲挤在队伍末尾，每次停下，都先找个挡风的地方。大人因为疫病和缺粮，把母亲和孩子分到了不同队伍。[PAWN_pronoun]最后抱着母亲的空袋，来到殖民地边缘。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y025_MisdeliveredChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 错运的孩子</title>
+    <titleShort>饥与祸 错运孩童</titleShort>
+    <description>[PAWN_nameDef]本该随补给去约定的营地，却在错投地点的运输箱旁醒来。搬运者发现坐标不对，先走了。[PAWN_pronoun]在陌生的物资堆里等着，直到难民带[PAWN_objective]离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y026_MisnamedChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 被叫错名字的孩子</title>
+    <titleShort>饥与祸 错名孩童</titleShort>
+    <description>撤离时，有人把[PAWN_nameDef]叫成另一个孩子的名字。怕被落下，[PAWN_pronoun]没有纠正。真正的家人没来，认错的人也在争执后走了，只剩[PAWN_pronoun]顶着陌生名字继续找队伍。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y027_FamineCampChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 没见过收成的孩子</title>
+    <titleShort>饥与祸 营地孩童</titleShort>
+    <description>[PAWN_nameDef]见到的第一块田，就是征粮后的空地。大人总说等下一季，下一季却只来了霉种和病人。家人在分粮时散了，[PAWN_pronoun]随逃难队离开，始终没见过真正的收成。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y028_PlaguezoneChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 疫区流亡孩童</title>
+    <titleShort>饥与祸 疫区孩童</titleShort>
+    <description>[PAWN_nameDef]和家人被赶出疫区，每到一个聚落，都得站在门外等检查。送饭的人越来越少，亲人也陆续走不动了。[PAWN_pronoun]带着空药袋，继续找下一处隔离棚。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y029_WoodenShelterOrphan</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 木屋失亲孩童</title>
+    <titleShort>饥与祸 失亲孩童</titleShort>
+    <description>[PAWN_nameDef]在难民营木屋里长大，熟悉哪扇门漏风、哪口井还有水。营地被要求撤离，大人把孩子分给不同队伍。夜里，[PAWN_pronoun]跟丢了家人，只带出一块刻了记号的木板。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y030_DroughtFieldApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 旱田小帮工</title>
+    <titleShort>饥与祸 小农工</titleShort>
+    <description>[PAWN_nameDef]家里的田连着两季歉收，大人把最后的水都留给种子。孩子每天守在田埂边，捡回风吹散的穗子。旱田最终还是被放弃了，[PAWN_pronoun]便随流民离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y031_SeedSortingApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 挑种学徒</title>
+    <titleShort>饥与祸 学徒</titleShort>
+    <description>[PAWN_nameDef]家人替粮坊收种，仓库受潮后，好种和霉种混在了一起。[PAWN_pronoun]跟大人一袋袋挑拣，学会了分辨哪些种子还能播种。粮坊关闭后，便带着这点本事离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y032_FenceHerdingChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 空场牧童</title>
+    <titleShort>饥与祸 牧童</titleShort>
+    <description>农场遣散了人，[PAWN_nameDef]却被留在围栏里，身边只有几只没被征走的牲畜。水源也断了，[PAWN_pronoun]便赶着它们追上难民队。后来再没人回那座农场。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y033_DryWellWaterChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 井下取水童</title>
+    <titleShort>饥与祸 取水童</titleShort>
+    <description>夏末村井干了，大人为一桶水封门对峙。[PAWN_nameDef]个子小，还能钻进远处快干的井里取水。村子被放弃后，[PAWN_pronoun]便跟着取水队走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y034_GrainSackRecorder</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 认粮袋的孩子</title>
+    <titleShort>饥与祸 认袋孩童</titleShort>
+    <description>[PAWN_nameDef]常在谷仓门口等家人下工，久了便认得每种粮袋的标记。仓主把存粮转走，又锁了门。[PAWN_pronoun]只好离开，却一直记得那些粮袋的标记。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y035_MillhandHelperChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 清壳小帮工</title>
+    <titleShort>饥与祸 小帮工</titleShort>
+    <description>[PAWN_nameDef]在粮坊替大人清谷壳，留下的碎粮还能填肚子。粮坊被征用后，坏粮被强行混进配给。眼看连吃的也靠不住，[PAWN_pronoun]和家人赶在发粮前离开了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y036_WheelRepairApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 修轮学徒</title>
+    <titleShort>饥与祸 学徒</titleShort>
+    <description>[PAWN_nameDef]跟木匠修难民的车轮，泥地里折断的轮辐一根接一根。洪水冲散了队伍，家人始终没来。[PAWN_pronoun]只好跟着下一辆还能走的车离开。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y037_NeedleworkApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 针线学徒</title>
+    <titleShort>饥与祸 学徒</titleShort>
+    <description>家里的织坊停了工，大人把旧衣拆成布条，[PAWN_nameDef]跟着穿针引线、缝缝补补。最后的布料也被火烧尽了。[PAWN_pronoun]随流民离开时，已经记熟了那些针脚。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y038_HuntingGroundHelper</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 猎场小帮手</title>
+    <titleShort>饥与祸 小猎工</titleShort>
+    <description>[PAWN_nameDef]跟家人去被封锁的猎场边缘，找受伤的野兽猎杀取肉。一次捕猎撞上鼠群，猎人没再回来。[PAWN_pronoun]带着剩下的皮毛，加入了逃难队伍。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y039_HerbBasketApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 药篮学徒</title>
+    <titleShort>饥与祸 学徒</titleShort>
+    <description>药师病倒后，[PAWN_nameDef]背着草药篮，在隔离棚和住家之间替药师跑腿。药师死了，棚门也封了。[PAWN_pronoun]随幸存者离开，仍记得哪些草能暂时退热。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y040_KilnsideChildWorker</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 窑边童工</title>
+    <titleShort>饥与祸 童工</titleShort>
+    <description>[PAWN_nameDef]跟家人进砖窑做工，在炉边捡煤渣、搬碎砖。窑主拖着工钱不发，又关了住处。炉火熄灭后，[PAWN_pronoun]只能随窑工去找新的避难所。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y041_CampfireOrphan</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 营火边寻亲的孩子</title>
+    <titleShort>饥与祸 寻亲孩童</titleShort>
+    <description>分粮的人群把[PAWN_nameDef]与家人冲散了。[PAWN_pronoun]只记得他们曾守着哪堆营火，便沿夜里的火光找了几天。始终找不到，后来只好跟肯分粮的人走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y042_RiverRaftApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 拼筏的孩子</title>
+    <titleShort>饥与祸 小筏工</titleShort>
+    <description>暴雨后，[PAWN_nameDef]被留在河滩，与几个孩子用漂木和旧门板拼出一只筏子。木筏把[PAWN_objective]送到了陌生岸边。原来的村子早被洪水和饥荒毁了。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y043_RaidedVillageChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 废村落单孩童</title>
+    <titleShort>饥与祸 落单孩童</titleShort>
+    <description>[PAWN_nameDef]随家人回被劫掠的村子，想找回锅、布和旧毯子。村道上尽是空屋和鼠群，家人再次离开时，却把[PAWN_objective]落下了。[PAWN_pronoun]最后随下一批搜寻者逃走。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y044_SnowprintApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 雪地寻路童</title>
+    <titleShort>饥与祸 寻路童</titleShort>
+    <description>山路被大雪封住，[PAWN_nameDef]靠雪地脚印去找下一处营火。雪崩又埋了原路，后来商队发现了[PAWN_objective]。跟着商队，[PAWN_pronoun]开始学着认风向和脚印。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y045_PackAnimalApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 商队小驮工</title>
+    <titleShort>饥与祸 小驮工</titleShort>
+    <description>商队水袋被抢后，[PAWN_nameDef]负责把最后几只驮兽带到阴凉处。队伍解散了，却没人来接孩子。[PAWN_pronoun]只好带着驮兽，随另一队难民穿过旱地。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y046_NightWatchChild</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 睡不着的守夜童</title>
+    <titleShort>饥与祸 守夜童</titleShort>
+    <description>难民营夜夜被盗粮，大人轮流守夜也挡不住袭击。[PAWN_nameDef]睡不着，把各种脚步声记了个熟。营地搬走后，[PAWN_pronoun]还是会听着夜里的脚步。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Y047_CheckpointEvasionApprentice</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 绕关的孩子</title>
+    <titleShort>饥与祸 绕关孩童</titleShort>
+    <description>[PAWN_nameDef]跟家人藏在车底，混过征粮税的关卡，渐渐记住了巡查时辰。一次检查，家人被扣下了。[PAWN_pronoun]逃进另一支队伍，却一直没等到他们。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories>
+      <li>RHAH_YoungHistory</li>
+      <li>RHAH_Famine</li>
+    </spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Newborn</defName>
+    <slot>Childhood</slot>
+    <title>饥与祸 荒年初生</title>
+    <titleShort>饥与祸 初生</titleShort>
+    <description>[PAWN_nameDef]出生时，鼠族聚落已经闹起了饥荒。还没到能帮忙干活的年纪，就已经要上路。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories><li>RHAH_YoungHistory</li><li>RHAH_Famine</li></spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_History_Refugee</defName>
+    <slot>Adulthood</slot>
+    <title>饥与祸 逃荒难民</title>
+    <titleShort>饥与祸 难民</titleShort>
+    <description>仓房见底后，[PAWN_nameDef]离开了鼠族聚落。到了别处，还是得找活干，换下一顿饭。</description>
+    <bodyTypeMale>Thin</bodyTypeMale>
+    <bodyTypeFemale>Thin</bodyTypeFemale>
+    <shuffleable>false</shuffleable>
+    <spawnCategories><li>RHAH_AdultHistory</li><li>RHAH_Famine</li></spawnCategories>
+  </BackstoryDef>
+</Defs>

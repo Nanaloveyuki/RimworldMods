@@ -6,4 +6,10 @@
     <li IfModActive="nanaloveyuki.oxygendsl" IfModNotActive="lezhizhong.mouse.disaster.famine,nanaloveyuki.mouse.disaster.famine.continued,local.mousedisaster.greatfamine">1.6</li>
     <li IfModActive="nanaloveyuki.oxygendsl" IfModNotActive="lezhizhong.mouse.disaster.famine,nanaloveyuki.mouse.disaster.famine.continued,local.mousedisaster.greatfamine">Biotech</li>
   </v1.6>
+  <v1.7>
+    <li>1.7/Guard</li>
+    <li IfModActive="nanaloveyuki.oxygendsl" IfModNotActive="lezhizhong.mouse.disaster.famine,nanaloveyuki.mouse.disaster.famine.continued,local.mousedisaster.greatfamine">/</li>
+    <li IfModActive="nanaloveyuki.oxygendsl" IfModNotActive="lezhizhong.mouse.disaster.famine,nanaloveyuki.mouse.disaster.famine.continued,local.mousedisaster.greatfamine">1.7</li>
+    <li IfModActive="nanaloveyuki.oxygendsl" IfModNotActive="lezhizhong.mouse.disaster.famine,nanaloveyuki.mouse.disaster.famine.continued,local.mousedisaster.greatfamine">Biotech</li>
+  </v1.7>
 </loadFolders>
