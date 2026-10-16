@@ -60,7 +60,9 @@
   <OPN_RacePrefixExists>这个种族已有前缀，可直接在上方修改。</OPN_RacePrefixExists>
   <OPN_SourceMode>命名方式</OPN_SourceMode>
   <OPN_CustomSource>高级规则</OPN_CustomSource>
-  <OPN_ConfigSource>本页设置</OPN_ConfigSource>
+  <OPN_SaveOverrideToggle>为当前存档使用独立设置</OPN_SaveOverrideToggle>
+  <OPN_SaveOverrideHint>修改只应用于当前存档，并保存在存档中。</OPN_SaveOverrideHint>
+  <OPN_GlobalSettingsHint>修改会成为新存档的默认设置，也会应用于未设置独立覆盖的存档。</OPN_GlobalSettingsHint>
   <OPN_UseCustom>转为高级规则</OPN_UseCustom>
   <OPN_UsePattern>改用本页设置</OPN_UsePattern>
   <OPN_UsePatternConfirm>改用本页设置？这会替换当前的高级命名规则，包括尚未应用的修改。积分规则和单独代号不受影响。</OPN_UsePatternConfirm>
@@ -131,10 +133,10 @@
 
 1. 进入存档，打开 IrisMenus → ODF 囚犯代号 → 命名。
 2. 勾选「显示囚犯代号」，选择「姓名显示方式」。可以使用自定代号，也可以直接显示短名、全名、名或姓。
-3. 命名、积分和等级页的有效修改会自动应用到当前存档，无需点击设置保存按钮。
+3. 默认情况下，有效修改会保存为全局默认，供新存档及未启用独立覆盖的存档使用。勾选「为当前存档使用独立设置」后，修改只保存在当前存档；关闭后会丢弃该存档覆盖，并重新载入全局默认。
 4. 点击「查看囚犯名单」，查看效果或为某个囚犯单独设置名称。
 
-**这些设置只属于当前存档。** 有效修改会立即自动应用；仍须保存游戏，才能在下次读档时保留。输入有误时会显示错误，并继续使用上次有效设置；切换页面不会丢失正在修改的内容。
+全局设置保存在 ModSettings；存档覆盖和囚犯数据保存在存档中。输入有误时会显示错误，并继续使用上次有效设置。
 
 ## 写一个代号
 

@@ -60,7 +60,9 @@
   <OPN_RacePrefixExists>This race already has a prefix. Edit it above.</OPN_RacePrefixExists>
   <OPN_SourceMode>Naming method</OPN_SourceMode>
   <OPN_CustomSource>Advanced rule</OPN_CustomSource>
-  <OPN_ConfigSource>These settings</OPN_ConfigSource>
+  <OPN_SaveOverrideToggle>Use separate settings for this save</OPN_SaveOverrideToggle>
+  <OPN_SaveOverrideHint>Changes apply only to this save and are stored in its save file.</OPN_SaveOverrideHint>
+  <OPN_GlobalSettingsHint>Changes become the default for new saves and any save without a separate override.</OPN_GlobalSettingsHint>
   <OPN_UseCustom>Switch to an advanced rule</OPN_UseCustom>
   <OPN_UsePattern>Use these settings</OPN_UsePattern>
   <OPN_UsePatternConfirm>Use these settings? This replaces the current advanced naming rule, including unapplied changes. Scoring rules and individual aliases are not affected.</OPN_UsePatternConfirm>
@@ -131,10 +133,10 @@ Give prisoners easy-to-recognize aliases, with different names for their age, ra
 
 1. Open a save, then open IrisMenus → ODF Prisoner Names → Naming.
 2. Turn on Show prisoner aliases and choose Name display. Use a custom alias, or show a short name, full name, first name or last name.
-3. Valid changes on Naming, Scores and Grades apply automatically to this save; no settings Save button is needed.
+3. By default, valid changes are saved as global defaults for new saves and saves without a separate override. Enable Use separate settings for this save to keep changes only in the current save; disabling it discards that save override and reloads the global defaults.
 4. Click View prisoner roster to check the result or give one prisoner an individual name.
 
-**These settings belong to the current save only.** Automatic application takes effect immediately for valid changes; save the game to keep them after loading. Invalid entries show an error and keep the previous valid settings active. Switching pages does not discard entries you are editing.
+Global settings are stored in the mod settings. A save override and prisoner data are stored in the save. Invalid entries show an error and keep the previous valid settings active.
 
 ## Making an alias
 

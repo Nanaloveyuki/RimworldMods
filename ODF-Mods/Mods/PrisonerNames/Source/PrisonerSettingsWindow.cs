@@ -48,6 +48,10 @@ namespace Odf.PrisonerNames
             bool enabled = runtime.Enabled;
             MenuControls.Checkbox(listing, "OPN_EnabledToggle".Translate(), ref enabled);
             if (enabled != runtime.Enabled) runtime.SetEnabled(enabled);
+            bool saveOverride = runtime.UsesSaveSettings;
+            MenuControls.Checkbox(listing, "OPN_SaveOverrideToggle".Translate(), ref saveOverride);
+            if (saveOverride != runtime.UsesSaveSettings) runtime.SetSettingsScope(saveOverride);
+            listing.Label((runtime.UsesSaveSettings ? "OPN_SaveOverrideHint" : "OPN_GlobalSettingsHint").Translate());
             if (listing.ButtonText("OPN_OpenWindow".Translate())) PrisonerNamesApi.OpenWindow();
             listing.Gap(8f);
             listing.Label("OPN_SourceMode".Translate() + ": " + (runtime.CustomMode ? "OPN_CustomSource".Translate() : "OPN_ConfigSource".Translate()));

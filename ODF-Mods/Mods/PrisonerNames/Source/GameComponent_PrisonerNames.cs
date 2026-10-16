@@ -41,6 +41,7 @@ namespace Odf.PrisonerNames
         bool enabled = true;
         bool customMode;
         string policyText = string.Empty;
+        string settingsScope = "save";
         int revision;
         int nextNumber = 1;
         string lastError = string.Empty;
@@ -71,13 +72,36 @@ namespace Odf.PrisonerNames
         public bool CustomMode { get { return customMode; } }
         public NamePolicy Policy { get { return policy; } }
         public string ActiveSource { get { return activeSource; } }
-        public string DraftSource { get { return draftSource; } set { draftSource = value ?? string.Empty; } }
+        public string DraftSource { get { return draftSource; } set { draftSource = value ?? string.Empty; PersistSettings(); } }
         public string EventSource { get { return eventSource; } }
-        public string EventDraft { get { return eventDraft; } set { eventDraft = value ?? string.Empty; } }
+        public string EventDraft { get { return eventDraft; } set { eventDraft = value ?? string.Empty; PersistSettings(); } }
         public string LastError { get { return lastError; } }
         public string LastEventError { get { return lastEventError; } }
         public int Revision { get { return revision; } }
         public IReadOnlyList<PrisonerEntry> Prisoners { get { return published; } }
+        public bool UsesSaveSettings { get { return settingsScope == "save"; } }
+        public bool UsesGlobalSettings { get { return settingsScope == "global"; } }
+        public bool HasSaveOverride { get { return settingsScope == "save"; } }
+        public void SetSettingsScope(bool saveOverride)
+        {
+            EnsureReady();
+            if (saveOverride == UsesSaveSettings) return;
+            if (saveOverride)
+            {
+                settingsScope = "save";
+                policyText = PolicyText(policy);
+                activeSource = activeSource ?? string.Empty;
+                draftSource = draftSource ?? activeSource;
+                eventSource = eventSource ?? string.Empty;
+                eventDraft = eventDraft ?? eventSource;
+            }
+            else
+            {
+                settingsScope = "global";
+                LoadGlobalSettings();
+            }
+            Restore();
+        }
 
         public bool Apply(string source)
         {
@@ -105,6 +129,7 @@ namespace Odf.PrisonerNames
             if (namingOnly) { draftSource = candidate; eventDraft = keptDraft; customMode = true; }
             else { eventDraft = eventCandidate; draftSource = keptDraft; }
             lastError = string.Empty;
+            PersistSettings();
             revision++;
             return true;
         }
@@ -120,6 +145,7 @@ namespace Odf.PrisonerNames
             EnsureReady();
             if (enabled == value) return;
             enabled = value;
+            PersistSettings();
             RefreshNow();
             revision++;
         }
@@ -240,6 +266,7 @@ namespace Odf.PrisonerNames
             {
                 policy = candidate;
                 policyText = PolicyText(candidate);
+                PersistSettings();
                 revision++;
                 RefreshNow();
                 return true;
@@ -260,6 +287,7 @@ namespace Odf.PrisonerNames
             }
             customMode = false;
             policyText = PolicyText(candidate);
+            PersistSettings();
             return true;
         }
 
@@ -269,6 +297,7 @@ namespace Odf.PrisonerNames
             EnsureReady();
             customMode = true;
             draftSource = source ?? draftSource ?? string.Empty;
+            PersistSettings();
             revision++;
         }
 
@@ -371,6 +400,7 @@ namespace Odf.PrisonerNames
             if (changed) revision++;
         }
 
+
         void PublishCustody(Pawn pawn)
         {
             OxygenEvents.Publish(PrisonerNamesHost.PackageId, "prisoner.custody_day", pawn, new DictionaryOxygenHostValue(new Dictionary<string, object>
@@ -410,6 +440,9 @@ namespace Odf.PrisonerNames
             if (copy.Grades.Count == 0) copy.Grades.Add(new GradeBand { Minimum = double.NegativeInfinity, Name = NamePolicy.DefaultGrade });
             return copy;
         }
+
+        internal static string PolicyTextFor(NamePolicy value) { return PolicyText(value); }
+        internal static NamePolicy ParsePolicyFor(string text) { return ParsePolicy(text); }
 
         static string PolicyText(NamePolicy value)
         {
@@ -486,7 +519,6 @@ namespace Odf.PrisonerNames
                 revision++;
             }
         }
-
         public override void ExposeData()
         {
             if (Scribe.mode == LoadSaveMode.Saving)
@@ -494,6 +526,7 @@ namespace Odf.PrisonerNames
                 EnsureReady();
                 saved = Capture();
             }
+            Scribe_Values.Look(ref settingsScope, "settingsScope", "save");
             Scribe_Values.Look(ref activeSource, "activeSource", string.Empty);
             Scribe_Values.Look(ref draftSource, "draftSource", string.Empty);
             Scribe_Values.Look(ref eventSource, "eventSource", string.Empty);
@@ -505,12 +538,50 @@ namespace Odf.PrisonerNames
             Scribe_Collections.Look(ref saved, "entries", LookMode.Deep);
             if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
+                if (settingsScope != "global") settingsScope = "save";
                 if (activeSource == null) activeSource = string.Empty;
                 if (draftSource == null) draftSource = string.Empty;
                 if (saved == null) saved = new List<SavedEntry>();
                 if (nextNumber < 1) nextNumber = 1;
                 restored = false;
             }
+        }
+
+        void LoadGlobalSettings()
+        {
+            PrisonerNamesSettings global = PrisonerNamesMod.Settings;
+            if (global == null) return;
+            global.Initialize();
+            policyText = global.PolicyText;
+            activeSource = global.ActiveSource;
+            draftSource = global.DraftSource;
+            eventSource = global.EventSource;
+            eventDraft = global.EventDraft;
+            enabled = global.Enabled;
+            customMode = global.CustomMode;
+        }
+
+        void CopyToGlobalSettings()
+        {
+            PrisonerNamesSettings global = PrisonerNamesMod.Settings;
+            if (global == null) return;
+            global.PolicyText = policyText;
+            global.ActiveSource = activeSource;
+            global.DraftSource = draftSource;
+            global.EventSource = eventSource;
+            global.EventDraft = eventDraft;
+            global.Enabled = enabled;
+            global.CustomMode = customMode;
+            PrisonerNamesMod.Instance.WriteSettings();
+        }
+
+        void SaveCurrentScope()
+        {
+            if (settingsScope == "global") CopyToGlobalSettings();
+        }
+        void PersistSettings()
+        {
+            if (settingsScope == "global") CopyToGlobalSettings();
         }
 
         void Restore()
@@ -542,6 +613,14 @@ namespace Odf.PrisonerNames
                     pawns[entry.Pawn.thingIDNumber] = entry.Pawn;
                 }
             }
+            bool hasSaveState = !string.IsNullOrEmpty(activeSource) || !string.IsNullOrEmpty(draftSource)
+                || !string.IsNullOrEmpty(eventSource) || !string.IsNullOrEmpty(policyText);
+            if (!hasSaveState)
+            {
+                settingsScope = "global";
+                LoadGlobalSettings();
+            }
+            else if (settingsScope != "global") settingsScope = "save";
             nextNumber = Math.Max(Math.Max(nextNumber, 1), highest + 1);
             bool hadPolicy = !string.IsNullOrEmpty(policyText);
             if (!hadPolicy && !string.IsNullOrEmpty(activeSource)) customMode = true;
@@ -553,7 +632,7 @@ namespace Odf.PrisonerNames
                 activeSource = draftSource = ConfigSource();
                 eventSource = eventDraft = NamingRules.DefaultEvents();
             }
-            else if (!customMode) activeSource = ConfigSource();
+            else if (!customMode && settingsScope == "save") activeSource = ConfigSource();
             if (string.IsNullOrEmpty(eventDraft)) eventDraft = eventSource;
             rules = null;
             if (!string.IsNullOrEmpty(activeSource) || !string.IsNullOrEmpty(eventSource))

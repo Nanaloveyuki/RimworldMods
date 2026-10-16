@@ -7,8 +7,14 @@ namespace Odf.PrisonerNames
 {
     public sealed class PrisonerNamesMod : Mod
     {
+        public static PrisonerNamesMod Instance { get; private set; }
+        public static PrisonerNamesSettings Settings { get; private set; }
+
         public PrisonerNamesMod(ModContentPack content) : base(content)
         {
+            Instance = this;
+            Settings = GetSettings<PrisonerNamesSettings>();
+            Settings.Initialize();
             PrisonerNamesHost.Register();
             NamingRules.ModuleCatalog = new GameModuleCatalog();
             NamingRules.InstalledDefault = LoadInstalledDefault;
