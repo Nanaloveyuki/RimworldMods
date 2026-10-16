@@ -11,7 +11,17 @@ RimWorld 1.6 / 1.7 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`�
 独立作品，不是“鼠灾-大荒年”的 Continued。Def 前缀 `RHAH_`，事件显示 ID 用 `I-`，剧情用 `N-` / `J-` / `R-`。
 仅卸载本模组前，在已加载存档的设置里先停用这个存档的新内容，再备份并导出卸载用副本。退出后只卸本模组，保留鼠族、Harmony、Biotech 和 Oxygen DSL Framework，然后加载 `RHAH-removed-*`。`RHAH-backup-*` 仍含本模组数据，加载它必须留着本模组。
 
-## 1.1.1 · RimWorld 1.7 本次更新
+## 1.1.2 · 生育遗传修复
+
+- 「多崽」额外出生的孩子逐个使用原版父母基因抽样，不再合并父母的全部内源基因，也不再补装异种定义中的整套基因。外源基因仍不遗传，原版的基因冲突与代谢限制继续生效。
+- 额外孩子的异种身份按原版分娩规则设置：同一可遗传异种保留身份，不同可遗传异种显示为混合，修复母亲携带「多崽」时额外孩子误显示为智人的问题。保留同种自定义异种的名称和图标。
+- 「巢居易孕」受孕时保存父母和原版遗传基因快照，后续正常进入原版妊娠与分娩流程。
+
+本次部署更新 1.7，保留 1.6 已编译内容。修复作用于之后的受孕和额外孩子生成，不回改已经出生的孩子。
+
+Extra litter children now sample inherited genes separately through vanilla inheritance and receive vanilla birth xenotype identities, instead of merging all parental endogenes or installing a full xenotype genome. Same heritable xenotypes retain their identity; different heritable xenotypes produce hybrids. Room-fertility conceptions store the parents and inherited gene set at conception. This deployment updates 1.7 and preserves the existing 1.6 binaries; existing children are not rewritten.
+
+## 1.1.1 · RimWorld 1.7 更新
 
 - 穗音剧情任务线默认隐藏并停止刷新，包括信任触发剧情、累计事件处理来信和王国篇。信任继续累计，仅用于袭击概率修正；已有剧情记录和人物保留。加载存档后可在模组设置，或 IrisMenus「开发者」页，勾选「强制启用穗音剧情（当前存档）」；此开关只影响当前存档。
 - I-053「祈求加入」两次接受触发至少间隔 15 年（900 天），旧档保留上次触发时间。

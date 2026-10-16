@@ -142,41 +142,16 @@ namespace HungerAndHavoc.Generation
 
         internal static PawnGenerationRequest LitterRequest(VersePawn mother, VersePawn father)
         {
-            PawnGenerationRequest request = new PawnGenerationRequest(
+            // 原版返回共享临时列表 每个孩子持有自己的抽样
+            List<GeneDef> genes = new List<GeneDef>(PregnancyUtility.GetInheritedGenes(father, mother));
+            return new PawnGenerationRequest(
                 mother.kindDef,
                 mother.Faction,
                 PawnGenerationContext.NonPlayer,
+                forceNoBackstory: true,
+                forcedEndogenes: genes,
+                forcedXenotype: XenotypeDefOf.Baseliner,
                 developmentalStages: DevelopmentalStage.Newborn);
-            request.ForceNoBackstory = true;
-            request = AddEndogenes(request, father);
-            request = AddEndogenes(request, mother);
-            XenotypeDef xenotype = InheritedXenotype(mother, father);
-            if (xenotype != null)
-            {
-                request.ForcedXenotype = xenotype;
-            }
-
-            return request;
-        }
-
-        internal static PawnGenerationRequest AddEndogenes(PawnGenerationRequest request, VersePawn parent)
-        {
-            if (parent?.genes == null)
-            {
-                return request;
-            }
-
-            List<Gene> genes = parent.genes.Endogenes;
-            for (int i = 0; i < genes.Count; i++)
-            {
-                GeneDef gene = genes[i]?.def;
-                if (gene != null && gene.endogeneCategory != EndogeneCategory.Melanin && gene.biostatArc <= 0)
-                {
-                    request.AddForcedGene(gene, false);
-                }
-            }
-
-            return request;
         }
 
         // 关系模组改的是生成概率 Child 由 Parent 推导
@@ -191,82 +166,57 @@ namespace HungerAndHavoc.Generation
             child.relations.AddDirectRelation(PawnRelationDefOf.Parent, parent);
         }
 
-        internal static XenotypeDef InheritedXenotype(VersePawn mother, VersePawn father)
-        {
-            XenotypeDef motherType = HeritableXenotype(mother);
-            XenotypeDef fatherType = HeritableXenotype(father);
-            if (motherType != null && fatherType != null)
-            {
-                return motherType == fatherType ? motherType : null;
-            }
-
-            return motherType ?? fatherType;
-        }
-
-        static XenotypeDef HeritableXenotype(VersePawn pawn)
-        {
-            if (pawn?.genes == null)
-            {
-                return null;
-            }
-
-            XenotypeDef xenotype = pawn.genes.Xenotype;
-            return xenotype != null && xenotype.inheritable ? xenotype : null;
-        }
-
-        internal static void KeepGermline(VersePawn baby, VersePawn mother, VersePawn father)
+        // 对齐 ApplyBirthOutcome 的身份判定 不安装异种定义中的整套基因
+        internal static void SetBirthXenotype(VersePawn baby, VersePawn mother, VersePawn father)
         {
             if (!ModsConfig.BiotechActive || baby?.genes == null)
             {
                 return;
             }
 
+            if (GeneUtility.SameHeritableXenotype(mother, father) && mother.genes.UniqueXenotype)
+            {
+                baby.genes.xenotypeName = mother.genes.xenotypeName;
+                baby.genes.iconDef = mother.genes.iconDef;
+            }
+
             XenotypeDef xenotype = InheritedXenotype(mother, father);
-            if (xenotype == null)
+            if (xenotype != null)
             {
-                return;
+                baby.genes.SetXenotypeDirect(xenotype);
             }
-
-            List<GeneDef> genes = new List<GeneDef>();
-            CopyGeneDefs(genes, baby.genes.Endogenes);
-            CopyXenotypeGenes(genes, xenotype);
-            baby.genes.SetXenotype(xenotype);
-            for (int i = 0; i < genes.Count; i++)
+            else if (ShouldBeHybrid(mother, father))
             {
-                if (!baby.genes.HasEndogene(genes[i]))
-                {
-                    baby.genes.AddGene(genes[i], false);
-                }
+                baby.genes.hybrid = true;
+                baby.genes.xenotypeName = "Hybrid".Translate();
             }
         }
 
-        static void CopyGeneDefs(List<GeneDef> genes, List<Gene> source)
+        static XenotypeDef InheritedXenotype(VersePawn mother, VersePawn father)
         {
-            for (int i = 0; i < source.Count; i++)
+            Pawn_GeneTracker maternal = mother?.genes;
+            Pawn_GeneTracker paternal = father?.genes;
+            if (maternal != null && paternal != null)
             {
-                GeneDef gene = source[i]?.def;
-                if (gene != null && !genes.Contains(gene))
-                {
-                    genes.Add(gene);
-                }
+                return maternal.Xenotype.inheritable && paternal.Xenotype.inheritable &&
+                    maternal.Xenotype == paternal.Xenotype ? maternal.Xenotype : null;
             }
+
+            Pawn_GeneTracker known = maternal ?? paternal;
+            return known != null && known.Xenotype.inheritable ? known.Xenotype : null;
         }
 
-        static void CopyXenotypeGenes(List<GeneDef> genes, XenotypeDef xenotype)
+        static bool ShouldBeHybrid(VersePawn mother, VersePawn father)
         {
-            if (xenotype?.genes == null)
+            Pawn_GeneTracker maternal = mother?.genes;
+            Pawn_GeneTracker paternal = father?.genes;
+            if (maternal != null && paternal != null)
             {
-                return;
+                return maternal.Xenotype.inheritable || maternal.hybrid ||
+                    paternal.Xenotype.inheritable || paternal.hybrid;
             }
 
-            for (int i = 0; i < xenotype.genes.Count; i++)
-            {
-                GeneDef gene = xenotype.genes[i];
-                if (gene != null && !genes.Contains(gene))
-                {
-                    genes.Add(gene);
-                }
-            }
+            return (maternal ?? paternal)?.hybrid == true;
         }
 
         internal static float PregnancyChance(VersePawn woman, VersePawn man)
@@ -337,8 +287,14 @@ namespace HungerAndHavoc.Generation
                 return;
             }
 
+            GeneSet genes = PregnancyUtility.GetInheritedGeneSet(father, mother, out bool success);
+            if (!success)
+            {
+                return;
+            }
+
             Hediff_Pregnant pregnancy = (Hediff_Pregnant)HediffMaker.MakeHediff(HediffDefOf.PregnantHuman, mother);
-            pregnancy.SetParents(null, father, null);
+            pregnancy.SetParents(mother, father, genes);
             mother.health.AddHediff(pregnancy);
         }
     }
@@ -530,7 +486,6 @@ namespace HungerAndHavoc.Generation
             if (mother != null && baby != null)
             {
                 HungerAndHavoc.EventMgr.RHAH_EventFollowMood.NoteBirth(mother, baby);
-                RHAH_Fertility.KeepGermline(baby, mother, father);
             }
 
             if (mother == null || !RHAH_Fertility.Has(mother, RHAH_FertilityRules.LargeLitter))
@@ -549,7 +504,7 @@ namespace HungerAndHavoc.Generation
 
 
                 RHAH_RatkinName.Apply(extraBaby);
-                RHAH_Fertility.KeepGermline(extraBaby, mother, father);
+                RHAH_Fertility.SetBirthXenotype(extraBaby, mother, father);
                 if (mother.MapHeld != null)
                 {
                     GenSpawn.Spawn(extraBaby, mother.PositionHeld, mother.MapHeld);

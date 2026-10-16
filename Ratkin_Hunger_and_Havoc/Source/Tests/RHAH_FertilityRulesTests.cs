@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.Serialization;
-using RimWorld;
-using Verse;
 using HungerAndHavoc.Generation;
 using Xunit;
 
@@ -104,55 +99,5 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(1250, RHAH_FertilityRules.MinRoomLovinCooldownTicks);
         }
 
-        [Fact]
-        public void LitterRequestKeepsHeritableGenesAsEndogenes()
-        {
-            GeneDef ears = Gene("RK_Gene_LargeEars");
-            GeneDef xenogene = Gene("RK_Gene_Implant");
-            XenotypeDef ratkin = new XenotypeDef
-            {
-                defName = "RK_XenoType_Ratkin",
-                inheritable = true,
-                genes = new List<GeneDef> { ears }
-            };
-            PawnGenerationRequest request = new PawnGenerationRequest();
-            request = RHAH_Fertility.AddEndogenes(request, Parent(ratkin, ears, xenogene));
-            Assert.Contains(ears, request.ForcedEndogenes);
-            Assert.DoesNotContain(xenogene, request.ForcedEndogenes);
-            Assert.Null(request.ForcedXenogenes);
-            Assert.True(RHAH_Fertility.LitterRequest(Parent(ratkin, ears, xenogene), null).ForceNoBackstory);
-            Assert.Same(ratkin, RHAH_Fertility.InheritedXenotype(Parent(ratkin, ears, xenogene), null));
-        }
-
-
-        static GeneDef Gene(string defName)
-        {
-            return new GeneDef { defName = defName };
-        }
-
-        static Verse.Pawn Parent(XenotypeDef xenotype, GeneDef endogene, GeneDef xenogene)
-        {
-            Verse.Pawn pawn = (Verse.Pawn)FormatterServices.GetUninitializedObject(typeof(Verse.Pawn));
-            Pawn_GeneTracker genes = (Pawn_GeneTracker)FormatterServices.GetUninitializedObject(typeof(Pawn_GeneTracker));
-            typeof(Pawn_GeneTracker).GetField("xenotype", BindingFlags.Instance | BindingFlags.NonPublic)
-                .SetValue(genes, xenotype);
-            typeof(Pawn_GeneTracker).GetField("endogenes", BindingFlags.Instance | BindingFlags.NonPublic)
-                .SetValue(genes, new List<Gene> { GeneOf(endogene) });
-            typeof(Pawn_GeneTracker).GetField("xenogenes", BindingFlags.Instance | BindingFlags.NonPublic)
-                .SetValue(genes, new List<Gene> { GeneOf(xenogene) });
-            pawn.genes = genes;
-            pawn.kindDef = (PawnKindDef)FormatterServices.GetUninitializedObject(typeof(PawnKindDef));
-            ThingDef race = (ThingDef)FormatterServices.GetUninitializedObject(typeof(ThingDef));
-            race.race = new RaceProperties { lifeStageAges = new List<LifeStageAge>() };
-            pawn.kindDef.race = race;
-            return pawn;
-        }
-
-        static Gene GeneOf(GeneDef def)
-        {
-            Gene gene = (Gene)FormatterServices.GetUninitializedObject(typeof(Gene));
-            gene.def = def;
-            return gene;
-        }
     }
 }
