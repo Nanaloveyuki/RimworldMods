@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <KYI_BirthIdentityLabel>Newborn identity</KYI_BirthIdentityLabel>
+  <KYI_BirthIdentityText>{MOTHER_labelShort} has given birth to {BABY_labelShort}. The baby is currently a {IDENTITY}.
+
+You can make the baby a colonist, prisoner, or slave. If you make no choice within 12 in-game hours of birth, the baby will keep the mother's status at delivery ({IDENTITY}).</KYI_BirthIdentityText>
+  <KYI_Colonist>colonist</KYI_Colonist>
+  <KYI_Prisoner>prisoner</KYI_Prisoner>
+  <KYI_Slave>slave</KYI_Slave>
+</LanguageData>

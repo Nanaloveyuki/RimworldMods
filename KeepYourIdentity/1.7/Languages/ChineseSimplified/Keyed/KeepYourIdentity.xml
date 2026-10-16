@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <KYI_BirthIdentityLabel>新生儿身份</KYI_BirthIdentityLabel>
+  <KYI_BirthIdentityText>{MOTHER_labelShort}生下了{BABY_labelShort}。孩子目前的身份为：{IDENTITY}。
+
+你可以将孩子的身份设为殖民者、囚犯或奴隶。如果在出生后12个游戏小时内没有选择，孩子将保留母亲分娩时的身份（{IDENTITY}）。</KYI_BirthIdentityText>
+  <KYI_Colonist>殖民者</KYI_Colonist>
+  <KYI_Prisoner>囚犯</KYI_Prisoner>
+  <KYI_Slave>奴隶</KYI_Slave>
+</LanguageData>

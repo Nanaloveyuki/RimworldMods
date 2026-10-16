@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>保持你的身份 KeepYourIdentity</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.keepyouridentity</packageId>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>ludeon.rimworld.biotech</packageId>
+      <displayName>Biotech</displayName>
+    </li>
+    <li>
+      <packageId>ludeon.rimworld.ideology</packageId>
+      <displayName>Ideology</displayName>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>ludeon.rimworld.biotech</li>
+    <li>ludeon.rimworld.ideology</li>
+  </loadAfter>
+  <description>囚犯或奴隶分娩时，新生儿默认继承母亲在分娩当时的身份。你会收到一封选择信，可在12个游戏小时内将孩子的身份设为殖民者、囚犯或奴隶；超时未选择则保留默认身份。身份以分娩时记录的母亲状态为准，之后母亲的身份变化不会改变这项默认选择。殖民者母亲的分娩沿用原版规则。
+
+仅支持 RimWorld 1.7，需要 Harmony、Biotech 和 Ideology。</description>
+</ModMetaData>

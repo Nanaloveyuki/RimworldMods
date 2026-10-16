@@ -8,6 +8,7 @@ RimWorld 模组、框架与开发工具的统一源码仓库。原独立仓库�
 | --- | --- |
 | [AdvancedRimTalk](AdvancedRimTalk/) | RimTalk 提示词、Arti 语言与编辑器扩展 |
 | [IrisMenus](IrisMenus/) | 模组菜单、设置与渲染接口 |
+| [KeepYourIdentity](KeepYourIdentity/) | 仅 1.7：囚犯、奴隶新生儿身份继承与限时身份选择 |
 | [Lead-Your-Pets](Lead-Your-Pets/) | 牵着你的宠物续作；原作者授权范围见项目 NOTICE |
 | [MultiFloor-fork](MultiFloor-fork/) | MultiFloors 机制与兼容性调查，目前没有源码 fork |
 | [ODF-Mods](ODF-Mods/) | Oxygen DSL 消费端模组，各自独立打包 |
@@ -45,6 +46,23 @@ python3 scripts/rhah.py --help
 - 发布包仍以单个 Mod 为单位，保留原 packageId、加载目录及依赖关系；不要将整个仓库直接放进游戏 Mods 目录。
 - GitHub Actions 统一位于根目录 [`.github/workflows/`](.github/workflows/)。RHAH 的受保护本机构建与发布需要在新仓库配置 runner 和 environment；参见 [自动化说明](Ratkin_Hunger_and_Havoc/docs/automation.md)。
 - 新 Issue 标题注明项目目录；新 tag 使用 `<项目>/v<版本>` 避免跨项目重名。现有 RHAH 受保护发布入口仍接受 `v<版本>`，并要求该 tag 指向审查后的 monorepo 提交。
+
+### KeepYourIdentity（仅 RimWorld 1.7）
+
+显示名称为「保持你的身份 KeepYourIdentity」，packageId 为 `nanaloveyuki.keepyouridentity`。需要 Harmony、Biotech 和 Ideology。
+
+殖民地囚犯、奴隶分娩后，活产婴儿立即继承分娩母亲当时的身份，并收到一封可选择殖民者、囚犯或奴隶身份的信。选择期限为出生后 12 个游戏小时（30,000 ticks）；暂停游戏不计时，存读档不会重置期限，超时自动确认出生时记录的默认身份。母亲随后被招募、释放、奴役或死亡不会改变默认身份。殖民者母亲、培养舱、死产和非殖民地管理的生育保持原版逻辑；幼儿成长后的原版身份事件仍然保留。
+
+从 monorepo 根目录构建：
+
+```sh
+dotnet build KeepYourIdentity/Source/KeepYourIdentity.csproj -c Release
+```
+
+默认引用本机 `E:/Apps/Steam/steamapps/common/RimWorld` 和 Workshop Harmony 的 `1.7/Assemblies/0Harmony.dll`（WSL 使用 `/mnt/e/`）。其他安装位置通过 MSBuild 的 `RimWorldDir`、`HarmonyAssemblyPath` 属性指定。分发内容为 `KeepYourIdentity/About/`、`LoadFolders.xml`、`LICENSE` 和 `1.7/`；编译后的 DLL 位于 `1.7/Assemblies/KeepYourIdentity.dll`。
+
+验证（2026-10-16）：Release 构建 0 警告、0 错误；独立宿主加载实际 1.7 游戏程序集并成功安装 Harmony 补丁，验证了母亲身份快照、殖民者与培养舱旁路、三种选择、实际身份切换、重复动作保护、30,000 ticks 超时边界及信件存读档。未运行完整游戏中的分娩流程和信件界面。
+
 
 ## 迁移与历史
 
