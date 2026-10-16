@@ -57,6 +57,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 
 2026-10-14 母子关系补齐：I-003 耗子分妈、I-004 母亲乞讨的初次生成保留现有 `parentPawnLoadId` / `childPawnLoadIds`，同时使用原版 `Parent` 关系。`GameComponent_RHAH_Game.FinalizeInit` 在引用解析完成后，一次性遍历地图、世界、商队及临时角色；仅当双方已存 ID 相互确认、来源事件/批次/关系组一致且母亲为女性时补关系。已有另一位女性 Parent 时保留现状；缺失身份不猜补，不按姓名、年龄或同批来客推断。停用新内容不阻止补齐，重复加载不增加重复关系，下一次保存由原版 relations 写入；原 ID 字段和默认值不变，不增加 tick 扫描。
 
+2026-10-16 RimWorld 1.7：`NarrativeState.suiyinNarrativeForced` 默认 false，旧档缺键同样关闭穗音剧情；仅当前存档的设置强制开关可以开启。历史事件、信任、案子、待发信件和王国进度保留。关闭时停止剧情生成和办理，保留信任累计及袭击概率修正。`KingdomArcProgress.narrativePausedAt` 默认 -1，记录暂停 tick；恢复时顺延王国办理时钟，不补跑暂停期间的期限。两键随各自叙事组件 Remove；1.6 不读写这两个键。
+
 
 
 
@@ -342,7 +344,7 @@ Letter 与 Quest 的类型见上表。WorldObject `RHAH_RefugeeCamp`、`RHAH_App
 | lastDisasterAttemptDay | -1 | 去重每日 06:00 天灾尝试 |
 | swarmCount | 0 | 本年度已接受鼠潮次数，最多两次 |
 | lastSwarmTick | -1 | 上次鼠潮接受 tick，15 天冷却 |
-| lastPleadingTick | -1 | 上次祈求加入接受 tick，180 天冷却 |
+| lastPleadingTick | -1 | 上次祈求加入接受 tick，1.6 为 180 天冷却，1.7 为 15 年冷却；旧值保留 |
 
 鼠潮反抗复用已有 `RHAH_PawnState` 的态度、生命周期、等待/离场 tick 和保存的行为闸门覆盖，不新增第二套敌对状态。卸载时身份标记与闸门随本模组清除，原版 Pawn 保留。
 
@@ -427,6 +429,7 @@ ODF 定义 `RHAH_KingdomInvitation` 版本 1，stage=0、payload 为空、无期
 | cursor | 0 | Cursor |
 | due | -1 | Due |
 | deadline | -1 | Deadline |
+| narrativePausedAt | -1 | 仅 1.7，剧情暂停 tick；恢复时顺延王国办理时钟，随 progress Remove |
 | homeId | -1 | HomeId |
 | siteId | 0 | SiteId |
 | safeSiteId | 0 | SafeSiteId |

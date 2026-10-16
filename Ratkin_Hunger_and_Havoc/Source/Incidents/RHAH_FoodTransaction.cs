@@ -136,18 +136,28 @@ namespace HungerAndHavoc.Incidents
             }
             ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(record.QuotedFoodDefName);
             if (def == null) return false;
+#if RIMWORLD_1_7
+            IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
+#endif
             int stock = 0;
             List<Thing> available = map.listerThings.ThingsOfDef(def);
             for (int i = 0; i < available.Count; i++)
             {
                 Thing thing = available[i];
-                if (!IsUsableFood(thing, visitors) || !carrier.CanReach(thing, PathEndMode.Touch, Danger.Deadly) ||
+                if (!IsUsableFood(thing, visitors) ||
+#if RIMWORLD_1_7
+                    !CanDeliverFood(thing, carrier, colonists) ||
+#else
+                    !carrier.CanReach(thing, PathEndMode.Touch, Danger.Deadly) ||
+#endif
                     !carrier.inventory.innerContainer.CanAcceptAnyOf(thing, false)) continue;
                 food.Add(thing);
                 stock += thing.stackCount;
             }
             if (stock < record.QuotedFoodCount) return false;
+#if !RIMWORLD_1_7
             IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
+#endif
             foreach (IntVec3 cell in GenRadial.RadialCellsAround(carrier.Position, 30f, true))
             {
                 if (!cell.InBounds(map) || !cell.Standable(map) || cell.GetThingList(map).Count != 0 ||
@@ -161,6 +171,20 @@ namespace HungerAndHavoc.Incidents
             }
             return false;
         }
+
+#if RIMWORLD_1_7
+        internal static bool CanDeliverFood(Thing food, Verse.Pawn receiver, IReadOnlyList<Verse.Pawn> colonists)
+        {
+            // 交货由殖民者完成 来客无须能打开仓库门
+            for (int i = 0; i < colonists.Count; i++)
+            {
+                Verse.Pawn colonist = colonists[i];
+                if (!colonist.Downed && colonist.CanReach(food, PathEndMode.ClosestTouch, Danger.Deadly) &&
+                    colonist.CanReach(receiver, PathEndMode.Touch, Danger.Deadly)) return true;
+            }
+            return false;
+        }
+#endif
 
         internal static bool CanDeliver(RHAH_ChoiceRecord record)
         {
@@ -189,6 +213,9 @@ namespace HungerAndHavoc.Incidents
                     packet.Owner = carrier.inventory.innerContainer;
                     remaining -= count;
                 }
+#if RIMWORLD_1_7
+                if (remaining != 0) throw new InvalidOperationException("Food payment no longer matches quote");
+#endif
                 for (int i = 0; i < rewards.Count; i++)
                 {
                     rewards[i].Owner.Remove(rewards[i].Thing);

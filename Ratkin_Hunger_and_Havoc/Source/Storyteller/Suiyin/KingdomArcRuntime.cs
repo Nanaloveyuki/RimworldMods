@@ -10,7 +10,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
     internal static class KingdomArcRuntime
     {
         internal static KingdomArcState State => Current.Game?.GetComponent<NarrativeState>()?.Kingdom;
-        internal static bool CanAct => Current.ProgramState == ProgramState.Playing && RHAH_Runtime.AllowsNewContent &&
+        internal static bool CanAct => RHAH_EndingRuntime.NarrativeActive && Current.ProgramState == ProgramState.Playing && RHAH_Runtime.AllowsNewContent &&
             State != null && State.Invitation != KingdomInvitation.Disabled;
         internal static bool CanUse => CanAct && (KingdomArcActions.Narrator || State.Invitation == KingdomInvitation.Accepted);
 
@@ -94,6 +94,11 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void SendCurrent()
         {
+            if (!CanAct)
+            {
+                return;
+            }
+
             KingdomArcState state = State;
             KingdomArcProgress progress = state.Progress;
             KingdomArcSegment segment = KingdomArcPresentation.Scenes(progress.Stage, progress)[0];
@@ -115,6 +120,11 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void DrawEntry(Listing_Standard listing)
         {
+            if (!RHAH_EndingRuntime.NarrativeActive)
+            {
+                return;
+            }
+
             string key = State == null || State.Invitation == KingdomInvitation.None || State.Invitation == KingdomInvitation.Declined
                 ? "RHAH_Settings_Kingdom_Start" : State.EarlyComplete ? "RHAH_Settings_Kingdom_Read" : "RHAH_Settings_Kingdom_Continue";
             if (CanUse)

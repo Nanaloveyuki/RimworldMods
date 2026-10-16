@@ -30,7 +30,11 @@ namespace HungerAndHavoc.Pawn
             }
 
             IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
+#if RIMWORLD_1_7
+            if (snapshot == null || !RHAH_Feeding.NeedsFood(pawn) || RHAH_ReliefFood.MayEatOutside(pawn))
+#else
             if (snapshot == null || snapshot.HasBeenFed || RHAH_ReliefFood.MayEatOutside(pawn))
+#endif
             {
                 return null;
             }

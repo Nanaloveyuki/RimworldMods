@@ -77,6 +77,25 @@ namespace HungerAndHavoc.Narrative
         bool endingE05;
         int identityTier;
         bool identityRefused;
+#if RIMWORLD_1_7
+        bool suiyinNarrativeForced;
+        internal bool NarrativeEnabled => suiyinNarrativeForced;
+#else
+        internal bool NarrativeEnabled => true;
+#endif
+
+        internal void SetNarrativeForced(bool enabled)
+        {
+#if RIMWORLD_1_7
+            int tick = Current.Game?.tickManager?.TicksGame ?? -1;
+            if (enabled == suiyinNarrativeForced) return;
+            if (enabled) kingdom.Progress.ResumeNarrative(tick);
+            else kingdom.Progress.PauseNarrative(tick);
+            suiyinNarrativeForced = enabled;
+            book.NarrativeEnabled = enabled;
+            if (enabled) KingdomArcActions.Wake();
+#endif
+        }
 
         public NarrativeState(Game game)
         {
@@ -109,7 +128,7 @@ namespace HungerAndHavoc.Narrative
         }
         internal bool SuiyinAllows(SuiyinNode node, int tick)
         {
-            return suiyin.Allows(node, tick);
+            return NarrativeEnabled && suiyin.Allows(node, tick);
         }
 
         internal bool SuiyinEnabled(SuiyinNode node)
@@ -148,6 +167,7 @@ namespace HungerAndHavoc.Narrative
 
         internal void PullBook()
         {
+            book.NarrativeEnabled = NarrativeEnabled;
             book.Gates = suiyin;
             book.Trust = trust;
         }
@@ -228,7 +248,7 @@ namespace HungerAndHavoc.Narrative
 
         internal bool IdentityDue(bool narrator, bool enabled, int trustFloor, int hopeTrust)
         {
-            if (!narrator || !enabled || !relicDone || identityRefused)
+            if (!NarrativeEnabled || !narrator || !enabled || !relicDone || identityRefused)
             {
                 return false;
             }
@@ -275,6 +295,9 @@ namespace HungerAndHavoc.Narrative
 
         public override void ExposeData()
         {
+#if RIMWORLD_1_7
+            Scribe_Values.Look(ref suiyinNarrativeForced, "suiyinNarrativeForced", false);
+#endif
             Scribe_Values.Look(ref revealedCount, "revealedCount", 0);
             Scribe_Values.Look(ref trust, "trust", 0);
             Scribe_Values.Look(ref rescued, "rescued", 0);
@@ -359,6 +382,11 @@ namespace HungerAndHavoc.Narrative
 
                 suiyin.Import(suiyinEnabled, suiyinStarted, suiyinDeadlineTick);
                 book.Gates = suiyin;
+                book.NarrativeEnabled = NarrativeEnabled;
+#if RIMWORLD_1_7
+                if (!NarrativeEnabled)
+                    kingdom.Progress.PauseNarrative(Current.Game?.tickManager?.TicksGame ?? -1);
+#endif
                 book.Trust = trust;
                 book.Narrator = true;
                 book.OpeningSent = openingSent;

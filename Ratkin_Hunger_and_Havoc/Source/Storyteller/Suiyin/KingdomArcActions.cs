@@ -28,6 +28,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static bool Start()
         {
+            if (!KingdomArcRuntime.CanAct) return false;
             KingdomArcProgress p = Progress;
             if (p == null || p.Stage != KingdomStage.None) return p != null;
             Map home = Find.AnyPlayerHomeMap;
@@ -58,6 +59,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Wake()
         {
+            if (!RHAH_EndingRuntime.NarrativeActive || Find.TickManager == null) return;
             KingdomArcProgress p = Progress;
             if (p?.ChainId > 0)
                 OxygenEventChainHost.Runtime?.SetStage(RHAH_EventChainProvider.ProviderKey, p.ChainId, 0, -1, "", AddTicks(Now, 1));
@@ -76,6 +78,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Advance(int tick)
         {
+            if (!KingdomArcRuntime.CanAct) return;
             KingdomArcProgress p = Progress;
             if (p == null || p.Stage == KingdomStage.None || p.Stage == KingdomStage.Complete) return;
             if (p.PendingLetter && Narrator)

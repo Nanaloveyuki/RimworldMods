@@ -13,7 +13,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void DistinctKindsOpenLettersOnceAndPaySilverOnce()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Note("I-001", 1, 0, true);
             book.Note("I-001", 1, 10, true);
             Assert.Equal(1, book.Distinct);
@@ -48,6 +48,7 @@ namespace HungerAndHavoc.Tests
         public void ChoiceTrustReturnsToTheNarrativeState()
         {
             NarrativeState state = new NarrativeState(null);
+            state.SetNarrativeForced(true);
             state.RecordTrust(4);
             SuiyinN004Case record = new SuiyinN004Case();
             state.Book.N004.Add(record);
@@ -62,6 +63,15 @@ namespace HungerAndHavoc.Tests
         public void RewardDueMatchesTheLedgerOnce()
         {
             NarrativeState state = new NarrativeState(null);
+#if RIMWORLD_1_7
+            state.NoteIncident(new SuiyinIncidentFact("I-001", 1, 0, 1, 1));
+            Assert.Equal(1, state.Book.Distinct);
+            Assert.False(state.Book.OpeningSent);
+            Assert.Empty(state.Book.Pending);
+            Assert.Null(state.Book.N009);
+            Assert.Equal(0, state.TakeRewardDue());
+#endif
+            state.SetNarrativeForced(true);
             for (int i = 1; i <= 8; i++)
             {
                 state.NoteIncident(new SuiyinIncidentFact("I-" + i.ToString("000"), 1, i * 10, i, 1));
@@ -89,7 +99,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void DisabledNodesDoNotSendPrivateLetters()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Gates = new SuiyinLedger();
             book.Gates.SetEnabled(SuiyinNode.N001, false);
             book.Gates.SetEnabled(SuiyinNode.N002, false);
@@ -104,7 +114,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void OtherNarratorsSkipPrivateLettersButKeepObjectiveOnes()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Narrator = false;
             book.Note("I-001", 1, 0, true);
             Assert.True(book.OpeningSent);
@@ -118,7 +128,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void EntrustOutcomesStayExclusive()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(book.OpenEntrust(7, 1, 0, new[] { 8 }));
             Assert.False(book.OpenEntrust(7, 1, 1, new[] { 8 }));
             SuiyinN004Case record = book.N004[0];
@@ -129,24 +139,24 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(5, book.Trust);
             Assert.Equal(1, Count(book, SuiyinLetter.N004FamilyHere));
 
-            SuiyinBook dead = new SuiyinBook();
+            SuiyinBook dead = new SuiyinBook { NarrativeEnabled = true };
             dead.OpenEntrust(1, 1, 0, new[] { 2 });
             dead.N004[0].Children[0].Presence = SuiyinPresence.Dead;
             Assert.Equal(SuiyinN004Outcome.Story, dead.ResolveEntrust(dead.N004[0], 10, SuiyinPresence.Dead));
             Assert.Equal(-2, dead.Trust);
 
-            SuiyinBook captive = new SuiyinBook();
+            SuiyinBook captive = new SuiyinBook { NarrativeEnabled = true };
             captive.OpenEntrust(1, 1, 0, new[] { 2 });
             captive.N004[0].Children[0].Child = false;
             captive.N004[0].Children[0].Care = SuiyinCare.Captive;
             Assert.Equal(SuiyinN004Outcome.Captive, captive.ResolveEntrust(captive.N004[0], 10, SuiyinPresence.Dead));
 
-            SuiyinBook alone = new SuiyinBook();
+            SuiyinBook alone = new SuiyinBook { NarrativeEnabled = true };
             alone.OpenEntrust(1, 1, 0, new[] { 2 });
             alone.N004[0].Children[0].Child = false;
             Assert.Equal(SuiyinN004Outcome.ChildAlone, alone.ResolveEntrust(alone.N004[0], 10, SuiyinPresence.Dead));
 
-            SuiyinBook regret = new SuiyinBook();
+            SuiyinBook regret = new SuiyinBook { NarrativeEnabled = true };
             regret.OpenEntrust(1, 1, 0, new[] { 2 });
             regret.N004[0].Children[0].Presence = SuiyinPresence.Dead;
             Assert.Equal(SuiyinN004Outcome.Regret, regret.ResolveEntrust(regret.N004[0], 10, SuiyinPresence.Here));
@@ -155,7 +165,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void BanishedRescueCanBeAnsweredAfterMeetingDeadlineAndPaysOnce()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.OpenEntrust(1, 1, 0, new[] { 2 });
             SuiyinN004Case record = book.N004[0];
             record.Children[0].Presence = SuiyinPresence.Left;
@@ -173,7 +183,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void CarePausesForMalnutritionResumesAndMissingIsNotDeath()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(book.AcceptExchange(4, 1, 0, new[] { 9 }));
             Assert.False(book.AcceptExchange(4, 1, 1, new[] { 9 }));
             SuiyinN005Case record = book.N005[0];
@@ -194,7 +204,7 @@ namespace HungerAndHavoc.Tests
             book.AdvanceCare(record, 360002);
             Assert.Equal(1, Count(book, SuiyinLetter.N005Cared));
 
-            SuiyinBook missing = new SuiyinBook();
+            SuiyinBook missing = new SuiyinBook { NarrativeEnabled = true };
             missing.AcceptExchange(5, 1, 0, new[] { 9 });
             missing.N005[0].Children[0].Presence = SuiyinPresence.Unknown;
             Assert.Equal(SuiyinN005Outcome.Accepted, missing.AdvanceCare(missing.N005[0], 100));
@@ -212,7 +222,7 @@ namespace HungerAndHavoc.Tests
             HungerAndHavoc.Core.RHAH_Mod.Settings = new HungerAndHavoc.Core.RHAH_Settings { holeWoodCost = cost };
             try
             {
-                SuiyinBook book = new SuiyinBook();
+                SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
                 Assert.False(book.NoteTheft(3, 0));
                 Assert.True(book.NoteTheft(3, 10));
                 Assert.False(book.NoteTheft(3, 20));
@@ -240,7 +250,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void HoleExpiresWithoutAnEntityAndDestroyedBaitDoesNotStayOpen()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             SuiyinN006Case hole = new SuiyinN006Case { Outcome = SuiyinN006Outcome.Pending, Hole = false, IgnoreUntil = 100 };
             Assert.False(book.ChooseHole(hole, SuiyinN006Action.Ignore, 99));
             Assert.True(book.ChooseHole(hole, SuiyinN006Action.Ignore, 100));
@@ -257,7 +267,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void PositiveTrustRaisesNarrativeSilverByAtMostAQuarter()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Trust = 100;
             Assert.Equal(375, book.Scaled(300));
             book.Trust = 0;
@@ -274,7 +284,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void AsidesFireOnceAndStopWhenTrustIsClosed()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.OpenEntrust(1, 1, 0, new[] { 2 });
             book.N004[0].Children[0].Child = false;
             book.ResolveEntrust(book.N004[0], 10, SuiyinPresence.Here);
@@ -289,7 +299,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void OldArrivalNoticesAreDiscardedWithoutLosingChoicesOrRewards()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Pending.Add(new SuiyinNotice(SuiyinLetter.Journal, 14, true));
             book.Pending.Add(new SuiyinNotice(SuiyinLetter.N004Entry, 7, true));
             book.Pending.Add(new SuiyinNotice(SuiyinLetter.N006Entry, 0, false));
@@ -309,7 +319,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void JournalCountsAidOnceAfterSafeLeave()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             Assert.Equal(14, SuiyinBook.JournalFor("I-015"));
             Assert.Equal(5, SuiyinBook.JournalFor("I-006"));
             Assert.True(book.OpenJournal(14, 1, 9, 0, new[] { 41 }, true));
@@ -326,7 +336,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void JournalIgnoresNaturalDeathAndFailsOnPlayerKill()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(book.OpenJournal(14, 1, 9, 0, new[] { 41, 42 }, false));
             SuiyinJournalCase record = book.Journals[0];
             record.People[0].Presence = SuiyinPresence.Dead;
@@ -335,7 +345,7 @@ namespace HungerAndHavoc.Tests
             Assert.True(record.Closed);
             Assert.False(record.Counted);
 
-            SuiyinBook promised = new SuiyinBook();
+            SuiyinBook promised = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(promised.OpenJournal(14, 1, 12, 0, new[] { 46, 47 }, false));
             Assert.True(promised.MarkJournalDelivered(12));
             promised.Journals[0].People[0].Presence = SuiyinPresence.Dead;
@@ -343,7 +353,7 @@ namespace HungerAndHavoc.Tests
             Assert.True(promised.CloseJournal(promised.Journals[0], 2000));
             Assert.True(promised.Journals[0].Counted);
 
-            SuiyinBook empty = new SuiyinBook();
+            SuiyinBook empty = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(empty.OpenJournal(14, 1, 10, 0, new[] { 43 }, true));
             empty.Journals[0].People[0].Presence = SuiyinPresence.Dead;
             Assert.False(empty.CloseJournal(empty.Journals[0], 1000));
@@ -351,7 +361,7 @@ namespace HungerAndHavoc.Tests
             Assert.True(empty.Journals[0].Empty);
             Assert.False(empty.Journals[0].Counted);
 
-            SuiyinBook killed = new SuiyinBook();
+            SuiyinBook killed = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(killed.OpenJournal(14, 1, 11, 0, new[] { 44, 45 }, true));
             Assert.True(killed.MarkJournalFailed(11));
             Assert.False(killed.CloseJournal(killed.Journals[0], 1000));
@@ -364,7 +374,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void InterceptionFailsAPromisedJournalOnce()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Trust = 10;
             Assert.True(book.OpenJournal(14, 1, 9, 0, new[] { 41, 42 }, true));
             book.Journals[0].People[0].Presence = SuiyinPresence.Left;
@@ -379,7 +389,7 @@ namespace HungerAndHavoc.Tests
             Assert.True(book.Journals[0].Counted);
             Assert.Equal(10, book.Trust);
 
-            SuiyinBook intercepted = new SuiyinBook();
+            SuiyinBook intercepted = new SuiyinBook { NarrativeEnabled = true };
             intercepted.Trust = 10;
             Assert.True(intercepted.OpenInterception(7, 21, 100, new[] { 51, 52 }));
             Assert.Equal(0, intercepted.Journals[0].Id);
@@ -405,7 +415,7 @@ namespace HungerAndHavoc.Tests
             Assert.False(intercepted.OpenInterception(7, 22, 300, new int[0]));
             Assert.Single(intercepted.Journals);
 
-            SuiyinBook missing = new SuiyinBook();
+            SuiyinBook missing = new SuiyinBook { NarrativeEnabled = true };
             missing.Trust = 10;
             Assert.False(missing.FailInterception(0));
             Assert.False(missing.FailInterception(9));
@@ -419,7 +429,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void SavedClaimsDoNotReset()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             book.Note("I-001", 1, 0, true);
             book.RewardClaimed = true;
             book.RewardPaid = 300;
@@ -435,7 +445,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void ProofStillAllowsOneTrade()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             for (int i = 1; i <= 5; i++)
             {
                 book.Note("I-" + i.ToString("000"), 1, i, true);
@@ -458,7 +468,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void EnvoyCheckDeadlineAndPresenceRejectUnfulfillableChoices()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             SuiyinN008Case envoy = new SuiyinN008Case
             {
                 Outcome = SuiyinN008Outcome.Checking,
@@ -488,7 +498,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void JournalKeepsRealPawnIds()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(book.OpenJournal(14, 1, 9, 0, new[] { 41, 42 }, true));
             Assert.Equal(41, book.Journals[0].People[0].LoadId);
             Assert.Equal(42, book.Journals[0].People[1].LoadId);
@@ -497,7 +507,7 @@ namespace HungerAndHavoc.Tests
         }
         static SuiyinBook Copy(SuiyinBook source)
         {
-            SuiyinBook copy = new SuiyinBook();
+            SuiyinBook copy = new SuiyinBook { NarrativeEnabled = true };
             copy.Seen.AddRange(source.Seen);
             copy.OpeningSent = source.OpeningSent;
             copy.ProgressSent = source.ProgressSent;

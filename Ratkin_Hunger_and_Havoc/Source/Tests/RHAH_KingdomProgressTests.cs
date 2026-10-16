@@ -21,6 +21,7 @@ namespace HungerAndHavoc.Tests
                 Current.Game = (Game)FormatterServices.GetUninitializedObject(typeof(Game));
                 NarrativeState narrative = new NarrativeState(Current.Game);
                 Current.Game.components = new List<GameComponent> { narrative };
+                narrative.SetNarrativeForced(true);
                 KingdomArcProgress progress = narrative.Kingdom.Progress;
                 progress.ChainId = 7;
                 progress.Stage = KingdomStage.Response;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <RHAH_Settings_ForceSuiyinNarrative>强制启用穗音剧情（当前存档）</RHAH_Settings_ForceSuiyinNarrative>
+  <RHAH_Settings_ForceSuiyinNarrative_Tooltip>1.7 中穗音剧情默认隐藏并暂停。开启后，当前存档可继续已有剧情、触发新剧情并接收穗音来信，设置中也会显示剧情入口。关闭后再次暂停，已有进度保留。信任变化及其对袭击概率的影响照常生效。</RHAH_Settings_ForceSuiyinNarrative_Tooltip>
   <RHAH_Settings_Kingdom_Summary>当前开放 K1–K5 的背景与初次合作，后续章节尚未完成。王国篇只由你在这里手动开启；开始前，请将叙事者设为穗音。</RHAH_Settings_Kingdom_Summary>
   <RHAH_Settings_Kingdom_Start>开启王国篇</RHAH_Settings_Kingdom_Start>
   <RHAH_Settings_Kingdom_Continue>继续王国篇</RHAH_Settings_Kingdom_Continue>

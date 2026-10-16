@@ -23,7 +23,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Tick(int tick)
         {
-            if (!RHAH_NarrativePace.Due(tick, RHAH_NarrativePace.Spread, RHAH_NarrativePace.Spread * 5) || Current.Game == null)
+            if (!RHAH_EndingRuntime.NarrativeActive || !RHAH_NarrativePace.Due(tick, RHAH_NarrativePace.Spread, RHAH_NarrativePace.Spread * 5) || Current.Game == null)
             {
                 return;
             }
@@ -214,7 +214,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Choose(SuiyinN009Action action, Building box)
         {
-            if (box == null || !box.Spawned || Current.Game == null)
+            if (!RHAH_EndingRuntime.NarrativeActive || box == null || !box.Spawned || Current.Game == null)
             {
                 return;
             }
@@ -392,7 +392,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                 yield return gizmo;
             }
 
-            if (!Spawned || Destroyed)
+            if (!RHAH_EndingRuntime.NarrativeActive || !Spawned || Destroyed)
             {
                 yield break;
             }

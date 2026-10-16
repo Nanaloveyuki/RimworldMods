@@ -15,7 +15,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Tick(int tick)
         {
-            if (!RHAH_NarrativePace.Due(tick, CheckInterval, RHAH_NarrativePace.Spread * 3) || Current.Game == null)
+            if (!RHAH_EndingRuntime.NarrativeActive || !RHAH_NarrativePace.Due(tick, CheckInterval, RHAH_NarrativePace.Spread * 3) || Current.Game == null)
             {
                 return;
             }
@@ -63,7 +63,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         {
             pawn = null;
             caravan = null;
-            if (record == null || !tile.Valid || !IsTarget(record, pawnId))
+            if (!RHAH_EndingRuntime.NarrativeActive || record == null || !tile.Valid || !IsTarget(record, pawnId))
             {
                 return false;
             }

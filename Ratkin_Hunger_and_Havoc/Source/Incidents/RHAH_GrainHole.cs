@@ -20,7 +20,7 @@ namespace HungerAndHavoc.Incidents
 
         internal static void Tick(Map map)
         {
-            if (map == null || Find.TickManager == null)
+            if (!RHAH_EndingRuntime.NarrativeActive || map == null || Find.TickManager == null)
             {
                 return;
             }
@@ -217,7 +217,7 @@ namespace HungerAndHavoc.Incidents
         internal static bool Refresh(Map map, SuiyinN006Case record, int tick)
         {
             NarrativeState state = Current.Game?.GetComponent<NarrativeState>();
-            if (state == null || record == null || (record.Outcome != SuiyinN006Outcome.Pending && record.Outcome != SuiyinN006Outcome.BaitSet))
+            if (!RHAH_EndingRuntime.NarrativeActive || state == null || record == null || (record.Outcome != SuiyinN006Outcome.Pending && record.Outcome != SuiyinN006Outcome.BaitSet))
             {
                 return false;
             }
@@ -243,6 +243,7 @@ namespace HungerAndHavoc.Incidents
 
         internal static void ExpireMissingMaps(NarrativeState state, int tick)
         {
+            if (state == null || !state.NarrativeEnabled) return;
             for (int i = 0; state?.Book?.N006 != null && i < state.Book.N006.Count; i++)
             {
                 SuiyinN006Case record = state.Book.N006[i];

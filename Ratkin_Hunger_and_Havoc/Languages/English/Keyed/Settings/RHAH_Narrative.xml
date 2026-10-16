@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <RHAH_Settings_ForceSuiyinNarrative>Force Suiyin narrative (current save)</RHAH_Settings_ForceSuiyinNarrative>
+  <RHAH_Settings_ForceSuiyinNarrative_Tooltip>Suiyin's narrative is hidden and paused by default in 1.7. Enable this to resume existing storylines, allow new storylines and Suiyin letters, and show narrative controls for this save. Disabling pauses them again and preserves progress. Trust changes and their effect on raid probability remain active.</RHAH_Settings_ForceSuiyinNarrative_Tooltip>
   <RHAH_Settings_Kingdom_Summary>K1–K5 cover Suiyin's background and your first collaboration. Later chapters are unfinished. The kingdom arc starts only when you open it here; select Suiyin as storyteller before starting.</RHAH_Settings_Kingdom_Summary>
   <RHAH_Settings_Kingdom_Start>Start the kingdom arc</RHAH_Settings_Kingdom_Start>
   <RHAH_Settings_Kingdom_Continue>Continue the kingdom arc</RHAH_Settings_Kingdom_Continue>

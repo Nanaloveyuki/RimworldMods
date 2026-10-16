@@ -35,6 +35,9 @@ namespace HungerAndHavoc.Incidents
                 : settings.IncidentAttitude(entry.DisplayId, entry.DefaultAttitude);
             NarrativeState state = Verse.Current.Game?.GetComponent<NarrativeState>();
             int trust = state == null ? 0 : state.Snapshot().Trust;
+#if RIMWORLD_1_7
+            if (!RHAH_EndingRuntime.NarrativeActive) return configured;
+#endif
             return RHAH_AttitudePolicy.Arrival(configured, RHAH_EndingRuntime.CountsNow(), trust);
         }
     }

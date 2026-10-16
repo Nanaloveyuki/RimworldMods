@@ -93,8 +93,12 @@ namespace HungerAndHavoc.Pawn
                 return "RHAH_Choice_FeedBlocked";
             }
 
+#if RIMWORLD_1_7
+            if (!RHAH_Feeding.NeedsFood(pawn))
+#else
             IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
             if (snapshot != null && snapshot.HasBeenFed)
+#endif
             {
                 return "RHAH_Choice_FeedNotHungry";
             }

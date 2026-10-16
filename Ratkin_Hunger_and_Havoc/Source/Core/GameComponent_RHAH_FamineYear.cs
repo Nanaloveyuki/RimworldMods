@@ -137,7 +137,11 @@ namespace HungerAndHavoc.Core
 
         internal static bool PleadingAvailable(int lastTick, int tick)
         {
+#if RIMWORLD_1_7
+            return lastTick < 0 || (long)tick - lastTick >= 15L * GenDate.TicksPerYear;
+#else
             return lastTick < 0 || (long)tick - lastTick >= 180L * GenDate.TicksPerDay;
+#endif
         }
 
         internal static float ClampPercent(float value, float fallback)

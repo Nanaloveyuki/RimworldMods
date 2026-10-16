@@ -24,7 +24,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         public override void OpenLetter()
         {
             KingdomArcState state = KingdomArcRuntime.State;
-            bool matches = state != null && state.InstanceId == InstanceId && (Stage == KingdomStage.None || state.Progress.Matches(Stage, Revision));
+            bool matches = KingdomArcRuntime.CanUse && state != null && state.InstanceId == InstanceId && (Stage == KingdomStage.None || state.Progress.Matches(Stage, Revision));
             KingdomArcSegment[] snapshot = null;
             if (BodyKeys.Count > 0)
             {

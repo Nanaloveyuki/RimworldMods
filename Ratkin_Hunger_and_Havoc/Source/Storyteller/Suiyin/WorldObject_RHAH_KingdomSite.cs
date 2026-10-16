@@ -20,6 +20,9 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         public override string Label => RecipientGroup == 0 ? ("RHAH_Kingdom_Site_" + Kind).Translate() : ("RHAH_Kingdom_PublicGroup_" + RecipientGroup).Translate();
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(WorldCaravan caravan)
         {
+#if RIMWORLD_1_7
+            if (!KingdomArcRuntime.CanAct) yield break;
+#endif
             foreach (FloatMenuOption option in base.GetFloatMenuOptions(caravan)) yield return option;
             if (caravan == null || !caravan.IsPlayerControlled) yield break;
             bool here = caravan.Tile == Tile;
@@ -51,6 +54,9 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         public override string ReportString => "RHAH_Kingdom_Travel".Translate();
         public override FloatMenuAcceptanceReport StillValid(WorldCaravan caravan, PlanetTile destination)
         {
+#if RIMWORLD_1_7
+            if (!KingdomArcRuntime.CanAct) return false;
+#endif
             return site != null && site.Spawned && !site.Destroyed && site.Tile == destination;
         }
         public override void Arrived(WorldCaravan caravan)

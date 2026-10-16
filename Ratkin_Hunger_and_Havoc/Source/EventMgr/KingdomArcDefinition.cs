@@ -21,6 +21,11 @@ namespace HungerAndHavoc.EventMgr
 
         public EventChainDecision Evaluate(EventChainInstance instance, int tick)
         {
+            if (!RHAH_EndingRuntime.NarrativeActive)
+            {
+                return EventChainDecision.Wait(KingdomArcActions.AddTicks(tick, RimWorld.GenDate.TicksPerHour));
+            }
+
             return KingdomArcActions.Narrator ? EventChainDecision.Action("notify_invitation", -1)
                 : EventChainDecision.Wait(KingdomArcActions.AddTicks(tick, RimWorld.GenDate.TicksPerHour));
         }
@@ -30,6 +35,11 @@ namespace HungerAndHavoc.EventMgr
             if (actionId != "notify_invitation")
             {
                 return EventChainActionResult.Failed("Unknown kingdom invitation action: " + actionId);
+            }
+
+            if (!RHAH_EndingRuntime.NarrativeActive)
+            {
+                return EventChainActionResult.Applied();
             }
 
             KingdomArcRuntime.Notify(instance.Id);

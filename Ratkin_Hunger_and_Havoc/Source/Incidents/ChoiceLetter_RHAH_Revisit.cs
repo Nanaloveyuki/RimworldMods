@@ -22,6 +22,13 @@ namespace HungerAndHavoc.Incidents
             get
             {
                 SuiyinN004Case record = FindRecord();
+#if RIMWORLD_1_7
+                if (!RHAH_EndingRuntime.NarrativeActive)
+                {
+                    yield return Option_Close;
+                    yield break;
+                }
+#endif
                 if (ArchivedOnly || record == null || record.Revisit != SuiyinN004Revisit.None)
                 {
                     yield return Option_Close;
@@ -91,6 +98,9 @@ namespace HungerAndHavoc.Incidents
         {
             NarrativeState state = Current.Game?.GetComponent<NarrativeState>();
             SuiyinN004Case record = FindRecord();
+#if RIMWORLD_1_7
+            if (!RHAH_EndingRuntime.NarrativeActive) return;
+#endif
             if (Find.LetterStack == null || !Find.LetterStack.LettersListForReading.Contains(this)
                 || state == null || record == null || record.Outcome != SuiyinN004Outcome.Banished
                 || record.Revisit != SuiyinN004Revisit.None || !record.RevisitSeen

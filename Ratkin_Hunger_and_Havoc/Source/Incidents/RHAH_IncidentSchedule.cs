@@ -424,6 +424,9 @@ namespace HungerAndHavoc.Incidents
             }
 
             int trust = Current.Game?.GetComponent<Narrative.NarrativeState>()?.Snapshot().Trust ?? 0;
+#if RIMWORLD_1_7
+            if (!Storyteller.Suiyin.RHAH_EndingRuntime.NarrativeActive) trust = 0;
+#endif
             RHAH_IncidentSeason season = RHAH_IncidentSchedule.SeasonOf(Find.AnyPlayerHomeMap);
             RHAH_IncidentSchedule.QueueDueIncidents(
                 GenDate.DaysPassedSinceSettleFloat,

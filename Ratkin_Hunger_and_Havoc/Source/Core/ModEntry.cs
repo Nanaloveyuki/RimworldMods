@@ -34,10 +34,19 @@ namespace HungerAndHavoc.Core
             listing.CheckboxLabeled("RHAH_Settings_EnableNewContent".Translate(), ref Settings.enableNewContent,
                 "RHAH_Settings_EnableNewContent_Tooltip".Translate());
             DrawRemoval(listing);
-            listing.Label("RHAH_Menu_Narrative_Kingdom".Translate());
-            listing.Label("RHAH_Settings_Kingdom_Summary".Translate());
-            Storyteller.Suiyin.KingdomArcRuntime.DrawEntry(listing);
-            listing.GapLine();
+#if RIMWORLD_1_7
+            Storyteller.Suiyin.RHAH_EndingRuntime.DrawForceSettings(listing);
+            bool showNarrative = Storyteller.Suiyin.RHAH_EndingRuntime.NarrativeActive;
+#else
+            bool showNarrative = true;
+#endif
+            if (showNarrative)
+            {
+                listing.Label("RHAH_Menu_Narrative_Kingdom".Translate());
+                listing.Label("RHAH_Settings_Kingdom_Summary".Translate());
+                Storyteller.Suiyin.KingdomArcRuntime.DrawEntry(listing);
+                listing.GapLine();
+            }
             listing.CheckboxLabeled("RHAH_Settings_OptimizeGeneration".Translate(), ref Settings.optimizeGeneration,
                 "RHAH_Settings_OptimizeGeneration_Tooltip".Translate());
             bool relief = Settings.reliefEnabled;

@@ -8,7 +8,7 @@ namespace HungerAndHavoc.Tests
         [Fact]
         public void UnvisitedSiteWaitsForItsDeadlineBeforeRemoval()
         {
-            SuiyinBook book = new SuiyinBook();
+            SuiyinBook book = new SuiyinBook { NarrativeEnabled = true };
             Assert.True(book.OpenRelic(0));
             book.N009.SiteId = 32;
             book.N009.MapPresent = true;

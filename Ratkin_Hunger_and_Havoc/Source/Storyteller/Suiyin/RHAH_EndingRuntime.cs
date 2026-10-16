@@ -11,6 +11,31 @@ namespace HungerAndHavoc.Storyteller.Suiyin
     {
         internal const string NarratorDefName = "RHAH_Suiyin";
         internal const int CheckInterval = 1500;
+#if RIMWORLD_1_7
+        internal static bool NarrativeActive => Current.Game?.GetComponent<NarrativeState>()?.NarrativeEnabled == true;
+#else
+        internal static bool NarrativeActive => true;
+#endif
+
+        internal static void DrawForceSettings(Listing_Standard listing)
+        {
+#if RIMWORLD_1_7
+            NarrativeState state = Current.ProgramState == ProgramState.Playing
+                ? Current.Game?.GetComponent<NarrativeState>() : null;
+            if (state == null)
+            {
+                return;
+            }
+
+            bool enabled = state.NarrativeEnabled;
+            listing.CheckboxLabeled("RHAH_Settings_ForceSuiyinNarrative".Translate(), ref enabled,
+                "RHAH_Settings_ForceSuiyinNarrative_Tooltip".Translate());
+            if (enabled != state.NarrativeEnabled)
+            {
+                state.SetNarrativeForced(enabled);
+            }
+#endif
+        }
 
         internal static bool IsNarrator(string defName)
         {
@@ -36,7 +61,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
             NarrativeState state = Current.Game.GetComponent<NarrativeState>();
             RHAH_Settings settings = RHAH_Mod.Settings;
-            if (state == null)
+            if (state == null || !state.NarrativeEnabled)
             {
                 return;
             }

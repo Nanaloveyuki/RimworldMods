@@ -22,7 +22,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Tick(int tick)
         {
-            if (tick < 0 || Current.Game == null)
+            if (!RHAH_EndingRuntime.NarrativeActive || tick < 0 || Current.Game == null)
             {
                 return;
             }
@@ -144,7 +144,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static bool Refresh(NarrativeState state, SuiyinN008Case record, int tick)
         {
-            if (state == null || record == null || !OpenCase(record.Outcome))
+            if (!RHAH_EndingRuntime.NarrativeActive || state == null || record == null || !OpenCase(record.Outcome))
             {
                 return false;
             }

@@ -16,6 +16,14 @@ namespace HungerAndHavoc.EventMgr
         }
         public EventChainDecision Evaluate(EventChainInstance instance, int tick)
         {
+            if (!RHAH_EndingRuntime.NarrativeActive)
+            {
+#if RIMWORLD_1_7
+                KingdomArcRuntime.State?.Progress.PauseNarrative(tick);
+#endif
+                return EventChainDecision.Wait(KingdomArcActions.AddTicks(tick, RimWorld.GenDate.TicksPerHour));
+            }
+
             KingdomArcProgress progress = KingdomArcRuntime.State?.Progress;
             if (progress == null || progress.ChainId != instance.Id) return EventChainDecision.Wait(-1);
             if (progress.Stage == KingdomStage.Complete) return EventChainDecision.Finish(EventChainEnd.Completed);
@@ -25,6 +33,7 @@ namespace HungerAndHavoc.EventMgr
         public EventChainActionResult Apply(EventChainInstance instance, int tick, string actionId)
         {
             if (actionId != "advance") return EventChainActionResult.Failed("Unknown kingdom collaboration action.");
+            if (!RHAH_EndingRuntime.NarrativeActive) return EventChainActionResult.Applied();
             KingdomArcActions.Advance(tick);
             return EventChainActionResult.Applied();
         }

@@ -126,7 +126,9 @@ namespace HungerAndHavoc.Pawn.Compat
             RegisterPage(owner, "plague", "RHAH_Menu_Plague", DrawPlague, SearchPlague);
             RegisterPage(owner, "events", "RHAH_Menu_Events", DrawEvents, SearchCatalogEvents);
             RegisterPage(owner, "pawns", "RHAH_Menu_Pawns", DrawPawns, SearchPawns);
+#if !RIMWORLD_1_7
             RegisterPage(owner, "narrative", "RHAH_Menu_Narrative", DrawNarrative, SearchNarrative);
+#endif
             MenuRegistry.RegisterSubItem(owner, "settlement-progress", () => "RHAH_Menu_Settlement".Translate(), DrawSettlement);
             MenuRegistry.RegisterSearchProvider(owner, "settlement-progress", SearchSettlement, FocusSettlement);
             RegisterPage(owner, "other", "RHAH_Menu_Other", DrawOther, SearchOther);
@@ -601,6 +603,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
         void DrawNarrative(Listing_Standard list)
         {
+            if (!RHAH_EndingRuntime.NarrativeActive) return;
             Section(list, "RHAH_Menu_Narrative");
             MenuControls.Anchor(list, "narrative-kingdom");
             Section(list, "RHAH_Menu_Narrative_Kingdom");
@@ -684,6 +687,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
         IEnumerable<MenuSearchEntry> SearchNarrative()
         {
+            if (!RHAH_EndingRuntime.NarrativeActive) yield break;
             yield return new MenuSearchEntry("narrative-kingdom",
                 () => "RHAH_Menu_Narrative_Kingdom".Translate(),
                 context: () => "RHAH_Settings_Kingdom_Summary".Translate());
@@ -2876,6 +2880,9 @@ namespace HungerAndHavoc.Pawn.Compat
 
             today = Mathf.Max(0f, GenDate.DaysPassedSinceSettleFloat);
             trust = Current.Game.GetComponent<NarrativeState>()?.Snapshot().Trust ?? 0;
+#if RIMWORLD_1_7
+            if (!RHAH_EndingRuntime.NarrativeActive) trust = 0;
+#endif
             season = RHAH_IncidentSchedule.SeasonIndex(RHAH_IncidentSchedule.SeasonOf(Find.AnyPlayerHomeMap));
         }
 
@@ -2926,6 +2933,14 @@ namespace HungerAndHavoc.Pawn.Compat
         void DrawDeveloper(Listing_Standard list)
         {
             Section(list, "RHAH_Menu_Developer");
+#if RIMWORLD_1_7
+            MenuControls.Anchor(list, "force-suiyin-narrative");
+            RHAH_EndingRuntime.DrawForceSettings(list);
+            if (RHAH_EndingRuntime.NarrativeActive)
+            {
+                DrawNarrative(list);
+            }
+#endif
             if (!string.IsNullOrEmpty(selectedPawnLabel))
             {
                 Status(list, "RHAH_Menu_Developer_LastPawn", selectedPawnLabel);
@@ -2935,6 +2950,10 @@ namespace HungerAndHavoc.Pawn.Compat
         IEnumerable<MenuSearchEntry> SearchDeveloper()
         {
             yield return Entry("developer-last-pawn", "RHAH_Menu_Developer_LastPawn");
+#if RIMWORLD_1_7
+            yield return Entry("force-suiyin-narrative", "RHAH_Settings_ForceSuiyinNarrative");
+            foreach (MenuSearchEntry entry in SearchNarrative()) yield return entry;
+#endif
         }
 
 

@@ -71,6 +71,7 @@ namespace HungerAndHavoc.Tests
         public void IdentityDue_RequiresRelicAndConsumesTierWithoutChangingTrust()
         {
             NarrativeState state = new NarrativeState(null);
+            state.SetNarrativeForced(true);
             state.RecordTrust(75);
             Assert.False(state.IdentityDue(true, true, 50, 75));
 
@@ -106,6 +107,10 @@ namespace HungerAndHavoc.Tests
             NarrativeState loaded = Load();
             Assert.Equal(trust, loaded.Snapshot().Trust);
             Assert.Equal(trust, loaded.Book.Trust);
+#if RIMWORLD_1_7
+            Assert.False(loaded.IdentityDue(true, true, 50, 75));
+            loaded.SetNarrativeForced(true);
+#endif
             Assert.Equal(identityDue, loaded.IdentityDue(true, true, 50, 75));
             Assert.False(loaded.IdentityDue(false, true, 50, 75));
             Assert.False(loaded.IdentityDue(true, false, 50, 75));

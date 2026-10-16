@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <RHAH_Settings_ForceSuiyinNarrative>穂音の物語を強制的に有効化（現在のセーブ）</RHAH_Settings_ForceSuiyinNarrative>
+  <RHAH_Settings_ForceSuiyinNarrative_Tooltip>1.7では穂音の物語は初期状態で非表示・停止になっています。有効にすると、現在のセーブで進行中の物語を再開し、新しい物語や穂音の手紙を許可して、設定に物語の操作項目を表示します。無効に戻すと再び停止し、進行状況は保存されます。信頼の変化と襲撃確率への影響は引き続き有効です。</RHAH_Settings_ForceSuiyinNarrative_Tooltip>
   <RHAH_Settings_Kingdom_Summary>K1～K5では穂音の過去と最初の協力を描きます。後続の章は未完成です。王国編はここから手動で開始します。開始前に、ストーリーテラーを穂音にしてください。</RHAH_Settings_Kingdom_Summary>
   <RHAH_Settings_Kingdom_Start>王国編を始める</RHAH_Settings_Kingdom_Start>
   <RHAH_Settings_Kingdom_Continue>王国編を続ける</RHAH_Settings_Kingdom_Continue>

@@ -36,6 +36,7 @@ namespace HungerAndHavoc.Tests
                 Current.Game.storyteller.def = new StorytellerDef { defName = "RHAH_Suiyin" };
                 NarrativeState narrative = new NarrativeState(Current.Game);
                 Current.Game.components.Add(narrative);
+                narrative.SetNarrativeForced(true);
                 Current.ProgramState = ProgramState.Playing;
                 RHAH_Mod.Settings = new RHAH_Settings { enableNewContent = true };
                 KingdomArcState state = KingdomArcRuntime.State;

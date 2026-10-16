@@ -28,8 +28,13 @@ namespace HungerAndHavoc.Tests
             Assert.False(GameComponent_RHAH_FamineYear.SwarmAvailable(true, 1, 100, 100 + 15 * day - 1));
             Assert.True(GameComponent_RHAH_FamineYear.SwarmAvailable(true, 1, 100, 100 + 15 * day));
             Assert.False(GameComponent_RHAH_FamineYear.SwarmAvailable(true, 2, 100, 100 + 60 * day));
+#if RIMWORLD_1_7
+            Assert.False(GameComponent_RHAH_FamineYear.PleadingAvailable(100, 100 + 15 * GenDate.TicksPerYear - 1));
+            Assert.True(GameComponent_RHAH_FamineYear.PleadingAvailable(100, 100 + 15 * GenDate.TicksPerYear));
+#else
             Assert.False(GameComponent_RHAH_FamineYear.PleadingAvailable(100, 100 + 180 * day - 1));
             Assert.True(GameComponent_RHAH_FamineYear.PleadingAvailable(100, 100 + 180 * day));
+#endif
             Assert.True(GameComponent_RHAH_FamineYear.PleadingAvailable(-1, 0));
         }
 

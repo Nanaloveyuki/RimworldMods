@@ -7,6 +7,17 @@ namespace HungerAndHavoc.Pawn
 {
     internal static class RHAH_Feeding
     {
+#if RIMWORLD_1_7
+        internal static bool NeedsFood(Verse.Pawn pawn)
+        {
+            Need_Food need = pawn?.needs?.food;
+            if (need == null) return false;
+            float level = need.CurLevelPercentage;
+            float satisfied = RHAH_Mod.Settings == null ? RHAH_ReliefFood.SatisfiedLevel : RHAH_Mod.Settings.satisfiedFoodPercent / 100f;
+            return !float.IsNaN(level) && !float.IsInfinity(level) && level < satisfied;
+        }
+#endif
+
         internal static bool TryComplete(Verse.Pawn pawn)
         {
             if (!RHAH_Api.IsVisitor(pawn) || !RHAH_VisitorRules.AllowsModBehavior(RHAH_VisitorStay.Kind(pawn)) ||

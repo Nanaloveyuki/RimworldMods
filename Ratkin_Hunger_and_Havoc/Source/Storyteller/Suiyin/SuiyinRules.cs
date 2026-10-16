@@ -496,6 +496,11 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         internal int NextCaseId = 1;
         internal int Trust;
         internal bool Narrator = true;
+#if RIMWORLD_1_7
+        internal bool NarrativeEnabled;
+#else
+        internal bool NarrativeEnabled = true;
+#endif
         internal List<SuiyinNotice> Pending = new List<SuiyinNotice>();
 
         internal int Distinct => Seen.Count;
@@ -580,7 +585,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                 Seen.Add(displayId);
             }
 
-            if (!enabled)
+            if (!enabled || !NarrativeEnabled)
             {
                 return;
             }
@@ -1664,7 +1669,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         void TryAsides(int tick)
         {
             PullConfig();
-            if (!Narrator || Trust <= Config.TrustAsideCutoff)
+            if (!NarrativeEnabled || !Narrator || Trust <= Config.TrustAsideCutoff)
             {
                 return;
             }
@@ -1782,6 +1787,11 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         bool Allows(SuiyinNode node)
         {
+            if (!NarrativeEnabled)
+            {
+                return false;
+            }
+
             if (Gates == null)
             {
                 return true;
@@ -1792,7 +1802,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         void Queue(SuiyinLetter letter, int arg, bool isPrivate)
         {
-            if (letter == SuiyinLetter.None)
+            if (!NarrativeEnabled || letter == SuiyinLetter.None)
             {
                 return;
             }

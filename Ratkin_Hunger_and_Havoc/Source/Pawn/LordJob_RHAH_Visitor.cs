@@ -388,7 +388,11 @@ namespace HungerAndHavoc.Pawn
                 return 0;
             }
 
+#if RIMWORLD_1_7
+            return System.Math.Max(0, needed - RHAH_FoodHandoff.BeingHauledTo(pawn));
+#else
             return needed - RHAH_FoodHandoff.BeingHauledTo(pawn);
+#endif
         }
 
         internal ThingDef RequestedFood
@@ -476,7 +480,11 @@ namespace HungerAndHavoc.Pawn
 
             return RHAH_VisitorRules.NoFoodWaitExpired(
                 true,
+#if RIMWORLD_1_7
+                snapshot.HasBeenFed && !RHAH_Feeding.NeedsFood(pawn),
+#else
                 snapshot.HasBeenFed,
+#endif
                 Find.TickManager.TicksGame,
                 FoodWaitDeadline(pawn));
         }

@@ -67,6 +67,37 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         internal Verse.Pawn Clerk;
         internal Verse.Pawn Envoy;
         internal List<KingdomMaterialRecord> Materials = new List<KingdomMaterialRecord>();
+#if RIMWORLD_1_7
+        int narrativePausedAt = -1;
+
+        internal void PauseNarrative(int tick)
+        {
+            if (narrativePausedAt < 0 && tick >= 0)
+            {
+                narrativePausedAt = tick;
+            }
+        }
+
+        internal void ResumeNarrative(int tick)
+        {
+            if (narrativePausedAt < 0 || tick < narrativePausedAt) return;
+            int elapsed = tick - narrativePausedAt;
+            Due = Shift(Due, elapsed);
+            Deadline = Shift(Deadline, elapsed);
+            LastWorkTick = Shift(LastWorkTick, elapsed);
+            CharityStart = Shift(CharityStart, elapsed);
+            CharityEnd = Shift(CharityEnd, elapsed);
+            ConsentDue = Shift(ConsentDue, elapsed);
+            PublicDueA = Shift(PublicDueA, elapsed);
+            PublicDueB = Shift(PublicDueB, elapsed);
+            narrativePausedAt = -1;
+        }
+
+        static int Shift(int tick, int elapsed)
+        {
+            return tick < 0 ? tick : KingdomArcActions.AddTicks(tick, elapsed);
+        }
+#endif
 
         internal void Move(KingdomStage stage)
         {
@@ -100,6 +131,9 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         public void ExposeData()
         {
             Scribe_Values.Look(ref Stage, "stage", KingdomStage.None);
+#if RIMWORLD_1_7
+            Scribe_Values.Look(ref narrativePausedAt, "narrativePausedAt", -1);
+#endif
             Scribe_Values.Look(ref ChainId, "chainId", 0);
             Scribe_Values.Look(ref Revision, "revision", 0);
             Scribe_Values.Look(ref Cursor, "cursor", 0);

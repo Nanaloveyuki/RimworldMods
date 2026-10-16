@@ -11,6 +11,18 @@ RimWorld 1.6 / 1.7 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`�
 独立作品，不是“鼠灾-大荒年”的 Continued。Def 前缀 `RHAH_`，事件显示 ID 用 `I-`，剧情用 `N-` / `J-` / `R-`。
 仅卸载本模组前，在已加载存档的设置里先停用这个存档的新内容，再备份并导出卸载用副本。退出后只卸本模组，保留鼠族、Harmony、Biotech 和 Oxygen DSL Framework，然后加载 `RHAH-removed-*`。`RHAH-backup-*` 仍含本模组数据，加载它必须留着本模组。
 
+## RimWorld 1.7 本次更新
+
+- 穗音剧情任务线默认隐藏并停止刷新，包括信任触发剧情、累计事件处理来信和王国篇。信任继续累计，仅用于袭击概率修正；已有剧情记录和人物保留。加载存档后可在模组设置，或 IrisMenus「开发者」页，勾选「强制启用穗音剧情（当前存档）」；此开关只影响当前存档。
+- I-053「祈求加入」两次接受触发至少间隔 15 年（900 天），旧档保留上次触发时间。
+- I-024 食物交易改为检查殖民者能否把仓库食物送到来客处，来客无法进入仓库不再单独阻止成交；食物和奖励仍按实际数量交付。
+- 已经吃过的来客再次饥饿时可以继续接收简单餐、干肉饼等食物；历史投喂记录保留，不重复结算首次吃饱的效果。
+- 配给厅世界地图图标改用 1.7 中实际存在的原版贴图。
+
+这些行为变更仅适用于 1.7；下文旧版剧情和三年冷却说明适用于 1.6。
+
+In RimWorld 1.7, Suiyin's storylines are hidden and paused by default. Trust still accumulates and affects raid probability, but does not trigger story or cumulative-incident letters. Existing story records and people are preserved. Enable the per-save force option in mod settings or IrisMenus' Developer page to resume stories. Pleading Join has a fifteen-year cooldown. Food trades use colonist delivery access, hungry visitors can receive food again, and the kingdom site's world icons use available 1.7 textures.
+
 ## 中途加入 / Adding mid-save
 
 支持在已有存档中加入本模组及所需前置。加载完成时会补齐缺失的五个态度派系，保留已有派系并固定它们对玩家的好感，不需要先推进游戏时间。不导入“鼠灾-大荒年”或其 Continued 的存档数据，也不能与这些模组同时启用。
