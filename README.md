@@ -53,6 +53,8 @@ python3 scripts/rhah.py --help
 
 殖民地囚犯、奴隶分娩后，活产婴儿立即继承分娩母亲当时的身份，并收到一封可选择殖民者、囚犯或奴隶身份的信。选择期限为出生后 12 个游戏小时（30,000 ticks）；暂停游戏不计时，存读档不会重置期限，超时自动确认出生时记录的默认身份。母亲随后被招募、释放、奴役或死亡不会改变默认身份。殖民者母亲、培养舱、死产和非殖民地管理的生育保持原版逻辑；幼儿成长后的原版身份事件仍然保留。
 
+多胎兼容：在一次 `ApplyBirthOutcome` 调用及其后置补丁期间收集 `PawnGenerator.GeneratePawn` 生成的新生儿，在所有后置补丁结束后统一继承身份并逐婴儿发信，首胎去重。覆盖 RHAH「待产流民」的额外婴儿；不会回溯处理修复前已经出生的孩子。
+
 从 monorepo 根目录构建：
 
 ```sh
@@ -62,6 +64,8 @@ dotnet build KeepYourIdentity/Source/KeepYourIdentity.csproj -c Release
 默认引用本机 `E:/Apps/Steam/steamapps/common/RimWorld` 和 Workshop Harmony 的 `1.7/Assemblies/0Harmony.dll`（WSL 使用 `/mnt/e/`）。其他安装位置通过 MSBuild 的 `RimWorldDir`、`HarmonyAssemblyPath` 属性指定。分发内容为 `KeepYourIdentity/About/`、`LoadFolders.xml`、`LICENSE` 和 `1.7/`；编译后的 DLL 位于 `1.7/Assemblies/KeepYourIdentity.dll`。
 
 验证（2026-10-16）：Release 构建 0 警告、0 错误；独立宿主加载实际 1.7 游戏程序集并成功安装 Harmony 补丁，验证了母亲身份快照、殖民者与培养舱旁路、三种选择、实际身份切换、重复动作保护、30,000 ticks 超时边界及信件存读档。未运行完整游戏中的分娩流程和信件界面。
+
+多胎回归：`dotnet run --project KeepYourIdentity/Tests/BirthHarness/BirthHarness.csproj -c Release`。宿主加载实际游戏/Harmony 程序集，在引擎生成边界注入婴儿，重放 RHAH 首胎返回、后置补丁追加多胎的调用顺序。旧版复现 1/12；修复后囚犯 12/12、5/5，奴隶 5/5，殖民者不干预；验证了前后两种后置补丁优先级、逐婴儿单封信、单胎和生育外生成隔离。未运行完整 RHAH 事件及游戏界面。
 
 
 ## 迁移与历史

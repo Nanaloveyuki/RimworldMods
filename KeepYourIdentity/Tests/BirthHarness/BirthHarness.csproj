@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputPath>../../tmp/BirthHarness/</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../Source/KeepYourIdentity.csproj" />
+    <Reference Include="Assembly-CSharp" HintPath="$(RimWorldDir)/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="UnityStubs" HintPath="$(RimWorldDir)/UnityStubs.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(HarmonyAssemblyPath)" />
+  </ItemGroup>
+</Project>

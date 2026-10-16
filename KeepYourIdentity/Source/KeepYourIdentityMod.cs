@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -30,27 +32,82 @@ namespace KeepYourIdentity
     [HarmonyPatch(typeof(PregnancyUtility), nameof(PregnancyUtility.ApplyBirthOutcome))]
     internal static class BirthPatch
     {
-        private static void Prefix(Thing birtherThing, out BirthIdentity __state)
+        [ThreadStatic] private static BirthScope current;
+
+        private sealed class BirthScope
         {
-            Pawn mother = birtherThing as Pawn;
-            __state = mother != null && mother.RaceProps.Humanlike &&
-                (mother.IsPrisonerOfColony || mother.IsSlaveOfColony)
-                ? new BirthIdentity(mother) : default;
+            internal readonly BirthScope Parent;
+            internal readonly BirthIdentity Identity;
+            internal List<Pawn> Babies;
+
+            internal BirthScope(BirthScope parent, BirthIdentity identity)
+            {
+                Parent = parent;
+                Identity = identity;
+            }
+
+            internal void Add(Pawn baby)
+            {
+                if (!Identity.Applies || baby == null || !baby.RaceProps.Humanlike)
+                    return;
+                Babies ??= new List<Pawn>();
+                if (!Babies.Contains(baby))
+                    Babies.Add(baby);
+            }
         }
 
-        private static void Postfix(Thing __result, BirthIdentity __state)
+        [HarmonyPriority(Priority.First)]
+        private static void Prefix(Thing birtherThing, out BirthScope __state)
         {
-            if (!__state.Applies || __result is not Pawn baby || baby.Dead || baby.Destroyed || baby.guest == null)
+            Pawn mother = birtherThing as Pawn;
+            BirthIdentity identity = mother != null && mother.RaceProps.Humanlike &&
+                (mother.IsPrisonerOfColony || mother.IsSlaveOfColony)
+                ? new BirthIdentity(mother) : default;
+            current = __state = new BirthScope(current, identity);
+        }
+
+        // Finalizers run after every postfix, including mods that generate additional babies.
+        private static void Finalizer(Thing __result, BirthScope __state, Exception __exception)
+        {
+            if (__state == null)
+                return;
+            current = __state.Parent;
+            if (__exception != null)
+                return;
+            __state.Add(__result as Pawn);
+            if (__state.Babies != null)
+                foreach (Pawn baby in __state.Babies)
+                    Notify(baby, __state.Identity);
+        }
+
+        internal static void Capture(Pawn baby, PawnGenerationRequest request)
+        {
+            if (request.AllowedDevelopmentalStages == DevelopmentalStage.Newborn)
+                current?.Add(baby);
+        }
+
+        private static void Notify(Pawn baby, BirthIdentity identity)
+        {
+            if (baby.Dead || baby.Destroyed || baby.guest == null)
                 return;
 
-            IdentityUtility.Apply(baby, __state.Status, __state.HomeFaction);
+            IdentityUtility.Apply(baby, identity.Status, identity.HomeFaction);
             var letter = (ChoiceLetter_BirthIdentity)LetterMaker.MakeLetter(
                 "KYI_BirthIdentityLabel".Translate(),
-                "KYI_BirthIdentityText".Translate(baby.Named("BABY"), __state.Mother.Named("MOTHER"),
-                    IdentityUtility.Label(__state.Status).Named("IDENTITY")),
+                "KYI_BirthIdentityText".Translate(baby.Named("BABY"), identity.Mother.Named("MOTHER"),
+                    IdentityUtility.Label(identity.Status).Named("IDENTITY")),
                 DefDatabase<LetterDef>.GetNamed("KYI_BirthIdentity"), baby);
-            letter.Initialize(baby, __state.Status, __state.HomeFaction);
+            letter.Initialize(baby, identity.Status, identity.HomeFaction);
             Find.LetterStack.ReceiveLetter(letter);
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnGenerator), nameof(PawnGenerator.GeneratePawn), new[] { typeof(PawnGenerationRequest) })]
+    internal static class NewbornGenerationPatch
+    {
+        private static void Postfix(Pawn __result, PawnGenerationRequest request)
+        {
+            BirthPatch.Capture(__result, request);
         }
     }
 
