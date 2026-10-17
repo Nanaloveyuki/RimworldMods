@@ -337,7 +337,7 @@ namespace AdvancedRimTalk.UI
                 codeRect.y + inputStyle.padding.top) - (editor == null ? Vector2.zero : editor.scrollOffset);
             // Match the native TextArea's font, no-wrap layout and padded text origin.
             int offset = backend.TextIndexAt(inputStyle.FontIndex, 0f, FontStyle.Normal,
-                source, -1f, current.mousePosition - origin);
+                source, -1f, current.mousePosition - origin, richText: false);
             Vector2 caret = GetDocumentationCursorPosition(backend, origin, offset, out _);
             if (current.mousePosition.x < caret.x) offset--;
             if (offset < 0 || offset >= source.Length || source[offset] == '\n') return null;
@@ -369,7 +369,7 @@ namespace AdvancedRimTalk.UI
         private Vector2 GetDocumentationCursorPosition(IGuiBackend backend, Vector2 origin, int offset, out float height)
         {
             return origin + backend.TextCursorPos(inputStyle.FontIndex, 0f, FontStyle.Normal,
-                source, -1f, offset, out height);
+                source, -1f, offset, out height, richText: false);
         }
 
         private DocumentationEntry ResolveDocumentationAt(int offset)
@@ -667,12 +667,7 @@ namespace AdvancedRimTalk.UI
                 return;
             }
 
-            inputStyle = new GUIStyle(Text.CurTextAreaStyle);
-            inputStyle.alignment = TextAnchor.UpperLeft;
-            inputStyle.wordWrap = false;
-            inputStyle.richText = false;
-            RemoveBackgrounds(inputStyle);
-            SetTextColors(inputStyle, new Color(1f, 1f, 1f, 0.01f));
+            inputStyle = ArtiSyntaxRendering.CreateInputStyle();
 
             syntaxStyle = new GUIStyle(inputStyle);
             syntaxStyle.padding = new RectOffset(0, 0, 0, 0);
@@ -701,18 +696,6 @@ namespace AdvancedRimTalk.UI
                 editorScroll.y,
                 Mathf.Max(1f, editorViewportSize.x),
                 Mathf.Max(1f, editorViewportSize.y));
-        }
-
-        private static void RemoveBackgrounds(GUIStyle style)
-        {
-            style.normal.background = null;
-            style.hover.background = null;
-            style.active.background = null;
-            style.focused.background = null;
-            style.onNormal.background = null;
-            style.onHover.background = null;
-            style.onActive.background = null;
-            style.onFocused.background = null;
         }
 
         private static void SetTextColors(GUIStyle style, Color color)

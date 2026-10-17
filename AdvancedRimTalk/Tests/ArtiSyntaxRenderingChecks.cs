@@ -104,6 +104,7 @@ namespace UnityEngine
     {
         public GUIStyle() { }
         public GUIStyle(GUIStyle source) { richText = source.richText; }
+        public string name;
         public bool richText, wordWrap;
         public TextAnchor alignment;
         public RectOffset padding;

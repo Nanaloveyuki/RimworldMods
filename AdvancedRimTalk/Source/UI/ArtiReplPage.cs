@@ -221,12 +221,7 @@ namespace AdvancedRimTalk.UI
                 return;
             }
 
-            inputStyle = new GUIStyle(Text.CurTextAreaStyle);
-            inputStyle.alignment = TextAnchor.UpperLeft;
-            inputStyle.wordWrap = false;
-            inputStyle.richText = false;
-            RemoveBackgrounds(inputStyle);
-            SetTextColors(inputStyle, new Color(1f, 1f, 1f, 0.01f));
+            inputStyle = ArtiSyntaxRendering.CreateInputStyle();
 
             syntaxStyle = new GUIStyle(inputStyle);
             syntaxStyle.padding = new RectOffset(0, 0, 0, 0);
@@ -867,18 +862,6 @@ namespace AdvancedRimTalk.UI
                 default:
                     return IdentifierColor;
             }
-        }
-
-        private static void RemoveBackgrounds(GUIStyle style)
-        {
-            style.normal.background = null;
-            style.hover.background = null;
-            style.active.background = null;
-            style.focused.background = null;
-            style.onNormal.background = null;
-            style.onHover.background = null;
-            style.onActive.background = null;
-            style.onFocused.background = null;
         }
 
         private static void SetTextColors(GUIStyle style, Color color)

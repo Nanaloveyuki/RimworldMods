@@ -28,6 +28,8 @@ namespace AdvancedRimTalk.UI
         public static GUIStyle CreateInputStyle()
         {
             GUIStyle style = new GUIStyle(Text.CurTextAreaStyle);
+            // Waylith treats backgroundless built-in textfield/textarea styles as read-only.
+            style.name = "AdvancedRimTalk.ArtiInput";
             style.alignment = TextAnchor.UpperLeft;
             style.wordWrap = false;
             style.richText = false;
