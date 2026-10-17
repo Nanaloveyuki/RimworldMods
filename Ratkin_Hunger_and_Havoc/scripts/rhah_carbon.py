@@ -593,13 +593,18 @@ class Adapter:
     def doctor(self):
         mods, scan_errors = self.installed()
         missing = [p for p in REQUIRED_MODS if p not in mods]
-        result = {'agent': str(self.agent), 'agentExists': self.agent.is_file(), 'profile': str(self.profile),
-                  'profilePrepared': (self.profile / '.rhah-carbon-profile.json').is_file(), 'gameRoot': str(self.root),
-                  'gameExists': (self.root / 'RimWorldWin64.exe').is_file(),
-                  'sourceDirectory': self.options.source_dir, 'sourceExists': local_path(self.options.source_dir).is_dir(),
-                  'missingDependencies': missing, 'installed': {p: mods[p]['root'] for p in REQUIRED_MODS if p in mods},
+        version_file = self.root / 'Version.txt'
+        version = version_file.read_text(encoding='utf-8-sig').strip() if version_file.is_file() else ''
+        game_exists = (self.root / 'RimWorld.exe').is_file() if version.startswith('1.7') else (self.root / 'RimWorldWin64.exe').is_file()
+        result = {'passed': not missing and self.agent.is_file() and game_exists and self.profile.is_dir(),
+                  'agent': str(self.agent), 'agentExists': self.agent.is_file(),
+                  'profile': str(self.profile), 'profilePrepared': (self.profile / '.rhah-carbon-profile.json').is_file(),
+                  'gameRoot': str(self.root), 'gameExists': game_exists,
+                  'sourceDirectory': self.options.source_dir,
+                  'sourceExists': local_path(self.options.source_dir).is_dir(),
+                  'missingDependencies': missing,
+                  'installed': {p: mods[p]['root'] for p in REQUIRED_MODS if p in mods},
                   'scanErrors': scan_errors}
-        result['passed'] = result['agentExists'] and result['gameExists'] and not missing
         return result, self.save(result, 'doctor')
 
 
