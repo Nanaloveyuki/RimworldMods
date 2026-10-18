@@ -6,10 +6,31 @@ namespace HungerAndHavoc.Incidents
     {
         internal const int MinTiles = 4;
         internal const int MaxTiles = 6;
-        internal const float TilesPerDay = 3f;
         internal const int TicksPerMove = 20000;
         internal const int MinMoveTicks = 1;
         internal const int MaxMoveTicks = 30000;
+        internal const float DefaultSpeedMultiplier = 2f;
+        internal const float MinSpeedMultiplier = 0.5f;
+        internal const float MaxSpeedMultiplier = 4f;
+
+        internal static float ClampSpeed(float multiplier)
+        {
+            if (float.IsNaN(multiplier) || float.IsInfinity(multiplier))
+            {
+                return DefaultSpeedMultiplier;
+            }
+
+            return multiplier < MinSpeedMultiplier ? MinSpeedMultiplier
+                : multiplier > MaxSpeedMultiplier ? MaxSpeedMultiplier : multiplier;
+        }
+
+        internal static int TravelTicks(int delta, float multiplier, ref float remainder)
+        {
+            float budget = delta * ClampSpeed(multiplier) + remainder;
+            int ticks = (int)budget;
+            remainder = budget - ticks;
+            return ticks;
+        }
 
         internal static bool UsesApproach(RHAH_IncidentTarget target)
         {

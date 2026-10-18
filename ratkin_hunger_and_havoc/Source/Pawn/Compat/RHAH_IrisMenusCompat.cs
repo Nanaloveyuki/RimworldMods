@@ -2760,6 +2760,11 @@ namespace HungerAndHavoc.Pawn.Compat
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TraderIgnoreEnvironment".Translate(), ref settings.traderIgnoresHarshEnvironment, "RHAH_Settings_TraderIgnoreEnvironment_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TraderIgnoreEnclosed".Translate(), ref settings.traderIgnoresEnclosedSpace, "RHAH_Settings_TraderIgnoreEnclosed_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_SpaceApproach".Translate(), ref settings.spaceApproachEnabled, "RHAH_Settings_SpaceApproach_Tooltip".Translate());
+            MenuControls.Anchor(list, "approach-speed");
+            settings.approachSpeedMultiplier = RHAH_IrisMenusWidgets.TuneFloat(list, weightBuffers, "approach-speed",
+                "RHAH_Settings_ApproachSpeed".Translate(settings.approachSpeedMultiplier.ToString("0.00")),
+                RHAH_ApproachRules.ClampSpeed(settings.approachSpeedMultiplier), RHAH_ApproachRules.MinSpeedMultiplier,
+                RHAH_ApproachRules.MaxSpeedMultiplier, "0.00", "RHAH_Settings_ApproachSpeed_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_ChildExchangeFood".Translate(), ref settings.childExchangeFoodSubstitution, "RHAH_Settings_ChildExchangeFood_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_Stagger".Translate(), ref settings.staggerGeneration, "RHAH_Settings_Stagger_Tooltip".Translate());
         }
@@ -3038,6 +3043,7 @@ namespace HungerAndHavoc.Pawn.Compat
         static IEnumerable<MenuSearchEntry> SearchExperimental()
         {
             yield return Entry("optimize-generation", "RHAH_Settings_OptimizeGeneration", "generation optimizer");
+            yield return Entry("approach-speed", "RHAH_Settings_ApproachSpeed", "caravan speed travelers");
         }
 
         static void Unavailable(Listing_Standard list, string titleKey, string gapKey)

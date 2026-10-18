@@ -82,6 +82,8 @@
   <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>On, famine traders stay inside a closed room instead of digging out. Off, they dig out when they cannot reach the map edge.</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
   <RHAH_Settings_SpaceApproach>Allow incidents at orbital homes</RHAH_Settings_SpaceApproach>
   <RHAH_Settings_SpaceApproach_Tooltip>Off by default. Orbital homes, asteroids, and SOS2 ships then receive no ratkin who walk in, and map incidents stay out of the draw. Turn this on to allow both. A group already on an Odyssey orbit layer still leaves the shuttle launch clear.</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_ApproachSpeed>Ratkin traveler speed: {0}x</RHAH_Settings_ApproachSpeed>
+  <RHAH_Settings_ApproachSpeed_Tooltip>Travel speed for this mod's ratkin groups heading to a colony. Range: 0.5x–4x; default: 2x. 1x is the original speed, about 3 tiles per day on flat terrain. Changes also apply immediately to groups already traveling.</RHAH_Settings_ApproachSpeed_Tooltip>
   <RHAH_Settings_ChildExchangeFood>Allow food in place of children</RHAH_Settings_ChildExchangeFood>
   <RHAH_Settings_ChildExchangeFood_Tooltip>Allows simple meals instead of handing over a child in child exchange and old baby requests. Child exchange charges per visiting child; a baby request costs twice the single-child amount. Turning this off still allows you to hand over a child.</RHAH_Settings_ChildExchangeFood_Tooltip>
   <RHAH_Settings_GreenLetters>Green famine letters</RHAH_Settings_GreenLetters>

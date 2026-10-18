@@ -128,6 +128,10 @@ namespace HungerAndHavoc.Core
                 "RHAH_Settings_ArmedWeapons_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_SpaceApproach".Translate(), ref Settings.spaceApproachEnabled,
                 "RHAH_Settings_SpaceApproach_Tooltip".Translate());
+            listing.Label("RHAH_Settings_ApproachSpeed".Translate(Settings.approachSpeedMultiplier.ToString("0.00")),
+                tooltip: "RHAH_Settings_ApproachSpeed_Tooltip".Translate());
+            Settings.approachSpeedMultiplier = listing.Slider(Incidents.RHAH_ApproachRules.ClampSpeed(Settings.approachSpeedMultiplier),
+                Incidents.RHAH_ApproachRules.MinSpeedMultiplier, Incidents.RHAH_ApproachRules.MaxSpeedMultiplier);
             listing.CheckboxLabeled("RHAH_Settings_ChildExchangeFood".Translate(), ref Settings.childExchangeFoodSubstitution,
                 "RHAH_Settings_ChildExchangeFood_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_FamilyDrop".Translate(), ref Settings.familyDropEnabled,

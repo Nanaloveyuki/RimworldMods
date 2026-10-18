@@ -7,6 +7,9 @@ namespace HungerAndHavoc.Incidents
 {
     internal static class RHAH_Approach
     {
+        internal static float SpeedMultiplier => RHAH_ApproachRules.ClampSpeed(
+            Core.RHAH_Mod.Settings == null ? RHAH_ApproachRules.DefaultSpeedMultiplier : Core.RHAH_Mod.Settings.approachSpeedMultiplier);
+
         internal static bool SpaceHome(Map map)
         {
             return map != null && RHAH_ApproachRules.IsSpaceHome(SpaceLayer(map.Tile), map.Biome?.defName);

@@ -176,7 +176,7 @@ namespace HungerAndHavoc.Incidents
                 if (requested == RHAH_ChoiceAction.Deliver && !RHAH_ArmedDemand.TryPay(record))
                     return RHAH_ChoiceAction.None;
                 RHAH_ArmedDemand.Resolve(record, requested);
-                return requested;
+                return record.Open ? requested : record.Settled;
             }
             if (record.ExpireTick >= 0 && tick >= record.ExpireTick) requested = RHAH_ChoiceAction.Timeout;
             bool canDeliver = requested != RHAH_ChoiceAction.Deliver;

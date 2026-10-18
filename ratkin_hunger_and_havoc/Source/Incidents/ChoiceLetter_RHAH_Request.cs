@@ -14,14 +14,14 @@ namespace HungerAndHavoc.Incidents
         public int amount;
         public int expireTick = -1;
 
-        public override bool CanDismissWithRightClick => false;
+        public override bool CanDismissWithRightClick => !Pending(FindRecord(Current.Game?.GetComponent<GameComponent_RHAH_Game>()));
 
         public override IEnumerable<DiaOption> Choices
         {
             get
             {
                 RHAH_ChoiceRecord record = FindRecord(Current.Game?.GetComponent<GameComponent_RHAH_Game>());
-                if (ArchivedOnly || record == null || !record.Open)
+                if (ArchivedOnly || !Pending(record))
                 {
                     yield return Option_Close;
                     yield break;
@@ -99,22 +99,25 @@ namespace HungerAndHavoc.Incidents
             Scribe_Values.Look(ref expireTick, "expireTick", -1);
         }
 
-        // 仅当信件真的离开信栈才关闭它自己的窗口
+        // 索粮仍可交付时保留信件，但已接受的答复应关闭当前窗口
         void Wrapped(DiaOption option, RHAH_ChoiceAction action, Verse.Pawn outgoingChild = null, bool foodAlternative = false)
         {
-            bool open = Find.LetterStack != null && Find.LetterStack.LettersListForReading.Contains(this);
-            Settle(action, outgoingChild, foodAlternative);
-            if (open && (Find.LetterStack == null || !Find.LetterStack.LettersListForReading.Contains(this)))
+            if (Settle(action, outgoingChild, foodAlternative))
             {
                 option.dialog?.Close();
             }
         }
 
-        void Settle(RHAH_ChoiceAction action, Verse.Pawn outgoingChild, bool foodAlternative)
+        bool Settle(RHAH_ChoiceAction action, Verse.Pawn outgoingChild, bool foodAlternative)
         {
+            if (Find.LetterStack == null || !Find.LetterStack.LettersListForReading.Contains(this)) return true;
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
             RHAH_ChoiceRecord record = FindRecord(game);
-            if (record == null || Find.LetterStack == null || !Find.LetterStack.LettersListForReading.Contains(this)) return;
+            if (record == null || !record.Open)
+            {
+                Find.LetterStack.RemoveLetter(this);
+                return true;
+            }
             bool enabled = RHAH_Mod.Settings == null || RHAH_Mod.Settings.AllowsRequest(record.Choice);
             RHAH_ChoiceAction settled = RHAH_ChoiceRuntime.TrySettleRequest(game, choiceId, action,
                 Find.TickManager.TicksGame, enabled, outgoingChild, foodAlternative);
@@ -124,12 +127,19 @@ namespace HungerAndHavoc.Incidents
                     ? RHAH_ChildExchange.UnavailableReason(record, outgoingChild, foodAlternative) ?? "RHAH_Choice_Stale"
                     : record.TransactionVersion == RHAH_RequestRules.TransactionVersion ? "RHAH_Transaction_Unavailable" : "RHAH_Choice_Stale";
                 Messages.Message(unavailable.Translate(RHAH_ChildExchange.FoodCost(record)), MessageTypeDefOf.RejectInput);
-                return;
+                return false;
             }
             if (settled == RHAH_ChoiceAction.Deliver)
                 Messages.Message((record.TransactionVersion == RHAH_RequestRules.TransactionVersion ? "RHAH_Transaction_Completed" :
                     record.Kind == RHAH_RequestKind.Baby ? "RHAH_ChildExchange_Completed" : "RHAH_Choice_Delivered").Translate(), MessageTypeDefOf.PositiveEvent);
             if (!record.Open) Find.LetterStack.RemoveLetter(this);
+            return true;
+        }
+
+        static bool Pending(RHAH_ChoiceRecord record)
+        {
+            return record != null && record.Open && (Pawn.RHAH_ArmedDemand.IsRequest(record) ||
+                record.ExpireTick < 0 || Find.TickManager == null || Find.TickManager.TicksGame < record.ExpireTick);
         }
 
 

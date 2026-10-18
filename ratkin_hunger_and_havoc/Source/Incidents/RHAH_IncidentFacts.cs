@@ -108,7 +108,10 @@ namespace HungerAndHavoc.Incidents
                 context.SpawnBatchId,
                 created.Count));
             HungerAndHavoc.Storyteller.Suiyin.RHAH_JournalRuntime.Open(context, loadIds);
-            OpenChoice(context, created, arrived);
+            if (!OpenChoice(context, created, arrived))
+            {
+                SendArrivalLetter(context, arrived);
+            }
             EventMgr.RHAH_EventChainEntry.NoteStarted(context.DisplayId, context.Map.uniqueID, 0, tick, context.SpawnBatchId);
 
             EventMgr.RHAH_LongFollowRuntime.NoteDependentVisitors(context.DisplayId, context.Map.uniqueID, loadIds);
@@ -235,7 +238,7 @@ namespace HungerAndHavoc.Incidents
                 }
             }
         }
-        static void OpenChoice(RHAH_IncidentContext context, List<RHAH_PawnCreationResult> created, List<Verse.Pawn> arrived)
+        static bool OpenChoice(RHAH_IncidentContext context, List<RHAH_PawnCreationResult> created, List<Verse.Pawn> arrived)
         {
             RHAH_RequestSpec spec = RHAH_RequestRules.SpecFor(context.DisplayId);
             RHAH_ChoiceKind choice = spec.Choice;
@@ -253,12 +256,12 @@ namespace HungerAndHavoc.Incidents
             }
             if (choice == RHAH_ChoiceKind.None || (!armedDemand && settings != null && !settings.AllowsRequest(choice) && choice != RHAH_ChoiceKind.Visitors))
             {
-                return;
+                return false;
             }
 
             if (choice == RHAH_ChoiceKind.Visitors && settings != null && !settings.visitorChoicesEnabled)
             {
-                return;
+                return false;
             }
 
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
@@ -276,7 +279,7 @@ namespace HungerAndHavoc.Incidents
             });
             if (record == null)
             {
-                return;
+                return false;
             }
 
             for (int i = 0; i < created.Count; i++)
@@ -295,6 +298,34 @@ namespace HungerAndHavoc.Incidents
             if (armedDemand) Pawn.RHAH_ArmedDemand.Initialize(record, arrived);
 
             SendLetter(context, record, Targets(created), arrived);
+            return true;
+        }
+
+        static void SendArrivalLetter(RHAH_IncidentContext context, List<Verse.Pawn> arrived)
+        {
+            string textKey = context.DisplayId == "I-034" || context.DisplayId == "I-048"
+                ? "RHAH_Arrival_GreatFamine_Text" : "RHAH_Arrival_Text";
+            string text = textKey.Translate(IncidentLabel(context.DisplayId), context.Map.Parent.LabelCap);
+            RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(context.DisplayId);
+            if (entry != null && entry.Category == RHAH_IncidentCategory.Plague)
+            {
+                text += "\n\n" + (RHAH_Mod.Settings == null || RHAH_Mod.Settings.plagueEnabled
+                    ? "RHAH_Choice_PlagueHint" : "RHAH_Choice_PlagueDisabledHint").Translate();
+            }
+
+            bool hostile = false;
+            for (int i = 0; i < arrived.Count; i++)
+            {
+                if (arrived[i].HostileTo(Faction.OfPlayer))
+                {
+                    hostile = true;
+                    break;
+                }
+            }
+
+            LetterDef letterDef = hostile ? LetterDefOf.ThreatBig
+                : IncidentLetter(LetterDefOf.NeutralEvent, RHAH_DefOf.RHAH_GreenIncident);
+            Find.LetterStack.ReceiveLetter(IncidentLabel(context.DisplayId), text, letterDef, new LookTargets(arrived));
         }
 
         static void SendLetter(RHAH_IncidentContext context, RHAH_ChoiceRecord record, LookTargets targets, List<Verse.Pawn> arrived)

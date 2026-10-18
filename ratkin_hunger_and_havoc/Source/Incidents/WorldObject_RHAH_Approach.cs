@@ -16,6 +16,7 @@ namespace HungerAndHavoc.Incidents
         int mapId;
         int nextTileId = -1;
         int costLeft;
+        float travelRemainder;
         bool crossing;
         bool arrivalPending;
         bool arriving;
@@ -57,6 +58,7 @@ namespace HungerAndHavoc.Incidents
             Scribe_Values.Look(ref mapId, "mapId", 0);
             Scribe_Values.Look(ref nextTileId, "nextTileId", -1);
             Scribe_Values.Look(ref costLeft, "costLeft", 0);
+            Scribe_Values.Look(ref travelRemainder, "travelRemainder", 0f);
             Scribe_Values.Look(ref crossing, "crossing", false);
             Scribe_Values.Look(ref arrivalPending, "arrivalPending", false);
             if (Scribe.mode == LoadSaveMode.PostLoadInit && displayId == null)
@@ -242,7 +244,17 @@ namespace HungerAndHavoc.Incidents
                 return;
             }
 
-            int left = delta;
+            if (arrivalPending)
+            {
+                costLeft = RHAH_ApproachRules.Spend(costLeft, delta);
+                if (costLeft == 0)
+                {
+                    Arrive();
+                }
+                return;
+            }
+
+            int left = RHAH_ApproachRules.TravelTicks(delta, RHAH_Approach.SpeedMultiplier, ref travelRemainder);
             while (left > 0 && !arriving)
             {
                 if (costLeft > 0)
@@ -254,12 +266,6 @@ namespace HungerAndHavoc.Incidents
                     {
                         return;
                     }
-                }
-
-                if (arrivalPending)
-                {
-                    Arrive();
-                    return;
                 }
 
                 if (nextTileId >= 0)

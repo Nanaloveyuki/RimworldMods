@@ -93,6 +93,30 @@ SKIP_DIRS = {".git", "tmp", "docs", "bin", "obj"}
 SKIP_FILES = {"NOTICE", "README.md", "Agents.md", "AGENTS.md", "verify-scaffold.py"}
 
 
+# RimWorld 1.7 Verse.Def and RimWorld.ThoughtDef/ThoughtStage serialized fields;
+# IsMemory is a computed property, not an XML field. Extend only from game schema.
+DEF_XML_FIELDS = frozenset("""
+    defName label description descriptionHyperlinks ignoreConfigErrors
+    ignoreIllegalLabelCharacterConfigError modExtensions
+""".split())
+THOUGHT_XML_FIELDS = DEF_XML_FIELDS | frozenset("""
+    thoughtClass workerClass stages stackLimit stackedEffectMultiplier stagesStack
+    durationDays invert validWhileDespawned nextThought producesMemoryThought
+    nullifyingTraits neverNullifyIfAnyTrait nullifyingTraitDegrees nullifyingOwnTales
+    nullifyingPrecepts nullifyingHediffs nullifyingGenes requiredTraits requiredGenes
+    requiredTraitsDegree requiredHediffs effectMultiplyingStat effectMultiplyingStatCurve
+    hediff mentalState gameCondition nullifiedIfNotColonist thoughtToMake icon showBubble
+    minExpectation minExpectationForNegativeThought replaceThoughts developmentalStageFilter
+    chemicalDef lerpMoodToZero stackLimitForSameOtherPawn lerpOpinionToZeroAfterDurationPct
+    socialTargetDevelopmentalStageFilter ignoreSubhumans doNotApplyToQuestLodgers
+    maxCumulatedOpinionOffset taleDef gender labelInBracketsExtraForHediff
+""".split())
+THOUGHT_STAGE_XML_FIELDS = frozenset("""
+    label labelSocial labelAbstract description baseMoodEffect baseOpinionOffset visible
+""".split())
+ACTIVE_XML_ROOTS = ("1.7/Defs", "1.7/Patches", "Biotech/Defs", "Biotech/Patches")
+
+
 def read(rel):
     path = ROOT / rel
     if not path.exists():
@@ -192,6 +216,38 @@ def check_load_folders():
             entry = entries.get(folder)
             if entry is None or entry.get("IfModActive") != "nanaloveyuki.oxygendsl" or not conflicts.issubset(set(entry.get("IfModNotActive", "").split(","))):
                 errors.append("LoadFolders.xml v" + version + " must gate " + folder + " on ODF and old-mod conflicts")
+
+
+def check_xml_fields(node, allowed_fields, context):
+    for child in node:
+        if child.tag not in allowed_fields:
+            errors.append("unknown XML field %s/%s" % (context, child.tag))
+
+
+def check_active_xml():
+    for relative in ACTIVE_XML_ROOTS:
+        for path in sorted((ROOT / relative).rglob("*.xml")):
+            rel = path.relative_to(ROOT).as_posix()
+            try:
+                document = ET.parse(path).getroot()
+            except ET.ParseError as exc:
+                errors.append("invalid XML %s: %s" % (rel, exc))
+                continue
+            expected_root = "Patch" if relative.endswith("/Patches") else "Defs"
+            if document.tag != expected_root:
+                errors.append("expected <%s> in %s" % (expected_root, rel))
+                continue
+            if document.tag != "Defs":
+                continue
+            for thought in document.findall("ThoughtDef"):
+                name = thought.findtext("defName") or thought.get("Name", "unnamed")
+                context = "%s:ThoughtDef[%s]" % (rel, name)
+                check_xml_fields(thought, THOUGHT_XML_FIELDS, context)
+                for stages in thought.findall("stages"):
+                    check_xml_fields(stages, {"li"}, context + "/stages")
+                    for index, stage in enumerate(stages.findall("li")):
+                        check_xml_fields(stage, THOUGHT_STAGE_XML_FIELDS,
+                                         "%s/stages/li[%d]" % (context, index))
 
 
 def catalog_defs(catalog):
@@ -530,6 +586,7 @@ def check_required_files():
 def main():
     check_about()
     check_load_folders()
+    check_active_xml()
     defs = check_catalog()
     check_incident_labels(defs)
     compare_keyed(
@@ -558,7 +615,7 @@ def main():
         for item in errors:
             print(" -", item)
         return 1
-    print("OK source contracts: API assembly, Identity Comp, I-001..I-054 and wild subevents, keyed symmetry, Japanese coverage/tokens/XML")
+    print("OK source contracts: API assembly, Identity Comp, I-001..I-054 and wild subevents, keyed symmetry, Japanese coverage/tokens/XML, active 1.7/Biotech XML and ThoughtDef fields")
     return 0
 
 

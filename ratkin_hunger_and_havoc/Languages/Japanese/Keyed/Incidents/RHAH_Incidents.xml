@@ -70,9 +70,11 @@
   <RHAH_Follow_I-041_Text>あのときここに来たラットキンの孤児は、今もここにいる。母親がそばにいなくても、暮らしは続けなければならない。</RHAH_Follow_I-041_Text>
   <RHAH_Approach_Label>旅するラットキンの一行</RHAH_Approach_Label>
   <RHAH_Approach_LetterLabel>ラットキンが接近中</RHAH_Approach_LetterLabel>
-  <RHAH_Approach_LetterText>ラットキンの一行が{1}へ向かっており、私たちの拠点まではまだ距離があります。今回向かってくるのは、{0}です。\n\n通常は一日に約3タイル進みます。道がよければ早く、地形が厳しければ遅くなります。海を挟んでいる場合は、対岸から渡ってきます。拠点に着くと、私たちのマップに入ります。</RHAH_Approach_LetterText>
+  <RHAH_Approach_LetterText>ラットキンの一行が{1}へ向かっており、私たちの拠点まではまだ距離があります。今回向かってくるのは、{0}です。\n\n移動速度は道や地形によって変わります。海を挟んでいる場合は、対岸から渡ってきます。拠点に着くと、私たちのマップに入ります。</RHAH_Approach_LetterText>
   <RHAH_Approach_Inspect>私たちの拠点へ向かうラットキン：{0}。</RHAH_Approach_Inspect>
   <RHAH_Approach_Target>一行の目的地：{0}</RHAH_Approach_Target>
+  <RHAH_Arrival_Text>ラットキンが{1}に到着しました。今回やって来たのは、{0}です。</RHAH_Arrival_Text>
+  <RHAH_Arrival_GreatFamine_Text>大勢の飢えたラットキンが{1}に到着しました。食べ物を探し回り、すでに私たちの物資を狙っている者もいます。\n\n今回やって来たのは、{0}です。</RHAH_Arrival_GreatFamine_Text>
   <RHAH_Incident_MouseSwarm_Label>ネズミの大群</RHAH_Incident_MouseSwarm_Label>
   <RHAH_Incident_PleadingJoin_Label>加入の懇願</RHAH_Incident_PleadingJoin_Label>
   <RHAH_Incident_BanditAttack_Label>盗賊の襲撃</RHAH_Incident_BanditAttack_Label>

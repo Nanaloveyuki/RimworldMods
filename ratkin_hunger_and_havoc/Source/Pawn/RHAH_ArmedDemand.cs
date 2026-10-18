@@ -62,7 +62,11 @@ namespace HungerAndHavoc.Pawn
             List<Verse.Pawn> members = RHAH_ChoiceRuntime.Present(record);
             LordJob_RHAH_Visitor job = members.Count == 0 ? null : members[0].GetLord()?.LordJob as LordJob_RHAH_Visitor;
             if (!Enabled) record.Settled = RHAH_ChoiceAction.Ignore;
-            if (job == null || job.ArmedChoiceId != record.Id) return;
+            if (job == null || job.ArmedChoiceId != record.Id)
+            {
+                record.Settled = RHAH_ChoiceAction.Ignore;
+                return;
+            }
             if (!Enabled || action == RHAH_ChoiceAction.Deliver)
             {
                 record.Settled = action == RHAH_ChoiceAction.Deliver ? action : RHAH_ChoiceAction.Ignore;

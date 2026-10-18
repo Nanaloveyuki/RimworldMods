@@ -70,9 +70,11 @@
   <RHAH_Follow_I-041_Text>当年来到据点的鼠族孤儿，如今仍住在这里。我们照料过这个孩子，也看着孩子一天天长大。</RHAH_Follow_I-041_Text>
   <RHAH_Approach_Label>鼠族远行队</RHAH_Approach_Label>
   <RHAH_Approach_LetterLabel>鼠族正在接近</RHAH_Approach_LetterLabel>
-  <RHAH_Approach_LetterText>一队鼠族正朝{1}走来，离我们据点还有一段路。我们这次等来的是：{0}。\n\n他们通常一天走约 3 格。如果道路好走，就会快些；地形难走，则会慢些。如果中间隔着海，他们会从对岸渡过来，抵达据点后进入我们的地图。</RHAH_Approach_LetterText>
+  <RHAH_Approach_LetterText>一队鼠族正朝{1}走来，离我们据点还有一段路。我们这次等来的是：{0}。\n\n他们沿途的行进速度受道路和地形影响。如果中间隔着海，他们会从对岸渡过来，抵达据点后进入我们的地图。</RHAH_Approach_LetterText>
   <RHAH_Approach_Inspect>正在赶来我们据点的鼠族：{0}。</RHAH_Approach_Inspect>
   <RHAH_Approach_Target>远行队的目标：{0}</RHAH_Approach_Target>
+  <RHAH_Arrival_Text>鼠族已经来到{1}。这次到来的是：{0}。</RHAH_Arrival_Text>
+  <RHAH_Arrival_GreatFamine_Text>大批挨饿的鼠族已经来到{1}。他们四处找吃的，有些已经打起了我们物资的主意。\n\n这次到来的是：{0}。</RHAH_Arrival_GreatFamine_Text>
   <RHAH_Incident_MouseSwarm_Label>鼠潮</RHAH_Incident_MouseSwarm_Label>
   <RHAH_Incident_PleadingJoin_Label>祈求加入</RHAH_Incident_PleadingJoin_Label>
   <RHAH_Incident_BanditAttack_Label>盗匪袭击</RHAH_Incident_BanditAttack_Label>

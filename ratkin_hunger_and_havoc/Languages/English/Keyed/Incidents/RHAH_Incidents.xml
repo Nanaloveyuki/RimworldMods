@@ -70,9 +70,11 @@
   <RHAH_Follow_I-041_Text>The ratkin orphan who came to our colony is still in the colony. No mother is beside the orphan, and we watch the days go on anyway.</RHAH_Follow_I-041_Text>
   <RHAH_Approach_Label>Ratkin travelers</RHAH_Approach_Label>
   <RHAH_Approach_LetterLabel>Ratkin approaching</RHAH_Approach_LetterLabel>
-  <RHAH_Approach_LetterText>A group of ratkin is traveling toward {1}, still some way from our colony. The approaching group is: {0}.\n\nThey usually cover about 3 tiles a day, moving faster on good roads and slower over difficult terrain. If the sea lies between us, they cross from the far shore. They enter our map when they reach the colony.</RHAH_Approach_LetterText>
+  <RHAH_Approach_LetterText>A group of ratkin is traveling toward {1}, still some way from our colony. The approaching group is: {0}.\n\nTheir pace depends on the roads and terrain along the way. If the sea lies between us, they cross from the far shore. They enter our map when they reach the colony.</RHAH_Approach_LetterText>
   <RHAH_Approach_Inspect>Ratkin coming to our colony: {0}.</RHAH_Approach_Inspect>
   <RHAH_Approach_Target>The travelers' destination: {0}</RHAH_Approach_Target>
+  <RHAH_Arrival_Text>The ratkin have arrived at {1}. The arriving group is: {0}.</RHAH_Arrival_Text>
+  <RHAH_Arrival_GreatFamine_Text>A large group of starving ratkin has reached {1}. They are searching for food, and some already have their eyes on our supplies.\n\nThe arriving group is: {0}.</RHAH_Arrival_GreatFamine_Text>
   <RHAH_Incident_MouseSwarm_Label>Mouse swarm</RHAH_Incident_MouseSwarm_Label>
   <RHAH_Incident_PleadingJoin_Label>Pleading to join</RHAH_Incident_PleadingJoin_Label>
   <RHAH_Incident_BanditAttack_Label>Bandit attack</RHAH_Incident_BanditAttack_Label>

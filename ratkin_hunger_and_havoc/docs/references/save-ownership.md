@@ -226,7 +226,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | points | points | 0 | 否 | 到达后交给 Worker 的点数 |
 | mapId | mapId | 0 | 否 | 目标玩家家园 `uniqueID`。地图已销毁时物体销毁且不生成 |
 | nextTileId | nextTileId | -1 | 否 | 正在走入的下一格。-1 表示这一格已经走完 |
-| costLeft | costLeft | 0 | 否 | 进入下一格或到达后等待重试还要的 tick；暂时失败等待一游戏小时，读档不重置 |
+| costLeft | costLeft | 0 | 否 | 行进时为原始速度下的剩余移动消耗，由当前速度倍率扣除；到达等待时为真实游戏 tick，暂时失败仍等待一游戏小时，读档不重置 |
+| travelRemainder | travelRemainder | 0 | 否 | 倍速扣除不足一 tick 的余数，保存后继续累计；旧档缺键为 0，卸载随远行队 Remove |
 | crossing | crossing | false | 否 | 岛上出发时为 true，允许走进海洋格。旧档缺键时按陆地走 |
 | arrivalPending | arrivalPending | false | 否 | 已进入到达事务，等待时不再寻路；旧档缺键继续原行走，到达后设为 true |
 
@@ -704,6 +705,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.armedDemandEnabled | 全局 ModSettings，默认 true。仅 Siege 三场景建立带数量期限的请求，不受援助/访客信开关；关闭已有请求停止该 Lord 的索粮进攻并离场，不改其它袭击 |
 | RHAH_Settings.armedWeaponsEnabled | 全局 ModSettings，默认 true。只装备新 Siege 成年且可战者；原版低级武器品质普通及以下 |
 | RHAH_Settings.spaceApproachEnabled | 全局 ModSettings，默认 false。关闭时太空层家园不生成远行队。缺键保持关闭 |
+| RHAH_Settings.approachSpeedMultiplier | 全局 ModSettings，默认 2，范围 0.5..4；1 为原始速度。在途鼠族远行队按当前倍率扣除行进消耗，抵达重试仍用真实一小时。缺键或非有限值用默认 |
 | RHAH_Settings.childExchangeFoodSubstitution | 全局 ModSettings，默认 true。易子而食玩家侧可用简单餐代替婴幼儿 |
 | RHAH_Settings.familyDropEnabled | 全局 ModSettings，默认 true |
 | RHAH_Settings.motherFeedEnabled | 全局 ModSettings，默认 true |

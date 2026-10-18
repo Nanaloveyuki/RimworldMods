@@ -60,6 +60,7 @@ namespace HungerAndHavoc.Core
         public bool armedDemandEnabled = true;
         public bool armedWeaponsEnabled = true;
         public bool spaceApproachEnabled;
+        public float approachSpeedMultiplier = HungerAndHavoc.Incidents.RHAH_ApproachRules.DefaultSpeedMultiplier;
         public bool childExchangeFoodSubstitution = true;
         public bool familyDropEnabled = true;
         public bool motherFeedEnabled = true;
@@ -348,6 +349,7 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref armedDemandEnabled, "armedDemandEnabled", true);
             Scribe_Values.Look(ref armedWeaponsEnabled, "armedWeaponsEnabled", true);
             Scribe_Values.Look(ref spaceApproachEnabled, "spaceApproachEnabled", false);
+            Scribe_Values.Look(ref approachSpeedMultiplier, "approachSpeedMultiplier", HungerAndHavoc.Incidents.RHAH_ApproachRules.DefaultSpeedMultiplier);
             Scribe_Values.Look(ref childExchangeFoodSubstitution, "childExchangeFoodSubstitution", true);
             Scribe_Values.Look(ref familyDropEnabled, "familyDropEnabled", true);
             Scribe_Values.Look(ref motherFeedEnabled, "motherFeedEnabled", true);
@@ -578,6 +580,7 @@ namespace HungerAndHavoc.Core
                 disabledTraitDisplayIds = disabledTraitDisplayIds ?? new List<string>();
                 traitWeights = traitWeights ?? new Dictionary<string, float>();
                 broadcastCooldownDays = HungerAndHavoc.Incidents.RHAH_BroadcastRules.ClampDays(broadcastCooldownDays);
+                approachSpeedMultiplier = HungerAndHavoc.Incidents.RHAH_ApproachRules.ClampSpeed(approachSpeedMultiplier);
                 Normalize();
                 positiveIncidentDays = HungerAndHavoc.Incidents.RHAH_IncidentSchedule.ClampDays(positiveIncidentDays);
                 negativeIncidentDays = HungerAndHavoc.Incidents.RHAH_IncidentSchedule.ClampDays(negativeIncidentDays);

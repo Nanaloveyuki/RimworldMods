@@ -37,7 +37,16 @@ namespace HungerAndHavoc.EventMgr
                     {
                         option.action = () =>
                         {
-                            if (!RHAH_LongFollowRuntime.Choose(chainId, phase, captured.Action, captured.PawnId))
+                            if (ArchivedOnly)
+                            {
+                                option.dialog?.Close();
+                                return;
+                            }
+                            if (RHAH_LongFollowRuntime.Choose(chainId, phase, captured.Action, captured.PawnId))
+                            {
+                                option.dialog?.Close();
+                            }
+                            else
                             {
                                 Messages.Message("RHAH_Long_Stale".Translate(), MessageTypeDefOf.RejectInput);
                             }

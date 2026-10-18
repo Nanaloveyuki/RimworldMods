@@ -82,6 +82,8 @@
   <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>オンにすると、被災者のキャラバンは閉じ込められた部屋から脱出するための掘削を行いません。オフの場合、マップの端にたどり着けなければ、掘って道を作り立ち去ります。</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
   <RHAH_Settings_SpaceApproach>軌道の拠点で事件を許可</RHAH_Settings_SpaceApproach>
   <RHAH_Settings_SpaceApproach_Tooltip>初期設定はオフです。オフのとき、小惑星や SOS2 の軌道船を含む軌道上の拠点には、歩いて向かうラットキンの一行は生成されず、マップ事件も抽選されません。オンにすると許可されます。すでにオデッセイの軌道層にいる一行は、シャトルの離陸を妨げません。</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_ApproachSpeed>ラットキン遠行隊の速度：{0}x</RHAH_Settings_ApproachSpeed>
+  <RHAH_Settings_ApproachSpeed_Tooltip>このModで拠点へ向かうラットキンの移動速度です。範囲は0.5x～4x、初期値は2x。1xは従来の速度で、平地では1日約3タイル進みます。変更は移動中の一行にもすぐ適用されます。</RHAH_Settings_ApproachSpeed_Tooltip>
   <RHAH_Settings_ChildExchangeFood>子供の代わりに食料を渡すことを許可</RHAH_Settings_ChildExchangeFood>
   <RHAH_Settings_ChildExchangeFood_Tooltip>オンにすると、「子を取り替えて食らう」と旧「赤ん坊の要求」で子供の代わりに簡単な食事を渡せます。子供の交換は訪問した子供の人数で計算し、赤ん坊の要求は1人分の基準量の2倍が必要です。オフでも子供を引き渡すことはできます。</RHAH_Settings_ChildExchangeFood_Tooltip>
   <RHAH_Settings_GreenLetters>飢饉イベントを緑の手紙にする</RHAH_Settings_GreenLetters>
