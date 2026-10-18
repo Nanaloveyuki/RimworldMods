@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 鼠族回收行为 - 心情定义 -->
+<Defs>
+
+  <!-- ============ 鼠妈吃非亲生鼠蛋 ============ -->
+  <ThoughtDef>
+    <defName>MomEatNonOwnEggToddler</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>鼠鼠窝饿饿,崽崽豪次次</label>
+        <description>窝咬咬了别的鼠鼠的崽子叽,豪次次吱!</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MomEatNonOwnEggChild</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>泥不系窝的崽崽,窝次次</label>
+        <description>泥身上的气味不是窝崽崽的,窝要咬泥!</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MomEatNonOwnEggAdult</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>你不是我的崽崽,我要吃你的肉</label>
+        <description>你不是我的崽崽,我要吃了你,给我的崽崽喝奶奶</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ============ 鼠妈吃亲生鼠蛋 ============ -->
+  <ThoughtDef>
+    <defName>MomEatOwnEggToddler</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>唧唧窝的崽崽,窝次次了叽...</label>
+        <description>窝把自己的崽崽次次了吱,可是它豪豪次唧唧</description>
+        <baseMoodEffect>-20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MomEatOwnEggChild</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>窝把崽崽吃掉了吱,对不起叽</label>
+        <description>窝不得不吃掉了自己的崽崽,窝对不起它吱叽...</description>
+        <baseMoodEffect>-20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MomEatOwnEggAdult</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>我吃掉了自己的崽崽,这是自然选择吱</label>
+        <description>我吃了自己的一个崽崽,这样我就有奶水救别的崽崽了</description>
+        <baseMoodEffect>15</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ============ 其他鼠族(非鼠妈)吃鼠蛋 ============ -->
+  <ThoughtDef>
+    <defName>OtherEatEggToddler</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>饿饿,借崽崽填肚子叽</label>
+        <description>本鼠饿得头晕眼花,只好抓个崽崽啃两口吱…</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>OtherEatEggChild</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>饿得遭不住,只能吃崽崽吱</label>
+        <description>管它谁的崽崽,先填饱肚子再说叽!</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>OtherEatEggAdult</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>嗷呜,咬崽崽垫垫肚子</label>
+        <description>鼠鼠我呀,是真的饿坏啦吱…</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ============ 被吃者(被捕食鼠蛋) ============ -->
+  <ThoughtDef>
+    <defName>EatenEggToddler</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>窝被鼠鼠吃掉惹…叽</label>
+        <description>鼠鼠把窝抓起来一口一口啃,窝好疼好疼叽…</description>
+        <baseMoodEffect>-50</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>EatenEggChild</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>呲!鼠鼠要吃窝!</label>
+        <description>窝被同族的鼠鼠按住啃食,谁来救救窝吱…</description>
+        <baseMoodEffect>-50</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>EatenEggAdult</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <showBubble>true</showBubble>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>呲——!同类相食!</label>
+        <description>同为鼠族,竟被一口一口啃食…这算什么回收叽!</description>
+        <baseMoodEffect>-50</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

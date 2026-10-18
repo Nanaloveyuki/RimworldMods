@@ -1,20 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.7'">net10.0</TargetFramework>
+    <TargetFramework Condition="'$(RimWorldVersion)' == '1.6'">net472</TargetFramework>
+    <PlatformTarget Condition="'$(RimWorldVersion)' == '1.7'">x64</PlatformTarget>
     <AssemblyName>RatkinRecycle</AssemblyName>
     <RootNamespace>RatkinRecycle</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>disable</ImplicitUsings>
-    <OutputPath>../Assemblies/</OutputPath>
+    <OutputPath Condition="'$(RimWorldVersion)' == '1.7'">../1.7/Assemblies/</OutputPath>
+    <OutputPath Condition="'$(RimWorldVersion)' == '1.6'">../tmp/rebuild-1.6/Assemblies/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.6'">
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" PrivateAssets="all" />
     <PackageReference Include="Lib.Harmony" Version="2.4.1" PrivateAssets="all" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.7'">
+    <Reference Include="Assembly-CSharp" HintPath="$(RimWorldDir)/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="UnityStubs" HintPath="$(RimWorldDir)/UnityStubs.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(HarmonyAssemblyPath)" Private="false" />
+  </ItemGroup>
+  <Target Name="CheckRimWorldReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(RimWorldVersion)' != '1.6' and '$(RimWorldVersion)' != '1.7'" Text="RimWorldVersion must be 1.6 or 1.7." />
+    <Error Condition="'$(RimWorldVersion)' == '1.7' and (!Exists('$(RimWorldDir)/Assembly-CSharp.dll') or !Exists('$(RimWorldDir)/UnityStubs.dll'))" Text="Set RimWorldDir to the RimWorld 1.7 game root containing Assembly-CSharp.dll and UnityStubs.dll." />
+    <Error Condition="'$(RimWorldVersion)' == '1.7' and !Exists('$(HarmonyAssemblyPath)')" Text="Set HarmonyAssemblyPath to Harmony 3's 1.7/Assemblies/0Harmony.dll." />
+  </Target>
 </Project>

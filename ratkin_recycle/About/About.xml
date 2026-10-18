@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- Maintained by Nanaloveyuki from 2026-10-18; package ID, attribution and dependency links updated. -->
+<!-- Maintained by Nanaloveyuki from 2026-10-18; identity, version routing and dependency metadata updated. -->
 <ModMetaData>
 	<name>鼠族回收行为 RatkinRecycle</name>
 	<author>菜地里的稽 (原作者); Nanaloveyuki (接手维护)</author>
 	<packageId>nanaloveyuki.ratkinrecycle</packageId>
 	<supportedVersions>
 		<li>1.6</li>
+		<li>1.7</li>
 	</supportedVersions>
 	<description>
 鼠族回收行为 - 还原现实世界鼠族的"回收"本能:成年母性鼠族在生下小鼠后,如果没吃过精致及以上等级的食物且饥饿值低于50%,会尝试捕食周围的鼠蛋(0-3岁鼠族婴儿),优先吃非亲生的;若没有其他鼠蛋,则吃自己的。其他鼠族(儿童、成年鼠族、未生产的雌鼠)在饥饿值低于30%时也会捕食鼠蛋;1岁以上的鼠蛋会捕食1岁以下的鼠蛋。
@@ -25,7 +26,14 @@
 		<li>
 			<packageId>Solaris.RatkinRaceMod</packageId>
 			<displayName>NewRatkinPlus 鼠族</displayName>
-			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3497673755</steamWorkshopUrl>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=1578693166</steamWorkshopUrl>
 		</li>
 	</modDependencies>
+	<loadAfter>
+		<li>brrainz.harmony</li>
+		<li>Solaris.RatkinRaceMod</li>
+	</loadAfter>
+	<incompatibleWith>
+		<li>dsh.ratkinrecycle</li>
+	</incompatibleWith>
 </ModMetaData>

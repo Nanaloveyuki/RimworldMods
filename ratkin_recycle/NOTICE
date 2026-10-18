@@ -19,11 +19,15 @@ Changes by Nanaloveyuki, 2026-10-18:
 - Recovered C# source with ILSpy and added a reproducible 1.6 build project.
 - Changed About package ID and Harmony ID to nanaloveyuki.ratkinrecycle.
 - Retained the original author and added maintainer attribution and dependency links.
-- Rebuilt Assemblies/RatkinRecycle.dll; original DLL remains in the archive.
+- Rebuilt the maintainer 1.6 DLL, now frozen under 1.6/Assemblies;
+  original author DLL remains in the archive.
 - Added dual-license texts, documentation and a typographic About/Preview.png
   using the original stop-bleeding station icon.
+- Added isolated 1.7 .NET 10 / Harmony 3 output and explicit LoadFolders routing.
+- Preserved the 1.6 release bytes and copied unchanged XML/textures to Common.
+- Corrected the Solaris.RatkinRaceMod Workshop link to verified ID 1578693166.
 
 Original Def names, gameplay XML, texture, assembly name and namespace are
-retained. No RimWorld 1.7 compatibility or gameplay fixes are claimed.
+retained. The 1.7 port does not include unrelated gameplay or persistence fixes.
 RimWorld, Unity, Harmony and NewRatkinPlus are external dependencies and are
 not included in this license grant. See LICENSE for both full license texts.

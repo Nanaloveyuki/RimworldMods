@@ -1,0 +1,11 @@
+{
+  "baselineCommit": "4be94c4",
+  "description": "Maintainer 1.6 payload frozen before 1.7 migration; paths relative to 1.6/. Original author DLL is separately archived in upstream-original.tar.gz.",
+  "sha256": {
+    "Assemblies/RatkinRecycle.dll": "42be0985a792cf40842720259c11120035b15872c47f3e1e5e66db10cd0ba284",
+    "Defs/RatkinRecycle_Jobs.xml": "c01c4b591da1e4bb84b8feb8845f78d226c740b80f5749e36d8fd81c15a32433",
+    "Defs/RatkinRecycle_Thoughts.xml": "dc8cf4ac23604273ecc609a1676eeb1625dc8e738bf6b908fe89b1972b96b921",
+    "Defs/RatkinRecycle_Things.xml": "a4da6b822f9373bd858d39b75e6f5dd71fb8fcf5d863eb9d36b1456506685c32",
+    "Textures/Things/Building/RRE_StopBleed.png": "86a66a79d19027018336aec1fe56668996c143d7a976b0debe14ee0693d2a6ad"
+  }
+}
