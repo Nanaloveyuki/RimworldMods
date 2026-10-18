@@ -11,9 +11,8 @@ namespace PrisonersPayToEat2
     /// 娱乐计费：囚犯每娱乐满 1 个游戏小时计一次费（默认 50 白银×汇率，可按建筑单独定价），
     /// 娱乐工作结束时按不足一小时的零头比例补收。费用只针对"使用娱乐建筑"——散步、冥想等
     /// 无建筑娱乐免费。
-    /// 赊账开启且付不起：扣成负数（与吃饭欠账同一套 pressure）；赊账关闭且余额不足：
-    /// 在 <see cref="Patch_JobGiverGetJoy"/> 直接拦下娱乐工作（付不起就不去），
-    /// 期间把钱花光的边界情况按实有余额补收、不扣成负数。
+    /// Credit is bounded by the configured debt floor. If funds change during a session,
+    /// settlement collects only the remaining spending power.
     /// </summary>
     public static class PrisonerJoyCharge
     {
@@ -107,21 +106,20 @@ namespace PrisonersPayToEat2
             if (cost < 0.009f) return;
 
             float available = mgr.AvailableBalance(pawn);
-            float paid = Mathf.Min(cost, available);
-            if (paid > 0.009f || s.allowMealDebt)
+            float paid = Mathf.Min(cost, mgr.SpendingPower(pawn));
+            if (paid > 0.009f)
             {
-                // 赊账开启时全额（可为负）；关闭时只收实有
-                float charge = s.allowMealDebt ? cost : paid;
+                float charge = paid;
                 mgr.PayWithSupport(pawn, charge);
                 if (pawn.Spawned)
                     MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-" + charge.ToString("0.##"), new Color(1f, 0.7f, 0.3f));
 
-                if (s.allowMealDebt && cost > available + 0.009f)
+                if (charge > available + 0.009f)
                 {
                     if (pawn.Spawned)
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+" + (cost - available).ToString("0.##") + "!", Color.red);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+" + (charge - available).ToString("0.##") + "!", Color.red);
                     Messages.Message("PPTE2_JoyOnCredit".Translate(pawn.LabelShortCap,
-                            (cost - available).ToString("0.##"), PPTEName.Ticket),
+                            (charge - available).ToString("0.##"), PPTEName.Ticket),
                         pawn, MessageTypeDefOf.RejectInput);
                     var debtThought = PrisonersPayToEat2Manager.GetThought("PPTE2_MealDebt");
                     if (debtThought != null)
@@ -190,7 +188,7 @@ namespace PrisonersPayToEat2
             {
                 if (__result == null) return;
                 var s = PrisonersPayToEat2Mod.Settings;
-                if (s == null || !s.enableJoyFees || s.allowMealDebt) return;
+                if (s == null || !s.enableJoyFees) return;
                 if (!PrisonerJoyCharge.FeesApply(pawn)) return;
 
                 string defName = (__result.targetA.Thing as Building)?.def?.defName;
@@ -198,7 +196,7 @@ namespace PrisonersPayToEat2
                 if (cost < 0.009f) return; // 无建筑娱乐免费，不拦
                 var mgr = PrisonersPayToEat2Manager.Current;
                 if (mgr == null) return;
-                float available = mgr.AvailableBalance(pawn);
+                float available = mgr.SpendingPower(pawn);
                 if (available >= cost) return;
                 __result = null;
                 PrisonerJoyCharge.NotifyBlocked(pawn, cost, available);

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!--Recipe: remove one kidney (non-lethal). Worker pays out meal tickets in C# code.-->
+  <!--Natural anatomy is rechecked immediately before surgery; surgical failure remains possible.-->
   <RecipeDef ParentName="SurgeryFlesh">
     <defName>PPTE2_RemoveKidney</defName>
     <label>remove kidney for tickets</label>
-    <description>Surgically remove one of the prisoner's kidneys. The prisoner earns meal tickets in exchange. Only one kidney per prisoner can be sold.</description>
+    <description>Surgically remove one of the prisoner's kidneys in exchange for 40 meal tickets. Only one kidney per prisoner can be sold, and another kidney must remain. Current health is checked before removal, but surgery can still fail, injure or kill the patient.</description>
     <workerClass>PrisonersPayToEat2.RecipeWorker_OrganSale</workerClass>
     <jobString>harvesting kidney for tickets</jobString>
     <workAmount>2500</workAmount>
@@ -31,11 +31,11 @@
     </fixedIngredientFilter>
   </RecipeDef>
 
-  <!--Recipe: remove one lung (non-lethal). Worker pays out meal tickets in C# code.-->
+  <!--One lifetime lung sale, preserving the original 35-ticket payout.-->
   <RecipeDef ParentName="SurgeryFlesh">
     <defName>PPTE2_RemoveLungLobe</defName>
     <label>remove lung for tickets</label>
-    <description>Surgically remove one of the prisoner's lungs. The prisoner earns meal tickets in exchange. Only one lung per prisoner can be sold.</description>
+    <description>Surgically remove one of the prisoner's lungs in exchange for 35 meal tickets. Only one lung per prisoner can be sold, and another lung must remain. Current health is checked before removal, but surgery can still fail, injure or kill the patient.</description>
     <workerClass>PrisonersPayToEat2.RecipeWorker_OrganSale</workerClass>
     <jobString>harvesting lung for tickets</jobString>
     <workAmount>3000</workAmount>
@@ -60,5 +60,36 @@
       </categories>
     </fixedIngredientFilter>
   </RecipeDef>
+
+  <RecipeDef ParentName="SurgeryFlesh">
+    <defName>PPTE2_RemoveOtherOrgan</defName>
+    <label>remove organ for tickets</label>
+    <description>Surgically remove a clean, harvestable internal organ in exchange for 30 meal tickets. Only organs whose removal is not predicted to be directly fatal are available. Each organ type may be sold only once per prisoner. Surgery can still fail, injure or kill the patient.</description>
+    <workerClass>PrisonersPayToEat2.RecipeWorker_OrganSale</workerClass>
+    <jobString>harvesting organ for tickets</jobString>
+    <workAmount>3000</workAmount>
+    <developmentalStageFilter>Child, Adult</developmentalStageFilter>
+    <surgerySuccessChanceFactor>1</surgerySuccessChanceFactor>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Medicine</li>
+          </categories>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Medicine</li>
+      </categories>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+  <LetterDef ParentName="CustomChoiceLetterBase">
+    <defName>PPTE2_OrganSaleRequest</defName>
+    <letterClass>PrisonersPayToEat2.ChoiceLetter_OrganSale</letterClass>
+  </LetterDef>
 
 </Defs>

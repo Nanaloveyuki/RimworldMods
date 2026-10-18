@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -39,11 +40,22 @@ namespace PrisonersPayToEat2
 
     public static class LaborAreaColonistBlock
     {
+        // Weak keys let removed maps and previous games release their area references together.
+        private static readonly ConditionalWeakTable<AreaManager, Area_PrisonerLabor> laborAreas
+            = new ConditionalWeakTable<AreaManager, Area_PrisonerLabor>();
+
         public static void EnsureArea(AreaManager mgr)
         {
             if (mgr == null) return;
-            if (mgr.Get<Area_PrisonerLabor>() != null) return;
-            mgr.AllAreas.Add(new Area_PrisonerLabor(mgr));
+            var area = mgr.Get<Area_PrisonerLabor>();
+            if (area == null)
+            {
+                area = new Area_PrisonerLabor(mgr);
+                mgr.AllAreas.Add(area);
+            }
+            // PostLoadInit may have replaced the deserialized areas on this manager.
+            laborAreas.Remove(mgr);
+            laborAreas.Add(mgr, area);
         }
 
         /// <summary>给所有 WorkGiver_Scanner 自声明的 HasJobOnThing/HasJobOnCell 打 postfix。</summary>
@@ -91,7 +103,12 @@ namespace PrisonersPayToEat2
             if (pawn.RaceProps == null || pawn.RaceProps.IsMechanoid) return;
             var map = pawn.MapHeld;
             if (map == null) return;
-            var area = map.areaManager.Get<Area_PrisonerLabor>();
+            var areaManager = map.areaManager;
+            if (!laborAreas.TryGetValue(areaManager, out var area))
+            {
+                area = areaManager.Get<Area_PrisonerLabor>();
+                if (area != null) laborAreas.Add(areaManager, area);
+            }
             if (area != null && area[c]) result = false;
         }
     }

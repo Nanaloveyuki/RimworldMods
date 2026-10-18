@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PPTE2_RemoveKidney.label>出售肾脏换取饭票</PPTE2_RemoveKidney.label>
+  <PPTE2_RemoveKidney.description>手术摘除囚犯的一枚肾脏，换取40张饭票。每名囚犯只能出售一次肾脏，且必须保留另一枚。摘除前会检查当前健康状况，但手术仍可能失败、造成伤害或导致死亡。</PPTE2_RemoveKidney.description>
+  <PPTE2_RemoveKidney.jobString>摘除肾脏换取饭票</PPTE2_RemoveKidney.jobString>
+  <PPTE2_RemoveLungLobe.label>出售肺脏换取饭票</PPTE2_RemoveLungLobe.label>
+  <PPTE2_RemoveLungLobe.description>手术摘除囚犯的一侧肺脏，换取35张饭票。每名囚犯只能出售一次肺脏，且必须保留另一侧。摘除前会检查当前健康状况，但手术仍可能失败、造成伤害或导致死亡。</PPTE2_RemoveLungLobe.description>
+  <PPTE2_RemoveLungLobe.jobString>摘除肺脏换取饭票</PPTE2_RemoveLungLobe.jobString>
+  <PPTE2_RemoveOtherOrgan.label>出售器官换取饭票</PPTE2_RemoveOtherOrgan.label>
+  <PPTE2_RemoveOtherOrgan.description>手术摘除一枚干净、可收获的体内器官，换取30张饭票。仅允许摘除后预计不会立即致死的器官；每种器官每名囚犯只能出售一次。手术仍可能失败、造成伤害或导致死亡。</PPTE2_RemoveOtherOrgan.description>
+  <PPTE2_RemoveOtherOrgan.jobString>摘除器官换取饭票</PPTE2_RemoveOtherOrgan.jobString>
+</LanguageData>

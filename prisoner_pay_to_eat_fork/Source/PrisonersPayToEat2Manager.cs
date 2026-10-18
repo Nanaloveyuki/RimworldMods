@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Verse;
 using RimWorld;
@@ -54,6 +53,8 @@ namespace PrisonersPayToEat2
         public bool organHarvestOverrideEnabled;
         public bool kidneyTaken;
         public bool lungLobeTaken;
+        public List<string> otherOrgansTaken = new List<string>();
+        public int organRequestCooldownUntilTick = -1;
         public float ransomTicketOverride;    // ransom tickets needed; 0 = follow global setting
         public float ransomMinDaysOverride;   // minimum days imprisoned; 0 = follow global setting
         public bool ransomRequested;          // prisoner asked to buy freedom, awaiting player decision
@@ -79,6 +80,8 @@ namespace PrisonersPayToEat2
             Scribe_Values.Look(ref organHarvestOverrideEnabled, "organHarvestOverrideEnabled", false);
             Scribe_Values.Look(ref kidneyTaken, "kidneyTaken", false);
             Scribe_Values.Look(ref lungLobeTaken, "lungLobeTaken", false);
+            Scribe_Collections.Look(ref otherOrgansTaken, "otherOrgansTaken", LookMode.Value);
+            Scribe_Values.Look(ref organRequestCooldownUntilTick, "organRequestCooldownUntilTick", -1);
             Scribe_Values.Look(ref ransomTicketOverride, "ransomTicketOverride", 0f);
             Scribe_Values.Look(ref ransomMinDaysOverride, "ransomMinDaysOverride", 0f);
             Scribe_Values.Look(ref ransomRequested, "ransomRequested", false);
@@ -121,9 +124,26 @@ namespace PrisonersPayToEat2
         // 未还清的囚犯间借款（借方还清后移除；坏账由 PrisonerSocialTicker 清扫）。
         public List<LoanRecord> loans = new List<LoanRecord>();
 
-        // Meal-ticket health-status hediff maintenance (see EnsureTicketHediffs).
+        // Pawn references belong to this game only, including prisoners temporarily in containers.
         private static HediffDef ticketHediffDef;
+        private readonly HashSet<Pawn> ticketHediffPawns = new HashSet<Pawn>();
+        private readonly List<Pawn> ticketHediffScratch = new List<Pawn>();
+        private readonly List<int> stalePrisonStartIds = new List<int>();
+        private readonly List<PaymentShare> paymentShares = new List<PaymentShare>();
         private int lastHediffCheckTick = -1;
+        private int lastHediffReconcileTick = -1;
+
+        private readonly struct PaymentShare
+        {
+            public readonly PrisonerTicketData Account;
+            public readonly float Weight;
+
+            public PaymentShare(PrisonerTicketData account)
+            {
+                Account = account;
+                Weight = Mathf.Max(0f, account.ticketBalance);
+            }
+        }
 
         public PrisonersPayToEat2Manager() { }
         public PrisonersPayToEat2Manager(Game game) { }
@@ -149,14 +169,7 @@ namespace PrisonersPayToEat2
             if (amount == 0f) return;
             var d = DataFor(p);
             d.ticketBalance += amount;
-            // 赊账开启时允许余额为负（欠款由之后工资/卖器官等收入自动优先偿还，
-            // 因为收入只是加到余额上，负数先被填平）；关闭时保持旧行为：余额不低于 0。
-            if (d.ticketBalance < 0f)
-            {
-                if (!PrisonersPayToEat2Mod.Settings.allowMealDebt)
-                    d.ticketBalance = 0f;
-                return; // 赊账欠款还没填平，先不还借款
-            }
+            if (d.ticketBalance < 0f) return;
             // 余额为正且填平了赊账欠款后，剩余部分优先偿还囚犯间借款
             RepayLoans(p, d);
         }
@@ -255,15 +268,32 @@ namespace PrisonersPayToEat2
             if (!IsChild(child)) return false;
             if (!PrisonersPayToEat2Mod.Settings.enableChildParentPay) return false;
             if (DataFor(child).childPaySetting == PPTE2SocialSetting.Deny) return false;
-            return SupportingParents(child).Count > 0;
+            var direct = child.relations?.DirectRelations;
+            if (direct == null) return false;
+            for (int i = 0; i < direct.Count; i++)
+            {
+                var rel = direct[i];
+                if (rel?.def == PawnRelationDefOf.Parent && IsSupportingParent(rel.otherPawn))
+                    return true;
+            }
+            return false;
         }
+
+        private static bool IsSupportingParent(Pawn parent)
+            => parent != null && !parent.Dead && parent.IsPrisonerOfColony;
 
         /// <summary>父母的可用饭票合计（正余额之和；负余额的父母不参与代付）。</summary>
         public float ParentTotalBalance(Pawn child)
         {
             float total = 0f;
-            foreach (var parent in SupportingParents(child))
-                total += Mathf.Max(0f, Balance(parent));
+            var direct = child?.relations?.DirectRelations;
+            if (direct == null) return total;
+            for (int i = 0; i < direct.Count; i++)
+            {
+                var rel = direct[i];
+                if (rel?.def == PawnRelationDefOf.Parent && IsSupportingParent(rel.otherPawn))
+                    total += Mathf.Max(0f, DataFor(rel.otherPawn).ticketBalance);
+            }
             return total;
         }
 
@@ -283,9 +313,22 @@ namespace PrisonersPayToEat2
         public float AvailableBalance(Pawn p)
         {
             if (p == null) return 0f;
-            float own = Mathf.Max(0f, Balance(p));
-            if (!ChildParentPayActive(p)) return own;
+            var d = DataFor(p);
+            float own = Mathf.Max(0f, d.ticketBalance);
+            if (!IsChild(p) || !PrisonersPayToEat2Mod.Settings.enableChildParentPay
+                || d.childPaySetting == PPTE2SocialSetting.Deny) return own;
             return own + ParentTotalBalance(p);
+        }
+
+        /// <summary>Positive family funds plus only the consumer's unused credit.</summary>
+        public float SpendingPower(Pawn p, bool allowCredit = true)
+        {
+            if (p == null) return 0f;
+            float available = AvailableBalance(p);
+            var s = PrisonersPayToEat2Mod.Settings;
+            if (!allowCredit || !s.allowMealDebt) return available;
+            float floor = Mathf.Min(0f, s.mealDebtFloor);
+            return available + Mathf.Max(0f, Mathf.Min(0f, Balance(p)) - floor);
         }
 
         /// <summary>
@@ -297,61 +340,84 @@ namespace PrisonersPayToEat2
         public void PayWithSupport(Pawn p, float cost)
         {
             if (cost <= 0f) return;
+            cost = Mathf.Min(cost, SpendingPower(p));
+            if (cost <= 0f) return;
             var d = DataFor(p);
-            float remaining = cost;
-            if (!ChildParentPayActive(p))
+            if (!IsChild(p) || !PrisonersPayToEat2Mod.Settings.enableChildParentPay
+                || d.childPaySetting == PPTE2SocialSetting.Deny)
             {
-                d.ticketBalance -= remaining;
+                d.ticketBalance -= cost;
                 return;
             }
-            var parents = SupportingParents(p);
-            float parentTotal = ParentTotalBalance(p);
 
-            switch (PrisonersPayToEat2Mod.Settings.childPayMode)
+            var mode = PrisonersPayToEat2Mod.Settings.childPayMode;
+            try
             {
-                case ChildPayMode.ParentFirst:
-                    SplitPay(parents, Mathf.Min(remaining, parentTotal));
-                    remaining -= Mathf.Min(remaining, parentTotal);
-                    break;
-                case ChildPayMode.MergedPool:
+                if (mode == ChildPayMode.MergedPool) paymentShares.Add(new PaymentShare(d));
+                float parentTotal = 0f;
+                var direct = p.relations?.DirectRelations;
+                if (direct != null)
                 {
-                    float pool = Mathf.Max(0f, d.ticketBalance) + parentTotal;
-                    var members = new List<Pawn> { p };
-                    members.AddRange(parents);
-                    SplitPay(members, Mathf.Min(remaining, pool));
-                    remaining -= Mathf.Min(remaining, pool);
-                    break;
+                    for (int i = 0; i < direct.Count; i++)
+                    {
+                        var rel = direct[i];
+                        if (rel?.def != PawnRelationDefOf.Parent || !IsSupportingParent(rel.otherPawn)) continue;
+                        var share = new PaymentShare(DataFor(rel.otherPawn));
+                        paymentShares.Add(share);
+                        parentTotal += share.Weight;
+                    }
                 }
-                default: // OwnFirst
-                    float ownPay = Mathf.Min(Mathf.Max(0f, d.ticketBalance), remaining);
-                    d.ticketBalance -= ownPay;
-                    remaining -= ownPay;
-                    SplitPay(parents, Mathf.Min(remaining, parentTotal));
-                    remaining -= Mathf.Min(remaining, parentTotal);
-                    break;
+                if (paymentShares.Count == (mode == ChildPayMode.MergedPool ? 1 : 0))
+                {
+                    d.ticketBalance -= cost;
+                    return;
+                }
+
+                float remaining = cost;
+                switch (mode)
+                {
+                    case ChildPayMode.ParentFirst:
+                        SplitPay(Mathf.Min(remaining, parentTotal));
+                        remaining -= Mathf.Min(remaining, parentTotal);
+                        break;
+                    case ChildPayMode.MergedPool:
+                    {
+                        float pool = Mathf.Max(0f, d.ticketBalance) + parentTotal;
+                        SplitPay(Mathf.Min(remaining, pool));
+                        remaining -= Mathf.Min(remaining, pool);
+                        break;
+                    }
+                    default: // OwnFirst
+                        float ownPay = Mathf.Min(Mathf.Max(0f, d.ticketBalance), remaining);
+                        d.ticketBalance -= ownPay;
+                        remaining -= ownPay;
+                        SplitPay(Mathf.Min(remaining, parentTotal));
+                        remaining -= Mathf.Min(remaining, parentTotal);
+                        break;
+                }
+                d.ticketBalance -= remaining; // 超出家庭可用部分成为孩子的欠款
             }
-            d.ticketBalance -= remaining; // 超出家庭可用部分成为孩子的欠款
+            finally
+            {
+                // Keep capacity, not account references or balances, between payments.
+                paymentShares.Clear();
+            }
         }
 
-        /// <summary>把 amount 按各 pawn 的正余额比例分摊扣款（最后一个吃下浮点余量）。</summary>
-        private static void SplitPay(List<Pawn> pawns, float amount)
+        /// <summary>按正余额比例扣款，保留关系顺序及最后一项承担浮点余量的规则。</summary>
+        private void SplitPay(float amount)
         {
-            if (pawns == null || pawns.Count == 0 || amount <= 0f) return;
-            var mgr = Current;
-            var weights = new List<float>(pawns.Count);
+            if (paymentShares.Count == 0 || amount <= 0f) return;
             float total = 0f;
-            for (int i = 0; i < pawns.Count; i++)
-            {
-                float w = Mathf.Max(0f, mgr.Balance(pawns[i]));
-                weights.Add(w);
-                total += w;
-            }
+            for (int i = 0; i < paymentShares.Count; i++)
+                total += paymentShares[i].Weight;
             if (total <= 0f) return;
             float remaining = amount;
-            for (int i = 0; i < pawns.Count; i++)
+            for (int i = 0; i < paymentShares.Count; i++)
             {
-                float pay = i == pawns.Count - 1 ? remaining : amount * (weights[i] / total);
-                if (pay > 0f) mgr.DataFor(pawns[i]).ticketBalance -= pay;
+                var share = paymentShares[i];
+                float pay = i == paymentShares.Count - 1 ? remaining : amount * (share.Weight / total);
+                if (pay > 0f) share.Account.ticketBalance -= pay;
                 remaining -= pay;
                 if (remaining <= 0.0001f) break;
             }
@@ -541,10 +607,10 @@ namespace PrisonersPayToEat2
 
         public bool CanHarvestOrgans(Pawn p)
         {
-            var s = PrisonersPayToEat2Mod.Settings;
+            if (p == null) return false;
             var d = DataFor(p);
             if (d.organHarvestOverrideEnabled) return d.organHarvestOverride;
-            return s.enableOrganHarvest;
+            return PrisonersPayToEat2Mod.Settings?.enableOrganHarvest == true;
         }
 
         // Mark organ taken after a successful surgery, prevents re-harvest
@@ -553,6 +619,11 @@ namespace PrisonersPayToEat2
             var d = DataFor(p);
             if (organKey == "Kidney") d.kidneyTaken = true;
             else if (organKey == "LungLobe") d.lungLobeTaken = true;
+            else if (!string.IsNullOrEmpty(organKey))
+            {
+                d.otherOrgansTaken ??= new List<string>();
+                if (!d.otherOrgansTaken.Contains(organKey)) d.otherOrgansTaken.Add(organKey);
+            }
         }
 
         public bool IsOrganTaken(Pawn p, string organKey)
@@ -560,7 +631,7 @@ namespace PrisonersPayToEat2
             var d = DataFor(p);
             return organKey == "Kidney" ? d.kidneyTaken
                  : organKey == "LungLobe" ? d.lungLobeTaken
-                 : false;
+                 : d.otherOrgansTaken?.Contains(organKey) == true;
         }
 
         // ================= Ransom (赎身) =================
@@ -607,10 +678,11 @@ namespace PrisonersPayToEat2
         public void PrunePrisonStartTicks(HashSet<int> livePrisonerIds)
         {
             if (livePrisonerIds == null) return;
-            var stale = new List<int>();
+            stalePrisonStartIds.Clear();
             foreach (int id in prisonStartTick.Keys)
-                if (!livePrisonerIds.Contains(id)) stale.Add(id);
-            foreach (int id in stale) prisonStartTick.Remove(id);
+                if (!livePrisonerIds.Contains(id)) stalePrisonStartIds.Add(id);
+            foreach (int id in stalePrisonStartIds) prisonStartTick.Remove(id);
+            stalePrisonStartIds.Clear();
         }
 
         /// <summary>Clear per-session request state when a pawn starts a fresh imprisonment.</summary>
@@ -696,6 +768,7 @@ namespace PrisonersPayToEat2
             PrisonLaborWageTicker.Tick();
             RansomTicker.Tick();
             PrisonerSocialTicker.Tick();
+            OrganSaleRequests.Tick();
             EnsureTicketHediffs();
         }
 
@@ -714,55 +787,109 @@ namespace PrisonersPayToEat2
             Harmony_Ingest.ResetTransientState();
             PrisonerJoyCharge.ResetTransientState();
             HygieneBridge.ResetTransientState();
+            paymentShares.Clear();
+            stalePrisonStartIds.Clear();
+            ticketHediffScratch.Clear();
+            lastHediffCheckTick = -1;
+            lastHediffReconcileTick = -1;
+            // Loaded hediffs register during PostLoadInit, including dead/unspawned leftovers.
+            ReconcileTicketHediffs();
         }
 
-        /// <summary>
-        /// Keeps the meal-ticket "health status" hediff in sync: adds it to every colony prisoner
-        /// (so the balance shows in their health tab) and removes leftovers from pawns that are no
-        /// longer prisoners (released / recruited / escaped / dead).
-        /// </summary>
-        private void EnsureTicketHediffs()
+        internal void TrackTicketHediff(Pawn pawn)
         {
-            int now = Find.TickManager.TicksGame;
-            if (now - lastHediffCheckTick < 120) return; // check every 0.05 day
-            lastHediffCheckTick = now;
+            if (pawn != null) ticketHediffPawns.Add(pawn);
+        }
 
+        internal List<Pawn> PrisonersOn(Map map)
+        {
+            if (map == null) return null;
+            foreach (var pawn in ticketHediffPawns)
+            {
+                if (pawn == null || pawn.Dead || pawn.Destroyed || pawn.Spawned
+                    || !pawn.IsPrisonerOfColony || pawn.MapHeld != map) continue;
+                // Preserve vanilla ordering and container behavior only where actually needed.
+                return map.mapPawns.PrisonersOfColony;
+            }
+            return map.mapPawns.PrisonersOfColonySpawned;
+        }
+
+        internal void NotifyGuestStatusChanged(Pawn pawn)
+        {
+            if (pawn == null) return;
+            if (UpdateTicketHediff(pawn)) ticketHediffPawns.Add(pawn);
+            else ticketHediffPawns.Remove(pawn);
+        }
+
+        private bool UpdateTicketHediff(Pawn pawn)
+        {
+            if (pawn == null) return false;
             if (ticketHediffDef == null)
             {
-                // not cached while defs are still loading (null is retried next check)
                 ticketHediffDef = DefDatabase<HediffDef>.GetNamedSilentFail("PPTE2_MealTickets");
-                if (ticketHediffDef == null) return;
+                if (ticketHediffDef == null) return true;
             }
+            bool prisoner = !pawn.Dead && !pawn.Destroyed && pawn.IsPrisonerOfColony;
+            var set = pawn.health?.hediffSet;
+            if (set == null) return prisoner;
+            if (prisoner)
+            {
+                if (set.GetFirstHediffOfDef(ticketHediffDef) == null)
+                    pawn.health.AddHediff(HediffMaker.MakeHediff(ticketHediffDef, pawn));
+            }
+            else
+            {
+                var hediffs = set.hediffs;
+                for (int i = hediffs.Count - 1; i >= 0; i--)
+                    if (hediffs[i].def == ticketHediffDef) pawn.health.RemoveHediff(hediffs[i]);
+            }
+            return prisoner;
+        }
 
+        private void UpdateTrackedTicketHediffs()
+        {
+            ticketHediffScratch.AddRange(ticketHediffPawns);
+            for (int i = 0; i < ticketHediffScratch.Count; i++)
+                NotifyGuestStatusChanged(ticketHediffScratch[i]);
+            ticketHediffScratch.Clear();
+        }
+
+        private void ReconcileTicketHediffs()
+        {
+            lastHediffReconcileTick = Find.TickManager.TicksGame;
             foreach (var map in Find.Maps)
             {
                 if (map == null) continue;
-
+                // Full discovery deliberately includes containers and old saves that had no hediff.
                 var prisoners = map.mapPawns.PrisonersOfColony;
                 for (int i = 0; i < prisoners.Count; i++)
                 {
                     var pawn = prisoners[i];
                     if (pawn == null || pawn.Dead) continue;
-                    // 内置劳工系统：兜底补齐囚犯缺失的 tracker / 工作设置
-                    // （捕获时的 SetGuestStatus 补丁是主路径，这里覆盖老存档与例外路径）
                     PrisonerWorkSystem.EnsurePrisonerSetup(pawn);
-                    var set = pawn.health?.hediffSet;
-                    if (set == null) continue;
-                    if (set.GetFirstHediffOfDef(ticketHediffDef) == null)
-                        pawn.health.AddHediff(HediffMaker.MakeHediff(ticketHediffDef, pawn));
-                }
-
-                // sweep spawned pawns for leftover ticket hediffs (no longer prisoners)
-                foreach (var pawn in map.mapPawns.AllPawnsSpawned)
-                {
-                    if (pawn == null || pawn.Dead) continue;
-                    if (pawn.IsPrisonerOfColony) continue;
-                    var set = pawn.health?.hediffSet;
-                    if (set == null) continue;
-                    var hediff = set.GetFirstHediffOfDef(ticketHediffDef);
-                    if (hediff != null) pawn.health.RemoveHediff(hediff);
+                    NotifyGuestStatusChanged(pawn);
                 }
             }
+            UpdateTrackedTicketHediffs();
+        }
+
+        /// <summary>
+        /// Guest-status changes update immediately; tracked references cover death and direct mod
+        /// identity changes within 120 ticks even after the last prisoner leaves all map lists.
+        /// Full discovery/setup is only a 2500-tick fallback, including container-held prisoners.
+        /// </summary>
+        private void EnsureTicketHediffs()
+        {
+            int now = Find.TickManager.TicksGame;
+            if (lastHediffReconcileTick < 0 || now - lastHediffReconcileTick >= 2500)
+            {
+                ReconcileTicketHediffs();
+                lastHediffCheckTick = now;
+                return;
+            }
+            if (ticketHediffPawns.Count == 0 || now - lastHediffCheckTick < 120) return;
+            lastHediffCheckTick = now;
+            UpdateTrackedTicketHediffs();
         }
     }
 }

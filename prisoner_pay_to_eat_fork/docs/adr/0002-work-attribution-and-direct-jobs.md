@@ -30,7 +30,7 @@ PPTE2 的 [工资配置列表](../../Source/PrisonersPayToEat2Settings.cs) 在 `
 
 实际 Released 源码还确认：囚犯独立 Job 默认无 expiry；普通 WorkGiver 设置 `1500, checkOverrideOnExpire=true`，含义是检查是否需要替换任务，不是 1500 tick 自动成功。driver 先行走、再执行 4000 tick Delay toil；自然完成后 `CurToilIndex` 已越过两段 toil，且工作剩余 tick 耗尽。实现同时要求成功条件和该完成状态，不使用任务年龄或 `UsingDone` 清理事件。driver 没有调用娱乐 tick/收益入口，尚无游戏内双扣费观察；本批未添加全局娱乐豁免。
 
-源码实施和运行证据见 [README](../../README.md#fork-维护与验收)。旧 1.6 文件证据不直接构成 1.7 契约；现已用真实 1.7 NewRatkin 程序集验证两条派工、4000 tick 自然完成/中断、工资模式/倍率，实际界面观察发电状态与余额，存读档保存真实工种键。Prison Labor 本机包未声明 1.7 支持，接管未验收；没有将未加载的依赖写成兼容通过。
+源码实施和运行证据见 [README](../../README.md#fork-维护与验收)。旧 1.6 文件证据不直接构成 1.7 契约；现已用真实 1.7 NewRatkin 程序集验证两条派工、4000 tick 自然完成/中断、工资模式/倍率，实际界面观察发电状态与余额，存读档保存真实工种键。Prison Labor 未纳入先前自动化 profile；用户随后已在个人生存档实测运行良好，本轮按要求不修改兼容对接。
 
 ## 决定
 

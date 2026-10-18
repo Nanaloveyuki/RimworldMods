@@ -10,9 +10,8 @@ namespace PrisonersPayToEat2
     /// <summary>
     /// Charges colony prisoners meal tickets whenever they eat.
     /// Cost comes from <see cref="MarketPriceHelper.TicketCost(Thing, Pawn)"/>; balances support
-    /// fractional tickets. When tickets run out and meal credit is enabled (default) the meal is
-    /// still eaten but the balance goes negative (debt); wages and other income repay the debt
-    /// first. When credit is disabled the meal is refused entirely (food is kept, not wasted).
+    /// fractional tickets. Consumption may use credit down to the configured balance floor;
+    /// wages and other income repay existing debt first. Unaffordable meals are refused intact.
     /// Riot/escaping prisoners skip the check when ignoreDuringRiot is on.
     /// </summary>
     [HarmonyPatch(typeof(Thing), nameof(Thing.Ingested))]
@@ -23,11 +22,8 @@ namespace PrisonersPayToEat2
         private class IngestEvent
         {
             public float unitCost;
-            public int units = 1;      // 估算份数（用于前置拦截判断；尸体等堆叠不变的场景也用它计费）
+            public int units;          // 估算份数（用于前置拦截判断；尸体等堆叠不变的场景也用它计费）
             public int stackBefore;    // 进食前的堆叠数，用于事后精确算份数
-            public bool consumable;    // 前缀时可正常食用（未被销毁、未在燃烧）
-            public bool applicable;
-            public float TicketCost => unitCost * units;
         }
 
         private static readonly ConditionalWeakTable<Thing, IngestEvent> pending = new ConditionalWeakTable<Thing, IngestEvent>();
@@ -43,37 +39,35 @@ namespace PrisonersPayToEat2
         [HarmonyPrefix]
         public static bool Prefix(Thing __instance, Pawn ingester, float nutritionWanted)
         {
-            var evt = new IngestEvent();
-            evt.applicable = ShouldCharge(ingester, __instance?.def, out evt.unitCost);
-            if (!evt.applicable)
+            if (!ShouldCharge(ingester, __instance?.def, out float unitCost))
             {
                 // 防御性清理：若上一次 Ingested 异常中断留下了条目，别让这次误扣费
                 pending.Remove(__instance);
                 return true;
             }
-            evt.units = CountUnits.ForIngestion(ingester, __instance, nutritionWanted);
-            evt.stackBefore = __instance.stackCount;
-            evt.consumable = !__instance.Destroyed && __instance.IngestibleNow;
+            int units = CountUnits.ForIngestion(ingester, __instance, nutritionWanted);
+            int stackBefore = __instance.stackCount;
+            bool consumable = !__instance.Destroyed && __instance.IngestibleNow;
 
             // Invalid ingestion must retain vanilla's diagnostic without charging or refusing it.
             pending.Remove(__instance);
-            if (!evt.consumable) return true;
+            if (!consumable) return true;
 
-            // 赊账关闭且买不起这顿饭：拦下进食。Thing.Ingested 内部才销毁食物，
-            // 前缀直接跳过 = 食物保留、不加营养，囚犯只是吃不到（不会浪费饭）。
-            // 儿童可动用父母的饭票（可用余额 = 自己 + 在押父母），因此用可用余额判断。
-            if (!PrisonersPayToEat2Mod.Settings.allowMealDebt)
+            var mgr = PrisonersPayToEat2Manager.Current;
+            float available = mgr?.SpendingPower(ingester) ?? 0f;
+            float cost = unitCost * units;
+            if (available < cost)
             {
-                var mgr = PrisonersPayToEat2Manager.Current;
-                float available = mgr?.AvailableBalance(ingester) ?? 0f;
-                if (available < evt.TicketCost)
-                {
-                    NotifyBlocked(ingester, evt.TicketCost, available);
-                    return false;
-                }
+                NotifyBlocked(ingester, cost, available);
+                return false;
             }
 
-            pending.Add(__instance, evt);
+            pending.Add(__instance, new IngestEvent
+            {
+                unitCost = unitCost,
+                units = units,
+                stackBefore = stackBefore
+            });
             return true;
         }
 
@@ -86,13 +80,12 @@ namespace PrisonersPayToEat2
         [HarmonyPostfix]
         public static void Postfix(Thing __instance, Pawn ingester)
         {
-            if (!pending.TryGetValue(__instance, out var evt) || !evt.applicable)
+            if (!pending.TryGetValue(__instance, out var evt))
             {
                 pending.Remove(__instance);
                 return;
             }
             pending.Remove(__instance);
-            if (!evt.consumable) return; // 前缀时已销毁/在燃烧：原版报错空返，没有消耗任何食物
 
             var mgr = PrisonersPayToEat2Manager.Current;
             if (mgr == null) return;
@@ -115,8 +108,7 @@ namespace PrisonersPayToEat2
                 return;
             }
 
-            // 余额不足但赊账开启：吃进嘴里，余额扣成负数（欠款），工资等收入优先还债。
-            // 赊账关闭时余额不足已被前缀拦截，走不到这里。
+            // Preflight has already checked the remaining credit allowance.
             if (PrisonersPayToEat2Mod.Settings.allowMealDebt)
             {
                 mgr.PayWithSupport(ingester, cost);
@@ -135,17 +127,14 @@ namespace PrisonersPayToEat2
                 return;
             }
 
-            // 赊账关闭、前缀放行但实际份数超出估算（理论上不会发生：估算与原版取份数的
-            // 算法一致）。食物已经吃掉了，这里仍按实际份数扣款，避免变成白吃。
             mgr.PayWithSupport(ingester, cost);
-            Log.Warning($"[PPTE2] {ingester.LabelShortCap} ate {units}x {__instance.LabelNoCount} for {cost:0.##} tickets but could only cover {available:0.##} (meal credit disabled); balance can go negative.");
         }
 
-        /// <summary>赊账关闭且余额不足时的拒绝提示（带节流）。</summary>
+        /// <summary>Refused consumption, throttled per prisoner.</summary>
         private static void NotifyBlocked(Pawn ingester, float cost, float balance)
         {
             if (PrisonersPayToEat2Mod.Settings.logVerbose)
-                Log.Warning($"[PPTE2] {ingester.LabelShortCap} couldn't eat: need={cost:0.##} has={balance:0.##} (meal credit disabled, refused)");
+                Log.Warning($"[PPTE2] {ingester.LabelShortCap} couldn't eat: need={cost:0.##} spending power={balance:0.##}");
 
             int now = Find.TickManager.TicksGame;
             if (lastBlockedMsgTick.TryGetValue(ingester.thingIDNumber, out int last)
@@ -189,7 +178,8 @@ namespace PrisonersPayToEat2
         internal static bool InPrisonBreak(Pawn p)
         {
             if (p?.mindState == null || p.Map == null) return false;
-            var lord = p.Map.lordManager?.LordOf(p); // escape lords carry a LordJob named *PrisonBreak*
+            // Vanilla keeps Pawn.lord synchronized on add/remove and rebuilds it at PostLoadInit.
+            var lord = p.lord; // escape lords carry a LordJob named *PrisonBreak*
             return lord != null && lord.LordJob != null
                 && lord.LordJob.GetType().Name.Contains("PrisonBreak");
         }

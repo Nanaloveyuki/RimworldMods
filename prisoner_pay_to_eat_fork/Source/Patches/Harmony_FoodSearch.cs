@@ -5,8 +5,8 @@ using Verse;
 namespace PrisonersPayToEat2
 {
     /// <summary>
-    /// Blocks colony prisoners (meal-credit disabled) from being assigned a food source they
-    /// cannot afford — at the <see cref="FoodUtility.TryFindBestFoodSourceFor"/> stage, before
+    /// Blocks colony prisoners from being assigned a food source beyond their spending power,
+    /// at the <see cref="FoodUtility.TryFindBestFoodSourceFor"/> stage, before
     /// any food is picked up or dispensed.
     ///
     /// Why this exists in addition to <see cref="Harmony_Ingest"/>: the Ingested prefix can only
@@ -28,22 +28,18 @@ namespace PrisonersPayToEat2
             if (!__result || foodSource == null) return;
             if (!ShouldBlock(eater, foodDef, foodSource)) return;
 
-            // Prisoner can't afford this food and credit is disabled — veto the selection.
+            // Veto before a dispenser consumes its feedstock.
             foodSource = null;
             foodDef = null;
             __result = false;
         }
 
         /// <summary>
-        /// True when the eater is a colony prisoner who must pay for this meal but can't, and
-        /// meal-credit (debt) is off. Uses the same charge decision as actual ingestion.
+        /// True when a chargeable meal exceeds positive family funds and remaining credit.
         /// </summary>
         private static bool ShouldBlock(Pawn eater, ThingDef foodDef, Thing foodSource)
         {
             if (eater == null || !eater.IsPrisonerOfColony) return false;
-            var s = PrisonersPayToEat2Mod.Settings;
-            // Debt enabled → the Ingested layer lets them eat on credit; don't starve them here.
-            if (s.allowMealDebt) return false;
 
             // Resolve the def of what will actually be eaten. For a dispenser the Thing is the
             // building; the meal def comes from the out-param (MealNutrientPaste). For spawned
@@ -62,7 +58,7 @@ namespace PrisonersPayToEat2
             // Ingested 前缀再拦下，囚犯就会走到食物前空嚼一轮又吃不到（正是本补丁要避免的循环）。
             int units = foodSource is Building_NutrientPasteDispenser ? 1 : CountUnits.Estimate(eater, foodSource);
             float cost = unitCost * units;
-            float available = PrisonersPayToEat2Manager.Current?.AvailableBalance(eater) ?? 0f;
+            float available = PrisonersPayToEat2Manager.Current?.SpendingPower(eater) ?? 0f;
             return available < cost;
         }
     }

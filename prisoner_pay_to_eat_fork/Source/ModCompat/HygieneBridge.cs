@@ -271,7 +271,9 @@ namespace PrisonersPayToEat2
             if (cost < 0.009f) return;
             var mgr = PrisonersPayToEat2Manager.Current;
             if (mgr == null) return;
-            mgr.PayWithSupport(pawn, cost); // 只在付得起时走到这里（禁用逻辑先行）
+            cost = Mathf.Min(cost, mgr.SpendingPower(pawn, allowCredit: false));
+            if (cost < 0.009f) return;
+            mgr.PayWithSupport(pawn, cost);
             if (pawn.Spawned)
                 MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-" + cost.ToString("0.##"), new Color(0.55f, 0.75f, 1f));
             if (PrisonersPayToEat2Mod.Settings.logVerbose)

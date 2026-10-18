@@ -11,7 +11,7 @@ date: 2026-10-18
 
 - 决策时项目为 `net48` / `Krafs.Rimworld.Ref 1.6.4633`，About 仅声明 1.6。现主线已切换 `net10.0` 与真实 1.7 引用，当前资源隔离到 `Common`；`1.6/Released` 保留原始完整资源。构建/加载/部署入口见 [README](../../README.md#构建与部署17)。
 - #5–#8 的旧 37 项替身边界检查及设置几何探针只保留为历史证据；现已在真实 1.7 验证进食、原版归池/放置、NewRatkin driver、可用的卫生兼容和实际 UI，不把旧替身结果升级为游戏证据。
-- 本次真实运行目标为 `1.7.4981 rev136`；API 参考为 `D:/References/Rimworld/Vanilla/1.7`。测试使用独立游戏目录和 profile，不修改玩家存档。当前本机 Prison Labor 没有声明 1.7 支持，接管未验收，不包含在支持声明中。
+- 本次真实运行目标为 `1.7.4981 rev136`；API 参考为 `D:/References/Rimworld/Vanilla/1.7`。测试使用独立游戏目录和 profile，不修改玩家存档。Prison Labor 未加载进先前自动化 profile；用户随后确认个人生存档实测良好，后续性能批次保持其接管、派工和兼容对接不变。
 - 邻近项目 [OhYouAreSoFast](../../../oh_you_are_so_fast/Source/OhYouAreSoFast.csproj) 已采用 `net10.0`、游戏根目录 `Assembly-CSharp.dll` / `UnityStubs.dll` 与 Harmony 3 的 1.7 程序集；沿用该构建与按版本加载的惯例。
 - NewRatkinPlus 当前根 LoadFolders 的 1.7 分支选择根目录、普通 `1.6`、`1.7` 和内容/DLC 目录；其 1.7 工程编译普通 `1.6/Source`。此前核对的 `1.6/Released/1.6` 是旧版冻结内容，不是 1.7 driver 的证据。
 
@@ -20,7 +20,7 @@ date: 2026-10-18
 ### 1. 单一维护目标，保留旧发布
 
 - `Source` 切换为只构建 1.7 的 `net10.0` 项目。删除旧版编译引用和机器相关复制路径，不为仅保留的 1.6 发布版维护第二套源码分支、条件编译或双目标框架。
-- 保留 MIT、上游署名、包名 `AAA.PrisonersPayToEat2`、程序集名和现有持久化类型/字段标识。版本与支持声明明确区分上游 1.6 发布和本 fork 的 1.7 更新。
+- 保留 MIT、上游署名、程序集名和现有持久化类型/字段标识。迁移初期沿用上游包名；2.5.0 按维护者要求切换为 `nanaloveyuki.prisonerspaytoeat2.fork`，并声明与 `AAA.PrisonersPayToEat2` 互斥。启用列表需手动换为 fork；现有存档内的类型及字段不改名。版本与支持声明明确区分上游 1.6 发布和本 fork 的 1.7 更新。
 - 1.6 冻结的是**完整加载内容**，不仅是 DLL：从 vendor commit `8539fff` 还原当时使用的 Defs、Patches、Languages、Textures，并在迁移时隔离为旧版资源快照。不能把工作区已改的共享设置文案当成旧发布原件。
 - 原 `1.6/Assemblies/PrisonersPayToEat2.dll` 原样保留，不重编、不回填 #5–#8 修复；预期 SHA-256 为 `1885eeee58107c13067322562fdc55c3c9304b216d9c8a7a66fbc07422a85fa9`。1.6 保留既有缺陷，不声称获得本轮修复或新的验收保证。
 - 不承诺将 1.6 游戏存档转换为 1.7；跨游戏版本存档能否打开由游戏自身支持决定。可由 1.7 正常打开的存档及沿用的模组设置，按下述持久化约束验收。

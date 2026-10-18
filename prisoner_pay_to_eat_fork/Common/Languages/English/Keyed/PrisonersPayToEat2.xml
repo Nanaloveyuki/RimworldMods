@@ -34,7 +34,16 @@
   <PPTE2_SilverRate>Tickets per silver of value: {0}</PPTE2_SilverRate>
   <PPTE2_StartingTickets>Starting tickets per prisoner: {0}</PPTE2_StartingTickets>
   <PPTE2_IgnoreRiot>Ignore ticket check during mental break / prison break</PPTE2_IgnoreRiot>
-  <PPTE2_AllowMealDebt>Allow meal credit (balance may go negative; wages repay the debt first)</PPTE2_AllowMealDebt>
+  <PPTE2_AllowMealDebt>Allow food and entertainment credit</PPTE2_AllowMealDebt>
+  <PPTE2_MealDebtFloor>Lowest balance on credit: {0}</PPTE2_MealDebtFloor>
+  <PPTE2_OrganSaleTrigger>Request organ sale below balance: {0}</PPTE2_OrganSaleTrigger>
+  <PPTE2_DebtOrganHint>Food and entertainment cannot lower a balance past the credit limit. Parents contribute positive funds only. Existing debt remains if the limit changes or credit is disabled. Below the organ-sale threshold, prisoners request approval for one operation; surgery can still fail. Hygiene requires positive funds.</PPTE2_DebtOrganHint>
+  <PPTE2_OrganRequestLabel>Organ sale request: {0}</PPTE2_OrganRequestLabel>
+  <PPTE2_OrganRequestText>{0} has {1} {5}, below the threshold of {2}, and asks to sell {3} for {4} {5}.\n\nApprove to add one surgical bill. The organ must still be safe to remove when surgery begins. Surgery can fail, injure or kill the patient. Declining postpones further requests for two days.</PPTE2_OrganRequestText>
+  <PPTE2_OrganRequestApprove>Approve surgery</PPTE2_OrganRequestApprove>
+  <PPTE2_OrganRequestDecline>Decline (2 days)</PPTE2_OrganRequestDecline>
+  <PPTE2_OrganRequestUnavailable>This request is no longer valid.</PPTE2_OrganRequestUnavailable>
+  <PPTE2_OrganSurgeryAdded>Surgery scheduled for {0}: {1}.</PPTE2_OrganSurgeryAdded>
   <PPTE2_TabSocial>Prisoner social</PPTE2_TabSocial>
   <PPTE2_EnableLoans>Enable loans</PPTE2_EnableLoans>
   <PPTE2_EnableRobbery>Enable robbery</PPTE2_EnableRobbery>
@@ -135,7 +144,7 @@
 
   <!-- Messages -->
   <PPTE2_MealOnCredit>{0} ate {1} on credit and now owes {2} {3}(s). Wages and other income will repay the debt first.</PPTE2_MealOnCredit>
-  <PPTE2_NoTicketsBlocked>{0} couldn't eat: needs {1} {2}(s), only has {3}.</PPTE2_NoTicketsBlocked>
+  <PPTE2_NoTicketsBlocked>{0} couldn't eat: needs {1} {2}(s), remaining funds and credit cover {3}.</PPTE2_NoTicketsBlocked>
   <PPTE2_LoanMade>{0} borrowed {2} {3}(s) from {1} (interest {4}%).</PPTE2_LoanMade>
   <PPTE2_LoanRepaidMsg>{0} repaid the loan of {2} {3}(s) borrowed from {1}.</PPTE2_LoanRepaidMsg>
   <PPTE2_LoanDefaultedMsg>{0}'s loan went bad — {1} lost {2} {3}(s).</PPTE2_LoanDefaultedMsg>
@@ -221,9 +230,9 @@
   <PPTE2_EnableJoyFees>Charge prisoners for using joy buildings</PPTE2_EnableJoyFees>
   <PPTE2_JoyFeePerUse>Default joy fee (silver per use): {0}</PPTE2_JoyFeePerUse>
   <PPTE2_CustomJoyFeesTitle>Per-building fees (silver per use, blank = default)</PPTE2_CustomJoyFeesTitle>
-  <PPTE2_JoyHint>Prisoners pay when using joy buildings: one charge per full in-game hour of entertainment, prorated if interrupted; silver is converted to {0} at the exchange rate. Free-form joy without buildings (walking, meditation) is free. With meal credit enabled they can go into debt; without it, prisoners who cannot afford it simply skip entertainment. The recreation need is for display and billing only and does not affect mood.</PPTE2_JoyHint>
+  <PPTE2_JoyHint>Prisoners pay when using recreation buildings: once per full in-game hour, prorated if interrupted; silver is converted to {0} at the exchange rate. Walking and meditation are free. Food and entertainment credit share the configured balance floor. A session requires enough funds or credit for one hour. The recreation need is for display and billing only and does not affect mood.</PPTE2_JoyHint>
   <PPTE2_JoyOnCredit>{0} ran up {1} {2} of entertainment debt.</PPTE2_JoyOnCredit>
-  <PPTE2_JoyBlocked>{0} cannot afford entertainment (needs {1} {2}, has {3}) and skipped it.</PPTE2_JoyBlocked>
+  <PPTE2_JoyBlocked>{0} cannot afford entertainment (needs {1} {2}, remaining funds and credit cover {3}).</PPTE2_JoyBlocked>
 
   <!-- v2.3.1: hygiene -->
   <PPTE2_EnableHygieneFees>Enable hygiene fees (toilets/showers billed by water &amp; power use)</PPTE2_EnableHygieneFees>

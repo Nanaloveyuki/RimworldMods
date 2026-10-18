@@ -1,6 +1,6 @@
 {
   "target": "PrisonersPayToEat2",
-  "package_id": "AAA.PrisonersPayToEat2",
+  "package_id": "nanaloveyuki.prisonerspaytoeat2.fork",
   "new_target_name": true,
   "install_missing_legacy": true,
   "build": [["dotnet", "prisoner_pay_to_eat_fork/Source/PrisonersPayToEat2.csproj", {}]],

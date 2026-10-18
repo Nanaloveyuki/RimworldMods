@@ -9,11 +9,24 @@ namespace PrisonersPayToEat2
     /// 余额实时读取；颜色随余额高低变化（绿 = 充裕 / 黄 = 一般 / 橙 = 紧张 / 红 = 见底或欠款）。
     /// 欠款（赊账，余额为负）显示为"欠 X 张"。
     /// 儿童在"合并钱包"模式下显示家庭合计余额（自己 + 在押父母的正余额）。
-    /// 该 hediff 由 <see cref="PrisonersPayToEat2Manager"/> 定时挂载到囚犯身上，并在囚犯
-    /// 失去囚犯身份（释放/招募/越狱/死亡）后由 ShouldRemove + 管理器清理移除。
+    /// 该 hediff 由身份事件即时维护，读档/新游戏重建，低频发现容器内与旧存档囚犯；
+    /// 失去身份后由 ShouldRemove 和每局持有的引用清理，死亡/例外身份变更最多延迟 120 tick。
     /// </summary>
     public class Hediff_MealTickets : Hediff
     {
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+                PrisonersPayToEat2Manager.Current?.TrackTicketHediff(pawn);
+        }
+
+        public override void PostAdd(DamageInfo? dinfo)
+        {
+            base.PostAdd(dinfo);
+            PrisonersPayToEat2Manager.Current?.TrackTicketHediff(pawn);
+        }
+
         public override string LabelBase
         {
             get
@@ -46,7 +59,7 @@ namespace PrisonersPayToEat2
                 {
                     if (PrisonersPayToEat2Mod.Settings.childPayMode == ChildPayMode.MergedPool)
                         tip += "\n" + "PPTE2_HediffTip_MergedPool".Translate(
-                            (mgr.Balance(pawn) + mgr.ParentTotalBalance(pawn)).ToString("0.##"),
+                            (tickets + mgr.ParentTotalBalance(pawn)).ToString("0.##"),
                             PPTEName.Ticket);
                     else
                         tip += "\n" + "PPTE2_HediffTip_ParentSupport".Translate(
@@ -74,7 +87,7 @@ namespace PrisonersPayToEat2
         {
             get
             {
-                return pawn == null || pawn.Dead || !pawn.IsPrisonerOfColony;
+                return pawn == null || pawn.Dead || pawn.Destroyed || !pawn.IsPrisonerOfColony;
             }
         }
 
@@ -83,8 +96,8 @@ namespace PrisonersPayToEat2
         {
             var mgr = PrisonersPayToEat2Manager.Current;
             if (mgr == null || pawn == null) return 0f;
-            if (mgr.ChildParentPayActive(pawn)
-                && PrisonersPayToEat2Mod.Settings.childPayMode == ChildPayMode.MergedPool)
+            if (PrisonersPayToEat2Mod.Settings.childPayMode == ChildPayMode.MergedPool
+                && mgr.ChildParentPayActive(pawn))
                 return mgr.Balance(pawn) + mgr.ParentTotalBalance(pawn);
             return mgr.Balance(pawn);
         }

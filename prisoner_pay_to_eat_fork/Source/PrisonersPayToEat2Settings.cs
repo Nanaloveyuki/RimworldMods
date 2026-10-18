@@ -14,9 +14,10 @@ namespace PrisonersPayToEat2
         public float silverToTicketRate = 1.0f;
         public int startingTicketsPerPrisoner = 3;
         public bool ignoreDuringRiot = true;
-        // 赊账：余额不足时囚犯仍可吃饭（余额扣成负数），之后工资等收入优先还债。
-        // 关闭时余额不足直接吃不成（食物保留，不会浪费）。
+        // Credit applies to consumption; changing its limit never forgives existing debt.
         public bool allowMealDebt = true;
+        public float mealDebtFloor = -100f;
+        public float organSaleTriggerBalance = 0f;
         public bool logVerbose = false;
 
         // Ransom (赎身): a prisoner with enough tickets (and enough time served) may ask to buy
@@ -118,6 +119,8 @@ namespace PrisonersPayToEat2
             Scribe_Values.Look(ref startingTicketsPerPrisoner, "startingTicketsPerPrisoner", 3);
             Scribe_Values.Look(ref ignoreDuringRiot, "ignoreDuringRiot", true);
             Scribe_Values.Look(ref allowMealDebt, "allowMealDebt", true);
+            Scribe_Values.Look(ref mealDebtFloor, "mealDebtFloor", -100f);
+            Scribe_Values.Look(ref organSaleTriggerBalance, "organSaleTriggerBalance", 0f);
             Scribe_Values.Look(ref logVerbose, "logVerbose", false);
             Scribe_Values.Look(ref enableRansom, "enableRansom", true);
             Scribe_Values.Look(ref ransomTicketCost, "ransomTicketCost", 1000f);
@@ -536,8 +539,7 @@ namespace PrisonersPayToEat2
 
         private void DrawGeneralTab(Rect rect)
         {
-            // Content height: 6 sliders * 54 + 11 checkboxes * 30 + ticket name + child-pay mode + hints (auto height)
-            var view = new Rect(0f, 0f, rect.width - 20f, 1050f);
+            var view = new Rect(0f, 0f, rect.width - 20f, 1200f);
             Widgets.BeginScrollView(rect, ref _generalScroll, view);
 
             float colW = (view.width - 40f) / 2f;
@@ -634,6 +636,12 @@ namespace PrisonersPayToEat2
                 ref ransomTicketCost, 10f, 5000f);
             DrawSliderRow(rx, ref ry, colW, "PPTE2_RansomMinDays".Translate(ransomMinDays.ToString("0.#")),
                 ref ransomMinDays, 0f, 60f);
+            DrawSliderRow(rx, ref ry, colW, "PPTE2_MealDebtFloor".Translate(mealDebtFloor.ToString("0.##")),
+                ref mealDebtFloor, -1000f, 0f);
+            DrawSliderRow(rx, ref ry, colW, "PPTE2_OrganSaleTrigger".Translate(organSaleTriggerBalance.ToString("0.##")),
+                ref organSaleTriggerBalance, -1000f, 100f);
+            string creditHint = "PPTE2_DebtOrganHint".Translate();
+            Widgets.Label(new Rect(rx, ry, colW, Text.CalcHeight(creditHint, colW)), creditHint);
 
             Widgets.EndScrollView();
         }

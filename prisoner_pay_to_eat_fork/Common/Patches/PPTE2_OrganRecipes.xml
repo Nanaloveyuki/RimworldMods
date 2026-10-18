@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--Inherit with vanilla/alien race recipe lists. The worker rejects non-colony-prisoners.--> 
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[recipes/li="RemoveBodyPart"]/recipes</xpath>
+    <value>
+      <li>PPTE2_RemoveKidney</li>
+      <li>PPTE2_RemoveLungLobe</li>
+      <li>PPTE2_RemoveOtherOrgan</li>
+    </value>
+  </Operation>
+</Patch>

@@ -34,7 +34,16 @@
   <PPTE2_SilverRate>每银币价值可换饭票数：{0}</PPTE2_SilverRate>
   <PPTE2_StartingTickets>新囚犯初始饭票数：{0}</PPTE2_StartingTickets>
   <PPTE2_IgnoreRiot>精神崩溃 / 越狱期间跳过饭票检查</PPTE2_IgnoreRiot>
-  <PPTE2_AllowMealDebt>允许赊账吃饭（余额可为负，工资等收入优先还债）</PPTE2_AllowMealDebt>
+  <PPTE2_AllowMealDebt>允许饮食和娱乐赊账</PPTE2_AllowMealDebt>
+  <PPTE2_MealDebtFloor>赊账最低余额：{0}</PPTE2_MealDebtFloor>
+  <PPTE2_OrganSaleTrigger>器官出售申请触发余额（低于）：{0}</PPTE2_OrganSaleTrigger>
+  <PPTE2_DebtOrganHint>饮食和娱乐消费不能使余额低于赊账下限。父母只用正余额代付。调高下限或关闭赊账不会免除已有欠款。低于器官出售阈值时，囚犯会申请一次手术，需批准；手术仍可能失败。卫生费只用正余额支付。</PPTE2_DebtOrganHint>
+  <PPTE2_OrganRequestLabel>器官出售申请：{0}</PPTE2_OrganRequestLabel>
+  <PPTE2_OrganRequestText>{0}当前有{1}{5}，低于申请阈值{2}，希望出售{3}，换取{4}{5}。\n\n批准后添加一项手术账单，开始手术前再次检查该器官是否可安全移除。手术仍可能失败、造成伤害或导致死亡。拒绝后两天内不会再次申请。</PPTE2_OrganRequestText>
+  <PPTE2_OrganRequestApprove>批准手术</PPTE2_OrganRequestApprove>
+  <PPTE2_OrganRequestDecline>拒绝（冷却两天）</PPTE2_OrganRequestDecline>
+  <PPTE2_OrganRequestUnavailable>此申请已失效。</PPTE2_OrganRequestUnavailable>
+  <PPTE2_OrganSurgeryAdded>已为{0}安排手术：{1}。</PPTE2_OrganSurgeryAdded>
   <PPTE2_TabSocial>囚犯社会</PPTE2_TabSocial>
   <PPTE2_EnableLoans>启用借款</PPTE2_EnableLoans>
   <PPTE2_EnableRobbery>启用抢劫</PPTE2_EnableRobbery>
@@ -135,7 +144,7 @@
 
   <!-- 消息 -->
   <PPTE2_MealOnCredit>{0} 赊账吃了{1}，欠 {2} 张{3}。工资等收入将优先还债。</PPTE2_MealOnCredit>
-  <PPTE2_NoTicketsBlocked>{0} 因缺少 {1} 张{2}（仅有 {3} 张）未能进食。</PPTE2_NoTicketsBlocked>
+  <PPTE2_NoTicketsBlocked>{0} 未能进食：需要 {1} 张{2}，余额及剩余额度仅可支付 {3} 张。</PPTE2_NoTicketsBlocked>
   <PPTE2_LoanMade>{0} 向 {1} 借了 {2} 张{3}（利率 {4}%）。</PPTE2_LoanMade>
   <PPTE2_LoanRepaidMsg>{0} 还清了向 {1} 借的 {2} 张{3}。</PPTE2_LoanRepaidMsg>
   <PPTE2_LoanDefaultedMsg>{0} 的借款成了坏账，{1} 损失 {2} 张{3}。</PPTE2_LoanDefaultedMsg>
@@ -221,9 +230,9 @@
   <PPTE2_EnableJoyFees>囚犯使用娱乐建筑收费</PPTE2_EnableJoyFees>
   <PPTE2_JoyFeePerUse>默认娱乐费（白银/次）：{0}</PPTE2_JoyFeePerUse>
   <PPTE2_CustomJoyFeesTitle>按建筑单独定价（白银/次，留空用默认）</PPTE2_CustomJoyFeesTitle>
-  <PPTE2_JoyHint>囚犯使用娱乐建筑时按次缴费：每累计娱乐满 1 个游戏小时计一次，被打断按实际时长比例收费；费用按「白银×汇率」折算为{0}。散步、冥想等不用建筑的娱乐免费。赊账开启时付不起会欠账；赊账关闭时付不起就不去娱乐。娱乐需求条只用于展示与计费，不影响心情。</PPTE2_JoyHint>
+  <PPTE2_JoyHint>囚犯使用娱乐建筑时，每累计娱乐满1个游戏小时计费一次，中断按实际时长结算；费用按「白银×汇率」折算为{0}。散步、冥想等不用建筑的娱乐免费。饮食和娱乐共用赊账下限，开始娱乐前须能支付1小时费用。娱乐需求条只用于展示与计费，不影响心情。</PPTE2_JoyHint>
   <PPTE2_JoyOnCredit>{0} 娱乐时欠下 {1} {2}。</PPTE2_JoyOnCredit>
-  <PPTE2_JoyBlocked>{0} 付不起娱乐费（需要 {1} {2}，只有 {3}），没有去娱乐。</PPTE2_JoyBlocked>
+  <PPTE2_JoyBlocked>{0} 付不起娱乐费（需要 {1} {2}，余额及剩余额度仅可支付 {3}）。</PPTE2_JoyBlocked>
 
   <!-- v2.3.1: 卫生 -->
   <PPTE2_EnableHygieneFees>启用卫生费（上厕所/洗澡按水电消耗收费）</PPTE2_EnableHygieneFees>

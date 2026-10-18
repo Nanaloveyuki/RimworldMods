@@ -58,21 +58,30 @@ namespace PrisonersPayToEat2
             var mgr = PrisonersPayToEat2Manager.Current;
             if (mgr == null) return;
 
-            foreach (var map in game.Maps)
+            var settings = PrisonersPayToEat2Mod.Settings;
+            if (settings.enableBegging || settings.enableLoans || settings.enableRobbery)
             {
-                if (map == null) continue;
-                var prisoners = map.mapPawns.PrisonersOfColony;
-                for (int i = 0; i < prisoners.Count; i++)
+                foreach (var map in game.Maps)
                 {
-                    var pawn = prisoners[i];
-                    if (pawn == null || pawn.Dead || pawn.Downed || pawn.InMentalState) continue;
-                    // 未生成在地图上的囚犯（被装进容器/休眠舱/跨图转移中）pawn.Map 为 null，
-                    // 后面的 PickTarget 会在 map.mapPawns 上抛空引用
-                    if (!pawn.Spawned || pawn.MapHeld == null) continue;
+                    if (map == null) continue;
+                    // Vanilla registry updates preserve the spawned subsequence's iteration order.
+                    var prisoners = map.mapPawns.PrisonersOfColonySpawned;
+                    List<Pawn> targets = null;
+                    for (int i = 0; i < prisoners.Count; i++)
+                    {
+                        var pawn = prisoners[i];
+                        if (pawn == null || pawn.Dead || pawn.Downed || pawn.InMentalState) continue;
+                        if (!pawn.Spawned || pawn.MapHeld == null) continue;
 
-                    TryBeg(pawn, mgr, now);
-                    TryLoan(pawn, mgr, now);
-                    TryRob(pawn, mgr, now);
+                        bool begging = mgr.FeatureAllowed(pawn, SocialFeatureKind.Begging);
+                        bool loans = mgr.FeatureAllowed(pawn, SocialFeatureKind.Loan);
+                        bool robbery = mgr.FeatureAllowed(pawn, SocialFeatureKind.Robbery);
+                        if (!begging && !loans && !robbery) continue;
+
+                        if (begging) TryBeg(pawn, ref targets, mgr, now);
+                        if (loans) TryLoan(pawn, ref targets, mgr, now);
+                        if (robbery) TryRob(pawn, ref targets, mgr, now);
+                    }
                 }
             }
 
@@ -90,12 +99,13 @@ namespace PrisonersPayToEat2
         private static void Mark(Dictionary<int, int> dict, int id, int now) => dict[id] = now;
 
         /// <summary>选一个同地图的囚犯目标：按分数选最高的（分数越高越可能被选中）。</summary>
-        private static Pawn PickTarget(Pawn self, Map map, System.Func<Pawn, float> score)
+        private static Pawn PickTarget(Pawn self, ref List<Pawn> prisoners, System.Func<Pawn, float> score)
         {
-            if (self == null || map == null) return null; // 未生成的囚犯没有地图
+            if (self?.Map == null) return null;
+            // Container prisoners remain targets; discover them only when an action needs a target.
+            prisoners ??= self.Map.mapPawns.PrisonersOfColony;
             Pawn best = null;
             float bestScore = float.NegativeInfinity;
-            var prisoners = map.mapPawns.PrisonersOfColony;
             for (int i = 0; i < prisoners.Count; i++)
             {
                 var other = prisoners[i];
@@ -112,10 +122,9 @@ namespace PrisonersPayToEat2
 
         // ================= 乞讨 =================
 
-        private static void TryBeg(Pawn beggar, PrisonersPayToEat2Manager mgr, int now)
+        private static void TryBeg(Pawn beggar, ref List<Pawn> targets, PrisonersPayToEat2Manager mgr, int now)
         {
             var s = PrisonersPayToEat2Mod.Settings;
-            if (!mgr.FeatureAllowed(beggar, SocialFeatureKind.Begging)) return;
             if (!CooldownReady(lastBegAttempt, beggar.thingIDNumber, now, s.beggingCooldownDays)) return;
             if (mgr.AvailableBalance(beggar) >= s.loanTriggerBalance) return; // 不穷不讨（儿童可算上父母代付）
             // 需要有点"惨"：饿或心情差
@@ -124,7 +133,7 @@ namespace PrisonersPayToEat2
             Mark(lastBegAttempt, beggar.thingIDNumber, now);
 
             // 目标：偏向对我好感度高 + 有余额的囚犯
-            var target = PickTarget(beggar, beggar.Map,
+            var target = PickTarget(beggar, ref targets,
                 other => (mgr.Balance(other) <= 0.01f ? -999f : other.relations.OpinionOf(beggar) + Rand.Range(0f, 30f)));
             if (target == null) return;
 
@@ -155,10 +164,9 @@ namespace PrisonersPayToEat2
 
         // ================= 借款 =================
 
-        private static void TryLoan(Pawn borrower, PrisonersPayToEat2Manager mgr, int now)
+        private static void TryLoan(Pawn borrower, ref List<Pawn> targets, PrisonersPayToEat2Manager mgr, int now)
         {
             var s = PrisonersPayToEat2Mod.Settings;
-            if (!mgr.FeatureAllowed(borrower, SocialFeatureKind.Loan)) return;
             if (!CooldownReady(lastLoanAttempt, borrower.thingIDNumber, now, s.loanCooldownDays)) return;
             if (mgr.AvailableBalance(borrower) >= s.loanTriggerBalance) return;
             if (mgr.HasOutstandingLoans(borrower)) return; // 已有借款不能再借，防止债务链
@@ -166,7 +174,7 @@ namespace PrisonersPayToEat2
 
             // 找贷方：余额充裕（>=3 倍触发线）、对我好感度高者优先
             float lenderMin = s.loanTriggerBalance * 3f;
-            var lender = PickTarget(borrower, borrower.Map, other =>
+            var lender = PickTarget(borrower, ref targets, other =>
             {
                 if (!mgr.FeatureAllowed(other, SocialFeatureKind.Loan)) return float.NegativeInfinity;
                 if (mgr.Balance(other) < lenderMin) return float.NegativeInfinity;
@@ -196,10 +204,9 @@ namespace PrisonersPayToEat2
 
         // ================= 抢劫 =================
 
-        private static void TryRob(Pawn robber, PrisonersPayToEat2Manager mgr, int now)
+        private static void TryRob(Pawn robber, ref List<Pawn> targets, PrisonersPayToEat2Manager mgr, int now)
         {
             var s = PrisonersPayToEat2Mod.Settings;
-            if (!mgr.FeatureAllowed(robber, SocialFeatureKind.Robbery)) return;
             if (!CooldownReady(lastRobAttempt, robber.thingIDNumber, now, s.robberyCooldownDays)) return;
             if (mgr.AvailableBalance(robber) >= s.loanTriggerBalance) return; // 有钱不抢（儿童可算上父母代付）
             if (robber.needs?.food == null || robber.needs.food.CurLevel >= s.robberyHungerThreshold) return; // 不够饿不抢
@@ -208,7 +215,7 @@ namespace PrisonersPayToEat2
 
             // 目标：有票 + 格斗弱 + 无暴力（更好欺负）优先
             // 分数 = 余额加成 - 格斗等级 + 无暴力加成 + 随机
-            var victim = PickTarget(robber, robber.Map, other =>
+            var victim = PickTarget(robber, ref targets, other =>
                 mgr.Balance(other) <= 0.01f ? float.NegativeInfinity
                 : mgr.Balance(other) * 0.2f
                   - (other.skills?.GetSkill(SkillDefOf.Melee)?.Level ?? 5f)

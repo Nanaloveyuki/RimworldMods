@@ -18,29 +18,30 @@ namespace PrisonersPayToEat2
         private const int AskInterval = 1500;         // eligible prisoners may ask every 0.6 day
         private const float AskChance = 0.5f;         // ...with this chance per check
         private const int PruneInterval = 60000;      // once a day
+        private static readonly HashSet<int> livePrisoners = new HashSet<int>();
 
         /// <summary>Cooldown (ticks) after a rejected request before the prisoner may ask again.</summary>
         public const int DenyCooldownTicks = 120000;  // 2 days
 
         public static void Tick()
         {
-            var settings = PrisonersPayToEat2Mod.Settings;
-            if (settings == null || !settings.enableRansom) return;
             var game = Current.Game;
             if (game == null) return;
-            var mgr = PrisonersPayToEat2Manager.Current;
-            if (mgr == null) return;
-
             int now = game.tickManager.TicksGame;
             if (now % CheckStride != 0) return;
+            var settings = PrisonersPayToEat2Mod.Settings;
+            if (settings == null || !settings.enableRansom) return;
+            var mgr = PrisonersPayToEat2Manager.Current;
+            if (mgr == null) return;
             bool askNow = now % AskInterval == 0;
             bool pruneNow = now % PruneInterval == 0;
 
-            var live = pruneNow ? new HashSet<int>() : null;
+            var live = pruneNow ? livePrisoners : null;
+            live?.Clear();
             foreach (var map in game.Maps)
             {
                 if (map == null) continue;
-                var prisoners = map.mapPawns.PrisonersOfColony;
+                var prisoners = mgr.PrisonersOn(map);
                 for (int i = 0; i < prisoners.Count; i++)
                 {
                     var pawn = prisoners[i];
@@ -68,6 +69,7 @@ namespace PrisonersPayToEat2
 
             // forget imprisonment start for pawns that are no longer prisoners
             if (pruneNow) mgr.PrunePrisonStartTicks(live);
+            live?.Clear();
         }
     }
 }

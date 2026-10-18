@@ -49,9 +49,22 @@ namespace PrisonersPayToEat2
         [HarmonyPostfix]
         public static void Postfix(Pawn_GuestTracker __instance, Faction newHost, GuestStatus guestStatus)
         {
+            var pawn = PawnRef(__instance);
+            PrisonersPayToEat2Manager.Current?.NotifyGuestStatusChanged(pawn);
             if (guestStatus != GuestStatus.Prisoner) return;
             if (newHost != Faction.OfPlayer) return;
-            PrisonerWorkSystem.EnsurePrisonerSetup(PawnRef(__instance));
+            PrisonerWorkSystem.EnsurePrisonerSetup(pawn);
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn), nameof(Pawn.SpawnSetup))]
+    internal static class Patch_SpawnedPrisonerTicketStatus
+    {
+        [HarmonyPostfix]
+        private static void Postfix(Pawn __instance)
+        {
+            if (__instance.IsPrisonerOfColony)
+                PrisonersPayToEat2Manager.Current?.NotifyGuestStatusChanged(__instance);
         }
     }
 

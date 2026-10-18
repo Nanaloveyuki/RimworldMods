@@ -131,40 +131,47 @@ namespace PrisonersPayToEat2
         // remembers whether a pawn was working at the last check, to settle the accumulator
         // the moment a work session ends
         private static readonly Dictionary<int, bool> wasWorking = new Dictionary<int, bool>();
+        private static readonly HashSet<int> livePrisoners = new HashSet<int>();
+        private static readonly List<int> staleWorkers = new List<int>();
 
         /// <summary>读档/换存档时清空进程级缓存（thingIDNumber 跨存档会复用，不能留着）。</summary>
-        public static void ResetTransientState() => wasWorking.Clear();
+        public static void ResetTransientState()
+        {
+            wasWorking.Clear();
+            livePrisoners.Clear();
+            staleWorkers.Clear();
+        }
 
         public static void Tick()
         {
-            // 工资来源可以是 Prison Labor，也可以是内置劳工系统（v2.3+）
-            if (!PrisonerWorkSystem.WorkIncomeEnabled) return;
             var game = Current.Game;
             if (game == null) return;
+            int ticks = game.tickManager.TicksGame;
+            if (ticks % CheckStride != 0) return;
+            // Keep the existing labour-provider gate; only move it behind the cadence check.
+            if (!PrisonerWorkSystem.WorkIncomeEnabled) return;
             var settings = PrisonersPayToEat2Mod.Settings;
             var mgr = PrisonersPayToEat2Manager.Current;
             if (mgr == null) return;
-
-            int ticks = game.tickManager.TicksGame;
-            if (ticks % CheckStride != 0) return;
             bool hourlySettle = ticks % TicksPerHour == 0;
+            if (hourlySettle) livePrisoners.Clear();
 
             foreach (var map in game.Maps)
             {
                 if (map == null) continue;
-                var list = map.mapPawns.PrisonersOfColony;
+                var list = mgr.PrisonersOn(map);
                 for (int i = 0; i < list.Count; i++)
                 {
                     var pawn = list[i];
-                    if (pawn == null || pawn.Dead) continue;
-
+                    if (pawn == null) continue;
                     int id = pawn.thingIDNumber;
-                    bool workingNow = PrisonLaborBridge.IsWorking(pawn);
+                    if (hourlySettle) livePrisoners.Add(id);
+                    if (pawn.Dead) continue;
 
-                    if (workingNow)
+                    var wt = pawn.InMentalState ? null : PrisonLaborBridge.CurrentWorkTypeDef(pawn);
+                    if (wt != null)
                     {
-                        var wt = PrisonLaborBridge.CurrentWorkTypeDef(pawn);
-                        if (wt != null && PieceRateWorker.IsPieceRateActive(pawn, wt))
+                        if (PieceRateWorker.IsPieceRateActive(pawn, wt))
                         {
                             // piece-rate mode: no hourly accrual (settlement happens on the output
                             // hooks); for research we only track contribution and pay on completion
@@ -173,7 +180,7 @@ namespace PrisonersPayToEat2
                         }
                         else
                         {
-                            string workTypeDefName = wt?.defName;
+                            string workTypeDefName = wt.defName;
                             float wagePerHour = settings.GetWageForWorkType(workTypeDefName);
                             float perCheck = wagePerHour * settings.wageMultiplier * mgr.EffectiveWageMultiplier(pawn)
                                              * CheckStride / TicksPerHour;
@@ -191,7 +198,7 @@ namespace PrisonersPayToEat2
                         }
                         wasWorking[id] = true;
                     }
-                    else if (wasWorking.ContainsKey(id) && wasWorking[id])
+                    else if (wasWorking.TryGetValue(id, out bool worked) && worked)
                     {
                         // work session ended: flush the leftover fraction so short shifts pay out
                         float accum = mgr.GetWorkWageAccum(id);
@@ -211,17 +218,11 @@ namespace PrisonersPayToEat2
             if (hourlySettle)
             {
                 // prune state for prisoners that left the map or died
-                var live = new HashSet<int>();
-                foreach (var map in game.Maps)
-                {
-                    if (map == null) continue;
-                    foreach (var p in map.mapPawns.PrisonersOfColony)
-                        if (p != null) live.Add(p.thingIDNumber);
-                }
-                var stale = new List<int>();
+                staleWorkers.Clear();
                 foreach (var kv in wasWorking)
-                    if (!live.Contains(kv.Key)) stale.Add(kv.Key);
-                foreach (var k in stale) { wasWorking.Remove(k); mgr.SetWorkWageAccum(k, 0f); }
+                    if (!livePrisoners.Contains(kv.Key)) staleWorkers.Add(kv.Key);
+                foreach (var k in staleWorkers) { wasWorking.Remove(k); mgr.SetWorkWageAccum(k, 0f); }
+                staleWorkers.Clear();
             }
         }
     }
