@@ -44,6 +44,8 @@ Windows 使用 `python scripts/python/deploy.py` 及相同参数。构建引用�
 
 输出为 `1.7/Assemblies/PrisonersPayToEat2.dll`；正式暂存为 `artifacts/prisoner_pay_to_eat_fork/release`。正式部署要求退出游戏，默认目标为游戏 `Mods/PrisonersPayToEat2`；不会覆盖工坊原 Mod。启用列表须从原版 PPTE2 切换为本 fork，新旧包名不同但共享程序集与 Def，About 声明二者互斥，不能同时启用。存档类型、字段和程序集名不变；已有 fork 安装原地更新。部署保留目标已有的 `PublishedFileId.txt` 和 1.6 文件；新安装补齐冻结的完整 1.6 内容。
 
+README、ADR 和其他开发文档仅保留在源码仓库，不纳入发布或部署。About 描述只介绍玩家可见功能。
+
 `LoadFolders.xml` 明确分流：1.6 加载 `1.6/Released` 的上游资源和 `1.6/Assemblies` 原 DLL；1.7 只加载 `Common` 和 `1.7`。源码只维护 1.7；不要将新的设置文案或 DLL 同步回旧版快照。
 
 #### 1.7 验收与支持范围
