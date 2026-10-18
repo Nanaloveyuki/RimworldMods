@@ -72,6 +72,8 @@ bash scripts/deploy.sh ratkin_recycle --rimworld-dir /mnt/e/Apps/Steam/steamapps
 
 统一入口构建 1.7 核心和可选适配器，暂存至 `artifacts/ratkin_recycle/release`，逐文件校验 SHA-256 后复制到游戏 `Mods/ratkin_recycle`。首次安装携带冻结的 1.6 内容；后续部署保留目标中已有的 1.6 文件和 `PublishedFileId.txt`。原作者的旧目录保持不动，启用接手版前请取消旧版勾选。仅构建暂存可加 `--build-only`。
 
+发布清单不包含 `README.md` 和 `docs/`；这些资料仅留在源码仓库。`LICENSE` 和 `NOTICE` 随 Mod 分发。
+
 ## 导入验证
 
 2026-10-18：Release 构建通过，0 警告、0 错误。一次性产物检查已执行：原始归档 6/6 文件通过 SHA-256 核对；3 个 Def XML 和 1 张贴图与原件一致；About 包名和静态初始化器 IL 中的 Harmony ID 均为新值；公开类型、字段和方法名/参数数量清单的 135 项一致；2 处 XML 类型引用可在重建 DLL 中解析；预览图为 960×540 PNG；未混入外部依赖 DLL。检查不证明游戏内行为等价，尚未进行 1.6 游戏内验证。

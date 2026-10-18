@@ -7,7 +7,7 @@
     ["dotnet", "ratkin_recycle/Source/IrisMenus/RatkinRecycle.IrisMenus.csproj", {}]
   ],
   "files": [
-    "About", "LoadFolders.xml", "LICENSE", "NOTICE", "README.md", "docs", "Common", "1.6",
+    "About", "LoadFolders.xml", "LICENSE", "NOTICE", "Common", "1.6",
     "1.7/Assemblies/RatkinRecycle.dll",
     "1.7/IrisMenus/Assemblies/RatkinRecycle.IrisMenus.dll"
   ],
