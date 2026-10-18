@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- 通讯台向派系索要饭票（玩家手动指派与囚犯自动发起共用同一工作） -->
+  <JobDef>
+    <defName>PPTE2_RequestTickets</defName>
+    <driverClass>PrisonersPayToEat2.JobDriver_RequestTickets</driverClass>
+    <reportString>requesting meal tickets</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+</Defs>

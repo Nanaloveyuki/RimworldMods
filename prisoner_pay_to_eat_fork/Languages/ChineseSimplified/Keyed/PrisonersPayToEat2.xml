@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- 设置 -->
+  <PPTE2_SettingsCategory>囚犯付费吃饭2</PPTE2_SettingsCategory>
+  <PPTE2_TabGeneral>通用设置</PPTE2_TabGeneral>
+  <PPTE2_TabWorkWages>按工种饭票</PPTE2_TabWorkWages>
+  <PPTE2_TabFoodPrices>食物价格</PPTE2_TabFoodPrices>
+  <PPTE2_SectionGeneral>通用设置</PPTE2_SectionGeneral>
+  <PPTE2_SectionFoodPrices>自定义食物价格</PPTE2_SectionFoodPrices>
+  <PPTE2_Search>搜索</PPTE2_Search>
+  <PPTE2_ResetSearch>重置</PPTE2_ResetSearch>
+  <PPTE2_ClearAllFoodPrices>清空全部覆盖</PPTE2_ClearAllFoodPrices>
+  <PPTE2_HdrFoodName>食物</PPTE2_HdrFoodName>
+  <PPTE2_HdrBaseMarketValue>基础市价</PPTE2_HdrBaseMarketValue>
+  <PPTE2_HdrCustomPrice>价格（饭票）</PPTE2_HdrCustomPrice>
+  <PPTE2_EnableOrganHarvest>启用器官贩卖</PPTE2_EnableOrganHarvest>
+  <PPTE2_FoodMul>全局食物价格倍率：{0}</PPTE2_FoodMul>
+  <PPTE2_WageMul>全局工资倍率：{0}</PPTE2_WageMul>
+  <PPTE2_DefaultWagePerHour>默认每小时饭票：{0}</PPTE2_DefaultWagePerHour>
+  <PPTE2_SectionWorkTypeWages>按工种设置每小时饭票</PPTE2_SectionWorkTypeWages>
+  <PPTE2_WorkTypeWagesHint>留空使用默认值。工种是否允许由 Prison Labor 控制。按量按完成量计费：生产台按批次、采矿按矿脉、建造按建筑、种植/砍伐/播种按株、搬运按次、清洁按块、研究按科技（多人按贡献分），其他工种（含其他 MOD 新增）按完成一次工作计费。</PPTE2_WorkTypeWagesHint>
+  <PPTE2_ResetWorkTypeWages>重置全部</PPTE2_ResetWorkTypeWages>
+  <PPTE2_FillWorkTypeWages>填充默认</PPTE2_FillWorkTypeWages>
+  <PPTE2_EnablePieceRate>启用按量计费</PPTE2_EnablePieceRate>
+  <PPTE2_HdrWorkType>工种</PPTE2_HdrWorkType>
+  <PPTE2_HdrMode>计费方式</PPTE2_HdrMode>
+  <PPTE2_HdrHourlyWage>按时工资</PPTE2_HdrHourlyWage>
+  <PPTE2_HdrPieceWage>按量单价</PPTE2_HdrPieceWage>
+  <PPTE2_ModePerHour>按时</PPTE2_ModePerHour>
+  <PPTE2_ModePerItem>按量</PPTE2_ModePerItem>
+  <PPTE2_WageModeLabel>工资计费方式：</PPTE2_WageModeLabel>
+  <PPTE2_WageModeFollow>跟随全局</PPTE2_WageModeFollow>
+  <PPTE2_SilverRate>每银币价值可换饭票数：{0}</PPTE2_SilverRate>
+  <PPTE2_StartingTickets>新囚犯初始饭票数：{0}</PPTE2_StartingTickets>
+  <PPTE2_IgnoreRiot>精神崩溃 / 越狱期间跳过饭票检查</PPTE2_IgnoreRiot>
+  <PPTE2_AllowMealDebt>允许赊账吃饭（余额可为负，工资等收入优先还债）</PPTE2_AllowMealDebt>
+  <PPTE2_TabSocial>囚犯社会</PPTE2_TabSocial>
+  <PPTE2_EnableLoans>启用借款</PPTE2_EnableLoans>
+  <PPTE2_EnableRobbery>启用抢劫</PPTE2_EnableRobbery>
+  <PPTE2_EnableBegging>启用乞讨</PPTE2_EnableBegging>
+  <PPTE2_AllowPlayerLoans>允许囚犯向玩家借款（逐笔弹窗批准）</PPTE2_AllowPlayerLoans>
+  <PPTE2_BadDebtPenalty>坏账时贷方心情减益</PPTE2_BadDebtPenalty>
+  <PPTE2_LoanTriggerBalance>借款触发余额（低于此值会借/讨/抢）：{0}</PPTE2_LoanTriggerBalance>
+  <PPTE2_LoanCooldown>借款冷却（天）：{0}</PPTE2_LoanCooldown>
+  <PPTE2_MaxLoanAmount>单次借款上限：{0}</PPTE2_MaxLoanAmount>
+  <PPTE2_LoanInterestBase>基准利率（好感度 0）：{0}</PPTE2_LoanInterestBase>
+  <PPTE2_LoanInterestPerOpinion>每点好感度降低利率（%）：{0}</PPTE2_LoanInterestPerOpinion>
+  <PPTE2_LoanInterestMin>最低利率：{0}</PPTE2_LoanInterestMin>
+  <PPTE2_LoanInterestMax>最高利率：{0}</PPTE2_LoanInterestMax>
+  <PPTE2_RobberyCooldown>抢劫冷却（天）：{0}</PPTE2_RobberyCooldown>
+  <PPTE2_RobberyHungerThreshold>抢劫饥饿阈值（食物水平低于此值才考虑抢）：{0}</PPTE2_RobberyHungerThreshold>
+  <PPTE2_RobberyTakePercent>抢夺比例：{0}</PPTE2_RobberyTakePercent>
+  <PPTE2_BeggingCooldown>乞讨冷却（天）：{0}</PPTE2_BeggingCooldown>
+  <PPTE2_BeggingAmountMin>乞讨最少票数：{0}</PPTE2_BeggingAmountMin>
+  <PPTE2_BeggingAmountMax>乞讨最多票数：{0}</PPTE2_BeggingAmountMax>
+  <PPTE2_BeggingChanceBase>乞讨成功率基准：{0}</PPTE2_BeggingChanceBase>
+  <PPTE2_BeggingChancePerOpinion>每点好感度成功率加成（%）：{0}</PPTE2_BeggingChancePerOpinion>
+  <PPTE2_SocialHint>囚犯会在吃不起饭时按自身状态发起这些行为。抢劫为真实近战，可能致死！每个囚犯可在「配置囚犯」窗口中单独允许/禁止。</PPTE2_SocialHint>
+  <PPTE2_VerboseLog>详细日志</PPTE2_VerboseLog>
+  <PPTE2_TicketDefaultName>饭票</PPTE2_TicketDefaultName>
+  <PPTE2_TicketDefaultUnit>张</PPTE2_TicketDefaultUnit>
+  <PPTE2_BalanceCardTitleFormat>{0}余额</PPTE2_BalanceCardTitleFormat>
+  <PPTE2_TicketNameLabel>饭票名称：</PPTE2_TicketNameLabel>
+  <PPTE2_TicketNamePreview>当前饭票名称：{0}</PPTE2_TicketNamePreview>
+  <PPTE2_EnableRansom>启用囚犯赎身</PPTE2_EnableRansom>
+  <PPTE2_RansomTicketCost>赎身所需饭票：{0}</PPTE2_RansomTicketCost>
+  <PPTE2_RansomMinDays>最短囚禁天数：{0}</PPTE2_RansomMinDays>
+  <PPTE2_RansomHint>囚犯攒够饭票且囚禁足够时间后，有一定概率提出赎身请求；需玩家同意后才自动释放，并扣除对应饭票。可在「配置囚犯」窗口为单个囚犯单独设置。</PPTE2_RansomHint>
+  <PPTE2_EnableChildParentPay>允许儿童囚犯使用父母饭票</PPTE2_EnableChildParentPay>
+  <PPTE2_ChildPayModeLabel>儿童扣费方式：</PPTE2_ChildPayModeLabel>
+  <PPTE2_ChildPayModeOwnFirst>先自己</PPTE2_ChildPayModeOwnFirst>
+  <PPTE2_ChildPayModeParentFirst>先父母</PPTE2_ChildPayModeParentFirst>
+  <PPTE2_ChildPayModeMerged>合并钱包</PPTE2_ChildPayModeMerged>
+  <PPTE2_ChildPayHint>儿童囚犯吃饭时，费用可由在押的父母代付（需 Biotech 儿童）。「先自己 / 先父母」决定扣费顺序，「合并钱包」将家庭视为一个账户并显示合计余额。可在「配置囚犯」窗口对单个儿童允许/禁止。</PPTE2_ChildPayHint>
+
+  <!-- 选中 / Gizmo -->
+  <PPTE2_GizmoMenu>囚犯饭票</PPTE2_GizmoMenu>
+  <PPTE2_GizmoMenuDesc>管理该囚犯的饭票（发放/扣除）、个人配置与赎身。</PPTE2_GizmoMenuDesc>
+
+  <!-- Dialog_GiveTickets -->
+  <PPTE2_GiveDialogTitle>发放{0}</PPTE2_GiveDialogTitle>
+  <PPTE2_TakeDialogTitle>扣除{0}</PPTE2_TakeDialogTitle>
+  <PPTE2_CurrentBalance>当前余额：{0}</PPTE2_CurrentBalance>
+  <PPTE2_InvalidNumber>请输入大于 0 的数字（支持小数）。</PPTE2_InvalidNumber>
+  <PPTE2_GaveTickets>已给 {0} 发放 {1} 个{2}。</PPTE2_GaveTickets>
+  <PPTE2_TookTickets>已从 {0} 扣除 {1} 个{2}。</PPTE2_TookTickets>
+
+  <!-- Window_PrisonerConfig -->
+  <PPTE2_BalanceLabel>{1}余额：{0}</PPTE2_BalanceLabel>
+  <PPTE2_FoodMulLabel>个人食物价格倍率：{0}</PPTE2_FoodMulLabel>
+  <PPTE2_WageMulLabel>个人工资倍率：{0}</PPTE2_WageMulLabel>
+  <PPTE2_OverrideOrganHarvest>覆盖全局器官贩卖设置</PPTE2_OverrideOrganHarvest>
+  <PPTE2_AllowOrganHarvest>允许该囚犯贩卖器官</PPTE2_AllowOrganHarvest>
+  <PPTE2_GlobalSetting>当前使用全局设置：{0}</PPTE2_GlobalSetting>
+  <PPTE2_Enabled>已启用</PPTE2_Enabled>
+  <PPTE2_Disabled>已禁用</PPTE2_Disabled>
+  <PPTE2_ResetDefaults>恢复默认值</PPTE2_ResetDefaults>
+  <PPTE2_SocialSettingsTitle>囚犯社会行为</PPTE2_SocialSettingsTitle>
+  <PPTE2_FeatureLoan>借款</PPTE2_FeatureLoan>
+  <PPTE2_FeatureRobbery>抢劫</PPTE2_FeatureRobbery>
+  <PPTE2_FeatureBegging>乞讨</PPTE2_FeatureBegging>
+  <PPTE2_SocialFollow>跟随全局</PPTE2_SocialFollow>
+  <PPTE2_SocialAllow>允许</PPTE2_SocialAllow>
+  <PPTE2_SocialDeny>禁止</PPTE2_SocialDeny>
+  <PPTE2_ChildPayTitle>父母代付（仅儿童）</PPTE2_ChildPayTitle>
+  <PPTE2_FeatureChildPay>父母代付</PPTE2_FeatureChildPay>
+  <PPTE2_RansomOverrideTitle>赎身设置（0 = 跟随全局）</PPTE2_RansomOverrideTitle>
+  <PPTE2_RansomTicketOverrideLabel>赎身所需饭票：</PPTE2_RansomTicketOverrideLabel>
+  <PPTE2_RansomMinDaysOverrideLabel>最短囚禁天数：</PPTE2_RansomMinDaysOverrideLabel>
+  <PPTE2_RansomEffective>当前生效：{0} 张饭票 / {1} 天</PPTE2_RansomEffective>
+
+  <!-- Window_PrisonerMenu -->
+  <PPTE2_MenuGive>发放饭票</PPTE2_MenuGive>
+  <PPTE2_MenuTake>扣除饭票</PPTE2_MenuTake>
+  <PPTE2_MenuConfig>配置囚犯</PPTE2_MenuConfig>
+  <PPTE2_RansomTitle>赎身</PPTE2_RansomTitle>
+  <PPTE2_RansomDisabledGlobal>赎身功能已关闭（可在 MOD 设置中开启）。</PPTE2_RansomDisabledGlobal>
+  <PPTE2_RansomNeedTickets>赎身所需：{0} 张（当前 {1} 张）</PPTE2_RansomNeedTickets>
+  <PPTE2_RansomNeedTime>最短囚禁：{0} 天（已囚禁 {1} 天）</PPTE2_RansomNeedTime>
+  <PPTE2_RansomRequestPending>{0} 请求用 {1} 张{2}赎身，等待你的许可！</PPTE2_RansomRequestPending>
+  <PPTE2_RansomApprove>同意赎身</PPTE2_RansomApprove>
+  <PPTE2_RansomReject>拒绝请求</PPTE2_RansomReject>
+  <PPTE2_RansomEligibleWait>已满足赎身条件，等待囚犯提出请求…</PPTE2_RansomEligibleWait>
+  <PPTE2_RansomNotEligible>尚未满足赎身条件。</PPTE2_RansomNotEligible>
+  <PPTE2_RansomCooldown>请求被拒绝，需等待 {0} 天才能再次提出。</PPTE2_RansomCooldown>
+
+  <!-- 健康状态（Hediff） -->
+  <PPTE2_HediffLabel>{1}：{0}</PPTE2_HediffLabel>
+  <PPTE2_HediffLabel_Debt>{1}欠款：{0} {2}</PPTE2_HediffLabel_Debt>
+  <PPTE2_HediffTip_Balance>{1}余额：{0} {2}</PPTE2_HediffTip_Balance>
+  <PPTE2_HediffTip_Debt>欠 {0} {2}{1}。工资等收入将优先偿还欠款。</PPTE2_HediffTip_Debt>
+  <PPTE2_HediffTip_ParentSupport>父母可代付 {0} 张{1}（{2}）</PPTE2_HediffTip_ParentSupport>
+  <PPTE2_HediffTip_MergedPool>家庭合并饭票：{0} 张{1}</PPTE2_HediffTip_MergedPool>
+
+  <!-- 消息 -->
+  <PPTE2_MealOnCredit>{0} 赊账吃了{1}，欠 {2} 张{3}。工资等收入将优先还债。</PPTE2_MealOnCredit>
+  <PPTE2_NoTicketsBlocked>{0} 因缺少 {1} 张{2}（仅有 {3} 张）未能进食。</PPTE2_NoTicketsBlocked>
+  <PPTE2_LoanMade>{0} 向 {1} 借了 {2} 张{3}（利率 {4}%）。</PPTE2_LoanMade>
+  <PPTE2_LoanRepaidMsg>{0} 还清了向 {1} 借的 {2} 张{3}。</PPTE2_LoanRepaidMsg>
+  <PPTE2_LoanDefaultedMsg>{0} 的借款成了坏账，{1} 损失 {2} 张{3}。</PPTE2_LoanDefaultedMsg>
+  <PPTE2_PlayerLoanTitle>借款请求</PPTE2_PlayerLoanTitle>
+  <PPTE2_PlayerLoanBody>{0} 想向你借 {1} 张{2}。</PPTE2_PlayerLoanBody>
+  <PPTE2_PlayerLoanApprove>借出</PPTE2_PlayerLoanApprove>
+  <PPTE2_PlayerLoanReject>拒绝</PPTE2_PlayerLoanReject>
+  <PPTE2_PlayerLoanApproved>你借给 {0} {1} 张{2}。</PPTE2_PlayerLoanApproved>
+  <PPTE2_PlayerLoanRejected>你拒绝了 {0} 的借款请求。</PPTE2_PlayerLoanRejected>
+  <PPTE2_BegSuccess>{0} 向 {1} 讨到了 {2} 张{3}。</PPTE2_BegSuccess>
+  <PPTE2_RobberySuccessMsg>{0} 打倒了 {1}，抢走了 {2} 张{3}！</PPTE2_RobberySuccessMsg>
+  <PPTE2_RobberyFailedMsg>{0} 抢劫 {1} 失败，反被揍了一顿。</PPTE2_RobberyFailedMsg>
+  <PPTE2_OwesLabel>未还借款：{0} 张{1}</PPTE2_OwesLabel>
+  <PPTE2_ParentPayLine>父母可代付：{0} 张{1}</PPTE2_ParentPayLine>
+  <PPTE2_RansomHasDebt>存在未还清的借款，无法赎身。</PPTE2_RansomHasDebt>
+  <PPTE2_OrganSold>{0} 出卖了一颗 {1}，换得 {2} 个{3}。</PPTE2_OrganSold>
+  <PPTE2_RansomRequestMsg>{0} 表示愿意用 {1} 张{2}赎身，等待你的许可。</PPTE2_RansomRequestMsg>
+  <PPTE2_RansomApproved>{0} 用 {1} 张{2}成功赎身，已获释放！</PPTE2_RansomApproved>
+  <PPTE2_RansomRejected>你拒绝了 {0} 的赎身请求。</PPTE2_RansomRejected>
+  <PPTE2_RansomNoLongerEligible>{0} 已不满足赎身条件，请求失效。</PPTE2_RansomNoLongerEligible>
+
+  <!-- 内置囚犯劳工系统（v2.3+） -->
+  <PPTE2_TabPrisonWork>囚犯工作</PPTE2_TabPrisonWork>
+  <PPTE2_EnableBuiltinLabor>启用内置囚犯劳工系统（未安装 Prison Labor 时生效）</PPTE2_EnableBuiltinLabor>
+  <PPTE2_BuiltinLaborDisabledByPL>已检测到 Prison Labor：内置劳工系统已停用，囚犯工作分配由 Prison Labor 管理。饭票工资结算不受影响。</PPTE2_BuiltinLaborDisabledByPL>
+  <PPTE2_PrisonerWorkDefaultOn>新囚犯默认强制工作</PPTE2_PrisonerWorkDefaultOn>
+  <PPTE2_EnableMotivation>启用动机系统（无人看管/饥饿时动机下降，过低会怠工）</PPTE2_EnableMotivation>
+  <PPTE2_MotivationThreshold>怠工阈值（动机低于此值拒绝工作）：{0}</PPTE2_MotivationThreshold>
+  <PPTE2_AllowedWorkTypesTitle>允许囚犯从事的工种：</PPTE2_AllowedWorkTypesTitle>
+  <PPTE2_PrisonWorkHint>提示：看守、医生、驯兽、灭火、狩猎等敏感/暴力工种永远不会向囚犯开放。其他 MOD 新增的工种可在此勾选启用，但不会显示为「囚犯」标签页工作表的列（优先级默认为正常）。改动会立即同步到所有在押囚犯。</PPTE2_PrisonWorkHint>
+  <PPTE2_SubTabOverview>总览</PPTE2_SubTabOverview>
+  <PPTE2_SubTabWork>工作</PPTE2_SubTabWork>
+  <PPTE2_SubTabSchedule>日程</PPTE2_SubTabSchedule>
+  <PPTE2_SubTabAssign>分配</PPTE2_SubTabAssign>
+  <PPTE2_PrisonTabDisabledPL>已安装 Prison Labor，内置劳工系统已停用。\n囚犯工作由 Prison Labor 管理。</PPTE2_PrisonTabDisabledPL>
+  <PPTE2_PrisonTabDisabledSetting>内置劳工系统已在 MOD 设置中关闭。</PPTE2_PrisonTabDisabledSetting>
+  <PPTE2_ColWorkToggleTip>强制该囚犯工作以赚取饭票（覆盖全局默认设置）。</PPTE2_ColWorkToggleTip>
+  <PPTE2_ColMotivationTip>动机：{0}。动机低于 {1} 时该囚犯拒绝工作。</PPTE2_ColMotivationTip>
+  <PPTE2_ColBalanceTip>{0}余额。点击打开该囚犯的饭票菜单。</PPTE2_ColBalanceTip>
+  <PPTE2_StatusIdle>空闲</PPTE2_StatusIdle>
+  <PPTE2_BillPrisonersOnly>仅囚犯</PPTE2_BillPrisonersOnly>
+  <PPTE2_BillColonistsOnly>仅殖民者与奴隶</PPTE2_BillColonistsOnly>
+  <PPTE2_LaborArea>囚犯劳作区</PPTE2_LaborArea>
+  <PPTE2_LaborAreaExpand>划定囚犯劳作区</PPTE2_LaborAreaExpand>
+  <PPTE2_LaborAreaExpandDesc>划定一片囚犯劳作区。殖民者不会在劳作区内工作，把活留给囚犯干。</PPTE2_LaborAreaExpandDesc>
+  <PPTE2_LaborAreaClear>清除囚犯劳作区</PPTE2_LaborAreaClear>
+  <PPTE2_LaborAreaClearDesc>清除囚犯劳作区。</PPTE2_LaborAreaClearDesc>
+  <PPTE2_MotivationTip>无人看管或挨饿时动机下降；被看管、吃饱、领到工资时上升。动机低于 {0} 时囚犯拒绝工作。</PPTE2_MotivationTip>
+  <PPTE2_MotivationStatPart>囚犯动机 {0}</PPTE2_MotivationStatPart>
+  <PPTE2_WorkSettingsTitle>工作</PPTE2_WorkSettingsTitle>
+  <PPTE2_FeatureWork>强制工作</PPTE2_FeatureWork>
+
+  <!-- v2.3.1: 派系索要 -->
+  <PPTE2_TabRequest>派系索要</PPTE2_TabRequest>
+  <PPTE2_EnableFactionRequest>启用派系索要（通讯台）</PPTE2_EnableFactionRequest>
+  <PPTE2_EnableCellAutoRequest>牢房内没钱的囚犯自动向派系索要</PPTE2_EnableCellAutoRequest>
+  <PPTE2_RequestSilverMinFactor>索要范围下限（×囚犯价值）：{0}</PPTE2_RequestSilverMinFactor>
+  <PPTE2_RequestSilverMaxFactor>索要范围上限（×囚犯价值）：{0}</PPTE2_RequestSilverMaxFactor>
+  <PPTE2_RequestBaseChance>基础成功率：{0}</PPTE2_RequestBaseChance>
+  <PPTE2_RequestChancePerSocial>每点社交技能加成：+{0}%</PPTE2_RequestChancePerSocial>
+  <PPTE2_RequestChancePerValue>囚犯每万点价值加成：+{0}%</PPTE2_RequestChancePerValue>
+  <PPTE2_RequestAmountPenalty>拉满索要的成功惩罚：-{0}</PPTE2_RequestAmountPenalty>
+  <PPTE2_RequestCooldownDays>每囚犯索要冷却（天）：{0}</PPTE2_RequestCooldownDays>
+  <PPTE2_RequestTriggerBalance>自动索要触发余额：{0}</PPTE2_RequestTriggerBalance>
+  <PPTE2_RequestHint>殖民者或奴隶右键通讯台可为囚犯向其所属派系索要生活费。成功后白银会空投到通讯台附近，囚犯同时获得等额{0}（按银换票汇率）。索要范围与成功率按囚犯市场价值计算，打电话者的社交技能提高成功率；要得越多（占上限比例越高）成功率越低。无论成败，每名囚犯都有冷却时间。把通讯台建在牢房里，没钱的囚犯会自己走过去索要。</PPTE2_RequestHint>
+  <PPTE2_RequestTicketsOption>为囚犯索要饭票…</PPTE2_RequestTicketsOption>
+  <PPTE2_RequestDialogTitle>为囚犯索要饭票</PPTE2_RequestDialogTitle>
+  <PPTE2_RequestSelectHint>在左侧选择一名囚犯</PPTE2_RequestSelectHint>
+  <PPTE2_RequestValue>市场价值：{0} 白银</PPTE2_RequestValue>
+  <PPTE2_RequestRange>可索要范围：{0} ~ {1} 白银</PPTE2_RequestRange>
+  <PPTE2_RequestAmount>索要 {0} 白银（折合 {1} {2}）</PPTE2_RequestAmount>
+  <PPTE2_RequestChance>成功率：{0}（社交 {1} 级）</PPTE2_RequestChance>
+  <PPTE2_RequestCooldown>冷却中：剩余约 {0} 天</PPTE2_RequestCooldown>
+  <PPTE2_RequestConfirm>打电话索要</PPTE2_RequestConfirm>
+  <PPTE2_RequestOnCooldownTag>（冷却中）</PPTE2_RequestOnCooldownTag>
+  <PPTE2_RequestFailed>{0}的所属派系（{1}）拒绝了索要 {2} 白银的请求。</PPTE2_RequestFailed>
+  <PPTE2_RequestSucceededLetter>派系送来了生活费</PPTE2_RequestSucceededLetter>
+  <PPTE2_RequestSucceededText>{0}的所属派系（{1}）答应了请求，空投来 {2} 白银，{0}同时获得 {3} {4}。</PPTE2_RequestSucceededText>
+
+  <!-- v2.3.1: 娱乐 -->
+  <PPTE2_TabJoyHygiene>娱乐与卫生</PPTE2_TabJoyHygiene>
+  <PPTE2_EnablePrisonerJoyNeed>启用囚犯娱乐需求条</PPTE2_EnablePrisonerJoyNeed>
+  <PPTE2_EnableJoyFees>囚犯使用娱乐建筑收费</PPTE2_EnableJoyFees>
+  <PPTE2_JoyFeePerUse>默认娱乐费（白银/次）：{0}</PPTE2_JoyFeePerUse>
+  <PPTE2_CustomJoyFeesTitle>按建筑单独定价（白银/次，留空用默认）</PPTE2_CustomJoyFeesTitle>
+  <PPTE2_JoyHint>囚犯使用娱乐建筑时按次缴费：每累计娱乐满 1 个游戏小时计一次，被打断按实际时长比例收费；费用按「白银×汇率」折算为{0}。散步、冥想等不用建筑的娱乐免费。赊账开启时付不起会欠账；赊账关闭时付不起就不去娱乐。娱乐需求条只用于展示与计费，不影响心情。</PPTE2_JoyHint>
+  <PPTE2_JoyOnCredit>{0} 娱乐时欠下 {1} {2}。</PPTE2_JoyOnCredit>
+  <PPTE2_JoyBlocked>{0} 付不起娱乐费（需要 {1} {2}，只有 {3}），没有去娱乐。</PPTE2_JoyBlocked>
+
+  <!-- v2.3.1: 卫生 -->
+  <PPTE2_EnableHygieneFees>启用卫生费（上厕所/洗澡按水电消耗收费）</PPTE2_EnableHygieneFees>
+  <PPTE2_WaterPricePerLiter>水费：每升 {0} {1}</PPTE2_WaterPricePerLiter>
+  <PPTE2_PowerPricePerWd>电费：每 Wd {0} {1}</PPTE2_PowerPricePerWd>
+  <PPTE2_HygieneModMissing>未检测到卫生与温控模组（Dubs Bad Hygiene），以下设置不会生效。</PPTE2_HygieneModMissing>
+  <PPTE2_HygieneHint>仅在安装卫生与温控模组后生效：囚犯上厕所、洗澡按实际水电消耗缴纳{0}。付不起的囚犯会被禁止使用——会一直憋尿直到憋不住，或忍着不洗；如果牢房活动区能够到河流，仍可去河里免费洗澡。卫生费不走赊账。</PPTE2_HygieneHint>
+  <PPTE2_HygieneBlocked>{0} 付不起卫生费（需要 {1} {2}，只有 {3}），只能忍着。</PPTE2_HygieneBlocked>
+
+  <!-- v2.3.1: 免付费 -->
+  <PPTE2_FeeExemptTitle>免付费</PPTE2_FeeExemptTitle>
+  <PPTE2_FreeAllFood>吃任何食物免费</PPTE2_FreeAllFood>
+  <PPTE2_FreeJoyAll>所有囚犯免娱乐费</PPTE2_FreeJoyAll>
+  <PPTE2_FreeHygieneAll>所有囚犯免卫生费</PPTE2_FreeHygieneAll>
+  <PPTE2_FeeExemptHint>指定食物免费：在「食物价格」页把对应食物（含尸体、营养膏）的「免费」勾上即可。每个囚犯还可以在「配置囚犯」窗口按类别设置免费/收费。</PPTE2_FeeExemptHint>
+  <PPTE2_HdrFree>免费</PPTE2_HdrFree>
+  <PPTE2_FeeFood>食物费</PPTE2_FeeFood>
+  <PPTE2_FeeJoy>娱乐费</PPTE2_FeeJoy>
+  <PPTE2_FeeHygiene>卫生费</PPTE2_FeeHygiene>
+
+</LanguageData>

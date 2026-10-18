@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Settings -->
+  <PPTE2_SettingsCategory>Prisoners Pay To Eat 2</PPTE2_SettingsCategory>
+  <PPTE2_TabGeneral>General</PPTE2_TabGeneral>
+  <PPTE2_TabWorkWages>Work wages</PPTE2_TabWorkWages>
+  <PPTE2_TabFoodPrices>Food prices</PPTE2_TabFoodPrices>
+  <PPTE2_SectionGeneral>General settings</PPTE2_SectionGeneral>
+  <PPTE2_SectionFoodPrices>Custom food prices</PPTE2_SectionFoodPrices>
+  <PPTE2_Search>Search</PPTE2_Search>
+  <PPTE2_ResetSearch>Reset</PPTE2_ResetSearch>
+  <PPTE2_ClearAllFoodPrices>Clear all overrides</PPTE2_ClearAllFoodPrices>
+  <PPTE2_HdrFoodName>Food</PPTE2_HdrFoodName>
+  <PPTE2_HdrBaseMarketValue>Base value</PPTE2_HdrBaseMarketValue>
+  <PPTE2_HdrCustomPrice>Price (tickets)</PPTE2_HdrCustomPrice>
+  <PPTE2_EnableOrganHarvest>Enable organ sale</PPTE2_EnableOrganHarvest>
+  <PPTE2_FoodMul>Global food price multiplier: {0}</PPTE2_FoodMul>
+  <PPTE2_WageMul>Global wage multiplier: {0}</PPTE2_WageMul>
+  <PPTE2_DefaultWagePerHour>Default tickets per hour: {0}</PPTE2_DefaultWagePerHour>
+  <PPTE2_SectionWorkTypeWages>Per work-type tickets per hour</PPTE2_SectionWorkTypeWages>
+  <PPTE2_WorkTypeWagesHint>Leave blank to use the default rate. Which work types a prisoner may do is decided by Prison Labor. Piece rate pays per completed output: production per recipe batch, mining per vein, construction per building, growing/cutting per plant, hauling per haul, cleaning per filth, research per tech (split by contribution); other work types (including those added by other MODs) pay per completed job.</PPTE2_WorkTypeWagesHint>
+  <PPTE2_ResetWorkTypeWages>Reset all</PPTE2_ResetWorkTypeWages>
+  <PPTE2_FillWorkTypeWages>Fill defaults</PPTE2_FillWorkTypeWages>
+  <PPTE2_EnablePieceRate>Enable piece-rate billing</PPTE2_EnablePieceRate>
+  <PPTE2_HdrWorkType>Work type</PPTE2_HdrWorkType>
+  <PPTE2_HdrMode>Billing</PPTE2_HdrMode>
+  <PPTE2_HdrHourlyWage>Per hour</PPTE2_HdrHourlyWage>
+  <PPTE2_HdrPieceWage>Per unit</PPTE2_HdrPieceWage>
+  <PPTE2_ModePerHour>Per hour</PPTE2_ModePerHour>
+  <PPTE2_ModePerItem>Per unit</PPTE2_ModePerItem>
+  <PPTE2_WageModeLabel>Wage billing:</PPTE2_WageModeLabel>
+  <PPTE2_WageModeFollow>Follow global</PPTE2_WageModeFollow>
+  <PPTE2_SilverRate>Tickets per silver of value: {0}</PPTE2_SilverRate>
+  <PPTE2_StartingTickets>Starting tickets per prisoner: {0}</PPTE2_StartingTickets>
+  <PPTE2_IgnoreRiot>Ignore ticket check during mental break / prison break</PPTE2_IgnoreRiot>
+  <PPTE2_AllowMealDebt>Allow meal credit (balance may go negative; wages repay the debt first)</PPTE2_AllowMealDebt>
+  <PPTE2_TabSocial>Prisoner social</PPTE2_TabSocial>
+  <PPTE2_EnableLoans>Enable loans</PPTE2_EnableLoans>
+  <PPTE2_EnableRobbery>Enable robbery</PPTE2_EnableRobbery>
+  <PPTE2_EnableBegging>Enable begging</PPTE2_EnableBegging>
+  <PPTE2_AllowPlayerLoans>Allow prisoners to borrow from the player (approve each request)</PPTE2_AllowPlayerLoans>
+  <PPTE2_BadDebtPenalty>Bad debt hurts the lender's mood</PPTE2_BadDebtPenalty>
+  <PPTE2_LoanTriggerBalance>Loan trigger balance (below this they borrow/beg/rob): {0}</PPTE2_LoanTriggerBalance>
+  <PPTE2_LoanCooldown>Loan cooldown (days): {0}</PPTE2_LoanCooldown>
+  <PPTE2_MaxLoanAmount>Max loan amount: {0}</PPTE2_MaxLoanAmount>
+  <PPTE2_LoanInterestBase>Base interest (0 opinion): {0}</PPTE2_LoanInterestBase>
+  <PPTE2_LoanInterestPerOpinion>Interest reduction per opinion point (%): {0}</PPTE2_LoanInterestPerOpinion>
+  <PPTE2_LoanInterestMin>Min interest: {0}</PPTE2_LoanInterestMin>
+  <PPTE2_LoanInterestMax>Max interest: {0}</PPTE2_LoanInterestMax>
+  <PPTE2_RobberyCooldown>Robbery cooldown (days): {0}</PPTE2_RobberyCooldown>
+  <PPTE2_RobberyHungerThreshold>Robbery hunger threshold (food below this): {0}</PPTE2_RobberyHungerThreshold>
+  <PPTE2_RobberyTakePercent>Robbery take: {0}</PPTE2_RobberyTakePercent>
+  <PPTE2_BeggingCooldown>Begging cooldown (days): {0}</PPTE2_BeggingCooldown>
+  <PPTE2_BeggingAmountMin>Begging min tickets: {0}</PPTE2_BeggingAmountMin>
+  <PPTE2_BeggingAmountMax>Begging max tickets: {0}</PPTE2_BeggingAmountMax>
+  <PPTE2_BeggingChanceBase>Begging base chance: {0}</PPTE2_BeggingChanceBase>
+  <PPTE2_BeggingChancePerOpinion>Begging chance per opinion point (%): {0}</PPTE2_BeggingChancePerOpinion>
+  <PPTE2_SocialHint>Prisoners start these behaviors on their own when they can't afford food. Robbery is a real melee fight — it can be lethal! Per-prisoner toggles are in the prisoner config window.</PPTE2_SocialHint>
+  <PPTE2_VerboseLog>Verbose logging</PPTE2_VerboseLog>
+  <PPTE2_TicketDefaultName>meal ticket</PPTE2_TicketDefaultName>
+  <PPTE2_TicketDefaultUnit>tickets</PPTE2_TicketDefaultUnit>
+  <PPTE2_BalanceCardTitleFormat>{0} balance</PPTE2_BalanceCardTitleFormat>
+  <PPTE2_TicketNameLabel>Ticket name:</PPTE2_TicketNameLabel>
+  <PPTE2_TicketNamePreview>Current ticket name: {0}</PPTE2_TicketNamePreview>
+  <PPTE2_EnableRansom>Enable prisoner ransom</PPTE2_EnableRansom>
+  <PPTE2_RansomTicketCost>Tickets required for ransom: {0}</PPTE2_RansomTicketCost>
+  <PPTE2_RansomMinDays>Minimum days imprisoned: {0}</PPTE2_RansomMinDays>
+  <PPTE2_RansomHint>Once a prisoner has saved up enough tickets and served enough time, they may occasionally ask to buy their freedom. You must approve for them to be released automatically — their tickets are used as payment. Per-prisoner overrides are available in the prisoner config window.</PPTE2_RansomHint>
+  <PPTE2_EnableChildParentPay>Allow child prisoners to use their parents' tickets</PPTE2_EnableChildParentPay>
+  <PPTE2_ChildPayModeLabel>Child meal payment:</PPTE2_ChildPayModeLabel>
+  <PPTE2_ChildPayModeOwnFirst>Own first</PPTE2_ChildPayModeOwnFirst>
+  <PPTE2_ChildPayModeParentFirst>Parents first</PPTE2_ChildPayModeParentFirst>
+  <PPTE2_ChildPayModeMerged>Shared wallet</PPTE2_ChildPayModeMerged>
+  <PPTE2_ChildPayHint>Child prisoners' meals can be paid from their imprisoned parents' tickets (requires Biotech children). "Own first / Parents first" sets the deduction order; "Shared wallet" treats the family as one account and shows the combined balance. Per-prisoner allow/deny is in the prisoner config window.</PPTE2_ChildPayHint>
+
+  <!-- Inspect / Gizmo -->
+  <PPTE2_GizmoMenu>Prisoner tickets</PPTE2_GizmoMenu>
+  <PPTE2_GizmoMenuDesc>Manage this prisoner's tickets (give/take), individual settings and ransom.</PPTE2_GizmoMenuDesc>
+
+  <!-- Dialog_GiveTickets -->
+  <PPTE2_GiveDialogTitle>Give {0}(s)</PPTE2_GiveDialogTitle>
+  <PPTE2_TakeDialogTitle>Take {0}(s)</PPTE2_TakeDialogTitle>
+  <PPTE2_CurrentBalance>Current balance: {0}</PPTE2_CurrentBalance>
+  <PPTE2_InvalidNumber>Please enter a positive number (decimals supported).</PPTE2_InvalidNumber>
+  <PPTE2_GaveTickets>Gave {1} {2}(s) to {0}.</PPTE2_GaveTickets>
+  <PPTE2_TookTickets>Took {1} {2}(s) from {0}.</PPTE2_TookTickets>
+
+  <!-- Window_PrisonerConfig -->
+  <PPTE2_BalanceLabel>{1} balance: {0}</PPTE2_BalanceLabel>
+  <PPTE2_FoodMulLabel>Individual food price multiplier: {0}</PPTE2_FoodMulLabel>
+  <PPTE2_WageMulLabel>Individual wage multiplier: {0}</PPTE2_WageMulLabel>
+  <PPTE2_OverrideOrganHarvest>Override global organ-sale setting</PPTE2_OverrideOrganHarvest>
+  <PPTE2_AllowOrganHarvest>Allow selling organs for this prisoner</PPTE2_AllowOrganHarvest>
+  <PPTE2_GlobalSetting>Using global setting: {0}</PPTE2_GlobalSetting>
+  <PPTE2_Enabled>enabled</PPTE2_Enabled>
+  <PPTE2_Disabled>disabled</PPTE2_Disabled>
+  <PPTE2_ResetDefaults>Reset to defaults</PPTE2_ResetDefaults>
+  <PPTE2_SocialSettingsTitle>Social behaviors</PPTE2_SocialSettingsTitle>
+  <PPTE2_FeatureLoan>Loans</PPTE2_FeatureLoan>
+  <PPTE2_FeatureRobbery>Robbery</PPTE2_FeatureRobbery>
+  <PPTE2_FeatureBegging>Begging</PPTE2_FeatureBegging>
+  <PPTE2_SocialFollow>Follow global</PPTE2_SocialFollow>
+  <PPTE2_SocialAllow>Allow</PPTE2_SocialAllow>
+  <PPTE2_SocialDeny>Deny</PPTE2_SocialDeny>
+  <PPTE2_ChildPayTitle>Parent pay (children only)</PPTE2_ChildPayTitle>
+  <PPTE2_FeatureChildPay>Parent pay</PPTE2_FeatureChildPay>
+  <PPTE2_RansomOverrideTitle>Ransom (0 = follow global)</PPTE2_RansomOverrideTitle>
+  <PPTE2_RansomTicketOverrideLabel>Tickets required:</PPTE2_RansomTicketOverrideLabel>
+  <PPTE2_RansomMinDaysOverrideLabel>Minimum days imprisoned:</PPTE2_RansomMinDaysOverrideLabel>
+  <PPTE2_RansomEffective>Currently in effect: {0} tickets / {1} days</PPTE2_RansomEffective>
+
+  <!-- Window_PrisonerMenu -->
+  <PPTE2_MenuGive>Give tickets</PPTE2_MenuGive>
+  <PPTE2_MenuTake>Take tickets</PPTE2_MenuTake>
+  <PPTE2_MenuConfig>Configure</PPTE2_MenuConfig>
+  <PPTE2_RansomTitle>Ransom</PPTE2_RansomTitle>
+  <PPTE2_RansomDisabledGlobal>Ransom is disabled (enable it in MOD settings).</PPTE2_RansomDisabledGlobal>
+  <PPTE2_RansomNeedTickets>Required tickets: {0} (has {1})</PPTE2_RansomNeedTickets>
+  <PPTE2_RansomNeedTime>Minimum imprisonment: {0} days (imprisoned {1} days)</PPTE2_RansomNeedTime>
+  <PPTE2_RansomRequestPending>{0} offers {1} {2}(s) to buy freedom — awaiting your approval!</PPTE2_RansomRequestPending>
+  <PPTE2_RansomApprove>Approve ransom</PPTE2_RansomApprove>
+  <PPTE2_RansomReject>Reject</PPTE2_RansomReject>
+  <PPTE2_RansomEligibleWait>Requirements met — waiting for the prisoner to ask…</PPTE2_RansomEligibleWait>
+  <PPTE2_RansomNotEligible>Requirements not met yet.</PPTE2_RansomNotEligible>
+  <PPTE2_RansomCooldown>Request rejected — wait {0} more days.</PPTE2_RansomCooldown>
+
+  <!-- Health status (Hediff) -->
+  <PPTE2_HediffLabel>{1}: {0}</PPTE2_HediffLabel>
+  <PPTE2_HediffLabel_Debt>{1} debt: {0} {2}</PPTE2_HediffLabel_Debt>
+  <PPTE2_HediffTip_Balance>{1} balance: {0} {2}</PPTE2_HediffTip_Balance>
+  <PPTE2_HediffTip_Debt>Owes {0} {2} of {1}. Wages and other income repay the debt first.</PPTE2_HediffTip_Debt>
+  <PPTE2_HediffTip_ParentSupport>Parents can cover {0} {1}(s) ({2})</PPTE2_HediffTip_ParentSupport>
+  <PPTE2_HediffTip_MergedPool>Shared family tickets: {0} {1}(s)</PPTE2_HediffTip_MergedPool>
+
+  <!-- Messages -->
+  <PPTE2_MealOnCredit>{0} ate {1} on credit and now owes {2} {3}(s). Wages and other income will repay the debt first.</PPTE2_MealOnCredit>
+  <PPTE2_NoTicketsBlocked>{0} couldn't eat: needs {1} {2}(s), only has {3}.</PPTE2_NoTicketsBlocked>
+  <PPTE2_LoanMade>{0} borrowed {2} {3}(s) from {1} (interest {4}%).</PPTE2_LoanMade>
+  <PPTE2_LoanRepaidMsg>{0} repaid the loan of {2} {3}(s) borrowed from {1}.</PPTE2_LoanRepaidMsg>
+  <PPTE2_LoanDefaultedMsg>{0}'s loan went bad — {1} lost {2} {3}(s).</PPTE2_LoanDefaultedMsg>
+  <PPTE2_PlayerLoanTitle>Loan request</PPTE2_PlayerLoanTitle>
+  <PPTE2_PlayerLoanBody>{0} wants to borrow {1} {2}(s) from you.</PPTE2_PlayerLoanBody>
+  <PPTE2_PlayerLoanApprove>Lend</PPTE2_PlayerLoanApprove>
+  <PPTE2_PlayerLoanReject>Reject</PPTE2_PlayerLoanReject>
+  <PPTE2_PlayerLoanApproved>You lent {0} {1} {2}(s).</PPTE2_PlayerLoanApproved>
+  <PPTE2_PlayerLoanRejected>You rejected {0}'s loan request.</PPTE2_PlayerLoanRejected>
+  <PPTE2_BegSuccess>{0} begged {2} {3}(s) from {1}.</PPTE2_BegSuccess>
+  <PPTE2_RobberySuccessMsg>{0} overpowered {1} and stole {2} {3}(s)!</PPTE2_RobberySuccessMsg>
+  <PPTE2_RobberyFailedMsg>{0}'s robbery of {1} failed and {0} got beaten up.</PPTE2_RobberyFailedMsg>
+  <PPTE2_OwesLabel>Outstanding loan: {0} {1}(s)</PPTE2_OwesLabel>
+  <PPTE2_ParentPayLine>Parents can cover: {0} {1}(s)</PPTE2_ParentPayLine>
+  <PPTE2_RansomHasDebt>Cannot ransom with an outstanding loan.</PPTE2_RansomHasDebt>
+  <PPTE2_OrganSold>{0} sold a {1} for {2} {3}(s).</PPTE2_OrganSold>
+  <PPTE2_RansomRequestMsg>{0} offers {1} {2}(s) to buy freedom and awaits your approval.</PPTE2_RansomRequestMsg>
+  <PPTE2_RansomApproved>{0} paid {1} {2}(s) and was released!</PPTE2_RansomApproved>
+  <PPTE2_RansomRejected>You rejected {0}'s ransom request.</PPTE2_RansomRejected>
+  <PPTE2_RansomNoLongerEligible>{0} no longer meets the ransom requirements; request voided.</PPTE2_RansomNoLongerEligible>
+
+  <!-- Built-in prisoner labour system (v2.3+) -->
+  <PPTE2_TabPrisonWork>Prisoner work</PPTE2_TabPrisonWork>
+  <PPTE2_EnableBuiltinLabor>Enable built-in prisoner labour (used when Prison Labor is not installed)</PPTE2_EnableBuiltinLabor>
+  <PPTE2_BuiltinLaborDisabledByPL>Prison Labor detected: the built-in labour system is disabled and prisoner work assignment is managed by Prison Labor. Ticket wages are unaffected.</PPTE2_BuiltinLaborDisabledByPL>
+  <PPTE2_PrisonerWorkDefaultOn>Force new prisoners to work by default</PPTE2_PrisonerWorkDefaultOn>
+  <PPTE2_EnableMotivation>Enable motivation (unsupervised/hungry prisoners lose motivation and slack off)</PPTE2_EnableMotivation>
+  <PPTE2_MotivationThreshold>Laziness threshold (prisoners refuse work below this): {0}</PPTE2_MotivationThreshold>
+  <PPTE2_AllowedWorkTypesTitle>Work types prisoners may do:</PPTE2_AllowedWorkTypesTitle>
+  <PPTE2_PrisonWorkHint>Note: warden, doctor, handling, firefighting, hunting and other sensitive/violent work types are never available to prisoners. Work types added by other mods can be enabled here but won't appear as columns in the Prisoners tab (they default to normal priority). Changes apply to all current prisoners immediately.</PPTE2_PrisonWorkHint>
+  <PPTE2_SubTabOverview>Overview</PPTE2_SubTabOverview>
+  <PPTE2_SubTabWork>Work</PPTE2_SubTabWork>
+  <PPTE2_SubTabSchedule>Schedule</PPTE2_SubTabSchedule>
+  <PPTE2_SubTabAssign>Assign</PPTE2_SubTabAssign>
+  <PPTE2_PrisonTabDisabledPL>Prison Labor is installed; the built-in labour system is disabled.\nPrisoner work is managed by Prison Labor.</PPTE2_PrisonTabDisabledPL>
+  <PPTE2_PrisonTabDisabledSetting>The built-in labour system is disabled in the mod settings.</PPTE2_PrisonTabDisabledSetting>
+  <PPTE2_ColWorkToggleTip>Force this prisoner to work for meal tickets (overrides the global default).</PPTE2_ColWorkToggleTip>
+  <PPTE2_ColMotivationTip>Motivation: {0}. Below {1} this prisoner refuses to work.</PPTE2_ColMotivationTip>
+  <PPTE2_ColBalanceTip>{0} balance. Click to open this prisoner's menu.</PPTE2_ColBalanceTip>
+  <PPTE2_StatusIdle>Idle</PPTE2_StatusIdle>
+  <PPTE2_BillPrisonersOnly>Prisoners only</PPTE2_BillPrisonersOnly>
+  <PPTE2_BillColonistsOnly>Colonists &amp; slaves only</PPTE2_BillColonistsOnly>
+  <PPTE2_LaborArea>Prisoner labor area</PPTE2_LaborArea>
+  <PPTE2_LaborAreaExpand>Expand prisoner labor area</PPTE2_LaborAreaExpand>
+  <PPTE2_LaborAreaExpandDesc>Designate a prisoner labor area. Colonists will not work inside it, leaving the work to prisoners.</PPTE2_LaborAreaExpandDesc>
+  <PPTE2_LaborAreaClear>Clear prisoner labor area</PPTE2_LaborAreaClear>
+  <PPTE2_LaborAreaClearDesc>Clear prisoner labor areas.</PPTE2_LaborAreaClearDesc>
+  <PPTE2_MotivationTip>Motivation falls when unsupervised or starving, and rises when supervised, well-fed or paid. Below {0} the prisoner refuses to work.</PPTE2_MotivationTip>
+  <PPTE2_MotivationStatPart>Prisoner motivation {0}</PPTE2_MotivationStatPart>
+  <PPTE2_WorkSettingsTitle>Work</PPTE2_WorkSettingsTitle>
+  <PPTE2_FeatureWork>Forced work</PPTE2_FeatureWork>
+
+  <!-- v2.3.1: faction requests -->
+  <PPTE2_TabRequest>Requests</PPTE2_TabRequest>
+  <PPTE2_EnableFactionRequest>Enable faction requests (comms console)</PPTE2_EnableFactionRequest>
+  <PPTE2_EnableCellAutoRequest>Broke prisoners request automatically when a comms console is in their cell</PPTE2_EnableCellAutoRequest>
+  <PPTE2_RequestSilverMinFactor>Request range lower bound (× prisoner value): {0}</PPTE2_RequestSilverMinFactor>
+  <PPTE2_RequestSilverMaxFactor>Request range upper bound (× prisoner value): {0}</PPTE2_RequestSilverMaxFactor>
+  <PPTE2_RequestBaseChance>Base success chance: {0}</PPTE2_RequestBaseChance>
+  <PPTE2_RequestChancePerSocial>Success bonus per Social level: +{0}%</PPTE2_RequestChancePerSocial>
+  <PPTE2_RequestChancePerValue>Success bonus per 10,000 prisoner value: +{0}%</PPTE2_RequestChancePerValue>
+  <PPTE2_RequestAmountPenalty>Success penalty at max request: -{0}</PPTE2_RequestAmountPenalty>
+  <PPTE2_RequestCooldownDays>Cooldown per prisoner (days): {0}</PPTE2_RequestCooldownDays>
+  <PPTE2_RequestTriggerBalance>Auto-request trigger balance: {0}</PPTE2_RequestTriggerBalance>
+  <PPTE2_RequestHint>Colonists or slaves can right-click a comms console to request upkeep for a prisoner from their faction. On success, silver is drop-podded near the console and the prisoner gains the same amount of {0} (at the silver exchange rate). The range and success chance scale with the prisoner's market value; the caller's Social skill raises the odds, and asking closer to the maximum lowers them. Each prisoner has a cooldown whether the request succeeds or not. Build a comms console inside a cell and broke prisoners will walk over and call their faction themselves.</PPTE2_RequestHint>
+  <PPTE2_RequestTicketsOption>Request meal tickets for a prisoner…</PPTE2_RequestTicketsOption>
+  <PPTE2_RequestDialogTitle>Request meal tickets for a prisoner</PPTE2_RequestDialogTitle>
+  <PPTE2_RequestSelectHint>Select a prisoner on the left</PPTE2_RequestSelectHint>
+  <PPTE2_RequestValue>Market value: {0} silver</PPTE2_RequestValue>
+  <PPTE2_RequestRange>Request range: {0} ~ {1} silver</PPTE2_RequestRange>
+  <PPTE2_RequestAmount>Request {0} silver (= {1} {2})</PPTE2_RequestAmount>
+  <PPTE2_RequestChance>Success chance: {0} (Social level {1})</PPTE2_RequestChance>
+  <PPTE2_RequestCooldown>On cooldown: about {0} days left</PPTE2_RequestCooldown>
+  <PPTE2_RequestConfirm>Make the call</PPTE2_RequestConfirm>
+  <PPTE2_RequestOnCooldownTag> (cooldown)</PPTE2_RequestOnCooldownTag>
+  <PPTE2_RequestFailed>{0}'s faction ({1}) refused the request for {2} silver.</PPTE2_RequestFailed>
+  <PPTE2_RequestSucceededLetter>Faction sent upkeep</PPTE2_RequestSucceededLetter>
+  <PPTE2_RequestSucceededText>{0}'s faction ({1}) agreed to the request and drop-podded {2} silver; {0} also received {3} {4}.</PPTE2_RequestSucceededText>
+
+  <!-- v2.3.1: joy -->
+  <PPTE2_TabJoyHygiene>Joy &amp; hygiene</PPTE2_TabJoyHygiene>
+  <PPTE2_EnablePrisonerJoyNeed>Enable prisoner recreation need</PPTE2_EnablePrisonerJoyNeed>
+  <PPTE2_EnableJoyFees>Charge prisoners for using joy buildings</PPTE2_EnableJoyFees>
+  <PPTE2_JoyFeePerUse>Default joy fee (silver per use): {0}</PPTE2_JoyFeePerUse>
+  <PPTE2_CustomJoyFeesTitle>Per-building fees (silver per use, blank = default)</PPTE2_CustomJoyFeesTitle>
+  <PPTE2_JoyHint>Prisoners pay when using joy buildings: one charge per full in-game hour of entertainment, prorated if interrupted; silver is converted to {0} at the exchange rate. Free-form joy without buildings (walking, meditation) is free. With meal credit enabled they can go into debt; without it, prisoners who cannot afford it simply skip entertainment. The recreation need is for display and billing only and does not affect mood.</PPTE2_JoyHint>
+  <PPTE2_JoyOnCredit>{0} ran up {1} {2} of entertainment debt.</PPTE2_JoyOnCredit>
+  <PPTE2_JoyBlocked>{0} cannot afford entertainment (needs {1} {2}, has {3}) and skipped it.</PPTE2_JoyBlocked>
+
+  <!-- v2.3.1: hygiene -->
+  <PPTE2_EnableHygieneFees>Enable hygiene fees (toilets/showers billed by water &amp; power use)</PPTE2_EnableHygieneFees>
+  <PPTE2_WaterPricePerLiter>Water: {0} {1} per liter</PPTE2_WaterPricePerLiter>
+  <PPTE2_PowerPricePerWd>Power: {0} {1} per Wd</PPTE2_PowerPricePerWd>
+  <PPTE2_HygieneModMissing>Dubs Bad Hygiene not detected; the settings below have no effect.</PPTE2_HygieneModMissing>
+  <PPTE2_HygieneHint>Only active with Dubs Bad Hygiene installed: prisoners pay {0} for the water and power consumed when using toilets or showers. Prisoners who cannot pay are banned from using them — they will hold it in until they have an accident, or stay dirty; if their cell can reach a river they can still wash there for free. Hygiene fees never go on credit.</PPTE2_HygieneHint>
+  <PPTE2_HygieneBlocked>{0} cannot afford hygiene fees (needs {1} {2}, has {3}) and has to hold it in.</PPTE2_HygieneBlocked>
+
+  <!-- v2.3.1: fee exemptions -->
+  <PPTE2_FeeExemptTitle>Fee exemptions</PPTE2_FeeExemptTitle>
+  <PPTE2_FreeAllFood>All food is free</PPTE2_FreeAllFood>
+  <PPTE2_FreeJoyAll>Joy fees waived for all prisoners</PPTE2_FreeJoyAll>
+  <PPTE2_FreeHygieneAll>Hygiene fees waived for all prisoners</PPTE2_FreeHygieneAll>
+  <PPTE2_FeeExemptHint>To make specific foods free, tick them in the Free column on the Food prices tab (corpses and nutrient paste included). Each prisoner can also be set free/charged per fee category in the Configure Prisoner window.</PPTE2_FeeExemptHint>
+  <PPTE2_HdrFree>Free</PPTE2_HdrFree>
+  <PPTE2_FeeFood>Food fee</PPTE2_FeeFood>
+  <PPTE2_FeeJoy>Joy fee</PPTE2_FeeJoy>
+  <PPTE2_FeeHygiene>Hygiene fee</PPTE2_FeeHygiene>
+
+</LanguageData>

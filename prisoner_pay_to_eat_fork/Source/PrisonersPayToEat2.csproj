@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B2C3D4E5-F6A7-4890-BCDE-F12345678901}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PrisonersPayToEat2</RootNamespace>
+    <AssemblyName>PrisonersPayToEat2</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <!-- 脱敏：DLL 的 CodeView 调试目录会内嵌 PDB 的本机绝对路径，PathMap 把它改写成 /src，
+         PDB 里的源文件路径同样被改写（见 AI_DEV_NOTES 脱敏规则）。只影响路径字符串，
+         不影响 IL 与堆栈里的行号。 -->
+    <PathMap>$(MSBuildProjectDirectory)=/src</PathMap>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(HarmonyDir)\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PrisonersPayToEat2Mod.cs" />
+    <Compile Include="PPTELateInit.cs" />
+    <Compile Include="PrisonersPayToEat2Settings.cs" />
+    <Compile Include="PrisonersPayToEat2Manager.cs" />
+    <Compile Include="RansomTicker.cs" />
+    <Compile Include="PrisonerSocialTicker.cs" />
+    <Compile Include="Hediff_MealTickets.cs" />
+    <Compile Include="MarketPriceHelper.cs" />
+    <Compile Include="PPTEName.cs" />
+    <Compile Include="PPTETextures.cs" />
+    <Compile Include="OrganHarvestHelper.cs" />
+    <Compile Include="PieceRateWorker.cs" />
+    <Compile Include="RecipeWorker_OrganSale.cs" />
+    <Compile Include="Patches\Harmony_Ingest.cs" />
+    <Compile Include="Patches\Harmony_FoodSearch.cs" />
+    <Compile Include="Patches\Harmony_UI.cs" />
+    <Compile Include="Patches\Harmony_PrisonLabor.cs" />
+    <Compile Include="Patches\Harmony_PieceRate.cs" />
+    <Compile Include="Patches\Harmony_PrisonWorkCore.cs" />
+    <Compile Include="Patches\Harmony_PrisonerSchedule.cs" />
+    <Compile Include="Patches\Harmony_PrisonerOutfit.cs" />
+    <Compile Include="Patches\Harmony_LaborArea.cs" />
+    <Compile Include="Patches\Harmony_BillWorkerMode.cs" />
+    <Compile Include="Work\PrisonerWorkSystem.cs" />
+    <Compile Include="Work\Area_PrisonerLabor.cs" />
+    <Compile Include="Work\Need_Motivation.cs" />
+    <Compile Include="Work\ThinkNode_PrisonerWorkGate.cs" />
+    <Compile Include="UI\MainTabWindow_Prisoners.cs" />
+    <Compile Include="UI\PawnColumnWorkers_Prison.cs" />
+    <Compile Include="UI\Window_PrisonerConfig.cs" />
+    <Compile Include="UI\Window_PrisonerMenu.cs" />
+    <Compile Include="UI\Dialog_GiveTickets.cs" />
+    <Compile Include="UI\Dialog_LoanRequest.cs" />
+    <Compile Include="UI\Dialog_RequestTickets.cs" />
+    <Compile Include="Requests\FactionRequestSystem.cs" />
+    <Compile Include="Requests\JobDriver_RequestTickets.cs" />
+    <Compile Include="Requests\ThinkNode_RequestTicketsGate.cs" />
+    <Compile Include="Requests\Harmony_CommsConsole.cs" />
+    <Compile Include="Joy\Need_PrisonerJoy.cs" />
+    <Compile Include="Joy\Harmony_JoyCharges.cs" />
+    <Compile Include="ModCompat\HygieneBridge.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+      xcopy /Y /I "$(TargetDir)$(AssemblyName).dll" "$(ProjectDir)\..\1.6\Assemblies\"
+      xcopy /Y /I "$(TargetDir)$(AssemblyName).pdb" "$(ProjectDir)\..\1.6\Assemblies\"
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
