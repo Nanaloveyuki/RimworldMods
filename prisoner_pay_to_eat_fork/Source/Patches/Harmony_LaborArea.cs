@@ -84,14 +84,15 @@ namespace PrisonersPayToEat2
             harmony.Patch(m, postfix: postfix);
         }
 
-        public static void HasJobOnThingPostfix(Pawn pawn, Thing t, ref bool __result)
+        // Override parameter names belong to other mods; only their positions are stable.
+        public static void HasJobOnThingPostfix(Pawn __0, Thing __1, ref bool __result)
         {
-            if (t != null) BlockIfLaborArea(pawn, t.PositionHeld, ref __result);
+            if (__1 != null) BlockIfLaborArea(__0, __1.PositionHeld, ref __result);
         }
 
-        public static void HasJobOnCellPostfix(Pawn pawn, IntVec3 c, ref bool __result)
+        public static void HasJobOnCellPostfix(Pawn __0, IntVec3 __1, ref bool __result)
         {
-            BlockIfLaborArea(pawn, c, ref __result);
+            BlockIfLaborArea(__0, __1, ref __result);
         }
 
         private static void BlockIfLaborArea(Pawn pawn, IntVec3 c, ref bool result)
