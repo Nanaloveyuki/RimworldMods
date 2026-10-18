@@ -3,6 +3,7 @@
   <name>Oxygen DSL Framework</name>
   <author>Nanaloveyuki</author>
   <packageId>nanaloveyuki.oxygendsl</packageId>
+  <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3817603245</url>
   <modVersion>0.0.1</modVersion>
   <supportedVersions><li>1.6</li><li>1.7</li></supportedVersions>
   <modDependencies><li><packageId>brrainz.harmony</packageId><displayName>Harmony</displayName><steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl></li></modDependencies>

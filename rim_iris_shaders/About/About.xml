@@ -5,7 +5,7 @@
   <packageId>RimIrisShaders.Moonlight</packageId>
   <supportedVersions><li>1.6</li><li>1.7</li></supportedVersions>
   <modDependencies>
-    <li><packageId>RimIris.RimIris.Beta</packageId><displayName>RimIris Beta</displayName></li>
+    <li><packageId>RimIris.RimIris.Beta</packageId><displayName>RimIris Beta</displayName><steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3796735623</steamWorkshopUrl></li>
   </modDependencies>
   <loadAfter><li>RimIris.RimIris.Beta</li></loadAfter>
   <description>A bright, cool moonlight filter for RimIris. Enable Moonlight in the Iris shader pack screen. Requires RimIris Beta.</description>

@@ -17,10 +17,12 @@
     <li>
       <packageId>astryl.RadiusUI.Framework</packageId>
       <displayName>RadiusUI Framework</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3786107692</steamWorkshopUrl>
     </li>
     <li>
       <packageId>astryl.RadiusUI.MissionControl</packageId>
       <displayName>RadiusUI Mission Control</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3788256848</steamWorkshopUrl>
     </li>
   </modDependencies>
   <loadAfter>

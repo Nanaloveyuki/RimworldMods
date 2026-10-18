@@ -32,18 +32,15 @@ Windows PowerShell 使用 `python scripts/python/deploy.py` 及相同参数。�
 
 部署必须使用模块支持的真实游戏安装，并遵守当前脚本的进程、路径、目标身份和内容清单要求。本次已验证统一 CLI 的 `--help`、`--list`、`--preflight`，并完成 `keep_your_identity`、`advanced_rimtalk` 的 Release build-only 及 `odf_mods/PrisonerNames` 的跨项目构建与正式暂存；未运行完整测试套件、格式化、游戏内验收或实际写入游戏 Mods。
 
-## 发布资料缺项
+## 发布资料状态
 
-本次整理后，正式项目仍缺 `About/Preview.png`：
+14 个正式 Mod 包均已有 `About/Preview.png`。本轮为 `oh_you_are_so_fast`、`radius_ui_mission_control_fixes`、`rim_carbon14`、`rim_iris_shaders` 补齐 960×540 黑底白字中英双标题图，既有预览图保持不变。Oxygen 示例与 Carbon Fixture 属于示例／测试，不混作正式发布项目。
 
-- `oh_you_are_so_fast`
-- `radius_ui_mission_control_fixes`
-- `rim_carbon14`
-- `rim_iris_shaders`
+Oxygen DSL Framework 的用户确认工坊链接为 <https://steamcommunity.com/sharedfiles/filedetails/?id=3817603245>，已写入本体 `url` 和四处依赖声明。RhahPolicy 示例的饥与祸依赖链接使用仓库现有 `PublishedFileId.txt`（3807233439），不修改发布 ID。
 
-现有预览图已由集成任务规范为 960×540，Advanced RimTalk 的图标为 128×128；不为缺图项目生成替代素材。Oxygen 示例与 Carbon Fixture 属于示例／测试，不混作正式发布项目。
+其他依赖工坊链接依据本机已安装 Mod 的 `packageId` 与 `About/PublishedFileId.txt` 补齐：RimTalk（3551203752）、RadiusUI Framework（3786107692）、RadiusUI Mission Control（3788256848）、RimIris Beta（3796735623）、IrisMenus（3798502474）。AdvancedRimTalk 的本体 URL 曾误指向 IrisMenus，现按本机发布 ID 修正为 3801974557。全部非 DLC 依赖声明均已有 `steamWorkshopUrl`；未进行网页搜索，未改动任何发布 ID 文件。
 
-尚待用户提供或确认的依赖工坊链接涉及：`cj.rimtalk`、`astryl.RadiusUI.Framework`、`astryl.RadiusUI.MissionControl`、`RimIris.RimIris.Beta`、`nanaloveyuki.oxygendsl`、`nanaloveyuki.ratkin.hungerandhavoc`。IrisMenus 的既有链接存在歧义，需确认后再传播。DLC 不按工坊 Mod 编造链接。目录整理不代表全仓已满足发布要求。
+本轮已打开四张新图检查排版，验证 17 份 About XML 可解析及全部非 DLC 依赖链接完整；七个相关发布配置使用真实暂存逻辑完成临时打包，预览图和元数据 SHA-256 与源文件一致，临时目录已删除。RHAH 源码契约检查通过；未写入游戏 Mods、未上传工坊或进行游戏内验收。
 
 ## 链接边界
 

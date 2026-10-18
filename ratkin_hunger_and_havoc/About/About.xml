@@ -162,6 +162,7 @@ Compatibility with Combat Extended is unknown. The likely clash is the temperatu
     <li>
       <packageId>nanaloveyuki.oxygendsl</packageId>
       <displayName>Oxygen DSL Framework</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3817603245</steamWorkshopUrl>
     </li>
   </modDependencies>
   <incompatibleWith>
