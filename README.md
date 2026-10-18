@@ -38,7 +38,6 @@ RimWorld 模组、框架与开发工具的统一源码仓库。原独立仓库�
 | 项目 | 边界 |
 | --- | --- |
 | [MultiFloor-fork](multi_floor_fork/) | 仅保留 [MultiFloors 机制与兼容性调查报告](multi_floor_fork/docs/references/MultiFloors-机制与兼容性调查.md)，没有源码 fork 或可部署 Mod |
-| [Ratkin-Great-Famine-Year-Continued](ratkin_great_famine_year_continued/) | 旧鼠灾续作归档，保留原项目文档及授权边界；不适用根目录双许可 |
 
 ## 共享入口
 
@@ -50,4 +49,4 @@ RimWorld 模组、框架与开发工具的统一源码仓库。原独立仓库�
 
 有权重新授权的自有贡献采用 **MIT OR Apache-2.0** 双许可，使用者可任选其一。完整文本见 [LICENSE-MIT](LICENSE-MIT) 和 [LICENSE-APACHE](LICENSE-APACHE)，适用范围与例外见 [LICENSE](LICENSE)。
 
-第三方源码、素材、依赖与 fork 保留原许可证、署名及 NOTICE；根目录双许可不覆盖它们。尤其 `Ratkin-Great-Famine-Year-Continued` 不获得新的使用授权，`Lead-Your-Pets` 的上游内容仍受原作者授权范围约束。分发单个项目时，应携带其 LICENSE、NOTICE 和适用的第三方声明。
+第三方源码、素材、依赖与 fork 保留原许可证、署名及 NOTICE；根目录双许可不覆盖它们。`Lead-Your-Pets` 的上游内容仍受原作者授权范围约束。分发单个项目时，应携带其 LICENSE、NOTICE 和适用的第三方声明。

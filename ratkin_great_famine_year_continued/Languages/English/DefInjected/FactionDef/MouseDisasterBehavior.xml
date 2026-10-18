@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LanguageData>
-  <MouseDisaster_NeutralVisitors.label>Neutral famine survivors</MouseDisaster_NeutralVisitors.label>
-  <MouseDisaster_NeutralVisitors.fixedName>Neutral famine survivors</MouseDisaster_NeutralVisitors.fixedName>
-  <MouseDisaster_HostileVisitors.label>Hostile famine survivors</MouseDisaster_HostileVisitors.label>
-  <MouseDisaster_HostileVisitors.fixedName>Hostile famine survivors</MouseDisaster_HostileVisitors.fixedName>
-  <MouseDisaster_FriendlyVisitors.label>Friendly famine survivors</MouseDisaster_FriendlyVisitors.label>
-  <MouseDisaster_FriendlyVisitors.fixedName>Friendly famine survivors</MouseDisaster_FriendlyVisitors.fixedName>
-</LanguageData>

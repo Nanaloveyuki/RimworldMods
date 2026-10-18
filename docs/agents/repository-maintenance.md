@@ -9,7 +9,7 @@
 - `docs/agents/`：协作约定、问题跟踪及必要操作说明。
 - `docs/references/`：引用、接口手册、设计资料及历史证据。Arti 与 Oxygen 手册整体迁入此类别，内部目录和相对链接保持一致。
 - 临时共享文档需明确删除条件。现存用户 `tmp/`、王国篇作者 `tmp.md` 原稿未删除；原稿归在王国篇参考目录，不作为自动清理目标。Oxygen 根 `.tmp.md` 已归为 `docs/references/architecture-notes.md`，保留原文并注明历史性质。
-- MultiFloors 项目只有调查报告，没有源码 fork 或可部署 Mod；旧鼠灾 Continued 保持独立归档与授权边界。
+- MultiFloors 项目只有调查报告，没有源码 fork 或可部署 Mod。
 
 ## 统一部署
 
