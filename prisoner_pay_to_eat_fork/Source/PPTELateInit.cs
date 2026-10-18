@@ -23,6 +23,8 @@ namespace PrisonersPayToEat2
             var harmony = new Harmony(PrisonersPayToEat2Mod.HarmonyId + ".lateinit");
             LaborAreaColonistBlock.Apply(harmony);
             HygieneBridge.Apply(harmony);
+            WorkAttribution.Initialize();
+            PrisonersPayToEat2Settings.RefreshWorkTypes();
             Log.Message("[PrisonersPayToEat2] deferred compat patches applied (post-defs).");
         }
     }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PPTE2_Motivation.label>motivation</PPTE2_Motivation.label>
+  <PPTE2_Motivation.description>How motivated this prisoner is to work. Motivation rises when supervised, well-fed and paid; it falls when neglected. Prisoners with low motivation refuse to work.</PPTE2_Motivation.description>
+  <PPTE2_PrisonerJoy.label>recreation</PPTE2_PrisonerJoy.label>
+  <PPTE2_PrisonerJoy.description>This prisoner's need for recreation. It falls over time and is restored when the prisoner entertains themselves; using recreation buildings costs meal tickets.</PPTE2_PrisonerJoy.description>
+</LanguageData>

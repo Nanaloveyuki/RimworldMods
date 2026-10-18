@@ -3,11 +3,15 @@
   <name>囚犯付费吃饭2（Prisoners Pay To Eat 2）</name>
   <author>AAA不玩抽象</author>
   <packageId>AAA.PrisonersPayToEat2</packageId>
+  <modVersion>2.4.0</modVersion>
   <supportedVersions>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <description><![CDATA[
 <size=24><b>囚犯付费吃饭2（Prisoners Pay To Eat 2）</b></size>
+
+<b>RimworldMods fork 2.4.0</b>：主线支持 RimWorld 1.7。1.6 加载完整冻结的上游 2.3.2 发布资源，不包含本 fork 的后续修复。原作者：AAA不玩抽象；1.7 维护：Nanaloveyuki。
 
 <size=18><b>核心玩法</b></size>
 你的囚犯再也不能白嫖殖民地的食物了！每一位囚犯进食都必须支付「饭票」，没有饭票就只能挨饿。饭票的获取途径：
@@ -132,7 +136,7 @@
 
 ■ <b>v2.3.2 兼容性修复</b>：修正了与其他 MOD 共存时可能出现的「地图无法生成 / 渲染报错」（跨 MOD 补丁加载时序问题），尤其是同时启用生物科技与大型内容 MOD 时的建图崩溃。
 
-<size=14><color=#888888>由 ZCode（deepseek-v4*glm5.2*kimi-k3） 制作 · 版本 2.3.2 · 适配 RimWorld 1.6</color></size>
+<size=14><color=#888888>上游由 ZCode（deepseek-v4*glm5.2*kimi-k3）制作 · 上游 2.3.2 / RimWorld 1.6；本 fork 2.4.0 / RimWorld 1.7</color></size>
 ]]></description>
   <modDependencies>
     <li>

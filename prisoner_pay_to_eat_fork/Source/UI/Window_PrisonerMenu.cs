@@ -12,6 +12,8 @@ namespace PrisonersPayToEat2
     public class Window_PrisonerMenu : Window
     {
         private readonly Pawn _prisoner;
+        private Vector2 _scroll;
+        private float _contentHeight = 394f;
 
         public override Vector2 InitialSize => new Vector2(440f, 430f);
 
@@ -27,7 +29,11 @@ namespace PrisonersPayToEat2
 
         public override void DoWindowContents(Rect inRect)
         {
+            var view = new Rect(0f, 0f, inRect.width - 20f, Mathf.Max(inRect.height, _contentHeight));
+            Widgets.BeginScrollView(inRect, ref _scroll, view);
+            inRect = view;
             var list = new Listing_Standard();
+            list.maxOneColumn = true;
             list.ColumnWidth = inRect.width - 8f;
             list.Begin(inRect);
 
@@ -67,7 +73,9 @@ namespace PrisonersPayToEat2
 
             DrawRansomSection(list, mgr, inRect);
 
+            _contentHeight = list.CurHeight + 8f;
             list.End();
+            Widgets.EndScrollView();
         }
 
         private void DrawRansomSection(Listing_Standard list, PrisonersPayToEat2Manager mgr, Rect inRect)

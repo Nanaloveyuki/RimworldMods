@@ -249,7 +249,20 @@ namespace PrisonersPayToEat2
 
         private void DrawPrisonWorkTab(Rect rect)
         {
-            var view = new Rect(0f, 0f, rect.width - 20f, 720f);
+            EnsureWorkTypesCached();
+            float width = rect.width - 20f;
+            float contentHeight;
+            if (PrisonLaborBridge.Present)
+                contentHeight = 4f + Text.CalcHeight("PPTE2_BuiltinLaborDisabledByPL".Translate(), width) + 12f;
+            else
+            {
+                int rows = 0;
+                foreach (var wt in _cachedWorkTypes)
+                    if (wt.visible && !PrisonerWorkSystem.NeverAllowedWorkTypes.Contains(wt.defName)) rows++;
+                contentHeight = 4f + 90f + (enableMotivation ? 54f : 0f) + 16f + 32f
+                    + rows * 30f + 12f + Text.CalcHeight("PPTE2_PrisonWorkHint".Translate(), width);
+            }
+            var view = new Rect(0f, 0f, width, Mathf.Max(rect.height, contentHeight));
             Widgets.BeginScrollView(rect, ref _prisonWorkScroll, view);
             float colW = (view.width - 40f) / 2f;
             float ly = 4f;
@@ -743,6 +756,12 @@ namespace PrisonersPayToEat2
             }
 
             Widgets.EndScrollView();
+        }
+
+        internal static void RefreshWorkTypes()
+        {
+            _cachedWorkTypes = null;
+            EnsureWorkTypesCached();
         }
 
         private static void EnsureWorkTypesCached()

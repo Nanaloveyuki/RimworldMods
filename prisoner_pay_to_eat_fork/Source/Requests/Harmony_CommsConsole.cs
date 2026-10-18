@@ -10,7 +10,7 @@ namespace PrisonersPayToEat2
     /// 通讯台右键菜单追加"为囚犯索要饭票"：殖民者或奴隶可用，打开索要窗口
     /// （选囚犯/定金额/看成功率），确认后该小人走到通讯台打电话。
     /// </summary>
-    [HarmonyPatch(typeof(Building_CommsConsole), nameof(Building_CommsConsole.GetFloatMenuOptions))]
+    [HarmonyPatch(typeof(Building_CommsConsole), nameof(Building_CommsConsole.GetFloatMenuOptions), new[] { typeof(Pawn) })]
     public static class Harmony_CommsConsole
     {
         [HarmonyPostfix]

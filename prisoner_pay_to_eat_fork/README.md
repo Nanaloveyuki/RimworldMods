@@ -8,7 +8,54 @@
 - 导入日期：2026-10-18；分支：`main`；版本：`v2.3.2`。
 - 上游 commit：[`5e5bab4db0b5cd4a55f161197a0a0caa085df08d`](https://github.com/ikun2522-art/PPTE2/commit/5e5bab4db0b5cd4a55f161197a0a0caa085df08d)。
 - 许可证：[MIT](LICENSE)；保留上游版权声明，不改为根目录双许可。
-- 本次仅导入并登记来源：源码、资源、`1.6/Assemblies/PrisonersPayToEat2.dll` 与包名 `AAA.PrisonersPayToEat2` 均保持上游内容；未适配 1.7、重新编译或部署，也未接入统一部署入口。
+- 当前 fork：`2.4.0`，主线仅构建 RimWorld 1.7 / .NET 10；包名仍为 `AAA.PrisonersPayToEat2`。1.6 的原 DLL 和完整加载资源冻结保留，不重编、不回填修复，也不维护第二套源码。
+
+### Fork 维护与验收
+
+- [ADR 0001：先修账务与工种兼容性，再缩减运行期开销](docs/adr/0001-correctness-before-performance.md)
+- [ADR 0002：工种发现与任务归属分离，精确适配第三方直接派工](docs/adr/0002-work-attribution-and-direct-jobs.md)
+- [ADR 0003：迁移到 RimWorld 1.7，冻结 1.6 发布内容](docs/adr/0003-rimworld-1-7-migration.md)
+- [饭票经济词表](GLOSSARY.md)；bug 与验收跟踪：[免费食物误拒绝 #5](https://github.com/Nanaloveyuki/RimworldMods/issues/5)、[通用计件归池漏薪 #6](https://github.com/Nanaloveyuki/RimworldMods/issues/6)、[失败搬运计薪 #7](https://github.com/Nanaloveyuki/RimworldMods/issues/7)、[第三方工种漏管 #8](https://github.com/Nanaloveyuki/RimworldMods/issues/8)。
+
+三份 ADR 已接受。#5–#8 的正确性修复已在真实 1.7 验收并关闭对应 issue；性能调度重写不混入本次迁移。原 1.6 发布版仍保留既有缺陷。
+
+#### 已实施
+
+- 找食与实际进食共用收费判定；个体免费、个体强制收费、全局免费及指定食物免费按同一优先级生效。营养膏按输出食物判定，保留实际份数收费和赊账。
+- 通用计件在任务清理前用值类型保存角色与工种；归池后不再读取已清空的 Job/Driver。搬运只在成功的 Direct 放置后支付。
+- NewRatkinPlus 囚犯独立派工按已加载的 packageId、Job、driver、目标和工种精确识别；原生 WorkGiver 来源优先，不修改第三方 Job，不扩大派工权限。工资总门槛仍为内置劳工启用或 Prison Labor 在场。
+- 仓鼠轮沿用按时采样；显式按量时，一次自然完成的工作会话为一个单位。已在安装的 1.7 NewRatkin driver 验证先行走、再工作 4000 tick；仅成功且已走完两段 toil 才计件，超时、中断和清理回调不算完成。没有按发电量计价。
+- Defs 加载后重建工资工种列表；劳工许可页按实际行数计算滚动高度，保留隐藏与禁止工种策略。中英设置说明同步说明仓鼠轮会话单位。
+
+#### 构建与部署（1.7）
+
+从 monorepo 根目录执行：
+
+```sh
+bash scripts/deploy.sh prisoner_pay_to_eat_fork --build-only --rimworld-dir /path/to/RimWorld
+bash scripts/deploy.sh prisoner_pay_to_eat_fork --rimworld-dir /path/to/RimWorld
+```
+
+Windows 使用 `python scripts/python/deploy.py` 及相同参数。构建引用真实 1.7 游戏根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 及 Harmony 3，不再使用 RimRef/net48。`RIMWORLD_DIR` / `HARMONY_ASSEMBLY_PATH` 或 MSBuild `RimWorldDir` / `HarmonyAssemblyPath` 可覆盖本机路径；部署入口可用 `--property HarmonyAssemblyPath=/path/to/0Harmony.dll`。
+
+输出为 `1.7/Assemblies/PrisonersPayToEat2.dll`；正式暂存为 `artifacts/prisoner_pay_to_eat_fork/release`。正式部署要求退出游戏，默认目标为游戏 `Mods/PrisonersPayToEat2`；不会覆盖工坊原 Mod。包名相同，启用此 fork 时须停用原版 PPTE2，避免重复加载。部署保留目标已有的 `PublishedFileId.txt` 和 1.6 文件；新安装补齐冻结的完整 1.6 内容。
+
+`LoadFolders.xml` 明确分流：1.6 加载 `1.6/Released` 的上游资源和 `1.6/Assemblies` 原 DLL；1.7 只加载 `Common` 和 `1.7`。源码只维护 1.7；不要将新的设置文案或 DLL 同步回旧版快照。
+
+#### 1.7 验收与支持范围
+
+- 运行目标：RimWorld `1.7.4981 rev136`，独立游戏目录与独立 profile，不修改玩家存档或当前 Mod 列表。测试通过 RimCarbon14 调用真实生产程序集、原版 API 和第三方 driver，不以编译引用或替身代替游戏。
+- 已观察进食豁免/强制收费、真实三份进食扣款、赊账与收入还债；真实 Job 清理归池/不归池/池满/连续任务、失败和中断；真实地图 Direct 放置失败后重试成功。
+- 已运行 NewRatkinPlus 的普通 WorkGiver 与无来源囚犯 JobGiver，验证实际工种、模式与倍率、自然完成 4000 tick 会话仅付一次、中断不付；工资设置实际显示 `gen power`，键为 `RK_WorkType_GeneratePower`。本兼容不接管其派工权限。
+- Dubs Bad Hygiene 1.7 已加载并验证真实厕所预留：队列检查不扣款，实际 driver 预留扣一次，余额不足拒绝。娱乐验证实际 `JoyTickCheckEnd` 的末 tick 同步结束和 `StartJob` 替换结算，避免漏费/双费。
+- 已运行原版采矿、播种/收获、清洁、加工单和科研完成入口，核对专用单位与通用计件不双付；研究继续既有采样份额口径，不改为新经济规则。
+- 已观察真实设置、个体配置、饭票菜单及囚犯总览/工作/日程/分配界面；1.7 存读档已核对余额、个体倍率/模式、借款、赎身/索要状态、真实工资键、劳作区、加工单权限和需求值。
+- 最终真实运行探针通过 90 项行为断言，存读档另通过 11 项检查。包含加工单两种权限、派系索要即时到账/冷却、赎身实际释放、儿童先自付再由父母补差、身份释放与离图工资收尾、原版建造完成。器官出售 smoke 固定随机手术结果后调用真实配方、原版摘取/生成与付款，验证非致命和二次出售不可用；没有声称统计验证原版手术成功率。
+- 当前本机 Prison Labor 包没有声明 1.7 支持，未加载它，也不声称通过接管验收。仅版本兼容的已启用包才接管内置劳工；强制加载旧版程序集不安全。1.7 使用内置劳工，未来取得真实兼容版本后另做接管验证。
+- 最终生产版 `2.4.0` 还在不启用 NewRatkinPlus、Dubs Bad Hygiene、Prison Labor 和临时测试 Mod 的独立 profile 启动并新建游戏，确认内置劳工启用、实际推进 500 tick，日志无 Error。
+- 从 vendor commit `8539fff` 比对完整旧发布：25 个 DLL/Defs/Patches/Languages/Textures 文件逐字节一致；原 1.6 DLL SHA-256 为 `1885eeee58107c13067322562fdc55c3c9304b216d9c8a7a66fbc07422a85fa9`。这不是 1.6 游戏重验，也不承诺 1.6 存档跨游戏版本转换。
+
+旧 37 项替身边界检查仅是修复过程证据，不充当本次游戏验收。真实 1.7 回执与截图保留在本机 `C:/RimCarbon14/ppte2-17-20261018/PPTE2-evidence`；临时测试 Mod 不随正式包发布。
 
 ## 上游说明
 

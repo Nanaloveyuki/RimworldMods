@@ -24,7 +24,7 @@ namespace PrisonersPayToEat2
     ///   - Mining: one mined deposit                               -> Mineable.DestroyMined
     ///   - Construction: one finished building/floor              -> Frame.CompleteConstruction
     ///   - Growing/PlantCutting: one sown/harvested/cut plant     -> Plant.PlantCollected / PlantsSown record
-    ///   - Hauling: one carried stack placed into storage         -> Pawn_CarryTracker.TryDropCarriedThing
+    ///   - Hauling: one carried stack placed on floor/shelf       -> Pawn_CarryTracker.TryDropCarriedThing
     ///   - Cleaning: one cleaned filth                            -> MessesCleaned record
     ///   - Research: one completed tech, split by contribution    -> ResearchManager.FinishProject
     ///
@@ -124,7 +124,7 @@ namespace PrisonersPayToEat2
         public static void Credit(Pawn pawn, WorkTypeDef wt, float units)
         {
             if (pawn == null || wt == null || units <= 0f) return;
-            if (!pawn.IsPrisonerOfColony) return;
+            if (!pawn.IsPrisonerOfColony || pawn.Dead || pawn.InMentalState) return;
             if (!PrisonerWorkSystem.WorkIncomeEnabled) return;
             if (!IsPieceRateActive(pawn, wt)) return;
             float wage = GetPieceWage(wt.defName);
@@ -159,7 +159,7 @@ namespace PrisonersPayToEat2
             Credit(pawn, wt, 1f);
         }
 
-        // ===== Research: per-tech payout split by each prisoner's contribution (research speed * ticks) =====
+        // ===== Research: preserve the existing sampled research-speed * ticks contribution shares =====
 
         /// <summary>Accumulate a prisoner's research contribution to the current project (called from the wage ticker).</summary>
         public static void RecordResearchContribution(Pawn pawn, int delta)

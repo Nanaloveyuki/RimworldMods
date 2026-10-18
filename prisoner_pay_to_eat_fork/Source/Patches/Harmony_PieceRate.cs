@@ -11,8 +11,7 @@ namespace PrisonersPayToEat2
     /// All piece-rate settlement hooks (see <see cref="PieceRateWorker"/> for the unit mapping):
     /// production bills, mining, construction, growing/plant-cutting, cleaning, hauling, research,
     /// plus the generic per-job fallback for unknown work types.
-    /// Every hook reads the work type from the pawn's current job at settlement time, so work types
-    /// added by other MODs are picked up automatically.
+    /// All hooks share work attribution; job completion captures it before pooled cleanup.
     /// </summary>
     public static class Harmony_PieceRate
     {
@@ -83,11 +82,11 @@ namespace PrisonersPayToEat2
         }
 
         /// <summary>
-        /// Hauling: one carried stack placed into storage/container (ThingPlaceMode.Direct while
-        /// executing a Hauling job). Dropped-at-feet and failed-haul drops use ThingPlaceMode.Near,
-        /// so they never count. DoBill ingredient drops are excluded by the Hauling work-type check.
-        /// TargetMethod resolves the exact overload (the method has an out param, which cannot be
-        /// expressed in the patch attribute).
+        /// Hauling: one carried stack placed on the map (floor/shelf) with ThingPlaceMode.Direct
+        /// while executing a Hauling job, and only when placement succeeds. Cleanup drops use
+        /// Near and bill ingredient drops are excluded by the work-type check. Container transfers
+        /// use ThingOwner.TryTransferToContainer, not this preexisting per-stack settlement hook.
+        /// TargetMethod selects the exact overload including its out parameter.
         /// </summary>
         [HarmonyPatch]
         public static class Patch_CarryDrop
@@ -99,9 +98,9 @@ namespace PrisonersPayToEat2
             }
 
             [HarmonyPostfix]
-            static void Postfix(Pawn_CarryTracker __instance, ThingPlaceMode mode)
+            static void Postfix(Pawn_CarryTracker __instance, ThingPlaceMode mode, bool __result)
             {
-                if (mode != ThingPlaceMode.Direct) return;
+                if (!__result || mode != ThingPlaceMode.Direct) return;
                 var pawn = __instance?.pawn;
                 if (pawn == null) return;
                 var wt = PrisonLaborBridge.CurrentWorkTypeDef(pawn);
@@ -121,26 +120,40 @@ namespace PrisonersPayToEat2
         }
 
         /// <summary>
-        /// Generic fallback: one completed work job = one unit, for work types without a dedicated
-        /// unit (e.g. work types added by other MODs). The prefix snapshots the ending JobDriver
-        /// because EndCurrentJob clears curJob/curDriver during cleanup.
+        /// Generic fallback: snapshot attribution before 1.7 cleanup clears the driver and pools the job.
         /// </summary>
         [HarmonyPatch(typeof(Pawn_JobTracker), nameof(Pawn_JobTracker.EndCurrentJob))]
         public static class Patch_JobDone
         {
-            [HarmonyPrefix]
-            static void Prefix(Pawn_JobTracker __instance, JobCondition condition, out JobDriver __state)
+            internal readonly struct Completion
             {
-                __state = condition == JobCondition.Succeeded ? __instance.curDriver : null;
+                internal readonly Pawn Pawn;
+                internal readonly WorkTypeDef WorkType;
+
+                internal Completion(Pawn pawn, WorkTypeDef workType)
+                {
+                    Pawn = pawn;
+                    WorkType = workType;
+                }
+            }
+
+            [HarmonyPrefix]
+            static void Prefix(Pawn_JobTracker __instance, JobCondition condition, out Completion __state)
+            {
+                __state = default;
+                if (condition != JobCondition.Succeeded) return;
+                var driver = __instance.curDriver;
+                var work = WorkAttribution.Resolve(driver?.pawn, __instance.curJob);
+                var wt = work.WorkType;
+                if (driver?.pawn == null || wt == null || PieceRateWorker.HasSpecificUnit(wt)
+                    || !work.CanComplete(driver)) return;
+                __state = new Completion(driver.pawn, wt);
             }
 
             [HarmonyPostfix]
-            static void Postfix(JobCondition condition, JobDriver __state)
+            static void Postfix(Completion __state)
             {
-                if (__state == null || condition != JobCondition.Succeeded) return;
-                var pawn = __state.pawn;
-                var wt = __state.job?.workGiverDef?.workType;
-                PieceRateWorker.CreditJobDone(pawn, wt);
+                PieceRateWorker.CreditJobDone(__state.Pawn, __state.WorkType);
             }
         }
     }

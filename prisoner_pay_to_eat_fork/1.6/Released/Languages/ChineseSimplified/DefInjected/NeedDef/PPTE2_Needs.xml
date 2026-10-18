@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PPTE2_Motivation.label>动机</PPTE2_Motivation.label>
+  <PPTE2_Motivation.description>囚犯的工作积极性。被看管、吃饱饭、领到工资时上升；无人看管或挨饿时下降。动机过低的囚犯会拒绝工作。</PPTE2_Motivation.description>
+  <PPTE2_PrisonerJoy.label>娱乐</PPTE2_PrisonerJoy.label>
+  <PPTE2_PrisonerJoy.description>囚犯的娱乐需求。随时间下降，进行娱乐活动时恢复；使用娱乐建筑需要缴纳饭票。</PPTE2_PrisonerJoy.description>
+</LanguageData>

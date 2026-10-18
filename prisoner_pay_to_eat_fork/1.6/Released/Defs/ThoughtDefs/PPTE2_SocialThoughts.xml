@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- 被抢劫：受害者心情减益 + 对抢劫者好感度下降 -->
+  <ThoughtDef>
+    <defName>PPTE2_Robbed</defName>
+    <label>robbed</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>3</durationDays>
+    <stages>
+      <li>
+        <label>robbed</label>
+        <description>I was robbed and beaten. My hard-earned tickets are gone.</description>
+        <baseMoodEffect>-8</baseMoodEffect>
+        <baseOpinionOffset>-20</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 抢劫失败被反打：抢劫者心情减益 -->
+  <ThoughtDef>
+    <defName>PPTE2_RobberyFailed</defName>
+    <label>lost a fight</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <stages>
+      <li>
+        <label>lost a fight</label>
+        <description>I tried to rob someone and lost the fight. I got beaten up for nothing.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 被乞讨：目标心情小减 + 对乞讨者好感度下降 -->
+  <ThoughtDef>
+    <defName>PPTE2_Begged</defName>
+    <label>was begged</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stages>
+      <li>
+        <label>was begged</label>
+        <description>Someone begged me for tickets. Being seen as a source of charity is embarrassing.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+        <baseOpinionOffset>-5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 乞讨被拒：乞讨者丢脸 -->
+  <ThoughtDef>
+    <defName>PPTE2_BeggingFailed</defName>
+    <label>begging refused</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stages>
+      <li>
+        <label>begging refused</label>
+        <description>I begged for tickets and was refused. How humiliating.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 借款成坏账：贷方心情减益 + 对借方好感度大幅下降 -->
+  <ThoughtDef>
+    <defName>PPTE2_LoanDefaulted</defName>
+    <label>loan went bad</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>10</durationDays>
+    <stages>
+      <li>
+        <label>loan went bad</label>
+        <description>I lent tickets to a prisoner who never repaid them. All that money, gone.</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+        <baseOpinionOffset>-30</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 借款还清：贷方心情增益 + 对借方好感度上升 -->
+  <ThoughtDef>
+    <defName>PPTE2_LoanRepaid</defName>
+    <label>loan repaid</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>3</durationDays>
+    <stages>
+      <li>
+        <label>loan repaid</label>
+        <description>The prisoner who borrowed from me paid it back. Good faith is rewarded.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+        <baseOpinionOffset>10</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 赊账吃饭（欠账压力）：心情减益，持续刷新 -->
+  <ThoughtDef>
+    <defName>PPTE2_MealDebt</defName>
+    <label>meal debt</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stages>
+      <li>
+        <label>meal debt</label>
+        <description>I ate on credit and now owe tickets I don't have. The debt hangs over me.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 借了饭票（借款负担）：心情减益，还清时移除 -->
+  <ThoughtDef>
+    <defName>PPTE2_LoanTaken</defName>
+    <label>loan burden</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <stages>
+      <li>
+        <label>loan burden</label>
+        <description>I'm carrying a debt I borrowed from another prisoner. It weighs on my mind.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 乞讨成功：讨到饭的宽慰 -->
+  <ThoughtDef>
+    <defName>PPTE2_BeggingSucceeded</defName>
+    <label>got alms</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stages>
+      <li>
+        <label>got alms</label>
+        <description>Someone took pity on me and gave me tickets. At least someone cares.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 抢劫成功：得手快感 -->
+  <ThoughtDef>
+    <defName>PPTE2_RobberySucceeded</defName>
+    <label>robbery paid off</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <stages>
+      <li>
+        <label>robbery paid off</label>
+        <description>I won the fight and took their tickets. Crime pays.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- 打退抢劫者：解气 -->
+  <ThoughtDef>
+    <defName>PPTE2_RobberyDefended</defName>
+    <label>fought off a robber</label>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>2</durationDays>
+    <stages>
+      <li>
+        <label>fought off a robber</label>
+        <description>I fought off a would-be robber. They won't try that again.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

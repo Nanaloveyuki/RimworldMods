@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using RimWorld;
 using Verse;
+using Verse.AI;
 
 namespace PrisonersPayToEat2
 {
@@ -23,13 +25,18 @@ namespace PrisonersPayToEat2
                 _present = false;
                 foreach (var mc in LoadedModManager.RunningModsListForReading)
                 {
-                    if (mc.PackageId == PackageId) { _present = true; break; }
+                    if (!string.Equals(mc.PackageId, PackageId, StringComparison.OrdinalIgnoreCase)) continue;
+                    if (mc.ModMetaData?.VersionCompatible == true)
+                        _present = true;
+                    else
+                        Log.Warning("[PPTE2] The active Prison Labor package does not declare support for this RimWorld version. Its labour integration is unavailable; the built-in labour setting remains independent. This does not make forcing an incompatible Prison Labor assembly to load safe.");
+                    break;
                 }
                 return _present.Value;
             }
         }
 
-        /// <summary>True while the prisoner runs a WorkGiver job (mental breaks/escapes excluded).</summary>
+        /// <summary>Recognized labor, excluding death and mental breaks.</summary>
         public static bool IsWorking(Pawn pawn)
         {
             if (pawn == null || pawn.Dead) return false;
@@ -40,10 +47,74 @@ namespace PrisonersPayToEat2
         /// <summary>WorkTypeDef of the pawn's current work job, or null when not working.</summary>
         public static WorkTypeDef CurrentWorkTypeDef(Pawn pawn)
         {
-            var job = pawn?.jobs?.curJob;
-            if (job == null) return null;
-            var wg = job.workGiverDef;
-            return wg?.workType;
+            return WorkAttribution.Resolve(pawn, pawn?.jobs?.curJob).WorkType;
+        }
+    }
+
+    internal readonly struct AttributedWork
+    {
+        internal readonly WorkTypeDef WorkType;
+        internal readonly bool WheelSession;
+
+        internal AttributedWork(WorkTypeDef workType, bool wheelSession)
+        {
+            WorkType = workType;
+            WheelSession = wheelSession;
+        }
+
+        // Verified against the installed NewRatkin 1.7 assembly: walk, then a 4000-tick work toil.
+        // Natural completion advances past both; a timer or cleanup callback does not prove this.
+        internal bool CanComplete(JobDriver driver) => !WheelSession
+            || (driver != null && driver.CurToilIndex == 2 && driver.ticksLeftThisToil <= 0);
+    }
+
+    internal static class WorkAttribution
+    {
+        private static JobDef wheelJob;
+        private static WorkTypeDef wheelWork;
+        private static ThingDef wheelTarget;
+        private static Type wheelDriver;
+
+        internal static void Initialize()
+        {
+            wheelJob = null;
+            wheelWork = null;
+            wheelTarget = null;
+            wheelDriver = null;
+            bool present = false;
+            foreach (var mod in LoadedModManager.RunningModsListForReading)
+                if (string.Equals(mod.PackageId, "Solaris.RatkinRaceMod", StringComparison.OrdinalIgnoreCase))
+                    present = true;
+            if (!present) return;
+
+            var job = DefDatabase<JobDef>.GetNamedSilentFail("RK_Job_HamsterWheel");
+            var giver = DefDatabase<WorkGiverDef>.GetNamedSilentFail("RK_Work_HamsterWheel");
+            var work = DefDatabase<WorkTypeDef>.GetNamedSilentFail("RK_WorkType_GeneratePower");
+            var target = DefDatabase<ThingDef>.GetNamedSilentFail("RK_HamsterWheelGenerator");
+            if (job?.driverClass?.FullName != "NewRatkin.JobDriver_HamsterWheel"
+                || giver?.giverClass?.FullName != "NewRatkin.WorkGiver_HamsterWheel"
+                || work == null || giver.workType != work || target == null)
+            {
+                Log.Warning("[PPTE2] NewRatkinPlus wheel definitions differ from the supported 1.7 implementation; direct-job wage attribution is unavailable.");
+                return;
+            }
+            wheelJob = job;
+            wheelWork = work;
+            wheelTarget = target;
+            wheelDriver = job.driverClass;
+        }
+
+        internal static AttributedWork Resolve(Pawn pawn, Job job)
+        {
+            if (job == null) return default;
+            var nativeWork = job.workGiverDef?.workType;
+            var driver = pawn?.jobs?.curDriver;
+            bool wheel = wheelJob != null && job.def == wheelJob
+                && job.targetA.Thing?.def == wheelTarget && driver?.job == job
+                && driver.GetType() == wheelDriver;
+            if (nativeWork != null)
+                return new AttributedWork(nativeWork, wheel && nativeWork == wheelWork);
+            return wheel ? new AttributedWork(wheelWork, true) : default;
         }
     }
 

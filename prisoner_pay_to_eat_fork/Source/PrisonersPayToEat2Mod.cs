@@ -7,7 +7,7 @@ namespace PrisonersPayToEat2
     public class PrisonersPayToEat2Mod : Mod
     {
         public const string HarmonyId = "aaa.prisonerspaytoeat2";
-        public const string ModVersion = "2.3.2";
+        public const string ModVersion = "2.4.0";
 
         public static PrisonersPayToEat2Settings Settings;
         public static PrisonersPayToEat2Mod Instance;
@@ -26,7 +26,7 @@ namespace PrisonersPayToEat2
             // 生成与渲染一起崩。改由 PPTELateInit（[StaticConstructorOnStartup]，Defs 加载之后）
             // 执行，时序上仍然早于任何地图和 Pawn 的创建。
 
-            Log.Message($"[PrisonersPayToEat2] v{ModVersion} loaded (RimWorld 1.6). PrisonLabor={PrisonLaborBridge.Present}, OrganHarvest={Settings.enableOrganHarvest}, FoodMul={Settings.foodPriceMultiplier}, WageMul={Settings.wageMultiplier}");
+            Log.Message($"[PrisonersPayToEat2] v{ModVersion} loaded (RimWorld 1.7). PrisonLabor={PrisonLaborBridge.Present}, OrganHarvest={Settings.enableOrganHarvest}, FoodMul={Settings.foodPriceMultiplier}, WageMul={Settings.wageMultiplier}");
         }
 
         public override string SettingsCategory() => "PPTE2_SettingsCategory".Translate();

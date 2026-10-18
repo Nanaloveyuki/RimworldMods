@@ -362,9 +362,9 @@ namespace PrisonersPayToEat2
         /// <summary>
         /// 该囚犯当前是否免除某类费用。优先级：
         /// 每囚犯"强制免费" > 每囚犯"强制收费" > 全局类别豁免 > 食物内容豁免（尸体/营养膏）。
-        /// food 仅在判定食物内容豁免时传入（尸体、营养膏）。
+        /// foodDef 为实际食物（包括尚未制作的营养膏），不是供应食物的建筑。
         /// </summary>
-        public bool IsExempt(Pawn p, FeeCategory category, Thing food = null)
+        public bool IsExempt(Pawn p, FeeCategory category, ThingDef foodDef = null)
         {
             if (p == null) return false;
             var s = PrisonersPayToEat2Mod.Settings;
@@ -382,8 +382,7 @@ namespace PrisonersPayToEat2
             {
                 case FeeCategory.Food:
                     if (s.freeAllFood) return true;
-                    if (food == null) return false;
-                    return food.def != null && s.freeFoodItems.Contains(food.def.defName);
+                    return foodDef != null && s.freeFoodItems.Contains(foodDef.defName);
                 case FeeCategory.Joy: return s.freeJoyAll;
                 default: return s.freeHygieneAll;
             }

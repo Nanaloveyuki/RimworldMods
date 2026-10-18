@@ -62,11 +62,14 @@ namespace PrisonersPayToEat2
 
         private static void PatchIfDeclared(Harmony harmony, Type type, string name, HarmonyMethod postfix)
         {
+            var parameters = name == "HasJobOnThing"
+                ? new[] { typeof(Pawn), typeof(Thing), typeof(bool) }
+                : new[] { typeof(Pawn), typeof(IntVec3), typeof(bool) };
             MethodInfo m = type.GetMethod(name,
-                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
-            if (m == null) return;
-            try { harmony.Patch(m, postfix: postfix); }
-            catch (Exception ex) { Log.Warning($"[PPTE2] labor-area patch on {type.Name}.{name} failed: {ex.Message}"); }
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly,
+                null, parameters, null);
+            if (m == null || m.IsAbstract || m.ContainsGenericParameters) return;
+            harmony.Patch(m, postfix: postfix);
         }
 
         public static void HasJobOnThingPostfix(Pawn pawn, Thing t, ref bool __result)

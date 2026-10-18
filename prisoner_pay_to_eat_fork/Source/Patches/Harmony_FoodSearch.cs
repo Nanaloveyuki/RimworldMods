@@ -36,9 +36,7 @@ namespace PrisonersPayToEat2
 
         /// <summary>
         /// True when the eater is a colony prisoner who must pay for this meal but can't, and
-        /// meal-credit (debt) is off. Mirrors the exemption logic in
-        /// <see cref="Harmony_Ingest.ShouldCharge"/> (riot/prison-break skip, ingestible check)
-        /// so the two layers agree on who is chargeable.
+        /// meal-credit (debt) is off. Uses the same charge decision as actual ingestion.
         /// </summary>
         private static bool ShouldBlock(Pawn eater, ThingDef foodDef, Thing foodSource)
         {
@@ -46,9 +44,6 @@ namespace PrisonersPayToEat2
             var s = PrisonersPayToEat2Mod.Settings;
             // Debt enabled → the Ingested layer lets them eat on credit; don't starve them here.
             if (s.allowMealDebt) return false;
-            // Rioting / escaping prisoners eat for free (same as Harmony_Ingest.ShouldCharge).
-            if (s.ignoreDuringRiot && (eater.MentalStateDef != null || Harmony_Ingest.InPrisonBreak(eater)))
-                return false;
 
             // Resolve the def of what will actually be eaten. For a dispenser the Thing is the
             // building; the meal def comes from the out-param (MealNutrientPaste). For spawned
@@ -61,13 +56,12 @@ namespace PrisonersPayToEat2
                 else
                     def = foodSource.def;
             }
-            if (def == null || def.ingestible == null) return false;
-            // 只对能提供营养的食物收费（与 Harmony_Ingest.ShouldCharge 保持一致）
-            if (!Harmony_Ingest.IsChargeableFood(def)) return false;
+            if (!Harmony_Ingest.ShouldCharge(eater, def, out float unitCost)) return false;
 
             // 按实际会吃掉的份数估算（生食/肉干会一次吃多份），否则这里放行、
             // Ingested 前缀再拦下，囚犯就会走到食物前空嚼一轮又吃不到（正是本补丁要避免的循环）。
-            float cost = MarketPriceHelper.TicketCost(def, eater) * CountUnits.Estimate(eater, foodSource);
+            int units = foodSource is Building_NutrientPasteDispenser ? 1 : CountUnits.Estimate(eater, foodSource);
+            float cost = unitCost * units;
             float available = PrisonersPayToEat2Manager.Current?.AvailableBalance(eater) ?? 0f;
             return available < cost;
         }

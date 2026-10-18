@@ -12,7 +12,7 @@ namespace PrisonersPayToEat2
     /// <summary>
     /// Dubs Bad Hygiene（卫生与温控）软兼容：全部走反射，不引用 DBH 程序集。
     /// 扫描 DBH 程序集中名字含 Toilet/Shower/Wash/Bath/Sink 的 JobDriver / JobGiver / WorkGiver：
-    ///   - 扣费点：JobDriver.TryMakePreToilReservations 成功后（开始使用时缴费，一次一结）；
+    ///   - 扣费点：当前 JobDriver.TryMakePreToilReservations 成功后（开始使用时缴费，一次一结）；
     ///   - 禁用点：同名方法的 prefix 与 JobGiver/WorkGiver 的 postfix——余额不足时工作不派发，
     ///     囚犯只能憋着（DBH 自有憋尿事故机制）或忍着不洗；河里洗澡目标不是建筑，永远不收费。
     /// 用量取不到 DBH 真实值时退化为固定默认（马桶 5L+0.5Wd，淋浴 20L+1Wd），价格均可在设置调整。
@@ -50,7 +50,11 @@ namespace PrisonersPayToEat2
         private static readonly Dictionary<int, int> lastBlockedMsgTick = new Dictionary<int, int>();
         private const int BlockedMsgIntervalTicks = 6000;
 
-        public static void ResetTransientState() => lastBlockedMsgTick.Clear();
+        public static void ResetTransientState()
+        {
+            lastBlockedMsgTick.Clear();
+            usageCache.Clear();
+        }
 
         // ================= 安装补丁 =================
 
@@ -74,7 +78,7 @@ namespace PrisonersPayToEat2
 
                         if (typeof(JobDriver).IsAssignableFrom(t))
                         {
-                            var m = DeclaredOnly(t, "TryMakePreToilReservations");
+                            var m = DeclaredOnly(t, "TryMakePreToilReservations", typeof(bool), typeof(bool));
                             if (m != null && Patch(harmony, m,
                                     new HarmonyMethod(typeof(HygieneBridge), nameof(Prefix_DriverReserve)),
                                     new HarmonyMethod(typeof(HygieneBridge), nameof(Postfix_DriverReserve))))
@@ -82,7 +86,7 @@ namespace PrisonersPayToEat2
                         }
                         else if (typeof(ThinkNode_JobGiver).IsAssignableFrom(t))
                         {
-                            var m = DeclaredOnly(t, "TryGiveJob");
+                            var m = DeclaredOnly(t, "TryGiveJob", typeof(Job), typeof(Pawn));
                             if (m != null && Patch(harmony, m, null,
                                     new HarmonyMethod(typeof(HygieneBridge), nameof(Postfix_JobGiver))))
                                 patched++;
@@ -91,6 +95,7 @@ namespace PrisonersPayToEat2
                         {
                             foreach (var m in DeclaredOnlyAll(t, "JobOnThing"))
                             {
+                                if (!MatchesSignature(m, typeof(Job), typeof(Pawn), typeof(Thing), typeof(bool))) continue;
                                 if (Patch(harmony, m, null,
                                         new HarmonyMethod(typeof(HygieneBridge), nameof(Postfix_WorkGiver))))
                                     patched++;
@@ -101,11 +106,11 @@ namespace PrisonersPayToEat2
                 if (PrisonersPayToEat2Mod.Settings?.logVerbose == true || patched == 0)
                     Log.Message($"[PPTE2] Dubs Bad Hygiene detected; hygiene-fee patches applied to {patched} methods.");
                 if (patched == 0)
-                    Log.Warning("[PPTE2] Dubs Bad Hygiene present but no toilet/shower job types were found by name scan; hygiene fees inactive. (DBH version may have renamed its classes.)");
+                    Log.Error("[PPTE2] Dubs Bad Hygiene is loaded but its 1.7 hygiene API was not found. Hygiene fee compatibility is unavailable; check the installed DBH version.");
             }
             catch (Exception e)
             {
-                Log.Warning($"[PPTE2] HygieneBridge.Apply failed, hygiene fees disabled: {e}");
+                Log.Error($"[PPTE2] HygieneBridge.Apply failed; Dubs Bad Hygiene fee compatibility is unavailable: {e}");
             }
         }
 
@@ -122,10 +127,21 @@ namespace PrisonersPayToEat2
         }
 
         /// <summary>仅取该类型自身声明的方法（防止误 patch 基类，殃及所有 JobDriver）。</summary>
-        private static MethodInfo DeclaredOnly(Type t, string name)
+        private static MethodInfo DeclaredOnly(Type t, string name, Type returnType, params Type[] parameterTypes)
         {
-            var m = t.GetMethod(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            return m != null && m.DeclaringType == t ? m : null;
+            var m = t.GetMethod(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly,
+                null, parameterTypes, null);
+            return m != null && m.DeclaringType == t && m.ReturnType == returnType ? m : null;
+        }
+
+        private static bool MatchesSignature(MethodInfo method, Type returnType, params Type[] parameterTypes)
+        {
+            if (method.ReturnType != returnType) return false;
+            var parameters = method.GetParameters();
+            if (parameters.Length != parameterTypes.Length) return false;
+            for (int i = 0; i < parameters.Length; i++)
+                if (parameters[i].ParameterType != parameterTypes[i]) return false;
+            return true;
         }
 
         private static IEnumerable<MethodInfo> DeclaredOnlyAll(Type t, string name)
@@ -145,8 +161,7 @@ namespace PrisonersPayToEat2
             }
             catch (Exception e)
             {
-                if (PrisonersPayToEat2Mod.Settings?.logVerbose == true)
-                    Log.Warning($"[PPTE2] Failed to patch {target.DeclaringType.FullName}.{target.Name}: {e.Message}");
+                Log.Error($"[PPTE2] Failed to patch Dubs Bad Hygiene {target.DeclaringType.FullName}.{target.Name}: {e}");
                 return false;
             }
         }
@@ -301,7 +316,7 @@ namespace PrisonersPayToEat2
                     return false; // 跳过原方法：保留不住，工作失败
                 }
             }
-            catch (Exception e) { if (PrisonersPayToEat2Mod.Settings?.logVerbose == true) Log.Warning($"[PPTE2] hygiene block error: {e.Message}"); }
+            catch (Exception e) { Log.ErrorOnce($"[PPTE2] hygiene block error: {e}", 181576001); }
             return true;
         }
 
@@ -309,10 +324,12 @@ namespace PrisonersPayToEat2
         {
             try
             {
-                if (!__result) return;
+                // 1.7 checks queued/ordered jobs before StartJob, then reserves again for the
+                // active driver. Only the latter starts a use and may debit the account.
+                if (!__result || __instance?.pawn?.jobs?.curDriver != __instance) return;
                 Charge(__instance?.pawn, __instance?.job, __instance?.GetType().Name);
             }
-            catch (Exception e) { if (PrisonersPayToEat2Mod.Settings?.logVerbose == true) Log.Warning($"[PPTE2] hygiene charge error: {e.Message}"); }
+            catch (Exception e) { Log.ErrorOnce($"[PPTE2] hygiene charge error: {e}", 181576002); }
         }
 
         private static void Postfix_JobGiver(Pawn pawn, ref Job __result)
@@ -323,7 +340,7 @@ namespace PrisonersPayToEat2
                 if (ShouldBlock(pawn, __result, __result.def?.defName))
                     __result = null;
             }
-            catch (Exception e) { if (PrisonersPayToEat2Mod.Settings?.logVerbose == true) Log.Warning($"[PPTE2] hygiene jobgiver error: {e.Message}"); }
+            catch (Exception e) { Log.ErrorOnce($"[PPTE2] hygiene jobgiver error: {e}", 181576003); }
         }
 
         private static void Postfix_WorkGiver(Pawn pawn, Thing t, ref Job __result)
@@ -334,7 +351,7 @@ namespace PrisonersPayToEat2
                 if (ShouldBlock(pawn, __result, t?.def?.defName))
                     __result = null;
             }
-            catch (Exception e) { if (PrisonersPayToEat2Mod.Settings?.logVerbose == true) Log.Warning($"[PPTE2] hygiene workgiver error: {e.Message}"); }
+            catch (Exception e) { Log.ErrorOnce($"[PPTE2] hygiene workgiver error: {e}", 181576004); }
         }
     }
 }

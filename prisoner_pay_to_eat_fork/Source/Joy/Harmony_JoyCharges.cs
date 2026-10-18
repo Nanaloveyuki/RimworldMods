@@ -147,35 +147,37 @@ namespace PrisonersPayToEat2
 
     public static class Harmony_JoyCharges
     {
-        /// <summary>囚犯娱乐 tick：娱乐条充能 + 累计计费时长。</summary>
+        /// <summary>Account the tick before vanilla can synchronously end and clean up the job.</summary>
         [HarmonyPatch(typeof(JoyUtility), nameof(JoyUtility.JoyTickCheckEnd))]
         public static class Patch_JoyTickCheckEnd
         {
-            [HarmonyPostfix]
-            public static void Postfix(Pawn pawn, int delta, Building joySource)
+            [HarmonyPrefix]
+            public static void Prefix(Pawn pawn, int delta, Building joySource)
             {
                 if (pawn == null || !pawn.IsPrisonerOfColony) return;
+                var job = pawn.CurJob;
+                if (job?.def?.joyKind == null) return;
+                if (pawn.needs?.joy == null && !job.doUntilGatheringEnded) return;
                 PrisonerJoyCharge.Accumulate(pawn, delta, joySource);
             }
         }
 
-        /// <summary>娱乐工作结束（成功/中断都算）：补收零头。前缀快照，结束时 curDriver 已被清理。</summary>
-        [HarmonyPatch(typeof(Pawn_JobTracker), nameof(Pawn_JobTracker.EndCurrentJob))]
+        /// <summary>Settle on every cleanup path, including StartJob replacement and suspension.</summary>
+        [HarmonyPatch(typeof(Pawn_JobTracker), "CleanupCurrentJob")]
         public static class Patch_JoyJobEnd
         {
             [HarmonyPrefix]
-            public static void Prefix(Pawn_JobTracker __instance, out JobDriver __state)
+            public static void Prefix(Pawn_JobTracker __instance, out Pawn __state)
             {
                 var d = __instance.curDriver;
-                __state = d != null && d.pawn != null && d.pawn.IsPrisonerOfColony
-                    && d.job?.def?.joyKind != null ? d : null;
+                __state = d?.pawn != null && d.pawn.IsPrisonerOfColony ? d.pawn : null;
             }
 
             [HarmonyPostfix]
-            public static void Postfix(JobDriver __state)
+            public static void Postfix(Pawn __state)
             {
-                if (__state?.pawn == null) return;
-                PrisonerJoyCharge.FinishJob(__state.pawn);
+                if (__state == null) return;
+                PrisonerJoyCharge.FinishJob(__state);
             }
         }
 

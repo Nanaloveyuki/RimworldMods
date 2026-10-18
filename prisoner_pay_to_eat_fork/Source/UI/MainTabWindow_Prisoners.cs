@@ -107,6 +107,7 @@ namespace PrisonersPayToEat2
             {
                 _lastDirtyTick = now;
                 _table.SetDirty();
+                if (windowRect.size != InitialSize) SetInitialSizeAndPosition();
             }
 
             DrawTabBar(rect);
@@ -140,6 +141,7 @@ namespace PrisonersPayToEat2
                 {
                     _tab = (PrisonerTab)i;
                     CreateTable(); // 换表重建
+                    SetInitialSizeAndPosition();
                 }
                 GUI.color = saved;
                 if (active)

@@ -1,0 +1,13 @@
+{
+  "target": "PrisonersPayToEat2",
+  "package_id": "AAA.PrisonersPayToEat2",
+  "new_target_name": true,
+  "install_missing_legacy": true,
+  "build": [["dotnet", "prisoner_pay_to_eat_fork/Source/PrisonersPayToEat2.csproj", {}]],
+  "files": [
+    "About", "LoadFolders.xml", "LICENSE", "README.md", "Common", "1.6",
+    "1.7/Assemblies/PrisonersPayToEat2.dll",
+    {"source": "1.7/Assemblies/PrisonersPayToEat2.pdb", "optional": true}
+  ],
+  "required": ["1.7/Assemblies/PrisonersPayToEat2.dll", "1.6/Assemblies/PrisonersPayToEat2.dll"]
+}

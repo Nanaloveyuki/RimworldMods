@@ -391,7 +391,9 @@ def main(argv=None):
         print(f"Staged and SHA-256 verified {len(files)} files: {staging}")
         if args.build_only:
             continue
-        excluded = (["1.6"] + config.get("legacy_paths", [])) if version == "1.7" else ["1.7"]
+        excluded = config.get("legacy_paths", []).copy() if version == "1.7" else ["1.7"]
+        if version == "1.7" and not config.get("install_missing_legacy"):
+            excluded.append("1.6")
         deployed = {relative: path for relative, path in files.items()
                     if not any(relative == prefix or relative.startswith(prefix + "/") for prefix in excluded)}
         guard_target(target, game, source, config, deployed)

@@ -18,8 +18,8 @@ namespace PrisonersPayToEat2
     [HarmonyPatch(typeof(Thing), nameof(Thing.Ingested))]
     public static class Harmony_Ingest
     {
-        // 单价在前缀里算出，供扣款和"没钱不吃"的拦截判断共用；份数先按饥饿度估算，
-        // 进食结束后用 stackCount 的实际差值修正（见 Postfix）。
+        // Price and requested quantity are captured before consumption; the latter uses the exact
+        // nutritionWanted passed to 1.7 Thing.Ingested. Stack deltas settle actual consumption.
         private class IngestEvent
         {
             public float unitCost;
@@ -41,19 +41,23 @@ namespace PrisonersPayToEat2
         public static void ResetTransientState() => lastBlockedMsgTick.Clear();
 
         [HarmonyPrefix]
-        public static bool Prefix(Thing __instance, Pawn ingester)
+        public static bool Prefix(Thing __instance, Pawn ingester, float nutritionWanted)
         {
             var evt = new IngestEvent();
-            evt.applicable = ShouldCharge(ingester, __instance, out evt.unitCost);
+            evt.applicable = ShouldCharge(ingester, __instance?.def, out evt.unitCost);
             if (!evt.applicable)
             {
                 // 防御性清理：若上一次 Ingested 异常中断留下了条目，别让这次误扣费
                 pending.Remove(__instance);
                 return true;
             }
-            evt.units = CountUnits.Estimate(ingester, __instance);
+            evt.units = CountUnits.ForIngestion(ingester, __instance, nutritionWanted);
             evt.stackBefore = __instance.stackCount;
             evt.consumable = !__instance.Destroyed && __instance.IngestibleNow;
+
+            // Invalid ingestion must retain vanilla's diagnostic without charging or refusing it.
+            pending.Remove(__instance);
+            if (!evt.consumable) return true;
 
             // 赊账关闭且买不起这顿饭：拦下进食。Thing.Ingested 内部才销毁食物，
             // 前缀直接跳过 = 食物保留、不加营养，囚犯只是吃不到（不会浪费饭）。
@@ -69,7 +73,6 @@ namespace PrisonersPayToEat2
                 }
             }
 
-            pending.Remove(__instance);
             pending.Add(__instance, evt);
             return true;
         }
@@ -154,10 +157,10 @@ namespace PrisonersPayToEat2
                 ingester, MessageTypeDefOf.RejectInput);
         }
 
-        private static bool ShouldCharge(Pawn ingester, Thing food, out float ticketCost)
+        internal static bool ShouldCharge(Pawn ingester, ThingDef foodDef, out float ticketCost)
         {
             ticketCost = 0f;
-            if (ingester == null || food == null) return false;
+            if (ingester == null || foodDef == null) return false;
             if (!ingester.IsPrisonerOfColony)
             {
                 // 顺带清理拦截提示的节流记录（释放/招募/越狱后不再需要）
@@ -167,12 +170,11 @@ namespace PrisonersPayToEat2
             var s = PrisonersPayToEat2Mod.Settings;
             if (s.ignoreDuringRiot && (ingester.MentalStateDef != null || InPrisonBreak(ingester)))
                 return false;
-            if (!IsChargeableFood(food.def)) return false;
-            // 免付费：每囚犯豁免 / 全局豁免（任何食物免费、尸体免费、营养膏免费）
-            if (PrisonersPayToEat2Manager.Current?.IsExempt(ingester, FeeCategory.Food, food) == true)
+            if (!IsChargeableFood(foodDef)) return false;
+            if (PrisonersPayToEat2Manager.Current?.IsExempt(ingester, FeeCategory.Food, foodDef) == true)
                 return false;
 
-            ticketCost = MarketPriceHelper.TicketCost(food, ingester);
+            ticketCost = MarketPriceHelper.TicketCost(foodDef, ingester);
             return true;
         }
 
@@ -194,10 +196,10 @@ namespace PrisonersPayToEat2
     }
 
     /// <summary>
-    /// 估算一次进食会吃掉几份。逻辑与原版 <c>Thing.IngestedCalculateAmounts</c> 一致
-    /// （<c>CeilToInt(饥饿度 / 单份营养)</c>，再被 stackCount 和 maxNumToIngestAtOnce 夹住）。
-    /// 正餐的 maxNumToIngestAtOnce = 1，生食 / 肉干等没有该限制，所以份数可能远大于 1。
-    /// 仅用于"买不买得起"的前置判断；实际扣费以后缀里 stackCount 的差值为准。
+    /// Preflight quantities share vanilla's ceil/clamp rules. Food search estimates the ordinary
+    /// FinalizeIngest request; ingestion itself uses its actual nutritionWanted argument, including
+    /// direct callers. Corpses are billed per body-part meal and plants per plant.
+    /// Actual settlement still uses the consumed stack delta.
     /// </summary>
     internal static class CountUnits
     {
@@ -205,8 +207,8 @@ namespace PrisonersPayToEat2
         {
             if (eater == null || food == null || food.def == null) return 1;
 
-            float nutritionPerUnit = FoodUtility.NutritionForEater(eater, food);
-            if (nutritionPerUnit <= 0.0001f) return 1;
+            // Corpses consume one body part and plants one plant, not a nutrition-sized stack.
+            if (food is Corpse || food is Plant) return 1;
 
             float wanted = eater.needs?.food?.NutritionWanted
                            ?? (food.GetStatValue(StatDefOf.Nutrition) * food.stackCount);
@@ -219,7 +221,15 @@ namespace PrisonersPayToEat2
                     wanted = Mathf.Max(wanted, 0.75f);
             }
 
-            int units = Mathf.CeilToInt(wanted / nutritionPerUnit);
+            return ForIngestion(eater, food, wanted);
+        }
+
+        public static int ForIngestion(Pawn eater, Thing food, float nutritionWanted)
+        {
+            if (food == null || food is Corpse || food is Plant) return 1;
+            float nutritionPerUnit = FoodUtility.NutritionForEater(eater, food);
+            if (nutritionPerUnit <= 0.0001f) return 1;
+            int units = Mathf.CeilToInt(nutritionWanted / nutritionPerUnit);
             units = Mathf.Min(units, food.stackCount);
             int cap = food.def.ingestible?.maxNumToIngestAtOnce ?? 0;
             if (cap > 0) units = Mathf.Min(units, cap);

@@ -47,15 +47,16 @@ namespace PrisonersPayToEat2
         }
 
         private Vector2 _scroll = Vector2.zero;
+        private float _contentHeight = 1180f;
 
         public override void DoWindowContents(Rect inRect)
         {
-            // v2.3.1 起内容变多，包一层滚动视图；后续所有绘制都落在虚拟内容区 view 上
-            var view = new Rect(0f, 0f, inRect.width - 20f, 1180f);
+            var view = new Rect(0f, 0f, inRect.width - 20f, Mathf.Max(inRect.height, _contentHeight));
             Widgets.BeginScrollView(inRect, ref _scroll, view);
             inRect = view;
 
             var list = new Listing_Standard();
+            list.maxOneColumn = true;
             list.ColumnWidth = inRect.width - 8f;
             list.Begin(inRect);
 
@@ -209,6 +210,7 @@ namespace PrisonersPayToEat2
                 mgr.EffectiveRansomMinDays(_prisoner).ToString("0.#")));
             GUI.color = Color.white;
 
+            _contentHeight = list.CurHeight + 8f;
             list.End();
             Widgets.EndScrollView();
         }
