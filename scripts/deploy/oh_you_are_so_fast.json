@@ -1,0 +1,31 @@
+{
+  "target": "OhYouAreSoFast",
+  "package_id": "Nanaloveyuki.OhYouAreSoFast",
+  "require_existing": true,
+  "build": [
+    [
+      "dotnet",
+      "oh_you_are_so_fast/Source/OhYouAreSoFast.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "Common",
+    "1.7/Assemblies/OhYouAreSoFast.dll",
+    {
+      "source": "1.7/Assemblies/OhYouAreSoFast.pdb",
+      "optional": true
+    },
+    "1.6"
+  ],
+  "required": [
+    "1.7/Assemblies/OhYouAreSoFast.dll"
+  ]
+}

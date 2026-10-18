@@ -1,0 +1,42 @@
+{
+  "target": "RimIrisShaders",
+  "package_id": "RimIrisShaders.Moonlight",
+  "legacy_paths": ["Assemblies", "Languages"],
+  "powershell_properties": {"RimIrisAssemblyPath": "RimIrisAssemblyPath"},
+  "build": [
+    [
+      "powershell",
+      "rim_iris_shaders/scripts/build-ui.ps1",
+      {
+        "RimWorldVersion": "{version}",
+        "GameDir": "{game}",
+        "Configuration": "{configuration}"
+      }
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "ShaderPacks",
+    "Languages",
+    "1.7/Languages",
+    "1.7/Assemblies/RimIrisShaders.UI.dll",
+    {
+      "source": "1.7/Rendering",
+      "optional": true
+    },
+    {
+      "source": "Assemblies",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/RimIrisShaders.UI.dll",
+    "ShaderPacks/Moonlight/moonlight_win"
+  ]
+}

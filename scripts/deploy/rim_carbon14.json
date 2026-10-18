@@ -1,0 +1,40 @@
+{
+  "target": "RimCarbon14",
+  "package_id": "nanaloveyuki.rimcarbon14",
+  "powershell_properties": {"HarmonyPath": "HarmonyPath"},
+  "versions": ["1.6", "1.7"],
+  "build": [
+    [
+      "powershell",
+      "rim_carbon14/scripts/build.ps1",
+      {
+        "RimWorldDir": "{game}",
+        "GameVersion": "{version}",
+        "Configuration": "{configuration}",
+        "Dotnet": "{dotnet}"
+      }
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md",
+    "docs",
+    "1.6/Assemblies/RimCarbon14.dll",
+    "1.6/Assemblies/RimCarbon14.Core.dll",
+    "1.6/Assemblies/Newtonsoft.Json.dll",
+    "1.7/Assemblies/RimCarbon14.dll",
+    "1.7/Assemblies/RimCarbon14.Core.dll",
+    "1.7/Assemblies/Newtonsoft.Json.dll",
+    {
+      "source": "../artifacts/rim_carbon14/package/Tools",
+      "target": "Tools"
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/RimCarbon14.dll",
+    "Tools/win-x64/RimCarbon14.Agent.exe"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "target": "WashingMachine",
+  "package_id": "nanaloveyuki.washingmachine",
+  "legacy_paths": ["Assemblies"],
+  "build": [
+    [
+      "dotnet",
+      "rimworld_washingmachine_play/WashingMachine.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "Common",
+    "1.7/Assemblies/WashingMachine.dll",
+    {
+      "source": "Assemblies",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/WashingMachine.dll"
+  ]
+}

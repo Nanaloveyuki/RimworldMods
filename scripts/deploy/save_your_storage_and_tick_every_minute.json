@@ -1,0 +1,34 @@
+{
+  "target": "SaveYourStorageAndTickEveryMinute",
+  "package_id": "Nanaloveyuki.SaveYourStorageAndTickEveryMinute",
+  "build": [
+    [
+      "dotnet",
+      "save_your_storage_and_tick_every_minute/Source/SaveYourStorageAndTickEveryMinute.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "Analyzer.xml",
+    "1.7/**/*.dll",
+    {
+      "source": "1.7/**/*.pdb",
+      "optional": true
+    },
+    {
+      "source": "1.7/**/*.xml",
+      "optional": true
+    },
+    "1.6"
+  ],
+  "required": [
+    "1.7/Assemblies/SaveYourStorageAndTickEveryMinute.dll"
+  ]
+}

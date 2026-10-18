@@ -1,0 +1,36 @@
+{
+  "versions": [
+    "1.7"
+  ],
+  "mods": {
+    "PrisonerNames": {
+      "source": "odf_mods/Mods/PrisonerNames",
+      "target": "ODF-PrisonerNames",
+      "package_id": "odf.nanaloveyuki.prisonernames",
+      "build": [
+        [
+          "dotnet",
+          "odf_mods/Mods/PrisonerNames/Source/Odf.PrisonerNames.csproj",
+          {}
+        ]
+      ],
+      "files": [
+        "About",
+        "Languages",
+        "Oxygen",
+        "1.7/Assemblies/Odf.PrisonerNames.dll",
+        "1.6",
+        "LoadFolders.xml",
+        "README.md",
+        {
+          "source": "../../LICENSE",
+          "target": "LICENSE"
+        }
+      ],
+      "required": [
+        "1.7/Assemblies/Odf.PrisonerNames.dll",
+        "1.6/Assemblies/Odf.PrisonerNames.dll"
+      ]
+    }
+  }
+}

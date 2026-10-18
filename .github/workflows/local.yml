@@ -29,16 +29,16 @@ jobs:
     environment: rhah-local
     defaults:
       run:
-        working-directory: Ratkin_Hunger_and_Havoc
+        working-directory: ratkin_hunger_and_havoc
     env:
       RIMWORLD_DIR: ${{ vars.RIMWORLD_DIR || '/mnt/e/Apps/Steam/steamapps/common/RimWorld' }}
-      OXYGEN_DSL_DIR: ${{ vars.OXYGEN_DSL_DIR || format('{0}/Oxygen-Dsl-Framework', github.workspace) }}
+      OXYGEN_DSL_DIR: ${{ vars.OXYGEN_DSL_DIR || format('{0}/oxygen_dsl_framework', github.workspace) }}
       HARMONY_PATH: ${{ vars.HARMONY_PATH }}
       OPERATION: ${{ inputs.operation }}
       RELEASE_TAG: ${{ inputs.release_tag }}
       CARBON_PROFILE: ${{ vars.CARBON_PROFILE }}
-      CARBON_SOURCE_DIR: ${{ vars.CARBON_SOURCE_DIR || format('{0}/RimCarbon14', github.workspace) }}
-      PACKAGE_OUTPUT: ${{ github.workspace }}/Ratkin_Hunger_and_Havoc/tmp/automation/workflow-${{ github.run_id }}-${{ github.run_attempt }}/release
+      CARBON_SOURCE_DIR: ${{ vars.CARBON_SOURCE_DIR || format('{0}/rim_carbon14', github.workspace) }}
+      PACKAGE_OUTPUT: ${{ github.workspace }}/artifacts/ratkin_hunger_and_havoc/workflow-${{ github.run_id }}-${{ github.run_attempt }}/release
     outputs:
       release_commit: ${{ steps.review.outputs.commit }}
     steps:
@@ -56,7 +56,7 @@ jobs:
       - name: Use repository-pinned SDK
         uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v4.3.1
         with:
-          global-json-file: Ratkin_Hunger_and_Havoc/global.json
+          global-json-file: ratkin_hunger_and_havoc/global.json
       - name: Require reviewed ODF source
         shell: bash
         run: |
@@ -142,7 +142,7 @@ jobs:
           path: |
             ${{ env.PACKAGE_OUTPUT }}/*.zip
             ${{ env.PACKAGE_OUTPUT }}/*.sha256.json
-            Ratkin_Hunger_and_Havoc/tmp/automation/*/safe-report.json
+            ratkin_hunger_and_havoc/tmp/automation/*/safe-report.json
           if-no-files-found: warn
           retention-days: 14
   release:

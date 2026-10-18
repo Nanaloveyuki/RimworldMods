@@ -1,0 +1,33 @@
+{
+  "target": "IrisMenus",
+  "package_id": "Nanaloveyuki.IrisMenus",
+  "build": [
+    [
+      "dotnet",
+      "iris_menus/Source/IrisMenus.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "Common/Defs",
+    "Common/Languages",
+    "1.7/Rendering",
+    "1.7/Assemblies/IrisMenus.dll",
+    "docs",
+    {
+      "source": "1.6",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/IrisMenus.dll",
+    "1.7/Rendering/Frost17.frag.glsl"
+  ]
+}

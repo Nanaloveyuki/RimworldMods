@@ -1,0 +1,125 @@
+# 开发说明
+
+## 目标与边界
+
+本项目保留 RimWorld 的真实 `Thing`、`ThingGrid`、`ListerThings`、`SlotGroup` 和 Reservation 作为事实源，只优化已经确认的重复查询和突发工作。所有游戏状态访问和 Harmony 补丁仍在主线程执行；项目不把可变 Thing 状态移到后台线程。
+
+不在当前范围内：
+
+- 不替换 `ThingGrid` 返回的内部 `List<Thing>`。
+- 不虚拟化、合并或 DeSpawn 任意 Mod 的物品。
+- 不缓存任意 `Predicate<Thing>` 的最终结果。
+- 不更改存档结构。
+- 不保证消除大量真实 Thing 在其他 Mod 全图扫描中的基础成本。
+
+## 组件
+
+### 调度器
+
+`CoalescingDeadlineQueue<TKey, TValue>` 按键合并延期任务；`BudgetedWorkScheduler<TKey>` 同时限制单 tick 执行数量和耗时。Outerrealm 适配器使用它分散租约到期后的身份锚点归位，并在真正执行前重新读取存活、租约和预留状态。
+
+### ListerThings 成员索引
+
+只接管 `ListerThingsUse.Global` 且数量达到阈值的 `Contains`。索引同时记录源列表的 `Count` 和私有 `_version`；无法证明集合与列表完全一致时执行原版方法。区域 Lister 不接管。
+
+### 高密度单格布局
+
+原版 `Graphic.Print` 会对每个物品调用 `GenLabel.MultipleItemsPerCellDrawn`，后者通过 `GetItemCount` 扫描同格全部 Thing；武器的 `Graphic_RandomRotated` 还会额外调用一次。随后 `GenThing.ItemCenterAt` 会再次扫描。N 个物品分别打印 Mesh 时这些入口都会形成 O(N²) 扫描。
+
+`DenseCellLayoutCache` 在达到设置阈值后：
+
+1. 复制同格 Item 引用并按 `thingIDNumber` 排序。
+2. 一次计算是否包含武器、是否为同 Def，以及每个 Thing 的原版 rank。
+3. 使用 RimWorld 1.7 的常量和分支生成所有中心点，武器错位的奇偶数包含当前物品 rank 与西侧连续格的贡献。
+4. `DenseCellItemCountCache` 按格缓存 `GetItemCount`，武器、普通物品及其他调用者共享同一精确计数。
+5. 按 Thing 引用缓存中心点，使同一批绘制从 O(N²) 降为一次 O(N log N) 布局构建、一次 O(N) 计数和 N 次 O(1) 查询。
+
+两个缓存都记录源列表 `_version` 和生效阈值。计数缓存及非武器布局只在本格列表变化时重建；武器布局额外记录地图结构 revision，因为其位置依赖西侧连续存储格。低于阈值、无法读取版本或目标方法存在其他 Harmony 补丁时回退原版。
+
+武器布局还依赖西侧连续高密度格的奇偶数。为保持原版位置，任何地图 Item 结构变化都会使已缓存布局失效，而不是只失效变化格。
+
+### 存储阻挡检查
+
+原版 `StoreUtility.NoStorageBlockersIn` 先扫描阻挡物和可合并堆，最后通过 `GetItemCount` 再扫描同一格。替换路径只在达到高密度阈值且该方法没有其他 Mod 补丁时启用，在第一次循环中同步统计 Item 数量，其余判断顺序和条件保持一致；例如 Adaptive Storage 修改该方法时会完整回退，以保留其合法堆叠目标检查。
+
+### 合并工作候选
+
+原版 `WorkGiver_Merge.JobOnThing` 会为每个源堆完整枚举 `ISlotGroup.HeldThings`。候选缓存按引用相等的 `(ThingDef, Stuff)` 建桶，因为原版 `Thing.CanStackWith` 先要求二者相同；真正候选仍执行原方法中的全部即时判断：
+
+- `CanStackWith`
+- stack limit
+- Forbidden 与 allowed area
+- Cell 和 Thing Reservation
+- `IsValidStorageFor`
+- 静态火焰
+
+每个原版 `SlotGroup` 或 `StorageGroup` 保存逐格 `(cellIndex, List._version)` 快照。每组每 tick 最多验证一次，同 tick 的标准 ThingGrid 变化会立即触发重验。
+
+以下情况直接返回原版 `HeldThings`：
+
+- SlotGroup 实现来自第三方程序集。
+- 源 Thing 的最终 `CanStackWith` override 来自第三方程序集。
+- `CanStackWith` 相关方法存在其他 Harmony 补丁。
+- 无法读取列表版本或储存格越界。
+
+补丁只用 transpiler 替换 `HeldThings` 的候选来源，`JobOnThing` 的其余代码以及其他 Mod 的 postfix 仍然保留。
+
+## 可选兼容层
+
+### Outerrealm Tech
+
+运行时检测 `FullyAutomaticOmniCrafter`，没有编译期引用。当前包含：
+
+- lease-return burst spreading
+- book-search enumeration guard
+- reservation recheck compatibility
+- vault-delivery reservation guard
+
+私有签名变化时适配器保持关闭并写入警告。
+
+### UF Recipes 与 Turn It On and Off
+
+UF Recipes 会为 `Building_SuperWorkbench` 把 `CompPowerTrader.CompInspectStringExtra` 结果设为 `null`；Turn It On and Off 随后的正则 postfix 要求非空输入。桥接补丁严格排在二者之间，仅把该类型层级的 `null` 规范化为空字符串。
+
+## 构建
+
+在 monorepo 的 `SaveYourStorage-and-Tick-Every-Minute` 目录执行，需要 .NET 10 SDK、RimWorld 1.7 与 Harmony 3。直接引用游戏根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 和 Harmony 的 `1.7/Assemblies/0Harmony.dll`，不再使用 1.6 NuGet 引用。
+
+```powershell
+dotnet build Source\SaveYourStorageAndTickEveryMinute.csproj -c Release
+```
+
+默认游戏路径为 `E:/Apps/Steam/steamapps/common/RimWorld`（WSL 使用 `/mnt/e/Apps/...`），Harmony 位于 workshop `2009463077/1.7/Assemblies`。可通过 MSBuild `-p:RimWorldDir=... -p:HarmonyAssemblyPath=...` 或 `RIMWORLD_DIR`、`HARMONY_ASSEMBLY_PATH` 覆盖。输出只写 `1.7/Assemblies`；DLL 可提交，中间文件位于各项目的 `tmp/obj`。
+
+`1.6/Assemblies` 保留从已有安装取回的发布文件，不能用当前 net10.0 项目覆盖。`LoadFolders.xml` 每个版本只选一个目录，因此两个程序集不会一起加载。中英文本保留在各自版本的 `Languages` 内，不再叠加根目录资源。
+
+## 验证
+
+```powershell
+.\scripts\verify.ps1
+```
+
+此命令构建 1.7、运行不依赖游戏的调度器语义测试并解析 XML。`-DotNet` 可指定 SDK 路径。Harmony 行为必须另用游戏自带的 Windows CoreCLR 验证；Windows PowerShell 5 的 .NET Framework 反射宿主无法加载 1.7。旧 `verify-rimworld-contract.ps1` / `verify-outerrealm-contract.ps1` 已删除。
+
+本次迁移已通过临时独立 Windows apphost 加载游戏自带 CLR 和 Harmony 3，执行全部静态补丁安装及实际调用检查，结果见 [TESTING.md](testing.md)。临时宿主验证后已移除。后续运行时检查应使用独立游戏 CLR 进程，保留 `RimWorld.runtimeconfig.json` 的 WaylithClr 设置及 UnityEngine 到 UnityStubs 的重定向；不要在 PowerShell 的桌面 CLR 内再加载第二套 CLR，否则可能加载错误 JIT 并使 Harmony 版本检查失败。
+
+游戏内 A/B、完整搬运、存读档及可选依赖兼容仍按 [TESTING.md](testing.md) 执行。
+
+## 部署
+
+完全退出 RimWorld 后，从 monorepo 根目录执行：
+
+```bash
+bash scripts/deploy.sh save_your_storage_and_tick_every_minute
+# 已构建时，仅暂存和复制现有产物
+bash scripts/deploy.sh save_your_storage_and_tick_every_minute --skip-build
+```
+
+Windows 使用 `python scripts/python/deploy.py save_your_storage_and_tick_every_minute`。`--rimworld-dir`、`--target` 和 `--property HarmonyAssemblyPath=PATH` 可覆盖路径；`--build-only` 只编译并暂存根 `artifacts/save_your_storage_and_tick_every_minute/release`。部署核对目标 `packageId` 和逐文件哈希，保留安装中的 `1.6` 与 `PublishedFileId.txt`。
+
+## 已知限制
+
+- 第三方代码如果直接改写 `ThingGrid.ThingsListAt()` 返回列表且在同一 tick 内绕过 `Register/Deregister`，缓存到下一次版本核对前可能看不到变化。这不是 RimWorld 的标准生命周期。
+- 第三方代码直接修改 `Thing.def` 或 `Stuff` 且不重新注册时，会破坏原版也默认成立的身份稳定假设。
+- 布局缓存消除位置计算的 O(N²)，但仍会绘制每个 Thing 的图形和 GUI 标签；极端密度下仍存在 O(N) 渲染成本。
+- 合并候选缓存优化原版自动合并工作，不接管自定义 WorkGiver。

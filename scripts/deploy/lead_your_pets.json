@@ -1,0 +1,45 @@
+{
+  "target": "LeadYourPetsContinued",
+  "package_id": "nanaloveyuki.leadyourpet.continued",
+  "legacy_paths": ["Defs", "Languages", "Assemblies", "Guard"],
+  "versions": [
+    "1.6",
+    "1.7"
+  ],
+  "build": [
+    [
+      "dotnet",
+      "lead_your_pets/Source/LeadYourPet.csproj",
+      {}
+    ],
+    [
+      "dotnet",
+      "lead_your_pets/Guard/Source/LeadYourPetContinuedGuard.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "NOTICE",
+    "{runtime}Defs",
+    "{runtime}Languages",
+    "{runtime}Guard/Languages",
+    "{runtime}Assemblies/LeadYourPet.dll",
+    "{runtime}Guard/Assemblies/LeadYourPetContinuedGuard.dll",
+    {"source": "Defs", "optional": true},
+    {"source": "Languages", "optional": true},
+    {"source": "Assemblies/LeadYourPet.dll", "optional": true},
+    {"source": "Guard/Languages", "optional": true},
+    {"source": "Guard/Assemblies/LeadYourPetContinuedGuard.dll", "optional": true}
+  ],
+  "required": [
+    "{runtime}Assemblies/LeadYourPet.dll",
+    "{runtime}Guard/Assemblies/LeadYourPetContinuedGuard.dll"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "target": "KeepYourIdentity",
+  "package_id": "nanaloveyuki.keepyouridentity",
+  "build": [
+    [
+      "dotnet",
+      "keep_your_identity/Source/KeepYourIdentity.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "1.7/Assemblies/KeepYourIdentity.dll"
+  ],
+  "required": [
+    "1.7/Assemblies/KeepYourIdentity.dll"
+  ]
+}

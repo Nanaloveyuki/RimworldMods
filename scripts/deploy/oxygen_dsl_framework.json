@@ -1,0 +1,75 @@
+{
+  "target": "Oxygendsl",
+  "package_id": "nanaloveyuki.oxygendsl",
+  "context": {
+    "iris": "{root}/iris_menus"
+  },
+  "build": [
+    [
+      "npm",
+      "--prefix",
+      "{source}/Tools/vscode",
+      "ci",
+      "--no-audit",
+      "--no-fund"
+    ],
+    [
+      "node",
+      "{source}/Tools/web-editor/build.mjs"
+    ],
+    [
+      "dotnet",
+      "iris_menus/Source/IrisMenus.csproj",
+      {}
+    ],
+    [
+      "dotnet",
+      "oxygen_dsl_framework/Oxygendsl.slnx",
+      {
+        "IrisMenusSourceDir": "{iris}"
+      }
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "Languages",
+    "docs",
+    "Examples",
+    "Oxygen",
+    "WebEditor",
+    "1.7/Defs",
+    "THIRD_PARTY_NOTICES.md",
+    {
+      "source": "1.6",
+      "optional": true
+    },
+    {
+      "source": "tmp/build/1.7/Oxygendsl.Core.dll",
+      "target": "1.7/Assemblies/Oxygendsl.Core.dll"
+    },
+    {
+      "source": "tmp/build/1.7/Oxygendsl.Mod.dll",
+      "target": "1.7/Assemblies/Oxygendsl.Mod.dll"
+    },
+    {
+      "source": "tmp/build/1.7/Oxygendsl.Rhah.dll",
+      "target": "1.7/Rhah/Assemblies/Oxygendsl.Rhah.dll"
+    },
+    {
+      "source": "tmp/build/1.7/Oxygendsl.IrisMenus.dll",
+      "target": "1.7/IrisMenus/Assemblies/Oxygendsl.IrisMenus.dll"
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/Oxygendsl.Core.dll",
+    "1.7/Assemblies/Oxygendsl.Mod.dll",
+    "1.7/Rhah/Assemblies/Oxygendsl.Rhah.dll",
+    "1.7/IrisMenus/Assemblies/Oxygendsl.IrisMenus.dll"
+  ]
+}

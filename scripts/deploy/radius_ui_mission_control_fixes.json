@@ -1,0 +1,28 @@
+{
+  "target": "RadiusUI-MissionControl-Fixes",
+  "package_id": "nanaloveyuki.radiusui.missioncontrol.fixes",
+  "default_version": "1.6",
+  "versions": [
+    "1.6"
+  ],
+  "build": [
+    [
+      "dotnet",
+      "radius_ui_mission_control_fixes/Source/RadiusUI.MissionControl.Fixes.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "LICENSE",
+    {
+      "source": "README.md",
+      "optional": true
+    },
+    "1.6/Assemblies/RadiusUI.MissionControl.Fixes.dll"
+  ],
+  "required": [
+    "1.6/Assemblies/RadiusUI.MissionControl.Fixes.dll"
+  ]
+}

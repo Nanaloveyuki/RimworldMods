@@ -1,0 +1,42 @@
+{
+  "target": "RatkinHungerAndHavoc",
+  "package_id": "nanaloveyuki.ratkin.hungerandhavoc",
+  "legacy_paths": ["Guard/Assemblies"],
+  "versions": ["1.6", "1.7"],
+  "rhah": true,
+  "new_target_name": true,
+  "forbidden_targets": [
+    "RatkinGreatFamineYearContinued"
+  ],
+  "build": [
+    [
+      "{python}",
+      "{source}/scripts/rhah_pipeline.py",
+      "{pipeline_command}",
+      "--rimworld-dir",
+      "{game}",
+      "--configuration",
+      "{configuration}",
+      "--rimworld-version",
+      "{version}",
+      "--oxygen-dsl-dir",
+      "{root}/oxygen_dsl_framework"
+    ]
+  ],
+  "owned_assemblies": {
+    "1.6/Assemblies": [
+      "HungerAndHavoc.Api.dll",
+      "HungerAndHavoc.dll"
+    ],
+    "Guard/Assemblies": [
+      "HungerAndHavocGuard.dll"
+    ],
+    "1.7/Assemblies": [
+      "HungerAndHavoc.Api.dll",
+      "HungerAndHavoc.dll"
+    ],
+    "1.7/Guard/Assemblies": [
+      "HungerAndHavocGuard.dll"
+    ]
+  }
+}

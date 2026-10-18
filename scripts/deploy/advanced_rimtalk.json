@@ -1,0 +1,46 @@
+{
+  "target": "AdvancedRimTalk",
+  "package_id": "advancedrimtalk.prompt",
+  "legacy_paths": ["Assemblies"],
+  "build": [
+    [
+      "dotnet",
+      "advanced_rimtalk/AdvancedRimTalk.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    {"source": "LICENSE", "target": "1.7/LICENSE"},
+    {"source": "README.md", "target": "1.7/README.md", "optional": true},
+    {
+      "source": "tmp/build/AdvancedRimTalk.dll",
+      "target": "1.7/Assemblies/AdvancedRimTalk.dll"
+    },
+    {
+      "source": "tmp/build/AdvancedRimTalk.pdb",
+      "target": "1.7/Assemblies/AdvancedRimTalk.pdb",
+      "optional": true
+    },
+    {
+      "source": "Languages",
+      "target": "1.7/Languages"
+    },
+    {
+      "source": "docs",
+      "target": "1.7/docs"
+    },
+    {
+      "source": "1.6",
+      "optional": true
+    },
+    {
+      "source": "Assemblies",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/AdvancedRimTalk.dll"
+  ]
+}
