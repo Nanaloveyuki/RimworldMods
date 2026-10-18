@@ -127,7 +127,7 @@
   <OPN_UserGuideTitle>User guide</OPN_UserGuideTitle>
   <OPN_UserGuide><![CDATA[# Prisoner names — User guide
 
-Give prisoners easy-to-recognize aliases, with different names for their age, race or grade. **No coding is needed.** Original names are not changed. Turning aliases off, releasing or recruiting a prisoner restores their original name.
+Give prisoners easy-to-recognize aliases, with different names for their age, race or grade. **No coding is needed.** On 1.7, aliases become real nicknames that you can view and edit in the vanilla name editor. Turning aliases off, releasing or recruiting a prisoner restores their original name while preserving later manual edits. On 1.6, aliases still change display labels only.
 
 ## Getting started
 
@@ -184,6 +184,7 @@ In Grades, enter a grade name and Points needed for this grade. For example, if 
 In View prisoner roster, select a prisoner on the right to assign an alias, score or grade.
 
 - An individual alias takes priority over shared naming. Clear it to return to automatic names.
+- On 1.7, renaming through the vanilla editor or another mod also sets an individual override and becomes the name restored when aliases are turned off. Clear the override in the roster to resume automatic naming.
 - Setting a score manually stops automatic score changes. Empty the score field and click Set score to resume automatic scoring while keeping the current score.
 - An assigned grade stays fixed when the score changes. Empty the grade field and click Set grade to return to score-based grades.
 
@@ -202,6 +203,6 @@ In the browser, current/naming is this save's naming rule and current/events is 
 - Check that the prisoner is a living humanlike colony prisoner and Show prisoner aliases is on.
 - Check Name preview and save status for an input error, and check whether an individual alias is taking priority.
 - When Naming method is Advanced rule, page patterns do not take over. Choose Use these settings to return to them.
-- Some third-party windows read original names directly and may not show these aliases.
+- On 1.7, turn aliases off and save before uninstalling to restore original names. Uninstalling directly keeps the current nicknames. On 1.6, third-party windows may still show original names.
 ]]></OPN_UserGuide>
 </LanguageData>

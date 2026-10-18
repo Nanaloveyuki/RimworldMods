@@ -1,6 +1,6 @@
 # ODF 囚犯动态代号
 
-包名：`odf.nanaloveyuki.prisonernames`。适用 RimWorld 1.6／1.7，依赖对应版本的 Harmony、Oxygendsl 和 IrisMenus。1.6 保留现有编译产物，1.7 使用独立 .NET 10 程序集；存档类型和字段不变。独立实现，不依赖 RHAH；不要与 `Lezhizhong.PrisonerCodename` 同时启用。
+包名：`odf.nanaloveyuki.prisonernames`，当前版本 **0.1.0**。适用 RimWorld 1.6／1.7，依赖对应版本的 Harmony、Oxygendsl 和 IrisMenus。1.6 保留原有显示别名实现和编译产物；以下真实昵称行为仅适用于 1.7。旧存档的编号、规则、分数和单人覆盖继续保留，首次加载时补充原名与改名归属记录。独立实现，不依赖 RHAH；不要与 `Lezhizhong.PrisonerCodename` 同时启用。
 
 发布图片均为黑底白字，主标题分两行显示 Prisoner Name / 囚犯代号。`About/Preview.png`（1536×1024）的小字副标题为 Oxygen DSL Framework；`About/ModIcon.png`（1254×1254）的副标题为 O.D.F.。
 
@@ -15,7 +15,7 @@
 6. 新存档使用全局配置样式。旧存档若已有自定义规则或存档覆盖，仍保持原设置；全局设置不会覆盖它们。默认规则读取已安装的 `Oxygen/default-*.oxy` 和 `Oxygen/events.oxy`。
 7. 托管满 60000 个未暂停的游戏 tick 才发布一次 `prisoner.custody_day`。暂停、释放后的间隔和读档都不会补发。
 
-代号只替换存活殖民地囚犯的标准显示标签，**不写 `Pawn.Name`**。释放、招募、死亡或关闭后恢复原名；直接读取 Name 的第三方 UI 仍可显示原名。全局默认设置保存在 ModSettings；存档覆盖、规则、草稿、编号、分数、单人覆盖及自定义值随存档保存。
+1.7 将代号写入真实 `Pawn.Name` 昵称，保留名、姓；原版姓名编辑器和读取 Name 的第三方窗口都能读到代号。玩家在原版或其他 Mod 中改名后，新姓名立即成为手动覆盖和恢复基准；清除名单中的单人代号才恢复自动命名。关闭代号、释放、招募、死亡或规则返回 null 时，撤销本 Mod 写入的昵称，保留玩家后续修改。规则中的 `name`、`original_name`、`original_short`、`original_full_name`、`first_name`、`last_name` 使用独立保存的姓名基准，避免重复套用代号。全局默认设置保存在 ModSettings；原名、改名归属、存档覆盖、规则、草稿、编号、分数、单人覆盖及自定义值随存档保存。
 
 离线预览：`dotnet run --project Tools/PrisonerNames.Preview -- --source 文件 --facts '{...}' [--chinese] [--mod 模组目录]`。`--facts` 是 JSON 文本，不是文件路径。`--mod` 可重复，只读取该目录 `About/packageId` 对应的 `Oxygen/*.oxy`。
 
@@ -124,9 +124,17 @@ fn codename(pawn): string? {
 
 常见 `interaction`：`MaintainOnly`、`AttemptRecruit`、`ReduceResistance`、`Release`、`Execution`；DLC 另有 `Enslave`、`ReduceWill`、`Convert`、`Study`、`Interrogate`。供血可能与招募等并存。
 
-未来囚犯进入尚未命中的错误分支时，窗口显示错误，已有缓存代号保留，不改原名。函数执行有步数／深度上限；普通脚本变量不作为持久存档数据。移除本 Mod 后额外组件记录可能产生缺失类型提示，但原姓名不受影响；未声称完成无提示卸载验收。
+未来囚犯进入尚未命中的错误分支时，窗口显示错误并保留上一有效昵称。函数执行有步数／深度上限；普通脚本变量不作为持久存档数据。卸载前应先关闭代号并保存，让真实昵称恢复；直接移除本 Mod 会保留当时已写入的昵称，额外组件记录也可能产生缺失类型提示。
 
 ## 验证
+
+### 0.1.0（2026-10-18，RimWorld 1.7）
+
+- 移除五处显示标签替换，改用真实昵称；原版姓名编辑器直接显示当前代号。
+- 外部改名立即优先于自动规则；单人覆盖可清除。原姓名独立保存，关闭、退出囚犯身份和 null 规则仅撤销本 Mod 的改名。
+- `dotnet run --project odf_mods/RuntimeChecks/PrisonerNames.RuntimeChecks.csproj -c Release`：真实 RimWorld／Harmony 程序集执行昵称写入、刷新、手动覆盖、释放／死亡、重复初始化、设置范围切换、旧存档迁移及姓名状态的真实 Scribe XML 往返。只替换地图／商队囚犯枚举边界；未启动游戏画面，也不等同完整存档及 Pawn 交叉引用验收。
+- 真实程序集昵称回归 30 项通过，现有命名规则检查 47 项通过；Release 构建 0 警告、0 错误。1.6 二进制保持原样。
+
 
 2026-10-10 的 Release 构建 0 警告、0 错误，20 项命名行为检查通过。直接链接生产代码的 30 项状态 smoke 覆盖初始分数、事件原子提交／回滚、阈值升级、单人覆盖、暂停／释放托管间隔、独立草稿、旧存档自定义规则迁移及记录恢复；游戏／Pawn 边界使用替身，不算真实游戏。
 

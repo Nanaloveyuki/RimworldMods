@@ -48,6 +48,7 @@ namespace Odf.PrisonerNames
         string lastEventError = string.Empty;
         float elapsed;
         bool restored;
+        bool writingName;
         NamePolicy policy = NamePolicy.CreateDefault();
         NamingRules rules;
         List<SavedEntry> saved = new List<SavedEntry>();
@@ -86,6 +87,7 @@ namespace Odf.PrisonerNames
         {
             EnsureReady();
             if (saveOverride == UsesSaveSettings) return;
+            saved = Capture();
             if (saveOverride)
             {
                 settingsScope = "save";
@@ -182,8 +184,10 @@ namespace Odf.PrisonerNames
                 return false;
             }
             Record record = Ensure(pawn);
+            ObserveName(pawn, record);
             if (string.Equals(record.Manual, normalized, StringComparison.Ordinal)) return true;
             record.Manual = normalized;
+            if (normalized != null) record.Names.Original(pawn);
             if (!string.IsNullOrEmpty(normalized)) record.Alias = normalized;
             else if (enabled && rules != null)
             {
@@ -200,6 +204,7 @@ namespace Odf.PrisonerNames
                 }
             }
             else record.Alias = null;
+            ApplyName(pawn, record, enabled ? record.Alias : null);
             lastError = string.Empty;
             Publish(false);
             revision++;
@@ -215,12 +220,47 @@ namespace Odf.PrisonerNames
             return compiled.Evaluate(PrisonerFacts.Create(pawn, number, record == null ? null : View(record)), GameNow());
         }
 
-        public string GetAlias(Pawn pawn)
+        public Name OriginalName(Pawn pawn)
         {
-            if (!enabled || !Eligible(pawn)) return null;
             Record record = Find(pawn);
-            if (record == null || string.IsNullOrEmpty(record.Alias)) return null;
-            return record.Alias;
+            return record == null ? pawn?.Name : record.Names.Original(pawn);
+        }
+
+        internal void NotifyNameChanged(Pawn pawn)
+        {
+            if (writingName || !restored) return;
+            Record record = Find(pawn);
+            if (record == null)
+            {
+                if (!enabled || !Eligible(pawn)) return;
+                record = Ensure(pawn);
+                record.Names.Original(pawn);
+                record.Manual = pawn.Name?.ToStringShort;
+                record.Alias = record.Manual;
+            }
+            else if (!ObserveName(pawn, record)) return;
+            Publish(false);
+            revision++;
+        }
+
+        bool ObserveName(Pawn pawn, Record record)
+        {
+            if (!record.Names.Observe(pawn)) return false;
+            record.Manual = pawn.Name?.ToStringShort;
+            record.Alias = enabled && Eligible(pawn) ? record.Manual : null;
+            return true;
+        }
+
+        void ApplyName(Pawn pawn, Record record, string alias)
+        {
+            Name desired = record.Names.Desired(pawn, alias);
+            if (!PrisonerNameState.Same(pawn.Name, desired))
+            {
+                writingName = true;
+                try { pawn.Name = desired; }
+                finally { writingName = false; }
+            }
+            record.Names.Applied(desired, !string.IsNullOrEmpty(alias));
         }
         public bool SetScore(Pawn pawn, double? score)
         {
@@ -586,6 +626,7 @@ namespace Odf.PrisonerNames
 
         void Restore()
         {
+            if (restored) saved = Capture();
             records.Clear();
             pawns.Clear();
             int highest = 0;
@@ -601,6 +642,7 @@ namespace Odf.PrisonerNames
                     {
                         Number = entry.Number < 1 ? 0 : entry.Number,
                         Manual = NormalizeLoaded(entry.Manual),
+                        Names = entry.Names ?? new PrisonerNameState(),
                         Score = double.IsNaN(entry.Score) || double.IsInfinity(entry.Score) ? NamePolicy.DefaultNeutralScore : entry.Score,
                         ManualScore = entry.ManualScore,
                         ManualGrade = string.IsNullOrWhiteSpace(entry.ManualGrade) ? null : entry.ManualGrade,
@@ -611,6 +653,7 @@ namespace Odf.PrisonerNames
                     RestoreValues(record, entry.Values);
                     records[entry.Pawn.thingIDNumber] = record;
                     pawns[entry.Pawn.thingIDNumber] = entry.Pawn;
+                    ObserveName(entry.Pawn, record);
                 }
             }
             bool hasSaveState = !string.IsNullOrEmpty(activeSource) || !string.IsNullOrEmpty(draftSource)
@@ -675,6 +718,7 @@ namespace Odf.PrisonerNames
                 Pawn pawn = colony[i];
                 if (!Eligible(pawn)) continue;
                 Record record = Find(pawn);
+                if (record != null) ObserveName(pawn, record);
                 int number = record != null && record.Number > 0 ? record.Number : reserved++;
                 string alias = record == null ? null : record.Manual;
                 if (string.IsNullOrEmpty(alias))
@@ -702,6 +746,7 @@ namespace Odf.PrisonerNames
                 record = Ensure(item.Pawn);
                 record.Number = item.Number;
                 record.Alias = item.Alias;
+                ApplyName(item.Pawn, record, enabled ? item.Alias : null);
             }
             if (nextNumber < reserved) nextNumber = reserved;
             Publish(false);
@@ -749,6 +794,12 @@ namespace Odf.PrisonerNames
             {
                 Record record;
                 if (!records.TryGetValue(retired[i], out record)) continue;
+                Pawn pawn = pawns[retired[i]];
+                if (pawn != null && !pawn.Destroyed)
+                {
+                    ObserveName(pawn, record);
+                    ApplyName(pawn, record, null);
+                }
                 if (record.Alias != null) { record.Alias = null; changed = true; }
                 if (record.CustodyKnown) { record.CustodyKnown = false; record.LastCustodyTick = int.MinValue; changed = true; }
             }
@@ -760,9 +811,13 @@ namespace Odf.PrisonerNames
             bool changed = false;
             foreach (KeyValuePair<int, Record> pair in records)
             {
-                if (pair.Value.Alias == null) continue;
-                pair.Value.Alias = null;
-                changed = true;
+                Pawn pawn = pawns[pair.Key];
+                if (pawn != null && !pawn.Destroyed)
+                {
+                    changed |= ObserveName(pawn, pair.Value);
+                    ApplyName(pawn, pair.Value, null);
+                }
+                if (pair.Value.Alias != null) { pair.Value.Alias = null; changed = true; }
             }
             return changed;
         }
@@ -799,6 +854,7 @@ namespace Odf.PrisonerNames
             if (!records.TryGetValue(pawn.thingIDNumber, out record))
             {
                 record = new Record { Number = nextNumber++, Score = policy.NeutralScore };
+                record.Names.Original(pawn);
                 records[pawn.thingIDNumber] = record;
             }
             else if (record.Number < 1) record.Number = nextNumber++;
@@ -820,6 +876,7 @@ namespace Odf.PrisonerNames
             {
                 Pawn pawn;
                 if (!pawns.TryGetValue(pair.Key, out pawn) || pawn == null || pawn.Destroyed) continue;
+                ObserveName(pawn, pair.Value);
                 list.Add(Capture(pawn, pair.Value));
             }
             return list;
@@ -831,6 +888,7 @@ namespace Odf.PrisonerNames
                 Pawn = pawn,
                 Number = record.Number,
                 Manual = record.Manual,
+                Names = record.Names,
                 Score = record.Score,
                 ManualScore = record.ManualScore,
                 ManualGrade = record.ManualGrade,
@@ -984,6 +1042,7 @@ namespace Odf.PrisonerNames
             public int Number;
             public string Manual;
             public string Alias;
+            public PrisonerNameState Names = new PrisonerNameState();
             public double Score = NamePolicy.DefaultNeutralScore;
             public bool ManualScore;
             public string ManualGrade;
@@ -1011,6 +1070,7 @@ namespace Odf.PrisonerNames
             public Pawn Pawn;
             public int Number;
             public string Manual;
+            public PrisonerNameState Names;
             public double Score = NamePolicy.DefaultNeutralScore;
             public bool ManualScore;
             public string ManualGrade;
@@ -1024,6 +1084,7 @@ namespace Odf.PrisonerNames
                 Scribe_References.Look(ref Pawn, "pawn");
                 Scribe_Values.Look(ref Number, "number", 0);
                 Scribe_Values.Look(ref Manual, "manual");
+                Scribe_Deep.Look(ref Names, "nameState");
                 Scribe_Values.Look(ref Score, "score", NamePolicy.DefaultNeutralScore);
                 Scribe_Values.Look(ref ManualScore, "manualScore", false);
                 Scribe_Values.Look(ref ManualGrade, "manualGrade");

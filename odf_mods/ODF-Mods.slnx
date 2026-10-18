@@ -3,5 +3,6 @@
   <Project Path="../oxygen_dsl_framework/Source/Mod/Oxygendsl.Mod.csproj" />
   <Project Path="Mods/PrisonerNames/Source/Odf.PrisonerNames.csproj" />
   <Project Path="Tests/PrisonerNames.Checks.csproj" />
+  <Project Path="RuntimeChecks/PrisonerNames.RuntimeChecks.csproj" />
   <Project Path="Tools/PrisonerNames.Preview/PrisonerNames.Preview.csproj" />
 </Solution>

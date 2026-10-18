@@ -19,6 +19,7 @@ namespace Odf.PrisonerNames
         {
             if (pawn == null) throw new ArgumentNullException(nameof(pawn));
             PawnContext context = PawnFacts.Create(pawn);
+            context.Name = OriginalShort(pawn);
             context.Facts = new PrisonerHostFacts(pawn, number, context.Facts, record);
             return context;
         }
@@ -186,19 +187,19 @@ namespace Odf.PrisonerNames
 
         static string OriginalNick(Pawn pawn)
         {
-            NameTriple triple = pawn == null ? null : pawn.Name as NameTriple;
+            NameTriple triple = OriginalName(pawn) as NameTriple;
             return triple == null ? OriginalShort(pawn) : triple.Nick ?? string.Empty;
         }
 
         static string FirstName(Pawn pawn)
         {
-            NameTriple triple = pawn == null ? null : pawn.Name as NameTriple;
+            NameTriple triple = OriginalName(pawn) as NameTriple;
             return triple == null ? string.Empty : triple.First ?? string.Empty;
         }
 
         static string LastName(Pawn pawn)
         {
-            NameTriple triple = pawn == null ? null : pawn.Name as NameTriple;
+            NameTriple triple = OriginalName(pawn) as NameTriple;
             return triple == null ? string.Empty : triple.Last ?? string.Empty;
         }
 
@@ -283,16 +284,22 @@ namespace Odf.PrisonerNames
             throw new ScriptEvaluationException(query + " requires a defName.", 1, 1);
         }
 
+        static Name OriginalName(Pawn pawn)
+        {
+            GameComponent_PrisonerNames runtime = Current.Game?.GetComponent<GameComponent_PrisonerNames>();
+            return runtime == null ? pawn?.Name : runtime.OriginalName(pawn);
+        }
+
         public static string OriginalShort(Pawn pawn)
         {
-            if (pawn == null || pawn.Name == null) return pawn == null ? string.Empty : pawn.KindLabel;
-            return pawn.Name.ToStringShort;
+            Name name = OriginalName(pawn);
+            return name == null ? pawn?.KindLabel ?? string.Empty : name.ToStringShort;
         }
 
         public static string OriginalFull(Pawn pawn)
         {
-            if (pawn == null || pawn.Name == null) return OriginalShort(pawn);
-            return pawn.Name.ToStringFull;
+            Name name = OriginalName(pawn);
+            return name == null ? OriginalShort(pawn) : name.ToStringFull;
         }
 
         static string RaceName(Pawn pawn)

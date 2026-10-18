@@ -287,8 +287,8 @@ namespace Odf.PrisonerNames
 
         static string OriginalName(Pawn pawn)
         {
-            if (pawn == null || pawn.Name == null) return T("OPN_Unnamed");
-            string name = pawn.Name.ToStringShort;
+            if (pawn == null) return T("OPN_Unnamed");
+            string name = PrisonerFacts.OriginalShort(pawn);
             return string.IsNullOrEmpty(name) ? T("OPN_Unnamed") : name;
         }
 

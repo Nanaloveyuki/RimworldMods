@@ -6,7 +6,7 @@ RimworldMods monorepo 中基于 Oxygen DSL Framework 的模组集合。每个 `M
 
 | 目录 | 包名 | 功能 |
 | --- | --- | --- |
-| [PrisonerNames](Mods/PrisonerNames/README.md) | `odf.nanaloveyuki.prisonernames` | 保留原姓名；支持英文命名占位符、年龄段／种族覆盖、持久分数／等级、事件规则和单人覆盖 |
+| [PrisonerNames](Mods/PrisonerNames/README.md) | `odf.nanaloveyuki.prisonernames` | 1.7 使用真实昵称并保护玩家改名；支持英文占位符、年龄段／种族覆盖、持久分数／等级和单人覆盖；1.6 保留显示别名 |
 
 `PrisonerNames` 依赖 Harmony、`nanaloveyuki.oxygendsl` 和 `Nanaloveyuki.IrisMenus`，不依赖 RHAH、HAR 或旧囚犯代号。旧 Mod 仅参考公开功能说明；未读取或复用其实现源码。Nanaloveyuki 自有贡献采用 MIT OR Apache-2.0 双重许可，见 [LICENSE](LICENSE)；第三方内容保留原许可。ODF 的 IrisMenus 适配为依赖 Mod 自动提供本机网页编辑／退出操作，IrisMenus 不反向依赖 ODF。
 
@@ -26,6 +26,9 @@ bash scripts/deploy.sh odf_mods --mod all
 
 # 少量语言消费端行为检查
 dotnet run --project odf_mods/Tests/PrisonerNames.Checks.csproj -c Release
+
+# 真实 RimWorld／Harmony 程序集昵称与 Scribe 状态回归
+dotnet run --project odf_mods/RuntimeChecks/PrisonerNames.RuntimeChecks.csproj -c Release
 ```
 
 默认游戏路径为 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；`RIMWORLD_DIR` 可覆盖。引用安装根目录的 `Assembly-CSharp.dll`、`UnityStubs.dll` 和 Harmony 模组的 `1.7/Assemblies/0Harmony.dll`，不引用反编译源码。需要同时安装对应 1.7 的 Oxygen 框架和 IrisMenus；本项目部署脚本不会自行修改玩家的启用列表或旧 Mod。部署前检查游戏进程，检查目标包名，并逐文件核对 SHA-256。
@@ -33,6 +36,12 @@ dotnet run --project odf_mods/Tests/PrisonerNames.Checks.csproj -c Release
 1.6 使用保留的 `Mods/PrisonerNames/1.6/Assemblies/Odf.PrisonerNames.dll`；1.7 只加载 `1.7/Assemblies`。两版共享根目录翻译和 Oxygen 规则，根目录不放程序集。源码仅构建 1.7，不重编译 1.6。正式暂存按 Mod 放在根 `artifacts/odf_mods/` 下，部署保留目标已有的 1.6；全新双版本安装仍须携带原有 1.6 发布文件。
 
 新增 Mod 在 `Mods/` 下独立放置 About、LoadFolders、Languages、Oxygen 和 Source；程序集名使用 `Odf.<DirectoryName>`，输出 `Mods/<DirectoryName>/1.7/Assemblies/`，在 `ODF-Mods.slnx` 添加项目。每个发布包只包含自己的程序集，不重复打包 Oxygen。
+
+## 0.1.0 真实昵称（2026-10-18，1.7）
+
+1.7 代号写入真实昵称，保留名、姓。原版或其他 Mod 的改名立即锁定为单人覆盖，并更新恢复基准；关闭代号或退出囚犯身份时保留玩家后续修改。原名与本 Mod 最后写入的姓名随存档保存，规则读取独立姓名基准，避免反复套用。1.6 DLL 保持原样；旧存档沿用编号、规则和覆盖。卸载前关闭代号并保存，否则保留当时的真实昵称。
+
+真实程序集回归覆盖自动刷新、外部改名、覆盖清除、释放／死亡、重复初始化、设置范围切换、旧存档迁移和姓名状态 Scribe XML 往返；原有 47 项规则检查通过。未启动游戏画面，未声称完成原生姓名编辑窗口或完整存档交叉引用验收。下列旧记录中的「原名不变」指当时的显示别名实现。
 
 ## RimWorld 1.7 验证（2026-10-15）
 
