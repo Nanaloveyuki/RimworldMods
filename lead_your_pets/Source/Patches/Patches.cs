@@ -12,11 +12,6 @@ using Verse.AI.Group;
 
 namespace LeadYourPet
 {
-    public struct RopeDrawState
-    {
-        public bool Overridden;
-        public LocalTargetInfo OriginalTarget;
-    }
 
     [HarmonyPatch(typeof(GenHostility), nameof(GenHostility.HostileTo), typeof(Thing), typeof(Thing))]
     public static class Patch_GenHostility_ThingThing
@@ -469,13 +464,10 @@ namespace LeadYourPet
     [HarmonyPatch(typeof(PawnRenderer), "GetDrawParms")]
     public static class Patch_PawnRenderer_GetDrawParms
     {
-        public static void Postfix(Pawn ___pawn, Vector3 rootLoc, ref PawnDrawParms __result)
+        public static void Postfix(Pawn ___pawn, ref PawnDrawParms __result)
         {
-            Vector3 drawPos;
-            float angle;
-            bool laying;
-            Rot4 facing;
-            if (!LeadYourPetUtility.TryGetSpecialRenderData(___pawn, out drawPos, out angle, out laying, out facing))
+            if ((__result.flags & (PawnRenderFlags.Portrait | PawnRenderFlags.Cache | PawnRenderFlags.Statue)) != 0
+                || !LeadYourPetUtility.TryGetSpecialRenderData(___pawn, out Vector3 drawPos, out float angle, out bool _, out Rot4 facing))
             {
                 return;
             }
@@ -485,44 +477,48 @@ namespace LeadYourPet
         }
     }
 
+#if RIMWORLD_1_7
+    [HarmonyPatch(typeof(PawnRenderer), "ParallelGetPreRenderResults", typeof(Vector3), typeof(Rot4?), typeof(bool), typeof(bool))]
+    public static class Patch_PawnRenderer_ParallelGetPreRenderResults
+    {
+        public static void Prefix(Pawn ___pawn, ref bool disableCache)
+        {
+            // Cached atlas meshes use bodyPos/bodyAngle, bypassing the custom draw matrix.
+            if (!disableCache && LeadYourPetUtility.TryGetSpecialRenderData(___pawn, out _, out _, out _, out _))
+            {
+                disableCache = true;
+            }
+        }
+    }
+#endif
+
     [HarmonyPatch(typeof(Pawn_RopeTracker), nameof(Pawn_RopeTracker.RopingDraw))]
     public static class Patch_PawnRopeTracker_RopingDraw
     {
-        private static readonly AccessTools.FieldRef<Pawn_RopeTracker, Pawn> PawnField = AccessTools.FieldRefAccess<Pawn_RopeTracker, Pawn>("pawn");
-        private static readonly AccessTools.FieldRef<Pawn_RopeTracker, LocalTargetInfo> RopedToField = AccessTools.FieldRefAccess<Pawn_RopeTracker, LocalTargetInfo>("ropedTo");
+        private static readonly FieldInfo RopeLineMatField = AccessTools.Field(typeof(Pawn_RopeTracker), "RopeLineMat");
 
-        public static void Prefix(Pawn_RopeTracker __instance, ref RopeDrawState __state)
+        internal static bool TryGetCustomRopeEndpoints(Pawn pawn, out Vector3 start, out Vector3 end)
         {
-            __state = default;
-            LeadYourPetGameComponent component = LeadYourPetUtility.Component;
-            Pawn pawn = __instance == null ? null : PawnField(__instance);
-            if (!LeadYourPetRules.ShouldEvaluateCustomRopeTarget(
-                hasAnyLeash: component != null && component.HasAnyLeash(),
-                trackerAlreadyRoped: __instance != null && __instance.IsRoped,
-                pawnAvailable: pawn != null,
-                pawnCanParticipateInLeash: component != null && component.HasAnyLeashForPawn(pawn)))
-            {
-                return;
-            }
-
+            start = end = default(Vector3);
             if (!LeadYourPetUtility.TryGetCustomRopeTarget(pawn, out LocalTargetInfo target))
             {
-                return;
+                return false;
             }
 
-            __state.Overridden = true;
-            __state.OriginalTarget = RopedToField(__instance);
-            RopedToField(__instance) = target;
+            start = LeadYourPetUtility.GetVisualDrawPos(pawn).Yto0();
+            end = (target.HasThing ? LeadYourPetUtility.GetVisualDrawPos(target.Thing) : target.Cell.ToVector3Shifted()).Yto0();
+            return true;
         }
 
-        public static void Postfix(Pawn_RopeTracker __instance, RopeDrawState __state)
+        public static void Postfix(Pawn_RopeTracker __instance, Pawn ___pawn)
         {
-            if (!__state.Overridden || __instance == null)
+            if (__instance == null || __instance.IsRoped
+                || !TryGetCustomRopeEndpoints(___pawn, out Vector3 start, out Vector3 end))
             {
                 return;
             }
 
-            RopedToField(__instance) = __state.OriginalTarget;
+            GenDraw.DrawLineBetween(start, end, AltitudeLayer.PawnRope.AltitudeFor(), (Material)RopeLineMatField.GetValue(null), 0.2f);
         }
     }
 

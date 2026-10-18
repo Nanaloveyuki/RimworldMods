@@ -7,6 +7,18 @@ namespace LeadYourPet
 {
     public partial class LeadYourPetGameComponent
     {
+        internal bool ShouldFollowDuringDeparture(LeashLink link)
+        {
+            Pawn master = link?.Master;
+            Pawn pet = link?.Pet;
+            Lord lord = master?.GetLord();
+            return master != null && pet != null && master.Spawned && pet.Spawned
+                && master.Map == pet.Map && !master.Dead && !pet.Dead
+                && lord != null && pet.GetLord() == lord
+                && LeadYourPetUtility.IsNonPlayerTravelDeparture(master)
+                && LeadYourPetUtility.IsUnprotectedTravelStock(pet);
+        }
+
         internal void PrepareTravelDeparture(Lord lord, bool interruptJobs = false)
         {
             int ticksGame = Find.TickManager?.TicksGame ?? 0;
@@ -27,7 +39,7 @@ namespace LeadYourPet
             {
                 Pawn pet = lord.ownedPawns[i];
                 MouseEggState state = GetMouseEggState(pet);
-                if (state == null || !state.IsTravelStock || pet == null || pet.GetLord() != lord
+                if (state == null || !state.IsTravelStock || pet == null || pet.Dead || pet.GetLord() != lord
                     || !LeadYourPetUtility.IsUnprotectedTravelStock(pet)
                     || !LeadYourPetUtility.IsNonPlayerTravelDeparture(pet))
                 {
@@ -51,6 +63,11 @@ namespace LeadYourPet
                 bool mobile = pet.Spawned && !pet.Downed && LeadYourPetUtility.CanMouseEggMove(pet)
                     && !GodHandsCompat.IsGrabbed(pet)
                     && !LeadYourPetUtility.IsExternalToddlerHold(pet.CurJobDef?.defName, pet.jobs?.curDriver?.GetType().FullName);
+                if (mobile && !pet.Awake())
+                {
+                    RestUtility.WakeUp(pet, false);
+                }
+
                 if (!mobile && pet.Spawned && !GodHandsCompat.IsGrabbed(pet)
                     && !LeadYourPetUtility.IsExternalToddlerHold(pet.CurJobDef?.defName, pet.jobs?.curDriver?.GetType().FullName)
                     && (hadLeashControl || interruptJobs || pet.jobs?.curDriver?.asleep == true))
@@ -68,6 +85,7 @@ namespace LeadYourPet
                 || !carrier.Spawned || carrier.Dead || carrier.Downed || carrier.InMentalState
                 || !carrier.RaceProps.Humanlike || carrier.carryTracker == null
                 || carrier.carryTracker.CarriedThing != null || GodHandsCompat.IsGrabbed(carrier)
+                || LeadYourPetUtility.IsExternalToddlerHold(carrier.CurJobDef?.defName, carrier.jobs?.curDriver?.GetType().FullName)
                 || !carrier.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation))
             {
                 return null;

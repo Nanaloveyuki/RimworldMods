@@ -83,50 +83,6 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void IssuesLeashFollowJobWhenFollowingMasterAndNoCurrentFollowJobExists()
-        {
-            Assert.True(LeadYourPetRules.ShouldIssueLeashFollowJob(
-                masterIsPlayerControlled: true,
-                followTargetIsMaster: true,
-                alreadyFollowingSameMaster: false,
-                canReachTarget: true,
-                shouldIssueFollowPath: true));
-        }
-
-        [Fact]
-        public void DoesNotReissueLeashFollowJobWhenAlreadyFollowingSameMaster()
-        {
-            Assert.False(LeadYourPetRules.ShouldIssueLeashFollowJob(
-                masterIsPlayerControlled: true,
-                followTargetIsMaster: true,
-                alreadyFollowingSameMaster: true,
-                canReachTarget: true,
-                shouldIssueFollowPath: true));
-        }
-
-        [Fact]
-        public void DoesNotIssueLeashFollowJobForAnchoredTarget()
-        {
-            Assert.False(LeadYourPetRules.ShouldIssueLeashFollowJob(
-                masterIsPlayerControlled: true,
-                followTargetIsMaster: false,
-                alreadyFollowingSameMaster: false,
-                canReachTarget: true,
-                shouldIssueFollowPath: true));
-        }
-
-        [Fact]
-        public void DoesNotIssueLeashFollowJobForNonPlayerMaster()
-        {
-            Assert.False(LeadYourPetRules.ShouldIssueLeashFollowJob(
-                masterIsPlayerControlled: false,
-                followTargetIsMaster: true,
-                alreadyFollowingSameMaster: false,
-                canReachTarget: true,
-                shouldIssueFollowPath: true));
-        }
-
-        [Fact]
         public void SleepingMasterDoesNotUseBidirectionalMouseEggAutoInteractions()
         {
             Assert.False(LeadYourPetRules.ShouldUseBidirectionalMouseEggAutoInteractions(
@@ -192,40 +148,6 @@ namespace LeadYourPet.Tests
                 masterSleeping: true));
         }
 
-        [Fact]
-        public void RopeDrawOverrideOnlyRunsWhenAnyLeashExists()
-        {
-            Assert.True(LeadYourPetRules.ShouldEvaluateCustomRopeTarget(
-                hasAnyLeash: true,
-                trackerAlreadyRoped: false,
-                pawnAvailable: true));
-
-            Assert.False(LeadYourPetRules.ShouldEvaluateCustomRopeTarget(
-                hasAnyLeash: false,
-                trackerAlreadyRoped: false,
-                pawnAvailable: true));
-
-            Assert.False(LeadYourPetRules.ShouldEvaluateCustomRopeTarget(
-                hasAnyLeash: true,
-                trackerAlreadyRoped: true,
-                pawnAvailable: true));
-        }
-
-        [Fact]
-        public void RopeDrawOverrideSkipsPawnsWithoutPossibleLeashMembership()
-        {
-            Assert.True(LeadYourPetRules.ShouldEvaluateCustomRopeTarget(
-                hasAnyLeash: true,
-                trackerAlreadyRoped: false,
-                pawnAvailable: true,
-                pawnCanParticipateInLeash: true));
-
-            Assert.False(LeadYourPetRules.ShouldEvaluateCustomRopeTarget(
-                hasAnyLeash: true,
-                trackerAlreadyRoped: false,
-                pawnAvailable: true,
-                pawnCanParticipateInLeash: false));
-        }
 
         [Fact]
         public void ResolvesMouseEggDutyStateByMasterActivity()

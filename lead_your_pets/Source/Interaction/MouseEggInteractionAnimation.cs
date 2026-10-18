@@ -7,6 +7,12 @@ namespace LeadYourPet
     {
         public Pawn Master;
         public Pawn Pet;
+        internal Map StartMap;
+        internal LeashLink StartLink;
+        internal LeashAnchorMode StartAnchorMode;
+        internal Thing StartAnchorThing;
+        internal IntVec3 StartAnchorCell;
+        internal IntVec3 StartPetCell;
         public LeadYourPetInteractionKind Kind;
         public int StartTick;
         public int EndTick;

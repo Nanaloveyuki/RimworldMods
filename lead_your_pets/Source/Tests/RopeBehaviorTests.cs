@@ -130,12 +130,19 @@ namespace LeadYourPet.Tests
         [Fact]
         public void GrabCancelsAnimationWithoutApplyingItsOldTeleport()
         {
+            pet.health = Raw<Pawn_HealthTracker>();
+            pet.health.hediffSet = new HediffSet(pet);
+            master.health = Raw<Pawn_HealthTracker>();
+            Set(pet.health, "healthState", PawnHealthState.Mobile);
+            Set(master.health, "healthState", PawnHealthState.Mobile);
             MouseEggInteractionAnimation animation = new MouseEggInteractionAnimation
             {
                 Pet = pet, Master = master, FinalizeTeleport = true,
+                StartMap = pet.Map, StartLink = link, StartPetCell = pet.Position,
+                StartAnchorMode = link.AnchorMode, StartAnchorThing = link.AnchorThing, StartAnchorCell = link.AnchorCell,
                 TargetCell = new IntVec3(200, 0, 200), PetUsesCustomRender = true
             };
-            ((List<MouseEggInteractionAnimation>)Get(component, "activeAnimations")).Add(animation);
+            typeof(LeadYourPetGameComponent).GetMethod("RegisterInteractionAnimation", Fields).Invoke(component, new object[] { animation });
             IntVec3 grabbedPosition = pet.Position;
             GodHandsCompat.RecordGrabbed(pet, new object());
             Assert.False(component.TryGetInteractionAnimationRenderData(pet, out _, out _, out _, out _));

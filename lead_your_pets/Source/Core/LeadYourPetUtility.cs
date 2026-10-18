@@ -448,6 +448,7 @@ namespace LeadYourPet
 
             bool departing = toil is LordToil_ExitMap || toil is LordToil_TakeWoundedGuest
                 || toil.GetType().Name.StartsWith("LordToil_ExitMap", StringComparison.Ordinal)
+                || (lord?.LordJob is LordJob_TravelAndExit && toil is LordToil_Travel)
                 || (lord?.LordJob is LordJob_VisitColony visit
                     && visit.exitSubgraph != null && visit.exitSubgraph.lordToils.Contains(toil));
             cachedDepartureLordId = lordId;
@@ -681,10 +682,13 @@ namespace LeadYourPet
                 || (link.AnchorMode == LeashAnchorMode.Thing && !(link.AnchorThing is Pawn)));
         }
 
-        internal static bool HasAnchoredCareJob(LeashLink link)
+        internal static bool HasLeashCareJob(LeashLink link)
         {
-            return HasFixedAnchor(link) && (link.Pet.CurJobDef == JobDefOf.Ingest
-                || link.Pet.CurJobDef == JobDefOf.LayDown || link.Pet.jobs?.curDriver?.asleep == true);
+            Pawn pet = link?.Pet;
+            return pet?.CurJob != null && (pet.CurJobDef == JobDefOf.Ingest
+                || pet.CurJobDef == JobDefOf.LayDown || pet.CurJobDef == JobDefOf.LayDownResting
+                || pet.CurJobDef == JobDefOf.LayDownAwake || pet.CurJobDef == JobDefOf.Deathrest
+                || pet.jobs?.curDriver?.asleep == true);
         }
 
         public static bool IsSuppressedAgainstMasterFaction(Pawn pet, Faction faction)
@@ -950,7 +954,7 @@ namespace LeadYourPet
 
         public static bool CanMouseEggMove(Pawn pawn)
         {
-            if (pawn == null || pawn.health?.capacities == null)
+            if (pawn == null || pawn.Dead || pawn.Downed || pawn.health?.capacities == null)
             {
                 return false;
             }
@@ -1407,6 +1411,19 @@ namespace LeadYourPet
         public static bool CanPerformInteraction(Pawn pet, LeadYourPetInteractionKind kind, out string reasonKey)
         {
             reasonKey = null;
+            if (pet == null || !pet.Spawned || pet.Dead)
+            {
+                reasonKey = "LeadYourPet_Reason_InvalidTarget";
+                return false;
+            }
+
+            if (kind != LeadYourPetInteractionKind.Fed && kind != LeadYourPetInteractionKind.Snack
+                && kind != LeadYourPetInteractionKind.Drag
+                && (pet.Downed || !pet.Awake() || HasLeashCareJob(Component?.GetLinkForPet(pet))))
+            {
+                return false;
+            }
+
             switch (kind)
             {
                 case LeadYourPetInteractionKind.PullTail:

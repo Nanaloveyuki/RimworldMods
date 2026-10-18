@@ -39,6 +39,8 @@ namespace LeadYourPet
             }
 
             if (LeadYourPetUtility.ShouldPreserveMapExitMovement(pet)
+                || LeadYourPetUtility.ShouldPreserveMapExitMovement(master)
+                || ShouldFollowDuringDeparture(GetLinkForPet(pet))
                 || (automatic && ShouldSuppressTravelAutoInteraction(GetLinkForPet(pet))))
             {
                 return;

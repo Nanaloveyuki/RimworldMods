@@ -220,10 +220,13 @@ namespace LeadYourPet
 
                 IntVec3 cell = CellFinder.RandomClosewalkCellNear(adult.Position, lord.Map, 1);
                 GenSpawn.Spawn(egg, cell, lord.Map);
-                lord.AddPawn(egg);
 
                 bool sellable = traderLord || adult.TraderKind != null;
                 MarkAsTravelMouseEgg(egg, adult, trader, sellable);
+                if (!TryEnsureTravelLordMembership(lord, egg))
+                {
+                    continue;
+                }
                 StartLeashInternal(adult, egg, LeashLinkKind.MouseEggPet, false);
                 remainingMouseEggs--;
             }
@@ -232,7 +235,9 @@ namespace LeadYourPet
         private bool TryRegisterCarriedTravelMouseEgg(Lord lord, Pawn carrier, Pawn trader, bool traderLord)
         {
             Pawn carriedEgg = carrier?.carryTracker?.CarriedThing as Pawn;
-            if (carriedEgg == null || GetLinkForPet(carriedEgg) != null || !LeadYourPetUtility.CanBePetMouseEgg(carriedEgg, out _))
+            if (carriedEgg == null || lord == null || carrier.GetLord() != lord
+                || (carriedEgg.GetLord() != null && carriedEgg.GetLord() != lord)
+                || GetLinkForPet(carriedEgg) != null || !LeadYourPetUtility.CanBePetMouseEgg(carriedEgg, out _))
             {
                 return false;
             }
@@ -246,10 +251,14 @@ namespace LeadYourPet
                 droppedPawnValid: egg != null && egg.Spawned && egg.Map == carrier.Map))
             {
                 MarkAsTravelMouseEgg(carriedEgg, carrier, trader, sellable);
-                return true;
+                return TryEnsureTravelLordMembership(lord, carriedEgg);
             }
 
             MarkAsTravelMouseEgg(egg, carrier, trader, sellable);
+            if (!TryEnsureTravelLordMembership(lord, egg))
+            {
+                return false;
+            }
             StartLeashInternal(carrier, egg, LeashLinkKind.MouseEggPet, false);
 
             return true;
@@ -275,6 +284,29 @@ namespace LeadYourPet
                 StartLeashInternal(carrier, egg, LeashLinkKind.MouseEggPet, false);
             }
         }
+
+        internal static bool TryEnsureTravelLordMembership(Lord lord, Pawn pawn)
+        {
+            if (lord == null || pawn == null || pawn.Dead || pawn.MapHeld != lord.Map)
+            {
+                return false;
+            }
+
+            Lord currentLord = pawn.GetLord();
+            if (currentLord == lord)
+            {
+                return lord.ownedPawns.Contains(pawn);
+            }
+
+            if (currentLord != null || !lord.CanAddPawn(pawn))
+            {
+                return false;
+            }
+
+            lord.AddPawn(pawn);
+            return pawn.GetLord() == lord && lord.ownedPawns.Contains(pawn);
+        }
+
 
         private bool TryAssignMouseDisasterTravelMouseEggs(Lord lord)
         {
@@ -346,6 +378,11 @@ namespace LeadYourPet
                 }
 
                 MarkAsTravelMouseEgg(child, trader, tradeLead, sellAsPrisoner, preserveOwnership: true);
+                if (!TryEnsureTravelLordMembership(lord, child))
+                {
+                    continue;
+                }
+
                 MouseEggSpecialSource specialSource = LeadYourPetRules.ResolveTravelMouseEggSpecialSource(
                     LeadYourPetUtility.IsMouseDisasterTravelTrader(trader),
                     lord.LordJob is LordJob_DefendPoint,

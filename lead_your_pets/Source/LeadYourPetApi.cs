@@ -80,9 +80,7 @@ namespace LeadYourPet
                 return;
             }
 
-            Call(component => LeadYourPetApiRules.EndForMaster(
-                CopyPets(component.GetLinksForMaster(master)),
-                pet => component.EndLeashForPet(pet, false)));
+            Call(component => component.EndLeashForMaster(master, false));
         }
 
         public static void ClearOwnership(Pawn pawn)
@@ -224,20 +222,5 @@ namespace LeadYourPet
             return added > 0;
         }
 
-        public static void EndForMaster<T>(IReadOnlyList<T> pets, Action<T> endPet) where T : class
-        {
-            if (pets == null || endPet == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < pets.Count; i++)
-            {
-                if (pets[i] != null)
-                {
-                    endPet(pets[i]);
-                }
-            }
-        }
     }
 }

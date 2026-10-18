@@ -88,13 +88,5 @@ namespace LeadYourPet.Tests
             Assert.Equal(BoughtYoungRatkinStatus.Colonist, LeadYourPetRules.ResolveBoughtYoungRatkinStatus(BoughtYoungRatkinStatus.Colonist, ideologyActive: false));
         }
 
-        [Fact]
-        public void FixedAnchorStaysStillInsideTheLeash()
-        {
-            Assert.True(LeadYourPetRules.ShouldKeepFixedAnchorStill(anchorIsFixed: true, distance: 8f, leashLength: 10f, dragging: false));
-            Assert.False(LeadYourPetRules.ShouldKeepFixedAnchorStill(anchorIsFixed: true, distance: 11f, leashLength: 10f, dragging: false));
-            Assert.False(LeadYourPetRules.ShouldKeepFixedAnchorStill(anchorIsFixed: false, distance: 4f, leashLength: 10f, dragging: false));
-            Assert.False(LeadYourPetRules.ShouldKeepFixedAnchorStill(anchorIsFixed: true, distance: 4f, leashLength: 10f, dragging: true));
-        }
     }
 }

@@ -65,6 +65,7 @@ namespace LeadYourPet.Tests
             Set(lord, "curLordToil", new LordToil_Travel(new IntVec3(5, 0, 5)));
 
             Game game = Raw<Game>();
+            game.tickManager = Raw<TickManager>();
             Map map = Raw<Map>();
             map.info = Raw<MapInfo>();
             map.info.Size = new IntVec3(300, 1, 300);
@@ -115,6 +116,197 @@ namespace LeadYourPet.Tests
             Set(lord, "curLordToil", VisitExitToil());
 
             Assert.False(LeadYourPetUtility.IsNonPlayerTravelDeparture(colonist));
+        }
+
+        [Fact]
+        public void StandaloneTravelAndExitIsDepartingBeforeReachingTheEdge()
+        {
+            Set(lord, "curJob", new LordJob_TravelAndExit(new IntVec3(10, 0, 10)));
+            Set(lord, "curLordToil", new LordToil_Travel(new IntVec3(10, 0, 10)));
+            Pawn member = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+
+            Assert.True(LeadYourPetUtility.IsNonPlayerTravelDeparture(member));
+        }
+
+        [Fact]
+        public void GrabbedMemberBlocksOnlyScheduledDepartureArrivalChecks()
+        {
+            LordToil_Travel travel = (LordToil_Travel)((LordJob_VisitColony)lord.LordJob).exitSubgraph.lordToils[0];
+            travel.lord = lord;
+            Set(lord, "curLordToil", travel);
+            Pawn member = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            object hand = new object();
+            GodHandsCompat.RecordGrabbed(member, hand);
+            Assert.False(Patch_Travel_CarriedMemberArrival.Prefix(travel));
+            Set(Current.Game.tickManager, "ticksGameInt", 1);
+            Assert.True(Patch_Travel_CarriedMemberArrival.Prefix(travel));
+            Set(Current.Game.tickManager, "ticksGameInt", 205);
+            Assert.False(Patch_Travel_CarriedMemberArrival.Prefix(travel));
+            GodHandsCompat.RecordReleased(hand);
+            Assert.True(Patch_Travel_CarriedMemberArrival.Prefix(travel));
+        }
+
+
+        [Fact]
+        public void IncapacitatedTravelStockRemainsOwnedBeforeDeparture()
+        {
+            Pawn stock = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            MarkTravelStock(stock);
+
+            bool remove = lord.LordJob.ShouldRemovePawn(stock, PawnLostCondition.Incapped);
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, stock, PawnLostCondition.Incapped, ref remove);
+            Assert.False(remove);
+
+            remove = true;
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, stock, PawnLostCondition.Killed, ref remove);
+            Assert.True(remove);
+
+            remove = true;
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, stock, PawnLostCondition.ChangedFaction, ref remove);
+            Assert.True(remove);
+        }
+
+        [Fact]
+        public void IncapacitationDoesNotRetainVisitorsProtectedStockOrAnotherLordsStock()
+        {
+            Pawn member = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            bool remove = true;
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, member, PawnLostCondition.Incapped, ref remove);
+            Assert.True(remove);
+
+            MarkTravelStock(member, currentMaster: NewSpawnedPawn(playerFaction, new IntVec3(2, 0, 2)));
+            remove = true;
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, member, PawnLostCondition.Incapped, ref remove);
+            Assert.True(remove);
+
+            Pawn otherStock = NewSpawnedPawn(NewLord(visitorFaction), new IntVec3(3, 0, 3));
+            MarkTravelStock(otherStock);
+            remove = true;
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, otherStock, PawnLostCondition.Incapped, ref remove);
+            Assert.True(remove);
+        }
+        [Fact]
+        public void DeadTravelStockIsNeverRetainedOnIncapacitationSignal()
+        {
+            Pawn stock = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            MarkTravelStock(stock);
+            Set(stock.health, "healthState", PawnHealthState.Dead);
+
+            bool remove = true;
+            Patch_LordJob_KeepIncapacitatedTravelStock.Postfix(lord.LordJob, stock, PawnLostCondition.Incapped, ref remove);
+
+            Assert.True(remove);
+        }
+
+        [Fact]
+        public void JoiningTravelLordPublishesBothSidesAndNeverStealsAnotherLordsMember()
+        {
+            Map map = Current.Game.Maps[0];
+            lord.lordManager = Raw<LordManager>();
+            lord.lordManager.map = map;
+            map.attackTargetsCache = Raw<AttackTargetsCache>();
+            Set(map.attackTargetsCache, "allTargets", new HashSet<IAttackTarget>());
+            lord.CurLordToil.lord = lord;
+            Pawn stock = NewSpawnedPawn(visitorFaction, new IntVec3(1, 0, 1));
+
+            Assert.True(LeadYourPetGameComponent.TryEnsureTravelLordMembership(lord, stock));
+            Assert.Same(lord, stock.GetLord());
+            Assert.Contains(stock, lord.ownedPawns);
+            Assert.NotNull(stock.mindState.duty);
+            Assert.True(LeadYourPetGameComponent.TryEnsureTravelLordMembership(lord, stock));
+            Assert.Single(lord.ownedPawns);
+
+            Lord otherLord = NewLord(visitorFaction);
+            Pawn otherStock = NewSpawnedPawn(otherLord, new IntVec3(2, 0, 2));
+            Assert.False(LeadYourPetGameComponent.TryEnsureTravelLordMembership(lord, otherStock));
+            Assert.Same(otherLord, otherStock.GetLord());
+            Assert.Contains(otherStock, otherLord.ownedPawns);
+            Assert.DoesNotContain(otherStock, lord.ownedPawns);
+        }
+
+        [Theory]
+        [InlineData("AttackMelee")]
+        [InlineData("AttackStatic")]
+        [InlineData("Wait_Combat")]
+        [InlineData("Rescue")]
+        [InlineData("TendPatient")]
+        [InlineData("Ingest")]
+        [InlineData("GotoSafeTemperature")]
+        [InlineData("Flee")]
+        public void DutyCarryKeepsCombatCareAndEmergencyResults(string jobName)
+        {
+            Pawn carrier = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            Set(lord, "curLordToil", VisitExitToil());
+            Job job = new Job { def = new JobDef { defName = jobName } };
+            ThinkNode source = new ThinkNode_Duty();
+            ThinkResult result = new ThinkResult(job, source, JobTag.Misc);
+
+            Patch_Duty_TravelDepartureCarry.Postfix((ThinkNode_Duty)source, carrier, default, ref result);
+
+            Assert.Same(job, result.Job);
+            Assert.Same(source, result.SourceNode);
+            Assert.Equal(JobTag.Misc, result.Tag);
+        }
+
+        [Fact]
+        public void DutyCarryDoesNotReplaceCombatMovementOrQueuedTravel()
+        {
+            Pawn carrier = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            Set(lord, "curLordToil", VisitExitToil());
+            Job combatMovement = new Job { def = new JobDef { defName = "Goto" } };
+            ThinkNode combatSource = new JobGiver_AIDefendSelf();
+            ThinkResult result = new ThinkResult(combatMovement, combatSource);
+            Patch_Duty_TravelDepartureCarry.Postfix(new ThinkNode_Duty(), carrier, default, ref result);
+            Assert.Same(combatMovement, result.Job);
+            Assert.Same(combatSource, result.SourceNode);
+
+            ThinkNode travelSource = new JobGiver_GotoTravelDestination();
+            result = new ThinkResult(combatMovement, travelSource, fromQueue: true);
+            Patch_Duty_TravelDepartureCarry.Postfix(new ThinkNode_Duty(), carrier, default, ref result);
+            Assert.Same(combatMovement, result.Job);
+            Assert.Same(travelSource, result.SourceNode);
+            Assert.True(result.FromQueue);
+        }
+
+        [Fact]
+        public void MasterExitLeavesExternallyHeldStockPlacedAndItsHoldJobUntouched()
+        {
+            LeadYourPetMod.Settings = new LeadYourPetSettings { leashedPawnMapExitBehavior = LeashedPawnMapExitBehavior.Disappear };
+            Pawn master = NewSpawnedPawn(lord, new IntVec3(0, 0, 1));
+            Pawn pet = NewSpawnedPawn(lord, new IntVec3(120, 0, 120));
+            MarkTravelStock(pet, currentMaster: master, leashMaster: master);
+            Job hold = new Job { def = new JobDef { defName = "RimTalk_BeingCarried_Idle" } };
+            Set(pet.jobs, "curJob", hold);
+
+            component.HandleMasterExitMap(master, Rot4.West);
+
+            Assert.True(pet.Spawned);
+            Assert.False(pet.Destroyed);
+            Assert.Equal(new IntVec3(120, 0, 120), pet.Position);
+            Assert.Same(hold, pet.CurJob);
+            Assert.Same(lord, pet.GetLord());
+            Assert.Contains(pet, lord.ownedPawns);
+            Assert.Null(component.GetLinkForPet(pet));
+        }
+
+
+        [Fact]
+        public void DepartingStockFollowsItsOwnLordMasterButNotAProtectedOrOtherLordMaster()
+        {
+            Pawn pet = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
+            Pawn master = NewSpawnedPawn(lord, new IntVec3(2, 0, 2));
+            MarkTravelStock(pet, currentMaster: master, leashMaster: master);
+            LeashLink link = component.GetLinkForPet(pet);
+            Assert.False(component.ShouldFollowDuringDeparture(link));
+
+            Set(lord, "curLordToil", VisitExitToil());
+            Assert.True(component.ShouldFollowDuringDeparture(link));
+
+            master.lord = NewLord(visitorFaction);
+            Assert.False(component.ShouldFollowDuringDeparture(link));
+            master.lord = lord;
+            SetFaction(master, playerFaction);
+            Assert.False(component.ShouldFollowDuringDeparture(link));
         }
 
         // ---------------- stock protection layer ----------------
@@ -404,6 +596,12 @@ namespace LeadYourPet.Tests
             pawn.thingIDNumber = id;
             Set(pawn, "mapIndexOrState", (sbyte)0);
             Set(pawn, "positionInt", position);
+            pawn.health = Raw<Pawn_HealthTracker>();
+            Set(pawn.health, "pawn", pawn);
+            Set(pawn.health, "healthState", PawnHealthState.Mobile);
+            pawn.health.hediffSet = new HediffSet(pawn);
+            pawn.mindState = Raw<Pawn_MindState>();
+            Set(pawn.mindState, "pawn", pawn);
             pawn.jobs = Raw<Pawn_JobTracker>();
             Set(pawn.jobs, "pawn", pawn);
             return pawn;

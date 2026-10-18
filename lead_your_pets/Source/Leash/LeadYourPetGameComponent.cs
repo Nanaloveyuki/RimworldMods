@@ -16,6 +16,7 @@ namespace LeadYourPet
         private List<LeashLink> links = new List<LeashLink>();
         private List<MouseEggState> mouseEggStates = new List<MouseEggState>();
         private readonly List<MouseEggInteractionAnimation> activeAnimations = new List<MouseEggInteractionAnimation>();
+        private readonly Dictionary<Pawn, MouseEggInteractionAnimation> animationByPet = new Dictionary<Pawn, MouseEggInteractionAnimation>();
         private readonly HashSet<int> processedTravelLords = new HashSet<int>();
         private readonly List<LeashLink> linkSnapshot = new List<LeashLink>();
         private readonly Dictionary<Pawn, LeashLink> linkByPet = new Dictionary<Pawn, LeashLink>();

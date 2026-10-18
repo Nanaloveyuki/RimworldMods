@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RimWorld;
 using Verse;
 using Verse.AI;
 
@@ -36,18 +37,23 @@ namespace LeadYourPet
 
                 if (GodHandsCompat.IsGrabbed(pawn) || GodHandsCompat.IsGrabbed(link.Master)
                     || (followThing is Pawn anchor && GodHandsCompat.IsGrabbed(anchor))
-                    || LeadYourPetUtility.ShouldPreserveMapExitMovement(pawn)
-                    || LeadYourPetUtility.ShouldPreserveMapExitMovement(link.Master)
+                    || !LeadYourPetUtility.CanMouseEggMove(pawn) || !pawn.Awake()
+                    || LeadYourPetUtility.HasLeashCareJob(link)
+                    || (LeadYourPetUtility.ShouldPreserveMapExitMovement(pawn)
+                        && !LeadYourPetUtility.Component.ShouldFollowDuringDeparture(link))
                     || LeadYourPetUtility.AllowsLeashedHostileAttack(link)
-                    || pawn.Position.InHorDistOf(target.Cell, LeadYourPetUtility.FollowThreshold))
+                    || (link.AnchorMode == LeashAnchorMode.None && LeadYourPetUtility.MasterSleeping(link.Master))
+                    || pawn.Position.InHorDistOf(target.Cell, link.AnchorMode == LeashAnchorMode.None
+                        ? LeadYourPetUtility.FollowThreshold : LeadYourPetUtility.MaxLeashLength))
                 {
-                    pawn.pather.StopDead();
+                    pawn.pather?.StopDead();
                     EndJobWith(JobCondition.Succeeded);
                     return;
                 }
 
                 PathEndMode mode = target.HasThing ? PathEndMode.Touch : PathEndMode.OnCell;
-                if (!pawn.CanReach(target, mode, Danger.Deadly))
+                if ((!pawn.pather.Moving || pawn.pather.Destination != target)
+                    && !pawn.CanReach(target, mode, Danger.Deadly))
                 {
                     EndJobWith(JobCondition.Incompletable);
                     return;

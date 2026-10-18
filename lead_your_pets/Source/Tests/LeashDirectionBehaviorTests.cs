@@ -69,6 +69,22 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
+        public void EndingMasterLeashReleasesAllPetsButNotOtherMasters()
+        {
+            Pawn first = Pawn(1), second = Pawn(2), third = Pawn(3), fourth = Pawn(4);
+            Start(first, second);
+            Start(first, third);
+            Start(second, fourth);
+            component.EndLeashForMaster(first, false);
+            Assert.Empty(component.GetLinksForMaster(first));
+            Assert.Null(component.GetLinkForPet(second));
+            Assert.Null(component.GetLinkForPet(third));
+            Assert.Same(second, component.GetLinkForPet(fourth).Master);
+            Assert.False(component.EnsureMouseEggState(third).IsPet);
+            Assert.Null(component.EnsureMouseEggState(third).CurrentMaster);
+        }
+
+        [Fact]
         public void RestoringReciprocalSaveLinksKeepsTheMostRecentlyCreatedDirection()
         {
             Pawn first = Pawn(1), second = Pawn(2);

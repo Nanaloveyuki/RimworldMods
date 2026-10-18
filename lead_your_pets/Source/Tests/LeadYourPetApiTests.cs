@@ -9,12 +9,11 @@ namespace LeadYourPet.Tests
     public class LeadYourPetApiTests
     {
         [Fact]
-        public void CopiesDistinctPetsAndEndsEveryCopiedPet()
+        public void CopiesDistinctPetsIntoExistingList()
         {
             object first = new object();
             object second = new object();
             List<object> copied = new List<object> { first };
-            List<object> ended = new List<object>();
 
             Assert.True(LeadYourPetApiRules.CopyLinkedPets(new[] { first, second, first, null }, copied));
             Assert.Equal(new[] { first, second }, copied);
@@ -22,10 +21,6 @@ namespace LeadYourPet.Tests
             Assert.False(LeadYourPetApiRules.CopyLinkedPets<object>(null, copied));
             Assert.False(LeadYourPetApiRules.CopyLinkedPets(copied, null));
 
-            LeadYourPetApiRules.EndForMaster(new[] { first, null, second }, ended.Add);
-            Assert.Equal(new[] { first, second }, ended);
-            LeadYourPetApiRules.EndForMaster<object>(null, ended.Add);
-            LeadYourPetApiRules.EndForMaster(copied, null);
         }
 
         [Theory]

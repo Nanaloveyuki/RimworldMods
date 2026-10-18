@@ -59,10 +59,10 @@ namespace LeadYourPet
 
         public void EndLeashForMaster(Pawn master, bool showMessage = true)
         {
-            LeashLink link = GetLinkForMaster(master);
-            if (link != null)
+            if (master == null) return;
+            while (linksByMaster.TryGetValue(master, out List<LeashLink> masterLinks) && masterLinks.Count > 0)
             {
-                EndLink(link, showMessage);
+                EndLink(masterLinks[masterLinks.Count - 1], showMessage);
             }
         }
 
@@ -207,7 +207,7 @@ namespace LeadYourPet
             links.Remove(link);
             UnregisterLink(link);
             StopInteractionAnimation(link.Pet, finalizeTeleport: false);
-            if (IsRunningFollowMasterJob(link))
+            if (link.Pet.CurJob != null && link.Pet.CurJobDef == LeadYourPetDefOf.LeadYourPet_FollowMaster)
             {
                 link.Pet.pather?.StopDead();
                 link.Pet.jobs?.EndCurrentJob(JobCondition.InterruptForced, false);

@@ -42,25 +42,6 @@ namespace LeadYourPet
             return currentTick - lastFollowIssueTick >= minIntervalTicks;
         }
 
-        public static bool ShouldEvaluateCustomRopeTarget(bool hasAnyLeash, bool trackerAlreadyRoped, bool pawnAvailable, bool pawnCanParticipateInLeash = true)
-        {
-            return hasAnyLeash && !trackerAlreadyRoped && pawnAvailable && pawnCanParticipateInLeash;
-        }
-
-        public static bool ShouldIssueLeashFollowJob(bool masterIsPlayerControlled, bool followTargetIsMaster, bool alreadyFollowingSameMaster, bool canReachTarget, bool shouldIssueFollowPath)
-        {
-            return masterIsPlayerControlled
-                && followTargetIsMaster
-                && !alreadyFollowingSameMaster
-                && canReachTarget
-                && shouldIssueFollowPath;
-        }
-
-        public static bool ShouldKeepFixedAnchorStill(bool anchorIsFixed, float distance, float leashLength, bool dragging)
-        {
-            return anchorIsFixed && !dragging && distance <= leashLength;
-        }
-
         public static bool ShouldEvaluateTradeableYoungRatkin(bool kindWillTrade, bool isPawn)
         {
             return !kindWillTrade && isPawn;

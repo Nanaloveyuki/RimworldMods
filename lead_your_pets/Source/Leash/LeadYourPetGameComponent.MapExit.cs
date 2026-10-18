@@ -70,6 +70,14 @@ namespace LeadYourPet
                 return;
             }
 
+            if (GodHandsCompat.IsGrabbed(pet) || pet.CarriedBy != null
+                || LeadYourPetUtility.IsExternalToddlerHold(pet.CurJobDef?.defName, pet.jobs?.curDriver?.GetType().FullName))
+            {
+                // The holder owns placement and release; the Lord keeps its carry responsibility.
+                EndLink(link, false);
+                return;
+            }
+
             if (behavior == LeashedPawnMapExitBehavior.Disappear)
             {
                 DetachPetFromMasterLord(link);
@@ -83,7 +91,7 @@ namespace LeadYourPet
                 return;
             }
 
-            if (behavior == LeashedPawnMapExitBehavior.LeaveMap && TryMakeLeashedPawnLeaveMap(pet, map, exitDir))
+            if (behavior == LeashedPawnMapExitBehavior.LeaveMap && TryMakeLeashedPawnLeaveMap(pet, link.Master, map, exitDir))
             {
                 if (GetLinkForPet(pet) == link)
                 {
@@ -104,9 +112,8 @@ namespace LeadYourPet
             EndLink(link, false);
         }
 
-        private bool TryMakeLeashedPawnLeaveMap(Pawn pawn, Map map, Rot4 exitDir)
+        private bool TryMakeLeashedPawnLeaveMap(Pawn pawn, Pawn master, Map map, Rot4 exitDir)
         {
-            ReleaseExternalToddlerHold(pawn);
             if (pawn == null
                 || map == null
                 || !pawn.Spawned
@@ -130,7 +137,28 @@ namespace LeadYourPet
                 return false;
             }
 
-            pawn.ExitMap(false, exitDir);
+            if (master != null && master.Spawned && master.Map == map
+                && master.Position.CloseToEdge(map, 2) && pawn.Position.InHorDistOf(master.Position, 2f))
+            {
+                pawn.ExitMap(false, exitDir);
+                return true;
+            }
+
+            if (pawn.jobs == null || !RCellFinder.TryFindBestExitSpot(pawn, out IntVec3 destination))
+            {
+                return false;
+            }
+
+            if (pawn.CurJob?.exitMapOnArrival == true)
+            {
+                return true;
+            }
+
+            Job job = JobMaker.MakeJob(JobDefOf.Goto, destination);
+            job.exitMapOnArrival = true;
+            job.lord = pawn.GetLord();
+            job.locomotionUrgency = LocomotionUrgency.Jog;
+            pawn.jobs.StartJob(job, JobCondition.InterruptForced);
             return true;
         }
 
