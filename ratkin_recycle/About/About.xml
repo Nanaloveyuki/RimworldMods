@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Maintained by Nanaloveyuki from 2026-10-18; package ID, attribution and dependency links updated. -->
+<ModMetaData>
+	<name>鼠族回收行为 RatkinRecycle</name>
+	<author>菜地里的稽 (原作者); Nanaloveyuki (接手维护)</author>
+	<packageId>nanaloveyuki.ratkinrecycle</packageId>
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<description>
+鼠族回收行为 - 还原现实世界鼠族的"回收"本能:成年母性鼠族在生下小鼠后,如果没吃过精致及以上等级的食物且饥饿值低于50%,会尝试捕食周围的鼠蛋(0-3岁鼠族婴儿),优先吃非亲生的;若没有其他鼠蛋,则吃自己的。其他鼠族(儿童、成年鼠族、未生产的雌鼠)在饥饿值低于30%时也会捕食鼠蛋;1岁以上的鼠蛋会捕食1岁以下的鼠蛋。
+
+捕食不是原版咬杀,而是直接把鼠蛋抓起来生啃:优先啃四肢,躯干其次,头部优先级最低。鼠蛋被吃掉时左上角会有信件提示。捕食方与被捕食方都会获得对应的心情。
+
+几乎所有参数(MOD链接、饥饿阈值、产后窗口、成长阶段划分、啃咬间隔/伤害/营养、心情数值、阵营与种族范围等)都可以在 选项 -&gt; Mod设置 -&gt; 鼠族回收行为 中调整。
+
+依赖:Harmony、NewRatkinPlus(鼠族,Solaris.RatkinRaceMod)。建议同时启用 Toddlers 幼儿阶段以体验完整的 0-3 岁"鼠蛋"阶段。
+	</description>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+		</li>
+		<li>
+			<packageId>Solaris.RatkinRaceMod</packageId>
+			<displayName>NewRatkinPlus 鼠族</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3497673755</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+</ModMetaData>

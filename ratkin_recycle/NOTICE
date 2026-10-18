@@ -1,0 +1,29 @@
+鼠族回收行为 RatkinRecycle
+Original author: 菜地里的稽
+Maintainer: Nanaloveyuki
+SPDX-License-Identifier: MIT OR Apache-2.0
+
+On 2026-10-18, Nanaloveyuki confirmed that the original author's permission
+had been obtained to vendor, decompile and take over RatkinRecycle under
+MIT OR Apache-2.0. The supplied chat screenshot identifies the original
+author and contains the reply “放心做”. The licensing basis recorded here
+is the maintainer's express confirmation; the screenshot itself does not
+spell out either license. This does not assert a transfer of copyright.
+
+Imported from the locally installed “鼠族回收行为 RatkinRecycle”, originally
+package dsh.ratkinrecycle, declaring RimWorld 1.6 support. The installation
+contained no source or license file. An untouched distribution archive and
+SHA-256 manifest are retained in docs/references/.
+
+Changes by Nanaloveyuki, 2026-10-18:
+- Recovered C# source with ILSpy and added a reproducible 1.6 build project.
+- Changed About package ID and Harmony ID to nanaloveyuki.ratkinrecycle.
+- Retained the original author and added maintainer attribution and dependency links.
+- Rebuilt Assemblies/RatkinRecycle.dll; original DLL remains in the archive.
+- Added dual-license texts, documentation and a typographic About/Preview.png
+  using the original stop-bleeding station icon.
+
+Original Def names, gameplay XML, texture, assembly name and namespace are
+retained. No RimWorld 1.7 compatibility or gameplay fixes are claimed.
+RimWorld, Unity, Harmony and NewRatkinPlus are external dependencies and are
+not included in this license grant. See LICENSE for both full license texts.

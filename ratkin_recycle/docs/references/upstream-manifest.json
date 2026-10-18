@@ -1,0 +1,40 @@
+{
+  "importedOn": "2026-10-18",
+  "source": "/mnt/e/Apps/Steam/steamapps/common/RimWorld/Mods/鼠族回收行为 RatkinRecycle",
+  "originalAuthor": "菜地里的稽",
+  "originalPackageId": "dsh.ratkinrecycle",
+  "archive": "upstream-original.tar.gz",
+  "archiveSha256": "4535d768d3448767ce29e0d84ee3d6c4424947280cf14aeaf0019153849db3ce",
+  "files": [
+    {
+      "path": "About/About.xml",
+      "bytes": 1553,
+      "sha256": "5202108fd19fd498877eac68f0cc44ecfda1398cd6850a7376021efe504c11cb"
+    },
+    {
+      "path": "Assemblies/RatkinRecycle.dll",
+      "bytes": 39424,
+      "sha256": "abe6fba2d0d279b8834fe9b9fd3b814e8deda1e8bf9db4288aacdff3872c7853"
+    },
+    {
+      "path": "Defs/RatkinRecycle_Jobs.xml",
+      "bytes": 325,
+      "sha256": "c01c4b591da1e4bb84b8feb8845f78d226c740b80f5749e36d8fd81c15a32433"
+    },
+    {
+      "path": "Defs/RatkinRecycle_Things.xml",
+      "bytes": 1638,
+      "sha256": "a4da6b822f9373bd858d39b75e6f5dd71fb8fcf5d863eb9d36b1456506685c32"
+    },
+    {
+      "path": "Defs/RatkinRecycle_Thoughts.xml",
+      "bytes": 6450,
+      "sha256": "dc8cf4ac23604273ecc609a1676eeb1625dc8e738bf6b908fe89b1972b96b921"
+    },
+    {
+      "path": "Textures/Things/Building/RRE_StopBleed.png",
+      "bytes": 2953,
+      "sha256": "86a66a79d19027018336aec1fe56668996c143d7a976b0debe14ee0693d2a6ad"
+    }
+  ]
+}

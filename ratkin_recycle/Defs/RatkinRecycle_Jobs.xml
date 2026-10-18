@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 鼠族回收行为 - 工作定义 -->
+<Defs>
+
+  <JobDef>
+    <defName>EatRatEgg</defName>
+    <driverClass>RatkinRecycle.JobDriver_EatRatEgg</driverClass>
+    <reportString>啃食鼠蛋。</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+</Defs>

@@ -39,6 +39,10 @@ Exceptions and retained rights
 - prisoner_pay_to_eat_fork: vendored from ikun2522-art/PPTE2, copyright
   (c) 2026 AAA不玩抽象. Its original MIT LICENSE governs this directory;
   inclusion in this monorepo does not add an Apache-2.0 grant.
+- ratkin_recycle: original work by 菜地里的稽, continued by Nanaloveyuki.
+  Based on the maintainer's confirmation of the original author's permission,
+  this project is offered under MIT OR Apache-2.0. Its project LICENSE and
+  NOTICE govern the authorized work; original authorship is retained.
 - Third-party code, binaries, libraries, assets, fonts, quoted source and
   other material are not relicensed. Their original copyright notices,
   license texts and attribution requirements remain effective, including
