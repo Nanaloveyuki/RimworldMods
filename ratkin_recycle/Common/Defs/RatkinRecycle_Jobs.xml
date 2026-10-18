@@ -7,6 +7,9 @@
     <driverClass>RatkinRecycle.JobDriver_EatRatEgg</driverClass>
     <reportString>啃食鼠蛋。</reportString>
     <casualInterruptible>false</casualInterruptible>
+    <!-- The driver drops only its own victim; failed placement retains ownership. -->
+    <dropThingBeforeJob>false</dropThingBeforeJob>
+    <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>
 
 </Defs>

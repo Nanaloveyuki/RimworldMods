@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -12,11 +11,14 @@ public static class RatkinRecycleUtility
 {
 	private static List<string> raceKeywordsCache;
 
-	private static int raceKeywordsHash = int.MinValue;
+	private static string cachedRaceKeywords;
 
 	private static readonly List<Pawn> eggBuffer = new List<Pawn>();
 
 	private static readonly List<Pawn> eaterBuffer = new List<Pawn>();
+
+	private static readonly List<BodyPartRecord> biteParts = new List<BodyPartRecord>();
+	private static readonly Dictionary<BodyPartDef, int> partPriorities = new Dictionary<BodyPartDef, int>();
 
 	private static NeedDef cachedMoodNeed;
 
@@ -36,7 +38,8 @@ public static class RatkinRecycleUtility
 
 	public static void InvalidateCaches()
 	{
-		raceKeywordsHash = int.MinValue;
+		cachedRaceKeywords = null;
+		RatkinRecyclePolicy.InvalidateBodyParts();
 	}
 
 	public static void ApplyMoodValues()
@@ -69,14 +72,15 @@ public static class RatkinRecycleUtility
 
 	public static bool IsRatkin(Pawn p)
 	{
-		if (p == null || p.def == null || !p.RaceProps.Humanlike)
+		if (p?.RaceProps == null || !p.RaceProps.Humanlike)
 		{
 			return false;
 		}
 		string defName = p.def.defName;
-		foreach (string item in RaceKeywords())
+		List<string> keywords = RaceKeywords();
+		for (int i = 0; i < keywords.Count; i++)
 		{
-			if (item.Length > 0 && defName.IndexOf(item, StringComparison.OrdinalIgnoreCase) >= 0)
+			if (defName.IndexOf(keywords[i], StringComparison.OrdinalIgnoreCase) >= 0)
 			{
 				return true;
 			}
@@ -84,21 +88,19 @@ public static class RatkinRecycleUtility
 		return false;
 	}
 
-	private static IEnumerable<string> RaceKeywords()
+	private static List<string> RaceKeywords()
 	{
-		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (settings == null)
+		string keywords = RatkinRecycleMod.Settings?.raceKeywords ?? string.Empty;
+		if (raceKeywordsCache == null || !string.Equals(cachedRaceKeywords, keywords, StringComparison.Ordinal))
 		{
-			return Array.Empty<string>();
-		}
-		int hashCode = (settings.raceKeywords ?? string.Empty).GetHashCode();
-		if (raceKeywordsHash != hashCode)
-		{
-			raceKeywordsHash = hashCode;
-			raceKeywordsCache = (from x in (settings.raceKeywords ?? "Ratkin").Split(new char[4] { ',', '，', ';', '；' }, StringSplitOptions.RemoveEmptyEntries)
-				select x.Trim() into x
-				where x.Length > 0
-				select x).ToList();
+			cachedRaceKeywords = keywords;
+			raceKeywordsCache ??= new List<string>();
+			raceKeywordsCache.Clear();
+			foreach (string keyword in keywords.Split(new[] { ',', '，', ';', '；' }, StringSplitOptions.RemoveEmptyEntries))
+			{
+				string trimmed = keyword.Trim();
+				if (trimmed.Length > 0) raceKeywordsCache.Add(trimmed);
+			}
 		}
 		return raceKeywordsCache;
 	}
@@ -109,7 +111,7 @@ public static class RatkinRecycleUtility
 		{
 			return 0f;
 		}
-		return (float)p.ageTracker.AgeBiologicalTicks / 60000f;
+		return p.ageTracker.AgeBiologicalYearsFloat;
 	}
 
 	public static int GrowthTier(Pawn p)
@@ -138,7 +140,7 @@ public static class RatkinRecycleUtility
 		{
 			return false;
 		}
-		if (RatkinRecycleTracker.HasGaveBirthRecently(p, settings.postpartumHours))
+		if (RatkinRecycleGameComp.Current?.HasGaveBirthRecently(p, settings.postpartumHours) == true)
 		{
 			return true;
 		}
@@ -158,14 +160,15 @@ public static class RatkinRecycleUtility
 	public static bool MomFoodEligible(Pawn p)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		long lastFineMealTick = RatkinRecycleTracker.GetLastFineMealTick(p);
-		long lastBirthTick = RatkinRecycleTracker.GetLastBirthTick(p);
-		if ((float)settings.fineMealMode <= 0f)
+		RatkinRecycleGameComp history = RatkinRecycleGameComp.Current;
+		long lastFineMealTick = history?.GetLastFineMealTick(p) ?? -1;
+		long lastBirthTick = history?.GetLastBirthTick(p) ?? -1;
+		if (settings.fineMealMode == 0)
 		{
-			return lastFineMealTick < lastBirthTick;
+			return lastFineMealTick < 0 || (lastBirthTick >= 0 && lastFineMealTick < lastBirthTick);
 		}
 		long num = (long)(Mathf.Max(1f, settings.fineMealHours) * 2500f);
-		if (lastFineMealTick > 0)
+		if (lastFineMealTick >= 0)
 		{
 			return Find.TickManager.TicksGame - lastFineMealTick > num;
 		}
@@ -175,18 +178,7 @@ public static class RatkinRecycleUtility
 	public static EaterKind GetEaterKind(Pawn p)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (!IsRatkin(p) || p.Dead || p.Downed)
-		{
-			return EaterKind.None;
-		}
-		if (p.needs?.food == null)
-		{
-			return EaterKind.None;
-		}
-		if (AgeYears(p) < settings.minEaterAge)
-		{
-			return EaterKind.None;
-		}
+		if (!CanEat(p)) return EaterKind.None;
 		if (IsMom(p))
 		{
 			if (!MomFoodEligible(p))
@@ -213,17 +205,28 @@ public static class RatkinRecycleUtility
 		return p.needs.food.CurLevelPercentage < num;
 	}
 
-	private static bool FactionAllowed(Faction f, Faction player, bool allowPlayer, bool allowHostile, bool allowFriendly)
+	public static bool CanEat(Pawn pawn)
 	{
-		if (f == player)
-		{
-			return allowPlayer;
-		}
-		if (player != null && f.HostileTo(player))
-		{
-			return allowHostile;
-		}
-		return allowFriendly;
+		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
+		return settings != null && settings.enabled && IsRatkin(pawn) && !pawn.Dead && !pawn.Downed &&
+			pawn.needs?.food != null && RatkinRecyclePolicy.AgeAllowed(pawn, settings.minEaterAge, settings.maxEaterAge, settings.eaterAgeUnlimited) &&
+			(settings.eaterStatuses & RatkinRecyclePolicy.Status(pawn)) != 0 &&
+			(!settings.skipDrafted || !pawn.Drafted) && (!settings.skipMentalState || !pawn.InMentalState);
+	}
+
+	public static bool IsVictimAllowed(Pawn pawn)
+	{
+		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
+		return settings != null && settings.enabled && IsRatkin(pawn) && !pawn.Dead &&
+			RatkinRecyclePolicy.AgeAllowed(pawn, settings.minVictimAge, settings.maxVictimAge, settings.victimAgeUnlimited) &&
+			(settings.victimStatuses & RatkinRecyclePolicy.Status(pawn)) != 0;
+	}
+
+	public static bool CanTarget(Pawn eater, Pawn victim, EaterKind kind)
+	{
+		return kind != EaterKind.None && eater != null && eater != victim && IsVictimAllowed(victim) && victim.Spawned && eater.Spawned && victim.Map == eater.Map &&
+			!(RatkinRecycleMod.Settings.limitYoungPredators && kind == EaterKind.Egg && AgeYears(victim) >= RatkinRecycleMod.Settings.splitEggAge) &&
+			!victim.IsForbidden(eater);
 	}
 
 	public static bool IsOwnEgg(Pawn eater, Pawn victim)
@@ -258,64 +261,33 @@ public static class RatkinRecycleUtility
 	private static Pawn TryFindTargetFromEggs(Pawn eater, EaterKind kind, List<Pawn> eggs)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (eggs == null || eggs.Count == 0)
-		{
-			return null;
-		}
-		float num = settings.maxEggAge;
-		if (kind == EaterKind.Egg)
-		{
-			num = Mathf.Min(settings.splitEggAge, settings.maxEggAge);
-		}
-		Pawn pawn = null;
-		Pawn pawn2 = null;
-		Pawn result = null;
-		float num2 = float.MaxValue;
-		float num3 = float.MaxValue;
-		float num4 = float.MaxValue;
-		float num5 = settings.searchRadius * settings.searchRadius;
+		Pawn nearest = null;
+		Pawn nearestOwn = null;
+		float nearestDistance = float.MaxValue;
+		float nearestOwnDistance = float.MaxValue;
+		float radiusSquared = settings.searchRadius * settings.searchRadius;
 		for (int i = 0; i < eggs.Count; i++)
 		{
-			Pawn pawn3 = eggs[i];
-			if (pawn3 == eater || AgeYears(pawn3) >= num)
-			{
+			Pawn victim = eggs[i];
+			if (!CanTarget(eater, victim, kind))
 				continue;
-			}
-			float num6 = pawn3.Position.x - eater.Position.x;
-			float num7 = pawn3.Position.z - eater.Position.z;
-			float num8 = num6 * num6 + num7 * num7;
-			if (num8 > num5 || !eater.CanReach(pawn3, PathEndMode.Touch, Danger.Deadly))
+			float distance = (victim.Position - eater.Position).LengthHorizontalSquared;
+			if (distance > radiusSquared) continue;
+			bool own = kind == EaterKind.Mom && IsOwnEgg(eater, victim);
+			if (distance >= (own ? nearestOwnDistance : nearestDistance)) continue;
+			if (victim.IsForbidden(eater) || !eater.CanReserve(victim) || !eater.CanReach(victim, PathEndMode.Touch, Danger.Deadly)) continue;
+			if (own)
 			{
-				continue;
+				nearestOwn = victim;
+				nearestOwnDistance = distance;
 			}
-			float num9 = Mathf.Sqrt(num8);
-			if (kind == EaterKind.Mom)
+			else
 			{
-				if (IsOwnEgg(eater, pawn3))
-				{
-					if (num9 < num3)
-					{
-						num3 = num9;
-						pawn2 = pawn3;
-					}
-				}
-				else if (num9 < num2)
-				{
-					num2 = num9;
-					pawn = pawn3;
-				}
-			}
-			else if (num9 < num4)
-			{
-				num4 = num9;
-				result = pawn3;
+				nearest = victim;
+				nearestDistance = distance;
 			}
 		}
-		if (kind == EaterKind.Mom)
-		{
-			return pawn ?? pawn2;
-		}
-		return result;
+		return nearest ?? nearestOwn;
 	}
 
 	public static void TickScan()
@@ -326,15 +298,6 @@ public static class RatkinRecycleUtility
 			return;
 		}
 		int ticksGame = Find.TickManager.TicksGame;
-		float maxEggAge = settings.maxEggAge;
-		bool skipCarriedTarget = settings.skipCarriedTarget;
-		bool skipDrafted = settings.skipDrafted;
-		bool skipMentalState = settings.skipMentalState;
-		bool allowNoFaction = settings.allowNoFaction;
-		Faction ofPlayer = Faction.OfPlayer;
-		bool allowPlayerFaction = settings.allowPlayerFaction;
-		bool allowHostileFaction = settings.allowHostileFaction;
-		bool allowFriendlyFaction = settings.allowFriendlyFaction;
 		int retryCooldown = settings.retryCooldown;
 		float num = Mathf.Max(settings.momHungerPct, settings.otherHungerPct);
 		bool flag = settings.babyMoodNeed && MoodNeed != null && ++ensureCounter % 60 == 0;
@@ -351,13 +314,15 @@ public static class RatkinRecycleUtility
 			for (int j = 0; j < allPawnsSpawned.Count; j++)
 			{
 				Pawn pawn = allPawnsSpawned[j];
-				if (pawn != null && !pawn.Dead && !pawn.Downed && pawn.Spawned && IsRatkin(pawn))
+				if (pawn != null && !pawn.Dead && pawn.Spawned && IsRatkin(pawn))
 				{
-					if (AgeYears(pawn) < maxEggAge && (!skipCarriedTarget || !(pawn.ParentHolder is Pawn_CarryTracker)))
+					if (flag && AgeYears(pawn) < settings.maxEggAge && pawn.needs != null && !pawn.needs.TryGetNeed(MoodNeed, out var _))
+						pawn.needs.AddOrRemoveNeedsAsAppropriate();
+					if (IsVictimAllowed(pawn))
 					{
 						eggBuffer.Add(pawn);
 					}
-					if (pawn.needs?.food != null && !(pawn.needs.food.CurLevelPercentage >= num) && !((pawn.Faction == null) ? (!allowNoFaction) : (!FactionAllowed(pawn.Faction, ofPlayer, allowPlayerFaction, allowHostileFaction, allowFriendlyFaction))) && (!skipDrafted || !pawn.Drafted) && (!skipMentalState || !pawn.InMentalState))
+					if (pawn.CurJobDef != RatkinRecycleDefOf.EatRatEgg && pawn.carryTracker?.CarriedThing == null && CanEat(pawn) && pawn.needs.food.CurLevelPercentage < num)
 					{
 						eaterBuffer.Add(pawn);
 					}
@@ -367,47 +332,26 @@ public static class RatkinRecycleUtility
 			{
 				continue;
 			}
-			if (flag)
-			{
-				for (int k = 0; k < eggBuffer.Count; k++)
-				{
-					Pawn pawn2 = eggBuffer[k];
-					if (pawn2.needs != null && !pawn2.needs.TryGetNeed(MoodNeed, out var _))
-					{
-						try
-						{
-							pawn2.needs.AddOrRemoveNeedsAsAppropriate();
-						}
-						catch (Exception ex)
-						{
-							Log.ErrorOnce("[RatkinRecycle] AddOrRemoveNeedsAsAppropriate 异常: " + ex, 48865);
-						}
-					}
-				}
-			}
 			for (int l = 0; l < eaterBuffer.Count; l++)
 			{
 				Pawn pawn3 = eaterBuffer[l];
-				if (RatkinRecycleTracker.OnCooldown(pawn3, ticksGame))
+				RatkinRecycleGameComp history = RatkinRecycleGameComp.Current;
+				if (history?.OnCooldown(pawn3, ticksGame) == true)
 				{
 					continue;
 				}
-				RatkinRecycleTracker.SetCooldown(pawn3, ticksGame + retryCooldown);
 				EaterKind eaterKind = GetEaterKind(pawn3);
 				if (eaterKind == EaterKind.None || !IsHungryEnough(pawn3, eaterKind))
 				{
 					continue;
 				}
+				history?.SetCooldown(pawn3, ticksGame + retryCooldown);
 				Pawn pawn4 = TryFindTargetFromEggs(pawn3, eaterKind, eggBuffer);
 				if (pawn4 == null)
 				{
 					continue;
 				}
 				Job job = JobMaker.MakeJob(RatkinRecycleDefOf.EatRatEgg, pawn4);
-				if (!pawn3.Reserve(pawn4, job, 1, -1, null, errorOnFailed: false))
-				{
-					continue;
-				}
 				try
 				{
 					pawn3.jobs.StartJob(job, JobCondition.InterruptForced);
@@ -425,72 +369,50 @@ public static class RatkinRecycleUtility
 				}
 			}
 		}
+		eggBuffer.Clear();
+		eaterBuffer.Clear();
 	}
 
 	public static BodyPartRecord PickBitePart(Pawn victim)
 	{
-		HediffSet hediffSet = victim?.health?.hediffSet;
-		if (hediffSet == null)
-		{
-			return null;
-		}
-		List<BodyPartRecord> list = hediffSet.GetNotMissingParts().ToList();
-		if (list.Count == 0)
-		{
-			return null;
-		}
-		if (!RatkinRecycleMod.Settings.limbsFirst)
-		{
-			return list.RandomElement();
-		}
-		int num = 0;
-		int num2 = 0;
-		int num3 = 0;
-		for (int i = 0; i < list.Count; i++)
-		{
-			if (IsExtremity(list[i]))
-			{
-				num++;
-			}
-			else if (IsHeadPart(list[i]))
-			{
-				num3++;
-			}
-			else
-			{
-				num2++;
-			}
-		}
-		if (num > 0)
-		{
-			return RandomFromWhere(list, IsExtremity, num);
-		}
-		if (num2 > 0)
-		{
-			return RandomFromWhere(list, (BodyPartRecord p) => !IsExtremity(p) && !IsHeadPart(p), num2);
-		}
-		if (num3 > 0)
-		{
-			return RandomFromWhere(list, IsHeadPart, num3);
-		}
-		return list.RandomElement();
-	}
-
-	private static BodyPartRecord RandomFromWhere(List<BodyPartRecord> parts, Func<BodyPartRecord, bool> pred, int count)
-	{
-		int num = Rand.RangeInclusive(0, count - 1);
+		HediffSet health = victim?.health?.hediffSet;
+		if (health == null) return null;
+		List<BodyPartRecord> parts = victim.RaceProps.body.AllParts;
+		int bestPriority = int.MaxValue;
+		biteParts.Clear();
 		for (int i = 0; i < parts.Count; i++)
 		{
-			if (pred(parts[i]))
+			BodyPartRecord part = parts[i];
+			if (!RatkinRecycleMod.Settings.BodyPartAllowed(part.def.defName) || !IsNaturalPresentPart(health, part)) continue;
+			int priority = RatkinRecycleMod.Settings.limbsFirst ? PartPriority(part) : 0;
+			if (priority > bestPriority) continue;
+			if (priority < bestPriority)
 			{
-				if (num == 0)
-				{
-					return parts[i];
-				}
-				num--;
+				biteParts.Clear();
+				bestPriority = priority;
 			}
+			biteParts.Add(part);
 		}
-		return parts[0];
+		BodyPartRecord result = biteParts.Count == 0 ? null : biteParts.RandomElement();
+		biteParts.Clear();
+		return result;
+	}
+
+	private static bool IsNaturalPresentPart(HediffSet health, BodyPartRecord part)
+	{
+		for (BodyPartRecord ancestor = part; ancestor != null; ancestor = ancestor.parent)
+			if (health.PartIsMissing(ancestor) || health.HasDirectlyAddedPartFor(ancestor)) return false;
+		return true;
+	}
+
+	private static int PartPriority(BodyPartRecord part)
+	{
+		if (!partPriorities.TryGetValue(part.def, out int priority))
+		{
+			priority = IsExtremity(part) ? 0 : IsHeadPart(part) ? 2 : 1;
+			partPriorities.Add(part.def, priority);
+		}
+		return priority;
 	}
 
 	private static bool IsExtremity(BodyPartRecord part)
@@ -533,20 +455,20 @@ public static class RatkinRecycleUtility
 			if (settings.destroyCorpse && victim != null)
 			{
 				Corpse corpse = victim.Corpse;
-				if (corpse != null && !corpse.Destroyed)
+				if (corpse != null && !corpse.Destroyed && eater != null &&
+					(corpse.ParentHolder == eater.carryTracker || (corpse.Spawned && corpse.Map == eater.MapHeld)))
 				{
 					corpse.Destroy();
 				}
 			}
 			if (settings.leaveMeat && settings.meatCount > 0 && map != null && loc.IsValid)
 			{
-				ThingDef namedSilentFail = DefDatabase<ThingDef>.GetNamedSilentFail("Meat_Ratkin");
+				ThingDef namedSilentFail = victim?.RaceProps?.meatDef;
 				if (namedSilentFail != null)
 				{
-					for (int i = 0; i < settings.meatCount; i++)
-					{
-						GenSpawn.Spawn(namedSilentFail, loc, map);
-					}
+					Thing meat = ThingMaker.MakeThing(namedSilentFail);
+					meat.stackCount = Mathf.Min(settings.meatCount, namedSilentFail.stackLimit);
+					GenPlace.TryPlaceThing(meat, loc, map, ThingPlaceMode.Near, out var _);
 				}
 			}
 			if (settings.debugLog)
@@ -560,7 +482,7 @@ public static class RatkinRecycleUtility
 		}
 	}
 
-	public static void OnEggPartiallyEaten(Pawn eater, Pawn victim, EaterKind kind, bool own, int tier)
+	public static void OnEggPartiallyEaten(Pawn eater, Pawn victim, EaterKind kind, bool own, int tier, string stopReason)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
 		if (settings == null)
@@ -570,10 +492,10 @@ public static class RatkinRecycleUtility
 		try
 		{
 			GainEggThoughts(eater, victim, kind, own, tier);
-			SendEatLetter(eater, victim, kind, own, tier, eatenFully: false);
+			SendEatLetter(eater, victim, kind, own, tier, eatenFully: false, stopReason);
 			if (settings.debugLog)
 			{
-				Log.Message($"[RatkinRecycle] {eater?.LabelShort} 啃了几口吃饱停嘴,{victim?.LabelShort} 还活着(own={own}, tier={tier})");
+				Log.Message($"[RatkinRecycle] {eater?.LabelShort} 停止啃食 {victim?.LabelShort}: {stopReason} (own={own}, tier={tier})");
 			}
 		}
 		catch (Exception ex)
@@ -643,7 +565,7 @@ public static class RatkinRecycleUtility
 		};
 	}
 
-	private static void SendEatLetter(Pawn eater, Pawn victim, EaterKind kind, bool own, int tier, bool eatenFully)
+	private static void SendEatLetter(Pawn eater, Pawn victim, EaterKind kind, bool own, int tier, bool eatenFully, string stopReason = null)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
 		if (settings != null && victim != null && (eatenFully ? settings.showLetter : settings.showStopLetter))
@@ -658,8 +580,11 @@ public static class RatkinRecycleUtility
 			}
 			else
 			{
-				text2 = "鼠鼠啃饱停嘴了吱";
-				text3 = string.Format("{0}啃了{1}几口,吃饱收工{2}。{1}还活着。", text, victim.LabelShort, own ? "(亲生)" : "(非亲生)");
+				bool exhausted = stopReason == "exhausted";
+				text2 = exhausted ? "鼠鼠停嘴了吱" : "鼠鼠啃饱停嘴了吱";
+				text3 = exhausted
+					? string.Format("{0}放下了{1}{2}。{1}还活着，身上已经没有允许继续啃食的部位。", text, victim.LabelShort, own ? "(亲生)" : "(非亲生)")
+					: string.Format("{0}啃了{1}几口，吃饱收工{2}。{1}还活着。", text, victim.LabelShort, own ? "(亲生)" : "(非亲生)");
 			}
 			string text4 = FormatMoodShort(text, GetEaterThought(kind, own, tier));
 			string text5 = FormatMoodShort(victim.LabelShort, GetVictimThought(tier));

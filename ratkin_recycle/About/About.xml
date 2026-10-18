@@ -13,9 +13,9 @@
 
 捕食不是原版咬杀,而是直接把鼠蛋抓起来生啃:优先啃四肢,躯干其次,头部优先级最低。鼠蛋被吃掉时左上角会有信件提示。捕食方与被捕食方都会获得对应的心情。
 
-几乎所有参数(MOD链接、饥饿阈值、产后窗口、成长阶段划分、啃咬间隔/伤害/营养、心情数值、阵营与种族范围等)都可以在 选项 -&gt; Mod设置 -&gt; 鼠族回收行为 中调整。
+1.7 可分别设置捕食者与被捕食者的身份、年龄范围和年龄无上限，并勾选允许直接啃咬的天然部位。默认双方排除玩家自由殖民者。访客与商队自身的回收行为免除对玩家的好感惩罚与转敌，普通玩家攻击仍按原版处理。设置分为六页；启用可选的 IrisMenus 后也可从分类子项中打开。1.6 保留原发布行为。
 
-依赖:Harmony、NewRatkinPlus(鼠族,Solaris.RatkinRaceMod)。建议同时启用 Toddlers 幼儿阶段以体验完整的 0-3 岁"鼠蛋"阶段。
+依赖:Harmony、NewRatkinPlus(鼠族,Solaris.RatkinRaceMod)。Toddlers 为可选模组，本机版本仅声明支持到 1.6，1.7 兼容性尚未确认。
 	</description>
 	<modDependencies>
 		<li>
@@ -32,6 +32,7 @@
 	<loadAfter>
 		<li>brrainz.harmony</li>
 		<li>Solaris.RatkinRaceMod</li>
+		<li>Nanaloveyuki.IrisMenus</li>
 	</loadAfter>
 	<incompatibleWith>
 		<li>dsh.ratkinrecycle</li>

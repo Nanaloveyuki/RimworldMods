@@ -15,6 +15,7 @@ public class RatkinRecycleMod : Mod
 	{
 		Instance = this;
 		Settings = GetSettings<RatkinRecycleSettings>();
+		Settings.Normalize();
 	}
 
 	public override void DoSettingsWindowContents(Rect inRect)
@@ -43,6 +44,7 @@ public class RatkinRecycleMod : Mod
 
 	public override void WriteSettings()
 	{
+		Settings?.Normalize();
 		base.WriteSettings();
 		try
 		{

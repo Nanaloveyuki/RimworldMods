@@ -1,4 +1,3 @@
-using System;
 using HarmonyLib;
 using Verse;
 
@@ -7,18 +6,18 @@ namespace RatkinRecycle;
 [HarmonyPatch(typeof(Thing), "Ingested")]
 public static class Patch_Thing_Ingested
 {
-	private static void Postfix(Thing __instance, Pawn ingester)
+	private static void Postfix(Thing __instance, Pawn ingester, float __result)
 	{
-		try
+		// Ingested returns actual nutrition, including zero for rejected/destroyed food.
+		if (!(__result > 0f) || ingester == null || !RatkinRecycleUtility.IsRatkin(ingester) ||
+			!RatkinRecycleUtility.IsFineOrBetter(__instance))
 		{
-			if (ingester != null && RatkinRecycleUtility.IsRatkin(ingester) && RatkinRecycleUtility.IsFineOrBetter(__instance))
-			{
-				RatkinRecycleTracker.NotifyFineMeal(ingester, Find.TickManager.TicksGame);
-			}
+			return;
 		}
-		catch (Exception ex)
+		TickManager tickManager = Verse.Current.Game?.tickManager;
+		if (tickManager != null)
 		{
-			Log.Error("[RatkinRecycle] 进食补丁异常: " + ex);
+			RatkinRecycleGameComp.Current?.NotifyFineMeal(ingester, tickManager.TicksGame);
 		}
 	}
 }

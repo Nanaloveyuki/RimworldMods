@@ -1,0 +1,20 @@
+{
+  "target": "ratkin_recycle",
+  "package_id": "nanaloveyuki.ratkinrecycle",
+  "new_target_name": true,
+  "install_missing_legacy": true,
+  "build": [
+    ["dotnet", "ratkin_recycle/Source/IrisMenus/RatkinRecycle.IrisMenus.csproj", {}]
+  ],
+  "files": [
+    "About", "LoadFolders.xml", "LICENSE", "NOTICE", "README.md", "docs", "Common", "1.6",
+    "1.7/Assemblies/RatkinRecycle.dll",
+    "1.7/IrisMenus/Assemblies/RatkinRecycle.IrisMenus.dll"
+  ],
+  "required": [
+    "About/Preview.png",
+    "1.6/Assemblies/RatkinRecycle.dll",
+    "1.7/Assemblies/RatkinRecycle.dll",
+    "1.7/IrisMenus/Assemblies/RatkinRecycle.IrisMenus.dll"
+  ]
+}

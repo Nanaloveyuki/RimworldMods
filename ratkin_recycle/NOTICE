@@ -24,10 +24,13 @@ Changes by Nanaloveyuki, 2026-10-18:
 - Added dual-license texts, documentation and a typographic About/Preview.png
   using the original stop-bleeding station icon.
 - Added isolated 1.7 .NET 10 / Harmony 3 output and explicit LoadFolders routing.
-- Preserved the 1.6 release bytes and copied unchanged XML/textures to Common.
+- Preserved the 1.6 release bytes; Common holds the 1.7 XML/textures.
 - Corrected the Solaris.RatkinRaceMod Workshop link to verified ID 1578693166.
+- Added 1.7 biological-age/status/part policies, game-owned persisted histories,
+  safe carry/job settlement, scoped diplomacy attribution and six settings pages
+  with an optional IrisMenus adapter. Common's job carry flags changed accordingly.
 
-Original Def names, gameplay XML, texture, assembly name and namespace are
-retained. The 1.7 port does not include unrelated gameplay or persistence fixes.
+Original Def names, texture, assembly name and namespace are retained.
+Frozen 1.6 behavior remains unchanged; subsequent fixes ship only for 1.7.
 RimWorld, Unity, Harmony and NewRatkinPlus are external dependencies and are
 not included in this license grant. See LICENSE for both full license texts.
