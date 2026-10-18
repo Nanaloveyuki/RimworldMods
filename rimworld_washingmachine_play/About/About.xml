@@ -3,6 +3,7 @@
   <name>Washing Machine · 洗衣机</name>
   <author>Nanaloveyuki</author>
   <packageId>nanaloveyuki.washingmachine</packageId>
+  <modVersion>1.1.0</modVersion>
   <supportedVersions>
     <li>1.6</li>
     <li>1.7</li>

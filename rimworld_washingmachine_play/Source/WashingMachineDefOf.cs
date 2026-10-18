@@ -7,6 +7,7 @@ namespace WashingMachine;
 public static class WashingMachineDefOf
 {
     public static ThingDef PWM_WashingMachine;
+    public static RecipeDef PWM_WashApparel;
     public static JobDef PWM_LoadApparel;
     public static JobDef PWM_CarryToWasher;
     public static JobDef PWM_BeingWashed;

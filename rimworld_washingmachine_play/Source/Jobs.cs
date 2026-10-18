@@ -17,6 +17,7 @@ public class JobDriver_LoadApparel : JobDriver
         this.FailOnDestroyedOrNull(TargetIndex.A);
         this.FailOnDespawnedOrNull(TargetIndex.B);
         this.FailOn(() => Washer == null || Washer.Busy);
+        this.FailOn(() => !Washer.CanLoadApparel(job.targetA.Thing as Apparel, job.bill, pawn));
         yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch)
             .FailOnDespawnedNullOrForbidden(TargetIndex.A);
         Toil carry = Toils_Haul.StartCarryThing(TargetIndex.A);
@@ -26,7 +27,7 @@ public class JobDriver_LoadApparel : JobDriver
         Toil load = ToilMaker.MakeToil("LoadWasherApparel");
         load.initAction = () =>
         {
-            if (!Washer.TryLoadApparel(pawn, pawn.carryTracker.CarriedThing as Apparel))
+            if (!Washer.TryLoadApparel(pawn, pawn.carryTracker.CarriedThing as Apparel, job.bill))
                 EndJobWith(JobCondition.Incompletable);
         };
         load.defaultCompleteMode = ToilCompleteMode.Instant;
@@ -93,20 +94,54 @@ public class JobDriver_BeingWashed : JobDriver
     }
 }
 
-public class WorkGiver_LoadTaintedApparel : WorkGiver_Scanner
+public class WorkGiver_LoadTaintedApparel : WorkGiver_DoBill
 {
-    public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForGroup(ThingRequestGroup.Apparel);
     public override PathEndMode PathEndMode => PathEndMode.Touch;
 
     public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false) =>
-        t is Apparel item && item.WornByCorpse && item.Spawned && !item.IsForbidden(pawn)
-        && pawn.CanReserveAndReach(item, PathEndMode.Touch, Danger.Deadly)
-        && WasherUtility.FindAvailableWasher(pawn) != null;
+        FindApparel(pawn, t as Building_WashingMachine, out _) != null;
+
+    private static Apparel FindApparel(Pawn pawn, Building_WashingMachine washer, out Bill selectedBill)
+    {
+        selectedBill = null;
+        if (washer == null || washer.Busy || !washer.HasPower
+            || washer.Faction != Faction.OfPlayer || washer.IsForbidden(pawn) || washer.IsBurning()
+            || !pawn.CanReserveAndReach(washer, PathEndMode.Touch, Danger.Deadly))
+            return null;
+
+        List<Thing> apparel = pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.Apparel);
+        foreach (Bill bill in washer.BillStack)
+        {
+            Apparel nearest = null;
+            int distance = int.MaxValue;
+            for (int i = 0; i < apparel.Count; i++)
+            {
+                if (apparel[i] is not Apparel item || !item.Spawned || item.IsForbidden(pawn)
+                    || !washer.CanLoadApparel(item, bill, pawn)
+                    || (item.Position - washer.Position).LengthHorizontalSquared > bill.ingredientSearchRadius * bill.ingredientSearchRadius)
+                    continue;
+                int candidateDistance = (item.Position - pawn.Position).LengthHorizontalSquared;
+                if (candidateDistance >= distance || !pawn.CanReserveAndReach(item, PathEndMode.Touch, Danger.Deadly))
+                    continue;
+                nearest = item;
+                distance = candidateDistance;
+            }
+            if (nearest == null)
+                continue;
+            selectedBill = bill;
+            return nearest;
+        }
+        return null;
+    }
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
-        Building_WashingMachine washer = WasherUtility.FindAvailableWasher(pawn);
-        return washer == null ? null : JobMaker.MakeJob(WashingMachineDefOf.PWM_LoadApparel, t, washer);
+        Apparel item = FindApparel(pawn, t as Building_WashingMachine, out Bill bill);
+        if (item == null)
+            return null;
+        Job job = JobMaker.MakeJob(WashingMachineDefOf.PWM_LoadApparel, item, t);
+        job.bill = bill;
+        return job;
     }
 }
 

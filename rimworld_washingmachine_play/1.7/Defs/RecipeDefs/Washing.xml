@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <RecipeDef Class="WashingMachine.RecipeDef_WashApparel">
+    <defName>PWM_WashApparel</defName>
+    <label>wash apparel</label>
+    <description>Wash one piece of corpse-tainted apparel. Removes the tainted flag without changing hit points or quality. The machine runs automatically for 30 game seconds after loading.</description>
+    <jobString>Loading apparel into the washing machine.</jobString>
+    <workAmount>1800</workAmount>
+    <requiredGiverWorkType>Hauling</requiredGiverWorkType>
+    <ingredients>
+      <li>
+        <filter><categories><li>Apparel</li></categories></filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter><categories><li>Apparel</li></categories></fixedIngredientFilter>
+    <recipeUsers><li>PWM_WashingMachine</li></recipeUsers>
+  </RecipeDef>
+</Defs>

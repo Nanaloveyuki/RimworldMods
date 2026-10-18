@@ -19,6 +19,9 @@
     },
     "Common",
     "1.7/Assemblies/WashingMachine.dll",
+    "1.7/Defs",
+    "1.7/Patches",
+    "1.7/Languages",
     {
       "source": "Assemblies",
       "optional": true

@@ -6,7 +6,7 @@ using Verse.AI;
 
 namespace WashingMachine;
 
-public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThingHolderTickable
+public class Building_WashingMachine : Building_WorkTable, IThingHolderWithDrawnPawn, IThingHolderTickable
 {
     public const int CycleTicks = 1800;
     private ThingOwner<Thing> contents;
@@ -16,6 +16,7 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
     private bool releasing;
     private CompPowerTrader power;
     private CompFlickable flick;
+    private Bill activeBill;
 
     public Building_WashingMachine() => contents = new ThingOwner<Thing>(this, true);
     public bool Busy => contents.Count != 0;
@@ -38,10 +39,12 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
     public override void ExposeData()
     {
         base.ExposeData();
+        billStack ??= new BillStack(this);
         Scribe_Deep.Look(ref contents, "contents", this);
         Scribe_Values.Look(ref remainingTicks, "remainingTicks");
         Scribe_Values.Look(ref cycleCompleted, "cycleCompleted");
         Scribe_Values.Look(ref pendingDeath, "pendingDeath");
+        Scribe_References.Look(ref activeBill, "activeBill");
     }
 
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
@@ -72,13 +75,28 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
         return true;
     }
 
-    public bool TryLoadApparel(Pawn carrier, Apparel item)
+    public bool CanLoadApparel(Apparel item, Bill bill, Pawn carrier) => item != null && item.WornByCorpse
+        && bill != null && bill.billStack == BillStack && !bill.DeletedOrDereferenced
+        && bill.recipe == WashingMachineDefOf.PWM_WashApparel && bill.ShouldDoNow()
+        && bill.PawnAllowedToStartAnew(carrier) && bill.IsFixedOrAllowedIngredient(item);
+
+    public Bill FindApparelBill(Apparel item, Pawn carrier)
     {
-        if (!Spawned || Busy || item == null || carrier.carryTracker.CarriedThing != item)
+        foreach (Bill bill in BillStack)
+            if (CanLoadApparel(item, bill, carrier)
+                && (item.PositionHeld - Position).LengthHorizontalSquared <= bill.ingredientSearchRadius * bill.ingredientSearchRadius)
+                return bill;
+        return null;
+    }
+
+    public bool TryLoadApparel(Pawn carrier, Apparel item, Bill bill)
+    {
+        if (!Spawned || Busy || !CanLoadApparel(item, bill, carrier) || carrier.carryTracker.CarriedThing != item)
             return false;
         if (carrier.carryTracker.innerContainer.TryTransferToContainer(item, contents, item.stackCount) == 0)
             return false;
         BeginCycle();
+        activeBill = bill;
         return true;
     }
 
@@ -125,7 +143,13 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
         // Commit before ejecting: a failed placement must not roll mood/death again.
         cycleCompleted = true;
         if (Busy && contents[0] is Apparel item)
+        {
             item.WornByCorpse = false;
+            Bill completedBill = activeBill;
+            activeBill = null;
+            if (completedBill != null && !completedBill.DeletedOrDereferenced)
+                completedBill.Notify_IterationCompleted(null, contents.InnerListForReading);
+        }
         if (target != null)
         {
             Compatibility.ApplyAfterWash(target);
@@ -137,6 +161,7 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
     public void CancelCycle()
     {
         remainingTicks = 0;
+        activeBill = null;
         cycleCompleted = true;
         ReleaseContents();
     }
@@ -161,6 +186,12 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
             return true;
         }
         finally { releasing = false; }
+    }
+
+    public override void Notify_BillDeleted(Bill bill)
+    {
+        if (activeBill == bill)
+            CancelCycle();
     }
 
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
@@ -232,13 +263,20 @@ public class Building_WashingMachine : Building, IThingHolderWithDrawnPawn, IThi
             yield break;
         foreach (Thing thing in Map.listerThings.ThingsInGroup(ThingRequestGroup.Apparel))
         {
-            if (thing is Apparel item && item.WornByCorpse && item.Spawned
+            if (thing is Apparel item && item.Spawned
                 && selPawn.CanReserveAndReach(item, PathEndMode.Touch, Danger.Deadly)
                 && selPawn.CanReserveAndReach(this, PathEndMode.Touch, Danger.Deadly))
             {
+                Bill bill = FindApparelBill(item, selPawn);
+                if (bill == null)
+                    continue;
                 Apparel chosen = item;
-                yield return new FloatMenuOption("PWM_LoadApparel".Translate() + ": " + item.LabelCap,
-                    () => selPawn.jobs.TryTakeOrderedJob(JobMaker.MakeJob(WashingMachineDefOf.PWM_LoadApparel, chosen, this)));
+                yield return new FloatMenuOption("PWM_LoadApparel".Translate() + ": " + item.LabelCap, () =>
+                {
+                    Job job = JobMaker.MakeJob(WashingMachineDefOf.PWM_LoadApparel, chosen, this);
+                    job.bill = bill;
+                    selPawn.jobs.TryTakeOrderedJob(job);
+                });
             }
         }
     }

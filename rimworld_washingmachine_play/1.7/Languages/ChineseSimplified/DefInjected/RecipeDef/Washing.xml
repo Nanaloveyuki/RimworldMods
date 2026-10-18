@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PWM_WashApparel.label>清洗衣物</PWM_WashApparel.label>
+  <PWM_WashApparel.description>清洗一件死人衣物，只移除死人衣物标记，不改变耐久或品质。装入后由洗衣机自动运转30游戏秒。</PWM_WashApparel.description>
+  <PWM_WashApparel.jobString>正在将衣物装入洗衣机。</PWM_WashApparel.jobString>
+</LanguageData>

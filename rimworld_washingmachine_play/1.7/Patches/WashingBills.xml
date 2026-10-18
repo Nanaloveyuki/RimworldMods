@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="PWM_WashingMachine"]</xpath>
+    <value>
+      <inspectorTabs><li>ITab_Bills</li></inspectorTabs>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorkGiverDef[defName="PWM_LoadTaintedApparel"]</xpath>
+    <value>
+      <fixedBillGiverDefs><li>PWM_WashingMachine</li></fixedBillGiverDefs>
+    </value>
+  </Operation>
+</Patch>
