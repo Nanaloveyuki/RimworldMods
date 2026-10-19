@@ -5,13 +5,18 @@ using Verse;
 
 namespace PrisonersPayToEat2
 {
+    public class MainButtonWorker_Prisoners : MainButtonWorker_ToggleTab
+    {
+        public override bool Visible => !PrisonLaborBridge.Present && base.Visible;
+    }
+
     /// <summary>
     /// 「囚犯」主标签页（内置劳工系统的管理界面）。自画子标签行切换 4 张囚犯表：
     /// 总览（工作开关/动机/饭票余额/状态）、工作（1-4 优先级，只列全局允许的工种）、
     /// 日程（时间表 + 活动区）、分配（医疗/着装/饮食/药品）。
     ///
     /// 不继承 MainTabWindow_PawnTable（它的 table/CreateTable 是 private，没法换表），
-    /// 自己持有一份 PawnTable 并按子标签重建。安装 Prison Labor 或关闭总开关时显示停用提示。
+    /// 自己持有一份 PawnTable 并按子标签重建。关闭总开关时显示停用提示；Prison Labor 在场时隐藏入口。
     /// </summary>
     public class MainTabWindow_Prisoners : MainTabWindow
     {

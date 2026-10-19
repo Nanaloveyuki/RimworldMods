@@ -26,10 +26,8 @@ namespace PrisonersPayToEat2
                 foreach (var mc in LoadedModManager.RunningModsListForReading)
                 {
                     if (!string.Equals(mc.PackageId, PackageId, StringComparison.OrdinalIgnoreCase)) continue;
-                    if (mc.ModMetaData?.VersionCompatible == true)
-                        _present = true;
-                    else
-                        Log.Warning("[PPTE2] The active Prison Labor package does not declare support for this RimWorld version. Its labour integration is unavailable; the built-in labour setting remains independent. This does not make forcing an incompatible Prison Labor assembly to load safe.");
+                    // Version declarations do not determine whether an enabled mod is present.
+                    _present = true;
                     break;
                 }
                 return _present.Value;
