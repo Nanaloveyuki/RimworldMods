@@ -7,7 +7,7 @@ namespace PrisonersPayToEat2
     public class PrisonersPayToEat2Mod : Mod
     {
         public const string HarmonyId = "nanaloveyuki.prisonerspaytoeat2.fork";
-        public const string ModVersion = "2.5.1";
+        public const string ModVersion = "2.5.2";
 
         public static PrisonersPayToEat2Settings Settings;
         public static PrisonersPayToEat2Mod Instance;

@@ -9,6 +9,7 @@ namespace PrisonersPayToEat2
     {
         // Global toggles & multipliers
         public bool enableOrganHarvest = true;
+        public bool organSaleAffectsGoodwill = true;
         public float foodPriceMultiplier = 1.0f;
         public float wageMultiplier = 1.0f;
         public float silverToTicketRate = 1.0f;
@@ -112,6 +113,7 @@ namespace PrisonersPayToEat2
         {
             base.ExposeData();
             Scribe_Values.Look(ref enableOrganHarvest, "enableOrganHarvest", true);
+            Scribe_Values.Look(ref organSaleAffectsGoodwill, "organSaleAffectsGoodwill", true);
             Scribe_Values.Look(ref foodPriceMultiplier, "foodPriceMultiplier", 1.0f);
             Scribe_Values.Look(ref wageMultiplier, "wageMultiplier", 1.0f);
             Scribe_Values.Look(ref defaultWagePerHour, "defaultWagePerHour", 2f);
@@ -547,6 +549,8 @@ namespace PrisonersPayToEat2
             // left column: checkboxes hugging labels
             float ly = 4f;
             DrawCheckboxRow(0f, ref ly, "PPTE2_EnableOrganHarvest".Translate(), ref enableOrganHarvest);
+            DrawCheckboxRow(0f, ref ly, "PPTE2_OrganSaleAffectsGoodwill".Translate(), ref organSaleAffectsGoodwill);
+            TooltipHandler.TipRegion(new Rect(0f, ly - 30f, colW, 30f), "PPTE2_OrganSaleAffectsGoodwillTip".Translate());
             DrawCheckboxRow(0f, ref ly, "PPTE2_IgnoreRiot".Translate(), ref ignoreDuringRiot);
             DrawCheckboxRow(0f, ref ly, "PPTE2_AllowMealDebt".Translate(), ref allowMealDebt);
             DrawCheckboxRow(0f, ref ly, "PPTE2_VerboseLog".Translate(), ref logVerbose);

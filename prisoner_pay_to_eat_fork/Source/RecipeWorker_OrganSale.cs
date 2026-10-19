@@ -29,6 +29,12 @@ namespace PrisonersPayToEat2
 
         public override string GetLabelWhenUsedOn(Pawn pawn, BodyPartRecord part) => recipe.LabelCap;
 
+        public override bool IsViolationOnPawn(Pawn pawn, BodyPartRecord part, Faction billDoerFaction)
+        {
+            return PrisonersPayToEat2Mod.Settings.organSaleAffectsGoodwill
+                && base.IsViolationOnPawn(pawn, part, billDoerFaction);
+        }
+
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             // Recheck immediately before any damage: an old bill may outlive its eligibility,

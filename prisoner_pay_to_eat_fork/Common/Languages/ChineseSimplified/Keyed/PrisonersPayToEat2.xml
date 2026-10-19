@@ -15,6 +15,8 @@
   <PPTE2_HdrBaseMarketValue>基础市价</PPTE2_HdrBaseMarketValue>
   <PPTE2_HdrCustomPrice>价格（饭票）</PPTE2_HdrCustomPrice>
   <PPTE2_EnableOrganHarvest>启用器官贩卖</PPTE2_EnableOrganHarvest>
+  <PPTE2_OrganSaleAffectsGoodwill>出售器官影响派系好感</PPTE2_OrganSaleAffectsGoodwill>
+  <PPTE2_OrganSaleAffectsGoodwillTip>开启时，囚犯出售器官换取饭票的手术按原版规则降低其所属派系对殖民地的好感。关闭后免除此项好感惩罚。仅影响本模组的器官出售手术；心情影响和手术风险保持不变。</PPTE2_OrganSaleAffectsGoodwillTip>
   <PPTE2_FoodMul>全局食物价格倍率：{0}</PPTE2_FoodMul>
   <PPTE2_WageMul>全局工资倍率：{0}</PPTE2_WageMul>
   <PPTE2_DefaultWagePerHour>默认每小时饭票：{0}</PPTE2_DefaultWagePerHour>
