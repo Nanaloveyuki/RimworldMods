@@ -11,6 +11,7 @@ layout(set = 2, binding = 0, std140) uniform FrostParams
     vec4 _Shape; // UI width, height, corner radius, border width.
     vec4 _Frost; // Enabled, blur sigma, transparency, native saturation.
     vec4 _Fill;
+    vec4 _SourceRect; // Backdrop bounds in physical framebuffer pixels, top origin.
 };
 layout(set = 2, binding = 1) uniform sampler2D _SceneTex;
 
@@ -31,8 +32,7 @@ void main()
     float alpha = 0.0;
     if (_Frost.x > 0.5)
     {
-        vec2 size = vec2(textureSize(_SceneTex, 0));
-        vec2 uv = gl_FragCoord.xy / size;
+        vec2 uv = (gl_FragCoord.xy - _SourceRect.xy) / _SourceRect.zw;
         vec3 scene = textureLod(_SceneTex, uv, 0.0).rgb;
         if (_Frost.y > 0.01)
         {
@@ -45,7 +45,7 @@ void main()
                 {
                     vec2 tap = vec2(x - 2, y - 2);
                     vec2 offset = tap * (_Frost.y * 2.0) + sign(tap) * min(0.5, _Frost.y);
-                    scene += textureLod(_SceneTex, uv + offset / size, 0.0).rgb * weights[x] * weights[y];
+                    scene += textureLod(_SceneTex, uv + offset / _SourceRect.zw, 0.0).rgb * weights[x] * weights[y];
                 }
         }
         float luminance = dot(scene, vec3(0.22, 0.707, 0.071));

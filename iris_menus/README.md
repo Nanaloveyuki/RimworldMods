@@ -184,9 +184,13 @@ The native path uses a 25-sample Gaussian footprint rather than the legacy
 half-resolution separable filter; blur strength is retained, not pixel-identical.
 RimWorld 1.7 requires the Harmony mod's .NET 10-compatible Harmony 3 runtime.
 
-Outside a rendered game scene (including the main menu), the window uses an
-unblurred translucent background. Transparency works independently of frost;
-zero transparency uses an opaque rounded background. On 1.7, shader-load failures
+On 1.7, the main menu samples its selected `UI_BackgroundMain` artwork directly,
+using the same centered cover rectangle and UI scale as the game. This avoids
+screen readback and per-frame offscreen submissions. It blurs the base artwork,
+not other windows, transient expansion-hover fades, or custom background renderers.
+On 1.6 and unsupported backgrounds, the window retains an unblurred translucent fill.
+Transparency works independently of frost; zero transparency uses an opaque rounded
+background. On 1.7, shader-load failures
 are logged and leave the ordinary rounded translucent fill intact. Native material
 binding can also fail silently on the render thread; its transparent base image
 preserves that same fill instead of producing an opaque white rectangle.
@@ -211,6 +215,8 @@ unaffected.
 
 ### Unreleased
 
+- Restore native 1.7 main-menu artwork blur instead of explicitly disabling frost
+  outside a running game; retain the existing map capture and saved preferences.
 - Fix the 1.7 scene-color hook being bypassed by optimized interface forwarding;
   preserve a rounded translucent background when native material binding fails.
   Keep the existing frost and transparency controls and stored preferences.

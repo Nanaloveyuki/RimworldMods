@@ -199,3 +199,5 @@ python scripts/python/deploy.py iris_menus --rimworld-dir 'E:\Apps\Steam\steamap
 
 1.6 毛玻璃使用 Unity 相机和 bundle；1.7 通过接口映射定位 `ImGuiRenderFeature` 的显式 `IRenderPass.Record` 实现，在当前渲染提交中借用场景颜色。不能只补丁公开转发方法：它可能在 Mod 加载前已被 JIT 内联，导致场景纹理未绑定。背景先绘制原生圆角底色，再叠加模糊与边框；原生材质绑定失败时保留普通半透明背景，不再回退成白底。毛玻璃、模糊强度与透明度设置保留，不改已有偏好。
 
+1.7 主菜单背景由 IMGUI 绘制，不在场景颜色中；毛玻璃直接采样当前 `UI_BackgroundMain` 的背景图，沿用原版居中铺满的裁切与 UI 缩放，无需截屏读回或逐帧离屏提交。此路径只模糊基础背景图，不捕获其他窗口、资料片悬停淡入层或自定义背景渲染器。1.6 和不支持的背景仍使用原有半透明底色。
+
