@@ -15,6 +15,7 @@
     <IrisMenusAssemblyPath Condition="'$(IrisMenusAssemblyPath)' == ''">$(MSBuildThisFileDirectory)../../../iris_menus/1.7/Assemblies/IrisMenus.dll</IrisMenusAssemblyPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../Properties/AssemblyInfo.cs" Link="Properties/AssemblyInfo.cs" />
     <ProjectReference Include="../RatkinRecycle.csproj" Private="false" />
     <Reference Include="IrisMenus" HintPath="$(IrisMenusAssemblyPath)" Private="false" />
     <Reference Include="Assembly-CSharp" HintPath="$(RimWorldDir)/Assembly-CSharp.dll" Private="false" />

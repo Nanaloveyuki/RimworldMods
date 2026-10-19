@@ -16,6 +16,7 @@ public class JobDriver_EatRatEgg : JobDriver
 	private bool finished;
 	private int nextBiteTick;
 	private bool consumed;
+	private int consecutiveNoDamageBites;
 
 	private Pawn Victim => job?.GetTarget(TargetIndex.A).Thing as Pawn;
 
@@ -30,6 +31,7 @@ public class JobDriver_EatRatEgg : JobDriver
 		Scribe_Values.Look(ref finished, "finished");
 		Scribe_Values.Look(ref nextBiteTick, "nextBiteTick");
 		Scribe_Values.Look(ref consumed, "consumed");
+		Scribe_Values.Look(ref consecutiveNoDamageBites, "consecutiveNoDamageBites");
 		if (Scribe.mode == LoadSaveMode.PostLoadInit && victimStored == null)
 		{
 			// Old jobs did not save their state. Recover ownership, never past rewards.
@@ -195,8 +197,14 @@ public class JobDriver_EatRatEgg : JobDriver
 		}
 		if (result == null || result.totalDamageDealt <= 0f)
 		{
+			// Armor or damage immunity must not keep a non-expiring chew toil alive forever.
+			if (++consecutiveNoDamageBites >= 3)
+			{
+				EndJobWith(JobCondition.Incompletable);
+			}
 			return;
 		}
+		consecutiveNoDamageBites = 0;
 		consumed = true;
 		if (pawn.needs?.food != null)
 		{

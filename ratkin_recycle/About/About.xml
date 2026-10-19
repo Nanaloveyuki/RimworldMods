@@ -4,6 +4,7 @@
 	<name>鼠族回收行为 RatkinRecycle</name>
 	<author>菜地里的稽 (原作者); Nanaloveyuki (接手维护)</author>
 	<packageId>nanaloveyuki.ratkinrecycle</packageId>
+	<modVersion>0.0.1</modVersion>
 	<supportedVersions>
 		<li>1.6</li>
 		<li>1.7</li>
