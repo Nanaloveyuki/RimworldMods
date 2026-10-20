@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Prison Labor Reachability Fix</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.prisonlaborreachfix</packageId>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>avius.prisonlabor</li>
+  </loadAfter>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>avius.prisonlabor</packageId>
+      <displayName>Prison Labor</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/1899474310</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <description>Prison Labor scans cell-based work (roof removal, cleaning, smoothing, ...) by distance only, so a prisoner can be assigned a target it cannot path to and then repeats that failing job instead of doing reachable work. This patch adds the reachability check vanilla 1.7 performs before choosing a work cell: only cells the prisoner can actually reach become job targets. Thing-based work is untouched, and the fix disables itself if Prison Labor is absent or its scan method changes.</description>
+</ModMetaData>

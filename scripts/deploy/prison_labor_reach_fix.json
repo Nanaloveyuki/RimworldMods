@@ -1,0 +1,24 @@
+{
+  "target": "PrisonLaborReachFix",
+  "package_id": "nanaloveyuki.prisonlaborreachfix",
+  "build": [
+    [
+      "dotnet",
+      "prison_labor_reach_fix/Source/PrisonLaborReachFix.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "README.md",
+    "1.7/Assemblies/PrisonLaborReachFix.dll",
+    {
+      "source": "1.7/Assemblies/PrisonLaborReachFix.pdb",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/PrisonLaborReachFix.dll"
+  ]
+}
