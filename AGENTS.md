@@ -21,6 +21,7 @@
 ## 工具与提交
 
 - 文本搜索以目录为范围，`rg` 优于 `grep`。
+- 合理使用 MCP 如 `rimsage`。
 - 提交使用社区惯例，例如 `feat: doing something`；类型包括但不限于 `feat`、`fix`、`chore`、`deploy`、`i18n`、`init`、`docs`、`revert`。
 - 部署二进制等内容时，统一使用 `deploy: vX.X.X`，版本遵循 SemVer。
 
