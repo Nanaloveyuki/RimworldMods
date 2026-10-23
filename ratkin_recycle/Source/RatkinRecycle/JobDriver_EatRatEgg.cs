@@ -51,6 +51,7 @@ public class JobDriver_EatRatEgg : JobDriver
 		EaterKind eaterKind = RatkinRecycleUtility.GetEaterKind(pawn);
 		return pawn.carryTracker != null && pawn.carryTracker.CarriedThing == null
 			&& RatkinRecycleUtility.CanTarget(pawn, victim, eaterKind)
+			&& !RatkinRecycleFood.HasAvailableFood(pawn)
 			&& pawn.Reserve(victim, job, 1, -1, null, errorOnFailed);
 	}
 
@@ -78,6 +79,7 @@ public class JobDriver_EatRatEgg : JobDriver
 		kind = RatkinRecycleUtility.GetEaterKind(pawn);
 		if (!RatkinRecycleUtility.CanEat(pawn)
 			|| !RatkinRecycleUtility.CanTarget(pawn, victimStored, kind)
+			|| RatkinRecycleFood.HasAvailableFood(pawn)
 			|| pawn.carryTracker == null || pawn.carryTracker.CarriedThing != null)
 		{
 			EndJobWith(JobCondition.Incompletable);
@@ -175,6 +177,11 @@ public class JobDriver_EatRatEgg : JobDriver
 		if (!CanContinue())
 		{
 			EndJobWith(JobCondition.Incompletable);
+			return;
+		}
+		if (RatkinRecycleFood.HasAvailableFood(pawn))
+		{
+			EndJobWith(JobCondition.InterruptForced);
 			return;
 		}
 		BodyPartRecord part = RatkinRecycleUtility.PickBitePart(victimStored);

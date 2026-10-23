@@ -87,6 +87,7 @@ public static class RatkinRecycleMenus
 				yield return ("enabled", "启用捕食行为", "Enable predation");
 				yield return ("showLetter", "死亡信件", "Victim death letters");
 				yield return ("showStopLetter", "停嘴信件", "Stop-chewing letters");
+				yield return ("preferAvailableFood", "有可用食物时优先普通食物：背包、可达性、访客、商队、驮兽", "Prefer available food: inventory, reachability, visitors, traders, pack animals");
 				yield return ("section:hunger", "饥饿与母性判定", "Hunger and mothers");
 				yield return ("momHungerPct", "鼠妈饱食度阈值", "Mother hunger threshold");
 				yield return ("otherHungerPct", "其他鼠族饱食度阈值", "Other Ratkin hunger threshold");

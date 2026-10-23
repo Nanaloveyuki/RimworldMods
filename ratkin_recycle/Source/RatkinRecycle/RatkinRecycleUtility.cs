@@ -345,17 +345,27 @@ public static class RatkinRecycleUtility
 				{
 					continue;
 				}
-				history?.SetCooldown(pawn3, ticksGame + retryCooldown);
-				Pawn pawn4 = TryFindTargetFromEggs(pawn3, eaterKind, eggBuffer);
-				if (pawn4 == null)
+				if (settings.preferAvailableFood && (pawn3.CurJobDef == JobDefOf.Ingest || pawn3.CurJobDef == JobDefOf.TakeFromOtherInventory))
 				{
 					continue;
 				}
-				Job job = JobMaker.MakeJob(RatkinRecycleDefOf.EatRatEgg, pawn4);
+				history?.SetCooldown(pawn3, ticksGame + retryCooldown);
+				Pawn pawn4 = TryFindTargetFromEggs(pawn3, eaterKind, eggBuffer);
+				if (pawn4 == null) continue;
+				Job job;
+				if (RatkinRecycleFood.TryFindFood(pawn3, out Thing food, out ThingDef foodDef))
+				{
+					job = RatkinRecycleFood.MakeFoodJob(pawn3, food, foodDef);
+					if (job == null) continue;
+				}
+				else
+				{
+					job = JobMaker.MakeJob(RatkinRecycleDefOf.EatRatEgg, pawn4);
+				}
 				try
 				{
 					pawn3.jobs.StartJob(job, JobCondition.InterruptForced);
-					if (settings.debugLog)
+					if (settings.debugLog && job.def == RatkinRecycleDefOf.EatRatEgg)
 					{
 						Log.Message($"[RatkinRecycle] {pawn3.LabelShort}({eaterKind}) 开始捕食 {pawn4.LabelShort},年龄 {AgeYears(pawn4):0.##} 岁");
 					}

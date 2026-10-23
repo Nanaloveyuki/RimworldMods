@@ -141,6 +141,8 @@ public partial class RatkinRecycleSettings
 		Check(list, "enabled", T("启用捕食行为", "Enable predation"), ref enabled, anchor, measure);
 		Check(list, "showLetter", T("捕食目标死亡时发来信件", "Send a letter when the victim dies"), ref showLetter, anchor, measure);
 		Check(list, "showStopLetter", T("吃饱或没有可啃部位而停嘴，且目标存活时发来信件", "Send a letter when chewing stops with the victim alive, from fullness or no eligible parts"), ref showStopLetter, anchor, measure);
+		Check(list, "preferAvailableFood", T("有可用食物时优先普通食物", "Prefer available food over RatkinYoung"), ref preferAvailableFood, anchor, measure);
+		Label(list, T("默认开启。检查自身背包、原版允许食用且可达的地图食物，以及同一访客／商队队伍中可达驮兽的食物；不要求精致食物。禁止食用、不可达、无法预约、空营养膏机和需先收获的作物不算。抱起前及每口前复查，发现食物就停止回收并尝试放下鼠蛋。关闭后恢复原来的回收优先级。", "Enabled by default. Check personal inventory, reachable map food allowed by vanilla, and reachable pack animals in the same visiting group; fine meals are not required. Forbidden, unreachable or unreservable food, empty dispensers and crops requiring harvest do not count. Recheck before pickup and every bite; when food is found, stop recycling and try to put down the RatkinYoung. Disable to restore the previous priority."), measure);
 		Section(list, "hunger", T("饥饿与母性判定", "Hunger and mothers"), anchor, measure);
 		Number(list, "momHungerPct", T("鼠妈饱食度触发阈值（0–1）", "Mother hunger threshold (0–1 fullness)"), ref momHungerPct, anchor, measure, 0f, 1f);
 		Number(list, "otherHungerPct", T("其他鼠族饱食度触发阈值（0–1）", "Other Ratkin hunger threshold (0–1 fullness)"), ref otherHungerPct, anchor, measure, 0f, 1f);

@@ -30,6 +30,8 @@ public partial class RatkinRecycleSettings : ModSettings
 
 	public float otherHungerPct = 0.3f;
 
+	public bool preferAvailableFood = true;
+
 	public float adultAgeYears = 1f;
 
 	public float postpartumHours = 120f;
@@ -143,6 +145,7 @@ public partial class RatkinRecycleSettings : ModSettings
 		Scribe_Values.Look(ref raceKeywords, "raceKeywords", "Ratkin");
 		Scribe_Values.Look(ref momHungerPct, "momHungerPct", 0.5f);
 		Scribe_Values.Look(ref otherHungerPct, "otherHungerPct", 0.3f);
+		Scribe_Values.Look(ref preferAvailableFood, "preferAvailableFood", defaultValue: true);
 		Scribe_Values.Look(ref adultAgeYears, "adultAgeYears", 1f);
 		Scribe_Values.Look(ref postpartumHours, "postpartumHours", 120f);
 		Scribe_Values.Look(ref momOwnEggFallback, "momOwnEggFallback", defaultValue: true);
@@ -215,6 +218,7 @@ public partial class RatkinRecycleSettings : ModSettings
 		raceKeywords = "Ratkin";
 		momHungerPct = 0.5f;
 		otherHungerPct = 0.3f;
+		preferAvailableFood = true;
 		adultAgeYears = 1f;
 		postpartumHours = 120f;
 		momOwnEggFallback = true;
