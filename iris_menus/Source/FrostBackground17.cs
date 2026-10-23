@@ -26,24 +26,18 @@ namespace IrisMenus
             AccessTools.TypeByName("RimWorldWaylith.Bootstrap"), "_sceneTargets");
         internal static readonly SceneTexture Texture = new SceneTexture();
 
-        private static MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("RimWorldWaylith.Imgui.ImGuiRenderFeature");
-            var mapping = type.GetInterfaceMap(typeof(IRenderPass));
-            for (int i = 0; i < mapping.InterfaceMethods.Length; i++)
-                if (mapping.InterfaceMethods[i].Name == nameof(IRenderPass.Record))
-                    // The public forwarding target can already be inlined before mods load.
-                    return mapping.TargetMethods[i];
-            throw new MissingMethodException(type.FullName, nameof(IRenderPass.Record));
-        }
+        // Render-feature and host forwarding calls can be inlined before mods load.
+        // Bind where the UI material consumes the image, not at those wrappers.
+        private static MethodBase TargetMethod() => AccessTools.Method(
+            AccessTools.TypeByName("RimWorldWaylith.Imgui.ImGuiMaterialRenderer"), "TryRecord");
 
-        private static void Prefix(in FrameContext ctx)
+        private static void Prefix(int frameSlot)
         {
             Texture.Native.GpuResource = null;
             if (Current.ProgramState != ProgramState.Playing) return;
             var targets = (SceneColorTargets)SceneTargets.GetValue(null);
             if (targets == null) return;
-            var source = targets.Current(ctx.SubmissionFrameIndex);
+            var source = targets.Current(frameSlot);
             if (!source.IsCreated) return;
             Texture.Native.width = source.Width;
             Texture.Native.height = source.Height;

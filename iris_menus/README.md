@@ -172,9 +172,10 @@ There is no duplicate bundle load and no CPU pixel readback in
 the runtime path.
 
 RimWorld 1.7 uses the game's native renderer instead of Unity camera commands.
-A narrow hook on `ImGuiRenderFeature`'s explicit `IRenderPass.Record` implementation
-borrows the scene color for the current submission. Hooking the public forwarding
-method is unsafe: the JIT can inline it before mods load and bypass the patch.
+A narrow hook on `ImGuiMaterialRenderer.TryRecord` borrows scene color for that
+draw's submission slot and clears the borrowed reference in a finalizer.
+The render-feature/interface and host forwarding calls can be JIT-inlined before
+mods load; their patches can exist without ever running in a modded profile.
 The native fragment shader applies blur and the rounded border over a separately
 drawn native rounded fill.
 The game shader cache loads `1.7/Rendering/Frost17.frag.glsl` directly from its
@@ -213,13 +214,13 @@ unaffected.
 
 ## Release notes
 
-### Unreleased
+### 1.1.2
 
 - Restore native 1.7 main-menu artwork blur instead of explicitly disabling frost
   outside a running game; retain the existing map capture and saved preferences.
-- Fix the 1.7 scene-color hook being bypassed by optimized interface forwarding;
-  preserve a rounded translucent background when native material binding fails.
-  Keep the existing frost and transparency controls and stored preferences.
+- Bind 1.7 scene color at material recording so optimized forwarding calls cannot
+  bypass the frost hook in modded profiles. Preserve the rounded translucent
+  fallback, existing frost and transparency controls, and stored preferences.
 - Add a default-on, persistent bottom-bar IrisMenus button visibility setting
   shared by the original Mod settings dialog and the IrisMenus window footer;
   changes apply and save immediately, and the settings-page launcher remains available.
