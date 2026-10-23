@@ -38,6 +38,9 @@ namespace HungerAndHavoc.Core
         List<string> disabledReliefFoodDefNames = new List<string>();
         List<string> disabledGiveFoodDefNames = new List<string>();
         List<string> disabledBegFoodDefNames = new List<string>();
+        List<string> enabledDemandFoodDefNames = new List<string>();
+        List<string> disabledDemandFoodDefNames = new List<string>();
+        public int demandFoodListMode;
         public int giveFoodListMode;
         public int begFoodListMode;
         public bool aidRequestsEnabled = true;
@@ -327,6 +330,9 @@ namespace HungerAndHavoc.Core
             Scribe_Collections.Look(ref disabledReliefFoodDefNames, "disabledReliefFoodDefNames", LookMode.Value);
             Scribe_Collections.Look(ref disabledGiveFoodDefNames, "disabledGiveFoodDefNames", LookMode.Value);
             Scribe_Collections.Look(ref disabledBegFoodDefNames, "disabledBegFoodDefNames", LookMode.Value);
+            Scribe_Collections.Look(ref enabledDemandFoodDefNames, "enabledDemandFoodDefNames", LookMode.Value);
+            Scribe_Collections.Look(ref disabledDemandFoodDefNames, "disabledDemandFoodDefNames", LookMode.Value);
+            Scribe_Values.Look(ref demandFoodListMode, "demandFoodListMode", 0);
             Scribe_Values.Look(ref giveFoodListMode, "giveFoodListMode", 0);
             Scribe_Values.Look(ref begFoodListMode, "begFoodListMode", 0);
             Scribe_Values.Look(ref aidRequestsEnabled, "aidRequestsEnabled", true);
@@ -569,6 +575,8 @@ namespace HungerAndHavoc.Core
                 disabledReliefFoodDefNames = disabledReliefFoodDefNames ?? new List<string>();
                 disabledGiveFoodDefNames = disabledGiveFoodDefNames ?? new List<string>();
             disabledBegFoodDefNames = disabledBegFoodDefNames ?? new List<string>();
+                enabledDemandFoodDefNames = enabledDemandFoodDefNames ?? new List<string>();
+                disabledDemandFoodDefNames = disabledDemandFoodDefNames ?? new List<string>();
                 disabledRefugeeApparelDefNames = disabledRefugeeApparelDefNames ?? new List<string>();
                 temperatureApparelInsulation = temperatureApparelInsulation ?? new Dictionary<string, float>();
                 disabledTemperatureApparelDefNames = disabledTemperatureApparelDefNames ?? new List<string>();
@@ -833,6 +841,63 @@ namespace HungerAndHavoc.Core
             }
         }
 
+        public bool IsDemandFoodEnabled(ThingDef def)
+        {
+            if (!Pawn.RHAH_DemandFood.Candidate(def))
+            {
+                return false;
+            }
+
+            EnsureCollections();
+            if (disabledDemandFoodDefNames.Contains(def.defName))
+            {
+                return false;
+            }
+
+            return enabledDemandFoodDefNames.Contains(def.defName) || Pawn.RHAH_DemandFood.DefaultAllowed(def);
+        }
+
+        public void SetDemandFoodEnabled(string defName, bool enabled)
+        {
+            if (string.IsNullOrEmpty(defName))
+            {
+                return;
+            }
+
+            EnsureCollections();
+            List<string> selected = enabled ? enabledDemandFoodDefNames : disabledDemandFoodDefNames;
+            List<string> opposite = enabled ? disabledDemandFoodDefNames : enabledDemandFoodDefNames;
+            opposite.Remove(defName);
+            if (!selected.Contains(defName))
+            {
+                selected.Add(defName);
+            }
+        }
+
+        public void SetAllDemandFood(bool enabled, List<ThingDef> candidates)
+        {
+            if (candidates == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < candidates.Count; i++)
+            {
+                ThingDef def = candidates[i];
+                if (Pawn.RHAH_DemandFood.Candidate(def))
+                {
+                    SetDemandFoodEnabled(def.defName, enabled);
+                }
+            }
+        }
+
+        public void ResetDemandFoods()
+        {
+            EnsureCollections();
+            enabledDemandFoodDefNames.Clear();
+            disabledDemandFoodDefNames.Clear();
+        }
+
 
 
         public bool IsRefugeeApparelEnabled(string defName)
@@ -967,6 +1032,8 @@ namespace HungerAndHavoc.Core
             disabledReliefFoodDefNames = Clean(disabledReliefFoodDefNames);
             disabledGiveFoodDefNames = Clean(disabledGiveFoodDefNames);
             disabledBegFoodDefNames = Clean(disabledBegFoodDefNames);
+            enabledDemandFoodDefNames = Clean(enabledDemandFoodDefNames);
+            disabledDemandFoodDefNames = Clean(disabledDemandFoodDefNames);
             disabledRefugeeApparelDefNames = Clean(disabledRefugeeApparelDefNames);
             temperatureApparelInsulation = ClampWeights(temperatureApparelInsulation, ClampStoredInsulation);
             disabledTemperatureApparelDefNames = Clean(disabledTemperatureApparelDefNames);
@@ -993,6 +1060,7 @@ namespace HungerAndHavoc.Core
             contentListMode = Pawn.RHAH_VisitorRules.ClampBodyMode(contentListMode, 3);
             giveFoodListMode = Pawn.RHAH_VisitorRules.ClampBodyMode(giveFoodListMode, 3);
             begFoodListMode = Pawn.RHAH_VisitorRules.ClampBodyMode(begFoodListMode, 3);
+            demandFoodListMode = Pawn.RHAH_VisitorRules.ClampBodyMode(demandFoodListMode, 3);
             begSuccessChancePercent = Pawn.RHAH_VisitorRules.ClampPercent(begSuccessChancePercent, Pawn.RHAH_VisitorRules.MinBegSuccessChancePercent, Pawn.RHAH_VisitorRules.MaxBegSuccessChancePercent);
             begSocialBonusPercent = Pawn.RHAH_VisitorRules.ClampPercent(begSocialBonusPercent, Pawn.RHAH_VisitorRules.MinBegSocialBonusPercent, Pawn.RHAH_VisitorRules.MaxBegSocialBonusPercent);
             apparelListMode = Pawn.RHAH_VisitorRules.ClampBodyMode(apparelListMode, 3);
@@ -1136,6 +1204,8 @@ namespace HungerAndHavoc.Core
             disabledReliefFoodDefNames = disabledReliefFoodDefNames ?? new List<string>();
             disabledGiveFoodDefNames = disabledGiveFoodDefNames ?? new List<string>();
                 disabledBegFoodDefNames = disabledBegFoodDefNames ?? new List<string>();
+            enabledDemandFoodDefNames = enabledDemandFoodDefNames ?? new List<string>();
+            disabledDemandFoodDefNames = disabledDemandFoodDefNames ?? new List<string>();
             disabledRefugeeApparelDefNames = disabledRefugeeApparelDefNames ?? new List<string>();
             temperatureApparelInsulation = temperatureApparelInsulation ?? new Dictionary<string, float>();
             disabledTemperatureApparelDefNames = disabledTemperatureApparelDefNames ?? new List<string>();

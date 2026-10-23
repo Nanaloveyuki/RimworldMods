@@ -97,13 +97,15 @@ namespace HungerAndHavoc.Pawn
                         ? null
                         : clickedPawn.GetLord().LordJob as LordJob_RHAH_Visitor;
                     List<Thing> foods = new List<Thing>();
-                    RHAH_FoodHandoff.CollectFood(actor, foods);
+                    RHAH_ChoiceRecord demand = RHAH_ArmedDemand.FoodRequest(clickedPawn);
+                    RHAH_FoodHandoff.CollectFood(actor, foods, demand != null);
                     ThingDef requested = job == null ? null : job.RequestedFood;
                     List<Thing> offered = new List<Thing>();
                     for (int i = 0; i < foods.Count; i++)
                     {
                         Thing food = foods[i];
-                        if (food != null && food.def != null && (requested == null || food.def == requested))
+                        if (food != null && food.def != null && (demand != null
+                            ? RHAH_DemandFood.Allowed(food.def) : requested == null || food.def == requested))
                         {
                             offered.Add(food);
                         }
@@ -119,8 +121,10 @@ namespace HungerAndHavoc.Pawn
                     for (int i = 0; i < offered.Count; i++)
                     {
                         Thing food = offered[i];
+                        int amount = demand == null ? each : RHAH_DemandFood.Units(
+                            RHAH_DemandFood.Remaining(demand), RHAH_DemandFood.Nutrition(food));
                         yield return new FloatMenuOption(
-                            "RHAH_Choice_GiveFood".Translate(each + " " + food.def.label, clickedPawn.LabelShort),
+                            "RHAH_Choice_GiveFood".Translate(amount + " " + food.def.label, clickedPawn.LabelShort),
                             () => GiveFood(actor, clickedPawn, food, each));
                     }
                 }
@@ -142,7 +146,8 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
-            if (RHAH_ArmedDemand.FoodRequest(receiver) != null && food.def != ThingDefOf.MealSimple)
+            RHAH_ChoiceRecord demand = RHAH_ArmedDemand.FoodRequest(receiver);
+            if (demand != null && !RHAH_DemandFood.Allowed(food.def))
             {
                 Messages.Message("RHAH_Choice_FeedBlocked".Translate(receiver.LabelShort), MessageTypeDefOf.RejectInput);
                 return;
@@ -167,7 +172,9 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
-            int needed = job == null ? count : job.FoodStillNeeded(receiver);
+            int needed = demand != null ? RHAH_DemandFood.Units(
+                RHAH_DemandFood.Remaining(demand) - RHAH_DemandFood.BeingHauledTo(receiver), RHAH_DemandFood.Nutrition(food))
+                : job == null ? count : job.FoodStillNeeded(receiver);
             if (needed <= 0)
             {
                 Messages.Message(

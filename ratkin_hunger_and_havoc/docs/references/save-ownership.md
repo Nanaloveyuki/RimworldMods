@@ -182,7 +182,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | Site | site | None | 否 | `RHAH_IntelSiteKind` |
 | Choice | choice | None | 否 | `RHAH_ChoiceKind` |
 | Amount | amount | 0 | 否 | |
-| ArmedFoodDelivered | armedFoodDelivered | 0 | 否 | 武装索粮已实际交付的简单餐份数；只累计玩家 GiveToPawn 的成功入包量，最多 Amount。旧档不按背包库存反推；卸载随 openChoices Remove |
+| ArmedFoodDelivered | armedFoodDelivered | 0 | 否 | 保留旧档武装索粮已经交付的简单餐份数，每份折算 0.9 营养；新交付不再累加此字段。不按背包库存反推；卸载随 openChoices Remove |
+| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。剩余需求为 (Amount - ArmedFoodDelivered) × 0.9 - 本值；旧档缺键按 0。卸载随 openChoices Remove |
 | ExpireTick | expireTick | -1 | 否 | |
 | Settled | settled | None | 否 | `RHAH_ChoiceAction`。旧文本 `Prison` 和旧数值 `12` 读取为 `Capture`（关闭状态）；再存档写 `Capture`。其它名称和编号保持原有枚举存读，缺键仍为 `None` |
 | PawnLoadIds | pawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同 |
@@ -686,6 +687,9 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.giveFoodListMode | 全局 ModSettings，默认 0。0 按模组，1 按名称，2 按原版分类。只影响给予食物菜单 |
 | RHAH_Settings.disabledBegFoodDefNames | 全局 ModSettings，默认空。空名单表示当前正餐可以被乞讨拿走，不是全部禁止。生食不进名单。不随给予食物名单 |
 | RHAH_Settings.begFoodListMode | 全局 ModSettings，默认 0。0 按模组，1 按名称，2 按原版分类。只影响乞讨食物菜单 |
+| RHAH_Settings.enabledDemandFoodDefNames | 全局 ModSettings，默认空。显式允许的索粮候选食物；无覆盖时仅原版、官方 DLC 和鼠族本体 Solaris.RatkinRaceMod 的正餐默认允许，不自动允许其它模组。加载后 null 补空列表 |
+| RHAH_Settings.disabledDemandFoodDefNames | 全局 ModSettings，默认空。显式禁止的索粮候选食物，优先于允许名单和来源默认。与普通投喂、乞讨名单独立；恢复默认同时清空两种覆盖。加载后 null 补空列表 |
+| RHAH_Settings.demandFoodListMode | 全局 ModSettings，默认 0。0 按模组，1 按名称，2 按原版分类。仅影响索粮设置名单，加载限制为 0..2 |
 | RHAH_Settings.aidRequestsEnabled | 全局 ModSettings，默认 true |
 | RHAH_Settings.intelTradesEnabled | 全局 ModSettings，默认 true |
 | RHAH_Settings.visitorChoicesEnabled | 全局 ModSettings，默认 true |

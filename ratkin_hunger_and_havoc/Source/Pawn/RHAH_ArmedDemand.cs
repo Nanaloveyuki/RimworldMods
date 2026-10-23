@@ -121,10 +121,10 @@ namespace HungerAndHavoc.Pawn
 
         internal static int Remaining(RHAH_ChoiceRecord record)
         {
-            return Math.Max(0, record.Amount - record.ArmedFoodDelivered);
+            return RHAH_DemandFood.Units(RHAH_DemandFood.Remaining(record), RHAH_DemandFood.MealNutrition);
         }
 
-        internal static void NoteFood(Verse.Pawn receiver, int count)
+        internal static void NoteFood(Verse.Pawn receiver, Thing food, int count)
         {
             Lord lord = receiver?.GetLord();
             LordJob_RHAH_Visitor job = lord?.LordJob as LordJob_RHAH_Visitor;
@@ -132,7 +132,9 @@ namespace HungerAndHavoc.Pawn
             if (count <= 0 || !IsRequest(record) || !record.Open || Owner(record) != lord ||
                 record.BatchId != RHAH_Api.Get(receiver)?.SpawnBatchId ||
                 !record.PawnLoadIds.Contains(receiver.thingIDNumber)) return;
-            record.ArmedFoodDelivered += Math.Min(count, Remaining(record));
+            double nutrition = RHAH_DemandFood.Nutrition(food);
+            if (nutrition <= 0) return;
+            record.ArmedFoodNutritionDelivered += Math.Min(count * nutrition, RHAH_DemandFood.Remaining(record));
             if (Remaining(record) == 0) Resolve(record, RHAH_ChoiceAction.Deliver);
         }
         internal static void Resolve(RHAH_ChoiceRecord record, RHAH_ChoiceAction action)
@@ -181,30 +183,34 @@ namespace HungerAndHavoc.Pawn
             food = new List<Thing>();
             if (map == null || !record.Open || record.Amount <= 0 || !Refresh(record)) return false;
             List<Verse.Pawn> members = Owner(record).ownedPawns;
+            IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
+            List<Thing> available = map.listerThings.ThingsInGroup(ThingRequestGroup.FoodSourceNotPlantOrTree);
+            double remaining = RHAH_DemandFood.Remaining(record);
             for (int i = 0; i < members.Count; i++)
             {
                 Verse.Pawn member = members[i];
-                if (!member.Downed && RHAH_BatchAttitude.CanOrderLeave(member) && member.inventory != null &&
-                    (member.GetLord()?.LordJob as LordJob_RHAH_Visitor)?.ArmedChoiceId == record.Id)
+                if (member.Downed || !RHAH_BatchAttitude.CanOrderLeave(member) || member.inventory == null ||
+                    (member.GetLord()?.LordJob as LordJob_RHAH_Visitor)?.ArmedChoiceId != record.Id) continue;
+                food.Clear();
+                double stock = 0;
+                for (int j = 0; j < available.Count; j++)
                 {
-                    carrier = member;
-                    break;
+                    Thing thing = available[j];
+                    double nutrition = RHAH_DemandFood.Nutrition(thing);
+                    if (nutrition <= 0 || !RHAH_FoodTransaction.IsUsableFood(thing, members) ||
+                        !RHAH_FoodTransaction.CanDeliverFood(thing, member, colonists) ||
+                        !member.inventory.innerContainer.CanAcceptAnyOf(thing, false)) continue;
+                    stock += thing.stackCount * nutrition;
+                    food.Add(thing);
+                    if (stock + RHAH_DemandFood.Tolerance >= remaining)
+                    {
+                        carrier = member;
+                        return true;
+                    }
                 }
             }
-            if (carrier == null) return false;
-            int stock = 0;
-            IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
-            List<Thing> available = map.listerThings.ThingsOfDef(ThingDefOf.MealSimple);
-            for (int i = 0; i < available.Count; i++)
-            {
-                Thing thing = available[i];
-                if (!RHAH_FoodTransaction.IsUsableFood(thing, members) ||
-                    !RHAH_FoodTransaction.CanDeliverFood(thing, carrier, colonists) ||
-                    !carrier.inventory.innerContainer.CanAcceptAnyOf(thing, false)) continue;
-                stock += thing.stackCount;
-                food.Add(thing);
-            }
-            return stock >= Remaining(record);
+            food.Clear();
+            return false;
         }
 
         internal static bool TryPay(RHAH_ChoiceRecord record)
@@ -215,21 +221,22 @@ namespace HungerAndHavoc.Pawn
             if (!PlanPayment(record, out map, out carrier, out food)) return false;
             List<Thing> payment = new List<Thing>();
             List<IntVec3> origins = new List<IntVec3>();
-            int remaining = Remaining(record);
+            double remaining = RHAH_DemandFood.Remaining(record);
             try
             {
-                for (int i = 0; i < food.Count && remaining > 0; i++)
+                for (int i = 0; i < food.Count && remaining > RHAH_DemandFood.Tolerance; i++)
                 {
                     Thing source = food[i];
-                    int count = Math.Min(remaining, source.stackCount);
+                    double nutrition = RHAH_DemandFood.Nutrition(source);
+                    int count = Math.Min(RHAH_DemandFood.Units(remaining, nutrition), source.stackCount);
                     origins.Add(source.Position);
                     Thing split = source.SplitOff(count);
                     payment.Add(split);
                     if (!carrier.inventory.innerContainer.TryAdd(split, false))
                         throw new InvalidOperationException("Demand food inventory refused payment");
-                    remaining -= count;
+                    remaining -= count * nutrition;
                 }
-                return remaining == 0;
+                return remaining <= RHAH_DemandFood.Tolerance;
             }
             catch (Exception exception)
             {

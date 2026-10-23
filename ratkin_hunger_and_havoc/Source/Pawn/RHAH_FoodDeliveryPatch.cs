@@ -13,12 +13,12 @@ namespace HungerAndHavoc.Pawn
         static void Postfix(ThingOwner __instance, Thing item, ThingOwner otherContainer, int __result)
         {
             if (__result <= 0 || !(otherContainer?.Owner is Pawn_InventoryTracker inventory) ||
-                item?.def != ThingDefOf.MealSimple || !(__instance.Owner is Pawn_CarryTracker carry)) return;
+                item == null || !(__instance.Owner is Pawn_CarryTracker carry)) return;
             Verse.Pawn giver = carry.pawn;
             Job job = giver?.CurJob;
             if (giver?.Faction != Faction.OfPlayer || job?.def != JobDefOf.GiveToPawn ||
                 job.GetTarget(TargetIndex.B).Pawn != inventory.pawn) return;
-            RHAH_ArmedDemand.NoteFood(inventory.pawn, __result);
+            RHAH_ArmedDemand.NoteFood(inventory.pawn, item, __result);
         }
     }
 }

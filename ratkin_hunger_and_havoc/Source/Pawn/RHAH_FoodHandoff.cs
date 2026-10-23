@@ -134,7 +134,7 @@ namespace HungerAndHavoc.Pawn
             return foods.Count == 0 ? null : foods[0];
         }
 
-        internal static void CollectFood(Verse.Pawn giver, List<Thing> result)
+        internal static void CollectFood(Verse.Pawn giver, List<Thing> result, bool demand = false)
         {
             if (result == null || giver == null || giver.Map == null || giver.Map.listerThings == null)
             {
@@ -150,7 +150,7 @@ namespace HungerAndHavoc.Pawn
             for (int i = 0; i < things.Count; i++)
             {
                 Thing thing = things[i];
-                if (Accepts(giver, thing))
+                if (Accepts(giver, thing, demand))
                 {
                     result.Add(thing);
                 }
@@ -231,13 +231,13 @@ namespace HungerAndHavoc.Pawn
             return true;
         }
 
-        static bool Accepts(Verse.Pawn giver, Thing thing)
+        static bool Accepts(Verse.Pawn giver, Thing thing, bool demand)
         {
             return thing != null &&
                 thing.Spawned &&
                 !thing.IsForbidden(giver) &&
                 giver.CanReserve(thing) &&
-                RHAH_ReliefFood.GiveFoodAllowed(thing.def) &&
+                (demand ? RHAH_DemandFood.Allowed(thing.def) : RHAH_ReliefFood.GiveFoodAllowed(thing.def)) &&
                 thing.def.IsIngestible &&
                 thing.def.ingestible.preferability >= FoodPreferability.MealAwful;
         }

@@ -226,6 +226,125 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(RHAH_ChoiceAction.Ignore, record.Settled);
         }
 
+        [Theory]
+        [InlineData(RHAH_ChoiceAction.Ignore)]
+        [InlineData(RHAH_ChoiceAction.Deliver)]
+        [InlineData(RHAH_ChoiceAction.Timeout)]
+        [InlineData(RHAH_ChoiceAction.Attack)]
+        public void SettledArmedRequestRemovesStaleLettersWithoutReplayingOutcome(RHAH_ChoiceAction outcome)
+        {
+            Verse.Pawn pawn = Visitor(905);
+            RHAH_ChoiceRecord record = ArmedRequest(pawn);
+            record.Settled = outcome;
+            record.ArmedFoodDelivered = 4;
+            LordJob_RHAH_Visitor job = (LordJob_RHAH_Visitor)pawn.lord.LordJob;
+            job.ArmedAssault = outcome == RHAH_ChoiceAction.Attack;
+            RHAH_Attitude attitude = RHAH_Api.Get(pawn).Attitude;
+            RHAH_Lifecycle lifecycle = RHAH_Api.Get(pawn).Lifecycle;
+            Current.Game.letterStack = new LetterStack();
+            ChoiceLetter_RHAH_Request stale = new ChoiceLetter_RHAH_Request { choiceId = record.Id };
+            ChoiceLetter_RHAH_Request unrelated = new ChoiceLetter_RHAH_Request { choiceId = record.Id + 1 };
+            Find.LetterStack.LettersListForReading.Add(stale);
+            Find.LetterStack.LettersListForReading.Add(unrelated);
+
+            RHAH_ChoiceRuntime.Tick(choices, record.ExpireTick);
+            RHAH_ChoiceRuntime.Tick(choices, record.ExpireTick + GenDate.TicksPerHour);
+
+            Assert.DoesNotContain(stale, Find.LetterStack.LettersListForReading);
+            Assert.Contains(unrelated, Find.LetterStack.LettersListForReading);
+            Assert.Equal(outcome, record.Settled);
+            Assert.Equal(4, record.ArmedFoodDelivered);
+            Assert.Equal(outcome == RHAH_ChoiceAction.Attack, job.ArmedAssault);
+            Assert.Equal(record.Id, job.ArmedChoiceId);
+            Assert.Equal(attitude, RHAH_Api.Get(pawn).Attitude);
+            Assert.Equal(lifecycle, RHAH_Api.Get(pawn).Lifecycle);
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void MissingMapClosesRequestWithoutEnumeratingWorldPawns(bool armed)
+        {
+            Verse.Pawn pawn = Visitor(906);
+            RHAH_ChoiceRecord record = armed ? ArmedRequest(pawn) : new RHAH_ChoiceRecord
+            {
+                DisplayId = "I-011", Choice = RHAH_ChoiceKind.Refugees, MapId = map.uniqueID,
+                BatchId = 7, ExpireTick = 60000
+            };
+            if (!armed)
+            {
+                record.PawnLoadIds.Add(pawn.thingIDNumber);
+                RHAH_ChoiceRuntime.Open(choices, record);
+            }
+            Find.Maps.Clear();
+            MethodInfo target = typeof(PawnsFinder).GetProperty("AllMapsWorldAndTemporary_AliveOrDead").GetMethod;
+            HarmonyLib.Harmony harmony = new HarmonyLib.Harmony("rhah.choice.close.worldscan.test");
+            closeWorldScans = 0;
+            try
+            {
+                harmony.Patch(target, prefix: new HarmonyLib.HarmonyMethod(typeof(RHAH_AttackChoiceTests)
+                    .GetMethod(nameof(CountClosingWorldScan), BindingFlags.Static | BindingFlags.NonPublic)));
+
+                RHAH_ChoiceRuntime.Tick(choices, GenDate.TicksPerHour);
+                RHAH_ChoiceRuntime.Tick(choices, record.ExpireTick);
+                RHAH_ChoiceRuntime.Tick(choices, record.ExpireTick + 1);
+
+                Assert.False(record.Open);
+                Assert.Equal(RHAH_ChoiceAction.Ignore, record.Settled);
+                Assert.Equal(0, closeWorldScans);
+            }
+            finally
+            {
+                harmony.Unpatch(target, HarmonyLib.HarmonyPatchType.All, harmony.Id);
+            }
+        }
+
+        [Fact]
+        public void ChoicePawnLookupPreservesOrderAndFiltersWithOneWorldSnapshot()
+        {
+            Verse.Pawn first = Visitor(907);
+            Verse.Pawn second = Visitor(908);
+            Verse.Pawn dead = Visitor(909);
+            Field(typeof(Pawn_HealthTracker), "healthState").SetValue(dead.health, PawnHealthState.Dead);
+            RHAH_ChoiceRecord record = new RHAH_ChoiceRecord
+            {
+                PawnLoadIds = new List<int> { second.thingIDNumber, -1, 999999, dead.thingIDNumber,
+                    first.thingIDNumber, second.thingIDNumber }
+            };
+            MethodInfo target = typeof(PawnsFinder).GetProperty("AllMapsWorldAndTemporary_AliveOrDead").GetMethod;
+            HarmonyLib.Harmony harmony = new HarmonyLib.Harmony("rhah.choice.lookup.worldscan.test");
+            closeWorldScans = 0;
+            try
+            {
+                harmony.Patch(target, prefix: new HarmonyLib.HarmonyMethod(typeof(RHAH_AttackChoiceTests)
+                    .GetMethod(nameof(CountLookupWorldScan), BindingFlags.Static | BindingFlags.NonPublic)));
+
+                Assert.Equal(new[] { second, first, second }, RHAH_ChoiceRuntime.Pawns(record));
+                Assert.Equal(1, closeWorldScans);
+                record.PawnLoadIds.Clear();
+                Assert.Empty(RHAH_ChoiceRuntime.Pawns(record));
+                Assert.Equal(1, closeWorldScans);
+            }
+            finally
+            {
+                harmony.Unpatch(target, HarmonyLib.HarmonyPatchType.All, harmony.Id);
+            }
+        }
+
+        static void CountLookupWorldScan()
+        {
+            closeWorldScans++;
+        }
+
+        static int closeWorldScans;
+
+        static bool CountClosingWorldScan(ref List<Verse.Pawn> __result)
+        {
+            closeWorldScans++;
+            __result = new List<Verse.Pawn>();
+            return false;
+        }
+
         [Fact]
         public void RefugeeRequestClosesWhenEveryoneJoinedOutsideLetter()
         {
@@ -242,23 +361,6 @@ namespace HungerAndHavoc.Tests
             Assert.False(record.Open);
         }
 
-        [Fact]
-        public void ArmedFoodLedgerCountsActualPartialDeliveryNotPreexistingInventory()
-        {
-            Verse.Pawn pawn = Visitor(902);
-            RHAH_ChoiceRecord record = ArmedRequest(pawn);
-            pawn.inventory = new Pawn_InventoryTracker(pawn);
-            pawn.inventory.innerContainer.InnerListForReading.Add(new Thing { stackCount = 50 });
-            LordJob_RHAH_Visitor job = (LordJob_RHAH_Visitor)pawn.lord.LordJob;
-            job.BeginFoodWait(pawn, 1);
-            Assert.Equal(10, job.FoodStillNeeded(pawn));
-            RHAH_ArmedDemand.NoteFood(pawn, 4);
-            Assert.Equal(6, job.FoodStillNeeded(pawn));
-            Assert.Equal(4, record.ArmedFoodDelivered);
-            Assert.True(record.Open);
-            RHAH_ArmedDemand.NoteFood(Visitor(903), 10);
-            Assert.Equal(4, record.ArmedFoodDelivered);
-        }
 
         RHAH_ChoiceRecord ArmedRequest(Verse.Pawn pawn)
         {

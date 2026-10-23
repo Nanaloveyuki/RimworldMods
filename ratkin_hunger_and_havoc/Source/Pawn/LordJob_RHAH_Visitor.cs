@@ -408,6 +408,9 @@ namespace HungerAndHavoc.Pawn
 
         internal int FoodLeftToCollect(Verse.Pawn pawn)
         {
+            RHAH_ChoiceRecord request = RHAH_ArmedDemand.FoodRequest(pawn);
+            if (request != null)
+                return RHAH_DemandFood.Units(RHAH_DemandFood.Remaining(request) - RHAH_DemandFood.BeingHauledTo(pawn), RHAH_DemandFood.MealNutrition);
             int needed = FoodStillNeeded(pawn);
             if (needed <= 0)
             {
@@ -425,12 +428,13 @@ namespace HungerAndHavoc.Pawn
         {
             get
             {
-                return foodDef;
+                return armedChoiceId > 0 && RHAH_ArmedDemand.Find(armedChoiceId)?.Open == true ? null : foodDef;
             }
         }
 
         internal void NoteFood(ThingDef def)
         {
+            if (armedChoiceId > 0 && RHAH_ArmedDemand.Find(armedChoiceId)?.Open == true) return;
             if (foodDef == null)
             {
                 foodDef = def;

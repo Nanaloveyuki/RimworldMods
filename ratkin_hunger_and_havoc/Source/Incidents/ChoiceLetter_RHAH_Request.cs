@@ -66,7 +66,8 @@ namespace HungerAndHavoc.Incidents
                         : armedDemand ? Pawn.RHAH_ArmedDemand.CanPay(record)
                         : RHAH_ChoiceRuntime.Stock(ResolveMap(), record.Kind) >= record.Amount;
                     if (!enough) deliver.Disable((armedDemand ? "RHAH_ArmedDemand_Unavailable" :
-                        transaction ? "RHAH_Transaction_Unavailable" : "RHAH_Choice_Short").Translate(record.Amount));
+                        transaction ? "RHAH_Transaction_Unavailable" : "RHAH_Choice_Short").Translate(
+                            armedDemand ? Pawn.RHAH_ArmedDemand.Remaining(record) : record.Amount));
                     else
                     {
                         deliver.action = () => Wrapped(deliver, RHAH_ChoiceAction.Deliver);

@@ -120,7 +120,19 @@
   <RHAH_Settings_GoodsBuyFactor>Player non-food purchase price factor: {0}</RHAH_Settings_GoodsBuyFactor>
   <RHAH_Settings_GoodsBuyFactor_Tooltip>Multiplies the price the player pays for non-food goods from this mod's caravans when famine caravan prices are enabled. The result cannot fall below the normal price the player receives for selling the same goods. 0.1 to 1, default 0.75. A value of 1 uses the normal sale price.</RHAH_Settings_GoodsBuyFactor_Tooltip>
   <RHAH_Settings_ArmedDemand>Attack after an unmet food demand</RHAH_Settings_ArmedDemand>
-  <RHAH_Settings_ArmedDemand_Tooltip>Enabled by default. Visitors from begging sieges, strong sieges, and plague strong sieges wait for simple meals until the request deadline. They attack after refusal or expiry. Paying in full stops the attack and makes them leave. When disabled, new siege visitors use the usual visitor choices, and existing food-demanding groups become neutral and leave.</RHAH_Settings_ArmedDemand_Tooltip>
+  <RHAH_Settings_ArmedDemand_Tooltip>Enabled by default. Visitors from begging sieges, strong sieges, and plague strong sieges wait for food until the request deadline. Food is counted by its nutrition in simple-meal equivalents; you can mix foods selected below. They attack after refusal or expiry. Paying in full stops the attack and makes them leave. When disabled, new siege visitors use the usual visitor choices, and existing food-demanding groups become neutral and leave.</RHAH_Settings_ArmedDemand_Tooltip>
   <RHAH_Settings_ArmedWeapons>Give food-demanding visitors crude weapons</RHAH_Settings_ArmedWeapons>
   <RHAH_Settings_ArmedWeapons_Tooltip>Enabled by default. New adult visitors from begging sieges, strong sieges, and plague strong sieges receive crude vanilla weapons such as wooden clubs or low-tech firearms if retaliation is allowed and they can use weapons. Quality is normal or worse. When disabled, new food-demanding visitors remain unarmed.</RHAH_Settings_ArmedWeapons_Tooltip>
+  <RHAH_Settings_DemandFoods>Food for armed demands</RHAH_Settings_DemandFoods>
+  <RHAH_Settings_DemandFoods_Quote>Armed demands count nutrition: 1 simple meal equals 0.9 nutrition. You can mix any foods selected here. Food from the base game, official DLCs, and NewRatkinPlus is allowed by default; food from other mods must be selected. The list includes nutritious human-edible meals and prepared preserved foods, such as pemmican, packaged survival meals, and hard biscuits, but excludes drugs. This list is only for armed demands; feeding and begging use their own lists.</RHAH_Settings_DemandFoods_Quote>
+  <RHAH_Settings_DemandFoods_All>Allow all</RHAH_Settings_DemandFoods_All>
+  <RHAH_Settings_DemandFoods_None>Forbid all</RHAH_Settings_DemandFoods_None>
+  <RHAH_Settings_DemandFoods_Reset>Restore defaults</RHAH_Settings_DemandFoods_Reset>
+  <RHAH_Settings_DemandFoods_Search>Search foods or mods</RHAH_Settings_DemandFoods_Search>
+  <RHAH_Settings_DemandFoods_Empty>No foods match.</RHAH_Settings_DemandFoods_Empty>
+  <RHAH_Settings_DemandFoods_Sort>Demand food grouping</RHAH_Settings_DemandFoods_Sort>
+  <RHAH_Settings_DemandFoods_Sort_0>By mod</RHAH_Settings_DemandFoods_Sort_0>
+  <RHAH_Settings_DemandFoods_Sort_1>By name</RHAH_Settings_DemandFoods_Sort_1>
+  <RHAH_Settings_DemandFoods_Sort_2>By vanilla category</RHAH_Settings_DemandFoods_Sort_2>
+  <RHAH_Settings_DemandFoods_Row>{0} ({1} nutrition each ≈ {2} simple meals)</RHAH_Settings_DemandFoods_Row>
 </LanguageData>

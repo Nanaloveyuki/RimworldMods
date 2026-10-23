@@ -124,7 +124,8 @@ namespace HungerAndHavoc.Incidents
                     RHAH_ArmedDemand.Tick(record, tick);
                     continue;
                 }
-                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 && Present(record).Count == 0)
+                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
+                    (FindMap(record.MapId) == null || Present(record).Count == 0))
                 {
                     CloseUnavailable(record);
                     continue;
@@ -140,7 +141,29 @@ namespace HungerAndHavoc.Incidents
                     Leave(record);
                 }
             }
+            if (tick % GenDate.TicksPerHour == 0) RemoveSettledArmedLetters(records);
 
+        }
+
+        static void RemoveSettledArmedLetters(List<RHAH_ChoiceRecord> records)
+        {
+            List<Letter> letters = Find.LetterStack?.LettersListForReading;
+            if (letters == null || letters.Count == 0) return;
+            HashSet<int> settled = SimplePool<HashSet<int>>.Get();
+            try
+            {
+                for (int i = 0; i < records.Count; i++)
+                    if (!records[i].Open && RHAH_ArmedDemand.IsRequest(records[i])) settled.Add(records[i].Id);
+                if (settled.Count == 0) return;
+                for (int i = letters.Count - 1; i >= 0; i--)
+                    if (letters[i] is ChoiceLetter_RHAH_Request request && settled.Contains(request.choiceId))
+                        Find.LetterStack.RemoveLetter(request);
+            }
+            finally
+            {
+                settled.Clear();
+                SimplePool<HashSet<int>>.Return(settled);
+            }
         }
 
         internal static void CloseUnavailable(RHAH_ChoiceRecord record)
@@ -575,21 +598,36 @@ namespace HungerAndHavoc.Incidents
         internal static List<Verse.Pawn> Pawns(RHAH_ChoiceRecord record)
         {
             List<Verse.Pawn> result = new List<Verse.Pawn>();
-            if (record.PawnLoadIds == null)
+            List<int> ids = record.PawnLoadIds;
+            if (ids == null || ids.Count == 0) return result;
+            Dictionary<int, Verse.Pawn> found = SimplePool<Dictionary<int, Verse.Pawn>>.Get();
+            try
             {
+                for (int i = 0; i < ids.Count; i++)
+                    if (ids[i] > 0 && !found.ContainsKey(ids[i])) found.Add(ids[i], null);
+                int remaining = found.Count;
+                if (remaining == 0) return result;
+                // 原版每次取属性都会重建世界角色列表 同次请求只读取一次
+                List<Verse.Pawn> pawns = PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead;
+                for (int i = 0; i < pawns.Count && remaining > 0; i++)
+                {
+                    Verse.Pawn pawn = pawns[i];
+                    if (pawn != null && found.TryGetValue(pawn.thingIDNumber, out Verse.Pawn existing) && existing == null)
+                    {
+                        found[pawn.thingIDNumber] = pawn;
+                        remaining--;
+                    }
+                }
+                for (int i = 0; i < ids.Count; i++)
+                    if (found.TryGetValue(ids[i], out Verse.Pawn pawn) && pawn != null && !pawn.Dead && !pawn.Destroyed)
+                        result.Add(pawn);
                 return result;
             }
-
-            for (int i = 0; i < record.PawnLoadIds.Count; i++)
+            finally
             {
-                Verse.Pawn pawn = FindPawn(record.PawnLoadIds[i]);
-                if (pawn != null && !pawn.Dead && !pawn.Destroyed)
-                {
-                    result.Add(pawn);
-                }
+                found.Clear();
+                SimplePool<Dictionary<int, Verse.Pawn>>.Return(found);
             }
-
-            return result;
         }
 
         internal static List<Verse.Pawn> Present(RHAH_ChoiceRecord record)
@@ -610,24 +648,6 @@ namespace HungerAndHavoc.Incidents
         }
 
 
-        static Verse.Pawn FindPawn(int loadId)
-        {
-            if (loadId <= 0)
-            {
-                return null;
-            }
-
-            List<Verse.Pawn> pawns = PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead;
-            for (int i = 0; i < pawns.Count; i++)
-            {
-                if (pawns[i] != null && pawns[i].thingIDNumber == loadId)
-                {
-                    return pawns[i];
-                }
-            }
-
-            return null;
-        }
 
         static bool ConsumeMedicine(Map map, int amount)
         {
