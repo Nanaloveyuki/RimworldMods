@@ -199,6 +199,89 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(RHAH_Attitude.Hostile, RHAH_Api.Get(first).Attitude);
         }
 
+        [Theory]
+        [InlineData("downed")]
+        [InlineData("dead")]
+        [InlineData("joined")]
+        [InlineData("captured")]
+        [InlineData("lostLord")]
+        public void ArmedRequestClosesWhenLastEligibleVisitorIsGone(string change)
+        {
+            Verse.Pawn pawn = Visitor(901);
+            RHAH_ChoiceRecord record = ArmedRequest(pawn);
+            Assert.True(RHAH_ArmedDemand.Refresh(record));
+            if (change == "downed") Field(typeof(Pawn_HealthTracker), "healthState").SetValue(pawn.health, PawnHealthState.Down);
+            else if (change == "dead") Field(typeof(Pawn_HealthTracker), "healthState").SetValue(pawn.health, PawnHealthState.Dead);
+            else if (change == "joined") pawn.SetFactionDirect(player);
+            else if (change == "captured")
+            {
+                pawn.guest = new Pawn_GuestTracker(pawn);
+                Field(typeof(Pawn_GuestTracker), "guestStatusInt").SetValue(pawn.guest, GuestStatus.Prisoner);
+            }
+            else map.lordManager.lords.Clear();
+
+            RHAH_ChoiceRuntime.Tick(choices, GenDate.TicksPerHour);
+
+            Assert.False(record.Open);
+            Assert.Equal(RHAH_ChoiceAction.Ignore, record.Settled);
+        }
+
+        [Fact]
+        public void RefugeeRequestClosesWhenEveryoneJoinedOutsideLetter()
+        {
+            Verse.Pawn pawn = Visitor(904);
+            RHAH_ChoiceRecord record = new RHAH_ChoiceRecord
+            {
+                DisplayId = "I-011", Choice = RHAH_ChoiceKind.Refugees, MapId = map.uniqueID,
+                BatchId = 7, ExpireTick = 60000
+            };
+            record.PawnLoadIds.Add(pawn.thingIDNumber);
+            RHAH_ChoiceRuntime.Open(choices, record);
+            pawn.SetFactionDirect(player);
+            RHAH_ChoiceRuntime.Tick(choices, GenDate.TicksPerHour);
+            Assert.False(record.Open);
+        }
+
+        [Fact]
+        public void ArmedFoodLedgerCountsActualPartialDeliveryNotPreexistingInventory()
+        {
+            Verse.Pawn pawn = Visitor(902);
+            RHAH_ChoiceRecord record = ArmedRequest(pawn);
+            pawn.inventory = new Pawn_InventoryTracker(pawn);
+            pawn.inventory.innerContainer.InnerListForReading.Add(new Thing { stackCount = 50 });
+            LordJob_RHAH_Visitor job = (LordJob_RHAH_Visitor)pawn.lord.LordJob;
+            job.BeginFoodWait(pawn, 1);
+            Assert.Equal(10, job.FoodStillNeeded(pawn));
+            RHAH_ArmedDemand.NoteFood(pawn, 4);
+            Assert.Equal(6, job.FoodStillNeeded(pawn));
+            Assert.Equal(4, record.ArmedFoodDelivered);
+            Assert.True(record.Open);
+            RHAH_ArmedDemand.NoteFood(Visitor(903), 10);
+            Assert.Equal(4, record.ArmedFoodDelivered);
+        }
+
+        RHAH_ChoiceRecord ArmedRequest(Verse.Pawn pawn)
+        {
+            CompRHAH_Pawn.TryGet(pawn).ApplySeed(new RHAH_PawnSeed("I-014", 7, 0, RHAH_PawnRole.Refugee, RHAH_Lifecycle.SeekingFood));
+            RHAH_ChoiceRecord record = new RHAH_ChoiceRecord
+            {
+                DisplayId = "I-014", Kind = RHAH_RequestKind.SimpleMeal, BatchId = 7,
+                MapId = map.uniqueID, Amount = 10, ExpireTick = 60000
+            };
+            record.PawnLoadIds.Add(pawn.thingIDNumber);
+            RHAH_ChoiceRuntime.Open(choices, record);
+            map.lordManager = new Verse.AI.Group.LordManager(map);
+            Verse.AI.Group.Lord lord = Uninitialized<Verse.AI.Group.Lord>();
+            LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor { ArmedChoiceId = record.Id };
+            Field(typeof(Verse.AI.Group.Lord), "curJob").SetValue(lord, job);
+            lord.ownedPawns = new List<Verse.Pawn> { pawn };
+            lord.lordManager = map.lordManager;
+            job.lord = lord;
+            pawn.lord = lord;
+            map.lordManager.lords.Add(lord);
+            return record;
+        }
+
         [Fact]
         public void PleadingJoinCannotAcceptDirectFoodDispatch()
         {

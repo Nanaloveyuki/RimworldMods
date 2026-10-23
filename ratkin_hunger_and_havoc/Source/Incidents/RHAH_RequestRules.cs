@@ -549,6 +549,7 @@ namespace HungerAndHavoc.Incidents
         internal RHAH_IntelSiteKind Site;
         internal RHAH_ChoiceKind Choice;
         internal int Amount;
+        internal int ArmedFoodDelivered;
         internal int ExpireTick = -1;
         internal RHAH_ChoiceAction Settled;
         internal List<int> PawnLoadIds = new List<int>();
@@ -581,6 +582,7 @@ namespace HungerAndHavoc.Incidents
             Scribe_Values.Look(ref Site, "site", RHAH_IntelSiteKind.None);
             Scribe_Values.Look(ref Choice, "choice", RHAH_ChoiceKind.None);
             Scribe_Values.Look(ref Amount, "amount", 0);
+            Scribe_Values.Look(ref ArmedFoodDelivered, "armedFoodDelivered", 0);
             Scribe_Values.Look(ref ExpireTick, "expireTick", -1);
             bool legacyPrison = false;
             if (Scribe.mode == LoadSaveMode.LoadingVars)

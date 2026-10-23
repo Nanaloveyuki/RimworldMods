@@ -48,7 +48,7 @@ new MenuSearchEntry(string id, Func<string> title,
 MenuControls.Anchor(Listing_Standard list, string id, float height = 30f);
 MenuControls.Markdown(Listing_Standard list, IMarkdown markdown);
 
-new MenuScrollView(); // Draw(Rect, Action<Listing_Standard>), Focus(string), Reset()
+new MenuScrollView(); // Draw(Rect, Action<Listing_Standard>), Focus(string), Reset(), VisibleRect
 new MenuSection(string id, Func<float, float> measure, Action<Rect> draw);
 new MenuSection(string id, Func<float, float> measure, Action<Rect> draw, Func<string> layoutKey);
 new MenuSectionView(IEnumerable<MenuSection> sections); // Draw(Rect), Focus(string), InvalidateLayout()
@@ -111,6 +111,7 @@ These are invocation/signature summaries, not a standalone compilable file. See 
 - A missing conditional anchor logs a warning and consumes the pending focus. To reveal conditional content, install a callback that expands it then calls a separately owned scroll view's Focus, or index an always-visible section.
 - Passing a non-null focus to `RegisterSearchProvider` replaces the default listing focus. Passing null retains the existing focus. There is no public getter for a registered listing's private scroll view.
 - `Reset()` only resets scroll position. Listing clipping still executes the complete callback; do not claim virtualization.
+- `MenuScrollView.VisibleRect` is the content-space window drawn this frame, scroll offset included, and is valid only inside the `Draw` callback. Cull with it rather than converting rects through `GUIUtility`; treat it as optional if you support older Iris builds.
 
 ## Lazy sections
 

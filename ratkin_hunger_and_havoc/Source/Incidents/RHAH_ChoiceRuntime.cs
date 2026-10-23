@@ -121,15 +121,12 @@ namespace HungerAndHavoc.Incidents
                 if (RHAH_MouseSwarm.IsSource(record.DisplayId)) continue;
                 if (RHAH_ArmedDemand.IsRequest(record))
                 {
-                    if (!record.Open) continue;
-                    if (!RHAH_ArmedDemand.Enabled)
-                    {
-                        RHAH_ArmedDemand.Resolve(record, RHAH_ChoiceAction.Ignore);
-                    }
-                    else if (record.Open && record.ExpireTick >= 0 && tick >= record.ExpireTick)
-                    {
-                        RHAH_ArmedDemand.Resolve(record, RHAH_ChoiceAction.Timeout);
-                    }
+                    RHAH_ArmedDemand.Tick(record, tick);
+                    continue;
+                }
+                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 && Present(record).Count == 0)
+                {
+                    CloseUnavailable(record);
                     continue;
                 }
                 if (!record.Open || record.ExpireTick < 0 || tick < record.ExpireTick)
@@ -144,6 +141,19 @@ namespace HungerAndHavoc.Incidents
                 }
             }
 
+        }
+
+        internal static void CloseUnavailable(RHAH_ChoiceRecord record)
+        {
+            record.Settled = RHAH_ChoiceAction.Ignore;
+            List<Letter> letters = Find.LetterStack?.LettersListForReading;
+            for (int i = (letters?.Count ?? 0) - 1; i >= 0; i--)
+            {
+                Letter letter = letters[i];
+                if ((letter is ChoiceLetter_RHAH_Request request && request.choiceId == record.Id) ||
+                    (letter is ChoiceLetter_RHAH_Visitors visitors && visitors.choiceId == record.Id))
+                    Find.LetterStack.RemoveLetter(letter);
+            }
         }
         internal static Map FindMap(int mapId)
         {
@@ -168,6 +178,7 @@ namespace HungerAndHavoc.Incidents
             }
             if (RHAH_ArmedDemand.IsRequest(record))
             {
+                if (!RHAH_ArmedDemand.Refresh(record)) return record.Settled;
                 if (!RHAH_ArmedDemand.Enabled)
                 {
                     RHAH_ArmedDemand.Resolve(record, RHAH_ChoiceAction.Ignore);

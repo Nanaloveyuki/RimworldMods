@@ -15,6 +15,9 @@ namespace IrisMenus
         private float? restoredPosition;
         private readonly Dictionary<string, Rect> anchors = new Dictionary<string, Rect>();
         internal static MenuScrollView Active { get; private set; }
+        // 本帧实际绘制的内容窗口（含滚动偏移），只在 Draw 期间有效。
+        // 消费方据此裁剪，不再经 GUIUtility 换算。
+        public Rect VisibleRect { get; private set; }
 
         public void Reset() { position = Vector2.zero; restoredPosition = null; }
         internal float PositionY
@@ -45,6 +48,7 @@ namespace IrisMenus
             Rect content = new Rect(0f, 0f, Mathf.Max(1f, viewport.width - 20f), height);
             position.y = Mathf.Clamp(position.y, 0f, Mathf.Max(0f, height - viewport.height));
             Widgets.BeginScrollView(viewport, ref position, content);
+            VisibleRect = new Rect(position.x, position.y, content.width, viewport.height);
             MenuScrollView previous = Active;
             Active = this;
             anchors.Clear();

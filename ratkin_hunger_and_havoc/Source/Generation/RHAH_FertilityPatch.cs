@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HarmonyLib;
 using HungerAndHavoc.Core;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 using Verse.AI;
 
@@ -144,14 +145,19 @@ namespace HungerAndHavoc.Generation
         {
             // 原版返回共享临时列表 每个孩子持有自己的抽样
             List<GeneDef> genes = new List<GeneDef>(PregnancyUtility.GetInheritedGenes(father, mother));
-            return new PawnGenerationRequest(
+            PawnGenerationRequest request = new PawnGenerationRequest(
                 mother.kindDef,
                 mother.Faction,
                 PawnGenerationContext.NonPlayer,
-                forceNoBackstory: true,
+                allowDowned: true,
+                forceNoIdeo: true,
                 forcedEndogenes: genes,
                 forcedXenotype: XenotypeDefOf.Baseliner,
                 developmentalStages: DevelopmentalStage.Newborn);
+#if RIMWORLD_1_7
+            request.DontGivePreArrivalPathway = true;
+#endif
+            return request;
         }
 
         // 关系模组改的是生成概率 Child 由 Parent 推导
@@ -483,38 +489,27 @@ namespace HungerAndHavoc.Generation
         {
             VersePawn mother = geneticMother ?? birtherThing as VersePawn;
             VersePawn baby = __result as VersePawn;
-            if (mother != null && baby != null)
-            {
-                HungerAndHavoc.EventMgr.RHAH_EventFollowMood.NoteBirth(mother, baby);
-            }
+            if (mother == null || baby == null) return;
+            RHAH_BirthCompletion.CompleteAfterRemoval(birtherThing, () => Complete(mother, father, birtherThing, baby));
+        }
 
-            if (mother == null || !RHAH_Fertility.Has(mother, RHAH_FertilityRules.LargeLitter))
-            {
-                return;
-            }
-
+        static void Complete(VersePawn mother, VersePawn father, Thing birtherThing, VersePawn baby)
+        {
+            HungerAndHavoc.EventMgr.RHAH_EventFollowMood.NoteBirth(mother, baby);
+            if (!RHAH_Fertility.Has(mother, RHAH_FertilityRules.LargeLitter)) return;
             int extra = RHAH_Fertility.LitterCount(mother) - 1;
             for (int i = 0; i < extra; i++)
             {
                 VersePawn extraBaby = PawnGenerator.GeneratePawn(RHAH_Fertility.LitterRequest(mother, father));
-                if (extraBaby == null)
-                {
-                    continue;
-                }
-
-
                 RHAH_RatkinName.Apply(extraBaby);
                 RHAH_Fertility.SetBirthXenotype(extraBaby, mother, father);
-                if (mother.MapHeld != null)
-                {
-                    GenSpawn.Spawn(extraBaby, mother.PositionHeld, mother.MapHeld);
-                }
-
                 RHAH_Fertility.LinkParent(extraBaby, mother);
-                if (father != null)
-                {
-                    RHAH_Fertility.LinkParent(extraBaby, father);
-                }
+                RHAH_Fertility.LinkParent(extraBaby, father);
+                VersePawn birther = birtherThing as VersePawn;
+                if (birther != null && birther != mother)
+                    extraBaby.relations.AddDirectRelation(PawnRelationDefOf.ParentBirth, birther);
+                if (!PawnUtility.TrySpawnHatchedOrBornPawn(extraBaby, birtherThing))
+                    Find.WorldPawns.PassToWorld(extraBaby, PawnDiscardDecideMode.Discard);
             }
         }
     }

@@ -50,26 +50,107 @@ namespace HungerAndHavoc.Pawn
             return (pawn?.GetLord()?.LordJob as LordJob_RHAH_Visitor)?.ArmedAssault == true;
         }
 
+        internal static RHAH_ChoiceRecord FoodRequest(Verse.Pawn pawn)
+        {
+            LordJob_RHAH_Visitor job = pawn?.GetLord()?.LordJob as LordJob_RHAH_Visitor;
+            if (job == null || job.ArmedAssault || job.ArmedChoiceId <= 0) return null;
+            RHAH_ChoiceRecord record = Find(job.ArmedChoiceId);
+            return IsRequest(record) && record.Open ? record : null;
+        }
+
         internal static void Initialize(RHAH_ChoiceRecord record, List<Verse.Pawn> members)
         {
             LordJob_RHAH_Visitor job = members.Count == 0 ? null : members[0].GetLord()?.LordJob as LordJob_RHAH_Visitor;
             if (job != null) job.ArmedChoiceId = record.Id;
         }
 
+        internal static Lord Owner(RHAH_ChoiceRecord record)
+        {
+            Map map = record == null ? null : RHAH_ChoiceRuntime.FindMap(record.MapId);
+            List<Lord> lords = map?.lordManager?.lords;
+            for (int i = 0; lords != null && i < lords.Count; i++)
+            {
+                Lord lord = lords[i];
+                if (!(lord.LordJob is LordJob_RHAH_Visitor job) || job.ArmedChoiceId != record.Id) continue;
+                for (int j = 0; j < lord.ownedPawns.Count; j++)
+                {
+                    Verse.Pawn pawn = lord.ownedPawns[j];
+                    IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
+                    if (snapshot?.SpawnBatchId == record.BatchId && record.PawnLoadIds.Contains(pawn.thingIDNumber) &&
+                        pawn.Spawned && !pawn.Downed && RHAH_BatchAttitude.CanOrderLeave(pawn)) return lord;
+                }
+            }
+            return null;
+        }
+
+        internal static bool Refresh(RHAH_ChoiceRecord record)
+        {
+            if (record == null || !record.Open) return false;
+            if (Owner(record) != null) return true;
+            Finish(record, RHAH_ChoiceAction.Ignore);
+            return false;
+        }
+
+        static void Finish(RHAH_ChoiceRecord record, RHAH_ChoiceAction action)
+        {
+            record.Settled = action;
+            List<Letter> letters = Verse.Find.LetterStack?.LettersListForReading;
+            for (int i = (letters?.Count ?? 0) - 1; i >= 0; i--)
+                if (letters[i] is ChoiceLetter_RHAH_Request request && request.choiceId == record.Id)
+                    Verse.Find.LetterStack.RemoveLetter(request);
+        }
+
+        internal static void Tick(RHAH_ChoiceRecord record, int tick)
+        {
+            if (!record.Open) return;
+            if (!Enabled) { Resolve(record, RHAH_ChoiceAction.Ignore); return; }
+            if (tick % GenDate.TicksPerHour != 0 && tick != record.ExpireTick) return;
+            if (!Refresh(record)) return;
+            LordJob_RHAH_Visitor job = (LordJob_RHAH_Visitor)Owner(record).LordJob;
+            if (!job.ArmedAssault && record.ExpireTick >= 0 && tick >= record.ExpireTick)
+                Resolve(record, RHAH_ChoiceAction.Timeout);
+        }
+
+        internal static bool NotifyPlayerHarm(int choiceId)
+        {
+            RHAH_ChoiceRecord record = Find(choiceId);
+            if (!Enabled || !IsRequest(record) || !record.Open) return false;
+            Resolve(record, RHAH_ChoiceAction.Reject);
+            return true;
+        }
+
+        internal static int Remaining(RHAH_ChoiceRecord record)
+        {
+            return Math.Max(0, record.Amount - record.ArmedFoodDelivered);
+        }
+
+        internal static void NoteFood(Verse.Pawn receiver, int count)
+        {
+            Lord lord = receiver?.GetLord();
+            LordJob_RHAH_Visitor job = lord?.LordJob as LordJob_RHAH_Visitor;
+            RHAH_ChoiceRecord record = job == null ? null : Find(job.ArmedChoiceId);
+            if (count <= 0 || !IsRequest(record) || !record.Open || Owner(record) != lord ||
+                record.BatchId != RHAH_Api.Get(receiver)?.SpawnBatchId ||
+                !record.PawnLoadIds.Contains(receiver.thingIDNumber)) return;
+            record.ArmedFoodDelivered += Math.Min(count, Remaining(record));
+            if (Remaining(record) == 0) Resolve(record, RHAH_ChoiceAction.Deliver);
+        }
         internal static void Resolve(RHAH_ChoiceRecord record, RHAH_ChoiceAction action)
         {
             if (record == null || !record.Open) return;
-            List<Verse.Pawn> members = RHAH_ChoiceRuntime.Present(record);
-            LordJob_RHAH_Visitor job = members.Count == 0 ? null : members[0].GetLord()?.LordJob as LordJob_RHAH_Visitor;
-            if (!Enabled) record.Settled = RHAH_ChoiceAction.Ignore;
-            if (job == null || job.ArmedChoiceId != record.Id)
+            Lord lord = Owner(record);
+            LordJob_RHAH_Visitor job = lord?.LordJob as LordJob_RHAH_Visitor;
+            if (job == null)
             {
-                record.Settled = RHAH_ChoiceAction.Ignore;
+                Finish(record, RHAH_ChoiceAction.Ignore);
                 return;
             }
+            List<Verse.Pawn> members = new List<Verse.Pawn>();
+            for (int i = 0; i < lord.ownedPawns.Count; i++)
+                if (RHAH_BatchAttitude.CanOrderLeave(lord.ownedPawns[i])) members.Add(lord.ownedPawns[i]);
             if (!Enabled || action == RHAH_ChoiceAction.Deliver)
             {
-                record.Settled = action == RHAH_ChoiceAction.Deliver ? action : RHAH_ChoiceAction.Ignore;
+                Finish(record, action == RHAH_ChoiceAction.Deliver ? action : RHAH_ChoiceAction.Ignore);
                 RHAH_BatchAttitude.AcceptFood(members[0]);
                 job.ArmedAssault = false;
                 job.ArmedChoiceId = 0;
@@ -98,8 +179,8 @@ namespace HungerAndHavoc.Pawn
             map = RHAH_ChoiceRuntime.FindMap(record.MapId);
             carrier = null;
             food = new List<Thing>();
-            if (map == null || !record.Open || record.Amount <= 0) return false;
-            List<Verse.Pawn> members = RHAH_ChoiceRuntime.Present(record);
+            if (map == null || !record.Open || record.Amount <= 0 || !Refresh(record)) return false;
+            List<Verse.Pawn> members = Owner(record).ownedPawns;
             for (int i = 0; i < members.Count; i++)
             {
                 Verse.Pawn member = members[i];
@@ -112,17 +193,18 @@ namespace HungerAndHavoc.Pawn
             }
             if (carrier == null) return false;
             int stock = 0;
+            IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
             List<Thing> available = map.listerThings.ThingsOfDef(ThingDefOf.MealSimple);
             for (int i = 0; i < available.Count; i++)
             {
                 Thing thing = available[i];
                 if (!RHAH_FoodTransaction.IsUsableFood(thing, members) ||
-                    !carrier.CanReach(thing, PathEndMode.Touch, Danger.Deadly) ||
+                    !RHAH_FoodTransaction.CanDeliverFood(thing, carrier, colonists) ||
                     !carrier.inventory.innerContainer.CanAcceptAnyOf(thing, false)) continue;
                 stock += thing.stackCount;
                 food.Add(thing);
             }
-            return stock >= record.Amount;
+            return stock >= Remaining(record);
         }
 
         internal static bool TryPay(RHAH_ChoiceRecord record)
@@ -133,7 +215,7 @@ namespace HungerAndHavoc.Pawn
             if (!PlanPayment(record, out map, out carrier, out food)) return false;
             List<Thing> payment = new List<Thing>();
             List<IntVec3> origins = new List<IntVec3>();
-            int remaining = record.Amount;
+            int remaining = Remaining(record);
             try
             {
                 for (int i = 0; i < food.Count && remaining > 0; i++)

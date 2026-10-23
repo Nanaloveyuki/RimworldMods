@@ -293,6 +293,15 @@ internal static class CatalogChecks
         int warnings = Log.Errors.Count;
         scroll.Focus("conditional-hidden"); scroll.Draw(viewport, draw);
         check(Log.Errors.Count == warnings + 1, "Unavailable conditional anchor is diagnosed");
+
+        var scrolled = new MenuScrollView { PositionY = 120f };
+        Rect seen = default;
+        Action<Listing_Standard> capture = list => { seen = scrolled.VisibleRect; list.CurHeight = 1000; };
+        scrolled.Draw(viewport, capture);
+        check(seen.y == 0f, "Visible rect reports the offset actually drawn");
+        scrolled.Draw(viewport, capture);
+        check(seen.y == 120f && seen.height == viewport.height && seen.width == 380f,
+            "Visible rect follows the applied scroll offset in content space");
     }
 
     private static void Sections(Action<bool, string> check)

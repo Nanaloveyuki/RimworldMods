@@ -182,6 +182,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | Site | site | None | 否 | `RHAH_IntelSiteKind` |
 | Choice | choice | None | 否 | `RHAH_ChoiceKind` |
 | Amount | amount | 0 | 否 | |
+| ArmedFoodDelivered | armedFoodDelivered | 0 | 否 | 武装索粮已实际交付的简单餐份数；只累计玩家 GiveToPawn 的成功入包量，最多 Amount。旧档不按背包库存反推；卸载随 openChoices Remove |
 | ExpireTick | expireTick | -1 | 否 | |
 | Settled | settled | None | 否 | `RHAH_ChoiceAction`。旧文本 `Prison` 和旧数值 `12` 读取为 `Capture`（关闭状态）；再存档写 `Capture`。其它名称和编号保持原有枚举存读，缺键仍为 `None` |
 | PawnLoadIds | pawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同 |

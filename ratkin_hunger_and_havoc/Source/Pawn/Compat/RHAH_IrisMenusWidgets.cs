@@ -1,6 +1,7 @@
 extern alias iris;
 using System.Collections.Generic;
 using System;
+using System.Reflection;
 using HungerAndHavoc.Generation;
 using HungerAndHavoc.Incidents;
 using iris::IrisMenus;
@@ -14,6 +15,34 @@ namespace HungerAndHavoc.Pawn.Compat
         internal const float CardPad = 4f;
         internal const float CardGap = 4f;
 
+        // 可选公开能力：Iris 报告实际绘制的内容窗口。旧版没有该属性时不裁剪，属受支持的降级。
+        // 只解析一次，缺失或异常各记一条警告。
+        static readonly Func<MenuScrollView, Rect> hostVisibleRect = ResolveHostVisibleRect();
+        static readonly bool cullToHostVisibleRect = hostVisibleRect != null;
+
+        static Func<MenuScrollView, Rect> ResolveHostVisibleRect()
+        {
+            try
+            {
+                PropertyInfo property = typeof(MenuScrollView).GetProperty(
+                    "VisibleRect", BindingFlags.Public | BindingFlags.Instance);
+                MethodInfo getter = property?.GetGetMethod();
+                if (getter != null && property.PropertyType == typeof(Rect))
+                {
+                    return (Func<MenuScrollView, Rect>)Delegate.CreateDelegate(typeof(Func<MenuScrollView, Rect>), getter);
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("[RHAH] IrisMenus scroll window is unavailable. Page content is drawn without culling.\n" +
+                    exception.Message);
+                return null;
+            }
+
+            Log.Warning("[RHAH] IrisMenus does not expose the drawn scroll window. Page content is drawn without culling.");
+            return null;
+        }
+
         static Viewport activeViewport;
 
         internal sealed class Viewport
@@ -22,8 +51,6 @@ namespace HungerAndHavoc.Pawn.Compat
             readonly Action<Listing_Standard> draw;
             readonly Action<Listing_Standard> drawVisible;
             readonly Dictionary<string, float> labelHeights = new Dictionary<string, float>();
-            Vector2 screenMin;
-            Vector2 screenMax;
             internal Rect VisibleRect { get; private set; }
             float measuredWidth = -1f;
             object measuredLanguage;
@@ -42,17 +69,16 @@ namespace HungerAndHavoc.Pawn.Compat
 
             internal void Draw(Rect rect)
             {
-                screenMin = GUIUtility.GUIToScreenPoint(rect.min);
-                screenMax = GUIUtility.GUIToScreenPoint(rect.max);
                 scroll.Draw(rect, drawVisible);
             }
 
             void DrawVisible(Listing_Standard list)
             {
-                // 在滚动和 listing 分组内转换，保留 UI 缩放与滚动偏移
-                Vector2 min = GUIUtility.ScreenToGUIPoint(screenMin);
-                Vector2 max = GUIUtility.ScreenToGUIPoint(screenMax);
-                VisibleRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+                if (cullToHostVisibleRect)
+                {
+                    VisibleRect = hostVisibleRect(scroll);
+                }
+
                 Viewport previous = activeViewport;
                 activeViewport = this;
                 try
@@ -88,7 +114,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
         internal static bool IsVisible(Rect rect)
         {
-            return activeViewport == null || rect.Overlaps(activeViewport.VisibleRect);
+            return activeViewport == null || !cullToHostVisibleRect || rect.Overlaps(activeViewport.VisibleRect);
         }
         internal static void Label(Listing_Standard list, string label)
         {

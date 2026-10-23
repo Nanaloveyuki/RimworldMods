@@ -172,7 +172,6 @@ namespace HungerAndHavoc.Incidents
             return false;
         }
 
-#if RIMWORLD_1_7
         internal static bool CanDeliverFood(Thing food, Verse.Pawn receiver, IReadOnlyList<Verse.Pawn> colonists)
         {
             // 交货由殖民者完成 来客无须能打开仓库门
@@ -184,7 +183,6 @@ namespace HungerAndHavoc.Incidents
             }
             return false;
         }
-#endif
 
         internal static bool CanDeliver(RHAH_ChoiceRecord record)
         {

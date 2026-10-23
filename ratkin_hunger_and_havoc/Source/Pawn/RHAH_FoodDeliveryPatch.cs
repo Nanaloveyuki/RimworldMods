@@ -1,0 +1,24 @@
+using HarmonyLib;
+using RimWorld;
+using Verse;
+using Verse.AI;
+
+namespace HungerAndHavoc.Pawn
+{
+    // 只记殖民者 GiveToPawn 的实际入包量 不把预存食物或未完成搬运算成交付
+    [HarmonyPatch(typeof(ThingOwner), nameof(ThingOwner.TryTransferToContainer),
+        new[] { typeof(Thing), typeof(ThingOwner), typeof(int), typeof(bool) })]
+    internal static class RHAH_FoodDeliveryPatch
+    {
+        static void Postfix(ThingOwner __instance, Thing item, ThingOwner otherContainer, int __result)
+        {
+            if (__result <= 0 || !(otherContainer?.Owner is Pawn_InventoryTracker inventory) ||
+                item?.def != ThingDefOf.MealSimple || !(__instance.Owner is Pawn_CarryTracker carry)) return;
+            Verse.Pawn giver = carry.pawn;
+            Job job = giver?.CurJob;
+            if (giver?.Faction != Faction.OfPlayer || job?.def != JobDefOf.GiveToPawn ||
+                job.GetTarget(TargetIndex.B).Pawn != inventory.pawn) return;
+            RHAH_ArmedDemand.NoteFood(inventory.pawn, __result);
+        }
+    }
+}

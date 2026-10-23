@@ -7,6 +7,8 @@ namespace HungerAndHavoc.Core
     {
         public static RHAH_Settings Settings;
         internal static event System.Action SettingsReset;
+        Vector2 settingsScroll;
+        float settingsHeight;
 
         public RHAH_Mod(ModContentPack content) : base(content)
         {
@@ -28,8 +30,32 @@ namespace HungerAndHavoc.Core
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Listing_Standard listing = new Listing_Standard();
-            listing.Begin(inRect);
+            float height = Mathf.Max(1f, Mathf.Max(inRect.height, settingsHeight));
+            settingsScroll.y = Mathf.Clamp(settingsScroll.y, 0f, Mathf.Max(0f, height - inRect.height));
+            Rect content = new Rect(0f, 0f, Mathf.Max(1f, inRect.width - 20f), height);
+            Widgets.BeginScrollView(inRect, ref settingsScroll, content);
+            try
+            {
+                Listing_Standard listing = new Listing_Standard { maxOneColumn = true };
+                listing.Begin(content);
+                try
+                {
+                    DrawSettings(listing);
+                }
+                finally
+                {
+                    settingsHeight = listing.CurHeight + 4f;
+                    listing.End();
+                }
+            }
+            finally
+            {
+                Widgets.EndScrollView();
+            }
+        }
+
+        static void DrawSettings(Listing_Standard listing)
+        {
             DrawResetSettings(listing);
             listing.CheckboxLabeled("RHAH_Settings_EnableNewContent".Translate(), ref Settings.enableNewContent,
                 "RHAH_Settings_EnableNewContent_Tooltip".Translate());
@@ -203,7 +229,6 @@ namespace HungerAndHavoc.Core
             Settings.lovinPregnancyPercent = UnityEngine.Mathf.Round(listing.Slider(Settings.lovinPregnancyPercent, Generation.RHAH_FertilityRules.MinLovinPregnancyPercent, Generation.RHAH_FertilityRules.MaxLovinPregnancyPercent));
             Generation.RHAH_FertilityRules.ClampLitter(ref Settings.litterMin, ref Settings.litterPeak, ref Settings.litterMax);
 
-            listing.End();
         }
         internal static void DrawResetSettings(Listing_Standard listing)
         {

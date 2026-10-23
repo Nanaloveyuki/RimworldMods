@@ -142,6 +142,12 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
+            if (RHAH_ArmedDemand.FoodRequest(receiver) != null && food.def != ThingDefOf.MealSimple)
+            {
+                Messages.Message("RHAH_Choice_FeedBlocked".Translate(receiver.LabelShort), MessageTypeDefOf.RejectInput);
+                return;
+            }
+
             if (!RHAH_FoodHandoff.Start(receiver, count))
             {
                 Messages.Message(

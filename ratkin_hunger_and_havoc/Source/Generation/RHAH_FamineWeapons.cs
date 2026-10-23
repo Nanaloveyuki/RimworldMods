@@ -1,6 +1,7 @@
 using HungerAndHavoc.Api;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.Pawn;
+using HungerAndHavoc.Pawn.Compat;
 using RimWorld;
 using Verse;
 
@@ -64,7 +65,9 @@ namespace HungerAndHavoc.Generation
             weapon.TryGetComp<CompQuality>()?.SetQuality(Quality(Rand.RangeInclusive(0, (int)QualityCategory.Normal)), ArtGenerationContext.Outsider);
             pawn.equipment.DestroyAllEquipment();
             pawn.equipment.AddEquipment(weapon);
-            return pawn.equipment.Primary == weapon;
+            if (pawn.equipment.Primary != weapon) return false;
+            if (def.IsRangedWeapon) RHAH_CombatExtendedLoadout.Apply(pawn);
+            return true;
         }
     }
 }

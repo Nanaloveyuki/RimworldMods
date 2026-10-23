@@ -163,6 +163,28 @@ namespace HungerAndHavoc.Pawn
                 !(reason == PawnLostCondition.ChangedFaction && PreserveForAttitudeChange);
         }
 
+        public override void Notify_PawnLost(Verse.Pawn pawn, PawnLostCondition cond)
+        {
+            RefreshArmedRequest();
+        }
+
+        public override void Notify_PawnDowned(Verse.Pawn pawn)
+        {
+            RefreshArmedRequest();
+        }
+
+        public override void Notify_LordDestroyed()
+        {
+            RefreshArmedRequest();
+        }
+
+        void RefreshArmedRequest()
+        {
+            if (armedChoiceId <= 0) return;
+            RHAH_ChoiceRecord record = RHAH_ArmedDemand.Find(armedChoiceId);
+            if (record != null) RHAH_ArmedDemand.Refresh(record);
+        }
+
         public LordJob_RHAH_Visitor()
         {
         }
@@ -361,6 +383,8 @@ namespace HungerAndHavoc.Pawn
 
         internal bool WaitingForFood(Verse.Pawn pawn)
         {
+            RHAH_ChoiceRecord request = RHAH_ArmedDemand.FoodRequest(pawn);
+            if (request != null) return ListedForFood(pawn) && RHAH_ArmedDemand.Remaining(request) > 0;
             return RHAH_RequestRules.FoodWaiting(
                 ListedForFood(pawn),
                 pawn != null && !pawn.Dead,
@@ -371,6 +395,8 @@ namespace HungerAndHavoc.Pawn
 
         internal int FoodStillNeeded(Verse.Pawn pawn)
         {
+            RHAH_ChoiceRecord request = RHAH_ArmedDemand.FoodRequest(pawn);
+            if (request != null) return RHAH_ArmedDemand.Remaining(request);
             if (!WaitingForFood(pawn))
             {
                 return 0;

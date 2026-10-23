@@ -93,6 +93,8 @@ namespace HungerAndHavoc.Pawn
                 return "RHAH_Choice_FeedBlocked";
             }
 
+            if (RHAH_ArmedDemand.FoodRequest(pawn) != null) return null;
+
 #if RIMWORLD_1_7
             if (!RHAH_Feeding.NeedsFood(pawn))
 #else
