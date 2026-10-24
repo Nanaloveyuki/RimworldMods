@@ -34,6 +34,13 @@ namespace IrisMenus
             ResultPage = 0;
         }
 
+        internal void SetSearchScope(string ownerId)
+        {
+            Scope = ownerId;
+            Managing = ViewingTarget = false;
+            ResultPage = 0;
+        }
+
         internal void OpenTarget() { ViewingTarget = true; }
         internal void Back() { ViewingTarget = false; }
 

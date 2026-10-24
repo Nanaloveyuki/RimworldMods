@@ -41,6 +41,8 @@ namespace UnityEngine
         public static float OverlayAlpha;
         public static void DrawTextureWithTexCoords(Rect rect, object texture, Rect uv) { TextureDraws++; }
         public static void DrawTexture(Rect rect, object texture) { OverlayAlpha = color.a; }
+        public static void DrawTexture(Rect rect, object texture, ScaleMode scaleMode, bool alphaBlend)
+        { if (texture != Verse.BaseContent.WhiteTex) TextureDraws++; else OverlayAlpha = color.a; }
         public static void DrawTexture(Rect rect, object texture, ScaleMode scaleMode, bool alphaBlend,
             float imageAspect, Color tint, float borderWidth, float borderRadius)
         {
@@ -103,4 +105,9 @@ namespace IrisMenus
         internal void ReleaseTargets() { Camera = null; Texture = null; }
         public void Dispose() { Disposed++; ReleaseTargets(); }
     }
+}
+
+namespace IrisMenus.UI
+{
+    public enum UiTheme { Light, Dark }
 }

@@ -2,7 +2,7 @@
 
 `IrisMenus.UI` 是独立于旧设置 UI 的 C#／IMGUI 可复用组件。本文记录 `Source/UI/` 当前源码接口及调用约束；注册页面与保存仍见[接入指南](guide.md)。使用这些组件不会自动替换 `MenuWindow`，也不会注册设置页或写入消费者设置。
 
-本次完成的是组件实现与独立展示窗口。完整宿主迁移尚未实现，[原生呈现 ADR](../adr/0001-native-settings-presentation.md) 仍为 `proposed`。先面向 RimWorld 1.7 验收；不能因共享源码而推定 1.6 产物或游戏行为已验证。
+当前 1.7 已接入显式全屏宿主和 `MenuPresentation`，旧窗口仍为默认入口；消费者接入与生命周期见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)。保留的 1.6 二进制未更新，不能因共享源码推定其具有新 API 或已验收。
 
 ## 目录职责
 
@@ -224,4 +224,15 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 最终组件构建已通过标准部署脚本同步至本地 `Mods/IrisMenus`，22 个暂存／部署文件经 SHA-256 校验；保留安装目录中的 1.6 文件与 PublishedFileId。隔离测试实例已正常退出，未加载生存存档。上述悬停 5 秒为可控时钟推进的组件场景，不冒充实际鼠标停留录像。
 
-仍未实施：主 `MenuWindow` 的新宿主迁移、页面呈现描述接入、宿主开关及保存门控动效、新状态持久化、无障碍语义桥接。当前组件不改变既有注册、搜索或消费者保存契约。真实输入法、不同 UI scale、长翻译、嵌套模态、裁切、地图／世界以及 Frost 结合后的效果仍须单独游戏验收；主菜单截图不替代这些场景。
+以上为组件阶段的历史记录。当前全屏宿主、页面呈现注解、开关动效和设置持久化已实现；当前验收记录见下节。操作系统无障碍语义桥接仍未提供。
+
+## Full-screen host status — 2026-10-24
+
+Development and testing paused at the user's request. The current implementation is
+incomplete and has known UI issues. Full acceptance remains deferred, not passed.
+The 1.7 provider/API consumer build succeeded with no warnings or errors; the existing
+engine-double suite passed 205 assertions. Limited isolated-game checks exercised
+factory/draw retry, save-failure navigation/close gates, keyboard focus and dynamic
+page removal. These checks do not establish full UI, lifecycle or compatibility acceptance.
+The isolated instance was stopped normally. No release version was assigned.
+

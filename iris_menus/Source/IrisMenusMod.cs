@@ -64,6 +64,14 @@ namespace IrisMenus
         internal float Transparency = 0.65f;
         internal bool RememberState = true;
         internal bool ShowMainButton = true;
+        internal IrisMenus.UI.UiTheme Theme = IrisMenus.UI.UiTheme.Light;
+        internal bool ReducedMotion;
+        internal float NativeScale = 1f;
+        internal int Density = 1;
+        internal float NativePanelOpacity = 0.94f;
+        internal bool ShowTips = true;
+        internal float TipDelay = 0.5f;
+        internal bool SearchCurrentMod;
         internal string LastPage;
         internal Dictionary<string, string> LastSubItems = new Dictionary<string, string>();
         internal Dictionary<string, string> HostView = new Dictionary<string, string>();
@@ -81,6 +89,14 @@ namespace IrisMenus
             Scribe_Values.Look(ref LastPage, "lastPage");
             Scribe_Values.Look(ref RememberState, "rememberState", true);
             Scribe_Values.Look(ref ShowMainButton, "showMainButton", true);
+            Scribe_Values.Look(ref Theme, "nativeTheme", IrisMenus.UI.UiTheme.Light);
+            Scribe_Values.Look(ref ReducedMotion, "reducedMotion", false);
+            Scribe_Values.Look(ref NativeScale, "nativeScale", 1f);
+            Scribe_Values.Look(ref Density, "nativeDensity", 1);
+            Scribe_Values.Look(ref NativePanelOpacity, "nativePanelOpacity", 0.94f);
+            Scribe_Values.Look(ref ShowTips, "showTips", true);
+            Scribe_Values.Look(ref TipDelay, "tipDelay", 0.5f);
+            Scribe_Values.Look(ref SearchCurrentMod, "searchCurrentMod", false);
             Scribe_Collections.Look(ref LastSubItems, "lastSubItems", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref HostView, "hostView", LookMode.Value, LookMode.Value);
             if (EnabledAdapters == null) EnabledAdapters = new List<string>();
@@ -88,6 +104,10 @@ namespace IrisMenus
             if (HostView == null) HostView = new Dictionary<string, string>();
             Blur = Mathf.Clamp01(MenuLayout.Finite(Blur, 0.5f));
             Transparency = Mathf.Clamp01(MenuLayout.Finite(Transparency, 0.65f));
+            NativeScale = Mathf.Clamp(MenuLayout.Finite(NativeScale, 1f), 0.8f, 1.3f);
+            Density = System.Math.Max(0, System.Math.Min(2, Density));
+            NativePanelOpacity = Mathf.Clamp01(MenuLayout.Finite(NativePanelOpacity, 0.94f));
+            TipDelay = Mathf.Clamp(MenuLayout.Finite(TipDelay, 0.5f), 0.1f, 0.8f);
         }
 
         internal void ClearRememberedView()

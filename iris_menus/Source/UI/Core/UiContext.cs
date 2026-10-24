@@ -37,6 +37,7 @@ namespace IrisMenus.UI
         public bool IsRepaint => Event != null && Event.type == EventType.Repaint;
         public bool IsInputAllowed => input && Alpha > 0f && (modal == default || modal == layer);
         public float Alpha { get; private set; } = 1f;
+        public float FontSize { get; set; } = 16f;
 
         public UiId CreateId()
         {
@@ -200,11 +201,12 @@ namespace IrisMenus.UI
             if (!IsRepaint) return;
             color.a *= Alpha;
 #if RIMWORLD_1_7
-            UnityStubs.Gui.GuiBackend.Current?.DrawText(rect, text ?? string.Empty, 1, 16f, FontStyle.Normal, anchor, wrap, color, default, false);
+            UnityStubs.Gui.GuiBackend.Current?.DrawText(rect, text ?? string.Empty, 1, FontSize, FontStyle.Normal, anchor, wrap, color, default, false);
 #else
             Color previous = GUI.color;
             Color content = GUI.contentColor;
             labelStyle.font = Text.CurFontStyle.font;
+            labelStyle.fontSize = Mathf.RoundToInt(FontSize);
             labelStyle.normal.textColor = color;
             labelStyle.alignment = anchor;
             labelStyle.wordWrap = wrap;

@@ -68,6 +68,7 @@ namespace IrisMenus
     {
         private readonly DefaultWindowDrawing vanilla = new DefaultWindowDrawing();
         internal const float CornerRadius = 12f;
+        internal bool NativeFullscreen { get; set; }
         private Material material;
         private bool failed;
         private Texture2D menuBackdrop;
@@ -75,11 +76,15 @@ namespace IrisMenus
         public GUIStyle EmptyStyle => vanilla.EmptyStyle;
         public void DoWindowBackground(Rect rect)
         {
+            if (NativeFullscreen) return;
             if (Event.current.type != EventType.Repaint) return;
             Color fill = Widgets.WindowBGFillColor;
             fill.a = 1f - Mathf.Clamp01(Settings.Transparency);
             UnityStubs.Gui.GuiBackend.Current?.FillRectRounded(rect, fill, CornerRadius);
-            if (failed) return;
+            if (failed)
+            {
+                return;
+            }
             try
             {
                 if (material == null)
@@ -134,10 +139,8 @@ namespace IrisMenus
                 material.SetVector("_Frost", new Vector4(backdrop != null ? 1f : 0f, Mathf.Clamp01(Settings.Blur) * 6f,
                     Mathf.Clamp01(Settings.Transparency), scene ? Current.ColorCorrectionCurves?.saturation ?? 1f : 1f));
                 material.SetColor("_Fill", Widgets.WindowBGFillColor);
-                // Native material binding can fail without throwing. Its ordinary-image
-                // fallback must leave the rounded translucent fill above intact.
-                Graphics.DrawTexture(rect, BaseContent.ClearTex, new Rect(0f, 0f, 1f, 1f),
-                    0, 0, 0, 0, Color.white, material, 0);
+                Graphics.DrawTexture(rect, BaseContent.ClearTex,
+                    new Rect(0f, 0f, 1f, 1f), 0, 0, 0, 0, Color.white, material, 0);
             }
             catch (Exception exception)
             {

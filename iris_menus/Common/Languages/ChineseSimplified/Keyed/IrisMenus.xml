@@ -32,4 +32,64 @@
   <IM_OwnerActions>Mod 操作</IM_OwnerActions>
   <IM_ActionUnavailable>此操作当前不可用。</IM_ActionUnavailable>
   <IM_ActionFailed>操作未能完成，详情请查看日志。</IM_ActionFailed>
+  <IM_NativeAppearance>外观</IM_NativeAppearance>
+  <IM_NativeBehavior>浏览与操作</IM_NativeBehavior>
+  <IM_NativeDisplay>显示</IM_NativeDisplay>
+  <IM_NativeBackground>背景</IM_NativeBackground>
+  <IM_NativeNavigation>导航</IM_NativeNavigation>
+  <IM_NativeInteraction>操作</IM_NativeInteraction>
+  <IM_NativeTheme>主题</IM_NativeTheme>
+  <IM_NativeLight>浅色</IM_NativeLight>
+  <IM_NativeDark>深色</IM_NativeDark>
+  <IM_NativeDensity>界面密度</IM_NativeDensity>
+  <IM_NativeCompact>紧凑</IM_NativeCompact>
+  <IM_NativeStandard>标准</IM_NativeStandard>
+  <IM_NativeRelaxed>宽松</IM_NativeRelaxed>
+  <IM_NativeScale>界面缩放</IM_NativeScale>
+  <IM_NativeMotion>动态效果</IM_NativeMotion>
+  <IM_NativeMotionHint>关闭后，展开面板和调整控件时直接显示最终状态。</IM_NativeMotionHint>
+  <IM_NativeOpacity>面板不透明度</IM_NativeOpacity>
+  <IM_NativeOpacityHint>调整设置面板在渐变背景上的不透明度。100% 时面板完全不透明。</IM_NativeOpacityHint>
+  <IM_NativeRemember>记住上次页面</IM_NativeRemember>
+  <IM_NativeRememberHint>重新打开时恢复上次页面和记住的浏览位置。关闭后会清除已保存的浏览位置。</IM_NativeRememberHint>
+  <IM_NativeMainButton>显示底部 IrisMenus 按钮</IM_NativeMainButton>
+  <IM_NativeMainButtonHint>立即生效。隐藏后仍可通过“选项 → Mod 设置 → IrisMenus”进入。</IM_NativeMainButtonHint>
+  <IM_NativeSearchScope>默认搜索范围</IM_NativeSearchScope>
+  <IM_NativeAllMods>全部 Mod</IM_NativeAllMods>
+  <IM_NativeCurrentMod>当前 Mod</IM_NativeCurrentMod>
+  <IM_NativeTips>显示悬停提示</IM_NativeTips>
+  <IM_NativeTipDelay>提示延迟</IM_NativeTipDelay>
+  <IM_NativeTipDelayHint>鼠标停留后，IrisMenus 显示提示前等待的时间，单位为毫秒。</IM_NativeTipDelayHint>
+  <IM_NativeSavedAutomatically>离开页面时保存更改。</IM_NativeSavedAutomatically>
+  <IM_NativeCurrentAppearance>当前外观</IM_NativeCurrentAppearance>
+  <IM_NativeOn>开启</IM_NativeOn>
+  <IM_NativeOff>关闭</IM_NativeOff>
+  <IM_NativeDisplayNoteTitle>缩放与间距</IM_NativeDisplayNoteTitle>
+  <IM_NativeDisplayNote>界面缩放调整全屏界面的大小，界面密度调整设置行的间距。动态效果用于全屏面板和控件的切换。</IM_NativeDisplayNote>
+  <IM_NativeBackgroundNoteTitle>背景与不透明度</IM_NativeBackgroundNoteTitle>
+  <IM_NativeBackgroundNote>全屏界面使用三段灰色渐变背景，深色主题采用独立配色。面板不透明度默认为 94%，不影响旧版界面的毛玻璃与模糊设置。</IM_NativeBackgroundNote>
+  <IM_NativeNavigationNoteTitle>页面与搜索</IM_NativeNavigationNoteTitle>
+  <IM_NativeNavigationNote>记住上次页面用于重新打开 IrisMenus 时返回之前的浏览位置。默认搜索范围决定从页面开始搜索时，查找全部 Mod 还是当前 Mod。</IM_NativeNavigationNote>
+  <IM_NativeInteractionNoteTitle>悬停提示</IM_NativeInteractionNoteTitle>
+  <IM_NativeInteractionNote>悬停提示用于说明 IrisMenus 全屏界面的控件。调整提示延迟可以改变显示时机，也可以关闭提示。</IM_NativeInteractionNote>
+  <IM_NativeOpen>打开全屏新版界面</IM_NativeOpen>
+  <IM_NativeModSettings>Mod 设置</IM_NativeModSettings>
+  <IM_NativeSwitchLight>切换到浅色主题</IM_NativeSwitchLight>
+  <IM_NativeSwitchDark>切换到深色主题</IM_NativeSwitchDark>
+  <IM_NativeSearchPlaceholder>搜索设置或 Mod</IM_NativeSearchPlaceholder>
+  <IM_NativeClose>关闭设置</IM_NativeClose>
+  <IM_NativeSearchResults>搜索结果</IM_NativeSearchResults>
+  <IM_NativeChoosePage>从设置库选择 Mod，打开它的设置。</IM_NativeChoosePage>
+  <IM_NativeThisPage>本页</IM_NativeThisPage>
+  <IM_NativeReset>恢复默认</IM_NativeReset>
+  <IM_NativeSaveOnLeave>离开页面时保存设置</IM_NativeSaveOnLeave>
+  <IM_NativeReturnOriginal>返回旧版界面</IM_NativeReturnOriginal>
+  <IM_NativeLibrary>设置库</IM_NativeLibrary>
+  <IM_NativeRegistered>已接入</IM_NativeRegistered>
+  <IM_NativeHosted>已托管</IM_NativeHosted>
+  <IM_NativeOpenResult>打开</IM_NativeOpenResult>
+  <IM_NativeResetTitle>恢复本页默认设置？</IM_NativeResetTitle>
+  <IM_NativeResetDescription>仅恢复本页声明的设置，不改动其他页面、Mod 或窗口位置。</IM_NativeResetDescription>
+  <IM_NativeDone>完成</IM_NativeDone>
+  <IM_NativeHelpDescription>全屏 IrisMenus 与旧版共用设置页面和保存归属。未声明原生呈现的页面保留原有控件，显示在深色兼容区域中。章节、说明、预览和恢复默认仅在页面明确提供时显示。搜索结果打开所属页面，不推断可编辑字段。</IM_NativeHelpDescription>
 </LanguageData>

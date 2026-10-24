@@ -11,7 +11,8 @@ See [integration guide](docs/references/guide.md) for the Chinese integration wa
 Markdown help and documentation content is covered in
 [docs/references/markdown.md](docs/references/markdown.md).
 Reusable native controls, containers, overlays and their IMGUI/animation contracts are documented in
-[Native UI components](docs/references/native-ui-components.md); these do not yet replace `MenuWindow`.
+[Native UI components](docs/references/native-ui-components.md). The explicit full-screen host uses them;
+the original window remains the default entry.
 Pages are grouped by Mod; only the selected group expands. Existing single-page
 registrations still open directly. Search supports global or owner-wide metadata
 results, pagination, and explicit anchors without drawing unselected pages.
@@ -128,8 +129,8 @@ dotnet build Source/IrisMenus.csproj -c Release -p:RimWorldVersion=1.7
 
 Consumers must reference the DLL matching their game version and target
 `net48` for 1.6 or `net10.0` for 1.7. `tests/ApiConsumer` accepts the same
-`RimWorldVersion` and `RimWorldManagedDir` properties. Both versions expose
-the same consumer APIs; 1.7 compilation defines `RIMWORLD_1_7` internally.
+`RimWorldVersion` and `RimWorldManagedDir` properties. The preserved 1.6 binary retains
+its existing APIs; native presentation annotations are available in the current 1.7 build.
 
 The `RimWorldVersion=1.6` compile configuration remains available only for
 explicit legacy maintenance (`net48`, `Krafs.Rimworld.Ref` 1.6.4633, or a
@@ -215,6 +216,26 @@ settings → IrisMenus → Open IrisMenus**; registered/hosted Mod entry routing
 unaffected.
 
 ## Release notes
+
+### Unreleased — native full-screen interface (1.7, in progress)
+
+Development paused at the user's request on 2026-10-24. The implementation remains
+incomplete and has known UI issues; full game acceptance is deferred until implementation
+is complete. The entries below describe current code, not a verified release.
+
+- Add an explicit full-screen entry in the old footer without increasing footer height;
+  keep the old main-button/settings routing and restore old geometry when returning.
+- Share registration, selection, save gates, search/back and adapters between presentations.
+  Add optional `RegisterPresentation` annotations for native pages, chapters, notes and reset.
+- Match the reference's Light/Dark three-stop gradient, rectangular panels, navigation,
+  tabs, context drawers, settings preview and rotating close control. Native panel opacity
+  defaults to 94% independently of legacy frost/blur/transparency.
+- Suppress underlying HUD/window drawing only while the full-screen host covers it;
+  preserve higher dialogs, input ownership, pause and normal restoration after exit.
+- Add working appearance/behavior settings in both presentations; persist scale, density,
+  theme, reduced motion, tips, search preference and native panel opacity.
+- Keep factory/draw failures retryable, save failures blocking, confirmation targets stable,
+  and consumer disposal errors unable to trap the window.
 
 ### 1.1.2
 

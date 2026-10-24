@@ -7,7 +7,7 @@ Markdown 动态内容和外部只读文件的接入方式见
 
 ## 1. 引用与加载
 
-按游戏版本引用 `1.6/Assemblies/IrisMenus.dll`（`net48`）或 `1.7/Assemblies/IrisMenus.dll`（`net10.0`），设置 `Private=false`，不要把它再打包进自己的 Mod。两版提供相同的接入 API。
+按游戏版本引用 `1.6/Assemblies/IrisMenus.dll`（`net48`）或 `1.7/Assemblies/IrisMenus.dll`（`net10.0`），设置 `Private=false`，不要重复打包。既有页面 API 保持兼容；新的 `MenuPresentation` 只在当前 1.7 构建中提供，保留的 1.6 二进制未更新。
 在你的 `About/About.xml` 的 `modDependencies` 中加入：
 
 ```xml
@@ -77,6 +77,11 @@ private void DrawGeneral(Listing_Standard list)
 `settings` 是你自己的设置对象。可用控件还有 `Slider`、整数/浮点 `Number` 和下拉 `Select`。
 `Number` 的编辑字符串必须保存在实例字段里，不能每帧重新创建。
 
+### 可选全屏原生呈现（1.7）
+
+旧版底栏提供“打开全屏新版界面”，默认入口不变。普通 drawer 仍是旧版呈现；如需原生双主题控件，在原页面注册后调用 `MenuRegistry.RegisterPresentation(this, "general", new MenuPresentation(context => new MyNativePage(context)))`，页面继承 `MenuNativePage`。宿主提供并持有 `UiContext`，消费者持有控件和设置；正文自行滚动，overlay 在根坐标绘制。章节、说明、预览和重置都需显式声明，不会从旧 drawer 自动推导。
+
+完整生命周期与签名见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)，可编译示例见 `tests/ApiConsumer/ExampleMod.cs`。未迁移页面仍在深色兼容区执行原 drawer，不影响旧版保存与滚动所有权。
 ## 3. 搜索并跳转到控件
 
 在注册页面后声明搜索元数据：

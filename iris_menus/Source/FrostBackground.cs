@@ -10,6 +10,7 @@ namespace IrisMenus
     {
         private readonly DefaultWindowDrawing vanilla = new DefaultWindowDrawing();
         internal const float CornerRadius = 12f;
+        internal bool NativeFullscreen { get; set; }
         internal Window Owner;
         private FrostPipeline pipeline;
         private bool failed;
@@ -34,7 +35,7 @@ namespace IrisMenus
                 Dispose();
                 return;
             }
-            if (!Settings.FrostEnabled || Settings.Transparency <= 0f)
+            if (NativeFullscreen || !Settings.FrostEnabled || Settings.Transparency <= 0f)
             {
                 pipeline?.ReleaseTargets();
                 capturedFrame = -10;
@@ -84,6 +85,7 @@ namespace IrisMenus
 
         public void DoWindowBackground(Rect rect)
         {
+            if (NativeFullscreen) return;
             if (Settings.Transparency <= 0f) pipeline?.ReleaseTargets();
             if (Event.current.type != EventType.Repaint) return;
             Color previous = GUI.color;
@@ -102,6 +104,7 @@ namespace IrisMenus
             }
             finally { GUI.color = previous; }
         }
+
 
         internal void Retry()
         {

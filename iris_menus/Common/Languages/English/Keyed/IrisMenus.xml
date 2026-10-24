@@ -32,4 +32,64 @@
   <IM_OwnerActions>Mod actions</IM_OwnerActions>
   <IM_ActionUnavailable>This action is not available right now.</IM_ActionUnavailable>
   <IM_ActionFailed>The action could not be completed. See the log for details.</IM_ActionFailed>
+  <IM_NativeAppearance>Appearance</IM_NativeAppearance>
+  <IM_NativeBehavior>Browsing &amp; interaction</IM_NativeBehavior>
+  <IM_NativeDisplay>Display</IM_NativeDisplay>
+  <IM_NativeBackground>Background</IM_NativeBackground>
+  <IM_NativeNavigation>Navigation</IM_NativeNavigation>
+  <IM_NativeInteraction>Interaction</IM_NativeInteraction>
+  <IM_NativeTheme>Theme</IM_NativeTheme>
+  <IM_NativeLight>Light</IM_NativeLight>
+  <IM_NativeDark>Dark</IM_NativeDark>
+  <IM_NativeDensity>Interface density</IM_NativeDensity>
+  <IM_NativeCompact>Compact</IM_NativeCompact>
+  <IM_NativeStandard>Standard</IM_NativeStandard>
+  <IM_NativeRelaxed>Relaxed</IM_NativeRelaxed>
+  <IM_NativeScale>Interface scale</IM_NativeScale>
+  <IM_NativeMotion>Motion effects</IM_NativeMotion>
+  <IM_NativeMotionHint>Turn off to show the final state immediately when opening panels and changing controls.</IM_NativeMotionHint>
+  <IM_NativeOpacity>Panel opacity</IM_NativeOpacity>
+  <IM_NativeOpacityHint>Controls the setting panel's opacity over the gradient background. At 100%, the panel is solid.</IM_NativeOpacityHint>
+  <IM_NativeRemember>Remember last page</IM_NativeRemember>
+  <IM_NativeRememberHint>Reopen the last page and restore remembered browsing positions. Turning this off clears saved browsing positions.</IM_NativeRememberHint>
+  <IM_NativeMainButton>Show the IrisMenus main button</IM_NativeMainButton>
+  <IM_NativeMainButtonHint>Changes immediately. IrisMenus remains available through Options → Mod settings → IrisMenus.</IM_NativeMainButtonHint>
+  <IM_NativeSearchScope>Default search scope</IM_NativeSearchScope>
+  <IM_NativeAllMods>All mods</IM_NativeAllMods>
+  <IM_NativeCurrentMod>Current mod</IM_NativeCurrentMod>
+  <IM_NativeTips>Show hover tips</IM_NativeTips>
+  <IM_NativeTipDelay>Tip delay</IM_NativeTipDelay>
+  <IM_NativeTipDelayHint>How long to wait before showing an IrisMenus hover tip, in milliseconds.</IM_NativeTipDelayHint>
+  <IM_NativeSavedAutomatically>Changes are saved when leaving this page.</IM_NativeSavedAutomatically>
+  <IM_NativeCurrentAppearance>Current appearance</IM_NativeCurrentAppearance>
+  <IM_NativeOn>On</IM_NativeOn>
+  <IM_NativeOff>Off</IM_NativeOff>
+  <IM_NativeDisplayNoteTitle>Scale and spacing</IM_NativeDisplayNoteTitle>
+  <IM_NativeDisplayNote>Scale changes the full-screen interface size. Density changes row spacing. Motion effects apply to full-screen panels and controls.</IM_NativeDisplayNote>
+  <IM_NativeBackgroundNoteTitle>Background and opacity</IM_NativeBackgroundNoteTitle>
+  <IM_NativeBackgroundNote>The full-screen interface uses a three-stop gray gradient, with a separate dark palette. Panel opacity defaults to 94% and does not affect the old interface's frost or blur settings.</IM_NativeBackgroundNote>
+  <IM_NativeNavigationNoteTitle>Pages and search</IM_NativeNavigationNoteTitle>
+  <IM_NativeNavigationNote>Remember last page restores your browsing position when IrisMenus opens. The default search scope chooses all mods or the current mod when starting a search from a page.</IM_NativeNavigationNote>
+  <IM_NativeInteractionNoteTitle>Hover tips</IM_NativeInteractionNoteTitle>
+  <IM_NativeInteractionNote>Hover tips explain full-screen IrisMenus controls. Adjust the delay to change how soon they appear, or turn tips off.</IM_NativeInteractionNote>
+  <IM_NativeOpen>Open full-screen interface</IM_NativeOpen>
+  <IM_NativeModSettings>Mod settings</IM_NativeModSettings>
+  <IM_NativeSwitchLight>Switch to light theme</IM_NativeSwitchLight>
+  <IM_NativeSwitchDark>Switch to dark theme</IM_NativeSwitchDark>
+  <IM_NativeSearchPlaceholder>Search settings or mods</IM_NativeSearchPlaceholder>
+  <IM_NativeClose>Close settings</IM_NativeClose>
+  <IM_NativeSearchResults>Search results</IM_NativeSearchResults>
+  <IM_NativeChoosePage>Select a mod from the library to open its settings.</IM_NativeChoosePage>
+  <IM_NativeThisPage>This page</IM_NativeThisPage>
+  <IM_NativeReset>Restore defaults</IM_NativeReset>
+  <IM_NativeSaveOnLeave>Settings saved when leaving a page</IM_NativeSaveOnLeave>
+  <IM_NativeReturnOriginal>Original interface</IM_NativeReturnOriginal>
+  <IM_NativeLibrary>Settings library</IM_NativeLibrary>
+  <IM_NativeRegistered>Registered</IM_NativeRegistered>
+  <IM_NativeHosted>Hosted</IM_NativeHosted>
+  <IM_NativeOpenResult>Open</IM_NativeOpenResult>
+  <IM_NativeResetTitle>Restore this page's defaults?</IM_NativeResetTitle>
+  <IM_NativeResetDescription>Restore the settings declared by this page. Other pages, mods and window geometry are not changed.</IM_NativeResetDescription>
+  <IM_NativeDone>Done</IM_NativeDone>
+  <IM_NativeHelpDescription>Full-screen IrisMenus uses the same settings pages and save owners as the original interface. Pages without a native presentation retain their original controls on a dark compatibility surface. Chapters, notes, previews and reset are shown only when a page explicitly provides them. Searches open the owning page; they do not infer editable fields.</IM_NativeHelpDescription>
 </LanguageData>

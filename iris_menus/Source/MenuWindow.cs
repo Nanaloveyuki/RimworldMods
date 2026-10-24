@@ -7,7 +7,7 @@ using Verse;
 
 namespace IrisMenus
 {
-    public sealed class MenuWindow : Window
+    public sealed partial class MenuWindow : Window
     {
         private List<MenuPage> adapters;
         private List<MenuPage> pages;
@@ -26,6 +26,11 @@ namespace IrisMenus
         private bool closeSaved;
         private bool restoreResultScroll;
         private MenuPage requestedPage;
+        private NativeSurface nativeSurface;
+        private Rect legacyRect;
+        internal bool NativeFullscreen => nativeSurface != null;
+        internal float NativeOpacity => nativeSurface?.Opacity ?? 0f;
+        protected override float Margin => NativeFullscreen ? 0f : base.Margin;
         private MenuSettings Settings => IrisMenusMod.Instance.Settings;
 
         public MenuWindow() : this(new FrostBackground(), null) { }
@@ -48,6 +53,7 @@ namespace IrisMenus
             requestedPage = requested;
             MenuRegistry.AdoptActionOwners();
             MenuOwnerActions.EnsureLaunchers();
+            NativeSettingsPages.EnsureRegistered();
             adapters = MenuRegistry.Adaptable();
             pages = MenuRegistry.Registered.Concat(Hosted()).ToList();
             RestoreOpeningState();
@@ -69,12 +75,47 @@ namespace IrisMenus
         }
 
         public override void Notify_ResolutionChanged() { ClampGeometry(); }
-        private void ClampGeometry() { windowRect = MenuLayout.Clamp(windowRect, Verse.UI.screenWidth, Verse.UI.screenHeight); }
+        private void ClampGeometry()
+        {
+            windowRect = NativeFullscreen
+                ? new Rect(0f, 0f, Verse.UI.screenWidth, Verse.UI.screenHeight)
+                : MenuLayout.Clamp(windowRect, Verse.UI.screenWidth, Verse.UI.screenHeight);
+        }
+
+        public override void WindowOnGUI()
+        {
+            if (NativeFullscreen)
+            {
+                ClampGeometry();
+                nativeSurface.PrepareWindow();
+            }
+            background.NativeFullscreen = NativeFullscreen;
+            base.WindowOnGUI();
+        }
+
+        public override void WindowUpdate()
+        {
+            base.WindowUpdate();
+            if (nativeSurface != null && nativeSurface.ReadyToClose) base.Close();
+            else if (nativeSurface != null && nativeSurface.ReadyToReturn) LeaveNative();
+        }
+
+        public override void OnCancelKeyPressed()
+        {
+            if (!NativeFullscreen) base.OnCancelKeyPressed();
+        }
 
         public override bool OnCloseRequest()
         {
+            if (nativeSurface != null && nativeSurface.ReadyToClose) return true;
+            if (nativeSurface != null && nativeSurface.Closing) return false;
             if (!session.Save() || !SaveWindowSettings()) return false;
             closeSaved = true;
+            if (nativeSurface != null)
+            {
+                nativeSurface.BeginClose();
+                return false;
+            }
             return true;
         }
 
@@ -85,15 +126,23 @@ namespace IrisMenus
                 // WindowStack can remove a window directly (e.g. return to main menu).
                 if (!closeSaved) { session.Save(); SaveWindowSettings(); }
             }
-            finally { catalog?.Dispose(); background.Dispose(); base.PreClose(); }
+            finally
+            {
+                nativeSurface?.Dispose();
+                nativeSurface = null;
+                catalog?.Dispose();
+                background.Dispose();
+                base.PreClose();
+            }
         }
 
         private bool SaveWindowSettings()
         {
-            Settings.Width = windowRect.width;
-            Settings.Height = windowRect.height;
-            Settings.X = windowRect.x;
-            Settings.Y = windowRect.y;
+            Rect savedRect = NativeFullscreen ? legacyRect : windowRect;
+            Settings.Width = savedRect.width;
+            Settings.Height = savedRect.height;
+            Settings.X = savedRect.x;
+            Settings.Y = savedRect.y;
             if (Settings.RememberState)
             {
                 Settings.LastPage = session.Selected?.Id;
@@ -193,6 +242,11 @@ namespace IrisMenus
             if (catalogRevision != MenuRegistry.Revision || !ReferenceEquals(catalogLanguage, LanguageDatabase.activeLanguage)) RefreshCatalog();
             catalog.Query(browse.Query, browse.Scope);
             if (catalogFrame != Time.frameCount) { catalog.Advance(); catalogFrame = Time.frameCount; }
+            if (nativeSurface != null)
+            {
+                nativeSurface.Draw(inRect);
+                return;
+            }
             var state = new GuiState();
             try
             {
@@ -267,13 +321,19 @@ namespace IrisMenus
             }
             bool showingButton = Settings.ShowMainButton;
             Rect mainButton = layout.MainButton;
-            Widgets.CheckboxLabeled(mainButton, mainButtonLabel, ref showingButton);
+            bool inlineMainButton = mainButton.height < 40f;
+            if (!inlineMainButton) mainButton.height = 20f;
+            Widgets.CheckboxLabeled(mainButton, mainButtonLabel.Truncate(Mathf.Max(1f, mainButton.width - 32f)), ref showingButton);
             TooltipHandler.TipRegion(mainButton, "IM_ShowMainButtonTip".Translate());
             if (showingButton != Settings.ShowMainButton)
             {
                 Settings.ShowMainButton = showingButton;
                 SaveWindowSettings();
             }
+            Rect nativeEntry = new Rect(layout.MainButton.x,
+                inlineMainButton ? remember.center.y - 12f : layout.MainButton.y + 20f,
+                layout.MainButton.width, 24f);
+            if (Widgets.ButtonText(nativeEntry, "IM_NativeOpen".Translate())) EnterNative();
             float sliderWidth = layout.Compact ? footer.width / 2f - 16f : Mathf.Max(120f, layout.Navigation.width - 20f);
             GUI.enabled = Settings.FrostEnabled;
             Settings.Blur = FooterSlider(new Rect(10f, footer.y + 4f, sliderWidth, 28f), "IM_Blur", Settings.Blur);

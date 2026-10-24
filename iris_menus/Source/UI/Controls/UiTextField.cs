@@ -48,6 +48,7 @@ namespace IrisMenus.UI
                 style.onActive.background = null;
                 style.onFocused.background = null;
             }
+            style.fontSize = Mathf.RoundToInt(context.FontSize);
             value = value ?? string.Empty;
             Event current = context.Event;
             EventType original = current != null ? current.type : EventType.Ignore;

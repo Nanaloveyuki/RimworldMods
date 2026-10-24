@@ -1,6 +1,6 @@
 # IrisMenus 完整原生宿主实现准备
 
-本文将双主题网页原型与现有游戏宿主连接起来，供下一步完整实现使用；不代表新宿主、公开呈现接口或游戏验收已经完成。架构方案见 [ADR 0001](../adr/0001-native-settings-presentation.md)，状态仍为 `proposed`。
+本文保留实现前的约束分析，现已由[原生呈现 ADR](../adr/0001-native-settings-presentation.md)和[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)中的当前实现取代。下文“尚未实现”“待确认”描述的是准备阶段，不作为当前状态；后续接口和验收记录请维护接入契约与组件参考，不继续向本文追加。
 
 ## 本轮范围与决定状态
 

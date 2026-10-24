@@ -6,7 +6,7 @@ using Verse;
 
 namespace IrisMenus
 {
-    public static class MenuRegistry
+    public static partial class MenuRegistry
     {
         private static readonly List<MenuPage> registered = new List<MenuPage>();
         private static readonly Dictionary<string, HashSet<string>> subItemRegistrations = new Dictionary<string, HashSet<string>>();

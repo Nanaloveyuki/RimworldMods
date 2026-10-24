@@ -6,7 +6,7 @@ namespace IrisMenus.UI
     public sealed class UiTooltip
     {
         private readonly UiContext context;
-        private readonly float delay;
+        private float delay;
         private UiTween visibility;
         private Rect anchorScreen;
         private string text = string.Empty;
@@ -20,10 +20,19 @@ namespace IrisMenus.UI
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             if (float.IsNaN(delay) || float.IsInfinity(delay) || delay < 0f) throw new ArgumentOutOfRangeException(nameof(delay));
-            this.delay = delay;
+            Delay = delay;
         }
 
         public bool IsVisible => requested || visibility.Value > 0f;
+        public float Delay
+        {
+            get => delay;
+            set
+            {
+                if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f) throw new ArgumentOutOfRangeException(nameof(value));
+                delay = value;
+            }
+        }
 
         // Observe after the target control; targetId enables the same tooltip from keyboard focus.
         // This is not a second Interact call and does not participate in focus or mouse capture.
