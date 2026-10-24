@@ -90,7 +90,7 @@ namespace IrisMenus
             try
             {
                 Rect window = Owner.windowRect;
-                Rect uv = MenuLayout.BackgroundUv(window, UI.screenWidth, UI.screenHeight);
+                Rect uv = MenuLayout.BackgroundUv(window, Verse.UI.screenWidth, Verse.UI.screenHeight);
                 GUI.color = Color.white;
                 if (Settings.Transparency > 0f && Settings.FrostEnabled && pipeline?.Texture != null && capturedFrame >= Time.frameCount - 1)
                     GUI.DrawTexture(rect, pipeline.Crop(uv), ScaleMode.StretchToFill, true, 0f, Color.white, 0f, CornerRadius);

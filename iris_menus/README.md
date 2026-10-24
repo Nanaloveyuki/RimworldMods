@@ -10,6 +10,8 @@ See [integration guide](docs/references/guide.md) for the Chinese integration wa
 [Agent integration contract](docs/agents/integration.md) for exact API contracts and troubleshooting.
 Markdown help and documentation content is covered in
 [docs/references/markdown.md](docs/references/markdown.md).
+Reusable native controls, containers, overlays and their IMGUI/animation contracts are documented in
+[Native UI components](docs/references/native-ui-components.md); these do not yet replace `MenuWindow`.
 Pages are grouped by Mod; only the selected group expands. Existing single-page
 registrations still open directly. Search supports global or owner-wide metadata
 results, pagination, and explicit anchors without drawing unselected pages.

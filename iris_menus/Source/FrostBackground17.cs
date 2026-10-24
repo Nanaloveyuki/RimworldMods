@@ -114,17 +114,17 @@ namespace IrisMenus
                         backdrop = menu.overrideBGImage ?? menuBackdrop;
                         Vector2 size = menu.overrideBGImage != null
                             ? new Vector2(backdrop.width, backdrop.height) : new Vector2(2048f, 1280f);
-                        if (UI.screenWidth <= UI.screenHeight * size.x / size.y)
+                        if (Verse.UI.screenWidth <= Verse.UI.screenHeight * size.x / size.y)
                         {
-                            float width = UI.screenHeight * size.x / size.y;
-                            sourceRect = new Rect((UI.screenWidth / 2 - width * 0.5f) * Prefs.UIScale, 0f,
-                                width * Prefs.UIScale, UI.screenHeight * Prefs.UIScale);
+                            float width = Verse.UI.screenHeight * size.x / size.y;
+                            sourceRect = new Rect((Verse.UI.screenWidth / 2 - width * 0.5f) * Prefs.UIScale, 0f,
+                                width * Prefs.UIScale, Verse.UI.screenHeight * Prefs.UIScale);
                         }
                         else
                         {
-                            float height = UI.screenWidth * size.y / size.x;
-                            sourceRect = new Rect(0f, (UI.screenHeight / 2 - height * 0.5f) * Prefs.UIScale,
-                                UI.screenWidth * Prefs.UIScale, height * Prefs.UIScale);
+                            float height = Verse.UI.screenWidth * size.y / size.x;
+                            sourceRect = new Rect(0f, (Verse.UI.screenHeight / 2 - height * 0.5f) * Prefs.UIScale,
+                                Verse.UI.screenWidth * Prefs.UIScale, height * Prefs.UIScale);
                         }
                     }
                 }

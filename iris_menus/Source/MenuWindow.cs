@@ -55,8 +55,8 @@ namespace IrisMenus
         }
 
         public override Vector2 InitialSize => MenuLayout.Clamp(new Rect(0f, 0f,
-            Settings.Width > 0f ? Settings.Width : UI.screenWidth * 0.92f,
-            Settings.Height > 0f ? Settings.Height : UI.screenHeight * 0.88f), UI.screenWidth, UI.screenHeight).size;
+            Settings.Width > 0f ? Settings.Width : Verse.UI.screenWidth * 0.92f,
+            Settings.Height > 0f ? Settings.Height : Verse.UI.screenHeight * 0.88f), Verse.UI.screenWidth, Verse.UI.screenHeight).size;
 
         public override void PostOpen()
         {
@@ -69,7 +69,7 @@ namespace IrisMenus
         }
 
         public override void Notify_ResolutionChanged() { ClampGeometry(); }
-        private void ClampGeometry() { windowRect = MenuLayout.Clamp(windowRect, UI.screenWidth, UI.screenHeight); }
+        private void ClampGeometry() { windowRect = MenuLayout.Clamp(windowRect, Verse.UI.screenWidth, Verse.UI.screenHeight); }
 
         public override bool OnCloseRequest()
         {
