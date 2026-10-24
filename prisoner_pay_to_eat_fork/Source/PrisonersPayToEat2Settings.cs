@@ -44,6 +44,11 @@ namespace PrisonersPayToEat2
         public List<string> pieceRateWorkTypes = new List<string>();               // flagged as piece-rate
         public Dictionary<string, float> workTypePieceWages = new Dictionary<string, float>();
 
+        public bool enableIndividualWorkGiverBilling = false;
+        public Dictionary<string, float> workGiverWages = new Dictionary<string, float>();
+        public Dictionary<string, float> workGiverPieceWages = new Dictionary<string, float>();
+        public Dictionary<string, bool> workGiverPieceModes = new Dictionary<string, bool>();
+
         // Per-foodDef custom price override (absolute ticket cost per eaten unit; supports decimals).
         public Dictionary<string, float> customFoodPrices = new Dictionary<string, float>();
 
@@ -77,6 +82,10 @@ namespace PrisonersPayToEat2
         public bool enableMotivation = true;          // 动机系统：无人看管/饥饿时动机下降，过低怠工
         public float motivationWorkThreshold = 0.2f;  // 动机低于此值拒绝工作（怠工）
         public List<string> prisonerAllowedWorkTypes = PrisonerWorkSystem.DefaultWorkTypes();
+
+        public bool forbidPrisonerMedicalRest = false;
+        public bool forbidNonCriticalPrisonerMedicalRest = false;
+        public float criticalDiseaseThreshold = 0.9f;
 
         // ============ 派系索要（通讯台）：向囚犯所属派系索要白银，白银空投、囚犯加饭票 ============
         public bool enableFactionRequest = true;        // 总开关
@@ -137,6 +146,13 @@ namespace PrisonersPayToEat2
             if (pieceRateWorkTypes == null) pieceRateWorkTypes = new List<string>();
             Scribe_Collections.Look(ref workTypePieceWages, "workTypePieceWages", LookMode.Value, LookMode.Value);
             if (workTypePieceWages == null) workTypePieceWages = new Dictionary<string, float>();
+            Scribe_Values.Look(ref enableIndividualWorkGiverBilling, "enableIndividualWorkGiverBilling", false);
+            Scribe_Collections.Look(ref workGiverWages, "workGiverWages", LookMode.Value, LookMode.Value);
+            Scribe_Collections.Look(ref workGiverPieceWages, "workGiverPieceWages", LookMode.Value, LookMode.Value);
+            Scribe_Collections.Look(ref workGiverPieceModes, "workGiverPieceModes", LookMode.Value, LookMode.Value);
+            workGiverWages ??= new Dictionary<string, float>();
+            workGiverPieceWages ??= new Dictionary<string, float>();
+            workGiverPieceModes ??= new Dictionary<string, bool>();
             Scribe_Collections.Look(ref customFoodPrices, "customFoodPrices", LookMode.Value, LookMode.Value);
             if (customFoodPrices == null) customFoodPrices = new Dictionary<string, float>();
             Scribe_Values.Look(ref enableLoans, "enableLoans", true);
@@ -165,6 +181,11 @@ namespace PrisonersPayToEat2
             Scribe_Values.Look(ref motivationWorkThreshold, "motivationWorkThreshold", 0.2f);
             Scribe_Collections.Look(ref prisonerAllowedWorkTypes, "prisonerAllowedWorkTypes", LookMode.Value);
             if (prisonerAllowedWorkTypes == null) prisonerAllowedWorkTypes = PrisonerWorkSystem.DefaultWorkTypes();
+            Scribe_Values.Look(ref forbidPrisonerMedicalRest, "forbidPrisonerMedicalRest", false);
+            Scribe_Values.Look(ref forbidNonCriticalPrisonerMedicalRest, "forbidNonCriticalPrisonerMedicalRest", false);
+            Scribe_Values.Look(ref criticalDiseaseThreshold, "criticalDiseaseThreshold", 0.9f);
+            criticalDiseaseThreshold = float.IsFinite(criticalDiseaseThreshold)
+                ? Mathf.Clamp01(criticalDiseaseThreshold) : 0.9f;
             Scribe_Values.Look(ref enableFactionRequest, "enableFactionRequest", true);
             Scribe_Values.Look(ref enableCellAutoRequest, "enableCellAutoRequest", true);
             Scribe_Values.Look(ref requestSilverMinFactor, "requestSilverMinFactor", 0.1f);
@@ -236,7 +257,12 @@ namespace PrisonersPayToEat2
             var content = new Rect(inRect.x, inRect.y + tabBarH + 8f, inRect.width,
                 inRect.height - tabBarH - 8f);
 
-            switch (_curTab)
+            DrawSettingsPage(_curTab, content);
+        }
+
+        internal void DrawSettingsPage(int page, Rect content)
+        {
+            switch (page)
             {
                 case 0: DrawGeneralTab(content); break;
                 case 1: DrawWorkTypeWagesTab(content); break;
@@ -267,10 +293,12 @@ namespace PrisonersPayToEat2
                 contentHeight = 4f + 90f + (enableMotivation ? 54f : 0f) + 16f + 32f
                     + rows * 30f + 12f + Text.CalcHeight("PPTE2_PrisonWorkHint".Translate(), width);
             }
+            contentHeight += MedicalRestControlsHeight(width);
             var view = new Rect(0f, 0f, width, Mathf.Max(rect.height, contentHeight));
             Widgets.BeginScrollView(rect, ref _prisonWorkScroll, view);
             float colW = (view.width - 40f) / 2f;
             float ly = 4f;
+            DrawMedicalRestControls(width, ref ly);
 
             if (PrisonLaborBridge.Present)
             {
@@ -670,6 +698,8 @@ namespace PrisonersPayToEat2
 
         private static List<WorkTypeDef> _cachedWorkTypes;
         private Vector2 _workWageScroll = Vector2.zero;
+        private static List<WorkGiverDef> _cachedWorkGivers;
+        private readonly Dictionary<string, string> _workGiverInputBuffers = new Dictionary<string, string>();
 
         private void DrawWorkTypeWagesTab(Rect rect)
         {
@@ -682,35 +712,48 @@ namespace PrisonersPayToEat2
                 workTypeWages.Clear();
                 workTypePieceWages.Clear();
                 pieceRateWorkTypes.Clear();
+                workGiverWages.Clear();
+                workGiverPieceWages.Clear();
+                workGiverPieceModes.Clear();
+                _workGiverInputBuffers.Clear();
             }
             if (Widgets.ButtonText(new Rect(rect.xMax - 155f, toolY, 155f, 26f), "PPTE2_FillWorkTypeWages".Translate()))
             {
                 EnsureWorkTypesCached();
                 foreach (var wt in _cachedWorkTypes) workTypeWages[wt.defName] = defaultWagePerHour;
+                if (enableIndividualWorkGiverBilling)
+                    foreach (var giver in _cachedWorkGivers) workGiverWages[giver.defName] = defaultWagePerHour;
+                _workGiverInputBuffers.Clear();
             }
+            float advancedY = toolY + 32f;
+            Widgets.CheckboxLabeled(new Rect(rect.x, advancedY, rect.width, 28f),
+                "PPTE2_IndividualWorkGiverBilling".Translate(), ref enableIndividualWorkGiverBilling);
 
             // wrapped hint below the toolbar (auto height so long translations never clip)
             GUI.color = new Color(0.7f, 0.7f, 0.65f);
-            float hintH = Text.CalcHeight("PPTE2_WorkTypeWagesHint".Translate(), rect.width);
-            Widgets.Label(new Rect(rect.x, toolY + 30f, rect.width, hintH), "PPTE2_WorkTypeWagesHint".Translate());
+            string hint = "PPTE2_WorkTypeWagesHint".Translate();
+            if (enableIndividualWorkGiverBilling) hint += "\n" + "PPTE2_WorkGiverBillingHint".Translate();
+            float hintH = Text.CalcHeight(hint, rect.width);
+            Widgets.Label(new Rect(rect.x, toolY + 64f, rect.width, hintH), hint);
             GUI.color = Color.white;
 
             // scrollable list filling the rest of the tab
-            var listRect = new Rect(rect.x, toolY + 34f + hintH, rect.width, rect.yMax - toolY - 34f - hintH);
+            var listRect = new Rect(rect.x, toolY + 68f + hintH, rect.width, Mathf.Max(0f, rect.yMax - toolY - 68f - hintH));
             EnsureWorkTypesCached();
             const float rowH = 28f;
-            var view = new Rect(0f, 0f, listRect.width - 20f, 30f + _cachedWorkTypes.Count * rowH);
+            float individualHeight = enableIndividualWorkGiverBilling ? 66f + _cachedWorkGivers.Count * 32f : 0f;
+            var view = new Rect(0f, 0f, listRect.width - 20f, 36f + _cachedWorkTypes.Count * rowH + individualHeight);
             Widgets.BeginScrollView(listRect, ref _workWageScroll, view);
 
             // column headers
-            const float labelW = 180f;
-            const float modeW = 100f;
-            const float inputW = 80f;
-            float hourlyX = 2f + labelW + 6f + modeW;
-            float pieceX = view.width - inputW - 2f;
+            float labelW = view.width * 0.38f;
+            float modeW = view.width * 0.28f;
+            float inputW = (view.width - labelW - modeW - 20f) / 2f;
+            float hourlyX = labelW + modeW + 6f;
+            float pieceX = hourlyX + inputW + 8f;
             GUI.color = new Color(0.8f, 0.8f, 0.65f);
             Widgets.Label(new Rect(2f, 4f, labelW, 20f), "PPTE2_HdrWorkType".Translate());
-            Widgets.Label(new Rect(2f + labelW + 6f, 4f, modeW, 20f), "PPTE2_HdrMode".Translate());
+            Widgets.Label(new Rect(labelW, 4f, modeW, 20f), "PPTE2_HdrMode".Translate());
             Widgets.Label(new Rect(hourlyX, 4f, inputW, 20f), "PPTE2_HdrHourlyWage".Translate());
             Widgets.Label(new Rect(pieceX, 4f, inputW, 20f), "PPTE2_HdrPieceWage".Translate());
             GUI.color = Color.white;
@@ -723,10 +766,10 @@ namespace PrisonersPayToEat2
                 bool piece = pieceRateWorkTypes.Contains(wt.defName);
 
                 // label
-                Widgets.Label(new Rect(2f, y + 2f, labelW, 22f), wt.labelShort ?? wt.defName);
+                Widgets.Label(new Rect(2f, y + 2f, labelW - 8f, 22f), wt.labelShort ?? wt.defName);
 
                 // mode toggle: [按时] [按量]
-                float mx = 2f + labelW + 6f;
+                float mx = labelW;
                 float btnW = (modeW - 4f) / 2f;
                 GUI.color = piece ? Color.white : gold;
                 if (Widgets.ButtonText(new Rect(mx, y, btnW, 22f), "PPTE2_ModePerHour".Translate()))
@@ -766,6 +809,22 @@ namespace PrisonersPayToEat2
 
                 y += rowH;
             }
+            if (enableIndividualWorkGiverBilling)
+            {
+                Widgets.Label(new Rect(2f, y + 4f, view.width, 28f), "PPTE2_WorkGiverBillingTitle".Translate());
+                y += 36f;
+                Widgets.Label(new Rect(2f, y, labelW, 24f), "PPTE2_HdrWorkType".Translate());
+                Widgets.Label(new Rect(labelW, y, modeW, 24f), "PPTE2_HdrMode".Translate());
+                Widgets.Label(new Rect(hourlyX, y, inputW, 24f), "PPTE2_HdrHourlyWage".Translate());
+                Widgets.Label(new Rect(pieceX, y, inputW, 24f), "PPTE2_HdrPieceWage".Translate());
+                y += 30f;
+                for (int i = 0; i < _cachedWorkGivers.Count; i++)
+                {
+                    if (y + 32f >= _workWageScroll.y && y <= _workWageScroll.y + listRect.height)
+                        DrawWorkGiverWageRow(_cachedWorkGivers[i], new Rect(0f, y, view.width, 32f));
+                    y += 32f;
+                }
+            }
 
             Widgets.EndScrollView();
         }
@@ -773,6 +832,7 @@ namespace PrisonersPayToEat2
         internal static void RefreshWorkTypes()
         {
             _cachedWorkTypes = null;
+            _cachedWorkGivers = null;
             EnsureWorkTypesCached();
         }
 
@@ -784,6 +844,77 @@ namespace PrisonersPayToEat2
                 _cachedWorkTypes.Add(wt);
             _cachedWorkTypes.Sort((a, b) =>
                 string.CompareOrdinal(a.labelShort ?? a.defName, b.labelShort ?? b.defName));
+            _cachedWorkGivers = new List<WorkGiverDef>(DefDatabase<WorkGiverDef>.AllDefsListForReading);
+            _cachedWorkGivers.Sort((a, b) =>
+            {
+                int parent = string.CompareOrdinal(a.workType?.defName, b.workType?.defName);
+                return parent != 0 ? parent : string.CompareOrdinal(a.label ?? a.defName, b.label ?? b.defName);
+            });
+        }
+
+        private void DrawWorkGiverWageRow(WorkGiverDef giver, Rect row)
+        {
+            float nameWidth = row.width * 0.38f;
+            float modeWidth = row.width * 0.28f;
+            float inputWidth = (row.width - nameWidth - modeWidth - 20f) / 2f;
+            string label = giver.label.NullOrEmpty() ? giver.defName : giver.label;
+            Widgets.Label(new Rect(2f, row.y + 2f, nameWidth - 8f, 26f), label);
+            TooltipHandler.TipRegion(new Rect(0f, row.y, nameWidth, row.height), giver.defName + "\n"
+                + (giver.workType?.labelShort ?? "PPTE2_NoParentWorkType".Translate().ToString()));
+            bool hasMode = workGiverPieceModes.TryGetValue(giver.defName, out bool piece);
+            int selected = !hasMode ? 0 : piece ? 2 : 1;
+            Color previous = GUI.color;
+            for (int mode = 0; mode < 3; mode++)
+            {
+                GUI.color = mode == selected ? new Color(1f, 0.85f, 0.45f) : previous;
+                string key = mode == 0 ? "PPTE2_WorkGiverInherit" : mode == 1 ? "PPTE2_ModePerHour" : "PPTE2_ModePerItem";
+                if (Widgets.ButtonText(new Rect(nameWidth + mode * modeWidth / 3f, row.y, modeWidth / 3f - 3f, 24f), key.Translate()))
+                {
+                    if (mode == 0) workGiverPieceModes.Remove(giver.defName);
+                    else workGiverPieceModes[giver.defName] = mode == 2;
+                }
+            }
+            GUI.color = previous;
+            float hourlyX = nameWidth + modeWidth + 6f;
+            DrawWorkGiverWageInput(new Rect(hourlyX, row.y, inputWidth, 24f), giver.defName, false);
+            DrawWorkGiverWageInput(new Rect(hourlyX + inputWidth + 8f, row.y, inputWidth, 24f), giver.defName, true);
+        }
+
+        private void DrawWorkGiverWageInput(Rect rect, string id, bool piece)
+        {
+            var rates = piece ? workGiverPieceWages : workGiverWages;
+            string key = (piece ? "piece:" : "hour:") + id;
+            if (!_workGiverInputBuffers.TryGetValue(key, out string buffer))
+                buffer = rates.TryGetValue(id, out float value) ? value.ToString("0.##") : "";
+            string next = Widgets.TextField(rect, buffer);
+            _workGiverInputBuffers[key] = next;
+            if (next == buffer) return;
+            if (next.Trim().Length == 0) rates.Remove(id);
+            else if (float.TryParse(next, out float value) && float.IsFinite(value) && value >= 0f) rates[id] = value;
+        }
+
+        private float MedicalRestControlsHeight(float width) => 104f
+            + Text.CalcHeight("PPTE2_MedicalRestHint".Translate(), width)
+            + (!forbidPrisonerMedicalRest && forbidNonCriticalPrisonerMedicalRest ? 54f : 0f);
+
+        private void DrawMedicalRestControls(float width, ref float y)
+        {
+            Widgets.CheckboxLabeled(new Rect(0f, y, width, 28f), "PPTE2_ForbidMedicalRest".Translate(), ref forbidPrisonerMedicalRest);
+            y += 32f;
+            bool enabled = GUI.enabled;
+            GUI.enabled = enabled && !forbidPrisonerMedicalRest;
+            Widgets.CheckboxLabeled(new Rect(0f, y, width, 28f), "PPTE2_ForbidNonCriticalMedicalRest".Translate(), ref forbidNonCriticalPrisonerMedicalRest);
+            GUI.enabled = enabled;
+            y += 32f;
+            if (!forbidPrisonerMedicalRest && forbidNonCriticalPrisonerMedicalRest)
+                DrawSliderRow(0f, ref y, width, "PPTE2_CriticalDiseaseThreshold".Translate(criticalDiseaseThreshold.ToStringPercent()),
+                    ref criticalDiseaseThreshold, 0f, 1f);
+            string hint = "PPTE2_MedicalRestHint".Translate();
+            float height = Text.CalcHeight(hint, width);
+            Widgets.Label(new Rect(0f, y, width, height), hint);
+            y += height + 20f;
+            Widgets.DrawLineHorizontal(0f, y, width);
+            y += 20f;
         }
 
         // ================= Tab 3: Custom food prices =================

@@ -95,8 +95,9 @@ namespace PrisonersPayToEat2
         private static string Status(Pawn pawn)
         {
             if (pawn == null || pawn.Dead) return "-";
-            var wt = PrisonLaborBridge.CurrentWorkTypeDef(pawn);
-            if (wt != null) return wt.labelShort ?? wt.defName;
+            var work = WorkAttribution.Resolve(pawn, pawn.jobs?.curJob);
+            if (WorkBilling.HasIndividualRates(work)) return work.Giver.label.NullOrEmpty() ? work.Giver.defName : work.Giver.label;
+            if (work.WorkType != null) return work.WorkType.labelShort ?? work.WorkType.defName;
             return "PPTE2_StatusIdle".Translate();
         }
 

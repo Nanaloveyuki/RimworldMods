@@ -15,6 +15,13 @@ namespace PrisonersPayToEat2
     /// </summary>
     public static class Harmony_PieceRate
     {
+        private static void CreditCurrent(Pawn pawn, WorkUnit unit)
+        {
+            var work = WorkAttribution.Resolve(pawn, pawn.jobs?.curJob);
+            if (WorkBilling.IsKnown(work) && WorkBilling.UsesUnit(work, unit))
+                PieceRateWorker.Credit(pawn, work, 1f);
+        }
+
         /// <summary>Production tables: one completed recipe batch.</summary>
         [HarmonyPatch(typeof(RecordsUtility), nameof(RecordsUtility.Notify_BillDone))]
         public static class Patch_BillDone
@@ -23,8 +30,7 @@ namespace PrisonersPayToEat2
             static void Postfix(Pawn billDoer)
             {
                 if (billDoer == null || !billDoer.IsPrisonerOfColony) return;
-                var wt = PrisonLaborBridge.CurrentWorkTypeDef(billDoer);
-                if (wt != null) PieceRateWorker.Credit(billDoer, wt, 1f);
+                CreditCurrent(billDoer, WorkUnit.Bill);
             }
         }
 
@@ -36,8 +42,7 @@ namespace PrisonersPayToEat2
             static void Postfix(Pawn pawn)
             {
                 if (pawn == null || !pawn.IsPrisonerOfColony) return;
-                var wt = PrisonLaborBridge.CurrentWorkTypeDef(pawn);
-                if (wt != null) PieceRateWorker.Credit(pawn, wt, 1f);
+                CreditCurrent(pawn, WorkUnit.Mining);
             }
         }
 
@@ -49,8 +54,7 @@ namespace PrisonersPayToEat2
             static void Postfix(Pawn worker)
             {
                 if (worker == null || !worker.IsPrisonerOfColony) return;
-                var wt = PrisonLaborBridge.CurrentWorkTypeDef(worker);
-                if (wt != null) PieceRateWorker.Credit(worker, wt, 1f);
+                CreditCurrent(worker, WorkUnit.Construction);
             }
         }
 
@@ -62,8 +66,7 @@ namespace PrisonersPayToEat2
             static void Postfix(Pawn by)
             {
                 if (by == null || !by.IsPrisonerOfColony) return;
-                var wt = PrisonLaborBridge.CurrentWorkTypeDef(by);
-                if (wt != null) PieceRateWorker.Credit(by, wt, 1f);
+                CreditCurrent(by, WorkUnit.Plant);
             }
         }
 
@@ -80,8 +83,7 @@ namespace PrisonersPayToEat2
                 if (def != RecordDefOf.PlantsSown && def != RecordDefOf.MessesCleaned) return;
                 var pawn = __instance?.pawn;
                 if (pawn == null || !pawn.IsPrisonerOfColony) return;
-                var wt = PrisonLaborBridge.CurrentWorkTypeDef(pawn);
-                if (wt != null) PieceRateWorker.Credit(pawn, wt, 1f);
+                CreditCurrent(pawn, def == RecordDefOf.PlantsSown ? WorkUnit.Sowing : WorkUnit.Cleaning);
             }
         }
 
@@ -107,8 +109,7 @@ namespace PrisonersPayToEat2
                 if (!__result || mode != ThingPlaceMode.Direct) return;
                 var pawn = __instance?.pawn;
                 if (pawn == null || !pawn.IsPrisonerOfColony) return;
-                var wt = PrisonLaborBridge.CurrentWorkTypeDef(pawn);
-                if (wt != null && wt.defName == "Hauling") PieceRateWorker.Credit(pawn, wt, 1f);
+                CreditCurrent(pawn, WorkUnit.Hauling);
             }
         }
 
@@ -132,12 +133,12 @@ namespace PrisonersPayToEat2
             internal readonly struct Completion
             {
                 internal readonly Pawn Pawn;
-                internal readonly WorkTypeDef WorkType;
+                internal readonly AttributedWork Work;
 
-                internal Completion(Pawn pawn, WorkTypeDef workType)
+                internal Completion(Pawn pawn, AttributedWork work)
                 {
                     Pawn = pawn;
-                    WorkType = workType;
+                    Work = work;
                 }
             }
 
@@ -150,15 +151,14 @@ namespace PrisonersPayToEat2
                 var pawn = driver?.pawn;
                 if (pawn == null || !pawn.IsPrisonerOfColony) return;
                 var work = WorkAttribution.Resolve(pawn, __instance.curJob);
-                var wt = work.WorkType;
-                if (wt == null || PieceRateWorker.HasSpecificUnit(wt) || !work.CanComplete(driver)) return;
-                __state = new Completion(pawn, wt);
+                if (!WorkBilling.IsKnown(work) || !WorkBilling.UsesUnit(work, WorkUnit.Job) || !work.CanComplete(driver)) return;
+                __state = new Completion(pawn, work);
             }
 
             [HarmonyPostfix]
             static void Postfix(Completion __state)
             {
-                if (__state.Pawn != null) PieceRateWorker.CreditJobDone(__state.Pawn, __state.WorkType);
+                if (__state.Pawn != null) PieceRateWorker.Credit(__state.Pawn, __state.Work, 1f);
             }
         }
     }

@@ -7,7 +7,7 @@ namespace PrisonersPayToEat2
     public class PrisonersPayToEat2Mod : Mod
     {
         public const string HarmonyId = "nanaloveyuki.prisonerspaytoeat2.fork";
-        public const string ModVersion = "2.5.2";
+        public const string ModVersion = "2.6.0";
 
         public static PrisonersPayToEat2Settings Settings;
         public static PrisonersPayToEat2Mod Instance;
@@ -26,6 +26,9 @@ namespace PrisonersPayToEat2
             // 生成与渲染一起崩。改由 PPTELateInit（[StaticConstructorOnStartup]，Defs 加载之后）
             // 执行，时序上仍然早于任何地图和 Pawn 的创建。
 
+            // Wait for every Mod instance and its content before resolving the optional IrisMenus API.
+            LongEventHandler.ExecuteWhenFinished(() => IrisMenusBridge.Register(this));
+
             Log.Message($"[PrisonersPayToEat2] v{ModVersion} loaded (RimWorld 1.7). PrisonLabor={PrisonLaborBridge.Present}, OrganHarvest={Settings.enableOrganHarvest}, FoodMul={Settings.foodPriceMultiplier}, WageMul={Settings.wageMultiplier}");
         }
 
@@ -33,6 +36,7 @@ namespace PrisonersPayToEat2
 
         public override void DoSettingsWindowContents(UnityEngine.Rect inRect)
         {
+            // IrisMenus routes normal dialogs to native pages; other hosts retain every vanilla tab.
             Settings.DoWindowContents(inRect);
         }
     }

@@ -17,8 +17,8 @@ namespace PrisonersPayToEat2
         {
             if (!PrisonerWorkSystem.IsWorkEnabled(pawn)) return false;
             if (pawn.InMentalState || pawn.Downed) return false;
-            // wounded/sick prisoners fall through to the prisoner branch's medical bed-rest
-            if (HealthAIUtility.ShouldSeekMedicalRest(pawn)) return false;
+            // Allowed medical rest falls through to the vanilla prisoner branch.
+            if (PrisonerMedicalRestPolicy.ShouldSeekMedicalRest(pawn)) return false;
             if (!PrisonerWorkSystem.MotivationAllowsWork(pawn)) return false;
             return true;
         }

@@ -8,7 +8,7 @@
 - 导入日期：2026-10-18；分支：`main`；版本：`v2.3.2`。
 - 上游 commit：[`5e5bab4db0b5cd4a55f161197a0a0caa085df08d`](https://github.com/ikun2522-art/PPTE2/commit/5e5bab4db0b5cd4a55f161197a0a0caa085df08d)。
 - 许可证：[MIT](LICENSE)；保留上游版权声明，不改为根目录双许可。
-- 当前 fork：`2.5.2`，主线仅构建 RimWorld 1.7 / .NET 10；包名为 `nanaloveyuki.prisonerspaytoeat2.fork`，Harmony 标识同步独立。1.6 的原 DLL 和完整加载资源冻结保留，不重编、不回填修复，也不维护第二套源码。
+- 当前 fork：`2.6.0`，主线仅构建 RimWorld 1.7 / .NET 10；包名为 `nanaloveyuki.prisonerspaytoeat2.fork`，Harmony 标识同步独立。1.6 的原 DLL 和完整加载资源冻结保留，不重编、不回填修复，也不维护第二套源码。
 
 ### Fork 维护与验收
 
@@ -20,6 +20,13 @@
 三份 ADR 已接受。#5–#8 的正确性修复已在真实 1.7 验收并关闭对应 issue；迁移与正确性提交为 `592fa7e`，性能改动在其后独立实施。原 1.6 发布版仍保留既有缺陷。
 
 #### 已实施
+
+2.6.0：IrisMenus 分项设置、囚犯休养限制、劳动产物权限修复及高级逐项计费。
+
+- IrisMenus 可选接入：仅检查运行列表中的 `Nanaloveyuki.IrisMenus`，不按版本声明筛选。启用后注册七个原生 SubItem，内容直接占用宿主提供的区域，不重复绘制原分类栏或保留其空白；未启用或接口缺失时保留完整原版设置页。不新增硬依赖。
+- 「囚犯工作」新增「禁止囚犯休养」和「禁止非危重囚犯休养」，默认均关闭；前者优先。仅限制主动医疗休养，保留普通睡眠、倒地护理、可用医生的治疗和已就绪手术。危重包括持续失血的游戏致死估算、未免疫的可致死病症超过可调阈值（默认 90%，范围 0–100%，严格大于），以及其他正在危及生命的游戏状态；已免疫和待移除状态不计入。
+- 内置劳工的有效囚犯收获、采矿时按殖民地主人判定产物权限，仓储选择也使用主人派系，避免因囚犯保留原派系而自动禁止产物或拒绝玩家货架。玩家显式禁止、活动区、预留和加工单权限仍生效；Prison Labor 与未启用工作的囚犯沿用原逻辑。旧产物的自动禁止与手动禁止无法区分，不批量清除旧标记；玩家可手动解除旧产物禁用。
+- 工资页新增高级「逐项工作设置工资」，默认关闭。完整列出 `WorkGiverDef`，包括没有 `workType` 的项目，按父工种分组排序；逐项设置继承／按时／按量及两种工资，空值继承父工种，无父工种时使用默认时薪。个体模式覆盖、按量总开关和工资倍率优先级不变，关闭高级选项保留但不应用配置；重置全部清除两层配置。此选项不扩大派工许可、不补造来源标记；无父工种且缺少专用产出事件时按成功完成的任务计件，中断不付。科研贡献按角色及来源保留分配，避免换任务后丢失逐项单价。
 
 - 找食与实际进食共用收费判定；个体免费、个体强制收费、全局免费及指定食物免费按同一优先级生效。营养膏按输出食物判定，保留实际份数收费和赊账。
 - 通用计件在任务清理前用值类型保存角色与工种；归池后不再读取已清空的 Job/Driver。搬运只在成功的 Direct 放置后支付。
@@ -47,6 +54,8 @@ Windows 使用 `python scripts/python/deploy.py` 及相同参数。构建引用�
 
 输出为 `1.7/Assemblies/PrisonersPayToEat2.dll`；正式暂存为 `artifacts/prisoner_pay_to_eat_fork/release`。正式部署要求退出游戏，默认目标为游戏 `Mods/PrisonersPayToEat2`；不会覆盖工坊原 Mod。启用列表须从原版 PPTE2 切换为本 fork，新旧包名不同但共享程序集与 Def，About 声明二者互斥，不能同时启用。存档类型、字段和程序集名不变；已有 fork 安装原地更新。部署保留目标已有的 `PublishedFileId.txt` 和 1.6 文件；新安装补齐冻结的完整 1.6 内容。
 
+已发布的现有安装目录为 `E:/Apps/Steam/steamapps/common/RimWorld/Mods/PrisonersPayToEat2Fork`，原地更新必须显式传入 `--target` 指向该目录，不使用默认目录创建同包名副本；保留其 Workshop ID `3822267547`。
+
 README、ADR 和其他开发文档仅保留在源码仓库，不纳入发布或部署。About 描述只介绍玩家可见功能。
 
 `LoadFolders.xml` 明确分流：1.6 加载 `1.6/Released` 的上游资源和 `1.6/Assemblies` 原 DLL；1.7 只加载 `Common` 和 `1.7`。源码只维护 1.7；不要将新的设置文案或 DLL 同步回旧版快照。
@@ -66,6 +75,8 @@ README、ADR 和其他开发文档仅保留在源码仓库，不纳入发布或�
 - 2.5.0 真实运行追加45项断言：20项消费/家庭额度、6项申请边界、5项信件存读档、11项账单存读档/真实摘除/掉落物与收入、3项失败摘除不付款。胃无原版掉落物已实测；通用器官分支通过临时赋予可掉落身体定义验证，未声称原版胃可以出售。设置与申请窗口有实际截图，回执 `debt-organ-smoke.json`；临时 Mod 不发布。
 - 最终2.5.0生产包在移除临时测试 Mod、重置独立 profile 设置后重新启动、新建游戏并推进500 tick，日志无Error；新包名已加载，默认赊账下限-100、器官申请阈值0、内置劳工启用。证据为 `250-production-log.json` / `250-production-state.json`。
 - 启动参数绑定修复：真实 1.7 中加载只更名参数的临时 WorkGiver，修复前复现 `Parameter ... not found` 和 `PPTELateInit` 失败；修复后确认延迟初始化完成，并通过18项 Thing/Cell 补丁、殖民者禁工、区外放行、囚犯放行和关闭内置劳工的断言，随后推进500 tick，日志无 Error。证据为 `startup-binding-before.log`、`startup-binding-after.log`、`startup-binding-behavior.json`；该回归未加载 ClusterProjection 原程序集，不替代玩家完整 Mod 列表重启验收。
+- 2026-10-24 设置与劳工更新：隔离 `1.7.4985` 实际验证 IrisMenus 七类导航／无重复栏、关闭 IrisMenus 的原版分类栏、无父工种按时和成功归池计件／中断不付／继承及个体覆盖、配置写盘重启、收获和采矿产物的修复前后对照、实际玩家货架搜索与搬运任务、显式禁止和活动区限制；休养验证严格阈值、免疫、持续／停止出血、即时危重状态、真实卧床任务入口及可用医生治疗例外。截图与回执位于本机 `C:/RimCarbon14/ppte-features-20261024/evidence`；临时探针不发布，不代表完整第三方 Mod 列表验收。
+- 2.6.0 最终暂存包不启用临时探针，单独启动、新建游戏并推进 500 tick；读取实际加载程序集的 `ModVersion` 为 `2.6.0`，原版日志队列共 19 条，无 Error。标准 build-only 构建零警告、零错误，57 个发布文件通过 SHA-256 校验，1.6 DLL 哈希未变。证据为上述目录的 `260-production-state.json` / `260-production-log.json`。
 - 上述修复移除临时探针后再次以纯生产包启动、新建游戏并推进500 tick，确认延迟初始化完成、无 Error；正式安装与隔离安装 DLL 均与构建输出一致，发布目录仍不含 README。回执为 `startup-binding-production.log` / `startup-binding-production-state.json`。
 - 从 vendor commit `8539fff` 比对完整旧发布：25 个 DLL/Defs/Patches/Languages/Textures 文件逐字节一致；原 1.6 DLL SHA-256 为 `1885eeee58107c13067322562fdc55c3c9304b216d9c8a7a66fbc07422a85fa9`。这不是 1.6 游戏重验，也不承诺 1.6 存档跨游戏版本转换。
 

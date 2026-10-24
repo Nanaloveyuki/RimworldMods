@@ -112,10 +112,10 @@ namespace PrisonersPayToEat2
         private Dictionary<int, float> workWageAccum = new Dictionary<int, float>();
 
         // Transient (not serialized) research contribution tracking for piece-rate billing:
-        // project -> contributing pawn -> research speed * ticks. Cleared on load and when a
-        // project completes (see PieceRateWorker.DistributeResearch).
-        public Dictionary<ResearchProjectDef, Dictionary<Pawn, float>> researchContrib =
-            new Dictionary<ResearchProjectDef, Dictionary<Pawn, float>>();
+        // project -> contributing pawn/work source -> research speed * ticks. Cleared on load
+        // and project completion so source-specific wages survive job changes, not save changes.
+        internal Dictionary<ResearchProjectDef, Dictionary<ResearchWorker, float>> researchContrib =
+            new Dictionary<ResearchProjectDef, Dictionary<ResearchWorker, float>>();
 
         // Tick (TicksGame) at which each pawn became a prisoner of the colony, keyed by
         // pawn.thingIDNumber. Used for the ransom minimum-imprisonment-time requirement.

@@ -55,6 +55,8 @@ PPTE2 的 [工资配置列表](../../Source/PrisonersPayToEat2Settings.cs) 在 `
 2. 来源标记缺失时，只检查已安装、已解析且与当前 Job/driver/目标匹配的直接派工适配。
 3. 没有精确匹配返回未知，不根据 pawn 当前最高优先级、建筑相似名字、`joyKind` 或遍历全部 WorkGiver 猜测。
 
+2026-10-24 增加可选的单项工作计费：解析结果同时保留任务自带的真实 `WorkGiverDef`。高级开关启用时允许其工资／模式覆盖父工种，`workType` 为空也能以真实来源键结算；关闭时忽略逐项配置。此项不推断没有来源的未知 Job、不注入来源、不开放派工。成功完成快照与科研贡献都保留该来源；无父工种且没有专用产出事件时按成功任务计件。
+
 首个适配仅针对已确认的 NewRatkinPlus 仓鼠轮。Defs 加载后通过已知 packageId、`RK_Job_HamsterWheel`、`RK_Work_HamsterWheel` 解析真实工种，并校验 `RK_WorkType_GeneratePower`、driver 类型名 `NewRatkin.JobDriver_HamsterWheel` 与目标 `RK_HamsterWheelGenerator` 的预期。依赖未加载不注册；已加载但缺项/不匹配时至多给出一次兼容不可用说明，不在 tick 循环查 Def/打日志、不猜用 1.5 标识。
 
 不硬引用 NewRatkinPlus DLL，不使用反射逐 tick 扫方法，不给所有 Job 写假的 `workGiverDef`。首个实现使用一个小型专用适配即可；未来出现第二种已证实直接派工再扩展内部规则，不预建公开注册框架。

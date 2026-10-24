@@ -39,7 +39,7 @@ namespace PrisonersPayToEat2
         {
             if (pawn == null || pawn.Dead) return false;
             if (pawn.InMentalState) return false;
-            return CurrentWorkTypeDef(pawn) != null;
+            return WorkBilling.IsKnown(WorkAttribution.Resolve(pawn, pawn.jobs?.curJob));
         }
 
         /// <summary>WorkTypeDef of the pawn's current work job, or null when not working.</summary>
@@ -52,12 +52,14 @@ namespace PrisonersPayToEat2
     internal readonly struct AttributedWork
     {
         internal readonly WorkTypeDef WorkType;
+        internal readonly WorkGiverDef Giver;
         internal readonly bool WheelSession;
 
-        internal AttributedWork(WorkTypeDef workType, bool wheelSession)
+        internal AttributedWork(WorkTypeDef workType, bool wheelSession, WorkGiverDef giver = null)
         {
             WorkType = workType;
             WheelSession = wheelSession;
+            Giver = giver;
         }
 
         // Verified against the installed NewRatkin 1.7 assembly: walk, then a 4000-tick work toil.
@@ -105,14 +107,16 @@ namespace PrisonersPayToEat2
         internal static AttributedWork Resolve(Pawn pawn, Job job)
         {
             if (job == null) return default;
-            var nativeWork = job.workGiverDef?.workType;
+            var giver = job.workGiverDef;
+            var nativeWork = giver?.workType;
             var driver = pawn?.jobs?.curDriver;
             bool wheel = wheelJob != null && job.def == wheelJob
                 && job.targetA.Thing?.def == wheelTarget && driver?.job == job
                 && driver.GetType() == wheelDriver;
             if (nativeWork != null)
-                return new AttributedWork(nativeWork, wheel && nativeWork == wheelWork);
-            return wheel ? new AttributedWork(wheelWork, true) : default;
+                return new AttributedWork(nativeWork, wheel && nativeWork == wheelWork, giver);
+            if (wheel) return new AttributedWork(wheelWork, true, giver);
+            return new AttributedWork(null, false, giver);
         }
     }
 
@@ -166,20 +170,21 @@ namespace PrisonersPayToEat2
                     if (hourlySettle) livePrisoners.Add(id);
                     if (pawn.Dead) continue;
 
-                    var wt = pawn.InMentalState ? null : PrisonLaborBridge.CurrentWorkTypeDef(pawn);
-                    if (wt != null)
+                    var work = pawn.InMentalState ? default : WorkAttribution.Resolve(pawn, pawn.jobs?.curJob);
+                    if (WorkBilling.IsKnown(work))
                     {
-                        if (PieceRateWorker.IsPieceRateActive(pawn, wt))
+                        if (PieceRateWorker.IsPieceRateActive(pawn, work))
                         {
                             // piece-rate mode: no hourly accrual (settlement happens on the output
                             // hooks); for research we only track contribution and pay on completion
-                            if (wt.defName == "Research")
+                            if (WorkBilling.UsesUnit(work, WorkUnit.Research))
                                 PieceRateWorker.RecordResearchContribution(pawn, CheckStride);
                         }
                         else
                         {
-                            string workTypeDefName = wt.defName;
-                            float wagePerHour = settings.GetWageForWorkType(workTypeDefName);
+                            string workTypeDefName = WorkBilling.HasIndividualRates(work)
+                                ? work.Giver.defName : work.WorkType?.defName;
+                            float wagePerHour = WorkBilling.HourlyWage(work);
                             float perCheck = wagePerHour * settings.wageMultiplier * mgr.EffectiveWageMultiplier(pawn)
                                              * CheckStride / TicksPerHour;
 

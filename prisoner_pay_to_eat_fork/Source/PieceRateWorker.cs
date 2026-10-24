@@ -15,6 +15,8 @@ namespace PrisonersPayToEat2
         PerItem = 2
     }
 
+    internal readonly record struct ResearchWorker(Pawn Pawn, WorkTypeDef WorkType, WorkGiverDef Giver);
+
     /// <summary>
     /// Piece-rate ("按量计费") wage settlement.
     ///
@@ -35,49 +37,13 @@ namespace PrisonersPayToEat2
     /// </summary>
     public static class PieceRateWorker
     {
-        /// <summary>Vanilla work types with a dedicated exact unit (see class doc).</summary>
-        private static readonly HashSet<string> SpecificUnitWorkTypes = new HashSet<string>
-        {
-            "Mining", "Construction", "Growing", "PlantCutting", "Hauling", "Cleaning", "Research"
-        };
-
-        // work types whose work givers derive from WorkGiver_DoBill are production tables;
-        // cached per defName because it's checked on every settlement event
-        private static readonly Dictionary<string, bool> doBillCache = new Dictionary<string, bool>();
-
-        /// <summary>True when the work type is handled by a dedicated unit hook (production or the 7 vanilla types).</summary>
-        public static bool HasSpecificUnit(WorkTypeDef wt)
-        {
-            if (wt == null) return false;
-            if (SpecificUnitWorkTypes.Contains(wt.defName)) return true;
-            return IsDoBillBased(wt);
-        }
-
-        private static bool IsDoBillBased(WorkTypeDef wt)
-        {
-            if (wt.workGiversByPriority == null) return false;
-            if (doBillCache.TryGetValue(wt.defName, out bool cached)) return cached;
-            bool result = false;
-            for (int i = 0; i < wt.workGiversByPriority.Count; i++)
-            {
-                var g = wt.workGiversByPriority[i];
-                if (g != null && g.giverClass != null && typeof(WorkGiver_DoBill).IsAssignableFrom(g.giverClass))
-                {
-                    result = true;
-                    break;
-                }
-            }
-            doBillCache[wt.defName] = result;
-            return result;
-        }
 
         /// <summary>
-        /// Effective piece-rate decision for a (prisoner, work type) pair:
-        /// master switch on, then prisoner override (Follow/PerHour/PerItem), else the work-type flag.
+        /// Master switch, then prisoner override, then individual giver mode or parent work-type flag.
         /// </summary>
-        public static bool IsPieceRateActive(Pawn pawn, WorkTypeDef wt)
+        internal static bool IsPieceRateActive(Pawn pawn, AttributedWork work)
         {
-            if (wt == null) return false;
+            if (!WorkBilling.IsKnown(work)) return false;
             var settings = PrisonersPayToEat2Mod.Settings;
             if (!settings.enablePieceRate) return false;
             var d = PrisonersPayToEat2Manager.Current?.DataFor(pawn);
@@ -86,17 +52,9 @@ namespace PrisonersPayToEat2
                 if (d.wageMode == PieceRateMode.PerHour) return false;
                 if (d.wageMode == PieceRateMode.PerItem) return true;
             }
-            return settings.pieceRateWorkTypes.Contains(wt.defName);
+            return WorkBilling.PieceMode(work);
         }
 
-        /// <summary>Configured per-unit wage, falling back to the prefilled default when unset.</summary>
-        public static float GetPieceWage(string defName)
-        {
-            var settings = PrisonersPayToEat2Mod.Settings;
-            if (defName != null && settings.workTypePieceWages.TryGetValue(defName, out float v)) return v;
-            var wt = DefDatabase<WorkTypeDef>.GetNamedSilentFail(defName);
-            return GetPrefilledPieceWage(wt, settings.GetWageForWorkType(defName));
-        }
 
         /// <summary>
         /// Sensible default per-unit wage when a work type is first switched to piece rate,
@@ -121,13 +79,13 @@ namespace PrisonersPayToEat2
         }
 
         /// <summary>Credit a piece-rate payout for a completed unit. Guards: prisoner, some labour provider active, mode active.</summary>
-        public static void Credit(Pawn pawn, WorkTypeDef wt, float units)
+        internal static void Credit(Pawn pawn, AttributedWork work, float units)
         {
-            if (pawn == null || wt == null || units <= 0f) return;
+            if (pawn == null || !WorkBilling.IsKnown(work) || units <= 0f) return;
             if (!pawn.IsPrisonerOfColony || pawn.Dead || pawn.InMentalState) return;
             if (!PrisonerWorkSystem.WorkIncomeEnabled) return;
-            if (!IsPieceRateActive(pawn, wt)) return;
-            float wage = GetPieceWage(wt.defName);
+            if (!IsPieceRateActive(pawn, work)) return;
+            float wage = WorkBilling.PieceWage(work);
             if (wage <= 0f) return;
             var settings = PrisonersPayToEat2Mod.Settings;
             var mgr = PrisonersPayToEat2Manager.Current;
@@ -142,22 +100,12 @@ namespace PrisonersPayToEat2
                 mgr.AddTickets(pawn, accum);
                 Need_Motivation.NotifyWage(pawn, accum);
                 if (settings.logVerbose)
-                    Log.Message($"[PPTE2] {pawn.LabelShortCap} earned {accum:0.##} tickets (piece rate: {wt.defName}). Balance={mgr.Balance(pawn):0.##}");
+                    Log.Message($"[PPTE2] {pawn.LabelShortCap} earned {accum:0.##} tickets (piece rate: {work.Giver?.defName ?? work.WorkType?.defName}). Balance={mgr.Balance(pawn):0.##}");
                 accum = 0f;
             }
             mgr.SetWorkWageAccum(id, accum);
         }
 
-        /// <summary>
-        /// Generic fallback: one completed work job = one unit. Used only for work types without a
-        /// dedicated unit (e.g. work types added by other MODs), so it never double-pays.
-        /// </summary>
-        public static void CreditJobDone(Pawn pawn, WorkTypeDef wt)
-        {
-            if (pawn == null || wt == null) return;
-            if (HasSpecificUnit(wt)) return;
-            Credit(pawn, wt, 1f);
-        }
 
         // ===== Research: preserve the existing sampled research-speed * ticks contribution shares =====
 
@@ -171,12 +119,14 @@ namespace PrisonersPayToEat2
             if (proj == null) return;
             if (!mgr.researchContrib.TryGetValue(proj, out var dict))
             {
-                dict = new Dictionary<Pawn, float>();
+                dict = new Dictionary<ResearchWorker, float>();
                 mgr.researchContrib[proj] = dict;
             }
             float add = pawn.GetStatValue(StatDefOf.ResearchSpeed) * delta;
-            dict.TryGetValue(pawn, out float cur);
-            dict[pawn] = cur + add;
+            var work = WorkAttribution.Resolve(pawn, pawn.jobs?.curJob);
+            var key = new ResearchWorker(pawn, work.WorkType, work.Giver);
+            dict.TryGetValue(key, out float cur);
+            dict[key] = cur + add;
         }
 
         /// <summary>Called when a research project completes: split the per-tech wage among contributors proportionally.</summary>
@@ -191,12 +141,11 @@ namespace PrisonersPayToEat2
             foreach (var kv in contribs) total += kv.Value;
             if (total <= 0f) return;
             var wt = DefDatabase<WorkTypeDef>.GetNamedSilentFail("Research");
-            if (wt == null) return;
             foreach (var kv in contribs)
             {
-                var pawn = kv.Key;
+                var pawn = kv.Key.Pawn;
                 if (pawn == null || pawn.Dead) continue;
-                Credit(pawn, wt, kv.Value / total);
+                Credit(pawn, new AttributedWork(kv.Key.WorkType ?? wt, false, kv.Key.Giver), kv.Value / total);
             }
         }
     }

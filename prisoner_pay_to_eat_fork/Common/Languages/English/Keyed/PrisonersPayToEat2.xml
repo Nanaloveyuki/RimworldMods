@@ -25,6 +25,15 @@
   <PPTE2_ResetWorkTypeWages>Reset all</PPTE2_ResetWorkTypeWages>
   <PPTE2_FillWorkTypeWages>Fill defaults</PPTE2_FillWorkTypeWages>
   <PPTE2_EnablePieceRate>Enable piece-rate billing</PPTE2_EnablePieceRate>
+  <PPTE2_IndividualWorkGiverBilling>Advanced: set wages per work giver (including unparented work)</PPTE2_IndividualWorkGiverBilling>
+  <PPTE2_WorkGiverBillingTitle>Individual work givers</PPTE2_WorkGiverBillingTitle>
+  <PPTE2_WorkGiverBillingHint>Lists every work giver, including those without a parent work type. Blank rates inherit the parent, or the default hourly wage when unparented. Billing can inherit, use hourly pay, or use piece pay. Prisoner overrides and the piece-rate master switch still take precedence. Work without a dedicated output event pays per successfully completed job. This does not enable work assignment or infer unknown jobs with no WorkGiver source. Disabling retains but ignores individual settings.</PPTE2_WorkGiverBillingHint>
+  <PPTE2_WorkGiverInherit>Inherit</PPTE2_WorkGiverInherit>
+  <PPTE2_NoParentWorkType>No parent work type</PPTE2_NoParentWorkType>
+  <PPTE2_ForbidMedicalRest>Forbid prisoner medical rest (takes precedence, even when critical)</PPTE2_ForbidMedicalRest>
+  <PPTE2_ForbidNonCriticalMedicalRest>Forbid medical rest for non-critical prisoners</PPTE2_ForbidNonCriticalMedicalRest>
+  <PPTE2_CriticalDiseaseThreshold>Critical progress threshold for lethal conditions: {0}</PPTE2_CriticalDiseaseThreshold>
+  <PPTE2_MedicalRestHint>Only restricts voluntary medical rest for colony prisoners, not normal sleep, downed care, or actual treatment. Ongoing blood loss with a death risk, a nonimmune lethal condition strictly beyond the threshold, or another currently life-threatening condition counts as critical. Forbid-all takes precedence when both are enabled. Both default off; denying rest in critical conditions may cause death.</PPTE2_MedicalRestHint>
   <PPTE2_HdrWorkType>Work type</PPTE2_HdrWorkType>
   <PPTE2_HdrMode>Billing</PPTE2_HdrMode>
   <PPTE2_HdrHourlyWage>Per hour</PPTE2_HdrHourlyWage>

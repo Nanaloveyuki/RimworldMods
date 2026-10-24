@@ -25,6 +25,15 @@
   <PPTE2_ResetWorkTypeWages>重置全部</PPTE2_ResetWorkTypeWages>
   <PPTE2_FillWorkTypeWages>填充默认</PPTE2_FillWorkTypeWages>
   <PPTE2_EnablePieceRate>启用按量计费</PPTE2_EnablePieceRate>
+  <PPTE2_IndividualWorkGiverBilling>高级：逐项工作设置工资（包含无父工种）</PPTE2_IndividualWorkGiverBilling>
+  <PPTE2_WorkGiverBillingTitle>单项工作（WorkGiver）</PPTE2_WorkGiverBillingTitle>
+  <PPTE2_WorkGiverBillingHint>下方列出全部单项工作，包括未绑定父工种的项目。留空继承父工种工资，无父工种时使用默认时薪；计费方式可继承、按时或按量。个体计费覆盖与按量总开关仍优先。无专用产出事件的工作按成功完成一次任务计件；此选项不开放派工，也不识别完全没有 WorkGiver 来源的未知任务。关闭后保留配置但不应用。</PPTE2_WorkGiverBillingHint>
+  <PPTE2_WorkGiverInherit>继承</PPTE2_WorkGiverInherit>
+  <PPTE2_NoParentWorkType>无父工种</PPTE2_NoParentWorkType>
+  <PPTE2_ForbidMedicalRest>禁止囚犯休养（优先，含危重状态）</PPTE2_ForbidMedicalRest>
+  <PPTE2_ForbidNonCriticalMedicalRest>禁止非危重囚犯休养</PPTE2_ForbidNonCriticalMedicalRest>
+  <PPTE2_CriticalDiseaseThreshold>可致死病症的危重进度阈值：{0}</PPTE2_CriticalDiseaseThreshold>
+  <PPTE2_MedicalRestHint>仅限制殖民地囚犯主动卧床休养，不阻止普通睡眠、倒地护理或实际治疗。持续失血有致死风险、尚未免疫的可致死病症进度严格超过阈值，或其他正在危及生命的状态视为危重。两项同时开启时，禁止全部休养优先。设置默认关闭；禁止危重囚犯休养可能导致其死亡。</PPTE2_MedicalRestHint>
   <PPTE2_HdrWorkType>工种</PPTE2_HdrWorkType>
   <PPTE2_HdrMode>计费方式</PPTE2_HdrMode>
   <PPTE2_HdrHourlyWage>按时工资</PPTE2_HdrHourlyWage>
