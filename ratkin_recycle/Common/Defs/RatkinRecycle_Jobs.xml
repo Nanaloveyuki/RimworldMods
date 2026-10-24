@@ -12,4 +12,13 @@
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>
 
+  <JobDef>
+    <defName>ManualRecycleRatkinYoung</defName>
+    <driverClass>RatkinRecycle.JobDriver_EatRatEgg</driverClass>
+    <reportString>主动回收鼠蛋。</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <dropThingBeforeJob>false</dropThingBeforeJob>
+    <carryThingAfterJob>true</carryThingAfterJob>
+  </JobDef>
+
 </Defs>

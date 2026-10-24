@@ -175,23 +175,15 @@ public static class RatkinRecycleUtility
 		return true;
 	}
 
-	public static EaterKind GetEaterKind(Pawn p)
+	public static EaterKind GetEaterKind(Pawn p, bool manual = false)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (!CanEat(p)) return EaterKind.None;
+		if (!CanEat(p, manual)) return EaterKind.None;
 		if (IsMom(p))
 		{
-			if (!MomFoodEligible(p))
-			{
-				return EaterKind.None;
-			}
-			return EaterKind.Mom;
+			return manual || MomFoodEligible(p) ? EaterKind.Mom : EaterKind.None;
 		}
-		if (AgeYears(p) < settings.maxEggAge)
-		{
-			return EaterKind.Egg;
-		}
-		return EaterKind.Other;
+		return AgeYears(p) < settings.maxEggAge ? EaterKind.Egg : EaterKind.Other;
 	}
 
 	public static bool IsHungryEnough(Pawn p, EaterKind kind)
@@ -201,17 +193,28 @@ public static class RatkinRecycleUtility
 			return false;
 		}
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		float num = ((kind == EaterKind.Mom) ? settings.momHungerPct : settings.otherHungerPct);
-		return p.needs.food.CurLevelPercentage < num;
+		if (settings.useMalnutritionTrigger)
+		{
+			if (!p.needs.food.Starving) return false;
+			float severity = p.health?.hediffSet?.GetFirstHediffOfDef(HediffDefOf.Malnutrition)?.Severity ?? 0f;
+			float threshold = kind == EaterKind.Mom ? settings.momMalnutritionSeverity : settings.otherMalnutritionSeverity;
+			return severity > 0f && severity >= threshold;
+		}
+		float fullness = kind == EaterKind.Mom ? settings.momHungerPct : settings.otherHungerPct;
+		return p.needs.food.CurLevelPercentage < fullness;
 	}
 
-	public static bool CanEat(Pawn pawn)
+	public static bool CanEat(Pawn pawn, bool manual = false)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		return settings != null && settings.enabled && IsRatkin(pawn) && !pawn.Dead && !pawn.Downed &&
-			pawn.needs?.food != null && RatkinRecyclePolicy.AgeAllowed(pawn, settings.minEaterAge, settings.maxEaterAge, settings.eaterAgeUnlimited) &&
-			(settings.eaterStatuses & RatkinRecyclePolicy.Status(pawn)) != 0 &&
-			(!settings.skipDrafted || !pawn.Drafted) && (!settings.skipMentalState || !pawn.InMentalState);
+		if (settings == null || !settings.enabled || !IsRatkin(pawn) || pawn.Dead || pawn.Downed || pawn.needs?.food == null)
+			return false;
+		if (manual)
+			return settings.manualEnabled && pawn.Spawned && pawn.CanTakeOrder && !pawn.InMentalState
+				&& AgeYears(pawn) >= settings.manualMinAge;
+		return RatkinRecyclePolicy.AgeAllowed(pawn, settings.minEaterAge, settings.maxEaterAge, settings.eaterAgeUnlimited)
+			&& (settings.eaterStatuses & RatkinRecyclePolicy.Status(pawn)) != 0
+			&& (!settings.skipDrafted || !pawn.Drafted) && (!settings.skipMentalState || !pawn.InMentalState);
 	}
 
 	public static bool IsVictimAllowed(Pawn pawn)
@@ -322,7 +325,9 @@ public static class RatkinRecycleUtility
 					{
 						eggBuffer.Add(pawn);
 					}
-					if (pawn.CurJobDef != RatkinRecycleDefOf.EatRatEgg && pawn.carryTracker?.CarriedThing == null && CanEat(pawn) && pawn.needs.food.CurLevelPercentage < num)
+					if (pawn.CurJobDef != RatkinRecycleDefOf.EatRatEgg && pawn.CurJobDef != RatkinRecycleDefOf.ManualRecycleRatkinYoung
+						&& pawn.carryTracker?.CarriedThing == null && CanEat(pawn)
+						&& (settings.useMalnutritionTrigger ? pawn.needs.food.Starving : pawn.needs.food.CurLevelPercentage < num))
 					{
 						eaterBuffer.Add(pawn);
 					}

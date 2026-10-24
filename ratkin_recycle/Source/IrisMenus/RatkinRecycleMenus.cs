@@ -87,17 +87,24 @@ public static class RatkinRecycleMenus
 				yield return ("enabled", "启用捕食行为", "Enable predation");
 				yield return ("showLetter", "死亡信件", "Victim death letters");
 				yield return ("showStopLetter", "停嘴信件", "Stop-chewing letters");
-				yield return ("preferAvailableFood", "有可用食物时优先普通食物：背包、可达性、访客、商队、驮兽", "Prefer available food: inventory, reachability, visitors, traders, pack animals");
+				yield return ("preferAvailableFood", "自动回收优先普通食物：背包、可达性、访客、商队、驮兽", "Automatic recycling food priority: inventory, reachability, visitors, traders, pack animals");
 				yield return ("section:hunger", "饥饿与母性判定", "Hunger and mothers");
+				yield return ("useMalnutritionTrigger", "营养不良严重度触发模式：挨饿、残留严重度、倒地风险", "Malnutrition severity trigger mode: starving, lingering severity, downed risk");
 				yield return ("momHungerPct", "鼠妈饱食度阈值", "Mother hunger threshold");
 				yield return ("otherHungerPct", "其他鼠族饱食度阈值", "Other Ratkin hunger threshold");
+				yield return ("momMalnutritionSeverity", "鼠妈营养不良严重度阈值", "Mother malnutrition severity threshold");
+				yield return ("otherMalnutritionSeverity", "其他鼠族营养不良严重度阈值", "Other Ratkin malnutrition severity threshold");
 				yield return ("adultAgeYears", "鼠妈最低生理年龄", "Mother minimum biological age");
 				yield return ("postpartumHours", "产后母性窗口", "Postpartum mother window");
 				yield return ("momOwnEggFallback", "亲生鼠蛋母性判定", "Mother fallback with living biological RatkinYoung");
 				yield return ("maxEggAge", "鼠蛋阶段上限", "RatkinYoung classification cutoff");
-				yield return ("section:fineMeal", "精致食物", "Fine meals");
+				yield return ("section:fineMeal", "自动回收的精致食物判定", "Fine-meal rules for automatic recycling");
 				yield return ("fineMealMode", "精致食物判定方式", "Fine-meal rule");
 				yield return ("fineMealHours", "精致食物回顾窗口", "Fine-meal lookback window");
+				yield return ("section:manual", "主动回收：玩家命令、目标规则、跳过普通食物与精致食物检查", "Manual recycling: player orders, target rules, skip available-food and fine-meal checks");
+				yield return ("manualEnabled", "启用主动回收命令", "Enable the manual recycling command");
+				yield return ("manualMinAge", "主动回收者最低生理年龄", "Minimum biological age for manual recycling");
+				yield return ("manualRequireHunger", "主动回收受饥饿限制：启动阈值、吃饱停嘴", "Manual recycling hunger restrictions: trigger threshold, stop at fullness");
 				break;
 			case "targets":
 				yield return ("section:eater", "捕食者身份与年龄", "Eater statuses and ages");

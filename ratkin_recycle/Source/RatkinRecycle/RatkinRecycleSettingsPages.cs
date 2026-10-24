@@ -141,22 +141,32 @@ public partial class RatkinRecycleSettings
 		Check(list, "enabled", T("启用捕食行为", "Enable predation"), ref enabled, anchor, measure);
 		Check(list, "showLetter", T("捕食目标死亡时发来信件", "Send a letter when the victim dies"), ref showLetter, anchor, measure);
 		Check(list, "showStopLetter", T("吃饱或没有可啃部位而停嘴，且目标存活时发来信件", "Send a letter when chewing stops with the victim alive, from fullness or no eligible parts"), ref showStopLetter, anchor, measure);
-		Check(list, "preferAvailableFood", T("有可用食物时优先普通食物", "Prefer available food over RatkinYoung"), ref preferAvailableFood, anchor, measure);
-		Label(list, T("默认开启。检查自身背包、原版允许食用且可达的地图食物，以及同一访客／商队队伍中可达驮兽的食物；不要求精致食物。禁止食用、不可达、无法预约、空营养膏机和需先收获的作物不算。抱起前及每口前复查，发现食物就停止回收并尝试放下鼠蛋。关闭后恢复原来的回收优先级。", "Enabled by default. Check personal inventory, reachable map food allowed by vanilla, and reachable pack animals in the same visiting group; fine meals are not required. Forbidden, unreachable or unreservable food, empty dispensers and crops requiring harvest do not count. Recheck before pickup and every bite; when food is found, stop recycling and try to put down the RatkinYoung. Disable to restore the previous priority."), measure);
+		Check(list, "preferAvailableFood", T("自动回收时优先普通食物", "Prefer available food during automatic recycling"), ref preferAvailableFood, anchor, measure);
+		Label(list, T("仅影响自动回收，默认开启。检查自身背包、原版允许食用且可达的地图食物，以及同一访客／商队队伍中可达驮兽的食物；不要求精致食物。禁止食用、不可达、无法预约、空营养膏机和需先收获的作物不算。抱起前及每口前复查，发现食物就停止回收并尝试放下鼠蛋。关闭后恢复原来的自动回收优先级。", "Applies only to automatic recycling; enabled by default. Check personal inventory, reachable map food allowed by vanilla, and reachable pack animals in the same visiting group; fine meals are not required. Forbidden, unreachable or unreservable food, empty dispensers and crops requiring harvest do not count. Recheck before pickup and every bite; when food is found, stop recycling and try to put down the RatkinYoung. Disable to restore the previous automatic recycling priority."), measure);
 		Section(list, "hunger", T("饥饿与母性判定", "Hunger and mothers"), anchor, measure);
-		Number(list, "momHungerPct", T("鼠妈饱食度触发阈值（0–1）", "Mother hunger threshold (0–1 fullness)"), ref momHungerPct, anchor, measure, 0f, 1f);
-		Number(list, "otherHungerPct", T("其他鼠族饱食度触发阈值（0–1）", "Other Ratkin hunger threshold (0–1 fullness)"), ref otherHungerPct, anchor, measure, 0f, 1f);
+		Check(list, "useMalnutritionTrigger", T("按营养不良严重度触发，替代饱食度", "Trigger by malnutrition severity instead of fullness"), ref useMalnutritionTrigger, anchor, measure);
+		Number(list, "momHungerPct", T("鼠妈饱食度触发阈值（0–1）", "Mother hunger threshold (0–1 fullness)"), ref momHungerPct, anchor, measure, 0f, 1f, enabled: !useMalnutritionTrigger);
+		Number(list, "otherHungerPct", T("其他鼠族饱食度触发阈值（0–1）", "Other Ratkin hunger threshold (0–1 fullness)"), ref otherHungerPct, anchor, measure, 0f, 1f, enabled: !useMalnutritionTrigger);
+		Number(list, "momMalnutritionSeverity", T("鼠妈营养不良严重度阈值（0–1）", "Mother malnutrition severity threshold (0–1)"), ref momMalnutritionSeverity, anchor, measure, 0f, 1f, enabled: useMalnutritionTrigger);
+		Number(list, "otherMalnutritionSeverity", T("其他鼠族营养不良严重度阈值（0–1）", "Other Ratkin malnutrition severity threshold (0–1)"), ref otherMalnutritionSeverity, anchor, measure, 0f, 1f, enabled: useMalnutritionTrigger);
+		Label(list, T("自动回收使用当前触发方式，受饥饿限制的主动回收也使用它。营养不良模式要求角色正在挨饿，且实际营养不良严重度大于 0 并达到设定阈值；进食后残留的营养不良不会触发。阈值过高时，角色可能已经倒地。严重度只决定是否开始，开始后仍按停嘴饱食度结束。灰显的阈值属于另一种模式。", "Automatic recycling and hunger-restricted manual recycling use the selected trigger. Malnutrition mode requires the pawn to be starving, with actual malnutrition severity above 0 and at or above the threshold; lingering malnutrition after eating does not trigger recycling. A high threshold may leave the pawn downed before it can act. Severity only controls starting; chewing still ends at the configured fullness. Grayed-out thresholds belong to the other mode."), measure);
 		Number(list, "adultAgeYears", T("鼠妈最低生理年龄（岁）", "Minimum biological age for mothers (years)"), ref adultAgeYears, anchor, measure);
 		Number(list, "postpartumHours", T("产后母性窗口（游戏小时）", "Postpartum mother window (game hours)"), ref postpartumHours, anchor, measure);
 		Check(list, "momOwnEggFallback", T("仍有亲生鼠蛋时，也视为鼠妈", "Also count mothers with living biological RatkinYoung"), ref momOwnEggFallback, anchor, measure);
 		Number(list, "maxEggAge", T("鼠蛋阶段上限（生理年龄，岁）", "RatkinYoung classification cutoff (biological years)"), ref maxEggAge, anchor, measure);
 		Label(list, T("这个上限用于母性补充判定、幼鼠捕食限制和幼鼠心情需求。被捕食者年龄请在“捕食双方”中单独设置。", "This cutoff controls the mother fallback, young-predator rules and young mood needs. Set the victim age range separately under Participants."), measure);
-		Section(list, "fineMeal", T("精致食物", "Fine meals"), anchor, measure);
+		Section(list, "fineMeal", T("自动回收的精致食物判定", "Fine-meal rules for automatic recycling"), anchor, measure);
 		bool recent = fineMealMode == 1;
 		Check(list, "fineMealMode", T("按最近一段时间内是否吃过精致及以上食物判定", "Check fine-or-better meals within a recent time window"), ref recent, anchor, measure);
 		if (!measure) fineMealMode = recent ? 1 : 0;
-		Label(list, T("关闭时，从最近一次生产开始计算；开启时，使用下面的时间窗口。", "When off, count meals since the latest birth. When on, use the window below."), measure);
+		Label(list, T("仅影响自动回收。关闭时，从最近一次生产开始计算；开启时，使用下面的时间窗口。", "Applies only to automatic recycling. When off, count meals since the latest birth. When on, use the window below."), measure);
 		Number(list, "fineMealHours", T("精致食物回顾窗口（游戏小时）", "Fine-meal lookback window (game hours)"), ref fineMealHours, anchor, measure, enabled: recent);
+		Section(list, "manual", T("主动回收", "Manual recycling"), anchor, measure);
+		Check(list, "manualEnabled", T("启用主动回收命令", "Enable the manual recycling command"), ref manualEnabled, anchor, measure);
+		Number(list, "manualMinAge", T("主动回收者最低生理年龄（岁）", "Minimum biological age for manual recycling (years)"), ref manualMinAge, anchor, measure);
+		Check(list, "manualRequireHunger", T("主动回收受饥饿限制", "Require hunger for manual recycling"), ref manualRequireHunger, anchor, measure);
+		Label(list, T("玩家可以命令可控制的鼠族主动回收。使用者采用这里的独立最低年龄，不受自动回收的身份与年龄排除限制；目标仍须符合现有鼠族、年龄、身份及其他目标规则。主动回收跳过普通食物检查和精致食物历史判定。", "Players can order controllable Ratkin to recycle manually. Eaters use this independent minimum age instead of the automatic eater status and age restrictions; targets still follow the existing Ratkin, age, status and other target rules. Manual recycling skips available-food checks and fine-meal history rules."), measure);
+		Label(list, T("开启饥饿限制时，主动回收需要满足上方当前模式的启动阈值，开始后按“啃食与部位”中的停嘴饱食度结束。关闭时，吃饱也可执行，且不会因吃饱而停嘴。", "With hunger restrictions enabled, manual recycling requires the selected trigger above and stops at the fullness set under Chewing. With restrictions disabled, it can start even when full and does not stop because of fullness."), measure);
 	}
 
 	private void DrawTargets(Listing_Standard list, Action<Listing_Standard, string, float> anchor, bool measure)
@@ -230,7 +240,7 @@ public partial class RatkinRecycleSettings
 	{
 		Section(list, "station", T("自动止血装置", "Automatic bleeding-control station"), anchor, measure);
 		Check(list, "bleedStationEnabled", T("启用自动止血装置", "Enable the bleeding-control station"), ref bleedStationEnabled, anchor, measure);
-		Number(list, "bleedStationRadius", T("治疗半径（格）", "Treatment radius (cells)"), ref bleedStationRadius, anchor, measure);
+		Number(list, "bleedStationRadius", T("治疗半径（格）", "Treatment radius (cells)"), ref bleedStationRadius, anchor, measure, 0f, CompAutoStopBleeding.MaximumRadius);
 		Integer(list, "bleedStationInterval", T("治疗间隔（tick；1 倍速每秒 60 tick）", "Treatment interval (ticks; 60 ticks per second at 1× speed)"), ref bleedStationInterval, anchor, measure, 1);
 		Number(list, "bleedStationHeal", T("每次愈合的流血伤口严重度", "Bleeding wound severity healed per treatment"), ref bleedStationHeal, anchor, measure);
 		Check(list, "bleedStationHealFriendly", T("治疗玩家与友方角色", "Treat player and friendly pawns"), ref bleedStationHealFriendly, anchor, measure);

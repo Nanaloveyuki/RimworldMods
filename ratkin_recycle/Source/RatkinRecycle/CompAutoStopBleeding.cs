@@ -7,6 +7,41 @@ namespace RatkinRecycle;
 
 public class CompAutoStopBleeding : ThingComp
 {
+	// NumCellsInRadius rejects the maximum itself, so leave a small float-safe margin.
+	public static readonly float MaximumRadius = Mathf.Max(0f, GenRadial.MaxRadialPatternRadius - 0.001f);
+
+	public static float EffectiveRadius(float radius)
+	{
+		if (float.IsNaN(radius) || float.IsInfinity(radius) || radius <= 0f)
+		{
+			return 0f;
+		}
+		return Mathf.Min(radius, MaximumRadius);
+	}
+
+	internal static void DrawRange(IntVec3 center)
+	{
+		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
+		if (settings == null || !settings.bleedStationEnabled)
+		{
+			return;
+		}
+		float radius = EffectiveRadius(settings.bleedStationRadius);
+		if (radius > 0f)
+		{
+			GenDraw.DrawRadiusRing(center, radius);
+		}
+	}
+
+	public override void PostDrawExtraSelectionOverlays()
+	{
+		base.PostDrawExtraSelectionOverlays();
+		if (parent.Spawned && !parent.Destroyed)
+		{
+			DrawRange(parent.Position);
+		}
+	}
+
 	private int nextTick;
 
 	private int patientsCount;
@@ -30,13 +65,19 @@ public class CompAutoStopBleeding : ThingComp
 			return;
 		}
 		nextTick = ticksGame + num;
+		float radius = EffectiveRadius(settings.bleedStationRadius);
+		if (radius <= 0f)
+		{
+			patientsCount = 0;
+			return;
+		}
 		Map map = parent.Map;
 		if (map == null)
 		{
 			return;
 		}
 		int num2 = 0;
-		foreach (Thing item in GenRadial.RadialDistinctThingsAround(parent.Position, map, settings.bleedStationRadius, useCenter: false))
+		foreach (Thing item in GenRadial.RadialDistinctThingsAround(parent.Position, map, radius, useCenter: true))
 		{
 			if (!(item is Pawn { Dead: false, Spawned: not false, RaceProps: not null } pawn) || !pawn.RaceProps.IsFlesh)
 			{
@@ -72,7 +113,7 @@ public class CompAutoStopBleeding : ThingComp
 		{
 			return "自动止血装置(已停用)";
 		}
-		string text = "自动止血:范围 " + settings.bleedStationRadius.ToString("0.#") + " 格,每 " + Mathf.Max(20, settings.bleedStationInterval) + " tick 治疗一次";
+		string text = "自动止血:范围 " + EffectiveRadius(settings.bleedStationRadius).ToString("0.#") + " 格,每 " + Mathf.Max(20, settings.bleedStationInterval) + " tick 治疗一次";
 		if (patientsCount > 0)
 		{
 			text = text + "\n正在治疗 " + patientsCount + " 名流血伤员";

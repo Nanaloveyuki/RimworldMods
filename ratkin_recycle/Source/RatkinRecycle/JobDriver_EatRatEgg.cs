@@ -20,6 +20,12 @@ public class JobDriver_EatRatEgg : JobDriver
 
 	private Pawn Victim => job?.GetTarget(TargetIndex.A).Thing as Pawn;
 
+	// The distinct JobDef preserves the entry point through queueing and save/load.
+	private bool Manual => job?.def == RatkinRecycleDefOf.ManualRecycleRatkinYoung;
+	private bool FoodPreventsRecycling => !Manual && RatkinRecycleFood.HasAvailableFood(pawn);
+	private bool CanStart => !Manual || !RatkinRecycleMod.Settings.manualRequireHunger
+		|| (RatkinRecycleUtility.IsHungryEnough(pawn, RatkinRecycleUtility.GetEaterKind(pawn, true)) && !IsFull());
+
 	public override void ExposeData()
 	{
 		base.ExposeData();
@@ -38,7 +44,7 @@ public class JobDriver_EatRatEgg : JobDriver
 			victimStored = Victim;
 			carried = OwnsVictimOrCorpse();
 			consumed = false;
-			kind = RatkinRecycleUtility.GetEaterKind(pawn);
+			kind = RatkinRecycleUtility.GetEaterKind(pawn, Manual);
 			own = RatkinRecycleUtility.IsOwnEgg(pawn, victimStored);
 			tier = victimStored == null ? 0 : RatkinRecycleUtility.GrowthTier(victimStored);
 			nextBiteTick = Find.TickManager.TicksGame + Mathf.Max(10, RatkinRecycleMod.Settings.biteInterval);
@@ -48,10 +54,10 @@ public class JobDriver_EatRatEgg : JobDriver
 	public override bool TryMakePreToilReservations(bool errorOnFailed)
 	{
 		Pawn victim = Victim;
-		EaterKind eaterKind = RatkinRecycleUtility.GetEaterKind(pawn);
+		EaterKind eaterKind = RatkinRecycleUtility.GetEaterKind(pawn, Manual);
 		return pawn.carryTracker != null && pawn.carryTracker.CarriedThing == null
 			&& RatkinRecycleUtility.CanTarget(pawn, victim, eaterKind)
-			&& !RatkinRecycleFood.HasAvailableFood(pawn)
+			&& CanStart && !FoodPreventsRecycling
 			&& pawn.Reserve(victim, job, 1, -1, null, errorOnFailed);
 	}
 
@@ -76,10 +82,10 @@ public class JobDriver_EatRatEgg : JobDriver
 	private void CarryAction()
 	{
 		victimStored = Victim;
-		kind = RatkinRecycleUtility.GetEaterKind(pawn);
-		if (!RatkinRecycleUtility.CanEat(pawn)
+		kind = RatkinRecycleUtility.GetEaterKind(pawn, Manual);
+		if (!RatkinRecycleUtility.CanEat(pawn, Manual)
 			|| !RatkinRecycleUtility.CanTarget(pawn, victimStored, kind)
-			|| RatkinRecycleFood.HasAvailableFood(pawn)
+			|| !CanStart || FoodPreventsRecycling
 			|| pawn.carryTracker == null || pawn.carryTracker.CarriedThing != null)
 		{
 			EndJobWith(JobCondition.Incompletable);
@@ -113,7 +119,7 @@ public class JobDriver_EatRatEgg : JobDriver
 
 	private bool CanContinue()
 	{
-		return carried && OwnsLivingVictim() && RatkinRecycleUtility.GetEaterKind(pawn) != EaterKind.None
+		return carried && OwnsLivingVictim() && RatkinRecycleUtility.GetEaterKind(pawn, Manual) != EaterKind.None
 			&& RatkinRecycleUtility.IsVictimAllowed(victimStored);
 	}
 
@@ -153,6 +159,7 @@ public class JobDriver_EatRatEgg : JobDriver
 	private bool IsFull()
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
+		if (Manual && !settings.manualRequireHunger) return false;
 		return settings != null && settings.stopAtFullness > 0f && pawn.needs?.food != null
 			&& pawn.needs.food.CurLevelPercentage >= settings.stopAtFullness;
 	}
@@ -179,7 +186,7 @@ public class JobDriver_EatRatEgg : JobDriver
 			EndJobWith(JobCondition.Incompletable);
 			return;
 		}
-		if (RatkinRecycleFood.HasAvailableFood(pawn))
+		if (FoodPreventsRecycling)
 		{
 			EndJobWith(JobCondition.InterruptForced);
 			return;

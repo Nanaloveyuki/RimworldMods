@@ -8,6 +8,8 @@ public static class RatkinRecycleDefOf
 {
 	public static JobDef EatRatEgg;
 
+	public static JobDef ManualRecycleRatkinYoung;
+
 	public static ThoughtDef MomEatNonOwnEggToddler;
 
 	public static ThoughtDef MomEatNonOwnEggChild;

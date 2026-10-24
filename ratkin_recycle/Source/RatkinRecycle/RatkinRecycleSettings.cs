@@ -30,7 +30,19 @@ public partial class RatkinRecycleSettings : ModSettings
 
 	public float otherHungerPct = 0.3f;
 
+	public bool useMalnutritionTrigger;
+
+	public float momMalnutritionSeverity = 0.2f;
+
+	public float otherMalnutritionSeverity = 0.4f;
+
 	public bool preferAvailableFood = true;
+
+	public bool manualEnabled = true;
+
+	public float manualMinAge = 4f;
+
+	public bool manualRequireHunger;
 
 	public float adultAgeYears = 1f;
 
@@ -145,7 +157,13 @@ public partial class RatkinRecycleSettings : ModSettings
 		Scribe_Values.Look(ref raceKeywords, "raceKeywords", "Ratkin");
 		Scribe_Values.Look(ref momHungerPct, "momHungerPct", 0.5f);
 		Scribe_Values.Look(ref otherHungerPct, "otherHungerPct", 0.3f);
+		Scribe_Values.Look(ref useMalnutritionTrigger, "useMalnutritionTrigger", defaultValue: false);
+		Scribe_Values.Look(ref momMalnutritionSeverity, "momMalnutritionSeverity", 0.2f);
+		Scribe_Values.Look(ref otherMalnutritionSeverity, "otherMalnutritionSeverity", 0.4f);
 		Scribe_Values.Look(ref preferAvailableFood, "preferAvailableFood", defaultValue: true);
+		Scribe_Values.Look(ref manualEnabled, "manualEnabled", defaultValue: true);
+		Scribe_Values.Look(ref manualMinAge, "manualMinAge", 4f);
+		Scribe_Values.Look(ref manualRequireHunger, "manualRequireHunger", defaultValue: false);
 		Scribe_Values.Look(ref adultAgeYears, "adultAgeYears", 1f);
 		Scribe_Values.Look(ref postpartumHours, "postpartumHours", 120f);
 		Scribe_Values.Look(ref momOwnEggFallback, "momOwnEggFallback", defaultValue: true);
@@ -218,7 +236,13 @@ public partial class RatkinRecycleSettings : ModSettings
 		raceKeywords = "Ratkin";
 		momHungerPct = 0.5f;
 		otherHungerPct = 0.3f;
+		useMalnutritionTrigger = false;
+		momMalnutritionSeverity = 0.2f;
+		otherMalnutritionSeverity = 0.4f;
 		preferAvailableFood = true;
+		manualEnabled = true;
+		manualMinAge = 4f;
+		manualRequireHunger = false;
 		adultAgeYears = 1f;
 		postpartumHours = 120f;
 		momOwnEggFallback = true;
@@ -303,6 +327,7 @@ public partial class RatkinRecycleSettings : ModSettings
 		maxEaterAge = Nonnegative(maxEaterAge, 100f);
 		minVictimAge = Nonnegative(minVictimAge, 0f);
 		maxVictimAge = Nonnegative(maxVictimAge, 3f);
+		manualMinAge = Nonnegative(manualMinAge, 4f);
 		if (!eaterAgeUnlimited && maxEaterAge < minEaterAge) maxEaterAge = minEaterAge;
 		if (!victimAgeUnlimited && maxVictimAge < minVictimAge) maxVictimAge = minVictimAge;
 		adultAgeYears = Nonnegative(adultAgeYears, 1f);
@@ -312,6 +337,8 @@ public partial class RatkinRecycleSettings : ModSettings
 		tierChildMax = Math.Max(tierToddlerMax, Nonnegative(tierChildMax, 3f));
 		momHungerPct = Math.Clamp(Finite(momHungerPct, 0.5f), 0f, 1f);
 		otherHungerPct = Math.Clamp(Finite(otherHungerPct, 0.3f), 0f, 1f);
+		momMalnutritionSeverity = Math.Clamp(Finite(momMalnutritionSeverity, 0.2f), 0f, 1f);
+		otherMalnutritionSeverity = Math.Clamp(Finite(otherMalnutritionSeverity, 0.4f), 0f, 1f);
 		stopAtFullness = Math.Clamp(Finite(stopAtFullness, 0.7f), 0f, 1f);
 		postpartumHours = Nonnegative(postpartumHours, 120f);
 		fineMealHours = Nonnegative(fineMealHours, 48f);
@@ -336,7 +363,7 @@ public partial class RatkinRecycleSettings : ModSettings
 		eatenToddler = Finite(eatenToddler, -50f);
 		eatenChild = Finite(eatenChild, -50f);
 		eatenAdult = Finite(eatenAdult, -50f);
-		bleedStationRadius = Nonnegative(bleedStationRadius, 12f);
+		bleedStationRadius = CompAutoStopBleeding.EffectiveRadius(Finite(bleedStationRadius, 12f));
 		bleedStationInterval = Math.Max(1, bleedStationInterval);
 		bleedStationHeal = Nonnegative(bleedStationHeal, 0.03f);
 	}
