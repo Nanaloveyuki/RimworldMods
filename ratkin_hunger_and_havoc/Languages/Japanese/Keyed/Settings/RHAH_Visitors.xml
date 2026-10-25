@@ -121,6 +121,8 @@
   <RHAH_Settings_ArmedDemand_Tooltip>初期設定はオン。物乞い包囲、強力な包囲、ペストを抱えた強力な包囲の訪問者は、要求の期限まで食料を待ちます。食料は簡単な食事の栄養に換算し、下で選んだ食料を混ぜて渡せます。断るか期限が過ぎると攻撃しますが、必要な量を渡せば攻撃をやめて立ち去ります。オフの場合、新しい包囲の訪問者は通常の訪問者の選択肢で扱われ、既存の食料要求者は中立になって立ち去ります。</RHAH_Settings_ArmedDemand_Tooltip>
   <RHAH_Settings_ArmedWeapons>食料を要求する訪問者に粗末な武器を装備</RHAH_Settings_ArmedWeapons>
   <RHAH_Settings_ArmedWeapons_Tooltip>初期設定はオン。新たな物乞い包囲、強力な包囲、ペストを抱えた強力な包囲の成人の訪問者は、反撃が許可され武器を使える場合、バニラの木製棍棒や低技術の銃器などの粗末な武器を持ちます。品質の上限は標準です。オフの場合、新しい食料要求者は素手のままです。</RHAH_Settings_ArmedWeapons_Tooltip>
+  <RHAH_Settings_SiegeFuryEnabled>食料を要求する包囲者は飢えるほど凶暴になる</RHAH_Settings_SiegeFuryEnabled>
+  <RHAH_Settings_SiegeFuryEnabled_Tooltip>初期設定はオン。物乞い包囲、強力な包囲、ペストを抱えた強力な包囲の訪問者は、栄養失調が重くなるほど空腹に耐え、より凶暴になります。意識と近接能力が上がり、受けるダメージが減ります。効果は栄養失調の深刻度に応じた三段階で、二日後に自然に消えます。オフの場合、包囲の訪問者はこの効果を得ません。</RHAH_Settings_SiegeFuryEnabled_Tooltip>
   <RHAH_Settings_DemandFoods>武装集団の要求に渡せる食料</RHAH_Settings_DemandFoods>
   <RHAH_Settings_DemandFoods_Quote>武装集団の食料要求は栄養で計算します。簡単な食事1個は栄養0.9に相当し、選んだ食料を混ぜて渡せます。本体、公式DLC、NewRatkinPlusの食料は初期設定で許可され、他のModの食料は選択が必要です。人が食べられる栄養のある食事や、ペミカン、非常用食品、堅焼きビスケットなどの調理済み保存食が対象で、ドラッグは除きます。このリストは武装集団の食料要求専用です。給餌と物乞いにはそれぞれ別のリストを使います。</RHAH_Settings_DemandFoods_Quote>
   <RHAH_Settings_DemandFoods_All>すべて許可</RHAH_Settings_DemandFoods_All>

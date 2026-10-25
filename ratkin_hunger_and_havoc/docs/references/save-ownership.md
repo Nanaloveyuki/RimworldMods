@@ -236,6 +236,9 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Identity.Hediff_RHAH_Mark | Hediff `Class` / `hediffClass` | Remove，随身份 Hediff 删除 |
 | HungerAndHavoc.Identity.CompRHAH_Pawn | HediffComp `Class` | Remove，随身份 Hediff 删除 |
 | HungerAndHavoc.Identity.CompProperties_RHAH_Pawn | Def XML `Class` | 不单独出现在 `.rws` |
+| HungerAndHavoc.Pawn.HediffComp_RHAH_SiegeFuryStage | HediffComp `Class` | Remove，随该 Hediff 删除 |
+| HungerAndHavoc.Pawn.HediffCompProperties_RHAH_SiegeFuryStage | Def XML `Class` | 不单独出现在 `.rws` |
+| HungerAndHavoc.Pawn.Thought_Memory_RHAH_NoExpiry | ThoughtDef `thoughtClass`，沿用原版记忆字段；无新增存档键，`ShouldDiscard=false` 保证读档后仍不过期 | Remove，随该记忆删除 |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Visitor | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Intercept | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree。`exitCell` 随 Lord 删除，不改地图上的玩家 |
 | HungerAndHavoc.Incidents.WorldObject_RHAH_Interception | WorldObjectDef `worldObjectClass` | 已有地图或居民：Replace，类名改成 `RimWorld.Planet.Site`。没有地图也没有居民：Remove |
@@ -420,6 +423,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_GnawedWall | HediffDef | Remove。不替换成原版 Hediff |
 | RHAH_OvergnawedWall | HediffDef | Remove。不替换成原版 Hediff |
 | RHAH_ClaySatiety | HediffDef | Remove。不替换成原版 Hediff |
+| RHAH_SiegeFury | HediffDef | Remove。不替换成原版 Hediff |
 | RHAH_GuanyinTu | ThingDef | Remove。不替换成原版食物 |
 | RHAH_Heat_WetCloth, RHAH_Heat_MudCoat, RHAH_Heat_ReedWrap, RHAH_Heat_BarkWrap, RHAH_Heat_MudMantle, RHAH_Heat_MudShell | ThingDef | Remove。不替换成原版衣物 |
 | RHAH_Cold_ThinHemp, RHAH_Cold_LayeredHemp, RHAH_Cold_StrawQuilt, RHAH_Cold_FurCloak, RHAH_Cold_SmokedBlanket, RHAH_Cold_HideWrap | ThingDef | Remove。不替换成原版衣物 |
@@ -529,6 +533,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Thought_LeftAlone, RHAH_Thought_CaptiveYear, RHAH_Thought_FamilyHere, RHAH_Thought_Regret | ThoughtDef | Remove |
 | RHAH_Thought_ClaySatiety, RHAH_Thought_FamineHunger, RHAH_Thought_FamineFed | ThoughtDef | Remove。前两项 situational，后一项真实吃饱记忆 |
 | RHAH_Thought_Sheltered, RHAH_Thought_Captured, RHAH_Thought_EnslavedFed, RHAH_Thought_EnslavedServing, RHAH_Thought_Expelled, RHAH_Thought_AteFood | ThoughtDef，行为记忆 | Remove。奴役两种记忆互斥；永久负面分支没有期限，进食及驱赶同 Def 的两档互相替换 |
+| RHAH_Thought_SiegeFuryFoodInSight, RHAH_Thought_SiegeFuryMealSoon, RHAH_Thought_SiegeFuryStarving | ThoughtDef，越饿越凶三档记忆 | Remove。三档互斥，随越饿越凶 Hediff 的档位替换与移除一起清 |
 | RHAH_Trader_Famine | TraderKindDef | Replace。改成已加载原版 `Visitor_Outlander_Standard`，保留 trader Tracker 和真实原版库存 |
 | RHAH_PawnKind_Ratkin | PawnKindDef | Replace。保留 pawn 的 thingID。`kindDef` 改成仍会随 NewRatkinPlus 加载、种族同为 `Ratkin`、不属于本模组的 PawnKind。按 defName 序选第一个。没有这种种类就中止，不换成人类 |
 
@@ -605,6 +610,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.famineYearDisasterChancePercent | 全局 ModSettings，默认 20，范围 0..100；每日尝试、本年最多成功一次 |
 | RHAH_Settings.armedDemandEnabled | 全局 ModSettings，默认 true。仅 Siege 三场景建立带数量期限的请求，不受援助/访客信开关；关闭已有请求停止该 Lord 的索粮进攻并离场，不改其它袭击 |
 | RHAH_Settings.armedWeaponsEnabled | 全局 ModSettings，默认 true。只装备新 Siege 成年且可战者；原版低级武器品质普通及以下 |
+| RHAH_Settings.siegeFuryEnabled | 全局 ModSettings，默认 true。关闭后到场的 Siege 来客不再携带越饿越凶、不再按档位挂心情，已存在的 Buff 按两日期限自行消退 |
 | RHAH_Settings.spaceApproachEnabled | 全局 ModSettings，默认 false。关闭时太空层家园不生成远行队。缺键保持关闭 |
 | RHAH_Settings.skylandIncidentsEnabled | 全局 ModSettings，默认 false。仅启用 RimSkyBlock_Skyland 时显示；关闭时空岛不刷新地图事件、不派新远行队，已排队及在途事件等待重新允许；与太空设置独立，缺键保持关闭 |
 | RHAH_Settings.approachSpeedMultiplier | 全局 ModSettings，默认 2，范围 0.5..4；1 为原始速度。在途鼠族远行队按当前倍率扣除行进消耗，抵达重试仍用真实一小时。缺键或非有限值用默认 |

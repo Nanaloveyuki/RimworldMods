@@ -28,4 +28,7 @@
   <RHAH_Thought_AteFood.stages.0.description>お腹に食べ物が入ったチュ。うれしいな。</RHAH_Thought_AteFood.stages.0.description>
   <RHAH_Thought_AteFood.stages.1.label>おいしいチュチュ！</RHAH_Thought_AteFood.stages.1.label>
   <RHAH_Thought_AteFood.stages.1.description>今の一口、おいしかったチュ！もう一口食べたい。</RHAH_Thought_AteFood.stages.1.description>
+  <RHAH_Thought_SiegeFuryFoodInSight.stages.0.label>中に食べ物があるチュ</RHAH_Thought_SiegeFuryFoodInSight.stages.0.label>
+  <RHAH_Thought_SiegeFuryMealSoon.stages.0.label>もうすぐ飢え死にチュ..</RHAH_Thought_SiegeFuryMealSoon.stages.0.label>
+  <RHAH_Thought_SiegeFuryStarving.stages.0.label>チュチュチュ！噛むチュ！</RHAH_Thought_SiegeFuryStarving.stages.0.label>
 </LanguageData>

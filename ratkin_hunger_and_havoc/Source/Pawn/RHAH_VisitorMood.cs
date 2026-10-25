@@ -83,9 +83,15 @@ namespace HungerAndHavoc.Pawn
         }
     }
 
-    // 原版读档会清除无关联伤病的 permanent 标记，永久记忆直接禁用过期判定。
-    public sealed class Thought_Memory_RHAH_EnslavedServing : Thought_Memory_RHAH_FamineFed
+    // 无期限 到期靠 hediff 移除 读档后不按 age 过期
+    // 三条索粮围攻心情继承 RHAH_FamineFed 所以同时受 famineMoodEnabled 管
+    public class Thought_Memory_RHAH_NoExpiry : Thought_Memory_RHAH_FamineFed
     {
         public override bool ShouldDiscard => false;
+    }
+
+    // 旧名 只留作读档兼容（.rws 按类名重建记忆） 新代码不要再引用
+    public sealed class Thought_Memory_RHAH_EnslavedServing : Thought_Memory_RHAH_NoExpiry
+    {
     }
 }

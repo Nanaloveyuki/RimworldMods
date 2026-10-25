@@ -28,4 +28,7 @@
   <RHAH_Thought_AteFood.stages.0.description>There's food in my belly, squeak. That feels good.</RHAH_Thought_AteFood.stages.0.description>
   <RHAH_Thought_AteFood.stages.1.label>yummy, squeak squeak!</RHAH_Thought_AteFood.stages.1.label>
   <RHAH_Thought_AteFood.stages.1.description>That was a good bite, squeak! I want another.</RHAH_Thought_AteFood.stages.1.description>
+  <RHAH_Thought_SiegeFuryFoodInSight.stages.0.label>food in there, squeak</RHAH_Thought_SiegeFuryFoodInSight.stages.0.label>
+  <RHAH_Thought_SiegeFuryMealSoon.stages.0.label>starving, squeak..</RHAH_Thought_SiegeFuryMealSoon.stages.0.label>
+  <RHAH_Thought_SiegeFuryStarving.stages.0.label>squeak squeak! I bite you!</RHAH_Thought_SiegeFuryStarving.stages.0.label>
 </LanguageData>

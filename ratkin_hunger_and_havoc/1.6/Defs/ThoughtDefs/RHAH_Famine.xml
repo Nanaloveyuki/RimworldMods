@@ -154,4 +154,46 @@
       </li>
     </stages>
   </ThoughtDef>
+  <ThoughtDef>
+    <defName>RHAH_Thought_SiegeFuryFoodInSight</defName>
+    <thoughtClass>HungerAndHavoc.Pawn.Thought_Memory_RHAH_NoExpiry</thoughtClass>
+    <stackLimit>1</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <developmentalStageFilter>Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>房里有吃的吱</label>
+        <description>闻到饭味了，围住坏银窝就有饭吃了吱。</description>
+        <baseMoodEffect>40</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  <ThoughtDef>
+    <defName>RHAH_Thought_SiegeFuryMealSoon</defName>
+    <thoughtClass>HungerAndHavoc.Pawn.Thought_Memory_RHAH_NoExpiry</thoughtClass>
+    <stackLimit>1</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <developmentalStageFilter>Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>快饿鼠了吱..</label>
+        <description>肚子叫得越来越响，坏银还不给粮，窝想咬人了吱</description>
+        <baseMoodEffect>50</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  <ThoughtDef>
+    <defName>RHAH_Thought_SiegeFuryStarving</defName>
+    <thoughtClass>HungerAndHavoc.Pawn.Thought_Memory_RHAH_NoExpiry</thoughtClass>
+    <stackLimit>1</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <developmentalStageFilter>Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>吱吱吱唧!咬洗泥!</label>
+        <description>鼠鼠什么都不怕，咬洗泥就有香香吃吱!</description>
+        <baseMoodEffect>60</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
 </Defs>

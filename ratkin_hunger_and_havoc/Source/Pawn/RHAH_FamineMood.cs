@@ -13,6 +13,41 @@ namespace HungerAndHavoc.Pawn
             ThoughtDef thought = DefDatabase<ThoughtDef>.GetNamedSilentFail("RHAH_Thought_FamineFed");
             if (thought != null) pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(thought);
         }
+
+        // 三档互斥 换档先清旧档 无期限由 hediff 到期移除
+        internal static void SetSiegeFuryMood(Verse.Pawn pawn, int stage)
+        {
+            MemoryThoughtHandler memories = pawn?.needs?.mood?.thoughts?.memories;
+            if (memories == null) return;
+            RemoveAllSiegeFuryMoods(memories);
+            ThoughtDef thought = ThoughtForStage(stage);
+            if (thought != null) memories.TryGainMemoryFast(thought);
+        }
+
+        internal static void ClearSiegeFuryMood(Verse.Pawn pawn)
+        {
+            MemoryThoughtHandler memories = pawn?.needs?.mood?.thoughts?.memories;
+            if (memories != null) RemoveAllSiegeFuryMoods(memories);
+        }
+
+        static void RemoveAllSiegeFuryMoods(MemoryThoughtHandler memories)
+        {
+            RemoveThought(memories, RHAH_DefOf.RHAH_Thought_SiegeFuryFoodInSight);
+            RemoveThought(memories, RHAH_DefOf.RHAH_Thought_SiegeFuryMealSoon);
+            RemoveThought(memories, RHAH_DefOf.RHAH_Thought_SiegeFuryStarving);
+        }
+
+        static void RemoveThought(MemoryThoughtHandler memories, ThoughtDef thought)
+        {
+            if (thought != null) memories.RemoveMemoriesOfDef(thought);
+        }
+
+        static ThoughtDef ThoughtForStage(int stage)
+        {
+            if (stage >= 2) return RHAH_DefOf.RHAH_Thought_SiegeFuryStarving;
+            if (stage == 1) return RHAH_DefOf.RHAH_Thought_SiegeFuryMealSoon;
+            return RHAH_DefOf.RHAH_Thought_SiegeFuryFoodInSight;
+        }
     }
 
     // XML 反射入口
