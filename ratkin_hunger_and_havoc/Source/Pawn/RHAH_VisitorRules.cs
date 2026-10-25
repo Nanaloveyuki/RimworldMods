@@ -895,7 +895,6 @@ namespace HungerAndHavoc.Pawn
             return !IsColonyStay(stayKind);
         }
 
-        // 离场 duty 统一带 canDig 原版只在走不到地图边缘时才砸门墙 走得到时行为不变
         internal static PawnDuty CreateLeaveDuty()
         {
             PawnDuty duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);

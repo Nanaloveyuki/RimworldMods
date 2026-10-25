@@ -20,32 +20,12 @@ namespace HungerAndHavoc.Pawn
             }
 
             CompRHAH_Pawn visitorComp = CompRHAH_Pawn.TryGet(p);
-            if (visitorComp == null)
+            if (visitorComp == null || !visitorComp.State.IsActiveVisitor)
             {
                 return;
             }
 
-            // 先判该不该管 非活跃访客保留原版结果
-            IRHAH_Pawn visitorSnapshot = RHAH_Api.Get(p);
-            if (visitorSnapshot == null || !visitorSnapshot.IsActiveVisitor)
-            {
-                return;
-            }
-
-            // 敌情先于离场放行 否则围城时离场的客人会给敌人开门
-            if (HostileThreat(p.Map))
-            {
-                __result = false;
-                return;
-            }
-
-            // 离场的人要走门 锁着门只会逼他去砸殖民者的墙 走不出去时 Leave 里有凿墙兜底
-            if (visitorComp.State.lifecycle == RHAH_Lifecycle.Leaving)
-            {
-                return;
-            }
-
-            __result = false;
+            __result = visitorComp.State.lifecycle == RHAH_Lifecycle.Leaving && !HostileThreat(p.Map);
         }
 
         static bool HostileThreat(Map map)

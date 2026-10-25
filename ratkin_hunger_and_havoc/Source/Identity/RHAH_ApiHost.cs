@@ -105,8 +105,7 @@ namespace HungerAndHavoc.Identity
                 return;
             }
 
-            // 原版只在这扇门开关或换派系时才清可达性缓存
-            // 不清的话离场搜索仍读到门还锁着时缓存的不可达 于是绕过走门那条 giver
+            // 开门权限变化不会自动清除旧的不可达结果
             if (lifecycle == RHAH_Lifecycle.Leaving)
             {
                 ClearPawnReachabilityCache(pawn);
@@ -121,8 +120,6 @@ namespace HungerAndHavoc.Identity
             RHAH_Api.RaiseLifecycleChanged(pawn, comp.ToSnapshot(), lifecycle);
         }
 
-        // 只清这个 pawn 的行 缓存按 pawn 入键 别人的结果仍然成立
-        // 清整图会让所有 pawn 下次查询重跑区域 BFS 原版每次开关门已经在付这笔钱
         static void ClearPawnReachabilityCache(Verse.Pawn pawn)
         {
             Map map = pawn?.Map;
