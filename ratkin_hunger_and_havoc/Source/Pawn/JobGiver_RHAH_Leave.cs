@@ -16,6 +16,27 @@ namespace HungerAndHavoc.Pawn
             return TryCreate(pawn);
         }
 
+        internal static bool IsDeparting(Verse.Pawn pawn)
+        {
+            return RHAH_BatchAttitude.CanOrderLeave(pawn) &&
+                RHAH_Api.Get(pawn).Lifecycle == RHAH_Lifecycle.Leaving &&
+                RHAH_Api.Allows(pawn, RHAH_BehaviorGate.ExitMap);
+        }
+
+        internal static bool RejectsFoodJob(Verse.Pawn pawn, Job job, ThinkNode giver)
+        {
+            if (job?.def == null) return false;
+            bool foodJob = giver is JobGiver_GetFood || giver is JobGiver_RHAH_Feed || giver is JobGiver_RHAH_Gnaw ||
+                job.def == JobDefOf.Ingest || job.def == RHAH_DefOf.RHAH_Gnaw;
+            if (!foodJob && (job.def == JobDefOf.Harvest || job.def == JobDefOf.TakeFromOtherInventory))
+            {
+                ThingDef food = job.targetA.Thing?.def;
+                foodJob = food?.IsNutritionGivingIngestible == true ||
+                    food?.plant?.harvestedThingDef?.IsNutritionGivingIngestible == true;
+            }
+            return foodJob && IsDeparting(pawn);
+        }
+
         // 供无 Lord 的总 JobGiver 调度
         internal static Job TryCreate(Verse.Pawn pawn)
         {

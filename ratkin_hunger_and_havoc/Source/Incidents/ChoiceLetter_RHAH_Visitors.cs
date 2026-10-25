@@ -13,14 +13,14 @@ namespace HungerAndHavoc.Incidents
         public int choiceId;
         public RHAH_ChoiceKind choice = RHAH_ChoiceKind.Visitors;
 
-        public override bool CanDismissWithRightClick => false;
+        public override bool CanDismissWithRightClick => !Pending(Current.Game?.GetComponent<GameComponent_RHAH_Game>(), Find.TickManager?.TicksGame ?? 0);
 
         public override IEnumerable<DiaOption> Choices
         {
             get
             {
                 RHAH_ChoiceRecord record = FindRecord();
-                if (ArchivedOnly || record == null || !record.Open)
+                if (ArchivedOnly || !RHAH_ChoiceRuntime.Pending(record, Find.TickManager?.TicksGame ?? 0))
                 {
                     yield return Option_Close;
                     yield break;
@@ -355,9 +355,14 @@ namespace HungerAndHavoc.Incidents
 
 
 
-        RHAH_ChoiceRecord FindRecord()
+        internal bool Pending(GameComponent_RHAH_Game game, int tick)
         {
-            GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
+            return RHAH_ChoiceRuntime.Pending(FindRecord(game), tick);
+        }
+
+        RHAH_ChoiceRecord FindRecord(GameComponent_RHAH_Game game = null)
+        {
+            game = game ?? Current.Game?.GetComponent<GameComponent_RHAH_Game>();
             if (game == null)
             {
                 return null;

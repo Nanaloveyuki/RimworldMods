@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Menu_Settlement>受け入れの進捗</RHAH_Menu_Settlement>
-  <RHAH_Settlement_Note>結果を待っている救済中の来訪者、交換で引き取った子供、託された家族を、左側に記録日、事件、グループの順で表示します。項目を展開してグループを選ぶと、救済と穂音からの手紙に関する進捗を確認できます。</RHAH_Settlement_Note>
-  <RHAH_Settlement_UpdateNote>進捗はゲーム内で約1時間ごとに確認されます。更新すると、最後に確認された結果と現在確認できる状況を表示します。累積時間は、すでに確認された進捗に基づきます。</RHAH_Settlement_UpdateNote>
   <RHAH_Settlement_Refresh>進捗を更新</RHAH_Settlement_Refresh>
   <RHAH_Settlement_NoGame>ゲームをロードすると、結果を待っている来訪者や子供を確認できます。</RHAH_Settlement_NoGame>
   <RHAH_Settlement_None>現在、結果を待っている救済中の来訪者、交換で引き取った子供、託された家族はいません。</RHAH_Settlement_None>

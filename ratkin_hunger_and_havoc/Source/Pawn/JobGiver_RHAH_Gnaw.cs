@@ -32,7 +32,7 @@ namespace HungerAndHavoc.Pawn
                 return null;
             }
 
-            if (!RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Gnaw))
+            if (JobGiver_RHAH_Leave.IsDeparting(pawn) || !RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Gnaw))
             {
                 return null;
             }

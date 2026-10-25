@@ -118,14 +118,25 @@ namespace HungerAndHavoc.Incidents
             {
                 RHAH_ChoiceRecord record = records[i];
                 RHAH_AllyTransfer.Tick(record, tick);
-                if (RHAH_MouseSwarm.IsSource(record.DisplayId)) continue;
+                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
+                    FindMap(record.MapId) == null)
+                {
+                    CloseUnavailable(record);
+                    continue;
+                }
+                if (RHAH_MouseSwarm.IsSource(record.DisplayId))
+                {
+                    if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
+                        Present(record).Count == 0) CloseUnavailable(record);
+                    continue;
+                }
                 if (RHAH_ArmedDemand.IsRequest(record))
                 {
                     RHAH_ArmedDemand.Tick(record, tick);
                     continue;
                 }
                 if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
-                    (FindMap(record.MapId) == null || Present(record).Count == 0))
+                    Present(record).Count == 0)
                 {
                     CloseUnavailable(record);
                     continue;
@@ -141,28 +152,29 @@ namespace HungerAndHavoc.Incidents
                     Leave(record);
                 }
             }
-            if (tick % GenDate.TicksPerHour == 0) RemoveSettledArmedLetters(records);
+            if (tick % GenDate.TicksPerHour == 0) CleanupLetters(game, tick);
 
         }
 
-        static void RemoveSettledArmedLetters(List<RHAH_ChoiceRecord> records)
+        internal static bool Pending(RHAH_ChoiceRecord record, int tick)
+        {
+            return record != null && record.Open &&
+                FindMap(record.MapId) != null &&
+                (RHAH_ArmedDemand.IsRequest(record) || RHAH_MouseSwarm.IsSource(record.DisplayId) ||
+                    record.ExpireTick < 0 || tick < record.ExpireTick);
+        }
+
+        internal static void CleanupLetters(GameComponent_RHAH_Game game, int tick)
         {
             List<Letter> letters = Find.LetterStack?.LettersListForReading;
-            if (letters == null || letters.Count == 0) return;
-            HashSet<int> settled = SimplePool<HashSet<int>>.Get();
-            try
+            for (int i = (letters?.Count ?? 0) - 1; i >= 0; i--)
             {
-                for (int i = 0; i < records.Count; i++)
-                    if (!records[i].Open && RHAH_ArmedDemand.IsRequest(records[i])) settled.Add(records[i].Id);
-                if (settled.Count == 0) return;
-                for (int i = letters.Count - 1; i >= 0; i--)
-                    if (letters[i] is ChoiceLetter_RHAH_Request request && settled.Contains(request.choiceId))
-                        Find.LetterStack.RemoveLetter(request);
-            }
-            finally
-            {
-                settled.Clear();
-                SimplePool<HashSet<int>>.Return(settled);
+                Letter letter = letters[i];
+                System.Type type = letter.GetType();
+                bool stale = type == typeof(ChoiceLetter_RHAH_Request) ? !((ChoiceLetter_RHAH_Request)letter).Pending(game, tick)
+                    : type == typeof(ChoiceLetter_RHAH_Visitors) ? !((ChoiceLetter_RHAH_Visitors)letter).Pending(game, tick)
+                    : type == typeof(EventMgr.ChoiceLetter_RHAH_LongFollow) && !((EventMgr.ChoiceLetter_RHAH_LongFollow)letter).Pending(game);
+                if (stale) Find.LetterStack.RemoveLetter(letter);
             }
         }
 

@@ -124,13 +124,14 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
                 if (record.Outcome == SuiyinN004Outcome.Pending)
                 {
-                    SuiyinPresence mother = ReadPresence(FindPawn(record.MotherId), tick, ref record.MissingSince);
+                    SuiyinPresence mother = SuiyinMember.ReadPresence(FindPawn(record.MotherId), record.MapId, tick,
+                        record.Mother, ref record.MissingSince);
                     record.Mother = mother;
                     if (record.Children != null)
                     {
                         for (int childIndex = 0; childIndex < record.Children.Count; childIndex++)
                         {
-                            ReadMember(record.Children[childIndex], tick, false);
+                            ReadMember(record.Children[childIndex], record.MapId, tick, false);
                         }
                     }
 
@@ -160,7 +161,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
                 for (int childIndex = 0; childIndex < record.Children.Count; childIndex++)
                 {
-                    ReadMember(record.Children[childIndex], tick, true);
+                    ReadMember(record.Children[childIndex], record.MapId, tick, true);
                 }
 
                 state.Commit(item => item.AdvanceCare(record, tick));
@@ -168,7 +169,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         }
 
 
-        static void ReadMember(SuiyinMember member, int tick, bool care)
+        static void ReadMember(SuiyinMember member, int mapId, int tick, bool care)
         {
             if (member == null)
             {
@@ -176,7 +177,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
             }
 
             Verse.Pawn pawn = FindPawn(member.LoadId);
-            member.Presence = ReadPresence(pawn, tick, ref member.MissingSince);
+            member.ObservePresence(pawn, mapId, tick);
             if (pawn != null && (pawn.DevelopmentalStage == DevelopmentalStage.Child || pawn.DevelopmentalStage.Adult()))
             {
                 member.Child = false;
@@ -188,68 +189,6 @@ namespace HungerAndHavoc.Storyteller.Suiyin
             }
         }
 
-        static SuiyinPresence ReadPresence(Verse.Pawn pawn, int tick, ref int missingSince)
-        {
-            if (pawn == null || pawn.Destroyed)
-            {
-                if (missingSince < 0)
-                {
-                    missingSince = tick;
-                }
-
-                return SuiyinPresence.Unknown;
-            }
-
-            if (pawn.Dead)
-            {
-                missingSince = -1;
-                return SuiyinPresence.Dead;
-            }
-
-            if (OffMap(pawn))
-            {
-                missingSince = -1;
-                return SuiyinPresence.Left;
-            }
-
-            if (!pawn.Spawned || pawn.MapHeld == null)
-            {
-                if (missingSince < 0)
-                {
-                    missingSince = tick;
-                }
-
-                return SuiyinPresence.Unknown;
-            }
-
-            missingSince = -1;
-            return SuiyinPresence.Here;
-        }
-
-        static bool OffMap(Verse.Pawn pawn)
-        {
-            return (Find.WorldPawns != null && Find.WorldPawns.Contains(pawn)) || InPlayerCaravan(pawn);
-        }
-
-        static bool InPlayerCaravan(Verse.Pawn pawn)
-        {
-            if (pawn == null || Find.WorldObjects == null)
-            {
-                return false;
-            }
-
-            List<RimWorld.Planet.Caravan> caravans = Find.WorldObjects.Caravans;
-            for (int i = 0; i < caravans.Count; i++)
-            {
-                RimWorld.Planet.Caravan caravan = caravans[i];
-                if (caravan != null && caravan.IsPlayerControlled && caravan.PawnsListForReading.Contains(pawn))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         static List<int> ChildIds(RHAH_ChoiceRecord record)
         {

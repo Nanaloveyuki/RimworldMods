@@ -31,7 +31,7 @@
   <RHAH_Settings_VanillaTraits>バニラの特性を維持</RHAH_Settings_VanillaTraits>
   <RHAH_Settings_VanillaTraits_Tooltip>オフにすると、新しい訪問者は年齢に応じたバニラの特性を得ません。このModの特性は、上の上限に従って選ばれます。</RHAH_Settings_VanillaTraits_Tooltip>
   <RHAH_Settings_TraitAge>年齢に合った特性を選ぶ</RHAH_Settings_TraitAge>
-  <RHAH_Settings_TraitAge_Tooltip>オフにすると、子供用と大人用の特性がどちらも選ばれます。オンの場合、子供には大人用、大人には子供用の特性は付きません。</RHAH_Settings_TraitAge_Tooltip>
+  <RHAH_Settings_TraitAge_Tooltip>オンの場合、18歳以上の新しい訪問者には大人用か全年齢用の特性が付きます。オフでは子供用も選ばれます。18歳未満の訪問者には、常に子供用か全年齢用の特性だけが付きます。</RHAH_Settings_TraitAge_Tooltip>
   <RHAH_Settings_ContentSort>リストの分類</RHAH_Settings_ContentSort>
   <RHAH_Settings_ContentSort_0>出典別</RHAH_Settings_ContentSort_0>
   <RHAH_Settings_ContentSort_1>名前順</RHAH_Settings_ContentSort_1>

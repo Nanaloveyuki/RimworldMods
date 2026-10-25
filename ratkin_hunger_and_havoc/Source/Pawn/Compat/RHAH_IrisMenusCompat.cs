@@ -714,8 +714,7 @@ namespace HungerAndHavoc.Pawn.Compat
         {
             yield return new MenuSearchEntry("settlement-progress-tree",
                 () => "RHAH_Menu_Settlement".Translate(),
-                () => "RHAH_Settlement_SearchTerms".Translate(),
-                context: () => "RHAH_Settlement_Note".Translate());
+                () => "RHAH_Settlement_SearchTerms".Translate());
         }
 
         void SyncSettlementGame()
@@ -966,10 +965,6 @@ namespace HungerAndHavoc.Pawn.Compat
                     RHAH_IrisMenusWidgets.Quote(list, row.Anchor, row.Text);
                 }
             }
-
-            list.Gap(12f);
-            RHAH_IrisMenusWidgets.Quote(list, "settlement-detail-note", "RHAH_Settlement_Note".Translate());
-            RHAH_IrisMenusWidgets.Quote(list, "settlement-detail-updates", "RHAH_Settlement_UpdateNote".Translate());
         }
 
         static string BuildSettlementSourceText(RHAH_SettlementGroup group)

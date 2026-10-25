@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using HungerAndHavoc.Core;
+using Oxygendsl.Core.Events;
+using Oxygendsl.Mod.Events;
 using RimWorld;
 using Verse;
 
@@ -8,14 +11,14 @@ namespace HungerAndHavoc.EventMgr
     {
         internal int chainId;
         internal int phase;
-        public override bool CanDismissWithRightClick => false;
+        public override bool CanDismissWithRightClick => !Pending(Current.Game?.GetComponent<GameComponent_RHAH_Game>());
 
         public override IEnumerable<DiaOption> Choices
         {
             get
             {
                 RHAH_LongFollowRecord record = RHAH_LongFollowRuntime.FindRecord(chainId);
-                if (ArchivedOnly || record == null || record.Completed || record.Phase != phase || !record.LetterOpen)
+                if (ArchivedOnly || !Pending(Current.Game?.GetComponent<GameComponent_RHAH_Game>()))
                 {
                     yield return Option_Close;
                     yield break;
@@ -57,6 +60,23 @@ namespace HungerAndHavoc.EventMgr
                 if (lookTargets.IsValid()) yield return Option_JumpToLocationAndPostpone;
                 yield return Option_Postpone;
             }
+        }
+
+        internal bool Pending(GameComponent_RHAH_Game game)
+        {
+            List<RHAH_LongFollowRecord> records = game?.LongFollows;
+            for (int i = 0; records != null && i < records.Count; i++)
+            {
+                RHAH_LongFollowRecord record = records[i];
+                if (record.ChainId != chainId) continue;
+                if (record.Completed || record.Phase != phase || !record.LetterOpen ||
+                    RHAH_EventFollowRuntime.FindMap(record.MapId) == null) return false;
+                EventChainRuntime runtime = OxygenEventChainHost.Runtime;
+                if (runtime == null) return true;
+                EventChainInstance instance = runtime.Find(RHAH_EventChainProvider.ProviderKey, chainId);
+                return instance == null || instance.End == EventChainEnd.None;
+            }
+            return false;
         }
 
         public override void ExposeData()

@@ -11,6 +11,17 @@ namespace HungerAndHavoc.Storyteller.Suiyin
     {
         internal const int CheckInterval = 2500;
 
+        internal static void NotifyExit(int loadId, int mapId)
+        {
+            NarrativeState state = Current.Game?.GetComponent<NarrativeState>();
+            if (state?.Book.NoteExit(loadId, mapId) == true)
+            {
+                RHAH_SettlementProgress.Invalidate(state);
+            }
+
+            RHAH_PawnIndex.Clear();
+        }
+
         internal static void Open(RHAH_IncidentContext context, IList<int> loadIds)
         {
             if (context == null || context.Map == null || context.SpawnBatchId <= 0 || loadIds == null || loadIds.Count == 0)
@@ -158,52 +169,12 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         static void Note(SuiyinJournalCase record, SuiyinMember person, int tick)
         {
-            if (person == null || person.Presence == SuiyinPresence.Dead || person.Presence == SuiyinPresence.Left || person.Presence == SuiyinPresence.Missing)
+            if (person == null || person.Presence == SuiyinPresence.Dead || person.Presence == SuiyinPresence.Left)
             {
                 return;
             }
 
-            Verse.Pawn pawn = FindPawn(person.LoadId);
-            if (pawn == null || pawn.Destroyed)
-            {
-                if (person.MissingSince < 0)
-                {
-                    person.MissingSince = tick;
-                }
-
-                person.Presence = SuiyinPresence.Unknown;
-                return;
-            }
-
-            person.MissingSince = -1;
-            if (pawn.Dead)
-            {
-                person.Presence = SuiyinPresence.Dead;
-                return;
-            }
-
-
-            Map home = MapOf(record.MapId);
-            bool onHome = home != null && pawn.MapHeld == home;
-
-            if (!onHome && pawn.MapHeld != null)
-            {
-                person.Presence = SuiyinPresence.Left;
-                return;
-            }
-
-            if (home == null)
-            {
-                person.Presence = SuiyinPresence.Unknown;
-                if (person.MissingSince < 0)
-                {
-                    person.MissingSince = tick;
-                }
-
-                return;
-            }
-
-            person.Presence = SuiyinPresence.Here;
+            person.ObservePresence(FindPawn(person.LoadId), record.MapId, tick);
         }
 
         static bool Fighting(SuiyinJournalCase record)
@@ -226,24 +197,6 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         }
 
 
-        static Map MapOf(int mapId)
-        {
-            if (Find.Maps == null)
-            {
-                return null;
-            }
-
-            for (int i = 0; i < Find.Maps.Count; i++)
-            {
-                Map map = Find.Maps[i];
-                if (map != null && map.uniqueID == mapId)
-                {
-                    return map;
-                }
-            }
-
-            return null;
-        }
 
         static Verse.Pawn FindPawn(int loadId)
         {

@@ -31,7 +31,7 @@
   <RHAH_Settings_VanillaTraits>保留原版特质</RHAH_Settings_VanillaTraits>
   <RHAH_Settings_VanillaTraits_Tooltip>关闭后，新来客不再获得随年龄出现的原版特质。本模组特质仍按上面的上限挑选。</RHAH_Settings_VanillaTraits_Tooltip>
   <RHAH_Settings_TraitAge>特质跟随年龄</RHAH_Settings_TraitAge>
-  <RHAH_Settings_TraitAge_Tooltip>开启后，新来客按年龄获得幼年或成年特质。关闭后，两个年龄段的特质都可被选中。</RHAH_Settings_TraitAge_Tooltip>
+  <RHAH_Settings_TraitAge_Tooltip>开启后，18岁及以上的新来客只抽取成年或全年龄特质；关闭后，也可抽取幼年特质。未满18岁的新来客始终只抽取幼年或全年龄特质。</RHAH_Settings_TraitAge_Tooltip>
   <RHAH_Settings_ContentSort>列表分类</RHAH_Settings_ContentSort>
   <RHAH_Settings_ContentSort_0>按来源</RHAH_Settings_ContentSort_0>
   <RHAH_Settings_ContentSort_1>按名称</RHAH_Settings_ContentSort_1>

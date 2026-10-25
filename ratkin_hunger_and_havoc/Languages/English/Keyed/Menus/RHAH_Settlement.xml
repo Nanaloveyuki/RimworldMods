@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Menu_Settlement>Settlement progress</RHAH_Menu_Settlement>
-  <RHAH_Settlement_Note>The sidebar lists visitors receiving relief, exchanged children and entrusted families awaiting an outcome by recorded day, incident and group. Expand the tree and select a group to see progress toward relief and Suiyin's letters.</RHAH_Settlement_Note>
-  <RHAH_Settlement_UpdateNote>Progress is observed about once per game hour. Refresh shows the last observation and any conditions that can currently be checked; accumulated time follows progress already observed.</RHAH_Settlement_UpdateNote>
   <RHAH_Settlement_Refresh>Refresh progress</RHAH_Settlement_Refresh>
   <RHAH_Settlement_NoGame>Load a game to see visitors and children awaiting an outcome.</RHAH_Settlement_NoGame>
   <RHAH_Settlement_None>No visitors receiving relief, exchanged children or entrusted families are currently awaiting an outcome.</RHAH_Settlement_None>

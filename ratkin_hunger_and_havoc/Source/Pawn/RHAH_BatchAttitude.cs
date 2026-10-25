@@ -255,6 +255,8 @@ namespace HungerAndHavoc.Pawn
             for (int i = 0; i < members.Count; i++)
             {
                 RHAH_Api.SetLifecycle(members[i], RHAH_Lifecycle.Leaving);
+                // StartJob 不会丢弃之前挂起的觅食队列，离场令必须先撤销它。
+                members[i].jobs?.ClearQueuedJobs();
                 if (members[i].mindState != null)
                 {
                     members[i].mindState.duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);

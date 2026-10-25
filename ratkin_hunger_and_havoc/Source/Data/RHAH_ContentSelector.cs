@@ -21,7 +21,7 @@ namespace HungerAndHavoc.Data
             Func<string, bool> traitAlreadyOwned = null)
         {
             AgeYears = ageYears;
-            Adult = adult;
+            Adult = RHAH_ContentSelector.IsAdult(ageYears, adult);
             Female = female;
             Temperature = temperature;
             IncidentDisplayId = incidentDisplayId;
@@ -52,6 +52,12 @@ namespace HungerAndHavoc.Data
 
     internal static class RHAH_ContentSelector
     {
+        // 成年内容以目录的十八岁分界为准 不把青少年所在的 Adult 发育阶段当作成年
+        internal static bool IsAdult(float ageYears, bool adultStage)
+        {
+            return adultStage && ageYears >= 18f && !float.IsInfinity(ageYears);
+        }
+
         internal static RHAH_HistoryRecord SelectHistory(RHAH_ContentQuery query, Func<float> random)
         {
             if (!query.HistoriesEnabled || random == null)
@@ -242,7 +248,8 @@ namespace HungerAndHavoc.Data
             for (int i = 0; i < all.Count; i++)
             {
                 RHAH_TraitRecord record = all[i];
-                if ((query.FilterTraitAge && !MatchesTraitSlot(record, query.Adult)) ||
+                if ((!query.Adult && record.Slot == RHAH_TraitSlot.Adulthood) ||
+                    (query.FilterTraitAge && !MatchesTraitSlot(record, query.Adult)) ||
                     !query.TraitEnabled(record.DisplayId) ||
                     query.TraitAlreadyOwned(record.DisplayId))
                 {

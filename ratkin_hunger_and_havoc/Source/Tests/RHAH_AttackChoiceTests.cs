@@ -243,7 +243,7 @@ namespace HungerAndHavoc.Tests
             RHAH_Lifecycle lifecycle = RHAH_Api.Get(pawn).Lifecycle;
             Current.Game.letterStack = new LetterStack();
             ChoiceLetter_RHAH_Request stale = new ChoiceLetter_RHAH_Request { choiceId = record.Id };
-            ChoiceLetter_RHAH_Request unrelated = new ChoiceLetter_RHAH_Request { choiceId = record.Id + 1 };
+            StandardLetter unrelated = new StandardLetter();
             Find.LetterStack.LettersListForReading.Add(stale);
             Find.LetterStack.LettersListForReading.Add(unrelated);
 
@@ -258,6 +258,58 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(record.Id, job.ArmedChoiceId);
             Assert.Equal(attitude, RHAH_Api.Get(pawn).Attitude);
             Assert.Equal(lifecycle, RHAH_Api.Get(pawn).Lifecycle);
+        }
+
+        [Fact]
+        public void OngoingArmedAssaultRetainsPayableLetterPastItsOriginalDeadline()
+        {
+            Verse.Pawn pawn = Visitor(910);
+            RHAH_ChoiceRecord record = ArmedRequest(pawn);
+            LordJob_RHAH_Visitor job = (LordJob_RHAH_Visitor)pawn.lord.LordJob;
+            job.ArmedAssault = true;
+            record.ArmedFoodDelivered = 4;
+            Current.Game.letterStack = new LetterStack();
+            ChoiceLetter_RHAH_Request letter = new ChoiceLetter_RHAH_Request { choiceId = record.Id };
+            Find.LetterStack.LettersListForReading.Add(letter);
+            Find.TickManager.DebugSetTicksGame(record.ExpireTick + GenDate.TicksPerHour);
+            Assert.False(letter.CanDismissWithRightClick);
+
+            RHAH_ChoiceRuntime.Tick(choices, Find.TickManager.TicksGame);
+
+            Assert.Contains(letter, Find.LetterStack.LettersListForReading);
+            Assert.True(record.Open);
+            Assert.Equal(4, record.ArmedFoodDelivered);
+            Assert.True(job.ArmedAssault);
+            Assert.Equal(record.Id, job.ArmedChoiceId);
+        }
+
+        [Fact]
+        public void HourlyCleanupRemovesSwarmLetterWhenItsLastVisitorIsGone()
+        {
+            Verse.Pawn pawn = Visitor(911);
+            CompRHAH_Pawn.TryGet(pawn).ApplySeed(new RHAH_PawnSeed("I-052", 7, 0, RHAH_PawnRole.Thief, RHAH_Lifecycle.SeekingFood));
+            map.mapPawns = Uninitialized<MapPawns>();
+            Field(typeof(MapPawns), "pawnsSpawned").SetValue(map.mapPawns, new List<Verse.Pawn> { pawn });
+            RHAH_ChoiceRecord record = new RHAH_ChoiceRecord
+            {
+                DisplayId = "I-052", Choice = RHAH_ChoiceKind.Visitors, MapId = map.uniqueID,
+                BatchId = 7, ExpireTick = -1, PawnLoadIds = new List<int> { pawn.thingIDNumber }
+            };
+            RHAH_ChoiceRuntime.Open(choices, record);
+            Current.Game.letterStack = new LetterStack();
+            ChoiceLetter_RHAH_Visitors letter = new ChoiceLetter_RHAH_Visitors { choiceId = record.Id };
+            Find.LetterStack.LettersListForReading.Add(letter);
+
+            RHAH_ChoiceRuntime.Tick(choices, GenDate.TicksPerHour);
+            Assert.Contains(letter, Find.LetterStack.LettersListForReading);
+            Assert.True(record.Open);
+            Assert.False(letter.CanDismissWithRightClick);
+            Field(typeof(Pawn_HealthTracker), "healthState").SetValue(pawn.health, PawnHealthState.Dead);
+            RHAH_ChoiceRuntime.Tick(choices, 2 * GenDate.TicksPerHour);
+
+            Assert.DoesNotContain(letter, Find.LetterStack.LettersListForReading);
+            Assert.False(record.Open);
+            Assert.True(letter.CanDismissWithRightClick);
         }
 
         [Theory]

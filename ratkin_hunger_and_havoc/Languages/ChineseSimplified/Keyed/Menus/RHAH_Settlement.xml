@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Menu_Settlement>安置进度</RHAH_Menu_Settlement>
-  <RHAH_Settlement_Note>左侧按记录日、事件和分组列出仍在等待结果的救济来客、换来的孩子与托付家庭。展开后选择一组，即可查看救济与穗音来信的进展。</RHAH_Settlement_Note>
-  <RHAH_Settlement_UpdateNote>进展约每游戏小时观察一次。刷新可重新查看最近一次观察的结果和当前可查的状况；累计时间以已经观察到的进展为准。</RHAH_Settlement_UpdateNote>
   <RHAH_Settlement_Refresh>刷新进度</RHAH_Settlement_Refresh>
   <RHAH_Settlement_NoGame>载入游戏后，可以查看正在等待结果的来客和孩子。</RHAH_Settlement_NoGame>
   <RHAH_Settlement_None>目前没有正在等待结果的救济来客、换来的孩子或托付家庭。</RHAH_Settlement_None>

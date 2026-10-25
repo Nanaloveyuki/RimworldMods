@@ -13,7 +13,7 @@ namespace HungerAndHavoc.Pawn
     {
         static void Postfix(Verse.Pawn pawn, ref Job __result)
         {
-            if (RHAH_MouseSwarm.IsProvoked(pawn))
+            if (RHAH_MouseSwarm.IsProvoked(pawn) || JobGiver_RHAH_Leave.IsDeparting(pawn))
             {
                 __result = null;
                 return;

@@ -16,6 +16,13 @@ namespace HungerAndHavoc.Generation
                 return;
             }
 
+            float age = pawn.ageTracker != null ? pawn.ageTracker.AgeBiologicalYearsFloat : 0f;
+            bool adult = RHAH_ContentSelector.IsAdult(age, pawn.DevelopmentalStage.Adult());
+            if (!adult)
+            {
+                pawn.story.Adulthood = null;
+            }
+
             RHAH_Settings settings = RHAH_Mod.Settings;
             bool histories = settings == null || settings.pawnHistoriesEnabled;
             bool traits = settings != null && settings.pawnTraitsEnabled && settings.maxOwnedTraits > 0;
@@ -28,8 +35,6 @@ namespace HungerAndHavoc.Generation
                 return;
             }
 
-            float age = pawn.ageTracker != null ? pawn.ageTracker.AgeBiologicalYearsFloat : 0f;
-            bool adult = pawn.DevelopmentalStage.Adult();
             float? temperature = request.Map?.mapTemperature?.OutdoorTemp;
             if (temperature.HasValue && (float.IsNaN(temperature.Value) || float.IsInfinity(temperature.Value)))
             {

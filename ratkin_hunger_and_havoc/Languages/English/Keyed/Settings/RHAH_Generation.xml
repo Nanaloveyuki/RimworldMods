@@ -31,7 +31,7 @@
   <RHAH_Settings_VanillaTraits>Keep vanilla traits</RHAH_Settings_VanillaTraits>
   <RHAH_Settings_VanillaTraits_Tooltip>Off, new visitors gain no age-based vanilla traits. Mod traits still follow the limit above.</RHAH_Settings_VanillaTraits_Tooltip>
   <RHAH_Settings_TraitAge>Traits follow age</RHAH_Settings_TraitAge>
-  <RHAH_Settings_TraitAge_Tooltip>Off, child traits and adult traits can both be chosen. On, children miss adult traits and adults miss child traits.</RHAH_Settings_TraitAge_Tooltip>
+  <RHAH_Settings_TraitAge_Tooltip>On, new visitors aged 18 or older draw adult or all-age traits. Off, they may also draw child traits. Visitors under 18 always draw only child or all-age traits.</RHAH_Settings_TraitAge_Tooltip>
   <RHAH_Settings_ContentSort>List grouping</RHAH_Settings_ContentSort>
   <RHAH_Settings_ContentSort_0>By source</RHAH_Settings_ContentSort_0>
   <RHAH_Settings_ContentSort_1>By name</RHAH_Settings_ContentSort_1>

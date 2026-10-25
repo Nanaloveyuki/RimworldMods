@@ -78,6 +78,64 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                 pawn?.health?.hediffSet?.HasHediff(RimWorld.HediffDefOf.Malnutrition) == true;
         }
 
+        internal void ObservePresence(Verse.Pawn pawn, int mapId, int tick)
+        {
+            Presence = ReadPresence(pawn, mapId, tick, Presence, ref MissingSince);
+        }
+
+        internal static SuiyinPresence ReadPresence(Verse.Pawn pawn, int mapId, int tick,
+            SuiyinPresence previous, ref int missingSince)
+        {
+            if (previous == SuiyinPresence.Dead || pawn?.Dead == true)
+            {
+                missingSince = -1;
+                return SuiyinPresence.Dead;
+            }
+
+            if (pawn != null && !pawn.Destroyed)
+            {
+                Map heldMap = pawn.MapHeld;
+                if (heldMap != null)
+                {
+                    missingSince = -1;
+                    return heldMap.uniqueID == mapId ? SuiyinPresence.Here : SuiyinPresence.Left;
+                }
+
+                if (Find.WorldPawns?.Contains(pawn) == true || InPlayerCaravan(pawn))
+                {
+                    missingSince = -1;
+                    return SuiyinPresence.Left;
+                }
+            }
+
+            if (previous == SuiyinPresence.Left || previous == SuiyinPresence.Missing)
+            {
+                return previous;
+            }
+
+            if (missingSince < 0)
+            {
+                missingSince = tick;
+            }
+
+            return SuiyinPresence.Unknown;
+        }
+
+        static bool InPlayerCaravan(Verse.Pawn pawn)
+        {
+            List<RimWorld.Planet.Caravan> caravans = Find.WorldObjects?.Caravans;
+            for (int i = 0; caravans != null && i < caravans.Count; i++)
+            {
+                RimWorld.Planet.Caravan caravan = caravans[i];
+                if (caravan != null && caravan.IsPlayerControlled && caravan.PawnsListForReading.Contains(pawn))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref LoadId, "loadId", 0);
@@ -188,6 +246,72 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         internal int Trust;
         internal bool EntrustEnabled = true;
         internal bool ExchangeEnabled = true;
+
+        internal bool NoteExit(int loadId, int mapId)
+        {
+            if (loadId <= 0 || mapId < 0)
+            {
+                return false;
+            }
+
+            bool changed = false;
+            for (int i = 0; i < Journals.Count; i++)
+            {
+                SuiyinJournalCase record = Journals[i];
+                if (record != null && record.MapId == mapId)
+                {
+                    changed |= NoteExit(record.People, loadId);
+                }
+            }
+
+            for (int i = 0; i < N005.Count; i++)
+            {
+                SuiyinN005Case record = N005[i];
+                if (record != null && record.MapId == mapId)
+                {
+                    changed |= NoteExit(record.Children, loadId);
+                }
+            }
+
+            for (int i = 0; i < N004.Count; i++)
+            {
+                SuiyinN004Case record = N004[i];
+                if (record == null || record.MapId != mapId)
+                {
+                    continue;
+                }
+
+                changed |= NoteExit(record.Children, loadId);
+                if (record.MotherId == loadId && record.Mother != SuiyinPresence.Dead)
+                {
+                    changed |= record.Mother != SuiyinPresence.Left || record.MissingSince != -1;
+                    record.Mother = SuiyinPresence.Left;
+                    record.MissingSince = -1;
+                }
+            }
+
+            return changed;
+        }
+
+        static bool NoteExit(List<SuiyinMember> members, int loadId)
+        {
+            bool changed = false;
+            for (int i = 0; members != null && i < members.Count; i++)
+            {
+                SuiyinMember member = members[i];
+                if (member == null || member.LoadId != loadId || member.Presence == SuiyinPresence.Dead)
+                {
+                    continue;
+                }
+
+                changed |= member.Presence != SuiyinPresence.Left || member.MissingSince != -1 || member.LastCareTick != -1;
+                member.Presence = SuiyinPresence.Left;
+                member.MissingSince = -1;
+                member.LastCareTick = -1;
+            }
+
+            return changed;
+        }
 
         internal bool OpenEntrust(int motherId, int mapId, int tick, IList<int> childIds)
         {

@@ -30,11 +30,58 @@ namespace HungerAndHavoc.Tests
                 Assert.True(selected.MaximumAge == null || selected.MaximumAge > 6f);
             }
         }
-        [Fact]
-        public void AdultStageBelowEighteenDrawsNoAdultHistory()
+        [Theory]
+        [InlineData(12f)]
+        [InlineData(13f)]
+        [InlineData(17.999f)]
+        public void AdultDevelopmentalStageStillDrawsJuvenileHistoryBelowEighteen(float age)
         {
-            RHAH_ContentQuery query = Query(16f, true, 20f, null);
-            Assert.Null(RHAH_ContentSelector.SelectHistory(query, () => 0.2f));
+            RHAH_ContentQuery query = Query(age, true, 20f, null);
+            for (int i = 0; i < 30; i++)
+            {
+                RHAH_HistoryRecord selected = RHAH_ContentSelector.SelectHistory(query, () => i / 30f);
+                Assert.NotNull(selected);
+                Assert.Equal(RHAH_HistorySlot.Childhood, selected.Slot);
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void JuvenileEligibilityPrecedesHistoryIncidentAndFallbackTraitPools(bool filterAge)
+        {
+            foreach (string history in new[] { "A035", null })
+            {
+                foreach (string incident in new[] { "I-012", null })
+                {
+                    RHAH_ContentQuery query = new RHAH_ContentQuery(
+                        17.999f, true, true, null, incident, false, true,
+                        _ => false, id => id == "T15" || id == "T37", _ => 100f,
+                        filterTraitAge: filterAge);
+                    RHAH_TraitRecord selected = RHAH_ContentSelector.SelectTrait(query, history, () => 0f, _ => true);
+                    Assert.Equal("T37", selected?.DisplayId);
+                }
+            }
+        }
+
+        [Theory]
+        [InlineData(true, "T15")]
+        [InlineData(false, "T37")]
+        public void AdultTraitFilterStillControlsChildTraits(bool filterAge, string expected)
+        {
+            RHAH_ContentQuery query = new RHAH_ContentQuery(
+                18f, true, true, null, null, false, true,
+                _ => false, id => id == "T15" || id == "T37", _ => 100f,
+                filterTraitAge: filterAge);
+            RHAH_TraitRecord selected = RHAH_ContentSelector.SelectTrait(query, "Y001", () => 0f, _ => true);
+            Assert.Equal(expected, selected?.DisplayId);
+        }
+
+        [Fact]
+        public void EligibleAdultStillDrawsAnAdulthoodAtEighteen()
+        {
+            Assert.Equal(RHAH_HistorySlot.Adulthood,
+                RHAH_ContentSelector.SelectHistory(Query(18f, true, 20f, null), () => 0f).Slot);
         }
 
 

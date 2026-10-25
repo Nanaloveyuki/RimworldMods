@@ -14,14 +14,14 @@ namespace HungerAndHavoc.Incidents
         public int amount;
         public int expireTick = -1;
 
-        public override bool CanDismissWithRightClick => !Pending(FindRecord(Current.Game?.GetComponent<GameComponent_RHAH_Game>()));
+        public override bool CanDismissWithRightClick => !Pending(Current.Game?.GetComponent<GameComponent_RHAH_Game>(), Find.TickManager?.TicksGame ?? 0);
 
         public override IEnumerable<DiaOption> Choices
         {
             get
             {
                 RHAH_ChoiceRecord record = FindRecord(Current.Game?.GetComponent<GameComponent_RHAH_Game>());
-                if (ArchivedOnly || !Pending(record))
+                if (ArchivedOnly || !RHAH_ChoiceRuntime.Pending(record, Find.TickManager?.TicksGame ?? 0))
                 {
                     yield return Option_Close;
                     yield break;
@@ -137,10 +137,9 @@ namespace HungerAndHavoc.Incidents
             return true;
         }
 
-        static bool Pending(RHAH_ChoiceRecord record)
+        internal bool Pending(GameComponent_RHAH_Game game, int tick)
         {
-            return record != null && record.Open && (Pawn.RHAH_ArmedDemand.IsRequest(record) ||
-                record.ExpireTick < 0 || Find.TickManager == null || Find.TickManager.TicksGame < record.ExpireTick);
+            return RHAH_ChoiceRuntime.Pending(FindRecord(game), tick);
         }
 
 

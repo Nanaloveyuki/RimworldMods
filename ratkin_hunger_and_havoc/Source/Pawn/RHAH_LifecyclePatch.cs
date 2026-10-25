@@ -5,6 +5,7 @@ using RimWorld;
 using Verse;
 using Verse.AI;
 using HungerAndHavoc.Core;
+using HungerAndHavoc.Storyteller.Suiyin;
 namespace HungerAndHavoc.Pawn
 {
     // 原版吃完一口后才记吃饱 啃树皮不走这条
@@ -70,12 +71,44 @@ namespace HungerAndHavoc.Pawn
     [HarmonyPatch(typeof(Verse.Pawn), nameof(Verse.Pawn.ExitMap))]
     internal static class RHAH_ExitTrustPatch
     {
+        struct ExitState
+        {
+            internal int MapId;
+            internal Verse.Pawn Child;
+        }
 
-        static void Postfix(Verse.Pawn __instance)
+        static void Prefix(Verse.Pawn __instance, out ExitState __state)
+        {
+            Map map = __instance?.MapHeld;
+            __state = new ExitState { MapId = -1 };
+            if (map == null || __instance.Dead || __instance.IsPrisoner || __instance.IsSlave)
+            {
+                return;
+            }
+
+            __state.MapId = map.uniqueID;
+            Verse.Pawn child = __instance.carryTracker?.CarriedThing as Verse.Pawn;
+            if (child != null && !child.Dead && !child.IsPrisoner && !child.IsSlave &&
+                (__instance.Faction == null || __instance.Faction == child.Faction))
+            {
+                __state.Child = child;
+            }
+        }
+
+        static void Postfix(Verse.Pawn __instance, ExitState __state)
         {
             if (__instance == null || __instance.Spawned || __instance.Dead)
             {
                 return;
+            }
+
+            if (__state.MapId >= 0 && !__instance.SpawnedOrAnyParentSpawned)
+            {
+                RHAH_JournalRuntime.NotifyExit(__instance.thingIDNumber, __state.MapId);
+                if (__state.Child != null && !__state.Child.SpawnedOrAnyParentSpawned && !__state.Child.Dead)
+                {
+                    RHAH_JournalRuntime.NotifyExit(__state.Child.thingIDNumber, __state.MapId);
+                }
             }
 
             HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.NotifyPawnChanged(__instance);

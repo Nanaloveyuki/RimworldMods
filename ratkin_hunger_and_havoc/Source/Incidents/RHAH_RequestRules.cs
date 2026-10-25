@@ -100,6 +100,7 @@ namespace HungerAndHavoc.Incidents
                 case "I-026": return new RHAH_RequestSpec(RHAH_RequestKind.SimpleMeal, RHAH_IntelSiteKind.Settlement, RHAH_ChoiceKind.Intel);
                 case "I-027": return new RHAH_RequestSpec(RHAH_RequestKind.HerbalMedicine, RHAH_IntelSiteKind.Settlement, RHAH_ChoiceKind.Intel);
                 case "I-028": return new RHAH_RequestSpec(RHAH_RequestKind.Silver, RHAH_IntelSiteKind.Settlement, RHAH_ChoiceKind.Intel);
+                case "I-001":
                 case "I-040": return new RHAH_RequestSpec(RHAH_RequestKind.None, RHAH_IntelSiteKind.None, RHAH_ChoiceKind.Refugees);
                 case "I-002":
                 case "I-003":
@@ -419,6 +420,7 @@ namespace HungerAndHavoc.Incidents
         {
             switch (displayId)
             {
+                case "I-001":
                 case "I-004":
                 case "I-005":
                 case "I-006":

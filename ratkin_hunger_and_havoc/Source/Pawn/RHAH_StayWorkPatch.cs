@@ -10,9 +10,16 @@ namespace HungerAndHavoc.Pawn
     [HarmonyPatch(typeof(JobGiver_GetFood), "TryGiveJob")]
     internal static class RHAH_GnawFoodPatch
     {
+        static bool Prefix(Verse.Pawn pawn, ref Job __result)
+        {
+            if (!JobGiver_RHAH_Leave.IsDeparting(pawn)) return true;
+            __result = null;
+            return false;
+        }
+
         static void Postfix(Verse.Pawn pawn, ThinkNode __instance, ref Job __result)
         {
-            if (__result != null || !RHAH_VisitorRules.IsNeedFood(__instance))
+            if (__result != null || !RHAH_VisitorRules.IsNeedFood(__instance) || JobGiver_RHAH_Leave.IsDeparting(pawn))
             {
                 return;
             }
@@ -25,12 +32,14 @@ namespace HungerAndHavoc.Pawn
         }
     }
 
-    // 招募、短工、长工到期后不再接派来的工作 被动反击和进食除外
+    // 停留到期拒绝普通工作；已获准离图的来客也不再接觅食。
     [HarmonyPatch(typeof(Pawn_JobTracker), "StartJob")]
     internal static class RHAH_StayWorkPatch
     {
         static bool Prefix(Verse.Pawn ___pawn, Job newJob, ThinkNode jobGiver)
         {
+            if (JobGiver_RHAH_Leave.RejectsFoodJob(___pawn, newJob, jobGiver)) return false;
+
             if (RHAH_VisitorRules.RejectsSelfExit(
                 RHAH_Api.IsVisitor(___pawn),
                 newJob != null && newJob.exitMapOnArrival,

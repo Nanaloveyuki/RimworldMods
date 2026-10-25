@@ -150,6 +150,47 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(64, loaded.Snapshot().Trust);
         }
 
+        [Fact]
+        public void ConfirmedDepartureFactsSurviveSaveLoadWithoutRetainingPawnReferences()
+        {
+            NarrativeState state = new NarrativeState(null);
+            state.Book.Journals.Add(new SuiyinJournalCase
+            {
+                Id = 14, MapId = 0, Delivered = true,
+                People = { new SuiyinMember { LoadId = 21 }, new SuiyinMember { LoadId = 22 } }
+            });
+            state.Book.N004.Add(new SuiyinN004Case
+            {
+                MotherId = 21, MapId = 0,
+                Children = { new SuiyinMember { LoadId = 21, Child = true } }
+            });
+            state.Book.N005.Add(new SuiyinN005Case
+            {
+                MapId = 0, Outcome = SuiyinN005Outcome.Accepted,
+                Children = { new SuiyinMember { LoadId = 21 } }
+            });
+            Assert.True(state.Book.NoteExit(21, 0));
+            Scribe.saver.InitSaving(path, "record");
+            state.ExposeData();
+            Scribe.saver.FinalizeSaving();
+
+            NarrativeState loaded = Load();
+            SuiyinMember left = loaded.Book.Journals[0].People[0];
+            SuiyinMember unavailable = loaded.Book.Journals[0].People[1];
+            left.ObservePresence(null, 0, 60000);
+            unavailable.ObservePresence(null, 0, 60000);
+            Assert.Equal(SuiyinPresence.Left, left.Presence);
+            Assert.Equal(-1, left.MissingSince);
+            Assert.Equal(SuiyinPresence.Unknown, unavailable.Presence);
+            Assert.Equal(SuiyinPresence.Left, loaded.Book.N004[0].Mother);
+            Assert.Equal(SuiyinPresence.Left, loaded.Book.N004[0].Children[0].Presence);
+            SuiyinMember child = loaded.Book.N005[0].Children[0];
+            child.ObservePresence(null, 0, 60000);
+            Assert.Equal(SuiyinPresence.Left, child.Presence);
+            Assert.Equal(SuiyinN005Outcome.Left, loaded.Book.AdvanceCare(loaded.Book.N005[0], 60000));
+            Assert.Equal(0, loaded.Snapshot().Trust);
+        }
+
         NarrativeState Load()
         {
             Scribe.loader.InitLoading(path);

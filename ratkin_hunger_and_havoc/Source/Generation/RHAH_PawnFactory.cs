@@ -213,8 +213,14 @@ namespace HungerAndHavoc.Generation
                 return;
             }
 
-            pawn.story.Childhood = profile.Childhood;
-            pawn.story.Adulthood = pawn.ageTracker != null && pawn.ageTracker.AgeBiologicalYearsFloat >= 20f
+            bool adult = pawn.ageTracker != null && Data.RHAH_ContentSelector.IsAdult(
+                pawn.ageTracker.AgeBiologicalYearsFloat, pawn.DevelopmentalStage.Adult());
+            if (adult || profile.Childhood == null || profile.Childhood.slot != BackstorySlot.Adulthood)
+            {
+                pawn.story.Childhood = profile.Childhood;
+            }
+            pawn.story.Adulthood = pawn.ageTracker != null && pawn.ageTracker.AgeBiologicalYearsFloat >= 20f &&
+                pawn.DevelopmentalStage.Adult()
                 ? profile.Adulthood
                 : null;
         }
