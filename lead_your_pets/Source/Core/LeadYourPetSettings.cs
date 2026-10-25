@@ -12,7 +12,7 @@ namespace LeadYourPet
         public const int MaxOrdinaryTravelRatkinYoungCount = 8;
 
         public int maxLeashLength = 10;
-        public int maxMouseEggPetLeashStartDistance = 10;
+        public int maxYoungRatkinPetLeashStartDistance = 10;
         public int minPetAgeYears = DefaultMinPetAgeYears;
         public int maxPetAgeYears = DefaultMaxPetAgeYears;
         public bool ignorePetAge;
@@ -46,7 +46,7 @@ namespace LeadYourPet
         public override void ExposeData()
         {
             Scribe_Values.Look(ref maxLeashLength, "maxLeashLength", 10);
-            Scribe_Values.Look(ref maxMouseEggPetLeashStartDistance, "maxMouseEggPetLeashStartDistance", 10);
+            Scribe_Values.Look(ref maxYoungRatkinPetLeashStartDistance, "maxMouseEggPetLeashStartDistance", 10);
             Scribe_Values.Look(ref minPetAgeYears, "minPetAgeYears", DefaultMinPetAgeYears);
             Scribe_Values.Look(ref maxPetAgeYears, "maxPetAgeYears", DefaultMaxPetAgeYears);
             Scribe_Values.Look(ref ignorePetAge, "ignorePetAge", false);
@@ -73,7 +73,7 @@ namespace LeadYourPet
                 ref maxPetAgeYears,
                 ref ordinaryTravelRatkinYoungCount,
                 ref maxLeashLength,
-                ref maxMouseEggPetLeashStartDistance);
+                ref maxYoungRatkinPetLeashStartDistance);
         }
     }
 }

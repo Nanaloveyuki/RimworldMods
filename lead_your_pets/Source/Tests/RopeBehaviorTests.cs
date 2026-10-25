@@ -135,7 +135,7 @@ namespace LeadYourPet.Tests
             master.health = Raw<Pawn_HealthTracker>();
             Set(pet.health, "healthState", PawnHealthState.Mobile);
             Set(master.health, "healthState", PawnHealthState.Mobile);
-            MouseEggInteractionAnimation animation = new MouseEggInteractionAnimation
+            YoungRatkinInteractionAnimation animation = new YoungRatkinInteractionAnimation
             {
                 Pet = pet, Master = master, FinalizeTeleport = true,
                 StartMap = pet.Map, StartLink = link, StartPetCell = pet.Position,

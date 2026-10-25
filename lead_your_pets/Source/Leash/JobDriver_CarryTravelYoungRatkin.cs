@@ -4,7 +4,7 @@ using Verse.AI;
 
 namespace LeadYourPet
 {
-    public class JobDriver_CarryTravelMouseEgg : JobDriver
+    public class JobDriver_CarryTravelYoungRatkin : JobDriver
     {
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {

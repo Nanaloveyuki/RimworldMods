@@ -14,14 +14,14 @@ namespace LeadYourPet
         private static readonly List<LeashLink> EmptyLinks = new List<LeashLink>(0);
         private static readonly List<Pawn> SinglePawnBuffer = new List<Pawn>(1);
         private List<LeashLink> links = new List<LeashLink>();
-        private List<MouseEggState> mouseEggStates = new List<MouseEggState>();
-        private readonly List<MouseEggInteractionAnimation> activeAnimations = new List<MouseEggInteractionAnimation>();
-        private readonly Dictionary<Pawn, MouseEggInteractionAnimation> animationByPet = new Dictionary<Pawn, MouseEggInteractionAnimation>();
+        private List<YoungRatkinState> youngRatkinStates = new List<YoungRatkinState>();
+        private readonly List<YoungRatkinInteractionAnimation> activeAnimations = new List<YoungRatkinInteractionAnimation>();
+        private readonly Dictionary<Pawn, YoungRatkinInteractionAnimation> animationByPet = new Dictionary<Pawn, YoungRatkinInteractionAnimation>();
         private readonly HashSet<int> processedTravelLords = new HashSet<int>();
         private readonly List<LeashLink> linkSnapshot = new List<LeashLink>();
         private readonly Dictionary<Pawn, LeashLink> linkByPet = new Dictionary<Pawn, LeashLink>();
         private readonly Dictionary<Pawn, List<LeashLink>> linksByMaster = new Dictionary<Pawn, List<LeashLink>>();
-        private readonly Dictionary<Pawn, MouseEggState> mouseEggStateByPawn = new Dictionary<Pawn, MouseEggState>();
+        private readonly Dictionary<Pawn, YoungRatkinState> youngRatkinStateByPawn = new Dictionary<Pawn, YoungRatkinState>();
         private readonly Dictionary<int, int> departurePreparedTicks = new Dictionary<int, int>();
 
         public LeadYourPetGameComponent(Game game)
@@ -31,14 +31,14 @@ namespace LeadYourPet
 
         public override void ExposeData()
         {
-            Scribe_Collections.Look(ref mouseEggStates, "mouseEggStates", LookMode.Deep);
+            Scribe_Collections.Look(ref youngRatkinStates, "mouseEggStates", LookMode.Deep);
             Scribe_Collections.Look(ref links, "links", LookMode.Deep);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 GodHandsCompat.Reset();
-                if (mouseEggStates == null)
+                if (youngRatkinStates == null)
                 {
-                    mouseEggStates = new List<MouseEggState>();
+                    youngRatkinStates = new List<YoungRatkinState>();
                 }
 
                 if (links == null)
@@ -46,8 +46,8 @@ namespace LeadYourPet
                     links = new List<LeashLink>();
                 }
 
-                mouseEggStates.RemoveAll(x => x == null || x.Pawn == null);
-                mouseEggStates.RemoveAll(x => x != null && !x.IsPet && x.CurrentMaster == null && !x.IsTravelStock);
+                youngRatkinStates.RemoveAll(x => x == null || x.Pawn == null);
+                youngRatkinStates.RemoveAll(x => x != null && !x.IsPet && x.CurrentMaster == null && !x.IsTravelStock);
                 links.RemoveAll(x => x == null || x.Master == null || x.Pet == null);
                 RebuildCaches();
             }
@@ -131,31 +131,31 @@ namespace LeadYourPet
                 : EmptyLinks;
         }
 
-        public MouseEggState GetMouseEggState(Pawn pawn)
+        public YoungRatkinState GetYoungRatkinState(Pawn pawn)
         {
             if (pawn == null)
             {
                 return null;
             }
 
-            mouseEggStateByPawn.TryGetValue(pawn, out MouseEggState state);
+            youngRatkinStateByPawn.TryGetValue(pawn, out YoungRatkinState state);
             return state;
         }
 
-        public MouseEggState EnsureMouseEggState(Pawn pawn)
+        public YoungRatkinState EnsureYoungRatkinState(Pawn pawn)
         {
-            MouseEggState state = GetMouseEggState(pawn);
+            YoungRatkinState state = GetYoungRatkinState(pawn);
             if (state != null)
             {
                 return state;
             }
 
-            state = new MouseEggState
+            state = new YoungRatkinState
             {
                 Pawn = pawn
             };
-            mouseEggStates.Add(state);
-            RegisterMouseEggState(state);
+            youngRatkinStates.Add(state);
+            RegisterYoungRatkinState(state);
             return state;
         }
 
@@ -174,12 +174,12 @@ namespace LeadYourPet
             return GetLinkForMaster(pawn) != null;
         }
 
-        public bool AnyMouseEggPetFor(Pawn pawn)
+        public bool AnyYoungRatkinPetFor(Pawn pawn)
         {
             List<LeashLink> masterLinks = GetLinksForMaster(pawn);
             for (int i = 0; i < masterLinks.Count; i++)
             {
-                if (masterLinks[i].Kind == LeashLinkKind.MouseEggPet)
+                if (masterLinks[i].Kind == LeashLinkKind.YoungRatkinPet)
                 {
                     return true;
                 }
@@ -188,13 +188,13 @@ namespace LeadYourPet
             return false;
         }
 
-        public bool AnyColonistMouseEggPetFor(Pawn pawn)
+        public bool AnyColonistYoungRatkinPetFor(Pawn pawn)
         {
             List<LeashLink> masterLinks = GetLinksForMaster(pawn);
             for (int i = 0; i < masterLinks.Count; i++)
             {
                 LeashLink link = masterLinks[i];
-                if (link.Kind == LeashLinkKind.MouseEggPet && LeadYourPetUtility.IsColonistMouseEgg(link.Pet))
+                if (link.Kind == LeashLinkKind.YoungRatkinPet && LeadYourPetUtility.IsColonistYoungRatkin(link.Pet))
                 {
                     return true;
                 }
@@ -217,15 +217,15 @@ namespace LeadYourPet
             return false;
         }
 
-        public bool IsMouseEggPet(Pawn pawn)
+        public bool IsYoungRatkinPet(Pawn pawn)
         {
             LeashLink link = GetLinkForPet(pawn);
-            return link != null && link.Kind == LeashLinkKind.MouseEggPet;
+            return link != null && link.Kind == LeashLinkKind.YoungRatkinPet;
         }
 
-        public bool IsColonistMouseEggPet(Pawn pawn)
+        public bool IsColonistYoungRatkinPet(Pawn pawn)
         {
-            return LeadYourPetUtility.IsColonistMouseEgg(pawn) && IsMouseEggPet(pawn);
+            return LeadYourPetUtility.IsColonistYoungRatkin(pawn) && IsYoungRatkinPet(pawn);
         }
 
         public bool IsRatkinMotherBaby(Pawn pawn)
@@ -250,23 +250,23 @@ namespace LeadYourPet
 
 
 
-        public void SetMouseEggSpecialSource(Pawn pawn, MouseEggSpecialSource source)
+        public void SetYoungRatkinSpecialSource(Pawn pawn, YoungRatkinSpecialSource source)
         {
-            if (pawn == null || source == MouseEggSpecialSource.None)
+            if (pawn == null || source == YoungRatkinSpecialSource.None)
             {
                 return;
             }
 
-            MouseEggState state = EnsureMouseEggState(pawn);
+            YoungRatkinState state = EnsureYoungRatkinState(pawn);
             state.SpecialSource = source;
         }
 
-        public MouseEggSpecialSource GetMouseEggSpecialSource(Pawn pawn)
+        public YoungRatkinSpecialSource GetYoungRatkinSpecialSource(Pawn pawn)
         {
-            return GetMouseEggState(pawn)?.SpecialSource ?? MouseEggSpecialSource.None;
+            return GetYoungRatkinState(pawn)?.SpecialSource ?? YoungRatkinSpecialSource.None;
         }
 
-        public bool HasSpecialMotherSourceMood(Pawn mother, MouseEggSpecialSource source)
+        public bool HasSpecialMotherSourceMood(Pawn mother, YoungRatkinSpecialSource source)
         {
             if (mother?.relations?.Children == null)
             {
@@ -283,7 +283,7 @@ namespace LeadYourPet
                 if (LeadYourPetRules.ShouldHaveSpecialMotherMood(
                     LeadYourPetUtility.HasParentRelation(child, mother),
                     IsChildLeashedByMaster(mother, child),
-                    GetMouseEggSpecialSource(child),
+                    GetYoungRatkinSpecialSource(child),
                     source))
                 {
                     return true;
@@ -293,7 +293,7 @@ namespace LeadYourPet
             return false;
         }
 
-        public bool HasSpecialBabySourceMood(Pawn baby, MouseEggSpecialSource source)
+        public bool HasSpecialBabySourceMood(Pawn baby, YoungRatkinSpecialSource source)
         {
             if (baby == null)
             {
@@ -304,7 +304,7 @@ namespace LeadYourPet
             return mother != null && LeadYourPetRules.ShouldHaveSpecialBabyMood(
                 LeadYourPetUtility.HasParentRelation(baby, mother),
                 IsChildLeashedByMaster(mother, baby),
-                GetMouseEggSpecialSource(baby),
+                GetYoungRatkinSpecialSource(baby),
                 source);
         }
 
@@ -326,11 +326,11 @@ namespace LeadYourPet
         {
             linkByPet.Clear();
             linksByMaster.Clear();
-            mouseEggStateByPawn.Clear();
+            youngRatkinStateByPawn.Clear();
 
-            for (int i = 0; i < mouseEggStates.Count; i++)
+            for (int i = 0; i < youngRatkinStates.Count; i++)
             {
-                RegisterMouseEggState(mouseEggStates[i]);
+                RegisterYoungRatkinState(youngRatkinStates[i]);
             }
 
             // Replay old saves in creation order so the latest direction breaks a cycle.

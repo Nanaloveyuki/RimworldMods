@@ -333,7 +333,7 @@ namespace LeadYourPet.Tests
             Pawn visitor = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
             Assert.False(LeadYourPetUtility.IsUnprotectedTravelStock(visitor));
 
-            component.EnsureMouseEggState(visitor); // state exists but IsTravelStock is false
+            component.EnsureYoungRatkinState(visitor); // state exists but IsTravelStock is false
             Assert.False(LeadYourPetUtility.IsUnprotectedTravelStock(visitor));
         }
 
@@ -421,7 +421,7 @@ namespace LeadYourPet.Tests
         {
             Pawn protectedPet = NewSpawnedPawn(lord, new IntVec3(1, 0, 1));
             Pawn playerMaster = NewSpawnedPawn(playerFaction, new IntVec3(2, 0, 2));
-            MouseEggState state = MarkTravelStock(protectedPet, currentMaster: playerMaster, leashMaster: playerMaster);
+            YoungRatkinState state = MarkTravelStock(protectedPet, currentMaster: playerMaster, leashMaster: playerMaster);
             state.IsPet = true;
             Set(lord, "curLordToil", VisitExitToil());
 
@@ -441,7 +441,7 @@ namespace LeadYourPet.Tests
             Set(otherLord, "curLordToil", ExitToil(otherLord));
             Pawn otherStock = NewSpawnedPawn(otherLord, new IntVec3(3, 0, 3));
             Pawn otherMaster = NewSpawnedPawn(otherLord, new IntVec3(4, 0, 4));
-            MouseEggState otherState = MarkTravelStock(otherStock, currentMaster: otherMaster, leashMaster: otherMaster);
+            YoungRatkinState otherState = MarkTravelStock(otherStock, currentMaster: otherMaster, leashMaster: otherMaster);
             otherState.IsPet = true;
 
             component.PrepareTravelDeparture(lord);
@@ -452,9 +452,9 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void PrepareKeepsMouseEggPetLeash()
+        public void PrepareKeepsYoungRatkinPetLeash()
         {
-            AssertLeashStaysOnDeparture(LeashLinkKind.MouseEggPet);
+            AssertLeashStaysOnDeparture(LeashLinkKind.YoungRatkinPet);
         }
 
         [Fact]
@@ -469,7 +469,7 @@ namespace LeadYourPet.Tests
             member.health = Raw<Pawn_HealthTracker>();
             Set(member.health, "healthState", PawnHealthState.Down);
             Pawn master = NewSpawnedPawn(lord, new IntVec3(2, 0, 2));
-            MouseEggState state = MarkTravelStock(member, currentMaster: master, leashMaster: master, linkKind: kind);
+            YoungRatkinState state = MarkTravelStock(member, currentMaster: master, leashMaster: master, linkKind: kind);
             state.IsPet = true;
             Set(lord, "curLordToil", VisitExitToil());
 
@@ -493,7 +493,7 @@ namespace LeadYourPet.Tests
             Set(playerLord, "curLordToil", ExitToil(playerLord));
             Pawn playerStock = NewSpawnedPawn(playerLord, new IntVec3(2, 0, 2));
             Pawn playerMaster = NewSpawnedPawn(playerFaction, new IntVec3(3, 0, 3));
-            MouseEggState playerState = MarkTravelStock(playerStock, currentMaster: playerMaster, leashMaster: playerMaster);
+            YoungRatkinState playerState = MarkTravelStock(playerStock, currentMaster: playerMaster, leashMaster: playerMaster);
             playerState.IsPet = true;
 
             component.PrepareTravelDeparture(playerLord);
@@ -505,7 +505,7 @@ namespace LeadYourPet.Tests
             // Non-player lord stuck on an arrival toil: not a departure, so the leash stays.
             Pawn member = NewSpawnedPawn(lord, new IntVec3(4, 0, 4));
             Pawn master = NewSpawnedPawn(lord, new IntVec3(5, 0, 5));
-            MouseEggState state = MarkTravelStock(member, currentMaster: master, leashMaster: master);
+            YoungRatkinState state = MarkTravelStock(member, currentMaster: master, leashMaster: master);
             state.IsPet = true;
 
             component.PrepareTravelDeparture(lord);
@@ -538,13 +538,13 @@ namespace LeadYourPet.Tests
 
         // ---------------- fixture helpers ----------------
 
-        private MouseEggState MarkTravelStock(
+        private YoungRatkinState MarkTravelStock(
             Pawn pawn,
             Pawn currentMaster = null,
             Pawn leashMaster = null,
-            LeashLinkKind linkKind = LeashLinkKind.MouseEggPet)
+            LeashLinkKind linkKind = LeashLinkKind.YoungRatkinPet)
         {
-            MouseEggState state = component.EnsureMouseEggState(pawn);
+            YoungRatkinState state = component.EnsureYoungRatkinState(pawn);
             state.IsTravelStock = true;
             state.CurrentMaster = currentMaster;
             if (leashMaster != null)

@@ -74,7 +74,9 @@ try {
     $utility = $pets.GetType('LeadYourPet.LeadYourPetUtility', $true)
     [Runtime.CompilerServices.RuntimeHelpers]::RunClassConstructor($utility.TypeHandle)
     $flags = [Reflection.BindingFlags]'NonPublic,Static'
-    foreach ($name in @('MouseDisasterGenerateFactionRatkinPawnMethod','MouseDisasterSetBiologicalAgeYearsMethod','MouseDisasterPrepareTradablePrisonerMethod','MouseDisasterClearTradeLeaderStateMethod','MouseDisasterResetBeggarStateMethod','MouseDisasterMakeFactionHostileToPlayerMethod','MouseDisasterTryRefreshHiddenFactionRelationsMethod','MouseDisasterNotifyIdentityChangedMethod','MouseDisasterTryMakeHostileVisitorsMethod')) {
+    $bindingPrefix = if ($RimWorldVersion -eq '1.7') { 'RatkinDisaster' } else { 'MouseDisaster' }
+    foreach ($suffix in @('GenerateFactionRatkinPawnMethod','SetBiologicalAgeYearsMethod','PrepareTradablePrisonerMethod','ClearTradeLeaderStateMethod','ResetBeggarStateMethod','MakeFactionHostileToPlayerMethod','TryRefreshHiddenFactionRelationsMethod','NotifyIdentityChangedMethod','TryMakeHostileVisitorsMethod')) {
+        $name = $bindingPrefix + $suffix
         $method = $utility.GetField($name, $flags).GetValue($null)
         if ($null -eq $method) { throw "Unresolved integration: $name" }
         Write-Host "$name -> $($method.DeclaringType.FullName).$method"
@@ -85,10 +87,11 @@ try {
     $signatures = @{
         TryStartRatkinMotherLeash = [Type[]]@($pawn,$pawn,[bool])
         StartLeash = [Type[]]@($pawn,$pawn,[bool],[bool])
-        TryAssignTravelMouseEggs = [Type[]]@($game.GetType('Verse.AI.Group.Lord', $true))
         AnchorLeashedPetsToCell = [Type[]]@($pawn,$game.GetType('Verse.IntVec3', $true))
         EndLeashForPet = [Type[]]@($pawn,[bool])
     }
+    $travelMethod = if ($RimWorldVersion -eq '1.7') { 'TryAssignTravelYoungRatkins' } else { 'TryAssignTravelMouseEggs' }
+    $signatures[$travelMethod] = [Type[]]@($game.GetType('Verse.AI.Group.Lord', $true))
     foreach ($name in $signatures.Keys) {
         if ($null -eq $component.GetMethod($name, $signatures[$name])) { throw "Unresolved reverse integration: $name" }
     }

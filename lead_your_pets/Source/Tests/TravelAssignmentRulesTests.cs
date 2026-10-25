@@ -5,10 +5,10 @@ namespace LeadYourPet.Tests
     public class TravelAssignmentRulesTests
     {
         [Fact]
-        public void BlocksCarryForProtectedMouseEggEvenWhenColonistCarryWouldOtherwiseBeAllowed()
+        public void BlocksCarryForProtectedYoungRatkinEvenWhenColonistCarryWouldOtherwiseBeAllowed()
         {
             Assert.True(LeadYourPetRules.ShouldBlockProtectedCarry(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 allowColonistCarry: true));
         }
 
@@ -17,23 +17,23 @@ namespace LeadYourPet.Tests
         [InlineData(true, false, true, false)]
         [InlineData(true, true, false, false)]
         [InlineData(false, true, true, false)]
-        public void AllowsOnlyMatchingPrisonerTransferToCarryProtectedMouseEgg(
-            bool isProtectedLeashedMouseEgg,
+        public void AllowsOnlyMatchingPrisonerTransferToCarryProtectedYoungRatkin(
+            bool isProtectedLeashedYoungRatkin,
             bool jobMakesTargetPrisoner,
             bool jobTargetMatchesPawn,
             bool expected)
         {
             Assert.Equal(expected, LeadYourPetRules.ShouldAllowProtectedPawnPrisonerTransfer(
-                isProtectedLeashedMouseEgg,
+                isProtectedLeashedYoungRatkin,
                 jobMakesTargetPrisoner,
                 jobTargetMatchesPawn));
         }
 
         [Fact]
-        public void TreatsLeashedMouseEggChildAsProtected()
+        public void TreatsLeashedYoungRatkinChildAsProtected()
         {
-            Assert.True(LeadYourPetRules.ShouldTreatAsProtectedLeashedMouseEgg(
-                isMouseEgg: true,
+            Assert.True(LeadYourPetRules.ShouldTreatAsProtectedLeashedYoungRatkin(
+                isYoungRatkin: true,
                 isBaby: false,
                 isChild: true,
                 hasProtectedLink: true,
@@ -41,22 +41,22 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void TreatsAnyHumanlikePawnUnderFourteenAsMouseEggCompatible()
+        public void TreatsAnyHumanlikePawnUnderFourteenAsYoungRatkinCompatible()
         {
-            Assert.True(LeadYourPetRules.ShouldTreatAsMouseEgg(
+            Assert.True(LeadYourPetRules.ShouldTreatAsYoungRatkin(
                 isRatkinHumanlike: false,
                 isBaby: false,
                 isChild: false,
                 hasMeaningfulState: false,
-                isTravelMouseEgg: false,
+                isTravelYoungRatkin: false,
                 isHumanlikeJuvenile: true));
         }
 
         [Fact]
         public void TreatsHumanlikeJuvenileAsProtectedWhenLeashed()
         {
-            Assert.True(LeadYourPetRules.ShouldTreatAsProtectedLeashedMouseEgg(
-                isMouseEgg: true,
+            Assert.True(LeadYourPetRules.ShouldTreatAsProtectedLeashedYoungRatkin(
+                isYoungRatkin: true,
                 isBaby: false,
                 isChild: false,
                 hasProtectedLink: true,
@@ -65,69 +65,69 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void DropsCarriedTravelMouseEggAfterRegistrationWhenCarrierIsSpawned()
+        public void DropsCarriedTravelYoungRatkinAfterRegistrationWhenCarrierIsSpawned()
         {
-            Assert.True(LeadYourPetRules.ShouldDropCarriedTravelMouseEggAfterRegistration(
+            Assert.True(LeadYourPetRules.ShouldDropCarriedTravelYoungRatkinAfterRegistration(
                 registrationSucceeded: true,
                 carrierSpawned: true,
                 eggAlreadySpawned: false));
         }
 
         [Fact]
-        public void RegistersCarriedTravelMouseEggOnlyAfterDropToGroundSucceeds()
+        public void RegistersCarriedTravelYoungRatkinOnlyAfterDropToGroundSucceeds()
         {
-            Assert.True(LeadYourPetRules.ShouldRegisterDroppedTravelMouseEgg(
-                hadCarriedMouseEgg: true,
+            Assert.True(LeadYourPetRules.ShouldRegisterDroppedTravelYoungRatkin(
+                hadCarriedYoungRatkin: true,
                 dropSucceeded: true,
                 droppedPawnValid: true));
 
-            Assert.False(LeadYourPetRules.ShouldRegisterDroppedTravelMouseEgg(
-                hadCarriedMouseEgg: true,
+            Assert.False(LeadYourPetRules.ShouldRegisterDroppedTravelYoungRatkin(
+                hadCarriedYoungRatkin: true,
                 dropSucceeded: false,
                 droppedPawnValid: true));
 
-            Assert.False(LeadYourPetRules.ShouldRegisterDroppedTravelMouseEgg(
-                hadCarriedMouseEgg: true,
+            Assert.False(LeadYourPetRules.ShouldRegisterDroppedTravelYoungRatkin(
+                hadCarriedYoungRatkin: true,
                 dropSucceeded: true,
                 droppedPawnValid: false));
         }
 
         [Fact]
-        public void SkipsRandomTravelMouseEggFallbackWhenExistingCarriedEggWasAlreadyHandled()
+        public void SkipsRandomTravelYoungRatkinFallbackWhenExistingCarriedEggWasAlreadyHandled()
         {
-            Assert.True(LeadYourPetRules.ShouldSkipRandomTravelMouseEggFallback(
-                hadCarriedMouseEgg: true,
+            Assert.True(LeadYourPetRules.ShouldSkipRandomTravelYoungRatkinFallback(
+                hadCarriedYoungRatkin: true,
                 carriedEggRegistrationSucceeded: false));
 
-            Assert.False(LeadYourPetRules.ShouldSkipRandomTravelMouseEggFallback(
-                hadCarriedMouseEgg: false,
+            Assert.False(LeadYourPetRules.ShouldSkipRandomTravelYoungRatkinFallback(
+                hadCarriedYoungRatkin: false,
                 carriedEggRegistrationSucceeded: false));
         }
 
         [Fact]
-        public void DropsPawnImmediatelyAfterItBecomesProtectedMouseEggPetWhileCarried()
+        public void DropsPawnImmediatelyAfterItBecomesProtectedYoungRatkinPetWhileCarried()
         {
-            Assert.True(LeadYourPetRules.ShouldDropCarriedPawnAfterBecomingMouseEggPet(
-                isProtectedMouseEggPet: true,
+            Assert.True(LeadYourPetRules.ShouldDropCarriedPawnAfterBecomingYoungRatkinPet(
+                isProtectedYoungRatkinPet: true,
                 pawnHasCarrier: true,
                 carrierHasCarryTracker: true,
                 carrierIsCarryingPawn: true));
         }
 
         [Fact]
-        public void DoesNotDropCarriedPawnWhenItIsNotProtectedMouseEggPet()
+        public void DoesNotDropCarriedPawnWhenItIsNotProtectedYoungRatkinPet()
         {
-            Assert.False(LeadYourPetRules.ShouldDropCarriedPawnAfterBecomingMouseEggPet(
-                isProtectedMouseEggPet: false,
+            Assert.False(LeadYourPetRules.ShouldDropCarriedPawnAfterBecomingYoungRatkinPet(
+                isProtectedYoungRatkinPet: false,
                 pawnHasCarrier: true,
                 carrierHasCarryTracker: true,
                 carrierIsCarryingPawn: true));
         }
 
         [Fact]
-        public void AllowsNearbyMouseDisasterChildFallbackWhenChildIsUnownedAndNearTrader()
+        public void AllowsNearbyRatkinDisasterChildFallbackWhenChildIsUnownedAndNearTrader()
         {
-            Assert.True(LeadYourPetRules.IsEligibleNearbyMouseDisasterTravelChild(
+            Assert.True(LeadYourPetRules.IsEligibleNearbyRatkinDisasterTravelChild(
                 isTravelChild: true,
                 isSpawned: true,
                 isDead: false,
@@ -137,9 +137,9 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void RejectsNearbyMouseDisasterChildFallbackWhenChildAlreadyHasLord()
+        public void RejectsNearbyRatkinDisasterChildFallbackWhenChildAlreadyHasLord()
         {
-            Assert.False(LeadYourPetRules.IsEligibleNearbyMouseDisasterTravelChild(
+            Assert.False(LeadYourPetRules.IsEligibleNearbyRatkinDisasterTravelChild(
                 isTravelChild: true,
                 isSpawned: true,
                 isDead: false,
@@ -149,18 +149,18 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void BlocksRimTalkToddlerPickupForProtectedLeashedMouseEgg()
+        public void BlocksRimTalkToddlerPickupForProtectedLeashedYoungRatkin()
         {
             Assert.True(LeadYourPetRules.ShouldBlockExternalToddlerPickup(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 jobDefName: "RimTalk_PickUpToddler"));
         }
 
         [Fact]
-        public void BlocksRimTalkBeingCarriedStateForProtectedLeashedMouseEgg()
+        public void BlocksRimTalkBeingCarriedStateForProtectedLeashedYoungRatkin()
         {
             Assert.True(LeadYourPetRules.ShouldBlockExternalToddlerPickup(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 jobDefName: "RimTalk_BeingCarried_Idle"));
         }
 
@@ -170,10 +170,10 @@ namespace LeadYourPet.Tests
         [InlineData("BringBabyToSafety")]
         [InlineData("PutInCrib")]
         [InlineData("CYB_BatheToddler")]
-        public void BlocksToddlersExpandedHoldJobsForProtectedLeashedMouseEgg(string jobDefName)
+        public void BlocksToddlersExpandedHoldJobsForProtectedLeashedYoungRatkin(string jobDefName)
         {
             Assert.True(LeadYourPetRules.ShouldBlockExternalToddlerPickup(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 jobDefName: jobDefName));
         }
 
@@ -181,10 +181,10 @@ namespace LeadYourPet.Tests
         [InlineData("Toddlers.JobDriver_BePlayedWith")]
         [InlineData("Toddlers.JobDriver_PlayCrib")]
         [InlineData("RimWorld.JobDriver_BabyPlay")]
-        public void EndsToddlersExpandedHoldDriversForProtectedLeashedMouseEgg(string driverTypeName)
+        public void EndsToddlersExpandedHoldDriversForProtectedLeashedYoungRatkin(string driverTypeName)
         {
             Assert.True(LeadYourPetRules.ShouldEndExternalToddlerHoldJob(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 driverTypeName: driverTypeName));
         }
         [Theory]
@@ -226,19 +226,19 @@ namespace LeadYourPet.Tests
 
 
         [Fact]
-        public void AllowsRimTalkDialogueForProtectedLeashedMouseEgg()
+        public void AllowsRimTalkDialogueForProtectedLeashedYoungRatkin()
         {
             Assert.False(LeadYourPetRules.ShouldBlockExternalDialogue(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 integrationName: "RimTalk"));
         }
 
         [Fact]
-        public void AllowsRimTalkConversationWhenOnlyMouseEggTargetFilterRejectedIt()
+        public void AllowsRimTalkConversationWhenOnlyYoungRatkinTargetFilterRejectedIt()
         {
-            Assert.True(LeadYourPetRules.ShouldAllowRimTalkMouseEggConversation(
+            Assert.True(LeadYourPetRules.ShouldAllowRimTalkYoungRatkinConversation(
                 originalAllowed: false,
-                targetIsMouseEggPawn: true,
+                targetIsYoungRatkinPawn: true,
                 initiatorValid: true,
                 targetValid: true,
                 initiatorCanTalk: true,
@@ -247,11 +247,11 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void DoesNotAllowRimTalkConversationForInvalidMouseEggTarget()
+        public void DoesNotAllowRimTalkConversationForInvalidYoungRatkinTarget()
         {
-            Assert.False(LeadYourPetRules.ShouldAllowRimTalkMouseEggConversation(
+            Assert.False(LeadYourPetRules.ShouldAllowRimTalkYoungRatkinConversation(
                 originalAllowed: false,
-                targetIsMouseEggPawn: true,
+                targetIsYoungRatkinPawn: true,
                 initiatorValid: true,
                 targetValid: false,
                 initiatorCanTalk: true,
@@ -262,9 +262,9 @@ namespace LeadYourPet.Tests
         [Fact]
         public void DoesNotOverrideExistingRimTalkConversationDecision()
         {
-            Assert.False(LeadYourPetRules.ShouldAllowRimTalkMouseEggConversation(
+            Assert.False(LeadYourPetRules.ShouldAllowRimTalkYoungRatkinConversation(
                 originalAllowed: true,
-                targetIsMouseEggPawn: true,
+                targetIsYoungRatkinPawn: true,
                 initiatorValid: true,
                 targetValid: true,
                 initiatorCanTalk: true,
@@ -273,54 +273,54 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void TreatsValidMouseEggPawnAsRimTalkEligible()
+        public void TreatsValidYoungRatkinPawnAsRimTalkEligible()
         {
-            Assert.True(LeadYourPetRules.ShouldTreatMouseEggAsRimTalkEligible(
+            Assert.True(LeadYourPetRules.ShouldTreatYoungRatkinAsRimTalkEligible(
                 originalEligible: false,
-                isMouseEggPawn: true,
+                isYoungRatkinPawn: true,
                 pawnValid: true));
         }
 
         [Fact]
-        public void DoesNotTreatInvalidMouseEggPawnAsRimTalkEligible()
+        public void DoesNotTreatInvalidYoungRatkinPawnAsRimTalkEligible()
         {
-            Assert.False(LeadYourPetRules.ShouldTreatMouseEggAsRimTalkEligible(
+            Assert.False(LeadYourPetRules.ShouldTreatYoungRatkinAsRimTalkEligible(
                 originalEligible: false,
-                isMouseEggPawn: true,
+                isYoungRatkinPawn: true,
                 pawnValid: false));
         }
 
         [Fact]
-        public void ClearsFactionFromGeneratedTravelMouseEgg()
+        public void ClearsFactionFromGeneratedTravelYoungRatkin()
         {
-            Assert.True(LeadYourPetRules.ShouldClearGeneratedTravelMouseEggFaction(
+            Assert.True(LeadYourPetRules.ShouldClearGeneratedTravelYoungRatkinFaction(
                 hasGeneratedPawn: true,
                 hasFaction: true));
-            Assert.False(LeadYourPetRules.ShouldClearGeneratedTravelMouseEggFaction(
+            Assert.False(LeadYourPetRules.ShouldClearGeneratedTravelYoungRatkinFaction(
                 hasGeneratedPawn: true,
                 hasFaction: false));
-            Assert.False(LeadYourPetRules.ShouldClearGeneratedTravelMouseEggFaction(
+            Assert.False(LeadYourPetRules.ShouldClearGeneratedTravelYoungRatkinFaction(
                 hasGeneratedPawn: false,
                 hasFaction: true));
         }
 
         [Fact]
-        public void BoughtTravelMouseEggPrisonerStartsWithNoResistanceAndLowWill()
+        public void BoughtTravelYoungRatkinPrisonerStartsWithNoResistanceAndLowWill()
         {
-            Assert.Equal(0f, LeadYourPetRules.ResolveTravelMouseEggPrisonerResistance());
-            Assert.InRange(LeadYourPetRules.ResolveTravelMouseEggPrisonerWill(), 0f, 0.199999f);
+            Assert.Equal(0f, LeadYourPetRules.ResolveTravelYoungRatkinPrisonerResistance());
+            Assert.InRange(LeadYourPetRules.ResolveTravelYoungRatkinPrisonerWill(), 0f, 0.199999f);
         }
 
         [Fact]
-        public void OrdinaryTravelCaravanAlwaysTargetsTwoMouseEggPets()
+        public void OrdinaryTravelCaravanAlwaysTargetsTwoYoungRatkinPets()
         {
-            Assert.Equal(2, LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            Assert.Equal(2, LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: true,
                 hasEligibleAdults: true));
-            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: false,
                 hasEligibleAdults: true));
-            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: true,
                 hasEligibleAdults: false));
         }
@@ -335,21 +335,21 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void OrdinaryVisitorsLeadConfiguredMouseEggCountWhenEnabled()
+        public void OrdinaryVisitorsLeadConfiguredYoungRatkinCountWhenEnabled()
         {
-            Assert.Equal(2, LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            Assert.Equal(2, LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: false,
                 visitorLord: true,
                 hasEligibleAdults: true,
                 configuredCount: 2,
                 visitorsLeadRatkinYoung: true));
-            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: true,
                 visitorLord: false,
                 hasEligibleAdults: true,
                 configuredCount: 4,
                 visitorsLeadRatkinYoung: false));
-            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            Assert.Equal(0, LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: true,
                 visitorLord: false,
                 hasEligibleAdults: true,
@@ -376,27 +376,27 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void OverridesBabyCryMoodForMouseEggPawnOnly()
+        public void OverridesBabyCryMoodForYoungRatkinPawnOnly()
         {
-            Assert.True(LeadYourPetRules.ShouldOverrideBabyCryMoodForMouseEgg(
-                sourceIsMouseEggPawn: true,
-                sourceIsMouseEggPet: true,
-                hearerIsMouseEggPawn: false,
+            Assert.True(LeadYourPetRules.ShouldOverrideBabyCryMoodForYoungRatkin(
+                sourceIsYoungRatkinPawn: true,
+                sourceIsYoungRatkinPet: true,
+                hearerIsYoungRatkinPawn: false,
                 hearerCanReceiveMood: true));
-            Assert.False(LeadYourPetRules.ShouldOverrideBabyCryMoodForMouseEgg(
-                sourceIsMouseEggPawn: false,
-                sourceIsMouseEggPet: true,
-                hearerIsMouseEggPawn: false,
+            Assert.False(LeadYourPetRules.ShouldOverrideBabyCryMoodForYoungRatkin(
+                sourceIsYoungRatkinPawn: false,
+                sourceIsYoungRatkinPet: true,
+                hearerIsYoungRatkinPawn: false,
                 hearerCanReceiveMood: true));
-            Assert.False(LeadYourPetRules.ShouldOverrideBabyCryMoodForMouseEgg(
-                sourceIsMouseEggPawn: true,
-                sourceIsMouseEggPet: true,
-                hearerIsMouseEggPawn: true,
+            Assert.False(LeadYourPetRules.ShouldOverrideBabyCryMoodForYoungRatkin(
+                sourceIsYoungRatkinPawn: true,
+                sourceIsYoungRatkinPet: true,
+                hearerIsYoungRatkinPawn: true,
                 hearerCanReceiveMood: true));
-            Assert.False(LeadYourPetRules.ShouldOverrideBabyCryMoodForMouseEgg(
-                sourceIsMouseEggPawn: true,
-                sourceIsMouseEggPet: false,
-                hearerIsMouseEggPawn: false,
+            Assert.False(LeadYourPetRules.ShouldOverrideBabyCryMoodForYoungRatkin(
+                sourceIsYoungRatkinPawn: true,
+                sourceIsYoungRatkinPet: false,
+                hearerIsYoungRatkinPawn: false,
                 hearerCanReceiveMood: true));
         }
 
@@ -404,23 +404,23 @@ namespace LeadYourPet.Tests
         public void DoesNotBlockUnrelatedExternalJob()
         {
             Assert.False(LeadYourPetRules.ShouldBlockExternalToddlerPickup(
-                isProtectedLeashedMouseEgg: true,
+                isProtectedLeashedYoungRatkin: true,
                 jobDefName: "Goto"));
         }
 
         [Fact]
-        public void DoesNotOfferManualMouseEggOneWayMenu()
+        public void DoesNotOfferManualYoungRatkinOneWayMenu()
         {
-            Assert.False(LeadYourPetRules.ShouldOfferManualMouseEggInteractionMenu(
+            Assert.False(LeadYourPetRules.ShouldOfferManualYoungRatkinInteractionMenu(
                 ownedByActor: true,
                 isBidirectionalMenu: false,
                 bidirectionalBlocked: false));
         }
 
         [Fact]
-        public void KeepsManualMouseEggTwoWayMenuWhenNotBlocked()
+        public void KeepsManualYoungRatkinTwoWayMenuWhenNotBlocked()
         {
-            Assert.True(LeadYourPetRules.ShouldOfferManualMouseEggInteractionMenu(
+            Assert.True(LeadYourPetRules.ShouldOfferManualYoungRatkinInteractionMenu(
                 ownedByActor: true,
                 isBidirectionalMenu: true,
                 bidirectionalBlocked: false));
@@ -436,9 +436,9 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void TreatsPlayerLeashingFriendlyVisitorMouseEggAsAggressive()
+        public void TreatsPlayerLeashingFriendlyVisitorYoungRatkinAsAggressive()
         {
-            Assert.True(LeadYourPetRules.ShouldTreatVisitorMouseEggPetLeashAsAggressive(
+            Assert.True(LeadYourPetRules.ShouldTreatVisitorYoungRatkinPetLeashAsAggressive(
                 masterIsPlayer: true,
                 petIsRatkinHumanlike: true,
                 petIsBabyOrChild: true,
@@ -447,7 +447,7 @@ namespace LeadYourPet.Tests
                 petFactionHostileToPlayer: false,
                 petInFriendlyVisitorLord: true));
 
-            Assert.False(LeadYourPetRules.ShouldTreatVisitorMouseEggPetLeashAsAggressive(
+            Assert.False(LeadYourPetRules.ShouldTreatVisitorYoungRatkinPetLeashAsAggressive(
                 masterIsPlayer: true,
                 petIsRatkinHumanlike: true,
                 petIsBabyOrChild: true,

@@ -9,25 +9,37 @@ namespace LeadYourPet
         public static JobDef LeadYourPet_BeginLeash;
         public static JobDef LeadYourPet_EndLeash;
         public static JobDef LeadYourPet_FollowMaster;
-        public static JobDef LeadYourPet_MouseEggInteraction;
-        public static JobDef LeadYourPet_CarryTravelMouseEgg;
+        [DefAlias("LeadYourPet_MouseEggInteraction")]
+        public static JobDef LeadYourPet_YoungRatkinInteraction;
+        [DefAlias("LeadYourPet_CarryTravelMouseEgg")]
+        public static JobDef LeadYourPet_CarryTravelYoungRatkin;
 
         public static HediffDef LeadYourPet_DragBruise;
         public static HediffDef LeadYourPet_DragSlow;
 
         public static ThoughtDef LeadYourPet_LeadingPetMood;
-        public static ThoughtDef LeadYourPet_MouseEggOwnerMood;
-        public static ThoughtDef LeadYourPet_MouseEggFearMood;
-        public static ThoughtDef LeadYourPet_MouseEggParentPetMood;
-        public static ThoughtDef LeadYourPet_MouseEggCaretakerMood;
-        public static ThoughtDef LeadYourPet_MouseEggWatchedMood;
-        public static ThoughtDef LeadYourPet_MouseEggCryingNearbyMood;
+        [DefAlias("LeadYourPet_MouseEggOwnerMood")]
+        public static ThoughtDef LeadYourPet_YoungRatkinOwnerMood;
+        [DefAlias("LeadYourPet_MouseEggFearMood")]
+        public static ThoughtDef LeadYourPet_YoungRatkinFearMood;
+        [DefAlias("LeadYourPet_MouseEggParentPetMood")]
+        public static ThoughtDef LeadYourPet_YoungRatkinParentPetMood;
+        [DefAlias("LeadYourPet_MouseEggCaretakerMood")]
+        public static ThoughtDef LeadYourPet_YoungRatkinCaretakerMood;
+        [DefAlias("LeadYourPet_MouseEggWatchedMood")]
+        public static ThoughtDef LeadYourPet_YoungRatkinWatchedMood;
+        [DefAlias("LeadYourPet_MouseEggCryingNearbyMood")]
+        public static ThoughtDef LeadYourPet_YoungRatkinCryingNearbyMood;
         public static ThoughtDef LeadYourPet_RatkinMotherLeashMood;
         public static ThoughtDef LeadYourPet_RatkinBabyLeashedMood;
-        public static ThoughtDef LeadYourPet_MouseDisasterBeggarMotherBonusMood;
-        public static ThoughtDef LeadYourPet_MouseDisasterBeggarBabyBonusMood;
-        public static ThoughtDef LeadYourPet_MouseDisasterChildExchangeMotherBonusMood;
-        public static ThoughtDef LeadYourPet_MouseDisasterChildExchangeBabyBonusMood;
+        [DefAlias("LeadYourPet_MouseDisasterBeggarMotherBonusMood")]
+        public static ThoughtDef LeadYourPet_RatkinDisasterBeggarMotherBonusMood;
+        [DefAlias("LeadYourPet_MouseDisasterBeggarBabyBonusMood")]
+        public static ThoughtDef LeadYourPet_RatkinDisasterBeggarBabyBonusMood;
+        [DefAlias("LeadYourPet_MouseDisasterChildExchangeMotherBonusMood")]
+        public static ThoughtDef LeadYourPet_RatkinDisasterChildExchangeMotherBonusMood;
+        [DefAlias("LeadYourPet_MouseDisasterChildExchangeBabyBonusMood")]
+        public static ThoughtDef LeadYourPet_RatkinDisasterChildExchangeBabyBonusMood;
         public static ThoughtDef LeadYourPet_OwnerPlayWithChild;
         public static ThoughtDef LeadYourPet_ChildPlayedWithCaretaker;
 

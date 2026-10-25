@@ -30,7 +30,7 @@
 
   <JobDef>
     <defName>LeadYourPet_MouseEggInteraction</defName>
-    <driverClass>LeadYourPet.JobDriver_MouseEggInteraction</driverClass>
+    <driverClass>LeadYourPet.JobDriver_YoungRatkinInteraction</driverClass>
     <reportString>interacting with TargetA.</reportString>
     <casualInterruptible>true</casualInterruptible>
     <playerInterruptible>true</playerInterruptible>

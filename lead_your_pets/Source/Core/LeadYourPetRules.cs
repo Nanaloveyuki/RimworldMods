@@ -80,7 +80,7 @@ namespace LeadYourPet
                 : BoughtYoungRatkinStatus.Prisoner;
         }
 
-        public static bool ShouldUseBidirectionalMouseEggAutoInteractions(bool playerControlled, bool canUseSingleDirection, bool masterSleeping)
+        public static bool ShouldUseBidirectionalYoungRatkinAutoInteractions(bool playerControlled, bool canUseSingleDirection, bool masterSleeping)
         {
             return playerControlled && !canUseSingleDirection && !masterSleeping;
         }
@@ -112,76 +112,76 @@ namespace LeadYourPet
             return currentTick - lastPoolTick >= cacheIntervalTicks;
         }
 
-        public static bool ShouldTreatAsMouseEgg(bool isRatkinHumanlike, bool isBaby, bool isChild, bool hasMeaningfulState, bool isTravelMouseEgg, bool isHumanlikeJuvenile = false)
+        public static bool ShouldTreatAsYoungRatkin(bool isRatkinHumanlike, bool isBaby, bool isChild, bool hasMeaningfulState, bool isTravelYoungRatkin, bool isHumanlikeJuvenile = false)
         {
             return (isRatkinHumanlike || isHumanlikeJuvenile)
-                && (isBaby || isChild || isHumanlikeJuvenile || hasMeaningfulState || isTravelMouseEgg);
+                && (isBaby || isChild || isHumanlikeJuvenile || hasMeaningfulState || isTravelYoungRatkin);
         }
 
-        public static bool ShouldBlockProtectedCarry(bool isProtectedLeashedMouseEgg, bool allowColonistCarry)
+        public static bool ShouldBlockProtectedCarry(bool isProtectedLeashedYoungRatkin, bool allowColonistCarry)
         {
-            return isProtectedLeashedMouseEgg;
+            return isProtectedLeashedYoungRatkin;
         }
 
         public static bool ShouldAllowProtectedPawnPrisonerTransfer(
-            bool isProtectedLeashedMouseEgg,
+            bool isProtectedLeashedYoungRatkin,
             bool jobMakesTargetPrisoner,
             bool jobTargetMatchesPawn)
         {
-            return isProtectedLeashedMouseEgg
+            return isProtectedLeashedYoungRatkin
                 && jobMakesTargetPrisoner
                 && jobTargetMatchesPawn;
         }
 
-        public static bool ShouldTreatAsProtectedLeashedMouseEgg(bool isMouseEgg, bool isBaby, bool isChild, bool hasProtectedLink, bool hasProtectedState, bool isHumanlikeJuvenile = false)
+        public static bool ShouldTreatAsProtectedLeashedYoungRatkin(bool isYoungRatkin, bool isBaby, bool isChild, bool hasProtectedLink, bool hasProtectedState, bool isHumanlikeJuvenile = false)
         {
-            return isMouseEgg && (isBaby || isChild || isHumanlikeJuvenile) && (hasProtectedLink || hasProtectedState);
+            return isYoungRatkin && (isBaby || isChild || isHumanlikeJuvenile) && (hasProtectedLink || hasProtectedState);
         }
 
-        public static bool ShouldDropCarriedTravelMouseEggAfterRegistration(bool registrationSucceeded, bool carrierSpawned, bool eggAlreadySpawned)
+        public static bool ShouldDropCarriedTravelYoungRatkinAfterRegistration(bool registrationSucceeded, bool carrierSpawned, bool eggAlreadySpawned)
         {
             return registrationSucceeded && carrierSpawned && !eggAlreadySpawned;
         }
 
-        public static bool ShouldRegisterDroppedTravelMouseEgg(bool hadCarriedMouseEgg, bool dropSucceeded, bool droppedPawnValid)
+        public static bool ShouldRegisterDroppedTravelYoungRatkin(bool hadCarriedYoungRatkin, bool dropSucceeded, bool droppedPawnValid)
         {
-            return hadCarriedMouseEgg && dropSucceeded && droppedPawnValid;
+            return hadCarriedYoungRatkin && dropSucceeded && droppedPawnValid;
         }
 
-        public static bool ShouldSkipRandomTravelMouseEggFallback(bool hadCarriedMouseEgg, bool carriedEggRegistrationSucceeded)
+        public static bool ShouldSkipRandomTravelYoungRatkinFallback(bool hadCarriedYoungRatkin, bool carriedEggRegistrationSucceeded)
         {
-            return hadCarriedMouseEgg || carriedEggRegistrationSucceeded;
+            return hadCarriedYoungRatkin || carriedEggRegistrationSucceeded;
         }
 
-        public static bool ShouldDropCarriedPawnAfterBecomingMouseEggPet(bool isProtectedMouseEggPet, bool pawnHasCarrier, bool carrierHasCarryTracker, bool carrierIsCarryingPawn)
+        public static bool ShouldDropCarriedPawnAfterBecomingYoungRatkinPet(bool isProtectedYoungRatkinPet, bool pawnHasCarrier, bool carrierHasCarryTracker, bool carrierIsCarryingPawn)
         {
-            return isProtectedMouseEggPet
+            return isProtectedYoungRatkinPet
                 && pawnHasCarrier
                 && carrierHasCarryTracker
                 && carrierIsCarryingPawn;
         }
 
-        public static bool ShouldClearGeneratedTravelMouseEggFaction(bool hasGeneratedPawn, bool hasFaction)
+        public static bool ShouldClearGeneratedTravelYoungRatkinFaction(bool hasGeneratedPawn, bool hasFaction)
         {
             return hasGeneratedPawn && hasFaction;
         }
 
-        public static float ResolveTravelMouseEggPrisonerResistance()
+        public static float ResolveTravelYoungRatkinPrisonerResistance()
         {
             return 0f;
         }
 
-        public static float ResolveTravelMouseEggPrisonerWill()
+        public static float ResolveTravelYoungRatkinPrisonerWill()
         {
             return 0.1f;
         }
 
-        public static int ResolveOrdinaryTravelMouseEggTargetCount(bool traderLord, bool hasEligibleAdults)
+        public static int ResolveOrdinaryTravelYoungRatkinTargetCount(bool traderLord, bool hasEligibleAdults)
         {
-            return ResolveOrdinaryTravelMouseEggTargetCount(traderLord, false, hasEligibleAdults, 2, true);
+            return ResolveOrdinaryTravelYoungRatkinTargetCount(traderLord, false, hasEligibleAdults, 2, true);
         }
 
-        public static int ResolveOrdinaryTravelMouseEggTargetCount(bool traderLord, bool visitorLord, bool hasEligibleAdults, int configuredCount, bool visitorsLeadRatkinYoung)
+        public static int ResolveOrdinaryTravelYoungRatkinTargetCount(bool traderLord, bool visitorLord, bool hasEligibleAdults, int configuredCount, bool visitorsLeadRatkinYoung)
         {
             if (!visitorsLeadRatkinYoung || !hasEligibleAdults || configuredCount <= 0)
             {
@@ -208,10 +208,10 @@ namespace LeadYourPet
             return biologicalAgeYears >= min && biologicalAgeYears < max;
         }
 
-        public static void ClampPetControlSettings(ref int minPetAgeYears, ref int maxPetAgeYears, ref int ordinaryTravelRatkinYoungCount, ref int maxLeashLength, ref int maxMouseEggPetLeashStartDistance)
+        public static void ClampPetControlSettings(ref int minPetAgeYears, ref int maxPetAgeYears, ref int ordinaryTravelRatkinYoungCount, ref int maxLeashLength, ref int maxYoungRatkinPetLeashStartDistance)
         {
             maxLeashLength = maxLeashLength < 3 ? 3 : (maxLeashLength > 30 ? 30 : maxLeashLength);
-            maxMouseEggPetLeashStartDistance = maxMouseEggPetLeashStartDistance < 1 ? 1 : (maxMouseEggPetLeashStartDistance > 30 ? 30 : maxMouseEggPetLeashStartDistance);
+            maxYoungRatkinPetLeashStartDistance = maxYoungRatkinPetLeashStartDistance < 1 ? 1 : (maxYoungRatkinPetLeashStartDistance > 30 ? 30 : maxYoungRatkinPetLeashStartDistance);
             if (minPetAgeYears < 0)
             {
                 minPetAgeYears = 0;
@@ -243,19 +243,19 @@ namespace LeadYourPet
             }
         }
 
-        public static LeashedMouseEggDutyState ResolveLeashedMouseEggDutyState(bool masterSleeping, bool masterEating)
+        public static LeashedYoungRatkinDutyState ResolveLeashedYoungRatkinDutyState(bool masterSleeping, bool masterEating)
         {
             if (masterEating)
             {
-                return LeashedMouseEggDutyState.WaitForFeeding;
+                return LeashedYoungRatkinDutyState.WaitForFeeding;
             }
 
             if (masterSleeping)
             {
-                return LeashedMouseEggDutyState.SleepAtLeash;
+                return LeashedYoungRatkinDutyState.SleepAtLeash;
             }
 
-            return LeashedMouseEggDutyState.FollowMaster;
+            return LeashedYoungRatkinDutyState.FollowMaster;
         }
 
         public static float ResolveSharedNutritionFromMasterMeal(float nutritionIngested)
@@ -285,24 +285,24 @@ namespace LeadYourPet
                 : currentNutrition + gainedNutrition;
         }
 
-        public static bool ShouldAppendCustomMouseEggDutyInspectLine(bool hasCustomReport, bool inspectStringAlreadyContainsReport)
+        public static bool ShouldAppendCustomYoungRatkinDutyInspectLine(bool hasCustomReport, bool inspectStringAlreadyContainsReport)
         {
             return hasCustomReport && !inspectStringAlreadyContainsReport;
         }
 
-        public static bool CanStartMouseEggPetLeashAtDistance(bool sameMap, float distance, int maxDistance)
+        public static bool CanStartYoungRatkinPetLeashAtDistance(bool sameMap, float distance, int maxDistance)
         {
             return sameMap && distance <= maxDistance;
         }
 
-        public static MouseEggSpecialSource ResolveTravelMouseEggSpecialSource(bool isMouseDisasterTraderAdult, bool isDefendPointLord, bool sellAsPrisoner)
+        public static YoungRatkinSpecialSource ResolveTravelYoungRatkinSpecialSource(bool isRatkinDisasterTraderAdult, bool isDefendPointLord, bool sellAsPrisoner)
         {
-            return isMouseDisasterTraderAdult && isDefendPointLord && !sellAsPrisoner
-                ? MouseEggSpecialSource.MouseDisasterChildExchange
-                : MouseEggSpecialSource.None;
+            return isRatkinDisasterTraderAdult && isDefendPointLord && !sellAsPrisoner
+                ? YoungRatkinSpecialSource.RatkinDisasterChildExchange
+                : YoungRatkinSpecialSource.None;
         }
 
-        public static bool IsEligibleNearbyMouseDisasterTravelChild(bool isTravelChild, bool isSpawned, bool isDead, bool sameFactionAsTraderLord, bool hasNoLord, bool isNearTrader)
+        public static bool IsEligibleNearbyRatkinDisasterTravelChild(bool isTravelChild, bool isSpawned, bool isDead, bool sameFactionAsTraderLord, bool hasNoLord, bool isNearTrader)
         {
             return isTravelChild
                 && isSpawned
@@ -312,9 +312,9 @@ namespace LeadYourPet
                 && isNearTrader;
         }
 
-        public static bool ShouldBlockExternalToddlerPickup(bool isProtectedLeashedMouseEgg, string jobDefName)
+        public static bool ShouldBlockExternalToddlerPickup(bool isProtectedLeashedYoungRatkin, string jobDefName)
         {
-            if (!isProtectedLeashedMouseEgg || string.IsNullOrEmpty(jobDefName))
+            if (!isProtectedLeashedYoungRatkin || string.IsNullOrEmpty(jobDefName))
             {
                 return false;
             }
@@ -362,9 +362,9 @@ namespace LeadYourPet
             return !masterIsPlayer && petIsTravelStock && petSharesMasterLord;
         }
 
-        public static bool ShouldEndExternalToddlerHoldJob(bool isProtectedLeashedMouseEgg, string driverTypeName)
+        public static bool ShouldEndExternalToddlerHoldJob(bool isProtectedLeashedYoungRatkin, string driverTypeName)
         {
-            if (!isProtectedLeashedMouseEgg || string.IsNullOrEmpty(driverTypeName))
+            if (!isProtectedLeashedYoungRatkin || string.IsNullOrEmpty(driverTypeName))
             {
                 return false;
             }
@@ -374,25 +374,25 @@ namespace LeadYourPet
                 || driverTypeName == "RimWorld.JobDriver_BabyPlay";
         }
 
-        public static bool ShouldOfferManualMouseEggInteractionMenu(bool ownedByActor, bool isBidirectionalMenu, bool bidirectionalBlocked)
+        public static bool ShouldOfferManualYoungRatkinInteractionMenu(bool ownedByActor, bool isBidirectionalMenu, bool bidirectionalBlocked)
         {
             return ownedByActor && isBidirectionalMenu && !bidirectionalBlocked;
         }
 
 
-        public static bool ShouldBlockExternalDialogue(bool isProtectedLeashedMouseEgg, string integrationName)
+        public static bool ShouldBlockExternalDialogue(bool isProtectedLeashedYoungRatkin, string integrationName)
         {
             return false;
         }
 
-        public static bool ShouldTreatMouseEggAsRimTalkEligible(bool originalEligible, bool isMouseEggPawn, bool pawnValid)
+        public static bool ShouldTreatYoungRatkinAsRimTalkEligible(bool originalEligible, bool isYoungRatkinPawn, bool pawnValid)
         {
-            return !originalEligible && isMouseEggPawn && pawnValid;
+            return !originalEligible && isYoungRatkinPawn && pawnValid;
         }
 
-        public static bool ShouldAllowRimTalkMouseEggConversation(bool originalAllowed, bool targetIsMouseEggPawn, bool initiatorValid, bool targetValid, bool initiatorCanTalk, bool initiatorIsRimTalkPlayer, bool initiatorCanReachTarget)
+        public static bool ShouldAllowRimTalkYoungRatkinConversation(bool originalAllowed, bool targetIsYoungRatkinPawn, bool initiatorValid, bool targetValid, bool initiatorCanTalk, bool initiatorIsRimTalkPlayer, bool initiatorCanReachTarget)
         {
-            if (originalAllowed || !targetIsMouseEggPawn || !initiatorValid || !targetValid || !initiatorCanTalk)
+            if (originalAllowed || !targetIsYoungRatkinPawn || !initiatorValid || !targetValid || !initiatorCanTalk)
             {
                 return false;
             }
@@ -400,9 +400,9 @@ namespace LeadYourPet
             return initiatorIsRimTalkPlayer || initiatorCanReachTarget;
         }
 
-        public static bool ShouldOverrideBabyCryMoodForMouseEgg(bool sourceIsMouseEggPawn, bool sourceIsMouseEggPet, bool hearerIsMouseEggPawn, bool hearerCanReceiveMood)
+        public static bool ShouldOverrideBabyCryMoodForYoungRatkin(bool sourceIsYoungRatkinPawn, bool sourceIsYoungRatkinPet, bool hearerIsYoungRatkinPawn, bool hearerCanReceiveMood)
         {
-            return sourceIsMouseEggPawn && sourceIsMouseEggPet && !hearerIsMouseEggPawn && hearerCanReceiveMood;
+            return sourceIsYoungRatkinPawn && sourceIsYoungRatkinPet && !hearerIsYoungRatkinPawn && hearerCanReceiveMood;
         }
 
         public static bool ShouldPauseLeashForCarriedPet(bool petWasCarried, bool dropSucceeded, bool petStillUnavailable)
@@ -410,16 +410,16 @@ namespace LeadYourPet
             return petWasCarried && (!dropSucceeded || petStillUnavailable);
         }
 
-        public static MouseEggSpecialSource ResolveMotherLeashSpecialSource(MouseEggSpecialSource currentSource, bool motherIsMouseDisasterBeggarAdult, bool hasParentRelation)
+        public static YoungRatkinSpecialSource ResolveMotherLeashSpecialSource(YoungRatkinSpecialSource currentSource, bool motherIsRatkinDisasterBeggarAdult, bool hasParentRelation)
         {
-            if (currentSource != MouseEggSpecialSource.None)
+            if (currentSource != YoungRatkinSpecialSource.None)
             {
                 return currentSource;
             }
 
-            return motherIsMouseDisasterBeggarAdult && hasParentRelation
-                ? MouseEggSpecialSource.MouseDisasterBeggarFamily
-                : MouseEggSpecialSource.None;
+            return motherIsRatkinDisasterBeggarAdult && hasParentRelation
+                ? YoungRatkinSpecialSource.RatkinDisasterBeggarFamily
+                : YoungRatkinSpecialSource.None;
         }
 
         public static bool CanFormOrMaintainRatkinMotherLeash(bool motherIsRatkinHumanlike, bool babyIsRatkinHumanlike, bool motherIsDead, bool babyIsDead, bool babyIsBabyStage, bool motherIsBabyStage, bool hasParentRelation)
@@ -462,7 +462,7 @@ namespace LeadYourPet
             return hasExistingLink && existingMasterIsDifferent && !existingMasterIsPlayer;
         }
 
-        public static bool ShouldTreatVisitorMouseEggPetLeashAsAggressive(
+        public static bool ShouldTreatVisitorYoungRatkinPetLeashAsAggressive(
             bool masterIsPlayer,
             bool petIsRatkinHumanlike,
             bool petIsBabyOrChild,
@@ -480,7 +480,7 @@ namespace LeadYourPet
                 && petInFriendlyVisitorLord;
         }
 
-        public static bool ShouldBreakLeashLifecycle(bool masterDestroyed, bool petDestroyed, bool masterSpawned, bool petSpawned, bool masterAndPetOnSameMap, bool masterDead, bool petDead, bool masterDowned, bool petDowned, bool allowImmobilePetDowned, bool masterInMentalState, bool masterIsCaravanMember, bool exemptTravelMouseEggCaravanLeash, bool playerMasterExitsMapOnArrival, bool preservePlayerCaravanLeash = false)
+        public static bool ShouldBreakLeashLifecycle(bool masterDestroyed, bool petDestroyed, bool masterSpawned, bool petSpawned, bool masterAndPetOnSameMap, bool masterDead, bool petDead, bool masterDowned, bool petDowned, bool allowImmobilePetDowned, bool masterInMentalState, bool masterIsCaravanMember, bool exemptTravelYoungRatkinCaravanLeash, bool playerMasterExitsMapOnArrival, bool preservePlayerCaravanLeash = false)
         {
             if (masterDestroyed || petDestroyed)
             {
@@ -507,7 +507,7 @@ namespace LeadYourPet
                 return true;
             }
 
-            if (masterIsCaravanMember && !exemptTravelMouseEggCaravanLeash)
+            if (masterIsCaravanMember && !exemptTravelYoungRatkinCaravanLeash)
             {
                 return true;
             }
@@ -552,12 +552,12 @@ namespace LeadYourPet
             }
         }
 
-        public static bool ShouldHaveSpecialMotherMood(bool hasParentRelation, bool childLeashedByMother, MouseEggSpecialSource source, MouseEggSpecialSource expectedSource)
+        public static bool ShouldHaveSpecialMotherMood(bool hasParentRelation, bool childLeashedByMother, YoungRatkinSpecialSource source, YoungRatkinSpecialSource expectedSource)
         {
             return hasParentRelation && childLeashedByMother && source == expectedSource;
         }
 
-        public static bool ShouldHaveSpecialBabyMood(bool hasParentRelation, bool leashedByMother, MouseEggSpecialSource source, MouseEggSpecialSource expectedSource)
+        public static bool ShouldHaveSpecialBabyMood(bool hasParentRelation, bool leashedByMother, YoungRatkinSpecialSource source, YoungRatkinSpecialSource expectedSource)
         {
             return hasParentRelation && leashedByMother && source == expectedSource;
         }

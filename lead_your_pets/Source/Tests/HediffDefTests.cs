@@ -24,7 +24,7 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void MouseEggCryingNearbyMoodIsPositiveAndStacksForSixHours()
+        public void YoungRatkinCryingNearbyMoodIsPositiveAndStacksForSixHours()
         {
             XDocument document = XDocument.Load(FindThoughtDefsPath());
             XElement thought = document.Descendants("ThoughtDef")

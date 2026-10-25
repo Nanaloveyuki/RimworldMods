@@ -7,50 +7,50 @@ namespace LeadYourPet
 {
     public partial class LeadYourPetGameComponent
     {
-        public void MarkAsTravelMouseEgg(Pawn pawn, Pawn carrier, Pawn trader, bool sellAsPrisoner, bool preserveOwnership = false)
+        public void MarkAsTravelYoungRatkin(Pawn pawn, Pawn carrier, Pawn trader, bool sellAsPrisoner, bool preserveOwnership = false)
         {
-            if (!LeadYourPetUtility.CanBePetMouseEgg(pawn, out _))
+            if (!LeadYourPetUtility.CanBePetYoungRatkin(pawn, out _))
             {
                 return;
             }
 
-            MouseEggState state = EnsureMouseEggState(pawn);
-            ApplyOwnershipSnapshot(state, new MouseEggOwnershipSnapshot(
+            YoungRatkinState state = EnsureYoungRatkinState(pawn);
+            ApplyOwnershipSnapshot(state, new YoungRatkinOwnershipSnapshot(
                 isPet: true,
                 isTravelStock: true,
                 sellAsPrisoner: sellAsPrisoner,
                 hasCurrentMaster: carrier != null));
             state.CurrentMaster = carrier;
-            if (MouseEggOwnershipStateMachine.ShouldClearPawnFactionForTravelRegistration(
+            if (YoungRatkinOwnershipStateMachine.ShouldClearPawnFactionForTravelRegistration(
                 preserveOwnership,
                 pawn.Faction == carrier?.Faction))
             {
                 pawn.SetFaction(null);
             }
 
-            if (MouseEggOwnershipStateMachine.ShouldForceGuestSlaveForTravelRegistration(
+            if (YoungRatkinOwnershipStateMachine.ShouldForceGuestSlaveForTravelRegistration(
                 preserveOwnership,
                 pawn.guest != null))
             {
                 pawn.guest.joinStatus = JoinStatus.JoinAsSlave;
             }
 
-            TryDropCarriedPawnAfterBecomingMouseEggPet(pawn);
+            TryDropCarriedPawnAfterBecomingYoungRatkinPet(pawn);
         }
 
         public void ClearTravelStock(Pawn pawn)
         {
-            MouseEggState state = GetMouseEggState(pawn);
+            YoungRatkinState state = GetYoungRatkinState(pawn);
             if (state == null)
             {
                 return;
             }
 
-            ApplyOwnershipSnapshot(state, MouseEggOwnershipStateMachine.ResolveBoughtTravelMouseEggState(ToOwnershipSnapshot(state)));
-            PruneMouseEggStateIfEmpty(pawn);
+            ApplyOwnershipSnapshot(state, YoungRatkinOwnershipStateMachine.ResolveBoughtTravelYoungRatkinState(ToOwnershipSnapshot(state)));
+            PruneYoungRatkinStateIfEmpty(pawn);
         }
 
-        public void HandleBoughtTravelMouseEgg(Pawn pawn)
+        public void HandleBoughtTravelYoungRatkin(Pawn pawn)
         {
             if (pawn == null)
             {
@@ -72,8 +72,8 @@ namespace LeadYourPet
             }
 
             ClearTravelStock(pawn);
-            LeadYourPetUtility.ClearMouseDisasterVisitorCover(pawn);
-            LeadYourPetUtility.NotifyMouseDisasterPawnIdentityChanged(pawn);
+            LeadYourPetUtility.ClearRatkinDisasterVisitorCover(pawn);
+            LeadYourPetUtility.NotifyRatkinDisasterPawnIdentityChanged(pawn);
         }
 
         private static void ApplyBoughtYoungRatkinStatus(Pawn pawn)
@@ -98,22 +98,22 @@ namespace LeadYourPet
                     goto default;
                 default:
                     pawn.guest.SetGuestStatus(Faction.OfPlayer, GuestStatus.Prisoner);
-                    pawn.guest.resistance = LeadYourPetRules.ResolveTravelMouseEggPrisonerResistance();
-                    pawn.guest.will = LeadYourPetRules.ResolveTravelMouseEggPrisonerWill();
+                    pawn.guest.resistance = LeadYourPetRules.ResolveTravelYoungRatkinPrisonerResistance();
+                    pawn.guest.will = LeadYourPetRules.ResolveTravelYoungRatkinPrisonerWill();
                     break;
             }
         }
 
-        private static MouseEggOwnershipSnapshot ToOwnershipSnapshot(MouseEggState state)
+        private static YoungRatkinOwnershipSnapshot ToOwnershipSnapshot(YoungRatkinState state)
         {
-            return new MouseEggOwnershipSnapshot(
+            return new YoungRatkinOwnershipSnapshot(
                 isPet: state != null && state.IsPet,
                 isTravelStock: state != null && state.IsTravelStock,
                 sellAsPrisoner: state != null && state.SellAsPrisoner,
                 hasCurrentMaster: state != null && state.CurrentMaster != null);
         }
 
-        private static void ApplyOwnershipSnapshot(MouseEggState state, MouseEggOwnershipSnapshot snapshot)
+        private static void ApplyOwnershipSnapshot(YoungRatkinState state, YoungRatkinOwnershipSnapshot snapshot)
         {
             if (state == null)
             {
@@ -126,9 +126,9 @@ namespace LeadYourPet
             state.CurrentMaster = snapshot.HasCurrentMaster ? state.CurrentMaster : null;
         }
 
-        private void PruneMouseEggStateIfEmpty(Pawn pawn)
+        private void PruneYoungRatkinStateIfEmpty(Pawn pawn)
         {
-            MouseEggState state = GetMouseEggState(pawn);
+            YoungRatkinState state = GetYoungRatkinState(pawn);
             if (state == null)
             {
                 return;
@@ -136,39 +136,39 @@ namespace LeadYourPet
 
             if (!state.IsPet && state.CurrentMaster == null && !state.IsTravelStock)
             {
-                mouseEggStates.Remove(state);
-                UnregisterMouseEggState(state);
+                youngRatkinStates.Remove(state);
+                UnregisterYoungRatkinState(state);
             }
         }
 
-        private void RegisterMouseEggState(MouseEggState state)
+        private void RegisterYoungRatkinState(YoungRatkinState state)
         {
             if (state?.Pawn == null)
             {
                 return;
             }
 
-            mouseEggStateByPawn[state.Pawn] = state;
+            youngRatkinStateByPawn[state.Pawn] = state;
         }
 
-        private void UnregisterMouseEggState(MouseEggState state)
+        private void UnregisterYoungRatkinState(YoungRatkinState state)
         {
             if (state?.Pawn == null)
             {
                 return;
             }
 
-            mouseEggStateByPawn.Remove(state.Pawn);
+            youngRatkinStateByPawn.Remove(state.Pawn);
         }
 
-        private void TryDropCarriedPawnAfterBecomingMouseEggPet(Pawn pawn)
+        private void TryDropCarriedPawnAfterBecomingYoungRatkinPet(Pawn pawn)
         {
             ReleaseExternalToddlerHold(pawn);
             Pawn carrier = pawn?.CarriedBy;
             Pawn_CarryTracker carryTracker = carrier?.carryTracker;
             EndExternalToddlerHoldJobs(pawn, carrier);
-            if (!LeadYourPetRules.ShouldDropCarriedPawnAfterBecomingMouseEggPet(
-                isProtectedMouseEggPet: LeadYourPetUtility.IsProtectedLeashedMouseEgg(pawn),
+            if (!LeadYourPetRules.ShouldDropCarriedPawnAfterBecomingYoungRatkinPet(
+                isProtectedYoungRatkinPet: LeadYourPetUtility.IsProtectedLeashedYoungRatkin(pawn),
                 pawnHasCarrier: carrier != null,
                 carrierHasCarryTracker: carryTracker != null,
                 carrierIsCarryingPawn: carryTracker?.CarriedThing == pawn))

@@ -39,7 +39,7 @@ namespace LeadYourPet
             return Call(component =>
             {
                 int before = component.LinkCount;
-                component.TryAssignTravelMouseEggs(lord);
+                component.TryAssignTravelYoungRatkins(lord);
                 return component.LinkCount > before;
             }, false);
         }
@@ -92,7 +92,7 @@ namespace LeadYourPet
 
             Call(component =>
             {
-                component.ClearMouseEggPetState(pawn);
+                component.ClearYoungRatkinPetState(pawn);
                 component.ClearTravelStock(pawn);
             });
         }
@@ -109,12 +109,12 @@ namespace LeadYourPet
 
         public static void SetSpecialSource(Pawn pawn, int source)
         {
-            if (pawn == null || !LeadYourPetApiRules.TryResolveSpecialSource(source, out MouseEggSpecialSource resolved))
+            if (pawn == null || !LeadYourPetApiRules.TryResolveSpecialSource(source, out YoungRatkinSpecialSource resolved))
             {
                 return;
             }
 
-            Call(component => component.SetMouseEggSpecialSource(pawn, resolved));
+            Call(component => component.SetYoungRatkinSpecialSource(pawn, resolved));
         }
 
         public static bool IsLeashed(Pawn pet)
@@ -178,24 +178,24 @@ namespace LeadYourPet
 
     internal static class LeadYourPetApiRules
     {
-        public const int None = (int)MouseEggSpecialSource.None;
-        public const int BeggarFamily = (int)MouseEggSpecialSource.MouseDisasterBeggarFamily;
-        public const int ChildExchange = (int)MouseEggSpecialSource.MouseDisasterChildExchange;
+        public const int None = (int)YoungRatkinSpecialSource.None;
+        public const int BeggarFamily = (int)YoungRatkinSpecialSource.RatkinDisasterBeggarFamily;
+        public const int ChildExchange = (int)YoungRatkinSpecialSource.RatkinDisasterChildExchange;
 
         public static bool IsAcceptedSpecialSource(int source)
         {
             return TryResolveSpecialSource(source, out _);
         }
 
-        public static bool TryResolveSpecialSource(int source, out MouseEggSpecialSource resolved)
+        public static bool TryResolveSpecialSource(int source, out YoungRatkinSpecialSource resolved)
         {
-            if (!Enum.IsDefined(typeof(MouseEggSpecialSource), source) || source == (int)MouseEggSpecialSource.None)
+            if (!Enum.IsDefined(typeof(YoungRatkinSpecialSource), source) || source == (int)YoungRatkinSpecialSource.None)
             {
-                resolved = MouseEggSpecialSource.None;
+                resolved = YoungRatkinSpecialSource.None;
                 return false;
             }
 
-            resolved = (MouseEggSpecialSource)source;
+            resolved = (YoungRatkinSpecialSource)source;
             return true;
         }
 

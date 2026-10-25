@@ -40,8 +40,8 @@ namespace LeadYourPet.Tests
             Assert.True(Start(second, first));
             Assert.Null(component.GetLinkForPet(second));
             Assert.Same(second, component.GetLinkForPet(first).Master);
-            Assert.False(component.EnsureMouseEggState(second).IsPet);
-            Assert.Null(component.EnsureMouseEggState(second).CurrentMaster);
+            Assert.False(component.EnsureYoungRatkinState(second).IsPet);
+            Assert.Null(component.EnsureYoungRatkinState(second).CurrentMaster);
         }
 
         [Fact]
@@ -80,8 +80,8 @@ namespace LeadYourPet.Tests
             Assert.Null(component.GetLinkForPet(second));
             Assert.Null(component.GetLinkForPet(third));
             Assert.Same(second, component.GetLinkForPet(fourth).Master);
-            Assert.False(component.EnsureMouseEggState(third).IsPet);
-            Assert.Null(component.EnsureMouseEggState(third).CurrentMaster);
+            Assert.False(component.EnsureYoungRatkinState(third).IsPet);
+            Assert.Null(component.EnsureYoungRatkinState(third).CurrentMaster);
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace LeadYourPet.Tests
         private bool Start(Pawn master, Pawn pet)
         {
             return (bool)typeof(LeadYourPetGameComponent).GetMethod("StartLeashInternal", Fields)
-                .Invoke(component, new object[] { master, pet, LeashLinkKind.MouseEggPet, false });
+                .Invoke(component, new object[] { master, pet, LeashLinkKind.YoungRatkinPet, false });
         }
 
         private Pawn Pawn(int id)

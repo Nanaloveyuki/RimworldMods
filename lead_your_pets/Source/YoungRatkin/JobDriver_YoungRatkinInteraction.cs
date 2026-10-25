@@ -4,7 +4,7 @@ using Verse.AI;
 
 namespace LeadYourPet
 {
-    public class JobDriver_MouseEggInteraction : JobDriver
+    public class JobDriver_YoungRatkinInteraction : JobDriver
     {
         private Pawn Pet => job.GetTarget(TargetIndex.A).Pawn;
 

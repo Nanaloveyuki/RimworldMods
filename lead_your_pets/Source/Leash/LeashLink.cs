@@ -28,7 +28,7 @@ namespace LeadYourPet
         public bool CachedMasterSleeping;
         public bool CachedHasValidAutoInteractionPool;
         public List<LeadYourPetInteractionKind> CachedAutoInteractionPool;
-        public LeashedMouseEggDutyState MouseEggDutyState;
+        public LeashedYoungRatkinDutyState YoungRatkinDutyState;
 
         public void ExposeData()
         {
@@ -53,7 +53,7 @@ namespace LeadYourPet
             Scribe_Values.Look(ref CachedPlayerControlled, "cachedPlayerControlled", false);
             Scribe_Values.Look(ref CachedMasterSleeping, "cachedMasterSleeping", false);
             Scribe_Values.Look(ref CachedHasValidAutoInteractionPool, "cachedHasValidAutoInteractionPool", false);
-            Scribe_Values.Look(ref MouseEggDutyState, "mouseEggDutyState", LeashedMouseEggDutyState.FollowMaster);
+            Scribe_Values.Look(ref YoungRatkinDutyState, "mouseEggDutyState", LeashedYoungRatkinDutyState.FollowMaster);
             Scribe_Collections.Look(ref CachedAutoInteractionPool, "cachedAutoInteractionPool", LookMode.Value);
         }
     }

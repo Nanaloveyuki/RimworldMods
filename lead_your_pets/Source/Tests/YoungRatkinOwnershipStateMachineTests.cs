@@ -2,18 +2,18 @@ using Xunit;
 
 namespace LeadYourPet.Tests
 {
-    public class MouseEggOwnershipStateMachineTests
+    public class YoungRatkinOwnershipStateMachineTests
     {
         [Fact]
         public void ClearsTravelStateAfterPurchase()
         {
-            MouseEggOwnershipSnapshot current = new MouseEggOwnershipSnapshot(
+            YoungRatkinOwnershipSnapshot current = new YoungRatkinOwnershipSnapshot(
                 isPet: true,
                 isTravelStock: true,
                 sellAsPrisoner: true,
                 hasCurrentMaster: true);
 
-            MouseEggOwnershipSnapshot next = MouseEggOwnershipStateMachine.ResolveBoughtTravelMouseEggState(current);
+            YoungRatkinOwnershipSnapshot next = YoungRatkinOwnershipStateMachine.ResolveBoughtTravelYoungRatkinState(current);
 
             Assert.False(next.IsPet);
             Assert.False(next.IsTravelStock);
@@ -22,9 +22,9 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void DetachesNonPlayerLeashAfterPlayerBuysTravelMouseEgg()
+        public void DetachesNonPlayerLeashAfterPlayerBuysTravelYoungRatkin()
         {
-            Assert.True(MouseEggOwnershipStateMachine.ShouldDetachNonPlayerTravelLeashAfterAcquisition(
+            Assert.True(YoungRatkinOwnershipStateMachine.ShouldDetachNonPlayerTravelLeashAfterAcquisition(
                 masterIsPlayer: false,
                 petIsPlayerOwned: true,
                 petIsColonyPrisoner: false,
@@ -34,7 +34,7 @@ namespace LeadYourPet.Tests
         [Fact]
         public void KeepsLeashWhenPawnWasNotTravelStock()
         {
-            Assert.False(MouseEggOwnershipStateMachine.ShouldDetachNonPlayerTravelLeashAfterAcquisition(
+            Assert.False(YoungRatkinOwnershipStateMachine.ShouldDetachNonPlayerTravelLeashAfterAcquisition(
                 masterIsPlayer: false,
                 petIsPlayerOwned: true,
                 petIsColonyPrisoner: false,
@@ -42,31 +42,31 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void PreservesPawnIdentityWhenRegisteringTravelMouseEggBeforePurchase()
+        public void PreservesPawnIdentityWhenRegisteringTravelYoungRatkinBeforePurchase()
         {
-            Assert.False(MouseEggOwnershipStateMachine.ShouldClearPawnFactionForTravelRegistration(
+            Assert.False(YoungRatkinOwnershipStateMachine.ShouldClearPawnFactionForTravelRegistration(
                 preserveOwnership: false,
                 pawnSameFactionAsCarrier: true));
 
-            Assert.False(MouseEggOwnershipStateMachine.ShouldForceGuestSlaveForTravelRegistration(
+            Assert.False(YoungRatkinOwnershipStateMachine.ShouldForceGuestSlaveForTravelRegistration(
                 preserveOwnership: false,
                 hasGuestTracker: true));
         }
 
         [Fact]
-        public void HandlesBoughtTravelMouseEggOnlyForPlayerBuysOfTravelStock()
+        public void HandlesBoughtTravelYoungRatkinOnlyForPlayerBuysOfTravelStock()
         {
-            Assert.True(MouseEggOwnershipStateMachine.ShouldHandleBoughtTravelMouseEgg(
+            Assert.True(YoungRatkinOwnershipStateMachine.ShouldHandleBoughtTravelYoungRatkin(
                 actionIsPlayerBuys: true,
                 wasTravelStock: true,
                 wasSellable: true));
 
-            Assert.False(MouseEggOwnershipStateMachine.ShouldHandleBoughtTravelMouseEgg(
+            Assert.False(YoungRatkinOwnershipStateMachine.ShouldHandleBoughtTravelYoungRatkin(
                 actionIsPlayerBuys: true,
                 wasTravelStock: false,
                 wasSellable: true));
 
-            Assert.False(MouseEggOwnershipStateMachine.ShouldHandleBoughtTravelMouseEgg(
+            Assert.False(YoungRatkinOwnershipStateMachine.ShouldHandleBoughtTravelYoungRatkin(
                 actionIsPlayerBuys: false,
                 wasTravelStock: true,
                 wasSellable: true));

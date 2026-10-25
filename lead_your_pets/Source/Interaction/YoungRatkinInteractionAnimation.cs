@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LeadYourPet
 {
-    public class MouseEggInteractionAnimation
+    public class YoungRatkinInteractionAnimation
     {
         public Pawn Master;
         public Pawn Pet;

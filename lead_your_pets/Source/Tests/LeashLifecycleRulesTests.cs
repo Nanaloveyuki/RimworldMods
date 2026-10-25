@@ -89,7 +89,7 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: false,
                 masterIsCaravanMember: false,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: false));
         }
 
@@ -109,12 +109,12 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: false,
                 masterIsCaravanMember: false,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: false));
         }
 
         [Fact]
-        public void KeepsLeashForImmobileMouseEggEvenWhenPetIsDowned()
+        public void KeepsLeashForImmobileYoungRatkinEvenWhenPetIsDowned()
         {
             Assert.False(LeadYourPetRules.ShouldBreakLeashLifecycle(
                 masterDestroyed: false,
@@ -129,7 +129,7 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: true,
                 masterInMentalState: false,
                 masterIsCaravanMember: false,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: false));
         }
 
@@ -149,7 +149,7 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: true,
                 masterIsCaravanMember: false,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: false));
         }
 
@@ -169,7 +169,7 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: false,
                 masterIsCaravanMember: false,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: true));
         }
 
@@ -189,13 +189,13 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: false,
                 masterIsCaravanMember: false,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: true,
                 preservePlayerCaravanLeash: true));
         }
 
         [Fact]
-        public void KeepsNonPlayerTravelMouseEggLeashForCaravanMaster()
+        public void KeepsNonPlayerTravelYoungRatkinLeashForCaravanMaster()
         {
             Assert.False(LeadYourPetRules.ShouldBreakLeashLifecycle(
                 masterDestroyed: false,
@@ -210,7 +210,7 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: false,
                 masterIsCaravanMember: true,
-                exemptTravelMouseEggCaravanLeash: true,
+                exemptTravelYoungRatkinCaravanLeash: true,
                 playerMasterExitsMapOnArrival: false));
         }
 
@@ -230,7 +230,7 @@ namespace LeadYourPet.Tests
                 allowImmobilePetDowned: false,
                 masterInMentalState: false,
                 masterIsCaravanMember: true,
-                exemptTravelMouseEggCaravanLeash: false,
+                exemptTravelYoungRatkinCaravanLeash: false,
                 playerMasterExitsMapOnArrival: false));
         }
 

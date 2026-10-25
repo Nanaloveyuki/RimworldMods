@@ -16,20 +16,20 @@ namespace LeadYourPet
     {
         public const string HarmonyId = "lezhizhong.leadyourpet";
 
-        private const string MouseDisasterPackageId = "lezhizhong.mouse.disaster.famine";
-        private const string MouseDisasterChildPawnKindDefName = "MouseDisaster_BeggarRatkinChild";
-        private const string MouseDisasterTraderPawnKindDefName = "MouseDisaster_TraderRatkinAdult";
-        private static readonly Type MouseDisasterUtilityType = AccessTools.TypeByName("MouseDisaster.MouseDisasterUtility");
-        private static readonly MethodInfo MouseDisasterGenerateFactionRatkinPawnMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "GenerateFactionRatkinPawn", typeof(PawnKindDef), typeof(Faction), typeof(DevelopmentalStage), typeof(float));
-        private static readonly MethodInfo MouseDisasterSetBiologicalAgeYearsMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "SetBiologicalAgeYears", typeof(Pawn), typeof(float));
-        private static readonly MethodInfo MouseDisasterPrepareTradablePrisonerMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "PrepareTradablePrisoner", typeof(Pawn), typeof(Faction));
-        private static readonly MethodInfo MouseDisasterClearTradeLeaderStateMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "ClearTradeLeaderState", typeof(Pawn));
-        private static readonly MethodInfo MouseDisasterResetBeggarStateMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "ResetBeggarState", typeof(Pawn));
-        private static readonly MethodInfo MouseDisasterMakeFactionHostileToPlayerMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "MakeFactionHostileToPlayer", typeof(Faction), typeof(bool));
-        private static readonly MethodInfo MouseDisasterTryRefreshHiddenFactionRelationsMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "TryRefreshHiddenFactionRelations");
-        private static readonly MethodInfo MouseDisasterNotifyIdentityChangedMethod = OptionalModApi.Resolve(MouseDisasterUtilityType, "NotifyMouseDisasterPawnIdentityOrLifeStageChanged", typeof(Pawn));
-        private static readonly Type MouseDisasterVisitorControlType = AccessTools.TypeByName("MouseDisaster.MouseDisasterVisitorUtility") ?? AccessTools.TypeByName("MouseDisaster.GameComponent_MouseDisasterVisitorControl");
-        private static readonly MethodInfo MouseDisasterTryMakeHostileVisitorsMethod = OptionalModApi.Resolve(MouseDisasterVisitorControlType, "TryMakeHostile", typeof(IEnumerable<Pawn>), typeof(int).MakeByRefType());
+        private const string RatkinDisasterPackageId = "lezhizhong.mouse.disaster.famine";
+        private const string RatkinDisasterChildPawnKindDefName = "MouseDisaster_BeggarRatkinChild";
+        private const string RatkinDisasterTraderPawnKindDefName = "MouseDisaster_TraderRatkinAdult";
+        private static readonly Type RatkinDisasterUtilityType = AccessTools.TypeByName("MouseDisaster.MouseDisasterUtility");
+        private static readonly MethodInfo RatkinDisasterGenerateFactionRatkinPawnMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "GenerateFactionRatkinPawn", typeof(PawnKindDef), typeof(Faction), typeof(DevelopmentalStage), typeof(float));
+        private static readonly MethodInfo RatkinDisasterSetBiologicalAgeYearsMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "SetBiologicalAgeYears", typeof(Pawn), typeof(float));
+        private static readonly MethodInfo RatkinDisasterPrepareTradablePrisonerMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "PrepareTradablePrisoner", typeof(Pawn), typeof(Faction));
+        private static readonly MethodInfo RatkinDisasterClearTradeLeaderStateMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "ClearTradeLeaderState", typeof(Pawn));
+        private static readonly MethodInfo RatkinDisasterResetBeggarStateMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "ResetBeggarState", typeof(Pawn));
+        private static readonly MethodInfo RatkinDisasterMakeFactionHostileToPlayerMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "MakeFactionHostileToPlayer", typeof(Faction), typeof(bool));
+        private static readonly MethodInfo RatkinDisasterTryRefreshHiddenFactionRelationsMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "TryRefreshHiddenFactionRelations");
+        private static readonly MethodInfo RatkinDisasterNotifyIdentityChangedMethod = OptionalModApi.Resolve(RatkinDisasterUtilityType, "NotifyMouseDisasterPawnIdentityOrLifeStageChanged", typeof(Pawn));
+        private static readonly Type RatkinDisasterVisitorControlType = AccessTools.TypeByName("MouseDisaster.MouseDisasterVisitorUtility") ?? AccessTools.TypeByName("MouseDisaster.GameComponent_MouseDisasterVisitorControl");
+        private static readonly MethodInfo RatkinDisasterTryMakeHostileVisitorsMethod = OptionalModApi.Resolve(RatkinDisasterVisitorControlType, "TryMakeHostile", typeof(IEnumerable<Pawn>), typeof(int).MakeByRefType());
         private static readonly Type RimTalkPawnUtilType = AccessTools.TypeByName("RimTalk.Util.PawnUtil");
         private static readonly Type RimTalkCacheType = AccessTools.TypeByName("RimTalk.Data.Cache");
         private static readonly MethodInfo RimTalkIsTalkEligibleMethod = RimTalkPawnUtilType == null ? null : AccessTools.Method(RimTalkPawnUtilType, "IsTalkEligible", new[] { typeof(Pawn) });
@@ -82,7 +82,7 @@ namespace LeadYourPet
         public static int MaxLeashLength => LeadYourPetMod.Settings == null ? 10 : (LeadYourPetMod.Settings.infiniteLeash ? 999 : LeadYourPetMod.Settings.maxLeashLength);
         public static float HardLeashLength => MaxLeashLength >= 999 ? 999f : MaxLeashLength * 1.5f;
         public static float FollowThreshold => Mathf.Max(2f, MaxLeashLength - 2f);
-        public static int MaxMouseEggPetLeashStartDistance => LeadYourPetMod.Settings == null ? 10 : Mathf.Max(1, LeadYourPetMod.Settings.maxMouseEggPetLeashStartDistance);
+        public static int MaxYoungRatkinPetLeashStartDistance => LeadYourPetMod.Settings == null ? 10 : Mathf.Max(1, LeadYourPetMod.Settings.maxYoungRatkinPetLeashStartDistance);
         public static int MinPetAgeYears => LeadYourPetMod.Settings == null ? LeadYourPetSettings.DefaultMinPetAgeYears : LeadYourPetMod.Settings.minPetAgeYears;
         public static int MaxPetAgeYears => LeadYourPetMod.Settings == null ? LeadYourPetSettings.DefaultMaxPetAgeYears : LeadYourPetMod.Settings.maxPetAgeYears;
         public static bool AllowAnimalPets => LeadYourPetMod.Settings == null || LeadYourPetMod.Settings.allowAnimalPets;
@@ -146,71 +146,71 @@ namespace LeadYourPet
                     || LeadYourPetRules.IsWithinPetAgeRange(pawn.ageTracker.AgeBiologicalYearsFloat, MinPetAgeYears, MaxPetAgeYears));
         }
 
-        public static bool IsMouseEgg(Pawn pawn)
+        public static bool IsYoungRatkin(Pawn pawn)
         {
             if (pawn == null)
             {
                 return false;
             }
 
-            return LeadYourPetRules.ShouldTreatAsMouseEgg(
+            return LeadYourPetRules.ShouldTreatAsYoungRatkin(
                 IsRatkinHumanlike(pawn),
                 pawn.DevelopmentalStage.Baby(),
                 pawn.DevelopmentalStage.Child(),
-                HasMeaningfulMouseEggState(pawn),
-                IsMouseDisasterTravelPawn(pawn),
+                HasMeaningfulYoungRatkinState(pawn),
+                IsRatkinDisasterTravelPawn(pawn),
                 IsHumanlikeJuvenile(pawn));
         }
 
-        public static bool IsColonistMouseEgg(Pawn pawn)
+        public static bool IsColonistYoungRatkin(Pawn pawn)
         {
-            return pawn != null && pawn.IsColonist && IsMouseEgg(pawn);
+            return pawn != null && pawn.IsColonist && IsYoungRatkin(pawn);
         }
 
-        public static bool IsProtectedLeashedMouseEgg(Pawn pawn)
+        public static bool IsProtectedLeashedYoungRatkin(Pawn pawn)
         {
             if (pawn == null || Component == null)
             {
                 return false;
             }
 
-            bool isMouseEgg = IsMouseEgg(pawn);
+            bool isYoungRatkin = IsYoungRatkin(pawn);
             bool isBaby = pawn.DevelopmentalStage.Baby();
             bool isChild = pawn.DevelopmentalStage.Child();
             bool isHumanlikeJuvenile = IsHumanlikeJuvenile(pawn);
-            if (!isMouseEgg || (!isBaby && !isChild && !isHumanlikeJuvenile))
+            if (!isYoungRatkin || (!isBaby && !isChild && !isHumanlikeJuvenile))
             {
                 return false;
             }
 
             LeashLink link = Component.GetLinkForPet(pawn);
-            MouseEggState state = Component.GetMouseEggState(pawn);
+            YoungRatkinState state = Component.GetYoungRatkinState(pawn);
             if (IsUnprotectedTravelStock(pawn) && IsNonPlayerTravelDeparture(pawn))
             {
                 return false;
             }
 
-            return LeadYourPetRules.ShouldTreatAsProtectedLeashedMouseEgg(
-                isMouseEgg,
+            return LeadYourPetRules.ShouldTreatAsProtectedLeashedYoungRatkin(
+                isYoungRatkin,
                 isBaby,
                 isChild,
-                link != null && (link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby),
+                link != null && (link.Kind == LeashLinkKind.YoungRatkinPet || link.Kind == LeashLinkKind.RatkinMotherBaby),
                 state != null && (state.IsPet || state.CurrentMaster != null),
                 isHumanlikeJuvenile);
         }
 
-        public static bool HasMeaningfulMouseEggState(Pawn pawn)
+        public static bool HasMeaningfulYoungRatkinState(Pawn pawn)
         {
             if (pawn == null || Component == null)
             {
                 return false;
             }
 
-            MouseEggState state = Component.GetMouseEggState(pawn);
+            YoungRatkinState state = Component.GetYoungRatkinState(pawn);
             return state != null && (state.IsPet || state.CurrentMaster != null || state.IsTravelStock);
         }
 
-        public static bool CanBePetMouseEgg(Pawn pawn, out string reasonKey)
+        public static bool CanBePetYoungRatkin(Pawn pawn, out string reasonKey)
         {
             reasonKey = null;
             if (!AllowRatkinYoungPets)
@@ -242,7 +242,7 @@ namespace LeadYourPet
             return true;
         }
 
-        public static bool CanStartPlayerPetLeash(Pawn master, Pawn pet, bool markAsMouseEggPet, out string reasonKey)
+        public static bool CanStartPlayerPetLeash(Pawn master, Pawn pet, bool markAsYoungRatkinPet, out string reasonKey)
         {
             reasonKey = null;
             if (master == null || pet == null)
@@ -251,12 +251,12 @@ namespace LeadYourPet
                 return false;
             }
 
-            if (markAsMouseEggPet && !CanBePetMouseEgg(pet, out reasonKey))
+            if (markAsYoungRatkinPet && !CanBePetYoungRatkin(pet, out reasonKey))
             {
                 return false;
             }
 
-            if (markAsMouseEggPet && !CanStartMouseEggPetLeashAtDistance(master, pet))
+            if (markAsYoungRatkinPet && !CanStartYoungRatkinPetLeashAtDistance(master, pet))
             {
                 reasonKey = "LeadYourPet_Reason_MouseEggTooFarToLeash";
                 return false;
@@ -279,17 +279,17 @@ namespace LeadYourPet
             return true;
         }
 
-        public static bool CanStartMouseEggPetLeashAtDistance(Pawn master, Pawn pet)
+        public static bool CanStartYoungRatkinPetLeashAtDistance(Pawn master, Pawn pet)
         {
             if (master == null || pet == null || master.Map == null || pet.Map == null)
             {
                 return false;
             }
 
-            return LeadYourPetRules.CanStartMouseEggPetLeashAtDistance(
+            return LeadYourPetRules.CanStartYoungRatkinPetLeashAtDistance(
                 sameMap: master.Map == pet.Map,
                 distance: master.Position.DistanceTo(pet.Position),
-                maxDistance: MaxMouseEggPetLeashStartDistance);
+                maxDistance: MaxYoungRatkinPetLeashStartDistance);
         }
 
         public static bool CanStartRatkinMotherLeash(Pawn mother, Pawn baby, out string reasonKey)
@@ -359,17 +359,17 @@ namespace LeadYourPet
             return true;
         }
 
-        public static bool ShouldBlockCarryOfProtectedMouseEgg(Pawn carrier, Pawn target)
+        public static bool ShouldBlockCarryOfProtectedYoungRatkin(Pawn carrier, Pawn target)
         {
             return !CanCarryForNonPlayerDeparture(carrier, target)
-                && LeadYourPetRules.ShouldBlockProtectedCarry(IsProtectedLeashedMouseEgg(target), allowColonistCarry: false);
+                && LeadYourPetRules.ShouldBlockProtectedCarry(IsProtectedLeashedYoungRatkin(target), allowColonistCarry: false);
         }
 
-        public static bool ShouldAllowProtectedMouseEggPrisonerTransfer(Pawn carrier, Pawn target)
+        public static bool ShouldAllowProtectedYoungRatkinPrisonerTransfer(Pawn carrier, Pawn target)
         {
             Job job = carrier?.CurJob;
             return LeadYourPetRules.ShouldAllowProtectedPawnPrisonerTransfer(
-                IsProtectedLeashedMouseEgg(target),
+                IsProtectedLeashedYoungRatkin(target),
                 jobMakesTargetPrisoner: job?.def?.makeTargetPrisoner == true,
                 jobTargetMatchesPawn: job?.targetA.Thing == target);
         }
@@ -377,7 +377,7 @@ namespace LeadYourPet
         public static bool ShouldBlockExternalToddlerPickup(Pawn target, string jobDefName)
         {
             return target != null && LeadYourPetRules.ShouldBlockExternalToddlerPickup(
-                IsProtectedLeashedMouseEgg(target),
+                IsProtectedLeashedYoungRatkin(target),
                 jobDefName);
         }
 
@@ -398,7 +398,7 @@ namespace LeadYourPet
             }
 
             return LeadYourPetRules.ShouldEndExternalToddlerHoldJob(
-                IsProtectedLeashedMouseEgg(protectedPawn),
+                IsProtectedLeashedYoungRatkin(protectedPawn),
                 jobPawn.jobs?.curDriver?.GetType().FullName);
         }
 
@@ -470,7 +470,7 @@ namespace LeadYourPet
 
         internal static bool IsUnprotectedTravelStock(Pawn pawn)
         {
-            MouseEggState state = Component?.GetMouseEggState(pawn);
+            YoungRatkinState state = Component?.GetYoungRatkinState(pawn);
             return state?.IsTravelStock == true && pawn.Faction?.IsPlayer != true
                 && !pawn.IsPrisonerOfColony && state.CurrentMaster?.Faction?.IsPlayer != true
                 && Component.GetLinkForPet(pawn)?.Master?.Faction?.IsPlayer != true;
@@ -512,23 +512,23 @@ namespace LeadYourPet
         public static bool ShouldBlockExternalDialogue(Pawn target, string integrationName)
         {
             return target != null && LeadYourPetRules.ShouldBlockExternalDialogue(
-                IsProtectedLeashedMouseEgg(target),
+                IsProtectedLeashedYoungRatkin(target),
                 integrationName);
         }
 
-        public static bool ShouldTreatMouseEggAsRimTalkEligible(Pawn pawn, bool originalEligible)
+        public static bool ShouldTreatYoungRatkinAsRimTalkEligible(Pawn pawn, bool originalEligible)
         {
-            return LeadYourPetRules.ShouldTreatMouseEggAsRimTalkEligible(
+            return LeadYourPetRules.ShouldTreatYoungRatkinAsRimTalkEligible(
                 originalEligible,
-                IsMouseEgg(pawn),
+                IsYoungRatkin(pawn),
                 IsRimTalkConversationPawnValid(pawn));
         }
 
-        public static bool ShouldAllowRimTalkMouseEggConversation(Pawn initiator, Pawn target, bool originalAllowed)
+        public static bool ShouldAllowRimTalkYoungRatkinConversation(Pawn initiator, Pawn target, bool originalAllowed)
         {
-            return LeadYourPetRules.ShouldAllowRimTalkMouseEggConversation(
+            return LeadYourPetRules.ShouldAllowRimTalkYoungRatkinConversation(
                 originalAllowed,
-                IsMouseEgg(target),
+                IsYoungRatkin(target),
                 IsRimTalkConversationPawnValid(initiator),
                 IsRimTalkConversationPawnValid(target),
                 IsRimTalkTalkEligible(initiator),
@@ -536,27 +536,27 @@ namespace LeadYourPet
                 CanReachForRimTalkConversation(initiator, target));
         }
 
-        public static bool ShouldOverrideBabyCryMoodForMouseEgg(Pawn source, Pawn hearer)
+        public static bool ShouldOverrideBabyCryMoodForYoungRatkin(Pawn source, Pawn hearer)
         {
-            return LeadYourPetRules.ShouldOverrideBabyCryMoodForMouseEgg(
-                IsMouseEgg(source),
-                IsMouseEggPetState(source),
-                IsMouseEgg(hearer),
+            return LeadYourPetRules.ShouldOverrideBabyCryMoodForYoungRatkin(
+                IsYoungRatkin(source),
+                IsYoungRatkinPetState(source),
+                IsYoungRatkin(hearer),
                 hearer?.needs?.mood?.thoughts?.memories != null);
         }
 
-        public static bool ShouldApplyMouseEggCryingNearbyMood(Pawn source, Pawn hearer)
+        public static bool ShouldApplyYoungRatkinCryingNearbyMood(Pawn source, Pawn hearer)
         {
-            return LeadYourPetRules.ShouldOverrideBabyCryMoodForMouseEgg(
-                IsMouseEgg(source),
-                IsMouseEggPetState(source),
-                IsMouseEgg(hearer),
+            return LeadYourPetRules.ShouldOverrideBabyCryMoodForYoungRatkin(
+                IsYoungRatkin(source),
+                IsYoungRatkinPetState(source),
+                IsYoungRatkin(hearer),
                 hearer?.needs?.mood?.thoughts?.memories != null);
         }
 
-        public static bool IsMouseEggPetState(Pawn pawn)
+        public static bool IsYoungRatkinPetState(Pawn pawn)
         {
-            MouseEggState state = Component?.GetMouseEggState(pawn);
+            YoungRatkinState state = Component?.GetYoungRatkinState(pawn);
             return state != null && state.IsPet;
         }
 
@@ -656,9 +656,9 @@ namespace LeadYourPet
             return IsFriendlyVisitorOrTraveler(pawn);
         }
 
-        public static bool IsFriendlyVisitorMouseEgg(Pawn pawn)
+        public static bool IsFriendlyVisitorYoungRatkin(Pawn pawn)
         {
-            if (pawn == null || pawn.Dead || !IsMouseEgg(pawn))
+            if (pawn == null || pawn.Dead || !IsYoungRatkin(pawn))
             {
                 return false;
             }
@@ -734,40 +734,40 @@ namespace LeadYourPet
         }
 
         // Keep the legacy overload for callers compiled against earlier Continued builds.
-        public static Pawn GenerateMouseEggPawn(Faction ignoredFaction, Map map)
+        public static Pawn GenerateYoungRatkinPawn(Faction ignoredFaction, Map map)
         {
-            return GenerateMouseEggPawn(map);
+            return GenerateYoungRatkinPawn(map);
         }
 
-        public static Pawn GenerateMouseEggPawn(Map map)
+        public static Pawn GenerateYoungRatkinPawn(Map map)
         {
-            PawnKindDef kind = ResolveTravelMouseEggPawnKind();
+            PawnKindDef kind = ResolveTravelYoungRatkinPawnKind();
             if (kind == null)
             {
                 return null;
             }
 
             // Caravan membership is tracked by the Lord and leash state; the generated egg itself is factionless.
-            Pawn mouseDisasterPawn = TryGenerateMouseDisasterTravelPawn(kind);
-            if (mouseDisasterPawn != null)
+            Pawn ratkinDisasterPawn = TryGenerateRatkinDisasterTravelPawn(kind);
+            if (ratkinDisasterPawn != null)
             {
-                ClearGeneratedTravelMouseEggFaction(mouseDisasterPawn);
-                return mouseDisasterPawn;
+                ClearGeneratedTravelYoungRatkinFaction(ratkinDisasterPawn);
+                return ratkinDisasterPawn;
             }
 
-            float randomAge = ResolveGeneratedTravelAge(kind.defName == MouseDisasterChildPawnKindDefName);
+            float randomAge = ResolveGeneratedTravelAge(kind.defName == RatkinDisasterChildPawnKindDefName);
             // 这里不能把非鼠族来访派系直接传给 PawnGenerator，否则会被派系的人种/Kind 规则污染，生成成普通智人。
             PawnGenerationRequest request = new PawnGenerationRequest(kind, null, PawnGenerationContext.NonPlayer, map.Tile, forceGenerateNewPawn: true, allowDead: false, allowDowned: true, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, fixedBiologicalAge: randomAge, developmentalStages: DevelopmentalStage.Baby | DevelopmentalStage.Child, forceNoBackstory: true);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, true);
-            ClearGeneratedTravelMouseEggFaction(pawn);
+            ClearGeneratedTravelYoungRatkinFaction(pawn);
 
             return pawn;
         }
 
-        private static void ClearGeneratedTravelMouseEggFaction(Pawn pawn)
+        private static void ClearGeneratedTravelYoungRatkinFaction(Pawn pawn)
         {
-            if (LeadYourPetRules.ShouldClearGeneratedTravelMouseEggFaction(
+            if (LeadYourPetRules.ShouldClearGeneratedTravelYoungRatkinFaction(
                 hasGeneratedPawn: pawn != null,
                 hasFaction: pawn?.Faction != null))
             {
@@ -775,11 +775,11 @@ namespace LeadYourPet
             }
         }
 
-        internal static float ResolveGeneratedTravelAge(bool mouseDisasterChildKind)
+        internal static float ResolveGeneratedTravelAge(bool ratkinDisasterChildKind)
         {
             float min = MinPetAgeYears;
             float maxExclusive = Mathf.Max(min + 0.01f, MaxPetAgeYears);
-            if (mouseDisasterChildKind)
+            if (ratkinDisasterChildKind)
             {
                 float lower = Mathf.Max(1f, min);
                 float upper = Mathf.Min(6.9f, maxExclusive - 0.01f);
@@ -795,24 +795,24 @@ namespace LeadYourPet
             return Rand.Range(min, maxExclusive - 0.01f);
         }
 
-        private static Pawn TryGenerateMouseDisasterTravelPawn(PawnKindDef kind)
+        private static Pawn TryGenerateRatkinDisasterTravelPawn(PawnKindDef kind)
         {
-            if (!ShouldUseMouseDisasterTravelPawn() || MouseDisasterGenerateFactionRatkinPawnMethod == null)
+            if (!ShouldUseRatkinDisasterTravelPawn() || RatkinDisasterGenerateFactionRatkinPawnMethod == null)
             {
                 return null;
             }
 
             try
             {
-                Pawn pawn = OptionalModApi.Invoke(MouseDisasterGenerateFactionRatkinPawnMethod, kind, null, DevelopmentalStage.Baby, 0.35f) as Pawn;
+                Pawn pawn = OptionalModApi.Invoke(RatkinDisasterGenerateFactionRatkinPawnMethod, kind, null, DevelopmentalStage.Baby, 0.35f) as Pawn;
                 if (pawn == null)
                 {
                     return null;
                 }
 
-                if (kind.defName == MouseDisasterChildPawnKindDefName && MouseDisasterSetBiologicalAgeYearsMethod != null)
+                if (kind.defName == RatkinDisasterChildPawnKindDefName && RatkinDisasterSetBiologicalAgeYearsMethod != null)
                 {
-                    MouseDisasterSetBiologicalAgeYearsMethod.Invoke(null, new object[] { pawn, Rand.Range(1f, 2.9f) });
+                    RatkinDisasterSetBiologicalAgeYearsMethod.Invoke(null, new object[] { pawn, Rand.Range(1f, 2.9f) });
                 }
 
                 PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, true);
@@ -825,16 +825,16 @@ namespace LeadYourPet
             }
         }
 
-        public static bool TryPrepareMouseDisasterTradablePrisoner(Pawn pawn, Faction ownerFaction)
+        public static bool TryPrepareRatkinDisasterTradablePrisoner(Pawn pawn, Faction ownerFaction)
         {
-            if (MouseDisasterPrepareTradablePrisonerMethod == null || pawn == null || ownerFaction == null)
+            if (RatkinDisasterPrepareTradablePrisonerMethod == null || pawn == null || ownerFaction == null)
             {
                 return false;
             }
 
             try
             {
-                object result = MouseDisasterPrepareTradablePrisonerMethod.Invoke(null, new object[] { pawn, ownerFaction });
+                object result = RatkinDisasterPrepareTradablePrisonerMethod.Invoke(null, new object[] { pawn, ownerFaction });
                 return result is bool ok && ok;
             }
             catch (Exception exception)
@@ -844,45 +844,45 @@ namespace LeadYourPet
             }
         }
 
-        private static PawnKindDef ResolveTravelMouseEggPawnKind()
+        private static PawnKindDef ResolveTravelYoungRatkinPawnKind()
         {
-            if (ShouldUseMouseDisasterTravelPawn())
+            if (ShouldUseRatkinDisasterTravelPawn())
             {
-                PawnKindDef mouseDisasterKind = DefDatabase<PawnKindDef>.GetNamedSilentFail(MouseDisasterChildPawnKindDefName);
-                if (mouseDisasterKind != null)
+                PawnKindDef ratkinDisasterKind = DefDatabase<PawnKindDef>.GetNamedSilentFail(RatkinDisasterChildPawnKindDefName);
+                if (ratkinDisasterKind != null)
                 {
-                    return mouseDisasterKind;
+                    return ratkinDisasterKind;
                 }
             }
 
             return DefDatabase<PawnKindDef>.AllDefsListForReading.FirstOrDefault(x => x.race != null && string.Equals(x.race.defName, "Ratkin", StringComparison.OrdinalIgnoreCase) && !x.trader);
         }
 
-        public static bool IsMouseDisasterTravelPawn(Pawn pawn)
+        public static bool IsRatkinDisasterTravelPawn(Pawn pawn)
         {
-            return pawn?.kindDef != null && string.Equals(pawn.kindDef.defName, MouseDisasterChildPawnKindDefName, StringComparison.OrdinalIgnoreCase);
+            return pawn?.kindDef != null && string.Equals(pawn.kindDef.defName, RatkinDisasterChildPawnKindDefName, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool IsMouseDisasterTravelTrader(Pawn pawn)
+        public static bool IsRatkinDisasterTravelTrader(Pawn pawn)
         {
-            return pawn?.kindDef != null && string.Equals(pawn.kindDef.defName, MouseDisasterTraderPawnKindDefName, StringComparison.OrdinalIgnoreCase);
+            return pawn?.kindDef != null && string.Equals(pawn.kindDef.defName, RatkinDisasterTraderPawnKindDefName, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool IsMouseDisasterBeggarAdult(Pawn pawn)
+        public static bool IsRatkinDisasterBeggarAdult(Pawn pawn)
         {
             return pawn?.kindDef != null && string.Equals(pawn.kindDef.defName, "MouseDisaster_BeggarRatkinAdult", StringComparison.OrdinalIgnoreCase);
         }
 
-        private static bool ShouldUseMouseDisasterTravelPawn()
+        private static bool ShouldUseRatkinDisasterTravelPawn()
         {
-            if (!ModsConfig.IsActive(MouseDisasterPackageId) && !ModsConfig.IsActive("nanaloveyuki.mouse.disaster.famine.continued"))
+            if (!ModsConfig.IsActive(RatkinDisasterPackageId) && !ModsConfig.IsActive("nanaloveyuki.mouse.disaster.famine.continued"))
             {
                 return false;
             }
 
-            bool? beggarEnabled = TryGetMouseDisasterBoolProperty("AreBeggarIncidentsEnabled");
-            bool? wildEnabled = TryGetMouseDisasterBoolProperty("AreWildIncidentsEnabled");
-            bool? thiefEnabled = TryGetMouseDisasterBoolProperty("AreThiefIncidentsEnabled");
+            bool? beggarEnabled = TryGetRatkinDisasterBoolProperty("AreBeggarIncidentsEnabled");
+            bool? wildEnabled = TryGetRatkinDisasterBoolProperty("AreWildIncidentsEnabled");
+            bool? thiefEnabled = TryGetRatkinDisasterBoolProperty("AreThiefIncidentsEnabled");
 
             if (beggarEnabled.HasValue || wildEnabled.HasValue || thiefEnabled.HasValue)
             {
@@ -892,7 +892,7 @@ namespace LeadYourPet
             return true;
         }
 
-        private static bool? TryGetMouseDisasterBoolProperty(string propertyName)
+        private static bool? TryGetRatkinDisasterBoolProperty(string propertyName)
         {
             Type utilityType = AccessTools.TypeByName("MouseDisaster.MouseDisasterUtility");
             PropertyInfo property = utilityType?.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Static);
@@ -927,7 +927,7 @@ namespace LeadYourPet
             }
 
             float distance = targetCell.DistanceTo(link.Pet.Position);
-            if ((link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !CanMouseEggMove(link.Pet))
+            if ((link.Kind == LeashLinkKind.YoungRatkinPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !CanYoungRatkinMove(link.Pet))
             {
                 return MasterControlsMovement(link) && distance >= MaxLeashLength - 0.5f;
             }
@@ -952,7 +952,7 @@ namespace LeadYourPet
             return link.Master != null && link.Master.pather != null && link.Master.pather.Moving;
         }
 
-        public static bool CanMouseEggMove(Pawn pawn)
+        public static bool CanYoungRatkinMove(Pawn pawn)
         {
             if (pawn == null || pawn.Dead || pawn.Downed || pawn.health?.capacities == null)
             {
@@ -1110,7 +1110,7 @@ namespace LeadYourPet
         {
             LeashLink link = Component?.GetLinkForPet(pet);
             LeashLinkKind kind = link?.Kind ?? LeashLinkKind.NormalPet;
-            bool caretakerMood = kind == LeashLinkKind.MouseEggPet && ShouldUseCaretakerMood(pet);
+            bool caretakerMood = kind == LeashLinkKind.YoungRatkinPet && ShouldUseCaretakerMood(pet);
 
             if (master?.needs?.mood?.thoughts?.memories != null)
             {
@@ -1125,15 +1125,15 @@ namespace LeadYourPet
 
                 if (caretakerMood)
                 {
-                    master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_MouseEggOwnerMood);
+                    master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_YoungRatkinOwnerMood);
                 }
-                else if (kind == LeashLinkKind.MouseEggPet)
+                else if (kind == LeashLinkKind.YoungRatkinPet)
                 {
-                    master.needs.mood.thoughts.memories.TryGainMemoryFast(LeadYourPetDefOf.LeadYourPet_MouseEggOwnerMood);
+                    master.needs.mood.thoughts.memories.TryGainMemoryFast(LeadYourPetDefOf.LeadYourPet_YoungRatkinOwnerMood);
                 }
                 else
                 {
-                    master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_MouseEggOwnerMood);
+                    master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_YoungRatkinOwnerMood);
                 }
             }
 
@@ -1141,15 +1141,15 @@ namespace LeadYourPet
             {
                 if (caretakerMood)
                 {
-                    pet.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_MouseEggFearMood);
+                    pet.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_YoungRatkinFearMood);
                 }
-                else if (kind == LeashLinkKind.MouseEggPet)
+                else if (kind == LeashLinkKind.YoungRatkinPet)
                 {
-                    pet.needs.mood.thoughts.memories.TryGainMemoryFast(LeadYourPetDefOf.LeadYourPet_MouseEggFearMood);
+                    pet.needs.mood.thoughts.memories.TryGainMemoryFast(LeadYourPetDefOf.LeadYourPet_YoungRatkinFearMood);
                 }
                 else
                 {
-                    pet.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_MouseEggFearMood);
+                    pet.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_YoungRatkinFearMood);
                 }
             }
         }
@@ -1159,12 +1159,12 @@ namespace LeadYourPet
             if (master?.needs?.mood?.thoughts?.memories != null)
             {
                 master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_LeadingPetMood);
-                master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_MouseEggOwnerMood);
+                master.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_YoungRatkinOwnerMood);
             }
 
             if (pet?.needs?.mood?.thoughts?.memories != null)
             {
-                pet.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_MouseEggFearMood);
+                pet.needs.mood.thoughts.memories.RemoveMemoriesOfDef(LeadYourPetDefOf.LeadYourPet_YoungRatkinFearMood);
             }
         }
 
@@ -1175,7 +1175,7 @@ namespace LeadYourPet
 
         public static string InteractionLabel(Pawn pet, LeadYourPetInteractionKind kind)
         {
-            if (IsColonistMouseEgg(pet))
+            if (IsColonistYoungRatkin(pet))
             {
                 switch (kind)
                 {
@@ -1227,20 +1227,20 @@ namespace LeadYourPet
             }
         }
 
-        public static string GetMouseEggDutyReport(LeashedMouseEggDutyState state)
+        public static string GetYoungRatkinDutyReport(LeashedYoungRatkinDutyState state)
         {
             switch (state)
             {
-                case LeashedMouseEggDutyState.SleepAtLeash:
+                case LeashedYoungRatkinDutyState.SleepAtLeash:
                     return "LeadYourPet_Duty_SleepAtLeash".Translate().Resolve();
-                case LeashedMouseEggDutyState.WaitForFeeding:
+                case LeashedYoungRatkinDutyState.WaitForFeeding:
                     return "LeadYourPet_Duty_WaitForFeeding".Translate().Resolve();
                 default:
                     return "LeadYourPet_Duty_FollowMaster".Translate().Resolve();
             }
         }
 
-        public static bool TryGetMouseEggDutyReport(Pawn pawn, out string report)
+        public static bool TryGetYoungRatkinDutyReport(Pawn pawn, out string report)
         {
             report = null;
             if (pawn == null || Component == null)
@@ -1249,12 +1249,12 @@ namespace LeadYourPet
             }
 
             LeashLink link = Component.GetLinkForPet(pawn);
-            if (link == null || link.Kind != LeashLinkKind.MouseEggPet || link.AnchorMode != LeashAnchorMode.None)
+            if (link == null || link.Kind != LeashLinkKind.YoungRatkinPet || link.AnchorMode != LeashAnchorMode.None)
             {
                 return false;
             }
 
-            report = GetMouseEggDutyReport(link.MouseEggDutyState);
+            report = GetYoungRatkinDutyReport(link.YoungRatkinDutyState);
             return !report.NullOrEmpty();
         }
 
@@ -1280,7 +1280,7 @@ namespace LeadYourPet
 
         public static bool CanUseAsTraderChattel(Pawn pawn)
         {
-            MouseEggState state = Component?.GetMouseEggState(pawn);
+            YoungRatkinState state = Component?.GetYoungRatkinState(pawn);
             return state != null && state.IsTravelStock && state.SellAsPrisoner;
         }
 
@@ -1313,7 +1313,7 @@ namespace LeadYourPet
                 return true;
             }
 
-            return IsMouseEgg(pawn)
+            return IsYoungRatkin(pawn)
                 && pawn.guest != null
                 && ((pawn.IsPrisonerOfColony && pawn.guest.PrisonerIsSecure)
                     || (pawn.IsSlave && pawn.guest.SlaveIsSecure));
@@ -1338,8 +1338,8 @@ namespace LeadYourPet
                 return false;
             }
 
-            MouseEggState state = Component?.GetMouseEggState(link.Pet);
-            return MouseEggOwnershipStateMachine.ShouldDetachNonPlayerTravelLeashAfterAcquisition(
+            YoungRatkinState state = Component?.GetYoungRatkinState(link.Pet);
+            return YoungRatkinOwnershipStateMachine.ShouldDetachNonPlayerTravelLeashAfterAcquisition(
                 masterIsPlayer: link.Master.Faction == Faction.OfPlayer,
                 petIsPlayerOwned: link.Pet.Faction == Faction.OfPlayer,
                 petIsColonyPrisoner: link.Pet.IsPrisonerOfColony,
@@ -1348,12 +1348,12 @@ namespace LeadYourPet
 
         public static bool ShouldUseCaretakerMood(Pawn pet)
         {
-            return IsColonistMouseEgg(pet);
+            return IsColonistYoungRatkin(pet);
         }
 
         public static bool ShouldBlockColonistBidirectionalInteraction(Pawn master, Pawn pet, LeadYourPetInteractionKind kind)
         {
-            if (!IsBidirectionalInteraction(kind) || !IsColonistMouseEgg(pet))
+            if (!IsBidirectionalInteraction(kind) || !IsColonistYoungRatkin(pet))
             {
                 return false;
             }
@@ -1527,7 +1527,7 @@ namespace LeadYourPet
 
         public static bool TryFeedTarget(Pawn feeder, Pawn pet, out string failReason, out LeadYourPetInteractionKind interactionKind)
         {
-            interactionKind = IsMouseEgg(pet) ? LeadYourPetInteractionKind.Fed : LeadYourPetInteractionKind.Snack;
+            interactionKind = IsYoungRatkin(pet) ? LeadYourPetInteractionKind.Fed : LeadYourPetInteractionKind.Snack;
             if (!TryFindManualFeedFood(feeder, pet, out Thing foodSource, out failReason))
             {
                 return false;
@@ -1585,39 +1585,39 @@ namespace LeadYourPet
             return true;
         }
 
-        public static bool ShouldTreatVisitorMouseEggPetLeashAsAggressive(Pawn master, Pawn pet)
+        public static bool ShouldTreatVisitorYoungRatkinPetLeashAsAggressive(Pawn master, Pawn pet)
         {
-            return LeadYourPetRules.ShouldTreatVisitorMouseEggPetLeashAsAggressive(
+            return LeadYourPetRules.ShouldTreatVisitorYoungRatkinPetLeashAsAggressive(
                 masterIsPlayer: master?.Faction == Faction.OfPlayer,
                 petIsRatkinHumanlike: IsRatkinHumanlike(pet),
                 petIsBabyOrChild: pet != null && (pet.DevelopmentalStage.Baby() || pet.DevelopmentalStage.Child()),
                 petFactionExists: pet?.Faction != null,
                 petFactionIsPlayer: pet?.Faction == Faction.OfPlayer,
                 petFactionHostileToPlayer: pet?.Faction != null && Faction.OfPlayer != null && pet.Faction.HostileTo(Faction.OfPlayer),
-                petInFriendlyVisitorLord: IsFriendlyVisitorMouseEgg(pet));
+                petInFriendlyVisitorLord: IsFriendlyVisitorYoungRatkin(pet));
         }
 
-        public static void ClearMouseDisasterVisitorCover(Pawn pawn)
+        public static void ClearRatkinDisasterVisitorCover(Pawn pawn)
         {
             if (pawn == null)
             {
                 return;
             }
 
-            ClearMouseDisasterTradeAndVisitorFlags(pawn);
-            TryRefreshMouseDisasterHiddenFactionRelations();
+            ClearRatkinDisasterTradeAndVisitorFlags(pawn);
+            TryRefreshRatkinDisasterHiddenFactionRelations();
         }
 
-        public static void ClearMouseDisasterTradeAndVisitorFlags(Pawn pawn)
+        public static void ClearRatkinDisasterTradeAndVisitorFlags(Pawn pawn)
         {
-            TryInvokeVoid(MouseDisasterClearTradeLeaderStateMethod, pawn);
-            TryInvokeVoid(MouseDisasterResetBeggarStateMethod, pawn);
+            TryInvokeVoid(RatkinDisasterClearTradeLeaderStateMethod, pawn);
+            TryInvokeVoid(RatkinDisasterResetBeggarStateMethod, pawn);
         }
 
-        public static bool TryMakeMouseDisasterVisitorsHostile(IEnumerable<Pawn> pawns, out int hostileCount)
+        public static bool TryMakeRatkinDisasterVisitorsHostile(IEnumerable<Pawn> pawns, out int hostileCount)
         {
             hostileCount = 0;
-            if (MouseDisasterTryMakeHostileVisitorsMethod == null)
+            if (RatkinDisasterTryMakeHostileVisitorsMethod == null)
             {
                 return false;
             }
@@ -1625,7 +1625,7 @@ namespace LeadYourPet
             try
             {
                 object[] args = { pawns, 0 };
-                bool handled = MouseDisasterTryMakeHostileVisitorsMethod.Invoke(null, args) is bool result && result;
+                bool handled = RatkinDisasterTryMakeHostileVisitorsMethod.Invoke(null, args) is bool result && result;
                 if (args.Length > 1 && args[1] is int count)
                 {
                     hostileCount = count;
@@ -1641,16 +1641,16 @@ namespace LeadYourPet
             }
         }
 
-        public static void MakeMouseDisasterFactionHostileToPlayer(Faction faction, bool explicitDriveAway)
+        public static void MakeRatkinDisasterFactionHostileToPlayer(Faction faction, bool explicitDriveAway)
         {
-            if (MouseDisasterMakeFactionHostileToPlayerMethod == null)
+            if (RatkinDisasterMakeFactionHostileToPlayerMethod == null)
             {
                 return;
             }
 
             try
             {
-                MouseDisasterMakeFactionHostileToPlayerMethod.Invoke(null, new object[] { faction, explicitDriveAway });
+                RatkinDisasterMakeFactionHostileToPlayerMethod.Invoke(null, new object[] { faction, explicitDriveAway });
             }
             catch (Exception exception)
             {
@@ -1658,14 +1658,14 @@ namespace LeadYourPet
             }
         }
 
-        public static void TryRefreshMouseDisasterHiddenFactionRelations()
+        public static void TryRefreshRatkinDisasterHiddenFactionRelations()
         {
-            TryInvokeVoid(MouseDisasterTryRefreshHiddenFactionRelationsMethod);
+            TryInvokeVoid(RatkinDisasterTryRefreshHiddenFactionRelationsMethod);
         }
 
-        public static void NotifyMouseDisasterPawnIdentityChanged(Pawn pawn)
+        public static void NotifyRatkinDisasterPawnIdentityChanged(Pawn pawn)
         {
-            TryInvokeVoid(MouseDisasterNotifyIdentityChangedMethod, pawn);
+            TryInvokeVoid(RatkinDisasterNotifyIdentityChangedMethod, pawn);
         }
 
         public static void TryInvokeVoid(MethodInfo method, params object[] args)
@@ -1713,7 +1713,7 @@ namespace LeadYourPet
             }
 
             owner?.needs?.joy?.GainJoy(0.10f, JoyKindDefOf.Social);
-            if (IsColonistMouseEgg(pet))
+            if (IsColonistYoungRatkin(pet))
             {
                 if (pet.needs?.play != null)
                 {
@@ -1733,7 +1733,7 @@ namespace LeadYourPet
                 return;
             }
 
-            if (IsColonistMouseEgg(pet) && IsBidirectionalInteraction(kind))
+            if (IsColonistYoungRatkin(pet) && IsBidirectionalInteraction(kind))
             {
                 return;
             }
@@ -1791,7 +1791,7 @@ namespace LeadYourPet
 
         public static ThoughtDef OwnerThoughtFor(Pawn owner, Pawn pet, LeadYourPetInteractionKind kind)
         {
-            if (IsColonistMouseEgg(pet) && IsBidirectionalInteraction(kind))
+            if (IsColonistYoungRatkin(pet) && IsBidirectionalInteraction(kind))
             {
                 return LeadYourPetDefOf.LeadYourPet_OwnerPlayWithChild;
             }
@@ -1814,7 +1814,7 @@ namespace LeadYourPet
 
         public static ThoughtDef PetThoughtFor(Pawn owner, Pawn pet, LeadYourPetInteractionKind kind)
         {
-            if (IsColonistMouseEgg(pet) && IsBidirectionalInteraction(kind))
+            if (IsColonistYoungRatkin(pet) && IsBidirectionalInteraction(kind))
             {
                 return LeadYourPetDefOf.LeadYourPet_ChildPlayedWithCaretaker;
             }

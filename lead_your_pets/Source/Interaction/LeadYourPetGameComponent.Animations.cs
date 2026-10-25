@@ -8,20 +8,20 @@ namespace LeadYourPet
 {
     public partial class LeadYourPetGameComponent
     {
-        public MouseEggInteractionAnimation GetInteractionAnimationForPet(Pawn pet)
+        public YoungRatkinInteractionAnimation GetInteractionAnimationForPet(Pawn pet)
         {
-            return pet != null && animationByPet.TryGetValue(pet, out MouseEggInteractionAnimation anim) ? anim : null;
+            return pet != null && animationByPet.TryGetValue(pet, out YoungRatkinInteractionAnimation anim) ? anim : null;
         }
 
         public bool HasBlockingInteractionAnimation(Pawn pet)
         {
-            MouseEggInteractionAnimation anim = GetInteractionAnimationForPet(pet);
+            YoungRatkinInteractionAnimation anim = GetInteractionAnimationForPet(pet);
             return anim != null && anim.BlocksPetMovement;
         }
 
         public bool HasLayingInteractionAnimation(Pawn pet)
         {
-            MouseEggInteractionAnimation anim = GetInteractionAnimationForPet(pet);
+            YoungRatkinInteractionAnimation anim = GetInteractionAnimationForPet(pet);
             return anim != null && anim.PetUsesCustomRender && anim.PetLaying;
         }
 
@@ -32,7 +32,7 @@ namespace LeadYourPet
             laying = false;
             facing = Rot4.South;
 
-            MouseEggInteractionAnimation anim = GetInteractionAnimationForPet(pet);
+            YoungRatkinInteractionAnimation anim = GetInteractionAnimationForPet(pet);
             if (anim == null || !anim.PetUsesCustomRender || !CanContinueInteractionAnimation(anim))
             {
                 return false;
@@ -51,7 +51,7 @@ namespace LeadYourPet
         {
             for (int i = activeAnimations.Count - 1; i >= 0; i--)
             {
-                MouseEggInteractionAnimation anim = activeAnimations[i];
+                YoungRatkinInteractionAnimation anim = activeAnimations[i];
                 if (!CanContinueInteractionAnimation(anim))
                 {
                     RemoveInteractionAnimationAt(i);
@@ -152,7 +152,7 @@ namespace LeadYourPet
             }
         }
 
-        private bool CanContinueInteractionAnimation(MouseEggInteractionAnimation anim)
+        private bool CanContinueInteractionAnimation(YoungRatkinInteractionAnimation anim)
         {
             if (anim?.Master == null || anim.Pet == null || anim.StartMap == null || anim.StartLink == null
                 || !CanAnimateInteraction(anim.Master, anim.Pet, out LeashLink link)
@@ -188,7 +188,7 @@ namespace LeadYourPet
                     && !pet.Downed && pet.Awake() && !LeadYourPetUtility.HasLeashCareJob(link));
         }
 
-        private static void ClearInteractionAnimation(MouseEggInteractionAnimation anim)
+        private static void ClearInteractionAnimation(YoungRatkinInteractionAnimation anim)
         {
             YayoAnimationCompat.Clear(anim?.Pet);
             YayoAnimationCompat.Clear(anim?.Master);
@@ -196,13 +196,13 @@ namespace LeadYourPet
 
         private void RemoveInteractionAnimationAt(int index)
         {
-            MouseEggInteractionAnimation anim = activeAnimations[index];
+            YoungRatkinInteractionAnimation anim = activeAnimations[index];
             ClearInteractionAnimation(anim);
             if (anim?.Pet != null) animationByPet.Remove(anim.Pet);
             activeAnimations.RemoveAt(index);
         }
 
-        private void RegisterInteractionAnimation(MouseEggInteractionAnimation anim)
+        private void RegisterInteractionAnimation(YoungRatkinInteractionAnimation anim)
         {
             activeAnimations.Add(anim);
             animationByPet.Add(anim.Pet, anim);
@@ -210,14 +210,14 @@ namespace LeadYourPet
 
         private void StartInteractionAnimation(Pawn master, Pawn pet, LeadYourPetInteractionKind kind)
         {
-            if (!TryBuildInteractionAnimation(master, pet, kind, out MouseEggInteractionAnimation anim))
+            if (!TryBuildInteractionAnimation(master, pet, kind, out YoungRatkinInteractionAnimation anim))
             {
                 return;
             }
 
             for (int i = activeAnimations.Count - 1; i >= 0; i--)
             {
-                MouseEggInteractionAnimation previous = activeAnimations[i];
+                YoungRatkinInteractionAnimation previous = activeAnimations[i];
                 if (previous == null || previous.Master == null || previous.Pet == null
                     || previous.Master == master || previous.Pet == pet || previous.Master == pet || previous.Pet == master)
                 {
@@ -235,7 +235,7 @@ namespace LeadYourPet
 
             for (int i = activeAnimations.Count - 1; i >= 0; i--)
             {
-                MouseEggInteractionAnimation anim = activeAnimations[i];
+                YoungRatkinInteractionAnimation anim = activeAnimations[i];
                 if (anim?.Pet != pet)
                 {
                     continue;
@@ -250,7 +250,7 @@ namespace LeadYourPet
         }
 
 
-        private bool TryBuildInteractionAnimation(Pawn master, Pawn pet, LeadYourPetInteractionKind kind, out MouseEggInteractionAnimation anim)
+        private bool TryBuildInteractionAnimation(Pawn master, Pawn pet, LeadYourPetInteractionKind kind, out YoungRatkinInteractionAnimation anim)
         {
             anim = null;
             if (!CanAnimateInteraction(master, pet, out LeashLink link)
@@ -261,7 +261,7 @@ namespace LeadYourPet
 
             int startTick = Find.TickManager.TicksGame;
             int duration = AnimationDurationFor(kind);
-            anim = new MouseEggInteractionAnimation
+            anim = new YoungRatkinInteractionAnimation
             {
                 Master = master,
                 Pet = pet,
@@ -322,7 +322,7 @@ namespace LeadYourPet
             }
         }
 
-        private void ConfigureLayingCryAnimation(MouseEggInteractionAnimation anim, Pawn pet, int duration)
+        private void ConfigureLayingCryAnimation(YoungRatkinInteractionAnimation anim, Pawn pet, int duration)
         {
             anim.PetUsesCustomRender = true;
             anim.PetLaying = true;
@@ -333,7 +333,7 @@ namespace LeadYourPet
             anim.StartDrawPos = pet.DrawPos;
         }
 
-        private void ConfigureKnockbackAnimation(MouseEggInteractionAnimation anim, Pawn master, Pawn pet, int distance, float spinDegrees, bool laying)
+        private void ConfigureKnockbackAnimation(YoungRatkinInteractionAnimation anim, Pawn master, Pawn pet, int distance, float spinDegrees, bool laying)
         {
             IntVec3 target = ResolveKnockbackCell(master, pet, distance);
             anim.TargetCell = target;
@@ -429,12 +429,12 @@ namespace LeadYourPet
             return true;
         }
 
-        private float AnimationProgress(MouseEggInteractionAnimation anim)
+        private float AnimationProgress(YoungRatkinInteractionAnimation anim)
         {
             return Mathf.Clamp01((Find.TickManager.TicksGame - anim.StartTick) / (float)Mathf.Max(1, anim.EndTick - anim.StartTick));
         }
 
-        private void FinalizeInteractionAnimation(MouseEggInteractionAnimation anim)
+        private void FinalizeInteractionAnimation(YoungRatkinInteractionAnimation anim)
         {
             if (anim == null || !anim.FinalizeTeleport || !CanContinueInteractionAnimation(anim)
                 || anim.TargetCell == anim.Pet.Position)
@@ -481,12 +481,12 @@ namespace LeadYourPet
                     continue;
                 }
 
-                if (!LeadYourPetUtility.ShouldApplyMouseEggCryingNearbyMood(pet, pawn))
+                if (!LeadYourPetUtility.ShouldApplyYoungRatkinCryingNearbyMood(pet, pawn))
                 {
                     continue;
                 }
 
-                pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(LeadYourPetDefOf.LeadYourPet_MouseEggCryingNearbyMood, pet);
+                pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(LeadYourPetDefOf.LeadYourPet_YoungRatkinCryingNearbyMood, pet);
             }
         }
 

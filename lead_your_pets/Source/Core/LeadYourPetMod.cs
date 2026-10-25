@@ -92,8 +92,8 @@ namespace LeadYourPet
                 listing.Label("拴绳最高长度: 无限");
             }
 
-            listing.Label($"{"LeadYourPet_Settings_MouseEggLeashStartDistance".Translate().Resolve()} {Settings.maxMouseEggPetLeashStartDistance}");
-            Settings.maxMouseEggPetLeashStartDistance = Mathf.RoundToInt(listing.Slider(Settings.maxMouseEggPetLeashStartDistance, 1f, 30f));
+            listing.Label($"{"LeadYourPet_Settings_MouseEggLeashStartDistance".Translate().Resolve()} {Settings.maxYoungRatkinPetLeashStartDistance}");
+            Settings.maxYoungRatkinPetLeashStartDistance = Mathf.RoundToInt(listing.Slider(Settings.maxYoungRatkinPetLeashStartDistance, 1f, 30f));
 
             listing.Label("LeadYourPet_Settings_LeashedPawnMapExitBehavior".Translate().Resolve());
             if (listing.RadioButton("LeadYourPet_Settings_LeashedPawnMapExitBehavior_StayInPlace".Translate().Resolve(), Settings.leashedPawnMapExitBehavior == LeashedPawnMapExitBehavior.StayInPlace))

@@ -59,9 +59,9 @@ namespace LeadYourPet
                 }
             }
 
-            if (LeadYourPetUtility.IsMouseEgg(clickedPawn))
+            if (LeadYourPetUtility.IsYoungRatkin(clickedPawn))
             {
-                foreach (FloatMenuOption option in MouseEggOptions(actor, clickedPawn, component))
+                foreach (FloatMenuOption option in YoungRatkinOptions(actor, clickedPawn, component))
                 {
                     yield return option;
                 }
@@ -94,18 +94,18 @@ namespace LeadYourPet
             }
         }
 
-        private IEnumerable<FloatMenuOption> MouseEggOptions(Pawn actor, Pawn pet, LeadYourPetGameComponent component)
+        private IEnumerable<FloatMenuOption> YoungRatkinOptions(Pawn actor, Pawn pet, LeadYourPetGameComponent component)
         {
-            MouseEggState state = component.GetMouseEggState(pet);
+            YoungRatkinState state = component.GetYoungRatkinState(pet);
             LeashLink current = component.GetLinkForPet(pet);
-            bool ownedByActor = (state != null && state.CurrentMaster == actor) || (current != null && current.Master == actor && current.Kind == LeashLinkKind.MouseEggPet);
-            bool canBePet = LeadYourPetUtility.CanBePetMouseEgg(pet, out string petBlockReasonKey);
+            bool ownedByActor = (state != null && state.CurrentMaster == actor) || (current != null && current.Master == actor && current.Kind == LeashLinkKind.YoungRatkinPet);
+            bool canBePet = LeadYourPetUtility.CanBePetYoungRatkin(pet, out string petBlockReasonKey);
 
             if (ownedByActor)
             {
                 yield return new FloatMenuOption(T("LeadYourPet_StopMouseEggLeash"), delegate
                 {
-                    component.ClearMouseEggPetState(pet);
+                    component.ClearYoungRatkinPetState(pet);
                 }, MenuOptionPriority.Default);
 
                 if (!canBePet)
@@ -115,7 +115,7 @@ namespace LeadYourPet
                 }
 
                 bool bidirectionalBlocked = LeadYourPetUtility.ShouldBlockColonistBidirectionalInteraction(actor, pet, LeadYourPetUtility.BidirectionalInteractions.First());
-                if (LeadYourPetRules.ShouldOfferManualMouseEggInteractionMenu(ownedByActor, true, bidirectionalBlocked))
+                if (LeadYourPetRules.ShouldOfferManualYoungRatkinInteractionMenu(ownedByActor, true, bidirectionalBlocked))
                 {
                     yield return BuildInteractionMenu("LeadYourPet_MouseEggTwoWay", actor, pet, component, LeadYourPetUtility.BidirectionalInteractions);
                 }

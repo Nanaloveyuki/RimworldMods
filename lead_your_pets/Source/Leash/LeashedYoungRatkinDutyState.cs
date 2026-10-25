@@ -1,6 +1,6 @@
 namespace LeadYourPet
 {
-    public enum LeashedMouseEggDutyState
+    public enum LeashedYoungRatkinDutyState
     {
         FollowMaster = 0,
         SleepAtLeash = 1,

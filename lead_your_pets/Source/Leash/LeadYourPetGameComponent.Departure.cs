@@ -38,7 +38,7 @@ namespace LeadYourPet
             for (int i = 0; i < lord.ownedPawns.Count; i++)
             {
                 Pawn pet = lord.ownedPawns[i];
-                MouseEggState state = GetMouseEggState(pet);
+                YoungRatkinState state = GetYoungRatkinState(pet);
                 if (state == null || !state.IsTravelStock || pet == null || pet.Dead || pet.GetLord() != lord
                     || !LeadYourPetUtility.IsUnprotectedTravelStock(pet)
                     || !LeadYourPetUtility.IsNonPlayerTravelDeparture(pet))
@@ -56,11 +56,11 @@ namespace LeadYourPet
 
                 if (link != null)
                 {
-                    link.MouseEggDutyState = LeashedMouseEggDutyState.FollowMaster;
-                    UpdateMouseEggDutyReport(link);
+                    link.YoungRatkinDutyState = LeashedYoungRatkinDutyState.FollowMaster;
+                    UpdateYoungRatkinDutyReport(link);
                 }
 
-                bool mobile = pet.Spawned && !pet.Downed && LeadYourPetUtility.CanMouseEggMove(pet)
+                bool mobile = pet.Spawned && !pet.Downed && LeadYourPetUtility.CanYoungRatkinMove(pet)
                     && !GodHandsCompat.IsGrabbed(pet)
                     && !LeadYourPetUtility.IsExternalToddlerHold(pet.CurJobDef?.defName, pet.jobs?.curDriver?.GetType().FullName);
                 if (mobile && !pet.Awake())
@@ -97,11 +97,11 @@ namespace LeadYourPet
             for (int i = 0; i < lord.ownedPawns.Count; i++)
             {
                 Pawn pet = lord.ownedPawns[i];
-                MouseEggState state = GetMouseEggState(pet);
+                YoungRatkinState state = GetYoungRatkinState(pet);
                 if (pet == carrier || state == null || !LeadYourPetUtility.IsUnprotectedTravelStock(pet)
                     || LeadYourPetUtility.IsExternalToddlerHold(pet.CurJobDef?.defName, pet.jobs?.curDriver?.GetType().FullName)
                     || !pet.Spawned || pet.Dead || pet.InMentalState || GodHandsCompat.IsGrabbed(pet)
-                    || (!pet.Downed && LeadYourPetUtility.CanMouseEggMove(pet)))
+                    || (!pet.Downed && LeadYourPetUtility.CanYoungRatkinMove(pet)))
                 {
                     continue;
                 }
@@ -143,7 +143,7 @@ namespace LeadYourPet
                 return null;
             }
 
-            Job job = JobMaker.MakeJob(LeadYourPetDefOf.LeadYourPet_CarryTravelMouseEgg, closest, destination);
+            Job job = JobMaker.MakeJob(LeadYourPetDefOf.LeadYourPet_CarryTravelYoungRatkin, closest, destination);
             job.count = 1;
             job.exitMapOnArrival = !gathering;
             job.lord = lord;

@@ -2,7 +2,7 @@
 <Defs>
   <JobDef>
     <defName>LeadYourPet_CarryTravelMouseEgg</defName>
-    <driverClass>LeadYourPet.JobDriver_CarryTravelMouseEgg</driverClass>
+    <driverClass>LeadYourPet.JobDriver_CarryTravelYoungRatkin</driverClass>
     <reportString>carrying TargetA.</reportString>
     <casualInterruptible>false</casualInterruptible>
     <checkOverrideOnDamage>Always</checkOverrideOnDamage>

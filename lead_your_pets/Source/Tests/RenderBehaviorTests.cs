@@ -69,7 +69,7 @@ namespace LeadYourPet.Tests
         [Fact]
         public void MapAnimationUsesItsWorldTransformAndOnlyThatPawnDisablesAtlasCache()
         {
-            MouseEggInteractionAnimation animation = AddAnimation();
+            YoungRatkinInteractionAnimation animation = AddAnimation();
             animation.StartDrawPos = new Vector3(25.5f, 0f, 22.5f);
             PawnDrawParms parms = new PawnDrawParms { matrix = Matrix4x4.identity, flags = PawnRenderFlags.None, facing = Rot4.West };
             Patch_PawnRenderer_GetDrawParms.Postfix(pet, ref parms);
@@ -97,7 +97,7 @@ namespace LeadYourPet.Tests
         [Fact]
         public void RopeUsesAnimatedPetAndVisualMasterWithoutMovingEitherSimulationEndpoint()
         {
-            MouseEggInteractionAnimation animation = AddAnimation();
+            YoungRatkinInteractionAnimation animation = AddAnimation();
             animation.StartDrawPos = new Vector3(22.25f, 0f, 21.75f);
             master.VisualPosition = new Vector3(18.75f, 0f, 20.25f);
             Assert.True(Patch_PawnRopeTracker_RopingDraw.TryGetCustomRopeEndpoints(pet, out Vector3 start, out Vector3 end));
@@ -142,7 +142,7 @@ namespace LeadYourPet.Tests
         [InlineData("pet-moved")]
         public void InvalidAnimationContextCancelsRatherThanApplyingOldLanding(string change)
         {
-            MouseEggInteractionAnimation animation = AddAnimation();
+            YoungRatkinInteractionAnimation animation = AddAnimation();
             animation.FinalizeTeleport = true;
             animation.TargetCell = new IntVec3(23, 0, 20);
             animation.EndTick = -1;
@@ -181,7 +181,7 @@ namespace LeadYourPet.Tests
         [InlineData(true)]
         public void LosingMobilityOrStartingRestCancelsActiveInteraction(bool rest)
         {
-            MouseEggInteractionAnimation animation = AddAnimation();
+            YoungRatkinInteractionAnimation animation = AddAnimation();
             animation.Kind = LeadYourPetInteractionKind.Whirl;
             if (rest)
             {
@@ -207,10 +207,10 @@ namespace LeadYourPet.Tests
         public void ReplacingExpiringAndStoppingAnimationsNeverLeavesAnOldPose()
         {
             Invoke("StartInteractionAnimation", master, pet, LeadYourPetInteractionKind.Whirl);
-            MouseEggInteractionAnimation first = component.GetInteractionAnimationForPet(pet);
+            YoungRatkinInteractionAnimation first = component.GetInteractionAnimationForPet(pet);
             Assert.True(component.HasLayingInteractionAnimation(pet));
             Invoke("StartInteractionAnimation", master, pet, LeadYourPetInteractionKind.Slap);
-            MouseEggInteractionAnimation replacement = component.GetInteractionAnimationForPet(pet);
+            YoungRatkinInteractionAnimation replacement = component.GetInteractionAnimationForPet(pet);
             Assert.NotSame(first, replacement);
             Assert.True(component.HasBlockingInteractionAnimation(pet));
             Assert.False(component.HasLayingInteractionAnimation(pet));
@@ -233,7 +233,7 @@ namespace LeadYourPet.Tests
         public void LandingRechecksCurrentObstaclesAnchorAndLeashLength(string change)
         {
             InitializeGrid();
-            MouseEggInteractionAnimation animation = AddAnimation();
+            YoungRatkinInteractionAnimation animation = AddAnimation();
             animation.FinalizeTeleport = true;
             animation.TargetCell = new IntVec3(23, 0, 20);
             animation.EndTick = -1;
@@ -273,9 +273,9 @@ namespace LeadYourPet.Tests
             Assert.Equal(pet.Position, resolved);
         }
 
-        private MouseEggInteractionAnimation AddAnimation()
+        private YoungRatkinInteractionAnimation AddAnimation()
         {
-            MouseEggInteractionAnimation animation = new MouseEggInteractionAnimation
+            YoungRatkinInteractionAnimation animation = new YoungRatkinInteractionAnimation
             {
                 Pet = pet, Master = master, StartMap = map, StartLink = link,
                 StartAnchorMode = link.AnchorMode, StartAnchorThing = link.AnchorThing,

@@ -304,7 +304,7 @@ namespace LeadYourPet
         internal void Register(Mod owner)
         {
             IrisMenusCompat.RegisterPage(owner, "leash", "LeadYourPet_Menu_Leash", DrawLeash, SearchLeash);
-            IrisMenusCompat.RegisterPage(owner, "mouse-egg", "LeadYourPet_Menu_MouseEgg", DrawMouseEgg, SearchMouseEgg);
+            IrisMenusCompat.RegisterPage(owner, "mouse-egg", "LeadYourPet_Menu_MouseEgg", DrawYoungRatkin, SearchYoungRatkin);
             IrisMenusCompat.RegisterPage(owner, "age", "LeadYourPet_Menu_Age", DrawAge, SearchAge);
             IrisMenusCompat.RegisterPage(owner, "visitors", "LeadYourPet_Menu_Visitors", DrawVisitors, SearchVisitors);
             IrisMenusCompat.RegisterPage(owner, "map-exit", "LeadYourPet_Menu_MapExit", DrawMapExit, SearchMapExit);
@@ -349,7 +349,7 @@ namespace LeadYourPet
             settings.Clamp();
         }
 
-        void DrawMouseEgg(Listing_Standard list)
+        void DrawYoungRatkin(Listing_Standard list)
         {
             LeadYourPetSettings settings = LeadYourPetMod.Settings;
             if (settings == null)
@@ -363,11 +363,11 @@ namespace LeadYourPet
             IrisMenusCompat.Anchor(list, "distance", 34f);
             if (distanceBuffer.Length == 0)
             {
-                distanceBuffer = settings.maxMouseEggPetLeashStartDistance.ToString();
+                distanceBuffer = settings.maxYoungRatkinPetLeashStartDistance.ToString();
             }
 
             IrisMenusCompat.Number(list, "LeadYourPet_Settings_MouseEggLeashStartDistance".Translate(),
-                ref settings.maxMouseEggPetLeashStartDistance, ref distanceBuffer, 1, 30);
+                ref settings.maxYoungRatkinPetLeashStartDistance, ref distanceBuffer, 1, 30);
             settings.Clamp();
         }
 
@@ -470,7 +470,7 @@ namespace LeadYourPet
             }
         }
 
-        IEnumerable<object> SearchMouseEgg()
+        IEnumerable<object> SearchYoungRatkin()
         {
             yield return IrisMenusCompat.Entry("mouse-eggs", "LeadYourPet_Settings_AllowRatkinYoungPets", "humanlike adult prisoner young ratkin leash 智人 成年 囚犯 牵引 鼠蛋",
                 "LeadYourPet_Settings_AllowRatkinYoungPets_Tooltip");

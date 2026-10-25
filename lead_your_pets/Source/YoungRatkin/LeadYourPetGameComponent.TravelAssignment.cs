@@ -149,7 +149,7 @@ namespace LeadYourPet
                 && pet.MapHeld == master.MapHeld;
         }
 
-        public void TryAssignTravelMouseEggs(Lord lord)
+        public void TryAssignTravelYoungRatkins(Lord lord)
         {
             if (lord == null || lord.Map == null || lord.faction == null || lord.faction.HostileTo(Faction.OfPlayer))
             {
@@ -161,7 +161,7 @@ namespace LeadYourPet
                 return;
             }
 
-            if (TryAssignMouseDisasterTravelMouseEggs(lord))
+            if (TryAssignRatkinDisasterTravelYoungRatkins(lord))
             {
                 return;
             }
@@ -180,7 +180,7 @@ namespace LeadYourPet
             bool traderLord = lord.LordJob is LordJob_TradeWithColony;
             bool visitorLord = lord.LordJob is LordJob_VisitColony;
             Pawn trader = TraderCaravanUtility.FindTrader(lord);
-            int remainingMouseEggs = LeadYourPetRules.ResolveOrdinaryTravelMouseEggTargetCount(
+            int remainingYoungRatkins = LeadYourPetRules.ResolveOrdinaryTravelYoungRatkinTargetCount(
                 traderLord: traderLord,
                 visitorLord: visitorLord,
                 hasEligibleAdults: adults.Count > 0,
@@ -189,30 +189,30 @@ namespace LeadYourPet
             foreach (Pawn adult in adults.InRandomOrder())
             {
                 bool hadCarriedEgg = adult?.carryTracker?.CarriedThing is Pawn carriedEgg
-                    && LeadYourPetUtility.CanBePetMouseEgg(carriedEgg, out _);
-                if (TryRegisterCarriedTravelMouseEgg(lord, adult, trader, traderLord))
+                    && LeadYourPetUtility.CanBePetYoungRatkin(carriedEgg, out _);
+                if (TryRegisterCarriedTravelYoungRatkin(lord, adult, trader, traderLord))
                 {
-                    if (remainingMouseEggs > 0)
+                    if (remainingYoungRatkins > 0)
                     {
-                        remainingMouseEggs--;
+                        remainingYoungRatkins--;
                     }
 
                     continue;
                 }
 
-                if (LeadYourPetRules.ShouldSkipRandomTravelMouseEggFallback(
-                    hadCarriedMouseEgg: hadCarriedEgg,
+                if (LeadYourPetRules.ShouldSkipRandomTravelYoungRatkinFallback(
+                    hadCarriedYoungRatkin: hadCarriedEgg,
                     carriedEggRegistrationSucceeded: false))
                 {
                     continue;
                 }
 
-                if (remainingMouseEggs <= 0)
+                if (remainingYoungRatkins <= 0)
                 {
                     continue;
                 }
 
-                Pawn egg = LeadYourPetUtility.GenerateMouseEggPawn(lord.Map);
+                Pawn egg = LeadYourPetUtility.GenerateYoungRatkinPawn(lord.Map);
                 if (egg == null)
                 {
                     continue;
@@ -222,22 +222,22 @@ namespace LeadYourPet
                 GenSpawn.Spawn(egg, cell, lord.Map);
 
                 bool sellable = traderLord || adult.TraderKind != null;
-                MarkAsTravelMouseEgg(egg, adult, trader, sellable);
+                MarkAsTravelYoungRatkin(egg, adult, trader, sellable);
                 if (!TryEnsureTravelLordMembership(lord, egg))
                 {
                     continue;
                 }
-                StartLeashInternal(adult, egg, LeashLinkKind.MouseEggPet, false);
-                remainingMouseEggs--;
+                StartLeashInternal(adult, egg, LeashLinkKind.YoungRatkinPet, false);
+                remainingYoungRatkins--;
             }
         }
 
-        private bool TryRegisterCarriedTravelMouseEgg(Lord lord, Pawn carrier, Pawn trader, bool traderLord)
+        private bool TryRegisterCarriedTravelYoungRatkin(Lord lord, Pawn carrier, Pawn trader, bool traderLord)
         {
             Pawn carriedEgg = carrier?.carryTracker?.CarriedThing as Pawn;
             if (carriedEgg == null || lord == null || carrier.GetLord() != lord
                 || (carriedEgg.GetLord() != null && carriedEgg.GetLord() != lord)
-                || GetLinkForPet(carriedEgg) != null || !LeadYourPetUtility.CanBePetMouseEgg(carriedEgg, out _))
+                || GetLinkForPet(carriedEgg) != null || !LeadYourPetUtility.CanBePetYoungRatkin(carriedEgg, out _))
             {
                 return false;
             }
@@ -245,26 +245,26 @@ namespace LeadYourPet
             bool dropSucceeded = carrier.carryTracker.TryDropCarriedThing(carrier.Position, ThingPlaceMode.Near, out Thing droppedThing);
             Pawn egg = droppedThing as Pawn;
             bool sellable = traderLord || carrier.TraderKind != null;
-            if (!LeadYourPetRules.ShouldRegisterDroppedTravelMouseEgg(
-                hadCarriedMouseEgg: true,
+            if (!LeadYourPetRules.ShouldRegisterDroppedTravelYoungRatkin(
+                hadCarriedYoungRatkin: true,
                 dropSucceeded: dropSucceeded,
                 droppedPawnValid: egg != null && egg.Spawned && egg.Map == carrier.Map))
             {
-                MarkAsTravelMouseEgg(carriedEgg, carrier, trader, sellable);
+                MarkAsTravelYoungRatkin(carriedEgg, carrier, trader, sellable);
                 return TryEnsureTravelLordMembership(lord, carriedEgg);
             }
 
-            MarkAsTravelMouseEgg(egg, carrier, trader, sellable);
+            MarkAsTravelYoungRatkin(egg, carrier, trader, sellable);
             if (!TryEnsureTravelLordMembership(lord, egg))
             {
                 return false;
             }
-            StartLeashInternal(carrier, egg, LeashLinkKind.MouseEggPet, false);
+            StartLeashInternal(carrier, egg, LeashLinkKind.YoungRatkinPet, false);
 
             return true;
         }
 
-        public void TryRestoreTravelMouseEggLeashAfterCarry(Pawn carrier, Pawn egg)
+        public void TryRestoreTravelYoungRatkinLeashAfterCarry(Pawn carrier, Pawn egg)
         {
             if (carrier == null || egg == null || GetLinkForPet(egg) != null
                 || LeadYourPetUtility.IsNonPlayerTravelDeparture(carrier))
@@ -272,8 +272,8 @@ namespace LeadYourPet
                 return;
             }
 
-            MouseEggState state = GetMouseEggState(egg);
-            if (state == null || !state.IsPet || !state.IsTravelStock || !LeadYourPetUtility.CanBePetMouseEgg(egg, out _))
+            YoungRatkinState state = GetYoungRatkinState(egg);
+            if (state == null || !state.IsPet || !state.IsTravelStock || !LeadYourPetUtility.CanBePetYoungRatkin(egg, out _))
             {
                 return;
             }
@@ -281,7 +281,7 @@ namespace LeadYourPet
             state.CurrentMaster = carrier;
             if (carrier.Spawned && egg.Spawned && carrier.Map == egg.Map)
             {
-                StartLeashInternal(carrier, egg, LeashLinkKind.MouseEggPet, false);
+                StartLeashInternal(carrier, egg, LeashLinkKind.YoungRatkinPet, false);
             }
         }
 
@@ -308,7 +308,7 @@ namespace LeadYourPet
         }
 
 
-        private bool TryAssignMouseDisasterTravelMouseEggs(Lord lord)
+        private bool TryAssignRatkinDisasterTravelYoungRatkins(Lord lord)
         {
             if (lord == null || lord.Map == null || lord.ownedPawns == null)
             {
@@ -319,7 +319,7 @@ namespace LeadYourPet
                 pawn != null &&
                 pawn.Spawned &&
                 !pawn.Dead &&
-                LeadYourPetUtility.IsMouseDisasterTravelTrader(pawn));
+                LeadYourPetUtility.IsRatkinDisasterTravelTrader(pawn));
             if (trader == null)
             {
                 return false;
@@ -329,7 +329,7 @@ namespace LeadYourPet
                 pawn != null &&
                 pawn.Spawned &&
                 !pawn.Dead &&
-                LeadYourPetUtility.IsMouseDisasterTravelPawn(pawn)).ToList();
+                LeadYourPetUtility.IsRatkinDisasterTravelPawn(pawn)).ToList();
             if (children.Count == 0)
             {
                 CellRect searchRect = CellRect.CenteredOn(trader.Position, 12);
@@ -349,8 +349,8 @@ namespace LeadYourPet
                             continue;
                         }
 
-                        if (LeadYourPetRules.IsEligibleNearbyMouseDisasterTravelChild(
-                            isTravelChild: LeadYourPetUtility.IsMouseDisasterTravelPawn(pawn),
+                        if (LeadYourPetRules.IsEligibleNearbyRatkinDisasterTravelChild(
+                            isTravelChild: LeadYourPetUtility.IsRatkinDisasterTravelPawn(pawn),
                             isSpawned: pawn.Spawned,
                             isDead: pawn.Dead,
                             sameFactionAsTraderLord: pawn.Faction == lord.faction,
@@ -374,27 +374,27 @@ namespace LeadYourPet
             {
                 if (sellAsPrisoner)
                 {
-                    LeadYourPetUtility.TryPrepareMouseDisasterTradablePrisoner(child, lord.faction);
+                    LeadYourPetUtility.TryPrepareRatkinDisasterTradablePrisoner(child, lord.faction);
                 }
 
-                MarkAsTravelMouseEgg(child, trader, tradeLead, sellAsPrisoner, preserveOwnership: true);
+                MarkAsTravelYoungRatkin(child, trader, tradeLead, sellAsPrisoner, preserveOwnership: true);
                 if (!TryEnsureTravelLordMembership(lord, child))
                 {
                     continue;
                 }
 
-                MouseEggSpecialSource specialSource = LeadYourPetRules.ResolveTravelMouseEggSpecialSource(
-                    LeadYourPetUtility.IsMouseDisasterTravelTrader(trader),
+                YoungRatkinSpecialSource specialSource = LeadYourPetRules.ResolveTravelYoungRatkinSpecialSource(
+                    LeadYourPetUtility.IsRatkinDisasterTravelTrader(trader),
                     lord.LordJob is LordJob_DefendPoint,
                     sellAsPrisoner);
-                if (specialSource != MouseEggSpecialSource.None)
+                if (specialSource != YoungRatkinSpecialSource.None)
                 {
-                    SetMouseEggSpecialSource(child, specialSource);
+                    SetYoungRatkinSpecialSource(child, specialSource);
                 }
 
                 if (!TryStartRatkinMotherLeash(trader, child, false))
                 {
-                    StartLeashInternal(trader, child, LeashLinkKind.MouseEggPet, false);
+                    StartLeashInternal(trader, child, LeashLinkKind.YoungRatkinPet, false);
                 }
             }
 

@@ -1,10 +1,10 @@
 namespace LeadYourPet
 {
-    public static class MouseEggOwnershipStateMachine
+    public static class YoungRatkinOwnershipStateMachine
     {
-        public static MouseEggOwnershipSnapshot ResolveBoughtTravelMouseEggState(MouseEggOwnershipSnapshot current)
+        public static YoungRatkinOwnershipSnapshot ResolveBoughtTravelYoungRatkinState(YoungRatkinOwnershipSnapshot current)
         {
-            return new MouseEggOwnershipSnapshot(
+            return new YoungRatkinOwnershipSnapshot(
                 isPet: false,
                 isTravelStock: false,
                 sellAsPrisoner: false,
@@ -31,7 +31,7 @@ namespace LeadYourPet
             return false;
         }
 
-        public static bool ShouldHandleBoughtTravelMouseEgg(bool actionIsPlayerBuys, bool wasTravelStock, bool wasSellable)
+        public static bool ShouldHandleBoughtTravelYoungRatkin(bool actionIsPlayerBuys, bool wasTravelStock, bool wasSellable)
         {
             return actionIsPlayerBuys && wasTravelStock && wasSellable;
         }

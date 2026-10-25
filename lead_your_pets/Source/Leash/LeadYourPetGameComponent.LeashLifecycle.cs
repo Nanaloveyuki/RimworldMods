@@ -10,10 +10,10 @@ namespace LeadYourPet
 {
     public partial class LeadYourPetGameComponent
     {
-        public bool StartLeash(Pawn master, Pawn pet, bool markAsMouseEggPet, bool playerForced = true)
+        public bool StartLeash(Pawn master, Pawn pet, bool markAsYoungRatkinPet, bool playerForced = true)
         {
             string reasonKey;
-            if (!LeadYourPetUtility.CanStartPlayerPetLeash(master, pet, markAsMouseEggPet, out reasonKey))
+            if (!LeadYourPetUtility.CanStartPlayerPetLeash(master, pet, markAsYoungRatkinPet, out reasonKey))
             {
                 if (playerForced && master != null && master.Faction == Faction.OfPlayer && !reasonKey.NullOrEmpty())
                 {
@@ -23,7 +23,7 @@ namespace LeadYourPet
                 return false;
             }
 
-            return StartLeashInternal(master, pet, markAsMouseEggPet ? LeashLinkKind.MouseEggPet : LeashLinkKind.NormalPet, playerForced);
+            return StartLeashInternal(master, pet, markAsYoungRatkinPet ? LeashLinkKind.YoungRatkinPet : LeashLinkKind.NormalPet, playerForced);
         }
 
         public bool TryStartRatkinMotherLeash(Pawn mother, Pawn baby, bool showMessage = false)
@@ -39,10 +39,10 @@ namespace LeadYourPet
                 return false;
             }
 
-            MouseEggState state = EnsureMouseEggState(baby);
+            YoungRatkinState state = EnsureYoungRatkinState(baby);
             state.SpecialSource = LeadYourPetRules.ResolveMotherLeashSpecialSource(
                 state.SpecialSource,
-                LeadYourPetUtility.IsMouseDisasterBeggarAdult(mother),
+                LeadYourPetUtility.IsRatkinDisasterBeggarAdult(mother),
                 LeadYourPetUtility.HasParentRelation(baby, mother));
 
             return StartLeashInternal(mother, baby, LeashLinkKind.RatkinMotherBaby, showMessage);
@@ -75,9 +75,9 @@ namespace LeadYourPet
             }
         }
 
-        public void ClearMouseEggPetState(Pawn pawn)
+        public void ClearYoungRatkinPetState(Pawn pawn)
         {
-            MouseEggState state = GetMouseEggState(pawn);
+            YoungRatkinState state = GetYoungRatkinState(pawn);
             if (state != null)
             {
                 state.IsPet = false;
@@ -85,7 +85,7 @@ namespace LeadYourPet
             }
 
             EndLeashForPet(pawn, false);
-            PruneMouseEggStateIfEmpty(pawn);
+            PruneYoungRatkinStateIfEmpty(pawn);
         }
 
         private bool StartLeashInternal(Pawn master, Pawn pet, LeashLinkKind kind, bool playerForced)
@@ -123,22 +123,22 @@ namespace LeadYourPet
             links.Add(link);
             RegisterLink(link);
 
-            if (kind == LeashLinkKind.MouseEggPet)
+            if (kind == LeashLinkKind.YoungRatkinPet)
             {
-                MouseEggState state = EnsureMouseEggState(pet);
+                YoungRatkinState state = EnsureYoungRatkinState(pet);
                 state.IsPet = true;
                 state.CurrentMaster = master;
                 state.TravelEggAggressionHandled = false;
             }
 
-            if (kind == LeashLinkKind.MouseEggPet || kind == LeashLinkKind.RatkinMotherBaby)
+            if (kind == LeashLinkKind.YoungRatkinPet || kind == LeashLinkKind.RatkinMotherBaby)
             {
-                TryDropCarriedPawnAfterBecomingMouseEggPet(pet);
+                TryDropCarriedPawnAfterBecomingYoungRatkinPet(pet);
             }
 
-            if (kind == LeashLinkKind.MouseEggPet)
+            if (kind == LeashLinkKind.YoungRatkinPet)
             {
-                HandleAggressiveVisitorMouseEggLeash(master, pet);
+                HandleAggressiveVisitorYoungRatkinLeash(master, pet);
             }
 
             if (playerForced && master.Faction == Faction.OfPlayer)
@@ -162,9 +162,9 @@ namespace LeadYourPet
         {
             Pawn master = link.Master;
             Pawn pet = link.Pet;
-            bool allowImmobileMouseEgg = (link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !LeadYourPetUtility.CanMouseEggMove(pet);
-            MouseEggState state = link.Kind == LeashLinkKind.MouseEggPet ? GetMouseEggState(pet) : null;
-            bool exemptTravelMouseEggCaravanLeash = link.Kind == LeashLinkKind.MouseEggPet
+            bool allowImmobileYoungRatkin = (link.Kind == LeashLinkKind.YoungRatkinPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !LeadYourPetUtility.CanYoungRatkinMove(pet);
+            YoungRatkinState state = link.Kind == LeashLinkKind.YoungRatkinPet ? GetYoungRatkinState(pet) : null;
+            bool exemptTravelYoungRatkinCaravanLeash = link.Kind == LeashLinkKind.YoungRatkinPet
                 && state != null
                 && state.IsTravelStock
                 && master.Faction != Faction.OfPlayer;
@@ -178,10 +178,10 @@ namespace LeadYourPet
                 petDead: pet.Dead,
                 masterDowned: master.Downed,
                 petDowned: pet.Downed,
-                allowImmobilePetDowned: allowImmobileMouseEgg,
+                allowImmobilePetDowned: allowImmobileYoungRatkin,
                 masterInMentalState: master.InMentalState,
                 masterIsCaravanMember: master.IsCaravanMember(),
-                exemptTravelMouseEggCaravanLeash: exemptTravelMouseEggCaravanLeash,
+                exemptTravelYoungRatkinCaravanLeash: exemptTravelYoungRatkinCaravanLeash,
                 playerMasterExitsMapOnArrival: master.Faction == Faction.OfPlayer && master.CurJob != null && master.CurJob.exitMapOnArrival,
                 preservePlayerCaravanLeash: LeadYourPetUtility.IsPlayerCaravanMaster(master));
         }
@@ -216,9 +216,9 @@ namespace LeadYourPet
             MaintainDraggedSlow(link.Pet, false);
             link.CachedHasValidAutoInteractionPool = false;
 
-            if (link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby)
+            if (link.Kind == LeashLinkKind.YoungRatkinPet || link.Kind == LeashLinkKind.RatkinMotherBaby)
             {
-                MouseEggState state = GetMouseEggState(link.Pet);
+                YoungRatkinState state = GetYoungRatkinState(link.Pet);
                 if (state != null && state.CurrentMaster == link.Master)
                 {
                     if (state.IsTravelStock && link.Pet.IsPrisonerOfColony)
@@ -231,7 +231,7 @@ namespace LeadYourPet
                 }
             }
 
-            PruneMouseEggStateIfEmpty(link.Pet);
+            PruneYoungRatkinStateIfEmpty(link.Pet);
 
             if (showMessage && link.Master != null && link.Master.Faction == Faction.OfPlayer)
             {
@@ -240,26 +240,26 @@ namespace LeadYourPet
             }
         }
 
-        private void HandleAggressiveVisitorMouseEggLeash(Pawn master, Pawn pet)
+        private void HandleAggressiveVisitorYoungRatkinLeash(Pawn master, Pawn pet)
         {
-            if (!LeadYourPetUtility.ShouldTreatVisitorMouseEggPetLeashAsAggressive(master, pet))
+            if (!LeadYourPetUtility.ShouldTreatVisitorYoungRatkinPetLeashAsAggressive(master, pet))
             {
                 return;
             }
 
-            MouseEggState state = EnsureMouseEggState(pet);
+            YoungRatkinState state = EnsureYoungRatkinState(pet);
             if (state.TravelEggAggressionHandled)
             {
                 return;
             }
 
             state.TravelEggAggressionHandled = true;
-            LeadYourPetUtility.ClearMouseDisasterVisitorCover(pet);
+            LeadYourPetUtility.ClearRatkinDisasterVisitorCover(pet);
 
             int hostileCount;
             SinglePawnBuffer.Clear();
             SinglePawnBuffer.Add(pet);
-            if (LeadYourPetUtility.TryMakeMouseDisasterVisitorsHostile(SinglePawnBuffer, out hostileCount))
+            if (LeadYourPetUtility.TryMakeRatkinDisasterVisitorsHostile(SinglePawnBuffer, out hostileCount))
             {
                 SinglePawnBuffer.Clear();
                 return;
@@ -275,7 +275,7 @@ namespace LeadYourPet
                 return;
             }
 
-            LeadYourPetUtility.MakeMouseDisasterFactionHostileToPlayer(faction, explicitDriveAway: true);
+            LeadYourPetUtility.MakeRatkinDisasterFactionHostileToPlayer(faction, explicitDriveAway: true);
             if (!faction.HostileTo(Faction.OfPlayer))
             {
                 Faction.OfPlayer.TryAffectGoodwillWith(

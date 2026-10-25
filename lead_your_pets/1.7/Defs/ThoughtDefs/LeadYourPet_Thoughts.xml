@@ -17,7 +17,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseEggOwnerMood</defName>
-    <thoughtClass>LeadYourPet.Thought_Memory_MouseEggOwnerList</thoughtClass>
+    <thoughtClass>LeadYourPet.Thought_Memory_YoungRatkinOwnerList</thoughtClass>
     <durationDays>0.2</durationDays>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
@@ -312,7 +312,7 @@
   </ThoughtDef>
   <ThoughtDef>
     <defName>LeadYourPet_MouseEggParentPetMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseEggParentPet</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_YoungRatkinParentPet</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
     <stages>
@@ -326,7 +326,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseEggCaretakerMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseEggCaretaker</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_YoungRatkinCaretaker</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Adult</developmentalStageFilter>
     <stages>
@@ -340,7 +340,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseEggWatchedMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseEggWatched</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_YoungRatkinWatched</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
     <stages>
@@ -412,7 +412,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseDisasterBeggarMotherBonusMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseDisasterBeggarMotherBonus</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_RatkinDisasterBeggarMotherBonus</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Adult</developmentalStageFilter>
     <stages>
@@ -426,7 +426,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseDisasterBeggarBabyBonusMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseDisasterBeggarBabyBonus</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_RatkinDisasterBeggarBabyBonus</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Baby</developmentalStageFilter>
     <stages>
@@ -440,7 +440,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseDisasterChildExchangeMotherBonusMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseDisasterChildExchangeMotherBonus</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_RatkinDisasterChildExchangeMotherBonus</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Adult</developmentalStageFilter>
     <stages>
@@ -454,7 +454,7 @@
 
   <ThoughtDef>
     <defName>LeadYourPet_MouseDisasterChildExchangeBabyBonusMood</defName>
-    <thoughtClass>LeadYourPet.ThoughtWorker_MouseDisasterChildExchangeBabyBonus</thoughtClass>
+    <thoughtClass>LeadYourPet.ThoughtWorker_RatkinDisasterChildExchangeBabyBonus</thoughtClass>
     <stackLimit>1</stackLimit>
     <developmentalStageFilter>Baby</developmentalStageFilter>
     <stages>

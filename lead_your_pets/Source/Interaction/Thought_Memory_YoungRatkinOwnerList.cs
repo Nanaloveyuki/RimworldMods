@@ -3,7 +3,7 @@ using RimWorld;
 
 namespace LeadYourPet
 {
-    public class Thought_Memory_MouseEggOwnerList : Thought_Memory
+    public class Thought_Memory_YoungRatkinOwnerList : Thought_Memory
     {
         public override string LabelCap
         {
@@ -19,7 +19,7 @@ namespace LeadYourPet
                 for (int i = 0; i < masterLinks.Count && names.Count < 3; i++)
                 {
                     LeashLink link = masterLinks[i];
-                    if (link?.Pet == null || !LeadYourPetUtility.IsMouseEgg(link.Pet))
+                    if (link?.Pet == null || !LeadYourPetUtility.IsYoungRatkin(link.Pet))
                     {
                         continue;
                     }

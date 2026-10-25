@@ -38,7 +38,7 @@ namespace LeadYourPet.Tests
             {
                 Master = master,
                 Pet = Raw<Pawn>(),
-                Kind = LeashLinkKind.MouseEggPet,
+                Kind = LeashLinkKind.YoungRatkinPet,
                 NextAutoInteractionTick = 100,
                 LastAutoInteractionPoolTick = 100,
                 CachedPlayerControlled = true,
@@ -80,7 +80,7 @@ namespace LeadYourPet.Tests
 
         private void Process(int ticks)
         {
-            typeof(LeadYourPetGameComponent).GetMethod("ProcessMouseEggPet", Fields)
+            typeof(LeadYourPetGameComponent).GetMethod("ProcessYoungRatkinPet", Fields)
                 .Invoke(component, new object[] { link, false, 1f, ticks, false });
         }
 

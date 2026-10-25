@@ -11,23 +11,23 @@ namespace LeadYourPet
         }
     }
 
-    public class ThoughtWorker_MouseEggOwner : ThoughtWorker
+    public class ThoughtWorker_YoungRatkinOwner : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.AnyMouseEggPetFor(p);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.AnyYoungRatkinPetFor(p);
         }
     }
 
-    public class ThoughtWorker_MouseEggFear : ThoughtWorker
+    public class ThoughtWorker_YoungRatkinFear : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.IsMouseEggPet(p);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.IsYoungRatkinPet(p);
         }
     }
 
-    public class ThoughtWorker_MouseEggParentPet : ThoughtWorker
+    public class ThoughtWorker_YoungRatkinParentPet : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
@@ -38,7 +38,7 @@ namespace LeadYourPet
 
             foreach (Pawn child in p.relations.Children)
             {
-                if (LeadYourPetUtility.Component.IsMouseEggPet(child))
+                if (LeadYourPetUtility.Component.IsYoungRatkinPet(child))
                 {
                     return true;
                 }
@@ -48,19 +48,19 @@ namespace LeadYourPet
         }
     }
 
-    public class ThoughtWorker_MouseEggCaretaker : ThoughtWorker
+    public class ThoughtWorker_YoungRatkinCaretaker : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.AnyColonistMouseEggPetFor(p);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.AnyColonistYoungRatkinPetFor(p);
         }
     }
 
-    public class ThoughtWorker_MouseEggWatched : ThoughtWorker
+    public class ThoughtWorker_YoungRatkinWatched : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.IsColonistMouseEggPet(p);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.IsColonistYoungRatkinPet(p);
         }
     }
 
@@ -80,35 +80,35 @@ namespace LeadYourPet
         }
     }
 
-    public class ThoughtWorker_MouseDisasterBeggarMotherBonus : ThoughtWorker
+    public class ThoughtWorker_RatkinDisasterBeggarMotherBonus : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialMotherSourceMood(p, MouseEggSpecialSource.MouseDisasterBeggarFamily);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialMotherSourceMood(p, YoungRatkinSpecialSource.RatkinDisasterBeggarFamily);
         }
     }
 
-    public class ThoughtWorker_MouseDisasterBeggarBabyBonus : ThoughtWorker
+    public class ThoughtWorker_RatkinDisasterBeggarBabyBonus : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialBabySourceMood(p, MouseEggSpecialSource.MouseDisasterBeggarFamily);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialBabySourceMood(p, YoungRatkinSpecialSource.RatkinDisasterBeggarFamily);
         }
     }
 
-    public class ThoughtWorker_MouseDisasterChildExchangeMotherBonus : ThoughtWorker
+    public class ThoughtWorker_RatkinDisasterChildExchangeMotherBonus : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialMotherSourceMood(p, MouseEggSpecialSource.MouseDisasterChildExchange);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialMotherSourceMood(p, YoungRatkinSpecialSource.RatkinDisasterChildExchange);
         }
     }
 
-    public class ThoughtWorker_MouseDisasterChildExchangeBabyBonus : ThoughtWorker
+    public class ThoughtWorker_RatkinDisasterChildExchangeBabyBonus : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
-            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialBabySourceMood(p, MouseEggSpecialSource.MouseDisasterChildExchange);
+            return LeadYourPetUtility.Component != null && LeadYourPetUtility.Component.HasSpecialBabySourceMood(p, YoungRatkinSpecialSource.RatkinDisasterChildExchange);
         }
     }
 }

@@ -66,7 +66,7 @@ namespace LeadYourPet.Tests
             Set(pet.health, "healthState", PawnHealthState.Down);
             Job rest = new Job { def = new JobDef { defName = "DownedRest" } };
             Set(pet.jobs, "curJob", rest);
-            Assert.False(LeadYourPetUtility.CanMouseEggMove(pet));
+            Assert.False(LeadYourPetUtility.CanYoungRatkinMove(pet));
             InvokeFollow();
             Assert.Same(rest, pet.CurJob);
             Assert.False(LeadYourPetUtility.CanPerformInteraction(pet, LeadYourPetInteractionKind.Kick, out _));

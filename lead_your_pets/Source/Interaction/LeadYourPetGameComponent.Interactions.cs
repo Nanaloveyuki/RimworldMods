@@ -108,7 +108,7 @@ namespace LeadYourPet
             MoteMaker.ThrowText(LeadYourPetUtility.GetVisualDrawPos(pet), pet.Map, LeadYourPetUtility.InteractionLabel(pet, kind), 3f);
         }
 
-        public void NotifyMouseEggFedByMasterMeal(LeashLink link)
+        public void NotifyYoungRatkinFedByMasterMeal(LeashLink link)
         {
             if (link?.Master == null || link.Pet == null)
             {

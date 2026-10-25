@@ -73,7 +73,7 @@ namespace LeadYourPet
                 && link.Pet.CarriedBy.carryTracker.CarriedThing == link.Pet)
             {
                 bool dropSucceeded = false;
-                if (LeadYourPetUtility.ShouldBlockCarryOfProtectedMouseEgg(link.Pet.CarriedBy, link.Pet))
+                if (LeadYourPetUtility.ShouldBlockCarryOfProtectedYoungRatkin(link.Pet.CarriedBy, link.Pet))
                 {
                     dropSucceeded = link.Pet.CarriedBy.carryTracker.TryDropCarriedThing(link.Pet.CarriedBy.Position, ThingPlaceMode.Near, out Thing _);
                 }
@@ -104,9 +104,9 @@ namespace LeadYourPet
                 return;
             }
 
-            if (link.Kind == LeashLinkKind.MouseEggPet && !LeadYourPetUtility.CanBePetMouseEgg(link.Pet, out _))
+            if (link.Kind == LeashLinkKind.YoungRatkinPet && !LeadYourPetUtility.CanBePetYoungRatkin(link.Pet, out _))
             {
-                ClearMouseEggPetState(link.Pet);
+                ClearYoungRatkinPetState(link.Pet);
                 return;
             }
 
@@ -143,7 +143,7 @@ namespace LeadYourPet
             {
                 IntVec3 animationAnchor = ResolveTargetCell(link);
                 if (fixedAnchor || hostileAttack || LeadYourPetUtility.ShouldPreserveMapExitMovement(link.Pet)
-                    || !LeadYourPetUtility.CanMouseEggMove(link.Pet) || !link.Pet.Awake()
+                    || !LeadYourPetUtility.CanYoungRatkinMove(link.Pet) || !link.Pet.Awake()
                     || (animationAnchor.IsValid && !link.Pet.Position.InHorDistOf(animationAnchor, LeadYourPetUtility.HardLeashLength)))
                 {
                     StopInteractionAnimation(link.Pet, finalizeTeleport: false);
@@ -157,8 +157,8 @@ namespace LeadYourPet
 
             if (fixedAnchor)
             {
-                link.MouseEggDutyState = LeashedMouseEggDutyState.FollowMaster;
-                UpdateMouseEggDutyReport(link);
+                link.YoungRatkinDutyState = LeashedYoungRatkinDutyState.FollowMaster;
+                UpdateYoungRatkinDutyReport(link);
             }
             if (LeadYourPetUtility.HasLeashCareJob(link))
             {
@@ -173,12 +173,12 @@ namespace LeadYourPet
 
             bool sleepingMaster = HandleSleepingMaster(link);
             bool runExpensiveUpdate = ShouldRunExpensiveLinkUpdate(link, ticksGame, forceImmediateUpdate);
-            if (link.Kind == LeashLinkKind.MouseEggPet)
+            if (link.Kind == LeashLinkKind.YoungRatkinPet)
             {
-                link.MouseEggDutyState = LeadYourPetRules.ResolveLeashedMouseEggDutyState(
+                link.YoungRatkinDutyState = LeadYourPetRules.ResolveLeashedYoungRatkinDutyState(
                     masterSleeping: sleepingMaster,
                     masterEating: link.AnchorMode == LeashAnchorMode.None && LeadYourPetUtility.MasterEating(link.Master));
-                UpdateMouseEggDutyReport(link);
+                UpdateYoungRatkinDutyReport(link);
             }
 
             bool draggingNow = LeadYourPetUtility.ShouldDrag(link);
@@ -186,7 +186,7 @@ namespace LeadYourPet
             {
                 link.CachedHasValidAutoInteractionPool = false;
                 link.Pet.TakeDamage(new DamageInfo(DamageDefOf.Blunt, 0f, 0f, -1f, link.Master));
-                if (link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby)
+                if (link.Kind == LeashLinkKind.YoungRatkinPet || link.Kind == LeashLinkKind.RatkinMotherBaby)
                 {
                     ApplyInteraction(link.Master, link.Pet, LeadYourPetInteractionKind.Drag, true);
                 }
@@ -220,9 +220,9 @@ namespace LeadYourPet
                 return;
             }
 
-            if (!preserveMapExit && (link.Kind == LeashLinkKind.MouseEggPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !LeadYourPetUtility.CanMouseEggMove(link.Pet) && draggingNow)
+            if (!preserveMapExit && (link.Kind == LeashLinkKind.YoungRatkinPet || link.Kind == LeashLinkKind.RatkinMotherBaby) && !LeadYourPetUtility.CanYoungRatkinMove(link.Pet) && draggingNow)
             {
-                PullImmobileMouseEgg(link, targetCell);
+                PullImmobileYoungRatkin(link, targetCell);
             }
 
 
@@ -230,7 +230,7 @@ namespace LeadYourPet
             {
                 if (runExpensiveUpdate)
                 {
-                    UpdateMouseEggDutyReport(link);
+                    UpdateYoungRatkinDutyReport(link);
                     ForceFollow(link, ticksGame, forceImmediateUpdate);
                 }
             }
@@ -244,9 +244,9 @@ namespace LeadYourPet
                 {
                     TryFeedPet(link, ticksGame);
                 }
-                else if (link.Kind == LeashLinkKind.MouseEggPet)
+                else if (link.Kind == LeashLinkKind.YoungRatkinPet)
                 {
-                    ProcessMouseEggPet(link, draggingNow, distance, ticksGame, sleepingMaster);
+                    ProcessYoungRatkinPet(link, draggingNow, distance, ticksGame, sleepingMaster);
                 }
                 else if (link.Kind == LeashLinkKind.NormalPet)
                 {
@@ -264,7 +264,7 @@ namespace LeadYourPet
                 forceImmediate: forceImmediateUpdate);
         }
 
-        private void ProcessMouseEggPet(LeashLink link, bool draggingNow, float distance, int ticksGame, bool sleepingMaster)
+        private void ProcessYoungRatkinPet(LeashLink link, bool draggingNow, float distance, int ticksGame, bool sleepingMaster)
         {
             bool playerControlled = link.Master.Faction == Faction.OfPlayer;
             bool canUseSingleDirection = LeadYourPetUtility.CanUseSingleDirectionInteractions(link.Master, link.Pet);
@@ -327,7 +327,7 @@ namespace LeadYourPet
             {
                 interactionSource = LeadYourPetUtility.AutomaticPositiveInteractions;
             }
-            else if (LeadYourPetRules.ShouldUseBidirectionalMouseEggAutoInteractions(playerControlled, canUseSingleDirection, masterSleeping))
+            else if (LeadYourPetRules.ShouldUseBidirectionalYoungRatkinAutoInteractions(playerControlled, canUseSingleDirection, masterSleeping))
             {
                 interactionSource = LeadYourPetUtility.BidirectionalInteractions;
             }
@@ -397,7 +397,7 @@ namespace LeadYourPet
         }
         private bool ShouldSuppressTravelAutoInteraction(LeashLink link)
         {
-            MouseEggState state = link?.Kind == LeashLinkKind.MouseEggPet ? GetMouseEggState(link.Pet) : null;
+            YoungRatkinState state = link?.Kind == LeashLinkKind.YoungRatkinPet ? GetYoungRatkinState(link.Pet) : null;
             Lord masterLord = link?.Master?.GetLord();
             return LeadYourPetRules.ShouldSuppressTravelAutoInteraction(
                 masterIsPlayer: link?.Master?.Faction == Faction.OfPlayer,
@@ -503,13 +503,13 @@ namespace LeadYourPet
             }
             link.LastFeedAttemptTick = ticksGame;
 
-            if (!LeadYourPetUtility.HasFixedAnchor(link) && link.Kind == LeashLinkKind.MouseEggPet
+            if (!LeadYourPetUtility.HasFixedAnchor(link) && link.Kind == LeashLinkKind.YoungRatkinPet
                 && !LeadYourPetUtility.CanUseSingleDirectionInteractions(link.Master, link.Pet))
             {
                 return;
             }
 
-            if (link.MouseEggDutyState == LeashedMouseEggDutyState.WaitForFeeding)
+            if (link.YoungRatkinDutyState == LeashedYoungRatkinDutyState.WaitForFeeding)
             {
                 return;
             }
@@ -557,7 +557,7 @@ namespace LeadYourPet
         {
             if (link?.Pet?.jobs == null || !link.Pet.Spawned
                 || LeadYourPetUtility.HasLeashCareJob(link)
-                || !LeadYourPetUtility.CanMouseEggMove(link.Pet) || !link.Pet.Awake()
+                || !LeadYourPetUtility.CanYoungRatkinMove(link.Pet) || !link.Pet.Awake()
                 || LeadYourPetUtility.AllowsLeashedHostileAttack(link)
                 || (LeadYourPetUtility.ShouldPreserveMapExitMovement(link.Pet) && !ShouldFollowDuringDeparture(link))
                 || GodHandsCompat.IsGrabbed(link.Pet) || GodHandsCompat.IsGrabbed(link.Master)
@@ -593,17 +593,17 @@ namespace LeadYourPet
                 && link.Pet.CurJob.targetA.Thing == link.Master;
         }
 
-        private void UpdateMouseEggDutyReport(LeashLink link)
+        private void UpdateYoungRatkinDutyReport(LeashLink link)
         {
-            if (link?.Pet?.CurJob == null || link.Kind != LeashLinkKind.MouseEggPet)
+            if (link?.Pet?.CurJob == null || link.Kind != LeashLinkKind.YoungRatkinPet)
             {
                 return;
             }
 
-            if (link.MouseEggDutyState == LeashedMouseEggDutyState.FollowMaster)
+            if (link.YoungRatkinDutyState == LeashedYoungRatkinDutyState.FollowMaster)
             {
-                if (link.Pet.CurJob.reportStringOverride == LeadYourPetUtility.GetMouseEggDutyReport(LeashedMouseEggDutyState.SleepAtLeash)
-                    || link.Pet.CurJob.reportStringOverride == LeadYourPetUtility.GetMouseEggDutyReport(LeashedMouseEggDutyState.WaitForFeeding))
+                if (link.Pet.CurJob.reportStringOverride == LeadYourPetUtility.GetYoungRatkinDutyReport(LeashedYoungRatkinDutyState.SleepAtLeash)
+                    || link.Pet.CurJob.reportStringOverride == LeadYourPetUtility.GetYoungRatkinDutyReport(LeashedYoungRatkinDutyState.WaitForFeeding))
                 {
                     link.Pet.CurJob.reportStringOverride = null;
                 }
@@ -613,15 +613,15 @@ namespace LeadYourPet
 
             if (link.Pet.CurJobDef == LeadYourPetDefOf.LeadYourPet_FollowMaster)
             {
-                link.Pet.CurJob.reportStringOverride = LeadYourPetUtility.GetMouseEggDutyReport(link.MouseEggDutyState);
+                link.Pet.CurJob.reportStringOverride = LeadYourPetUtility.GetYoungRatkinDutyReport(link.YoungRatkinDutyState);
             }
         }
 
-        public void TightenMouseEggLeashes(Pawn master)
+        public void TightenYoungRatkinLeashes(Pawn master)
         {
             foreach (LeashLink link in GetLinksForMaster(master))
             {
-                if (link.Kind != LeashLinkKind.MouseEggPet && link.Kind != LeashLinkKind.RatkinMotherBaby)
+                if (link.Kind != LeashLinkKind.YoungRatkinPet && link.Kind != LeashLinkKind.RatkinMotherBaby)
                 {
                     continue;
                 }
@@ -637,7 +637,7 @@ namespace LeadYourPet
             }
         }
 
-        private void PullImmobileMouseEgg(LeashLink link, IntVec3 targetCell)
+        private void PullImmobileYoungRatkin(LeashLink link, IntVec3 targetCell)
         {
             if (link.Pet == null || !link.Pet.Spawned || !targetCell.IsValid
                 || GodHandsCompat.IsGrabbed(link.Pet) || GodHandsCompat.IsGrabbed(link.Master))

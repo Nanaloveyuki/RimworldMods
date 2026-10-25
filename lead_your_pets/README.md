@@ -4,7 +4,7 @@
 
 ## 兼容范围
 
-- 保留原版玩法、Def、`LeadYourPet` 程序集与命名空间、存档类型、Scribe 字段及枚举值。源码按 Core、Leash、MouseEgg、Interaction、Patches、Compat 分目录，类型全名仍是 `LeadYourPet.*`。
+- 保留原版玩法、Def 标识、`LeadYourPet` 程序集与命名空间、Scribe 字段键及枚举数值。源码按 Core、Leash、YoungRatkin、Interaction、Patches、Compat 分目录；幼年鼠族统一使用 `YoungRatkin`，鼠族使用 `Ratkin`，旧存档名称通过读取迁移兼容，详见下文。
 - 修复鼠灾原版 / Continued 的可选联动：包名检测、生成方法重载与可选参数、访客敌对入口。
 - 鼠灾 Continued 需安装同时更新的版本，才能主动识别本模组的新包名。
 - 新包名：`nanaloveyuki.leadyourpet.continued`。`About/PublishedFileId.txt` 是本续作的创意工坊文件 ID，不是原版 ID。
@@ -78,7 +78,11 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 - 验证：207 项 .NET 10 回归通过；生产 DLL smoke 覆盖倒地不派发跟随、睡眠任务保留、睡眠喂食、昏迷移动与互动边界、按主人全部解绑及头像局部坐标。已安装 Harmony 3 的全生产 `PatchAll` 注册成功；真实补丁下的 `ShouldRemovePawn` 与 `Notify_PawnLost(Incapped)` 保留旅行目标的双向成员关系，普通访客及死亡移除仍有效。未运行游戏画面、逐格寻路、实际抱持落地或整队退出，不能视为实机验收。
 
 
-## Thought 种族文案
+## 1.9.0 — Thought 种族文案与源码术语统一
+
+1.7 主程序集与模组元数据升级为 `1.9.0`，保留原有 1.6 运行时及其 `1.6.1` 版本。发布构建中主程序集与 Guard 均为零警告、零错误；232 项回归通过，真实 Harmony 补丁下的旧枚举解析与公开 API 冒烟通过，程序集版本与元数据一致。
+
+### Thought 种族文案
 
 简中 Thought 按思想所属角色的种族与生物年龄选择内心声音：鼠族（`Solaris.RatkinRaceMod`）和绮罗族（`Ancot.KiiroRace`）各分未满 14 岁、14 岁及以上两套，共覆盖 45 个思想的标题与说明。鼠蛋使用错音、叠词和吱叽，成年鼠族保留正常表达；绮罗族使用较柔和的呐／喵语气。其他角色沿用普通口吻。
 
@@ -87,6 +91,16 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 仅调整 Thought 显示，保留原有 Def、存档类型、触发条件、心情数值、持续时间及叠加设置；菜单、头顶提示和任务报告不变。普通简中文案与新增语言文件同步放入根目录和 `1.7/`，本次仅构建并验证 1.7 主程序集，未重建 1.6 程序集，未部署到游戏目录。
 
 验证：218 项 .NET 10 回归通过，其中 11 项覆盖双方种族与年龄独立选择、14 岁边界、未加载种族、语言回退、旧记忆与原版附注保留。生产程序集读取真实语言 XML 完成 1800 次选择，真实 Harmony 3 补丁下的标题跨年龄及语言切换有效；当前牵引双方查询与英文 `Young Ratkin` 输出通过。XML、键覆盖、占位符和两套运行时语言副本一致性检查通过。游戏 DLL 未修改；未启动游戏需求栏画面，不能视为实机存档验收。
+
+### 源码术语统一
+
+源码中的 `MouseEgg`／`mouseEgg` 改为 `YoungRatkin`／`youngRatkin`，本模组自有的 `Mouse`／`mouse` 命名改为 `Ratkin`／`ratkin`；相关目录、文件、类型、成员与测试同步调整。原版鼠标 API、外部 `MouseDisaster` 包名、类型和方法字符串，以及 Def、本地化键、Scribe 字段键与菜单定位标识保持不变。`DefOf` 使用原版 `DefAlias` 绑定现有 Def。
+
+旧存档的类名与三项旧枚举成员由精确匹配的读取补丁转换；新存档写入新类名与枚举名，枚举数值不变，不保留旧 C# 类型或方法别名。公开的 `LeadYourPetApi` 签名及特殊来源整数含义不变。直接引用内部旧类型或组件方法的第三方代码需改为新名称，推荐使用该公开 API；新存档不保证能回退旧版程序集。
+
+本次仅更新 `1.7/Assemblies/LeadYourPet.dll` 和 `1.7/Defs` 的类型引用；根目录的 1.6 程序集与 Def 保持原样。验证脚本按版本选择旧／新成员名。
+
+验证：232 项 .NET 10 回归通过。真实游戏程序集和已安装 Harmony 3 下，全生产 `PatchAll`、旧类名解析、旧枚举解析、其他命名空间同名边界、Scribe 旧数据读取→新名称保存→重新读取、52 个 `DefOf` 字段绑定，以及 `SetSpecialSource(2)` 到新状态的调用通过。验证使用隔离合成数据，未读取或修改玩家存档，未启动游戏画面、重建 1.6 或部署；未验证可选 `MouseDisaster.dll` 的运行时联动。
 
 ## 开发
 

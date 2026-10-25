@@ -37,7 +37,7 @@ namespace LeadYourPet
 
                 if (GodHandsCompat.IsGrabbed(pawn) || GodHandsCompat.IsGrabbed(link.Master)
                     || (followThing is Pawn anchor && GodHandsCompat.IsGrabbed(anchor))
-                    || !LeadYourPetUtility.CanMouseEggMove(pawn) || !pawn.Awake()
+                    || !LeadYourPetUtility.CanYoungRatkinMove(pawn) || !pawn.Awake()
                     || LeadYourPetUtility.HasLeashCareJob(link)
                     || (LeadYourPetUtility.ShouldPreserveMapExitMovement(pawn)
                         && !LeadYourPetUtility.Component.ShouldFollowDuringDeparture(link))

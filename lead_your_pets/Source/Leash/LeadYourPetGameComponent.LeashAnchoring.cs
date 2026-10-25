@@ -58,8 +58,8 @@ namespace LeadYourPet
         {
             StopInteractionAnimation(link.Pet, finalizeTeleport: false);
             link.MasterSleepSuspended = false;
-            link.MouseEggDutyState = LeashedMouseEggDutyState.FollowMaster;
-            UpdateMouseEggDutyReport(link);
+            link.YoungRatkinDutyState = LeashedYoungRatkinDutyState.FollowMaster;
+            UpdateYoungRatkinDutyReport(link);
             link.IsDragging = false;
             MaintainDraggedSlow(link.Pet, false);
             link.ForceImmediateUpdate = true;

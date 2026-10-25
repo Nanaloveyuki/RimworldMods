@@ -83,18 +83,18 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void SleepingMasterDoesNotUseBidirectionalMouseEggAutoInteractions()
+        public void SleepingMasterDoesNotUseBidirectionalYoungRatkinAutoInteractions()
         {
-            Assert.False(LeadYourPetRules.ShouldUseBidirectionalMouseEggAutoInteractions(
+            Assert.False(LeadYourPetRules.ShouldUseBidirectionalYoungRatkinAutoInteractions(
                 playerControlled: true,
                 canUseSingleDirection: false,
                 masterSleeping: true));
         }
 
         [Fact]
-        public void AwakeMasterMayUseBidirectionalMouseEggAutoInteractions()
+        public void AwakeMasterMayUseBidirectionalYoungRatkinAutoInteractions()
         {
-            Assert.True(LeadYourPetRules.ShouldUseBidirectionalMouseEggAutoInteractions(
+            Assert.True(LeadYourPetRules.ShouldUseBidirectionalYoungRatkinAutoInteractions(
                 playerControlled: true,
                 canUseSingleDirection: false,
                 masterSleeping: false));
@@ -150,23 +150,23 @@ namespace LeadYourPet.Tests
 
 
         [Fact]
-        public void ResolvesMouseEggDutyStateByMasterActivity()
+        public void ResolvesYoungRatkinDutyStateByMasterActivity()
         {
-            Assert.Equal(LeashedMouseEggDutyState.FollowMaster, LeadYourPetRules.ResolveLeashedMouseEggDutyState(
+            Assert.Equal(LeashedYoungRatkinDutyState.FollowMaster, LeadYourPetRules.ResolveLeashedYoungRatkinDutyState(
                 masterSleeping: false,
                 masterEating: false));
 
-            Assert.Equal(LeashedMouseEggDutyState.SleepAtLeash, LeadYourPetRules.ResolveLeashedMouseEggDutyState(
+            Assert.Equal(LeashedYoungRatkinDutyState.SleepAtLeash, LeadYourPetRules.ResolveLeashedYoungRatkinDutyState(
                 masterSleeping: true,
                 masterEating: false));
 
-            Assert.Equal(LeashedMouseEggDutyState.WaitForFeeding, LeadYourPetRules.ResolveLeashedMouseEggDutyState(
+            Assert.Equal(LeashedYoungRatkinDutyState.WaitForFeeding, LeadYourPetRules.ResolveLeashedYoungRatkinDutyState(
                 masterSleeping: false,
                 masterEating: true));
         }
 
         [Fact]
-        public void SharesHalfOfMastersMealNutritionWithLeashedMouseEgg()
+        public void SharesHalfOfMastersMealNutritionWithLeashedYoungRatkin()
         {
             Assert.Equal(0.5f, LeadYourPetRules.ResolveSharedNutritionFromMasterMeal(1f), 3);
             Assert.Equal(0f, LeadYourPetRules.ResolveSharedNutritionFromMasterMeal(0f), 3);
@@ -187,17 +187,17 @@ namespace LeadYourPet.Tests
         }
 
         [Fact]
-        public void AppendsCustomMouseEggDutyInspectLineOnlyWhenNotAlreadyVisible()
+        public void AppendsCustomYoungRatkinDutyInspectLineOnlyWhenNotAlreadyVisible()
         {
-            Assert.True(LeadYourPetRules.ShouldAppendCustomMouseEggDutyInspectLine(
+            Assert.True(LeadYourPetRules.ShouldAppendCustomYoungRatkinDutyInspectLine(
                 hasCustomReport: true,
                 inspectStringAlreadyContainsReport: false));
 
-            Assert.False(LeadYourPetRules.ShouldAppendCustomMouseEggDutyInspectLine(
+            Assert.False(LeadYourPetRules.ShouldAppendCustomYoungRatkinDutyInspectLine(
                 hasCustomReport: true,
                 inspectStringAlreadyContainsReport: true));
 
-            Assert.False(LeadYourPetRules.ShouldAppendCustomMouseEggDutyInspectLine(
+            Assert.False(LeadYourPetRules.ShouldAppendCustomYoungRatkinDutyInspectLine(
                 hasCustomReport: false,
                 inspectStringAlreadyContainsReport: false));
         }

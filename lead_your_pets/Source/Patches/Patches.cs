@@ -44,7 +44,7 @@ namespace LeadYourPet
         public static void Postfix(Lord __result)
         {
             LeadYourPetGameComponent component = LeadYourPetUtility.Component;
-            component?.TryAssignTravelMouseEggs(__result);
+            component?.TryAssignTravelYoungRatkins(__result);
             component?.AddPlayerLeashedPetsToFormingCaravan(__result);
         }
     }
@@ -149,8 +149,8 @@ namespace LeadYourPet
     {
         public static void Prefix(Pawn __instance, TradeAction action, ref bool __state)
         {
-            MouseEggState state = LeadYourPetUtility.Component?.GetMouseEggState(__instance);
-            __state = MouseEggOwnershipStateMachine.ShouldHandleBoughtTravelMouseEgg(
+            YoungRatkinState state = LeadYourPetUtility.Component?.GetYoungRatkinState(__instance);
+            __state = YoungRatkinOwnershipStateMachine.ShouldHandleBoughtTravelYoungRatkin(
                 actionIsPlayerBuys: action == TradeAction.PlayerBuys,
                 wasTravelStock: state != null && state.IsTravelStock,
                 wasSellable: state != null && state.SellAsPrisoner);
@@ -160,7 +160,7 @@ namespace LeadYourPet
         {
             if (__state)
             {
-                LeadYourPetUtility.Component?.HandleBoughtTravelMouseEgg(__instance);
+                LeadYourPetUtility.Component?.HandleBoughtTravelYoungRatkin(__instance);
             }
         }
     }
@@ -210,7 +210,7 @@ namespace LeadYourPet
     {
         internal static bool TryAllowPrisonerTransfer(Pawn_CarryTracker tracker, Thing item, ref bool state)
         {
-            if (item is Pawn pawn && LeadYourPetUtility.ShouldAllowProtectedMouseEggPrisonerTransfer(tracker?.pawn, pawn))
+            if (item is Pawn pawn && LeadYourPetUtility.ShouldAllowProtectedYoungRatkinPrisonerTransfer(tracker?.pawn, pawn))
             {
                 state = true;
                 return true;
@@ -234,7 +234,7 @@ namespace LeadYourPet
                 return true;
             }
 
-            if (item is Pawn pawnToBlock && LeadYourPetUtility.ShouldBlockCarryOfProtectedMouseEgg(__instance?.pawn, pawnToBlock))
+            if (item is Pawn pawnToBlock && LeadYourPetUtility.ShouldBlockCarryOfProtectedYoungRatkin(__instance?.pawn, pawnToBlock))
             {
                 __result = false;
                 return false;
@@ -259,7 +259,7 @@ namespace LeadYourPet
                 return true;
             }
 
-            if (item is Pawn pawn && LeadYourPetUtility.ShouldBlockCarryOfProtectedMouseEgg(__instance?.pawn, pawn))
+            if (item is Pawn pawn && LeadYourPetUtility.ShouldBlockCarryOfProtectedYoungRatkin(__instance?.pawn, pawn))
             {
                 __result = 0;
                 return false;
@@ -286,7 +286,7 @@ namespace LeadYourPet
         {
             if (__result && resultingThing is Pawn pawn)
             {
-                LeadYourPetUtility.Component?.TryRestoreTravelMouseEggLeashAfterCarry(__instance?.pawn, pawn);
+                LeadYourPetUtility.Component?.TryRestoreTravelYoungRatkinLeashAfterCarry(__instance?.pawn, pawn);
             }
         }
     }
@@ -296,7 +296,7 @@ namespace LeadYourPet
     {
         public static bool Prefix(Pawn hauler, Pawn baby, ref bool __result)
         {
-            if (LeadYourPetUtility.ShouldBlockCarryOfProtectedMouseEgg(hauler, baby))
+            if (LeadYourPetUtility.ShouldBlockCarryOfProtectedYoungRatkin(hauler, baby))
             {
                 __result = false;
                 return false;
@@ -311,7 +311,7 @@ namespace LeadYourPet
     {
         public static bool Prefix(Pawn hauler, Pawn baby, bool ignoreOtherReservations, ref bool __result)
         {
-            if (LeadYourPetUtility.ShouldBlockCarryOfProtectedMouseEgg(hauler, baby))
+            if (LeadYourPetUtility.ShouldBlockCarryOfProtectedYoungRatkin(hauler, baby))
             {
                 __result = false;
                 return false;
@@ -405,7 +405,7 @@ namespace LeadYourPet
 
         public static void Postfix(Pawn pawn, ref bool __result)
         {
-            if (LeadYourPetUtility.ShouldTreatMouseEggAsRimTalkEligible(pawn, __result))
+            if (LeadYourPetUtility.ShouldTreatYoungRatkinAsRimTalkEligible(pawn, __result))
             {
                 __result = true;
             }
@@ -428,7 +428,7 @@ namespace LeadYourPet
 
         public static void Postfix(Pawn __0, Pawn __1, ref bool __result)
         {
-            if (LeadYourPetUtility.ShouldAllowRimTalkMouseEggConversation(__0, __1, __result))
+            if (LeadYourPetUtility.ShouldAllowRimTalkYoungRatkinConversation(__0, __1, __result))
             {
                 __result = true;
             }
@@ -445,18 +445,18 @@ namespace LeadYourPet
 
         public static bool Prefix(Thing source, Pawn hearer)
         {
-            Pawn mouseEgg = source as Pawn;
-            if (!LeadYourPetUtility.ShouldOverrideBabyCryMoodForMouseEgg(mouseEgg, hearer))
+            Pawn youngRatkin = source as Pawn;
+            if (!LeadYourPetUtility.ShouldOverrideBabyCryMoodForYoungRatkin(youngRatkin, hearer))
             {
                 return true;
             }
 
             hearer.HearClamor(source, ClamorDefOf.BabyCry);
             MemoryThoughtHandler memories = hearer.needs.mood.thoughts.memories;
-            memories.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.MyCryingBaby, mouseEgg);
-            memories.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.CryingBaby, mouseEgg);
-            memories.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.BabyCriedSocial, mouseEgg);
-            memories.TryGainMemory(LeadYourPetDefOf.LeadYourPet_MouseEggCryingNearbyMood, mouseEgg);
+            memories.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.MyCryingBaby, youngRatkin);
+            memories.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.CryingBaby, youngRatkin);
+            memories.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.BabyCriedSocial, youngRatkin);
+            memories.TryGainMemory(LeadYourPetDefOf.LeadYourPet_YoungRatkinCryingNearbyMood, youngRatkin);
             return false;
         }
     }
@@ -533,7 +533,7 @@ namespace LeadYourPet
             }
 
             List<Gizmo> list = new List<Gizmo>(__result);
-            if (LeadYourPetUtility.Component.AnyMouseEggPetFor(__instance) || LeadYourPetUtility.Component.AnyRatkinMotherBabyFor(__instance))
+            if (LeadYourPetUtility.Component.AnyYoungRatkinPetFor(__instance) || LeadYourPetUtility.Component.AnyRatkinMotherBabyFor(__instance))
             {
                 list.Add(new Command_Action
                 {
@@ -542,7 +542,7 @@ namespace LeadYourPet
                     icon = ContentFinder<Texture2D>.Get("UI/Overlays/Rope"),
                     action = delegate
                     {
-                        LeadYourPetUtility.Component.TightenMouseEggLeashes(__instance);
+                        LeadYourPetUtility.Component.TightenYoungRatkinLeashes(__instance);
                     }
                 });
             }
@@ -576,7 +576,7 @@ namespace LeadYourPet
                 return;
             }
 
-            if (__result <= 0f || !LeadYourPetFeedFood.Allows(__instance.def) || !component.AnyMouseEggPetFor(ingester))
+            if (__result <= 0f || !LeadYourPetFeedFood.Allows(__instance.def) || !component.AnyYoungRatkinPetFor(ingester))
             {
                 return;
             }
@@ -590,7 +590,7 @@ namespace LeadYourPet
             for (int i = 0; i < masterLinks.Count; i++)
             {
                 LeashLink link = masterLinks[i];
-                if (link?.Pet == null || link.Kind != LeashLinkKind.MouseEggPet || link.AnchorMode != LeashAnchorMode.None)
+                if (link?.Pet == null || link.Kind != LeashLinkKind.YoungRatkinPet || link.AnchorMode != LeashAnchorMode.None)
                 {
                     continue;
                 }
@@ -600,7 +600,7 @@ namespace LeadYourPet
                     continue;
                 }
 
-                component.NotifyMouseEggFedByMasterMeal(link);
+                component.NotifyYoungRatkinFedByMasterMeal(link);
             }
         }
     }
@@ -610,7 +610,7 @@ namespace LeadYourPet
     {
         public static void Postfix(Pawn __instance, ref string __result)
         {
-            if (LeadYourPetUtility.TryGetMouseEggDutyReport(__instance, out string report))
+            if (LeadYourPetUtility.TryGetYoungRatkinDutyReport(__instance, out string report))
             {
                 __result = report;
             }
@@ -622,13 +622,13 @@ namespace LeadYourPet
     {
         public static void Postfix(Pawn __instance, ref string __result)
         {
-            if (!LeadYourPetUtility.TryGetMouseEggDutyReport(__instance, out string report))
+            if (!LeadYourPetUtility.TryGetYoungRatkinDutyReport(__instance, out string report))
             {
                 return;
             }
 
             bool alreadyContains = !__result.NullOrEmpty() && __result.Contains(report);
-            if (!LeadYourPetRules.ShouldAppendCustomMouseEggDutyInspectLine(
+            if (!LeadYourPetRules.ShouldAppendCustomYoungRatkinDutyInspectLine(
                 hasCustomReport: true,
                 inspectStringAlreadyContainsReport: alreadyContains))
             {

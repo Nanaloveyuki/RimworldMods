@@ -70,13 +70,13 @@ namespace LeadYourPet
                 case "LeadYourPet_RatkinBabyLeashedMood":
                 case "LeadYourPet_MouseDisasterBeggarBabyBonusMood":
                 case "LeadYourPet_MouseDisasterChildExchangeBabyBonusMood":
-                    return component.GetLinkForPet(pawn)?.Master ?? component.GetMouseEggState(pawn)?.CurrentMaster;
+                    return component.GetLinkForPet(pawn)?.Master ?? component.GetYoungRatkinState(pawn)?.CurrentMaster;
                 case "LeadYourPet_MouseEggParentPetMood":
                     if (pawn.relations == null) return null;
                     foreach (Pawn child in pawn.relations.Children)
                     {
                         LeashLink childLink = component.GetLinkForPet(child);
-                        if (childLink?.Kind == LeashLinkKind.MouseEggPet) return childLink.Master;
+                        if (childLink?.Kind == LeashLinkKind.YoungRatkinPet) return childLink.Master;
                     }
                     return null;
                 default:
@@ -90,9 +90,9 @@ namespace LeadYourPet
                     {
                         LeashLink link = links[i];
                         if (link.Pet == null) continue;
-                        if (name == "LeadYourPet_MouseEggOwnerMood" && link.Kind != LeashLinkKind.MouseEggPet) continue;
+                        if (name == "LeadYourPet_MouseEggOwnerMood" && link.Kind != LeashLinkKind.YoungRatkinPet) continue;
                         if (name == "LeadYourPet_MouseEggCaretakerMood"
-                            && (link.Kind != LeashLinkKind.MouseEggPet || !LeadYourPetUtility.IsColonistMouseEgg(link.Pet))) continue;
+                            && (link.Kind != LeashLinkKind.YoungRatkinPet || !LeadYourPetUtility.IsColonistYoungRatkin(link.Pet))) continue;
                         if ((name == "LeadYourPet_RatkinMotherLeashMood" || name.Contains("MotherBonusMood"))
                             && link.Kind != LeashLinkKind.RatkinMotherBaby) continue;
                         if (counterpart != null && (counterpart.def != link.Pet.def || Young(counterpart) != Young(link.Pet))) return null;

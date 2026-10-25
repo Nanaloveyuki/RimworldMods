@@ -1,8 +1,8 @@
 namespace LeadYourPet
 {
-    public readonly struct MouseEggOwnershipSnapshot
+    public readonly struct YoungRatkinOwnershipSnapshot
     {
-        public MouseEggOwnershipSnapshot(bool isPet, bool isTravelStock, bool sellAsPrisoner, bool hasCurrentMaster)
+        public YoungRatkinOwnershipSnapshot(bool isPet, bool isTravelStock, bool sellAsPrisoner, bool hasCurrentMaster)
         {
             IsPet = isPet;
             IsTravelStock = isTravelStock;
