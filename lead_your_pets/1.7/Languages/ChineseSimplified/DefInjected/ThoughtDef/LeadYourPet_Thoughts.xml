@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
   <LeadYourPet_LeadingPetMood.stages.0.label>我带着宠物</LeadYourPet_LeadingPetMood.stages.0.label>
-  <LeadYourPet_LeadingPetMood.stages.0.description>宠物在身边，我的心情都变好了。</LeadYourPet_LeadingPetMood.stages.0.description>
+  <LeadYourPet_LeadingPetMood.stages.0.description>宠物就在身边。光看着它，我都能乐一会儿。</LeadYourPet_LeadingPetMood.stages.0.description>
   <LeadYourPet_MouseEggOwnerMood.stages.0.label>把人当成宠物</LeadYourPet_MouseEggOwnerMood.stages.0.label>
-  <LeadYourPet_MouseEggOwnerMood.stages.0.description>有人作为宠物跟在我身边。还挺好玩的。</LeadYourPet_MouseEggOwnerMood.stages.0.description>
+  <LeadYourPet_MouseEggOwnerMood.stages.0.description>我身边还跟着一位宠物。绳子在手，怪有意思的。</LeadYourPet_MouseEggOwnerMood.stages.0.description>
   <LeadYourPet_MouseEggFearMood.stages.0.label>被当成宠物</LeadYourPet_MouseEggFearMood.stages.0.label>
   <LeadYourPet_MouseEggFearMood.stages.0.description>我被当成了宠物。我很害怕。</LeadYourPet_MouseEggFearMood.stages.0.description>
   <LeadYourPet_MouseEggCryingNearbyMood.stages.0.label>听到哭声</LeadYourPet_MouseEggCryingNearbyMood.stages.0.label>
-  <LeadYourPet_MouseEggCryingNearbyMood.stages.0.description>附近有人哭得很响。我想一脚踹开对方，心情却莫名好了起来。</LeadYourPet_MouseEggCryingNearbyMood.stages.0.description>
+  <LeadYourPet_MouseEggCryingNearbyMood.stages.0.description>哭声一阵接一阵，吵得我想一脚踹开。可听着听着，我倒舒坦了。</LeadYourPet_MouseEggCryingNearbyMood.stages.0.description>
 
   <LeadYourPet_OwnerKick.stages.0.label>踹了一脚</LeadYourPet_OwnerKick.stages.0.label>
-  <LeadYourPet_OwnerKick.stages.0.description>我路过时顺脚踹了对方一下。意外地有点解压。</LeadYourPet_OwnerKick.stages.0.description>
+  <LeadYourPet_OwnerKick.stages.0.description>路过，顺脚。踹完这一脚，心里居然舒坦了点。</LeadYourPet_OwnerKick.stages.0.description>
   <LeadYourPet_PetKick.stages.0.label>被踹了一脚</LeadYourPet_PetKick.stages.0.label>
-  <LeadYourPet_PetKick.stages.0.description>好端端地就被主人踹了一下。我很委屈。</LeadYourPet_PetKick.stages.0.description>
+  <LeadYourPet_PetKick.stages.0.description>我好端端待着，怎么就挨了一脚？</LeadYourPet_PetKick.stages.0.description>
   <LeadYourPet_OwnerObserve.stages.0.label>围观宠物</LeadYourPet_OwnerObserve.stages.0.label>
-  <LeadYourPet_OwnerObserve.stages.0.description>我盯着宠物看了一会儿。越看越有意思。</LeadYourPet_OwnerObserve.stages.0.description>
+  <LeadYourPet_OwnerObserve.stages.0.description>我盯着宠物看，宠物也没什么办法。怪有意思的。</LeadYourPet_OwnerObserve.stages.0.description>
   <LeadYourPet_PetObserve.stages.0.label>被围观</LeadYourPet_PetObserve.stages.0.label>
-  <LeadYourPet_PetObserve.stages.0.description>被一群人盯着看，我很不自在。</LeadYourPet_PetObserve.stages.0.description>
+  <LeadYourPet_PetObserve.stages.0.description>怎么都盯着我看？我又没在表演。</LeadYourPet_PetObserve.stages.0.description>
   <LeadYourPet_OwnerDrag.stages.0.label>拖着人走</LeadYourPet_OwnerDrag.stages.0.label>
-  <LeadYourPet_OwnerDrag.stages.0.description>我拽着对方在地上滑过去。场面有些滑稽。</LeadYourPet_OwnerDrag.stages.0.description>
+  <LeadYourPet_OwnerDrag.stages.0.description>绳子一拽，对方就从地上滑过去了。我忍不住想笑。</LeadYourPet_OwnerDrag.stages.0.description>
   <LeadYourPet_PetDrag.stages.0.label>被拖行</LeadYourPet_PetDrag.stages.0.label>
-  <LeadYourPet_PetDrag.stages.0.description>我被绳子拽着在地上拖来拖去。头都晕了。</LeadYourPet_PetDrag.stages.0.description>
+  <LeadYourPet_PetDrag.stages.0.description>地面从身下划过去，脑袋里也晃成了一团。能停停吗？</LeadYourPet_PetDrag.stages.0.description>
   <LeadYourPet_OwnerTapHead.stages.0.label>敲了脑袋</LeadYourPet_OwnerTapHead.stages.0.label>
-  <LeadYourPet_OwnerTapHead.stages.0.description>我顺手敲了敲对方的脑袋，听个响儿。</LeadYourPet_OwnerTapHead.stages.0.description>
+  <LeadYourPet_OwnerTapHead.stages.0.description>我敲了敲对方的脑袋。嘿，还真有个响儿。</LeadYourPet_OwnerTapHead.stages.0.description>
   <LeadYourPet_PetTapHead.stages.0.label>被敲了脑袋</LeadYourPet_PetTapHead.stages.0.label>
-  <LeadYourPet_PetTapHead.stages.0.description>主人敲了我的脑袋。脑袋嗡嗡响，我很不高兴。</LeadYourPet_PetTapHead.stages.0.description>
+  <LeadYourPet_PetTapHead.stages.0.description>脑袋嗡嗡的。我的头又不是拿来试音的！</LeadYourPet_PetTapHead.stages.0.description>
   <LeadYourPet_OwnerPullTail.stages.0.label>扯了尾巴</LeadYourPet_OwnerPullTail.stages.0.label>
   <LeadYourPet_OwnerPullTail.stages.0.description>我揪着对方的尾巴扯了扯。看到反应还挺有趣。</LeadYourPet_OwnerPullTail.stages.0.description>
   <LeadYourPet_PetPullTail.stages.0.label>被扯了尾巴</LeadYourPet_PetPullTail.stages.0.label>
-  <LeadYourPet_PetPullTail.stages.0.description>我的尾巴被扯得生疼。眼泪都快出来了。</LeadYourPet_PetPullTail.stages.0.description>
+  <LeadYourPet_PetPullTail.stages.0.description>尾巴被扯得生疼，眼泪差点没兜住。</LeadYourPet_PetPullTail.stages.0.description>
   <LeadYourPet_OwnerPullEar.stages.0.label>揪了耳朵</LeadYourPet_OwnerPullEar.stages.0.label>
   <LeadYourPet_OwnerPullEar.stages.0.description>我提着对方的耳朵拽了拽。手感很奇怪。</LeadYourPet_OwnerPullEar.stages.0.description>
   <LeadYourPet_PetPullEar.stages.0.label>被揪了耳朵</LeadYourPet_PetPullEar.stages.0.label>
@@ -36,15 +36,15 @@
   <LeadYourPet_OwnerWhirl.stages.0.label>甩着人转圈</LeadYourPet_OwnerWhirl.stages.0.label>
   <LeadYourPet_OwnerWhirl.stages.0.description>我把对方当玩具甩了一圈。莫名有点开心。</LeadYourPet_OwnerWhirl.stages.0.description>
   <LeadYourPet_PetWhirl.stages.0.label>被甩着转圈</LeadYourPet_PetWhirl.stages.0.label>
-  <LeadYourPet_PetWhirl.stages.0.description>整个世界都在打转。我快吐出来了。</LeadYourPet_PetWhirl.stages.0.description>
+  <LeadYourPet_PetWhirl.stages.0.description>眼前在转，胃里也在转。我快吐了。</LeadYourPet_PetWhirl.stages.0.description>
   <LeadYourPet_OwnerSlap.stages.0.label>扇了巴掌</LeadYourPet_OwnerSlap.stages.0.label>
   <LeadYourPet_OwnerSlap.stages.0.description>我照着对方的脸来了一下。声音清脆。</LeadYourPet_OwnerSlap.stages.0.description>
   <LeadYourPet_PetSlap.stages.0.label>被扇了巴掌</LeadYourPet_PetSlap.stages.0.label>
   <LeadYourPet_PetSlap.stages.0.description>主人扇了我一巴掌。脸上火辣辣的，我不喜欢这样。</LeadYourPet_PetSlap.stages.0.description>
   <LeadYourPet_OwnerPat.stages.0.label>拍打了一阵</LeadYourPet_OwnerPat.stages.0.label>
-  <LeadYourPet_OwnerPat.stages.0.description>我拍了拍对方的身子，像在摆弄玩具。</LeadYourPet_OwnerPat.stages.0.description>
+  <LeadYourPet_OwnerPat.stages.0.description>我拍了拍对方，看着身子跟着抖了几下。还挺解闷。</LeadYourPet_OwnerPat.stages.0.description>
   <LeadYourPet_PetPat.stages.0.label>被拍打了一阵</LeadYourPet_PetPat.stages.0.label>
-  <LeadYourPet_PetPat.stages.0.description>主人把我拍得一抖一抖的。我很不高兴。</LeadYourPet_PetPat.stages.0.description>
+  <LeadYourPet_PetPat.stages.0.description>我被拍得一抖一抖的。拿我当什么玩具呢？</LeadYourPet_PetPat.stages.0.description>
   <LeadYourPet_OwnerKickButt.stages.0.label>踹了屁股</LeadYourPet_OwnerKickButt.stages.0.label>
   <LeadYourPet_OwnerKickButt.stages.0.description>我对着对方的屁股补了一脚。心里有点爽。</LeadYourPet_OwnerKickButt.stages.0.description>
   <LeadYourPet_PetKickButt.stages.0.label>被踹了屁股</LeadYourPet_PetKickButt.stages.0.label>
@@ -59,9 +59,9 @@
   <LeadYourPet_PetIdleNearOwner.stages.0.label>在主人身边发呆</LeadYourPet_PetIdleNearOwner.stages.0.label>
   <LeadYourPet_PetIdleNearOwner.stages.0.description>我什么都不做，只是待在主人附近。这样也很满足。</LeadYourPet_PetIdleNearOwner.stages.0.description>
   <LeadYourPet_PetStudyFloor.stages.0.label>观察地板</LeadYourPet_PetStudyFloor.stages.0.label>
-  <LeadYourPet_PetStudyFloor.stages.0.description>我在地板上发现了一些有趣的东西。</LeadYourPet_PetStudyFloor.stages.0.description>
+  <LeadYourPet_PetStudyFloor.stages.0.description>地板上居然还有点好看的。我又多盯了一会儿。</LeadYourPet_PetStudyFloor.stages.0.description>
   <LeadYourPet_PetSillySmile.stages.0.label>在主人身边傻笑</LeadYourPet_PetSillySmile.stages.0.label>
-  <LeadYourPet_PetSillySmile.stages.0.description>我想到什么好玩的事，忍不住笑了起来。</LeadYourPet_PetSillySmile.stages.0.description>
+  <LeadYourPet_PetSillySmile.stages.0.description>想起点好玩的，我自己先笑出了声。旁边那位大概也不知道我在笑什么。</LeadYourPet_PetSillySmile.stages.0.description>
   <LeadYourPet_PetTailPetting.stages.0.label>被抚摸尾巴</LeadYourPet_PetTailPetting.stages.0.label>
   <LeadYourPet_PetTailPetting.stages.0.description>我的尾巴被轻轻顺着摸过去。舒服得我眼睛都眯起来了。</LeadYourPet_PetTailPetting.stages.0.description>
   <LeadYourPet_PetEarPetting.stages.0.label>被抚摸耳朵</LeadYourPet_PetEarPetting.stages.0.label>
@@ -69,7 +69,7 @@
   <LeadYourPet_PetOwnerWaited.stages.0.label>主人等我</LeadYourPet_PetOwnerWaited.stages.0.label>
   <LeadYourPet_PetOwnerWaited.stages.0.description>主人没有丢下我，还停下来等我跟上。</LeadYourPet_PetOwnerWaited.stages.0.description>
   <LeadYourPet_PetSnack.stages.0.label>主人给我吃零食</LeadYourPet_PetSnack.stages.0.label>
-  <LeadYourPet_PetSnack.stages.0.description>我吃到了主人递来的零食。今天真不错。</LeadYourPet_PetSnack.stages.0.description>
+  <LeadYourPet_PetSnack.stages.0.description>零食到了嘴里。今天立刻顺眼多了。</LeadYourPet_PetSnack.stages.0.description>
 
   <LeadYourPet_MouseEggParentPetMood.stages.0.label>我的孩子被当成宠物</LeadYourPet_MouseEggParentPetMood.stages.0.label>
   <LeadYourPet_MouseEggParentPetMood.stages.0.description>我的一个孩子被当成了宠物。</LeadYourPet_MouseEggParentPetMood.stages.0.description>

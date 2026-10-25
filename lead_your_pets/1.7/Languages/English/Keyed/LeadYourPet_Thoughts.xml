@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <LeadYourPet_ThoughtRace_RatkinYoung>Young Ratkin</LeadYourPet_ThoughtRace_RatkinYoung>
+  <LeadYourPet_ThoughtRace_RatkinAdult>Ratkin</LeadYourPet_ThoughtRace_RatkinAdult>
+  <LeadYourPet_ThoughtRace_KiiroYoung>young Kiiro</LeadYourPet_ThoughtRace_KiiroYoung>
+  <LeadYourPet_ThoughtRace_KiiroAdult>Kiiro</LeadYourPet_ThoughtRace_KiiroAdult>
+  <LeadYourPet_ThoughtRace_Unknown>someone</LeadYourPet_ThoughtRace_Unknown>
+  <LeadYourPet_MouseEggOwnerMood_Generic_Label>keeping someone as a pet</LeadYourPet_MouseEggOwnerMood_Generic_Label>
+  <LeadYourPet_MouseEggOwnerMood_Generic_Description>I have {Race} following me around as a pet. This is oddly entertaining.</LeadYourPet_MouseEggOwnerMood_Generic_Description>
+  <LeadYourPet_MouseEggFearMood_Generic_Label>treated as a pet</LeadYourPet_MouseEggFearMood_Generic_Label>
+  <LeadYourPet_MouseEggFearMood_Generic_Description>I'm being treated as a pet by {Race}. It scares me.</LeadYourPet_MouseEggFearMood_Generic_Description>
+  <LeadYourPet_MouseEggCaretakerMood_Generic_Label>leading someone</LeadYourPet_MouseEggCaretakerMood_Generic_Label>
+  <LeadYourPet_MouseEggCaretakerMood_Generic_Description>I keep {Race} close on a leash. It is reassuring to have them beside me.</LeadYourPet_MouseEggCaretakerMood_Generic_Description>
+  <LeadYourPet_MouseEggWatchedMood_Generic_Label>being led</LeadYourPet_MouseEggWatchedMood_Generic_Label>
+  <LeadYourPet_MouseEggWatchedMood_Generic_Description>{Race} is leading me. Having someone to follow is reassuring.</LeadYourPet_MouseEggWatchedMood_Generic_Description>
+  <LeadYourPet_OwnerPlayWithChild_Generic_Label>played together</LeadYourPet_OwnerPlayWithChild_Generic_Label>
+  <LeadYourPet_OwnerPlayWithChild_Generic_Description>I played with {Race} for a while. I feel more relaxed.</LeadYourPet_OwnerPlayWithChild_Generic_Description>
+  <LeadYourPet_ChildPlayedWithCaretaker_Generic_Label>someone played with me</LeadYourPet_ChildPlayedWithCaretaker_Generic_Label>
+  <LeadYourPet_ChildPlayedWithCaretaker_Generic_Description>{Race} played with me for a while. I enjoyed the company.</LeadYourPet_ChildPlayedWithCaretaker_Generic_Description>
+</LanguageData>

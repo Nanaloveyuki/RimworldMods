@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <LeadYourPet_ThoughtRace_RatkinYoung>鼠蛋</LeadYourPet_ThoughtRace_RatkinYoung>
+  <LeadYourPet_ThoughtRace_RatkinAdult>鼠族</LeadYourPet_ThoughtRace_RatkinAdult>
+  <LeadYourPet_ThoughtRace_KiiroYoung>小绮罗</LeadYourPet_ThoughtRace_KiiroYoung>
+  <LeadYourPet_ThoughtRace_KiiroAdult>绮罗族</LeadYourPet_ThoughtRace_KiiroAdult>
+  <LeadYourPet_ThoughtRace_Unknown>对方</LeadYourPet_ThoughtRace_Unknown>
+  <LeadYourPet_MouseEggOwnerMood_Generic_Label>把人当成宠物</LeadYourPet_MouseEggOwnerMood_Generic_Label>
+  <LeadYourPet_MouseEggOwnerMood_Generic_Description>我把{Race}当宠物牵在身边。绳子在手，怪有意思的。</LeadYourPet_MouseEggOwnerMood_Generic_Description>
+  <LeadYourPet_MouseEggFearMood_Generic_Label>被当成宠物</LeadYourPet_MouseEggFearMood_Generic_Label>
+  <LeadYourPet_MouseEggFearMood_Generic_Description>我被{Race}当成了宠物。绳子一动，我心里就发慌。</LeadYourPet_MouseEggFearMood_Generic_Description>
+  <LeadYourPet_MouseEggCaretakerMood_Generic_Label>牵在身边</LeadYourPet_MouseEggCaretakerMood_Generic_Label>
+  <LeadYourPet_MouseEggCaretakerMood_Generic_Description>我把{Race}牵在身边。抬眼就能看见，放心多了。</LeadYourPet_MouseEggCaretakerMood_Generic_Description>
+  <LeadYourPet_MouseEggWatchedMood_Generic_Label>有人牵着我</LeadYourPet_MouseEggWatchedMood_Generic_Label>
+  <LeadYourPet_MouseEggWatchedMood_Generic_Description>{Race}牵着我。有个方向跟着，心里也踏实些。</LeadYourPet_MouseEggWatchedMood_Generic_Description>
+  <LeadYourPet_OwnerPlayWithChild_Generic_Label>一起玩了一会</LeadYourPet_OwnerPlayWithChild_Generic_Label>
+  <LeadYourPet_OwnerPlayWithChild_Generic_Description>我和{Race}玩了一会。自己也放松了不少。</LeadYourPet_OwnerPlayWithChild_Generic_Description>
+  <LeadYourPet_ChildPlayedWithCaretaker_Generic_Label>有人陪我玩</LeadYourPet_ChildPlayedWithCaretaker_Generic_Label>
+  <LeadYourPet_ChildPlayedWithCaretaker_Generic_Description>{Race}陪我玩了一会。有人作伴真好。</LeadYourPet_ChildPlayedWithCaretaker_Generic_Description>
+</LanguageData>
