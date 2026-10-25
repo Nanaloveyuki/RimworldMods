@@ -19,7 +19,7 @@ namespace HungerAndHavoc.EventMgr
 
         internal RHAH_EventChainProvider()
         {
-            IEventChainDefinition[] items = new IEventChainDefinition[57];
+            IEventChainDefinition[] items = new IEventChainDefinition[55];
             Lazy<EventChainScript> follow = new Lazy<EventChainScript>(() => EventChainScript.Compile(ReadScript("RHAH_EventFollow")));
             Lazy<EventChainScript> arrival = new Lazy<EventChainScript>(() => EventChainScript.Compile(ReadScript("RHAH_PredationArrival")));
             for (int i = 0; i < 54; i++)
@@ -28,8 +28,6 @@ namespace HungerAndHavoc.EventMgr
             }
 
             items[54] = new Definition(ArrivalId, arrival);
-            items[55] = new KingdomArcDefinition();
-            items[56] = new KingdomCollaborationDefinition();
             definitions = Array.AsReadOnly(items);
         }
 

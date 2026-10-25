@@ -142,12 +142,4 @@
   <RHAH_Settings_CampDays_Tooltip>Days a camp quest lasts. 1 to 120, default 15.</RHAH_Settings_CampDays_Tooltip>
   <RHAH_Settings_CampHuts>Huts: {0}</RHAH_Settings_CampHuts>
   <RHAH_Settings_CampHuts_Tooltip>Huts placed in a camp. 0 to 12, default 4.</RHAH_Settings_CampHuts_Tooltip>
-  <RHAH_Settings_HoleWood>Wood to seal: {0}</RHAH_Settings_HoleWood>
-  <RHAH_Settings_HoleWood_Tooltip>Wood required to seal a grain hole. 0 to 200, default 20.</RHAH_Settings_HoleWood_Tooltip>
-  <RHAH_Settings_HoleClean>Food cleared: {0}</RHAH_Settings_HoleClean>
-  <RHAH_Settings_HoleClean_Tooltip>Food portions removed when a grain hole is cleared. 0 to 50, default 5.</RHAH_Settings_HoleClean_Tooltip>
-  <RHAH_Settings_HoleRange>Hole range: {0}</RHAH_Settings_HoleRange>
-  <RHAH_Settings_HoleRange_Tooltip>Tiles from the hole that food can be taken. 1 to 60, default 12.</RHAH_Settings_HoleRange_Tooltip>
-  <RHAH_Settings_HoleLosses>Hole losses: {0}</RHAH_Settings_HoleLosses>
-  <RHAH_Settings_HoleLosses_Tooltip>Most losses while a grain hole is left alone. 0 to 20, default 3.</RHAH_Settings_HoleLosses_Tooltip>
 </LanguageData>

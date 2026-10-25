@@ -99,6 +99,7 @@ namespace HungerAndHavoc.EventMgr
 
         internal static void PrepareGame(EventChainRuntime runtime)
         {
+            RetireKingdomInstances(runtime.GetProviderState(RHAH_EventChainProvider.ProviderKey));
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
             if (game == null)
             {
@@ -210,6 +211,23 @@ namespace HungerAndHavoc.EventMgr
                 runtime.GetProviderState(RHAH_EventChainProvider.ProviderKey).MigrationStatus = reason;
                 runtime.SetMode(RHAH_EventChainProvider.ProviderKey, EventChainMode.Paused, tick, reason);
                 Log.Error("[RHAH] Event chain migration " + reason + ". Original chains and map arrivals remain saved and never execute.");
+            }
+        }
+
+        static void RetireKingdomInstances(EventChainProviderState state)
+        {
+            if (state == null || state.SchemaVersion != EventChainRuntime.SchemaVersion || state.StateVersion != 1 || state.Instances == null)
+            {
+                return;
+            }
+
+            for (int i = state.Instances.Count - 1; i >= 0; i--)
+            {
+                string definition = state.Instances[i]?.DefinitionId;
+                if (definition == "RHAH_KingdomInvitation" || definition == "RHAH_KingdomCollaboration")
+                {
+                    state.Instances.RemoveAt(i);
+                }
             }
         }
 

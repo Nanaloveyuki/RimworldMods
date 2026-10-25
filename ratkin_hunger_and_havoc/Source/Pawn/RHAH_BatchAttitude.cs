@@ -83,11 +83,6 @@ namespace HungerAndHavoc.Pawn
 
             if (reaction == RHAH_BatchReaction.Expel && newlyLeaving > 0)
             {
-                if (RHAH_EndingRuntime.CountsNow())
-                {
-                    int tick = Find.TickManager == null ? 0 : Find.TickManager.TicksGame;
-                    Current.Game?.GetComponent<NarrativeState>()?.NoteExpulsion(tick);
-                }
                 RHAH_SuiyinTrust.Note(newlyLeaving, RHAH_SuiyinTrust.Value(RHAH_SuiyinTrust.Expel, settings == null ? RHAH_SuiyinTrust.Expel : settings.trustExpel));
             }
 

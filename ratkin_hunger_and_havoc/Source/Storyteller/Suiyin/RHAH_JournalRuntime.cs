@@ -70,48 +70,10 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                         HungerAndHavoc.EventMgr.RHAH_EventFollowMood.OnRelief(AidDisplay(record), Living(record));
                     }
 
-                    if (RHAH_EndingRuntime.CountsNow())
-                    {
-                        state.NoteAid(tick);
-                        state.NoteCompletedKind(tick, record.Id);
-                    }
                 }
             }
         }
 
-        internal static bool HasJournal(int journal)
-        {
-            if (journal < 1 || journal > 14 || Current.Game == null)
-            {
-                return false;
-            }
-
-            SuiyinBook book = Current.Game.GetComponent<NarrativeState>()?.Book;
-            if (book == null)
-            {
-                return false;
-            }
-
-            if (book.JournalNoted != null && book.JournalNoted.Contains(journal))
-            {
-                return true;
-            }
-
-            if (book.Journals == null)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < book.Journals.Count; i++)
-            {
-                if (book.Journals[i] != null && book.Journals[i].Id == journal)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         static string AidDisplay(SuiyinJournalCase record)
         {

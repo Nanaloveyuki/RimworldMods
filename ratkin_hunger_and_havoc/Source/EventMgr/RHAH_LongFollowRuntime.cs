@@ -536,7 +536,14 @@ namespace HungerAndHavoc.EventMgr
         internal static bool Bring(Verse.Pawn pawn, Map map)
         {
             if (!CanBring(pawn, map)) return false;
-            if (!pawn.Spawned && !RHAH_Revisit.TryBringHome(pawn, map)) return false;
+            if (!pawn.Spawned)
+            {
+                if (!CellFinder.TryFindRandomEdgeCellWith(cell => cell.Standable(map) && !cell.Fogged(map), map,
+                    CellFinder.EdgeRoadChance_Neutral, out IntVec3 edge)) return false;
+                pawn.holdingOwner?.Remove(pawn);
+                GenSpawn.Spawn(pawn, edge, map);
+                if (!pawn.Spawned) return false;
+            }
             CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
             if (comp != null && pawn.Faction != Faction.OfPlayer)
             {

@@ -51,16 +51,6 @@ python3 scripts/rhah.py logs --match 'HungerAndHavoc.*Exception|RHAH_' --limit 5
 
 部署只写对应目标，拒绝游戏运行中、进程检查失败、链接目标、未知身份或其它模组身份；逐文件核对 SHA-256，不自动退出游戏或写入旧鼠灾目录。模块旧部署脚本已移除，统一从 monorepo 根目录执行 `bash scripts/deploy.sh ratkin_hunger_and_havoc`（Windows：`python scripts/python/deploy.py ratkin_hunger_and_havoc`）。`--build-only` 只构建并暂存根 `artifacts/ratkin_hunger_and_havoc/release`；模块 CI、打包与发布门禁仍由专用流水线维护。
 
-### 王国篇部署图片压缩
-
-本机部署还要求 `ffmpeg` 在执行 Python 的环境 `PATH` 中可用，`make doctor` 会检查。WSL 安装 Linux 版（例如 `sudo apt install ffmpeg`）；使用 PowerShell 入口时安装 Windows 版并加入 Windows `PATH`。不随模组发布 FFmpeg，不自动下载工具。
-
-PNG 的压缩等级不是 JPEG 式画质参数，单靠无损重编码不能保证指定体积。部署使用临时产物，必要时通过 Lanczos 等比例缩小来控制体积；这会损失细节，不承诺原分辨率。保留彩色 PNG，不采用调色板减色。小图不放大或填充到目标下限，源文件、其它纹理和 `package` 打包不变；具体目标与编码参数以 `scripts/rhah_pipeline.py` 为准。
-
-所有图片处理成功后才再次检查游戏进程和目标身份，再同步并按实际压缩产物校验 SHA-256。缺少 FFmpeg 或图片处理失败时拒绝部署，不用未压缩原图静默回退；临时文件自动清理。部署阶段证据中的 `kingdom_textures` 提供原图与部署图总字节数。
-
-参数依据：[FFmpeg PNG 编码器源码](https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/pngenc.c)（压缩等级 0–9、`pred=mixed`），[scale 滤镜文档](https://ffmpeg.org/ffmpeg-filters.html#scale)与 [Lanczos 缩放文档](https://ffmpeg.org/ffmpeg-scaler.html)。
-
 ## RimCarbon14
 
 调用已安装的 `Mods/RimCarbon14/Tools/win-x64/RimCarbon14.Agent.exe`，不为 RHAH 增加运行时依赖。

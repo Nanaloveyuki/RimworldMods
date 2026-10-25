@@ -119,20 +119,6 @@ namespace HungerAndHavoc.Core
         List<string> disabledTemperatureApparelDefNames = new List<string>();
         public float minimumEventTemperature = -35f;
         public float maximumEventTemperature = 70f;
-        // 退休普通结局设置仅保留已发布键和值 不再暴露操作或参与行为
-        public bool countEndingsWithoutNarrator = true;
-        public bool endingsWithoutNarrator = true;
-        public int endingAidGoal = 99;
-        public int endingBroadcastGoal = 3;
-        public int endingExpulsionLimit = 3;
-        public int endingAdultGoal = 100;
-        public int endingWaitDays = 30;
-        public bool endingE01 = true;
-        public bool endingE02 = true;
-        public bool endingE03 = true;
-        public bool endingE04 = true;
-        public bool endingE05 = true;
-        public bool endingIdentity = true;
         public bool plagueEnabled = true;
         public float plagueSpreadChancePerCarrier = 0.005f;
         public float plagueSpreadChanceCap = 0.30f;
@@ -176,7 +162,6 @@ namespace HungerAndHavoc.Core
         public int foodPerChild = 10;
         public int foodPerVisitor = 1;
         public int maxFoodRequest = 12;
-        public int envoyMealCost = 6;
         public int campMinAdults = 2;
         public int campMaxAdults = 4;
         public int campMinChildren = 8;
@@ -184,10 +169,6 @@ namespace HungerAndHavoc.Core
         public int campGoodwill = 12;
         public int campDays = 15;
         public int campHuts = 4;
-        public int holeWoodCost = 20;
-        public int holeCleanPortions = 5;
-        public int holeLossRange = 12;
-        public int holeMaxLosses = 3;
         public int apparelAwfulPercent = 35;
         public int apparelPoorPercent = 50;
         public int apparelMinDurabilityPercent = 10;
@@ -225,12 +206,6 @@ namespace HungerAndHavoc.Core
         public int followLongReturnYears = 2;
         public float followAdultAge = 14f;
         public int followMoodScalePercent = 100;
-        public int endingTrustFloor = 50;
-        public int endingHopeTrust = 75;
-        // 以下三项仅存读退休结局的已发布值
-        public int endingHaltTrust = -75;
-        public int endingLowKinds = 6;
-        public float endingThreatDays = 13f;
         public int trustKill = -10;
         public int trustCaptive = -5;
         public int trustEntrustGood = 5;
@@ -239,36 +214,12 @@ namespace HungerAndHavoc.Core
         public int trustEntrustRegret = -3;
         public int trustEntrustBanished = -1;
         public int trustExchange = 3;
-        public int trustHoleOpen = 1;
-        public int trustHoleIgnore = -1;
-        public int trustHoleBait = 3;
-        public int trustEnvoyFail = -2;
-        public int trustRelicFail = -2;
         public int trustHold = -1;
         public int trustDeliver = 1;
         public int trustLeave = 1;
         public int trustExpel = -1;
-        public int narrativeRewardSilver = 300;
-        public int narrativeRescueCost = 250;
-        public int narrativeRescueReward = 2500;
-        public int narrativeRelicTake = 200;
-        public int narrativeRelicHand = 100;
-        public int narrativeTrustBonusPercent = 25;
         public int narrativeMissingDays = 1;
         public int narrativeObserveDays = 30;
-        public int narrativeHoleIgnoreDays = 3;
-        public int narrativeEnvoyWaitDays = 3;
-        public int narrativeEnvoyCheckDays = 1;
-        public int narrativeRelicDays = 15;
-        public int narrativeRevisitYears = 4;
-        public int narrativeAsideCooldownDays = 3;
-        public int narrativeAsideCutoff = -75;
-        public int narrativeAdultYears = 18;
-        public int narrativeTheftKinds = 2;
-        public int narrativeProgressKinds = 3;
-        public int narrativeRewardKinds = 8;
-        public int narrativeEnvoyKinds = 5;
-        public int narrativeRelicKinds = 8;
 
         static List<string> DefaultIncidentLongChains()
         {
@@ -415,18 +366,6 @@ namespace HungerAndHavoc.Core
             Scribe_Collections.Look(ref disabledTemperatureApparelDefNames, "disabledTemperatureApparelDefNames", LookMode.Value);
             Scribe_Values.Look(ref minimumEventTemperature, "minimumEventTemperature", -35f);
             Scribe_Values.Look(ref maximumEventTemperature, "maximumEventTemperature", 70f);
-            Scribe_Values.Look(ref countEndingsWithoutNarrator, "countEndingsWithoutNarrator", true);
-            Scribe_Values.Look(ref endingsWithoutNarrator, "endingsWithoutNarrator", true);
-            Scribe_Values.Look(ref endingAidGoal, "endingAidGoal", 99);
-            Scribe_Values.Look(ref endingBroadcastGoal, "endingBroadcastGoal", 3);
-            Scribe_Values.Look(ref endingExpulsionLimit, "endingExpulsionLimit", 3);
-            Scribe_Values.Look(ref endingAdultGoal, "endingAdultGoal", 100);
-            Scribe_Values.Look(ref endingWaitDays, "endingWaitDays", 30);
-            Scribe_Values.Look(ref endingE01, "endingE01", true);
-            Scribe_Values.Look(ref endingE02, "endingE02", true);
-            Scribe_Values.Look(ref endingE03, "endingE03", true);
-            Scribe_Values.Look(ref endingE04, "endingE04", true);
-            Scribe_Values.Look(ref endingE05, "endingE05", true);
             Scribe_Values.Look(ref plagueEnabled, "plagueEnabled", true);
             Scribe_Values.Look(ref plagueSpreadChancePerCarrier, "plagueSpreadChancePerCarrier", 0.005f);
             Scribe_Values.Look(ref plagueSpreadChanceCap, "plagueSpreadChanceCap", 0.30f);
@@ -455,7 +394,6 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref weightIntel, "weightIntel", 0.12f);
             Scribe_Values.Look(ref weightSeason, "weightSeason", 1.1f);
             Scribe_Values.Look(ref weightPlague, "weightPlague", 0.5f);
-            Scribe_Values.Look(ref endingIdentity, "endingIdentity", true);
             Scribe_Values.Look(ref requestMinSimple, "requestMinSimple", 6);
             Scribe_Values.Look(ref requestMaxSimple, "requestMaxSimple", 28);
             Scribe_Values.Look(ref requestMinFine, "requestMinFine", 4);
@@ -471,7 +409,6 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref foodPerChild, "foodPerChild", 10);
             Scribe_Values.Look(ref foodPerVisitor, "foodPerVisitor", 1);
             Scribe_Values.Look(ref maxFoodRequest, "maxFoodRequest", 12);
-            Scribe_Values.Look(ref envoyMealCost, "envoyMealCost", 6);
             Scribe_Values.Look(ref campMinAdults, "campMinAdults", 2);
             Scribe_Values.Look(ref campMaxAdults, "campMaxAdults", 4);
             Scribe_Values.Look(ref campMinChildren, "campMinChildren", 8);
@@ -479,10 +416,6 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref campGoodwill, "campGoodwill", 12);
             Scribe_Values.Look(ref campDays, "campDays", 15);
             Scribe_Values.Look(ref campHuts, "campHuts", 4);
-            Scribe_Values.Look(ref holeWoodCost, "holeWoodCost", 20);
-            Scribe_Values.Look(ref holeCleanPortions, "holeCleanPortions", 5);
-            Scribe_Values.Look(ref holeLossRange, "holeLossRange", 12);
-            Scribe_Values.Look(ref holeMaxLosses, "holeMaxLosses", 3);
             Scribe_Values.Look(ref apparelAwfulPercent, "apparelAwfulPercent", 35);
             Scribe_Values.Look(ref apparelPoorPercent, "apparelPoorPercent", 50);
             Scribe_Values.Look(ref apparelMinDurabilityPercent, "apparelMinDurabilityPercent", 10);
@@ -524,11 +457,6 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref followLongReturnYears, "followLongReturnYears", 2);
             Scribe_Values.Look(ref followAdultAge, "followAdultAge", 14f);
             Scribe_Values.Look(ref followMoodScalePercent, "followMoodScalePercent", 100);
-            Scribe_Values.Look(ref endingTrustFloor, "endingTrustFloor", 50);
-            Scribe_Values.Look(ref endingHopeTrust, "endingHopeTrust", 75);
-            Scribe_Values.Look(ref endingHaltTrust, "endingHaltTrust", -75);
-            Scribe_Values.Look(ref endingLowKinds, "endingLowKinds", 6);
-            Scribe_Values.Look(ref endingThreatDays, "endingThreatDays", 13f);
             Scribe_Values.Look(ref trustKill, "trustKill", -10);
             Scribe_Values.Look(ref trustCaptive, "trustCaptive", -5);
             Scribe_Values.Look(ref trustEntrustGood, "trustEntrustGood", 5);
@@ -537,36 +465,12 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref trustEntrustRegret, "trustEntrustRegret", -3);
             Scribe_Values.Look(ref trustEntrustBanished, "trustEntrustBanished", -1);
             Scribe_Values.Look(ref trustExchange, "trustExchange", 3);
-            Scribe_Values.Look(ref trustHoleOpen, "trustHoleOpen", 1);
-            Scribe_Values.Look(ref trustHoleIgnore, "trustHoleIgnore", -1);
-            Scribe_Values.Look(ref trustHoleBait, "trustHoleBait", 3);
-            Scribe_Values.Look(ref trustEnvoyFail, "trustEnvoyFail", -2);
-            Scribe_Values.Look(ref trustRelicFail, "trustRelicFail", -2);
             Scribe_Values.Look(ref trustHold, "trustHold", -1);
             Scribe_Values.Look(ref trustDeliver, "trustDeliver", 1);
             Scribe_Values.Look(ref trustLeave, "trustLeave", 1);
             Scribe_Values.Look(ref trustExpel, "trustExpel", -1);
-            Scribe_Values.Look(ref narrativeRewardSilver, "narrativeRewardSilver", 300);
-            Scribe_Values.Look(ref narrativeRescueCost, "narrativeRescueCost", 250);
-            Scribe_Values.Look(ref narrativeRescueReward, "narrativeRescueReward", 2500);
-            Scribe_Values.Look(ref narrativeRelicTake, "narrativeRelicTake", 200);
-            Scribe_Values.Look(ref narrativeRelicHand, "narrativeRelicHand", 100);
-            Scribe_Values.Look(ref narrativeTrustBonusPercent, "narrativeTrustBonusPercent", 25);
             Scribe_Values.Look(ref narrativeMissingDays, "narrativeMissingDays", 1);
             Scribe_Values.Look(ref narrativeObserveDays, "narrativeObserveDays", 30);
-            Scribe_Values.Look(ref narrativeHoleIgnoreDays, "narrativeHoleIgnoreDays", 3);
-            Scribe_Values.Look(ref narrativeEnvoyWaitDays, "narrativeEnvoyWaitDays", 3);
-            Scribe_Values.Look(ref narrativeEnvoyCheckDays, "narrativeEnvoyCheckDays", 1);
-            Scribe_Values.Look(ref narrativeRelicDays, "narrativeRelicDays", 15);
-            Scribe_Values.Look(ref narrativeRevisitYears, "narrativeRevisitYears", 4);
-            Scribe_Values.Look(ref narrativeAsideCooldownDays, "narrativeAsideCooldownDays", 3);
-            Scribe_Values.Look(ref narrativeAsideCutoff, "narrativeAsideCutoff", -75);
-            Scribe_Values.Look(ref narrativeAdultYears, "narrativeAdultYears", 18);
-            Scribe_Values.Look(ref narrativeTheftKinds, "narrativeTheftKinds", 2);
-            Scribe_Values.Look(ref narrativeProgressKinds, "narrativeProgressKinds", 3);
-            Scribe_Values.Look(ref narrativeRewardKinds, "narrativeRewardKinds", 8);
-            Scribe_Values.Look(ref narrativeEnvoyKinds, "narrativeEnvoyKinds", 5);
-            Scribe_Values.Look(ref narrativeRelicKinds, "narrativeRelicKinds", 8);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 xenotypeWeights = xenotypeWeights ?? new Dictionary<string, float>();
@@ -596,7 +500,6 @@ namespace HungerAndHavoc.Core
                 negativeIncidentPace = HungerAndHavoc.Incidents.RHAH_IncidentPace.Normalize(negativeIncidentPace);
                 frequencyWindowDays = HungerAndHavoc.Incidents.RHAH_IncidentSchedule.ClampWindowDays(frequencyWindowDays);
                 ClampVisitorRules();
-                ClampIdentityThresholds();
                 ClampTunables();
                 refugeePredationChancePercent = HungerAndHavoc.Incidents.RHAH_PredationRules.ClampChance(refugeePredationChancePercent);
                 ClampPlagueRules();
@@ -1500,35 +1403,6 @@ namespace HungerAndHavoc.Core
         }
 
 
-        internal void CopyNarrative(HungerAndHavoc.Storyteller.Suiyin.SuiyinConfig config)
-        {
-            if (config == null)
-            {
-                return;
-            }
-
-            config.ProgressKinds = narrativeProgressKinds;
-            config.RewardKinds = narrativeRewardKinds;
-            config.EnvoyKinds = narrativeEnvoyKinds;
-            config.RelicKinds = narrativeRelicKinds;
-            config.TheftKinds = narrativeTheftKinds;
-            config.RewardSilver = narrativeRewardSilver;
-            config.RescueCost = narrativeRescueCost;
-            config.RescueReward = narrativeRescueReward;
-            config.RelicTakeSilver = narrativeRelicTake;
-            config.RelicHandSilver = narrativeRelicHand;
-            config.MissingDays = narrativeMissingDays;
-            config.ObserveDays = narrativeObserveDays;
-            config.HoleIgnoreDays = narrativeHoleIgnoreDays;
-            config.EnvoyWaitDays = narrativeEnvoyWaitDays;
-            config.EnvoyCheckDays = narrativeEnvoyCheckDays;
-            config.RelicDays = narrativeRelicDays;
-            config.RevisitYears = narrativeRevisitYears;
-            config.AsideCooldownDays = narrativeAsideCooldownDays;
-            config.TrustAsideCutoff = narrativeAsideCutoff;
-            config.AdultYears = narrativeAdultYears;
-            config.TrustBonusPercent = narrativeTrustBonusPercent;
-        }
 
         internal HungerAndHavoc.Incidents.RHAH_WeightFactors WeightFactors()
         {
@@ -1615,11 +1489,6 @@ namespace HungerAndHavoc.Core
             return value > 5f ? 5f : value;
         }
 
-        void ClampIdentityThresholds()
-        {
-            endingTrustFloor = ClampSigned(endingTrustFloor, -100, 100);
-            endingHopeTrust = ClampSigned(endingHopeTrust, endingTrustFloor, 100);
-        }
 
         void ClampTunables()
         {
@@ -1640,16 +1509,11 @@ namespace HungerAndHavoc.Core
             foodPerChild = ClampSigned(foodPerChild, 0, 100);
             foodPerVisitor = ClampSigned(foodPerVisitor, 0, 20);
             maxFoodRequest = ClampSigned(maxFoodRequest, 0, 100);
-            envoyMealCost = ClampSigned(envoyMealCost, 0, 100);
             Order(ref campMinAdults, ref campMaxAdults, 0, 40, 2, 4);
             Order(ref campMinChildren, ref campMaxChildren, 0, 80, 8, 16);
             campGoodwill = ClampSigned(campGoodwill, -100, 100);
             campDays = ClampSigned(campDays, 1, 120);
             campHuts = ClampSigned(campHuts, 0, 12);
-            holeWoodCost = ClampSigned(holeWoodCost, 0, 200);
-            holeCleanPortions = ClampSigned(holeCleanPortions, 0, 50);
-            holeLossRange = ClampSigned(holeLossRange, 1, 60);
-            holeMaxLosses = ClampSigned(holeMaxLosses, 0, 20);
             apparelAwfulPercent = ClampSigned(apparelAwfulPercent, 0, 100);
             apparelPoorPercent = ClampSigned(apparelPoorPercent, 0, 100 - apparelAwfulPercent);
             Order(ref apparelMinDurabilityPercent, ref apparelMaxDurabilityPercent, 1, 100, 10, 60);
@@ -1697,36 +1561,12 @@ namespace HungerAndHavoc.Core
             trustEntrustRegret = ClampSigned(trustEntrustRegret, -100, 100);
             trustEntrustBanished = ClampSigned(trustEntrustBanished, -100, 100);
             trustExchange = ClampSigned(trustExchange, -100, 100);
-            trustHoleOpen = ClampSigned(trustHoleOpen, -100, 100);
-            trustHoleIgnore = ClampSigned(trustHoleIgnore, -100, 100);
-            trustHoleBait = ClampSigned(trustHoleBait, -100, 100);
-            trustEnvoyFail = ClampSigned(trustEnvoyFail, -100, 100);
-            trustRelicFail = ClampSigned(trustRelicFail, -100, 100);
             trustHold = ClampSigned(trustHold, -100, 100);
             trustDeliver = ClampSigned(trustDeliver, -100, 100);
             trustLeave = ClampSigned(trustLeave, -100, 100);
             trustExpel = ClampSigned(trustExpel, -100, 100);
-            narrativeRewardSilver = ClampSigned(narrativeRewardSilver, 0, 10000);
-            narrativeRescueCost = ClampSigned(narrativeRescueCost, 0, 10000);
-            narrativeRescueReward = ClampSigned(narrativeRescueReward, 0, 20000);
-            narrativeRelicTake = ClampSigned(narrativeRelicTake, 0, 10000);
-            narrativeRelicHand = ClampSigned(narrativeRelicHand, 0, 10000);
-            narrativeTrustBonusPercent = ClampSigned(narrativeTrustBonusPercent, 0, 100);
             narrativeMissingDays = ClampSigned(narrativeMissingDays, 0, 60);
             narrativeObserveDays = ClampSigned(narrativeObserveDays, 0, 120);
-            narrativeHoleIgnoreDays = ClampSigned(narrativeHoleIgnoreDays, 0, 30);
-            narrativeEnvoyWaitDays = ClampSigned(narrativeEnvoyWaitDays, 0, 30);
-            narrativeEnvoyCheckDays = ClampSigned(narrativeEnvoyCheckDays, 0, 30);
-            narrativeRelicDays = ClampSigned(narrativeRelicDays, 0, 120);
-            narrativeRevisitYears = ClampSigned(narrativeRevisitYears, 0, 20);
-            narrativeAsideCooldownDays = ClampSigned(narrativeAsideCooldownDays, 0, 30);
-            narrativeAsideCutoff = ClampSigned(narrativeAsideCutoff, -100, 0);
-            narrativeAdultYears = ClampSigned(narrativeAdultYears, 1, 80);
-            narrativeTheftKinds = ClampSigned(narrativeTheftKinds, 1, 14);
-            narrativeProgressKinds = ClampSigned(narrativeProgressKinds, 1, 14);
-            narrativeRewardKinds = ClampSigned(narrativeRewardKinds, 1, 14);
-            narrativeEnvoyKinds = ClampSigned(narrativeEnvoyKinds, 1, 14);
-            narrativeRelicKinds = ClampSigned(narrativeRelicKinds, 1, 14);
         }
 
         static int ClampSigned(int value, int min, int max)

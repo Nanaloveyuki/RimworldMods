@@ -68,12 +68,8 @@ namespace HungerAndHavoc.Core
                 Pawn.RHAH_AttitudeFactions.LockGoodwill();
             }
 
-            HungerAndHavoc.Storyteller.Suiyin.RHAH_EndingRuntime.Tick(tick);
             HungerAndHavoc.Storyteller.Suiyin.RHAH_EntrustCare.Tick(tick);
-            HungerAndHavoc.Storyteller.Suiyin.RHAH_Revisit.Tick(tick);
             HungerAndHavoc.Storyteller.Suiyin.RHAH_JournalRuntime.Tick(tick);
-            HungerAndHavoc.Storyteller.Suiyin.RHAH_Envoy.Tick(tick);
-            HungerAndHavoc.Storyteller.Suiyin.RHAH_RecordSite.Tick(tick);
         }
 
         public override void GameComponentUpdate()
@@ -511,7 +507,6 @@ namespace HungerAndHavoc.Core
         }
         internal void DisableNewContent()
         {
-            Current.Game?.GetComponent<HungerAndHavoc.Narrative.NarrativeState>()?.Kingdom.Disable();
             newContentDisabled = true;
             OxygenEventChainHost.Runtime?.SetMode(RHAH_EventChainProvider.ProviderKey, EventChainMode.Disabled,
                 Find.TickManager == null ? 0 : Find.TickManager.TicksGame, "Current save new content disabled");
@@ -629,7 +624,6 @@ namespace HungerAndHavoc.Core
         int predationPendingTick = -1;
         int predationArrivalInstanceId;
         int predationNextTick = -1;
-        int holeThingId;
 
         public IReadOnlyList<int> VisitorPawnLoadIds => visitorPawnLoadIds;
         public int PlagueLastSpreadDay { get => plagueLastSpreadDay; set => plagueLastSpreadDay = value; }
@@ -638,7 +632,6 @@ namespace HungerAndHavoc.Core
         internal int LegacyPredationPendingTick { get => predationPendingTick; set => predationPendingTick = value; }
         internal int PredationArrivalInstanceId { get => predationArrivalInstanceId; set => predationArrivalInstanceId = value; }
         public int PredationNextTick { get => predationNextTick; set => predationNextTick = value; }
-        public int HoleThingId { get => holeThingId; set => holeThingId = value; }
         public List<Verse.Pawn> PredationPrey => predationPrey;
         public List<HungerAndHavoc.Incidents.RHAH_PredatorRecord> Predators => predators;
         public MapComponent_RHAH_Map(Map map) : base(map)
@@ -773,10 +766,6 @@ namespace HungerAndHavoc.Core
                 HungerAndHavoc.Incidents.RHAH_CampPredation.TickSite(this, map, camp || predationPrey.Count > 0);
             }
 
-            if (tick % (GenDate.TicksPerHour * 2) == map.uniqueID % (GenDate.TicksPerHour * 2))
-            {
-                HungerAndHavoc.Incidents.RHAH_GrainHole.Tick(map);
-            }
         }
 
 
@@ -798,7 +787,6 @@ namespace HungerAndHavoc.Core
 
             Scribe_Values.Look(ref predationArrivalInstanceId, "predationArrivalInstanceId", 0);
             Scribe_Values.Look(ref predationNextTick, "predationNextTick", -1);
-            Scribe_Values.Look(ref holeThingId, "holeThingId", 0);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 visitorPawnLoadIds = visitorPawnLoadIds ?? new List<int>();

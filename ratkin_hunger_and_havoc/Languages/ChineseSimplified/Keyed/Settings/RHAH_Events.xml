@@ -142,12 +142,4 @@
   <RHAH_Settings_CampDays_Tooltip>安居点任务持续的天数。1 到 120，默认 15。</RHAH_Settings_CampDays_Tooltip>
   <RHAH_Settings_CampHuts>棚屋：{0}</RHAH_Settings_CampHuts>
   <RHAH_Settings_CampHuts_Tooltip>安居点生成的棚屋数。0 到 12，默认 4。</RHAH_Settings_CampHuts_Tooltip>
-  <RHAH_Settings_HoleWood>封洞木材：{0}</RHAH_Settings_HoleWood>
-  <RHAH_Settings_HoleWood_Tooltip>封上粮洞需要的木材。0 到 200，默认 20。</RHAH_Settings_HoleWood_Tooltip>
-  <RHAH_Settings_HoleClean>清洞食物：{0}</RHAH_Settings_HoleClean>
-  <RHAH_Settings_HoleClean_Tooltip>清理粮洞时毁掉的食物份数。范围 0 到 50，默认 5。</RHAH_Settings_HoleClean_Tooltip>
-  <RHAH_Settings_HoleRange>粮洞范围：{0}</RHAH_Settings_HoleRange>
-  <RHAH_Settings_HoleRange_Tooltip>粮洞周围可被偷吃食物的范围，以格数计。范围 1 到 60 格，默认 12 格。</RHAH_Settings_HoleRange_Tooltip>
-  <RHAH_Settings_HoleLosses>粮洞损失：{0}</RHAH_Settings_HoleLosses>
-  <RHAH_Settings_HoleLosses_Tooltip>粮洞未经处理时，最多造成的食物损失次数。范围 0 到 20 次，默认 3 次。</RHAH_Settings_HoleLosses_Tooltip>
 </LanguageData>

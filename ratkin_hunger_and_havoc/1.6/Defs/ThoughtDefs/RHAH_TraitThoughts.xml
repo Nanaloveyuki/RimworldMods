@@ -299,62 +299,6 @@
       </li>
     </stages>
   </ThoughtDef>
-  <ThoughtDef>
-    <defName>RHAH_Thought_LeftAlone</defName>
-    <thoughtClass>Thought_Memory</thoughtClass>
-    <durationDays>1</durationDays>
-    <stackLimit>1</stackLimit>
-    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
-    <stages>
-      <li>
-        <label>独自留下</label>
-        <description>篮子已经不在。今天没有人回来接我。</description>
-        <baseMoodEffect>-2</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
-  <ThoughtDef>
-    <defName>RHAH_Thought_CaptiveYear</defName>
-    <thoughtClass>Thought_Memory</thoughtClass>
-    <durationDays>60</durationDays>
-    <stackLimit>1</stackLimit>
-    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
-    <stages>
-      <li>
-        <label>关了一年</label>
-        <description>我被关了一年，每次有人过来，都盼着那扇门能为我打开。</description>
-        <baseMoodEffect>-2</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
-  <ThoughtDef>
-    <defName>RHAH_Thought_FamilyHere</defName>
-    <thoughtClass>Thought_Memory</thoughtClass>
-    <durationDays>1</durationDays>
-    <stackLimit>1</stackLimit>
-    <developmentalStageFilter>Adult</developmentalStageFilter>
-    <stages>
-      <li>
-        <label>孩子还在身边</label>
-        <description>我的孩子还在身边。我能看着孩子一天天长大。</description>
-        <baseMoodEffect>1</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
-  <ThoughtDef>
-    <defName>RHAH_Thought_Regret</defName>
-    <thoughtClass>Thought_Memory</thoughtClass>
-    <durationDays>15</durationDays>
-    <stackLimit>1</stackLimit>
-    <developmentalStageFilter>Adult</developmentalStageFilter>
-    <stages>
-      <li>
-        <label>后悔没能救下孩子</label>
-        <description>我的孩子死了。我总在想，那天要是能多做些什么就好了。</description>
-        <baseMoodEffect>-12</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
 
   <ThoughtDef>
     <defName>RHAH_Thought_BeggingSucceeded</defName>

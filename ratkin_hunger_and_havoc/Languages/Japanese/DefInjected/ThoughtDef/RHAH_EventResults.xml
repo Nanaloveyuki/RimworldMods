@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <RHAH_Thought_LeftAlone.stages.0.label>一人取り残された</RHAH_Thought_LeftAlone.stages.0.label>
-  <RHAH_Thought_LeftAlone.stages.0.description>かごはもうない。今日は誰も迎えに来てくれなかった。</RHAH_Thought_LeftAlone.stages.0.description>
-  <RHAH_Thought_CaptiveYear.stages.0.label>閉じ込められて一年</RHAH_Thought_CaptiveYear.stages.0.label>
-  <RHAH_Thought_CaptiveYear.stages.0.description>一年も閉じ込められている。人が来るたびに、扉を開けてくれないかと期待する。</RHAH_Thought_CaptiveYear.stages.0.description>
-  <RHAH_Thought_FamilyHere.stages.0.label>子はまだそばにいる</RHAH_Thought_FamilyHere.stages.0.label>
-  <RHAH_Thought_FamilyHere.stages.0.description>私の子はまだそばにいる。日々大きくなる姿を見ていられる。</RHAH_Thought_FamilyHere.stages.0.description>
-  <RHAH_Thought_Regret.stages.0.label>子を救えなかった後悔</RHAH_Thought_Regret.stages.0.label>
-  <RHAH_Thought_Regret.stages.0.description>私の子が死んだ。あの日、もっと何かできていたらと考えてしまう。</RHAH_Thought_Regret.stages.0.description>
   <RHAH_Thought_MotherGoneBad.stages.0.description>母は私をここに置いていった。その場所を今も覚えている。</RHAH_Thought_MotherGoneBad.stages.0.description>
   <RHAH_Thought_MotherGoneBad.stages.0.label>ママがここに置いて、いなくなった</RHAH_Thought_MotherGoneBad.stages.0.label>
   <RHAH_Thought_MotherGoneGood.stages.0.description>母が去った後、ここの人がごはんをくれた。やっとお腹いっぱい食べられた。</RHAH_Thought_MotherGoneGood.stages.0.description>

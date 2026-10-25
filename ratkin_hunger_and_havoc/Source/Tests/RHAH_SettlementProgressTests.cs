@@ -30,7 +30,6 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(60000, child.CareTicks);
             Assert.False(book.Journals[0].Closed);
             Assert.False(book.N005[0].CareClosed);
-            Assert.Empty(book.Pending);
         }
 
         [Fact]

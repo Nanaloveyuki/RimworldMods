@@ -1,73 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <RHAH_Settings_ForceSuiyinNarrative>Force Suiyin narrative (current save)</RHAH_Settings_ForceSuiyinNarrative>
-  <RHAH_Settings_ForceSuiyinNarrative_Tooltip>Suiyin's narrative is hidden and paused by default in 1.7. Enable this to resume existing storylines, allow new storylines and Suiyin letters, and show narrative controls for this save. Disabling pauses them again and preserves progress. Trust changes and their effect on raid probability remain active.</RHAH_Settings_ForceSuiyinNarrative_Tooltip>
-  <RHAH_Settings_Kingdom_Summary>K1–K5 cover Suiyin's background and your first collaboration. Later chapters are unfinished. The kingdom arc starts only when you open it here; select Suiyin as storyteller before starting.</RHAH_Settings_Kingdom_Summary>
-  <RHAH_Settings_Kingdom_Start>Start the kingdom arc</RHAH_Settings_Kingdom_Start>
-  <RHAH_Settings_Kingdom_Continue>Continue the kingdom arc</RHAH_Settings_Kingdom_Continue>
-  <RHAH_Settings_Kingdom_Read>Reread Suiyin's letters</RHAH_Settings_Kingdom_Read>
-  <RHAH_Settings_Kingdom_NoGame>Load a game to start the kingdom arc manually.</RHAH_Settings_Kingdom_NoGame>
-  <RHAH_Settings_Kingdom_RequiresSuiyin>Select Suiyin as storyteller to start the kingdom arc or receive her new commissions.</RHAH_Settings_Kingdom_RequiresSuiyin>
-  <RHAH_Settings_Kingdom_Disabled>New Hunger and Havoc content is disabled. The kingdom arc is paused.</RHAH_Settings_Kingdom_Disabled>
-  <RHAH_Settings_Kingdom_Unavailable>The kingdom arc cannot open right now. Check the game log.</RHAH_Settings_Kingdom_Unavailable>
   <RHAH_Settings_BroadcastCooldown>Broadcast cooldown: {0} days</RHAH_Settings_BroadcastCooldown>
   <RHAH_Settings_BroadcastCooldown_Tooltip>Days to wait after one broadcast before another. 0 to 10 days, default 3.</RHAH_Settings_BroadcastCooldown_Tooltip>
-  <RHAH_Menu_Narrative>Narrative</RHAH_Menu_Narrative>
-  <RHAH_Menu_Narrative_NoGame>Narrative state needs a loaded game.</RHAH_Menu_Narrative_NoGame>
-  <RHAH_Menu_Narrative_Revealed>Revealed</RHAH_Menu_Narrative_Revealed>
-  <RHAH_Menu_Narrative_Trust>Trust</RHAH_Menu_Narrative_Trust>
-  <RHAH_Menu_Narrative_Rescued>Rescued</RHAH_Menu_Narrative_Rescued>
-  <RHAH_Menu_Narrative_Lost>Lost</RHAH_Menu_Narrative_Lost>
-  <RHAH_Menu_Narrative_Failed>Failed</RHAH_Menu_Narrative_Failed>
-  <RHAH_Menu_Narrative_Outcome>Outcome</RHAH_Menu_Narrative_Outcome>
-  <RHAH_Menu_Outcome_Unresolved>Unresolved</RHAH_Menu_Outcome_Unresolved>
-  <RHAH_Menu_Outcome_Rescue>Rescue</RHAH_Menu_Outcome_Rescue>
-  <RHAH_Menu_Outcome_Loss>Loss</RHAH_Menu_Outcome_Loss>
-  <RHAH_Menu_Outcome_Exposure>Exposure</RHAH_Menu_Outcome_Exposure>
-  <RHAH_Menu_Outcome_Failure>Failure</RHAH_Menu_Outcome_Failure>
-  <RHAH_Menu_Outcome_Massacre>Massacre</RHAH_Menu_Outcome_Massacre>
+  <RHAH_Menu_SuiyinTrust>Suiyin trust</RHAH_Menu_SuiyinTrust>
+  <RHAH_Menu_SuiyinTrust_Summary>Suiyin's trust reflects how you treat famine ratkin. While she is the storyteller, trust can affect raid probability at your colonies. Ordinary incidents and their long follow-ups remain available.</RHAH_Menu_SuiyinTrust_Summary>
+  <RHAH_Menu_SuiyinTrust_NoGame>Load a game to view current trust.</RHAH_Menu_SuiyinTrust_NoGame>
+  <RHAH_Menu_SuiyinTrust_Current>Current trust</RHAH_Menu_SuiyinTrust_Current>
+  <RHAH_Menu_SuiyinTrust_CurrentValue>Current trust: {0}</RHAH_Menu_SuiyinTrust_CurrentValue>
+  <RHAH_Menu_SuiyinTrust_Active>Current storyteller records trust</RHAH_Menu_SuiyinTrust_Active>
+  <RHAH_Menu_SuiyinTrust_Compatibility17>1.7 keeps this save's existing trust effects. By default, trust does not alter visitor attitudes or this mod's incident frequency, and entrusted-family and exchanged-child care do not award additional trust. Older saves that already enabled these effects keep them.</RHAH_Menu_SuiyinTrust_Compatibility17>
+  <RHAH_Menu_SuiyinTrust_Deltas>Trust changes</RHAH_Menu_SuiyinTrust_Deltas>
+  <RHAH_Menu_SuiyinTrust_Observation>Settlement observation</RHAH_Menu_SuiyinTrust_Observation>
+  <RHAH_Settings_TrustMissingDays>Missing days: {0}</RHAH_Settings_TrustMissingDays>
+  <RHAH_Settings_TrustMissingDays_Tooltip>A visitor is considered missing after this many days with unknown whereabouts. Range 0 to 60 days, default 1 day.</RHAH_Settings_TrustMissingDays_Tooltip>
+  <RHAH_Settings_TrustObserveDays>Observation days: {0}</RHAH_Settings_TrustObserveDays>
+  <RHAH_Settings_TrustObserveDays_Tooltip>The deadline for clarifying ordinary relief visitors' whereabouts, and the observation window for entrusted children to reach the child stage. Relief visitors who are still present can continue accumulating time alive. Range 0 to 120 days, default 30 days.</RHAH_Settings_TrustObserveDays_Tooltip>
   <RHAH_Settings_Broadcast>Allow hope broadcasts</RHAH_Settings_Broadcast>
   <RHAH_Settings_Broadcast_Tooltip>Colonists can broadcast from a comms console to call famine ratkin here. Normally one group responds; during famine years, broadcasts try to call more distinct groups, using the visitor multiplier rounded up. Incident settings, appearance limits and the cooldown below still apply. Disabling this option stops new broadcasts. Groups already traveling keep coming.</RHAH_Settings_Broadcast_Tooltip>
-  <RHAH_Settings_IdentityPartialTrust>Partial identity disclosure trust: {0}</RHAH_Settings_IdentityPartialTrust>
-  <RHAH_Settings_IdentityPartialTrust_Tooltip>Minimum trust for Suiyin to describe palace life. The relic event must be complete. Range -100 to 100, default 50.</RHAH_Settings_IdentityPartialTrust_Tooltip>
-  <RHAH_Settings_IdentityFullTrust>Full identity disclosure trust: {0}</RHAH_Settings_IdentityFullTrust>
-  <RHAH_Settings_IdentityFullTrust_Tooltip>Minimum trust for Suiyin to reveal that she is a princess. At least the partial disclosure threshold and at most 100. Default 75.</RHAH_Settings_IdentityFullTrust_Tooltip>
-  <RHAH_Menu_Narrative_TrustDeltas>Trust changes</RHAH_Menu_Narrative_TrustDeltas>
-  <RHAH_Settings_NarrativeKinds_Tooltip>Suiyin sends this letter after you have experienced at least this many kinds of incidents. Range 1 to 14.</RHAH_Settings_NarrativeKinds_Tooltip>
-  <RHAH_Settings_NarrativeTheft>Grain-hole thefts: {0}</RHAH_Settings_NarrativeTheft>
-  <RHAH_Settings_NarrativeTheft_Tooltip>A grain hole can appear after this many thefts at one colony. Range 1 to 14 thefts, default 2.</RHAH_Settings_NarrativeTheft_Tooltip>
-  <RHAH_Settings_NarrativeSilver>Record silver: {0}</RHAH_Settings_NarrativeSilver>
-  <RHAH_Settings_NarrativeSilver_Tooltip>Base amount of silver Suiyin sends with the record letter. If her trust in you is above 0, she adds more silver in proportion to her trust. Range 0 to 10000, default 300.</RHAH_Settings_NarrativeSilver_Tooltip>
-  <RHAH_Settings_NarrativeBonus>Trust bonus: {0}%</RHAH_Settings_NarrativeBonus>
-  <RHAH_Settings_NarrativeBonus_Tooltip>At trust 100, Suiyin adds this percentage of the base silver amount. Between trust 0 and 100, the bonus is reduced proportionally. Range 0 to 100%, default 25%.</RHAH_Settings_NarrativeBonus_Tooltip>
-  <RHAH_Settings_NarrativeRescue>Ransom silver: {0}</RHAH_Settings_NarrativeRescue>
-  <RHAH_Settings_NarrativeRescue_Tooltip>Silver paid to keep the banished mother or child. 0 to 10000, default 250.</RHAH_Settings_NarrativeRescue_Tooltip>
-  <RHAH_Settings_NarrativeRescueReward>Return silver: {0}</RHAH_Settings_NarrativeRescueReward>
-  <RHAH_Settings_NarrativeRescueReward_Tooltip>Silver dropped later after the ransom is paid. 0 to 20000, default 2500.</RHAH_Settings_NarrativeRescueReward_Tooltip>
-  <RHAH_Settings_NarrativeTake>Take the record: {0}</RHAH_Settings_NarrativeTake>
-  <RHAH_Settings_NarrativeTake_Tooltip>Silver gained by taking the migration record. 0 to 10000, default 200.</RHAH_Settings_NarrativeTake_Tooltip>
-  <RHAH_Settings_NarrativeHand>Hand over the record: {0}</RHAH_Settings_NarrativeHand>
-  <RHAH_Settings_NarrativeHand_Tooltip>Silver gained by handing the migration record over. 0 to 10000, default 100.</RHAH_Settings_NarrativeHand_Tooltip>
-  <RHAH_Settings_NarrativeMissing>Missing days: {0}</RHAH_Settings_NarrativeMissing>
-  <RHAH_Settings_NarrativeMissing_Tooltip>Suiyin considers a visitor missing after this many days without knowing their whereabouts. Range 0 to 60 days, default 1 day.</RHAH_Settings_NarrativeMissing_Tooltip>
-  <RHAH_Settings_NarrativeObserve>Watch days: {0}</RHAH_Settings_NarrativeObserve>
-  <RHAH_Settings_NarrativeObserve_Tooltip>The deadline for clarifying ordinary relief visitors' whereabouts, and the observation window for entrusted children to reach the child stage. Relief visitors who are still present can continue accumulating time alive. Range 0 to 120 days, default 30 days.</RHAH_Settings_NarrativeObserve_Tooltip>
-  <RHAH_Settings_NarrativeHole>Grain hole disappears after: {0} days</RHAH_Settings_NarrativeHole>
-  <RHAH_Settings_NarrativeHole_Tooltip>If you leave a grain hole alone, it disappears after this many days and the trail is lost. Range 0 to 30 days, default 3 days.</RHAH_Settings_NarrativeHole_Tooltip>
-  <RHAH_Settings_NarrativeEnvoyWait>Envoy wait: {0} days</RHAH_Settings_NarrativeEnvoyWait>
-  <RHAH_Settings_NarrativeEnvoyWait_Tooltip>The envoy waits up to this many days. If you leave the request unanswered, he leaves. Range 0 to 30 days, default 3 days.</RHAH_Settings_NarrativeEnvoyWait_Tooltip>
-  <RHAH_Settings_NarrativeEnvoyCheck>Envoy check: {0} days</RHAH_Settings_NarrativeEnvoyCheck>
-  <RHAH_Settings_NarrativeEnvoyCheck_Tooltip>After you agree to check the envoy's account, he waits this many more days. Range 0 to 30 days, default 1 day.</RHAH_Settings_NarrativeEnvoyCheck_Tooltip>
-  <RHAH_Settings_NarrativeRelicDays>Record site: {0} days</RHAH_Settings_NarrativeRelicDays>
-  <RHAH_Settings_NarrativeRelicDays_Tooltip>The migration record site remains available for this many days, then disappears from the world map. Range 0 to 120 days, default 15 days.</RHAH_Settings_NarrativeRelicDays_Tooltip>
-  <RHAH_Settings_NarrativeYears>Banishment visit: {0} years</RHAH_Settings_NarrativeYears>
-  <RHAH_Settings_NarrativeYears_Tooltip>After a mother or child is banished, a caravan may encounter them again within this many years. Range 0 to 20 years, default 4. A year is 60 days.</RHAH_Settings_NarrativeYears_Tooltip>
-  <RHAH_Settings_NarrativeAside>Aside gap: {0} days</RHAH_Settings_NarrativeAside>
-  <RHAH_Settings_NarrativeAside_Tooltip>Minimum interval between Suiyin's short notes. Range 0 to 30 days, default 3 days.</RHAH_Settings_NarrativeAside_Tooltip>
-  <RHAH_Settings_NarrativeCutoff>Asides stop: {0}</RHAH_Settings_NarrativeCutoff>
-  <RHAH_Settings_NarrativeCutoff_Tooltip>When Suiyin's trust falls to this value or lower, she stops sending short notes but still sends incident outcomes. Range -100 to 0, default -75.</RHAH_Settings_NarrativeCutoff_Tooltip>
-  <RHAH_Settings_NarrativeAdult>Envoy age: {0}</RHAH_Settings_NarrativeAdult>
-  <RHAH_Settings_NarrativeAdult_Tooltip>Age of the envoy Suiyin sends. Range 1 to 80 years, default 18.</RHAH_Settings_NarrativeAdult_Tooltip>
   <RHAH_Settings_TrustRange_Tooltip>Amount added to or subtracted from Suiyin's trust in you when this happens. Range -100 to 100; at 0, trust stays unchanged.</RHAH_Settings_TrustRange_Tooltip>
   <RHAH_Settings_TrustKill>Killed: {0}</RHAH_Settings_TrustKill>
   <RHAH_Settings_TrustCaptive>Captive: {0}</RHAH_Settings_TrustCaptive>
@@ -77,15 +26,8 @@
   <RHAH_Settings_TrustRegret>Regret: {0}</RHAH_Settings_TrustRegret>
   <RHAH_Settings_TrustBanished>Banished: {0}</RHAH_Settings_TrustBanished>
   <RHAH_Settings_TrustExchange>Exchange care: {0}</RHAH_Settings_TrustExchange>
-  <RHAH_Settings_TrustHoleOpen>Seal the hole: {0}</RHAH_Settings_TrustHoleOpen>
-  <RHAH_Settings_TrustHoleIgnore>Clear the hole: {0}</RHAH_Settings_TrustHoleIgnore>
-  <RHAH_Settings_TrustHoleBait>Trace the hole: {0}</RHAH_Settings_TrustHoleBait>
-  <RHAH_Settings_TrustEnvoy>Drive off the envoy: {0}</RHAH_Settings_TrustEnvoy>
-  <RHAH_Settings_TrustRelic>Destroy the record: {0}</RHAH_Settings_TrustRelic>
   <RHAH_Settings_TrustHold>Held: {0}</RHAH_Settings_TrustHold>
   <RHAH_Settings_TrustDeliver>Delivered: {0}</RHAH_Settings_TrustDeliver>
   <RHAH_Settings_TrustLeave>Left safely: {0}</RHAH_Settings_TrustLeave>
   <RHAH_Settings_TrustExpel>Expelled: {0}</RHAH_Settings_TrustExpel>
-  <RHAH_Settings_EnvoyMeals>Envoy meals: {0}</RHAH_Settings_EnvoyMeals>
-  <RHAH_Settings_EnvoyMeals_Tooltip>Simple meals required to trade with the envoy. 0 to 100, default 6.</RHAH_Settings_EnvoyMeals_Tooltip>
 </LanguageData>

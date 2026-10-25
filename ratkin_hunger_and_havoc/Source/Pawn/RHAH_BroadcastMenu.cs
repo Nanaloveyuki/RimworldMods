@@ -92,10 +92,6 @@ namespace HungerAndHavoc.Pawn
             if (queued > 0)
             {
                 game.BroadcastCooldownUntilTick = RHAH_BroadcastRules.NextCooldown(tick, settings.broadcastCooldownDays);
-                if (HungerAndHavoc.Storyteller.Suiyin.RHAH_EndingRuntime.CountsNow())
-                {
-                    Current.Game?.GetComponent<HungerAndHavoc.Narrative.NarrativeState>()?.NoteBroadcast(tick);
-                }
 
                 string key = famine ? "RHAH_Broadcast_FamineQueued" : "RHAH_Broadcast_Queued";
                 Messages.Message(key.Translate(queued), console, MessageTypeDefOf.NeutralEvent);

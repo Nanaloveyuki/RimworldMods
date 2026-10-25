@@ -96,7 +96,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | gnawSearchUntilTick | gnawSearchUntilTick | -1 | 否 | 啃食搜索失败后的冷却截止 tick。-1 表示没有冷却。旧档缺键按 -1 |
 
 计算属性不入档：`IsReleased`、`IsActiveVisitor`、`RoleLabelKey`。
-叙事临时留驻保存于 `extraData`：`rhah:envoyHold`、`rhah:longHold`，缺键表示不持有。值为两字符，依次记录 `LeaveAfterFed` 与 `ExitMap` 原覆盖：`u` 无覆盖、`t` true、`f` false。重叠持有复制首持有者原值，删除自身键后仅最后一个持有者恢复仍为 false 的覆盖；不覆写外部后来设置的 true。卸载随 `CompRHAH_Pawn` Remove。旧使者持有迁移见 `SuiyinN008Case.holdMigrated`；退休 `rhah:quarantineHold` 的读档解除见上方自动迁移。
+普通长后续留驻保存于 `extraData` 的 `rhah:longHold`；旧剧情的 `rhah:envoyHold` 在加载时解除。值为两字符，依次记录 `LeaveAfterFed` 与 `ExitMap` 原覆盖：`u` 无覆盖、`t` true、`f` false。重叠持有复制首持有者原值，仅最后一个持有者恢复仍为 false 的覆盖；不覆写外部后来设置的 true。缺少新持有键的旧使者只在旧案标记未迁移、来源明确为 N-008、两闸门仍为 false 且没有普通长链持有时解除。卸载随身份组件 Remove。
 
 
 ### LordJob_RHAH_Visitor
@@ -138,35 +138,9 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | choiceId | choiceId | 0 | 否 | 对应 `RHAH_ChoiceRecord.id` |
 | choice | choice | Visitors | 否 | `RHAH_ChoiceKind` |
 
-### ChoiceLetter_RHAH_GrainHole
+### 已移除的穗音剧情选择信
 
-类型名：`HungerAndHavoc.Incidents.ChoiceLetter_RHAH_GrainHole`。
-
-| 字段 | 存档键 | 默认值 | 集合 | 说明 |
-| --- | --- | --- | --- | --- |
-| mapId | mapId | 0 | 否 | 洞所在地图 |
-| followUp | followUp | false | 否 | false 是入口四选，true 是诱饵到期后的追踪或停止 |
-
-### ChoiceLetter_RHAH_Envoy
-
-类型名：`HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Envoy`。
-
-| 字段 | 存档键 | 默认值 | 集合 | 说明 |
-| --- | --- | --- | --- | --- |
-| mapId | mapId | 0 | 否 | 使者所在地图 |
-| pawnId | pawnId | 0 | 否 | 使者 thingID |
-
-### ChoiceLetter_RHAH_Revisit
-
-类型名：`HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Revisit`。
-
-| 字段 | 存档键 | 默认值 | 集合 | 说明 |
-| --- | --- | --- | --- | --- |
-| caseId | caseId | 0 | 否 | 对应 `SuiyinN004Case.id` |
-| pawnId | pawnId | 0 | 否 | 发信时固定的真实相遇者，点击不顺延替换母亲或孩子 |
-| meetingTile | meetingTile | PlanetTile.Invalid | 否 | 原相遇 Tile，含 layer；旧信无法可靠还原，显示失效并允许关闭，不扣费或扣信任 |
-| meetingMapId | meetingMapId | 0 | 否 | 原目标 MapHeld 的 uniqueID，0 表示不在地图 |
-| targetCaravanId | targetCaravanId | 0 | 否 | 原目标持有商队 ID，0 表示无商队 |
+`ChoiceLetter_RHAH_GrainHole`、`ChoiceLetter_RHAH_Envoy`、`ChoiceLetter_RHAH_Revisit` 与 `ChoiceLetter_RHAH_KingdomArc` 已不再提供运行时类型。加载时在 Verse 解析类型和 Def 前，从内存 XML 移除这些选择信、对应 Def 的信件及其引用。已归档为原版普通信的既有文字保留。加载不写回原存档。
 
 ### RHAH_ChoiceRecord
 
@@ -276,15 +250,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung | Job `driverClass`；无新增存档字段 | Remove，连同当前 Job 或排队 Job 清理 |
 | HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Request | Letter `letterClass` | Remove |
 | HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Visitors | Letter `letterClass` | Remove |
-| HungerAndHavoc.Incidents.ChoiceLetter_RHAH_GrainHole | Letter `letterClass` | Remove |
-| HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Envoy | Letter `letterClass` | Remove |
-| HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Revisit | Letter `letterClass` | Remove |
-| HungerAndHavoc.Storyteller.Suiyin.ChoiceLetter_RHAH_KingdomArc | Letter `letterClass`，键 `kingdomInstanceId` 默认 0，绑定发信时 ODF 实例 | Remove，随选择信删除 |
-| HungerAndHavoc.Storyteller.Suiyin.KingdomArcState | `NarrativeState.kingdomArc` 深存档 | Remove，随叙事组件删除 |
-| HungerAndHavoc.Storyteller.Suiyin.KingdomArcProgress, HungerAndHavoc.Storyteller.Suiyin.KingdomMaterialRecord | progress/materials 深存档 | Remove，随叙事组件删除 |
-| HungerAndHavoc.Storyteller.Suiyin.WorldObject_RHAH_KingdomSite | 世界物体 | Remove，人员与原版粮食背包保留 |
-| HungerAndHavoc.Storyteller.Suiyin.CaravanArrivalAction_RHAH_KingdomSite | 商队到达动作 | Remove |
-| HungerAndHavoc.Storyteller.Suiyin.Comp_RHAH_KingdomMaterial | 物品 Comp | Remove，随文书物品删除 |
+| 已移除的穗音剧情类型 | 旧剧情选择信、王国状态、世界地点、到达动作与文书 Comp | 不再实例化；加载时按精确类型和 Def 退休，见「穗音剧情退休迁移」 |
 | HungerAndHavoc.Pawn.ThinkNode_ConditionalRHAH_Visitor | ThinkTree XML `Class` | 不单独出现在 `.rws` |
 | HungerAndHavoc.Pawn.JobGiver_RHAH_* | Duty / ThinkTree XML `Class` | 不单独出现在 `.rws` |
 | HungerAndHavoc.Pawn.ThoughtWorker_RHAH_ClaySatiety, HungerAndHavoc.Pawn.ThoughtWorker_RHAH_FamineHunger | ThoughtDef `workerClass`，situational 无独立存档字段 | 不单独出现在 `.rws`；思想 Def 引用 Remove |
@@ -293,7 +259,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Trade.StockGenerator_RHAH_Food | TraderKindDef stockGenerators XML `Class` | 不单独出现在 `.rws` |
 | HungerAndHavoc.Pawn.Area_RHAH_Relief | AreaManager `areas` | Remove。卸载后区域节点消失，格子不迁到家区 |
 | HungerAndHavoc.Pawn.Hediff_RHAH_ClaySatiety | Hediff `Class` / `hediffClass` | Remove，随饱腹 Hediff 删除 |
-| HungerAndHavoc.Storyteller.Suiyin.Building_RHAH_RecordBox | Thing `Class` / `thingClass` | Remove。随旧箱子删除，不替换成原版建筑 |
+| 已移除的 Building_RHAH_RecordBox | 旧 Thing 类型 | 加载时随记录箱删除，不替换成原版建筑 |
 | HungerAndHavoc.Pawn.Comp_RHAH_Clay | ThingComp `Class` | Remove，随观音土物品删除 |
 | HungerAndHavoc.Pawn.CompProperties_RHAH_Clay | Def XML `Class` | 不单独出现在 `.rws` |
 | HungerAndHavoc.Generation.RHAH_GenerationExtension | ThingDef `modExtensions` XML `Class` | 不单独出现在 `.rws`。保留旧 XML 字段 `allowRefugeeApparel` 以便解析既有外部 Def，但不再参与默认准入；没有 `ratkinApparel` 字段或快照存储 |
@@ -380,7 +346,6 @@ Letter 与 Quest 的类型见上表。WorldObject `RHAH_RefugeeCamp`、`RHAH_App
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | legacy camp predation pending tick | predationPendingTick | Remove。默认 -1。只作加载迁移输入；失败时原样保存，成功或已有权威 ODF 分区时清空且不再保存 |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | predation arrival instance id | predationArrivalInstanceId | Remove。默认 0 表示无待到达实例；正数引用本 provider 的 ODF 到达实例，每图至多一个 |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | camp predation next tick | predationNextTick | Remove |
-| HungerAndHavoc.Core.MapComponent_RHAH_Map | grain hole thing id | holeThingId | Remove |
 | HungerAndHavoc.Core.GameComponent_RHAH_Game | legacy event chains | eventChains | Remove。旧档缺列表时为空，null 与空集合都是无旧链。只作加载迁移输入；失败时原样保存，成功后清空且不再保存 |
 | HungerAndHavoc.Core.GameComponent_RHAH_Game | legacy next event chain id | nextEventChainId | Remove。默认 1。迁移验证与已有 ID 的关系并保留有效分配游标，不重用 ID；只在失败时保存原值 |
 | HungerAndHavoc.Core.GameComponent_RHAH_Game | event chain migration status | eventChainMigrationStatus | Remove。默认空字符串；持久化迁移结果或失败原因。`failed:...` 保留旧输入且不运行旧引擎 |
@@ -401,88 +366,21 @@ ODF 是必需依赖，事件链存档由 `Oxygendsl.Mod.GameComponent_Oxygendsl`
 
 `newContentDisabled` 把本 provider 设为 Disabled，不删除实例或世界物体。导出先备份原当前状态，随后禁用本 provider；`RemoveProviderState` 只处理序列化副本，不清理正在运行的 ODF runtime。失败迁移的旧记录仍随 RHAH 游戏/地图组件 Remove。完整玩家流程见 [unload-export.md](unload-export.md)。
 
-### 王国篇阅读与邀请
+### 穗音剧情退休迁移
 
-`NarrativeState` 新增深存档键 `kingdomArc`，默认新建 `KingdomArcState`；旧档缺键或显式 null 在 `PostLoadInit` 补齐，表示尚未开启。不读取或累计普通事件、既有穗音节点或信任来解锁。
+穗音只保留信任及已有信任效果。`NarrativeState` 沿用已发布组件类型，读取 `trust`、普通来客的安置与信任结算记录；不读取或再保存 `kingdomArc`、身份、结局、通知队列、剧情奖励、粮洞、使者及记录地点的进度。没有剧情 tick、剧情入口或新邀请。
 
-| 字段 | 存档键 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| Segment | segment | 0 | 当前阅读段索引；加载后夹到现有目录范围。回顾使用窗口独立游标，不改此值 |
-| Act | act | 1 | 只表示当前幕，接受后启动第二幕抄件寄送；第五幕为初步合作回信，不是终局 |
-| InstanceId | instanceId | 0 | 当前邀请的 RHAH provider ODF 实例；拒绝后主动重联分配新实例，不复用旧编号 |
-| Invitation | invitation | None | None=0、Pending=1、Accepted=2、Declined=3、Disabled=4。暂缓/关闭保持 Pending；仅此存档停用把待答复邀请改为 Disabled |
+1.7 新档的 `careTrustEnabled` 默认 false。缺键旧档仅从 `suiyinNarrativeForced` 迁移原启用状态；之后只写新键。它只保留已启用的来客态度、事件频率与托孤/换子照料信任效果，不恢复剧情，也没有强制启用菜单。1.6 保留原有启用行为。直接处置信任和穗音大型威胁修正不由此键关闭。
 
-ODF 定义 `RHAH_KingdomInvitation` 版本 1，stage=0、payload 为空、无期限。首次到期执行一次 `notify_invitation` 后 `NextTick=-1` 休眠；接受结束为 Completed，拒绝结束为 Cancelled。通知和答复均核对当前实例编号；档案信只读，旧实例信不能操作新邀请。卸载删除整个 `kingdomArc` 所在叙事组件、王国篇信件与本 provider 分区，保留 ODF 及其它 provider。
+`RHAH_StoryRetirement` 在 `Game.ExposeSmallComponents` 的 LoadingVars 前处理内存 XML：
 
-创建邀请、发送通知与答复仅限当前叙事者 `RHAH_Suiyin`。换走穗音不删除邀请、阅读段或已收到信件；已有信件可阅读，不能答复。换回穗音恢复主动入口，不新建或重置待答复实例。待通知邀请在穗音缺席时按 ODF 一小时间隔等待，回归后通知；不自动创建邀请
+- 精确删除已移除的剧情选择信、粮洞、记录箱、迁徙记录、王国文书和四种剧情记忆；清除指向这些实例的引用，不按前缀删除普通内容。
+- 未生成地图的 `RHAH_RecordSite` / `RHAH_KingdomSite` 删除；已有地图的地点保留 ID 与地图，转为原版 `Site`，记录地点地图生成器改为 `Encounter`。王国到达动作删除，真实人员、关系及普通库存保留。
+- 王国地点的真实 `kingdomSupply` 转给记录中的原版 worldPawns 接收者背包；找不到可接收的背包时中止加载，不能丢弃已有粮食。剧情文书不转移。
+- 身份组件加载时释放 `rhah:envoyHold` 保存的两项来客闸门；普通 `rhah:longHold` 仍在时不解除其留驻。更早缺持有键的旧使者按上方精确条件在内存 XML 解除。
 
-自动/手动、四倍速、阅读暂停、逐字位置、读完后停留计时、回顾游标、纹理及翻译缓存仅属于窗口，不存档；恢复阅读使用已保存段索引并从该段重新逐字显示。全屏窗口通过原版 `forcePause` 暂停游戏，不修改或持久化游戏速度。第二至第五幕游标保存于 progress/cursor，回顾游标不覆盖当前游标。材料选择弹窗只保存内存引用，暂停游戏，取消不产生副作用，不存档。
+ODF 激活前，仅从本 provider 的已知格式分区移除 `RHAH_KingdomInvitation`、`RHAH_KingdomCollaboration` 两种实例；其它实例、receipts、计数和分区元数据保留。未知格式不改写，继续交由 ODF 诊断。普通 I 系列事件与八条长后续不属于穗音剧情，继续执行。
 
-
-
-### 王国篇 K2～K5 初步合作
-
-`KingdomArcState.Progress` 深存档键 `progress`，默认新建 `KingdomArcProgress`。以下字段随 `NarrativeState` Remove。集合 PostLoadInit 补空。ODF 定义 `RHAH_KingdomCollaboration` 版本 1，stage 0，空 payload；只由接受手动邀请创建，休眠选择由明确操作唤醒。接受的寄件、期限与世界办理不因切换叙事者停止；新委托和私信受穗音闸门约束，`pendingLetter` 保留尚未显示的结果。
-
-| 存档键 | 默认值 | 说明 |
-| --- | --- | --- |
-| stage | KingdomStage.None | Stage |
-| chainId | 0 | ChainId |
-| revision | 0 | Revision |
-| cursor | 0 | Cursor |
-| due | -1 | Due |
-| deadline | -1 | Deadline |
-| narrativePausedAt | -1 | 仅 1.7，剧情暂停 tick；恢复时顺延王国办理时钟，随 progress Remove |
-| homeId | -1 | HomeId |
-| siteId | 0 | SiteId |
-| safeSiteId | 0 | SafeSiteId |
-| consentSafeSiteId | 0 | 书记明确同意的安全目的地，不与发布第二机构复用 |
-| actorId | 0 | ActorId |
-| progress | 0 | Progress |
-| lastWorkTick | -1 | LastWorkTick |
-| charityStart | -1 | CharityStart |
-| charityEnd | -1 | CharityEnd |
-| courtSiteId | 0 | CourtSiteId |
-| clerkSiteId | 0 | ClerkSiteId |
-| consentDue | -1 | ConsentDue |
-| consentRequest | KingdomClerkReply.None | ConsentRequest |
-| hallResult | KingdomNodeResult.None | HallResult |
-| envoyResult | KingdomNodeResult.None | EnvoyResult |
-| charityResult | KingdomNodeResult.None | CharityResult |
-| guardResult | KingdomNodeResult.None | GuardResult |
-| formal | false | Formal |
-| verified | false | Verified |
-| privateConsent | false | PrivateConsent |
-| namedConsent | false | NamedConsent |
-| transferConsent | false | TransferConsent |
-| statementReceived | false | StatementReceived |
-| envoyHandedOver | false | EnvoyHandedOver |
-| charityObserved | false | CharityObserved |
-| charityInterrupted | false | CharityInterrupted |
-| guardPetition | false | GuardPetition |
-| guardReceived | false | GuardReceived |
-| resultSent | false | ResultSent |
-| pendingLetter | false | PendingLetter |
-| delivered | 0 | Delivered |
-| publicMask | 0 | PublicMask |
-| publicDueA | -1 | PublicDueA |
-| publicDueB | -1 | PublicDueB |
-| attention | 0 | Attention |
-| route | KingdomRoute.None | Route |
-| outcome | KingdomOutcome.None | Outcome |
-| failure | KingdomFailure.None | Failure |
-| clerk, envoy | null | Pawn 引用，真实人员由原版 worldPawns/商队/地图持有 |
-| materials, routeHistory | 空集合 | 材料来源事实深存档及不可逆路线结果记录；档案不等于当前持有材料 |
-
-`KingdomMaterialRecord` 深存档键 `number` 默认 0、`kind` 默认 ReceiptA、`source` 默认空字符串、`envoy` 默认 false、`externalMask` 默认 0。事实只在实物交付后记录；免费副本复用来源编号，不添加事实。
-
-`Comp_RHAH_KingdomMaterial` 的键 `materialNumber` 默认 0、`materialKind` 默认 ReceiptA、`materialSource` 默认空字符串、`materialRedacted` 默认 false。归属 Remove，随 `RHAH_KingdomMaterial` 实物删除，不能以档案重建已失去的文件。
-
-`WorldObject_RHAH_KingdomSite` 键 `kingdomSiteKind` 默认 Hall、`kingdomRecipients` 空 Pawn 引用集合、`kingdomSupply` 空 Thing 深集合、`kingdomRecipientGroup` 默认 0、`kingdomPacketReceived` 默认 false。发布接收组 1 为地方文书所，2 为独立赈济登记处。送达前文件仍为待送包裹，真实单程路程计算的往返回执期限到达才确认。世界地点 Remove；原版 worldPawns 中的人员保留，已交粮在其原版背包保留。未交粮在导出副本中按 recipient 转入原版背包，模组文件 Remove，不改当前游戏。
-
-`CaravanArrivalAction_RHAH_KingdomSite` 键 `kingdomArrivalSite` 默认 null，归属 Remove，随商队到达动作删除；抵达只通知，明确选择开始办理后才记时。
-
-王国篇选择信额外键：`kingdomStage` 默认 None、`kingdomRevision` 默认 0、`kingdomBodyKeys` / `kingdomSpeakerKeys` / `kingdomTexturePaths` 空集合、`kingdomConditions` 默认空字符串。发信保存当时场景/身份/条件，历史信不读取后来变化的案件；归属 Remove。全屏当前读段在进度保存，逐字位置与速度仍不保存。
 
 ### RHAH_LongFollowRecord
 
@@ -548,15 +446,11 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_RefugeeMassacre | IncidentDef | Remove |
 | RHAH_ChildExchange | IncidentDef | Remove |
 | RHAH_MouseSwarm, RHAH_PleadingJoin, RHAH_BanditAttack | IncidentDef | Remove。I-052/I-053/I-054；保留真实鼠族 Pawn、原版特质、技能与原版装备 |
-| HungerAndHavoc.Narrative.NarrativeState | revealedCount, trust, rescued, lost, failed, suiyinEnabled, suiyinStarted, suiyinDeadlineTick, seenKinds, theftMaps, theftCounts, journalNoted, asidesSent, openingSent, progressSent, rewardClaimed, rewardPaid, rewardDue, envoyClue, relicClue, lastAsideTick, nextCaseId, aidCount, broadcastCount, expulsionCount, adultCount, completedKindCount, completedJournals, firstFactTick, nextAdultCheckTick, relicDone, endingE01, endingE02, endingE03, endingE04, endingE05, identityTier, identityRefused, entrustCases, exchangeCases, holeCases, envoyCases, relicCase, journalCases, pendingNotices | 同上 | Remove。1.0.4 停用普通 E-01..E-05 判定、触发与预览；`endingE01..endingE05`、`adultCount`、`firstFactTick`、`nextAdultCheckTick` 等已发布字段仍按原键与默认值存读，不改写、不清空。无新旧键迁移。`trust`、N 节点、通知与奖励不变；`relicDone`、`identityTier`、`identityRefused` 继续控制身份来信。`rewardDue` 默认 0，读档后小于 0 归 0。`completedJournals` 保留已完成记录编号，空集合与 null 相同，读档后 `completedKindCount` 仍以它的数量为准 |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinMember | loadId, presence, care, child, careTicks, missingSince, lastCareTick | 嵌在案子里 | Remove。随叙事组件删除；`lastCareTick` 默认 -1，旧累计保留，首次观察不补算未记录时间 |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinN004Case | id, motherId, mapId, startedTick, outcome, mother, missingSince, revisit, revisitSeen, revisitDeadline, meetingCaravanId, rescueDueTick, rescuePaid, breakUntil, breakTrait, effectsApplied, children | 嵌在 entrustCases | Remove |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinN005Case | id, mapId, startedTick, outcome, careClosed, children | 嵌在 exchangeCases | Remove |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinN006Case | mapId, thefts, startedTick, ignoreUntil, baitUntil, hole, foodPresent, wood, baitStock, outcome, losses, nextLossTick | 嵌在 holeCases | Remove |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinN008Case | mapId, pawnId, startedTick, deadline, checkUntil, presence, missingSince, outcome, mealsReady, proofAvailable, holdMigrated | 嵌在 envoyCases | Remove。`holdMigrated` 默认 false；新到达为 true。旧记录首次找到 N-008 来源且两闸门仍为 false 的使者时，以 `rhah:envoyHold=uu` 接管旧留驻；缺少历史覆盖信息时只能假定两项 false 来自旧使者持有，迁移仅做一次 |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinN009Case | startedTick, deadline, mapPresent, playersInside, envoyHere, boxDestroyed, outcome, siteId, boxId, mapEntered | relicCase | Remove |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinJournalCase | id, mapId, batchId, startedTick, delivered, driven, failed, empty, closed, counted, people | 嵌在 journalCases | Remove。`id=0` 是拦截失败标记，`failed=true`、`counted=false`；`closed=false` 表示尚未扣二信任，终态关闭后不重复扣除。普通观察不关闭这个标记；`people` 的 Presence 为 Left，不启动原事件照护判定 |
-| HungerAndHavoc.Storyteller.Suiyin.SuiyinNotice | letter, arg, privateNotice | 嵌在 pendingNotices | Remove。既有枚举编号与键保持；发送时丢弃旧待发 Journal、N004Entry、N006Entry、N008Arrive 到来复述，原选择信、观察记录和奖励继续保留，其余通知按当前信件或短消息规则发送 |
+| HungerAndHavoc.Narrative.NarrativeState | trust, nextCaseId, entrustCases, exchangeCases, journalCases；1.7 另有 careTrustEnabled | GameComponent | Remove。运行时只保存信任与普通来客结算；其它旧剧情键不再写出，迁移见上节 |
+| HungerAndHavoc.Storyteller.Suiyin.SuiyinMember | loadId, presence, care, child, careTicks, missingSince, lastCareTick | 嵌在安置记录里 | Remove；lastCareTick 默认 -1，旧累计保留，首次观察不补算未记录时间 |
+| HungerAndHavoc.Storyteller.Suiyin.SuiyinN004Case | id, motherId, mapId, startedTick, outcome, mother, missingSince, effectsApplied, children | 嵌在 entrustCases | Remove。只保留托孤信任结算，回访、奖励及剧情心情字段不再写出 |
+| HungerAndHavoc.Storyteller.Suiyin.SuiyinN005Case | id, mapId, startedTick, outcome, careClosed, children | 嵌在 exchangeCases | Remove。保留原照料信任结算 |
+| HungerAndHavoc.Storyteller.Suiyin.SuiyinJournalCase | id, mapId, batchId, startedTick, delivered, driven, failed, empty, closed, counted, people | 嵌在 journalCases | Remove。保留普通来客结算与拦截失败的一次性扣分；不生成日记、剧情来信或奖励 |
 | RHAH_BeggarSiege | IncidentDef | Remove |
 | RHAH_Beg | JobDef | Remove |
 | RHAH_Gnaw | JobDef | Remove |
@@ -765,19 +659,6 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.disabledTemperatureApparelDefNames | 全局 ModSettings。关闭的温度衣 defName，默认空 |
 | RHAH_Settings.minimumEventTemperature | 全局 ModSettings，默认 -35。地图事件下限 |
 | RHAH_Settings.maximumEventTemperature | 全局 ModSettings，默认 70。地图事件上限。商队不受限 |
-| RHAH_Settings.countEndingsWithoutNarrator | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingsWithoutNarrator | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingAidGoal | 全局 ModSettings，默认 99。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingBroadcastGoal | 全局 ModSettings，默认 3。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingExpulsionLimit | 全局 ModSettings，默认 3。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingAdultGoal | 全局 ModSettings，默认 100。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingWaitDays | 全局 ModSettings，默认 30。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingE01 | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingE02 | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingE03 | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingE04 | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingE05 | 全局 ModSettings，默认 true。退休兼容键，原值继续存读，不参与行为，不显示菜单 |
-| RHAH_Settings.endingIdentity | 全局 ModSettings，默认 true。只控制穗音身份来信，设置位于叙事页 |
 | RHAH_Settings.plagueEnabled | 全局 ModSettings，默认 true。关闭后新来客不感染，也不再传播 |
 | RHAH_Settings.plagueSpreadChancePerCarrier | 全局 ModSettings，默认 0.005，范围 0 到 1 |
 | RHAH_Settings.plagueSpreadChanceCap | 全局 ModSettings，默认 0.30，范围 0 到 1 |
@@ -821,7 +702,6 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.foodPerChild | 全局 ModSettings，默认 10。易子而食每个孩子的简单餐 |
 | RHAH_Settings.foodPerVisitor | 全局 ModSettings，默认 1。投喂按人数乘的份数 |
 | RHAH_Settings.maxFoodRequest | 全局 ModSettings，默认 12。一次投喂的份数上限 |
-| RHAH_Settings.envoyMealCost | 全局 ModSettings，默认 6。使者成交的简单餐 |
 | RHAH_Settings.campMinAdults | 全局 ModSettings，默认 2。安居点成人下限 |
 | RHAH_Settings.campMaxAdults | 全局 ModSettings，默认 4。安居点成人上限 |
 | RHAH_Settings.campMinChildren | 全局 ModSettings，默认 8。安居点幼年下限 |
@@ -829,10 +709,6 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.campGoodwill | 全局 ModSettings，默认 12。清掉安居点的好感 |
 | RHAH_Settings.campDays | 全局 ModSettings，默认 15。安居点天数 |
 | RHAH_Settings.campHuts | 全局 ModSettings，默认 4。安居点棚屋 |
-| RHAH_Settings.holeWoodCost | 全局 ModSettings，默认 20。封粮洞的木材 |
-| RHAH_Settings.holeCleanPortions | 全局 ModSettings，默认 5。清粮洞取走的食物 |
-| RHAH_Settings.holeLossRange | 全局 ModSettings，默认 12。粮洞取食距离 |
-| RHAH_Settings.holeMaxLosses | 全局 ModSettings，默认 3。粮洞最多损失次数 |
 | RHAH_Settings.apparelAwfulPercent | 全局 ModSettings，默认 35。破旧衣几率 |
 | RHAH_Settings.apparelPoorPercent | 全局 ModSettings，默认 50。较差衣几率，与破旧合计不超过 100 |
 | RHAH_Settings.apparelMinDurabilityPercent | 全局 ModSettings，默认 10。新衣耐久下限 |
@@ -870,12 +746,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.followLongReturnYears | 全局 ModSettings，默认 2。长链额外年数 |
 | RHAH_Settings.followAdultAge | 全局 ModSettings，默认 14。后续心情和长链年龄 |
 | RHAH_Settings.followMoodScalePercent | 全局 ModSettings，默认 100。后续心情缩放 |
-| RHAH_Settings.endingTrustFloor | 全局 ModSettings，默认 50。部分身份披露信任，范围 -100 到 100；沿用已发布键，不再用于普通结局 |
-| RHAH_Settings.endingHopeTrust | 全局 ModSettings，默认 75。完整身份披露信任，不低于部分身份披露门槛且不高于 100；沿用已发布键，不再用于普通结局 |
-| RHAH_Settings.endingHaltTrust | 全局 ModSettings，默认 -75。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingLowKinds | 全局 ModSettings，默认 6。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单 |
-| RHAH_Settings.endingThreatDays | 全局 ModSettings，默认 13。退休兼容键，原值继续存读，不再归一化，不参与行为，不显示菜单。信任干涉威胁节奏仍读取叙事者自身间隔 |
-| RHAH_Settings.trustKill | 全局 ModSettings，默认 -10。放逐回访杀死 |
+| RHAH_Settings.trustKill | 全局 ModSettings，默认 -10。杀死来客，按人记 |
 | RHAH_Settings.trustCaptive | 全局 ModSettings，默认 -5。俘虏，按人记 |
 | RHAH_Settings.trustEntrustGood | 全局 ModSettings，默认 5。托孤安顿 |
 | RHAH_Settings.trustEntrustCaptive | 全局 ModSettings，默认 -5。托孤被俘 |
@@ -883,36 +754,12 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.trustEntrustRegret | 全局 ModSettings，默认 -3。托孤后悔 |
 | RHAH_Settings.trustEntrustBanished | 全局 ModSettings，默认 -1。托孤放逐 |
 | RHAH_Settings.trustExchange | 全局 ModSettings，默认 3。交换照料完成 |
-| RHAH_Settings.trustHoleOpen | 全局 ModSettings，默认 1。封上粮洞 |
-| RHAH_Settings.trustHoleIgnore | 全局 ModSettings，默认 -1。清掉粮洞 |
-| RHAH_Settings.trustHoleBait | 全局 ModSettings，默认 3。粮洞追踪 |
-| RHAH_Settings.trustEnvoyFail | 全局 ModSettings，默认 -2。赶走使者 |
-| RHAH_Settings.trustRelicFail | 全局 ModSettings，默认 -2。毁掉记录 |
 | RHAH_Settings.trustHold | 全局 ModSettings，默认 -1。扣下，按人记 |
 | RHAH_Settings.trustDeliver | 全局 ModSettings，默认 1。交付，按人记 |
 | RHAH_Settings.trustLeave | 全局 ModSettings，默认 1。安全离开，按人记 |
 | RHAH_Settings.trustExpel | 全局 ModSettings，默认 -1。驱逐，按人记 |
-| RHAH_Settings.narrativeRewardSilver | 全局 ModSettings，默认 300。记录来信白银 |
-| RHAH_Settings.narrativeRescueCost | 全局 ModSettings，默认 250。放逐赎回 |
-| RHAH_Settings.narrativeRescueReward | 全局 ModSettings，默认 2500。赎回后的空投 |
-| RHAH_Settings.narrativeRelicTake | 全局 ModSettings，默认 200。取走记录 |
-| RHAH_Settings.narrativeRelicHand | 全局 ModSettings，默认 100。交出记录 |
-| RHAH_Settings.narrativeTrustBonusPercent | 全局 ModSettings，默认 25。信任满值时的银两加成 |
 | RHAH_Settings.narrativeMissingDays | 全局 ModSettings，默认 1。失踪天数 |
 | RHAH_Settings.narrativeObserveDays | 全局 ModSettings，默认 30。去向不明的救济观察上限及托付成长观察期限；在场者可继续累计三天存活时间 |
-| RHAH_Settings.narrativeHoleIgnoreDays | 全局 ModSettings，默认 3。粮洞忽视天数 |
-| RHAH_Settings.narrativeEnvoyWaitDays | 全局 ModSettings，默认 3。使者等待 |
-| RHAH_Settings.narrativeEnvoyCheckDays | 全局 ModSettings，默认 1。使者核对 |
-| RHAH_Settings.narrativeRelicDays | 全局 ModSettings，默认 15。记录地点开放天数 |
-| RHAH_Settings.narrativeRevisitYears | 全局 ModSettings，默认 4。放逐回访年数 |
-| RHAH_Settings.narrativeAsideCooldownDays | 全局 ModSettings，默认 3。插话间隔 |
-| RHAH_Settings.narrativeAsideCutoff | 全局 ModSettings，默认 -75。插话关闭的信任 |
-| RHAH_Settings.narrativeAdultYears | 全局 ModSettings，默认 18。使者年龄 |
-| RHAH_Settings.narrativeTheftKinds | 全局 ModSettings，默认 2。粮洞需要的偷窃种类 |
-| RHAH_Settings.narrativeProgressKinds | 全局 ModSettings，默认 3。记录来信种类 |
-| RHAH_Settings.narrativeRewardKinds | 全局 ModSettings，默认 8。白银来信种类 |
-| RHAH_Settings.narrativeEnvoyKinds | 全局 ModSettings，默认 5。使者种类 |
-| RHAH_Settings.narrativeRelicKinds | 全局 ModSettings，默认 8。记录地点种类 |
 | HungerAndHavoc.Guard.* | Guard 始终加载，无存档类型 |
 | RHAH_Mod / HarmonyBootstrap / RHAH_Runtime | 运行时入口，无 ExposeData |
 

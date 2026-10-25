@@ -5,12 +5,6 @@ using Verse;
 
 namespace HungerAndHavoc.Storyteller.Suiyin
 {
-    internal enum RHAH_EnvoyHold
-    {
-        None = 0,
-        Stay = 1,
-        Leave = 2
-    }
 
     internal static class RHAH_NarrativePace
     {
@@ -78,24 +72,6 @@ namespace HungerAndHavoc.Storyteller.Suiyin
             return tick % interval == slot;
         }
 
-        internal static RHAH_EnvoyHold HoldFor(SuiyinN008Outcome outcome)
-        {
-            if (outcome == SuiyinN008Outcome.Waiting || outcome == SuiyinN008Outcome.Checking)
-            {
-                return RHAH_EnvoyHold.Stay;
-            }
-
-            if (outcome == SuiyinN008Outcome.Traded ||
-                outcome == SuiyinN008Outcome.Refused ||
-                outcome == SuiyinN008Outcome.Driven ||
-                outcome == SuiyinN008Outcome.NoProof ||
-                outcome == SuiyinN008Outcome.TimedOut)
-            {
-                return RHAH_EnvoyHold.Leave;
-            }
-
-            return RHAH_EnvoyHold.None;
-        }
 
         internal static List<int> MemberIds(IList<int> loadIds, int count)
         {

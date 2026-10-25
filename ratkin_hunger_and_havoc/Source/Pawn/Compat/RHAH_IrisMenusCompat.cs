@@ -129,9 +129,7 @@ namespace HungerAndHavoc.Pawn.Compat
             RegisterPage(owner, "plague", "RHAH_Menu_Plague", DrawPlague, SearchPlague);
             RegisterPage(owner, "events", "RHAH_Menu_Events", DrawEvents, SearchCatalogEvents);
             RegisterPage(owner, "pawns", "RHAH_Menu_Pawns", DrawPawns, SearchPawns);
-#if !RIMWORLD_1_7
-            RegisterPage(owner, "narrative", "RHAH_Menu_Narrative", DrawNarrative, SearchNarrative);
-#endif
+            RegisterPage(owner, "suiyin-trust", "RHAH_Menu_SuiyinTrust", DrawSuiyinTrust, SearchSuiyinTrust);
             MenuRegistry.RegisterSubItem(owner, "settlement-progress", () => "RHAH_Menu_Settlement".Translate(), DrawSettlement);
             MenuRegistry.RegisterSearchProvider(owner, "settlement-progress", SearchSettlement, FocusSettlement);
             RegisterPage(owner, "other", "RHAH_Menu_Other", DrawOther, SearchOther);
@@ -604,103 +602,44 @@ namespace HungerAndHavoc.Pawn.Compat
             yield return Entry("pawns-list", "RHAH_Menu_Pawns");
         }
 
-        void DrawNarrative(Listing_Standard list)
+        void DrawSuiyinTrust(Listing_Standard list)
         {
-            if (!RHAH_EndingRuntime.NarrativeActive) return;
-            Section(list, "RHAH_Menu_Narrative");
-            MenuControls.Anchor(list, "narrative-kingdom");
-            Section(list, "RHAH_Menu_Narrative_Kingdom");
-            Note(list, "RHAH_Settings_Kingdom_Summary");
-            KingdomArcRuntime.DrawEntry(list);
-            list.Gap(6f);
-
-            if (Current.Game == null)
-            {
-                Empty(list, "RHAH_Menu_Narrative_NoGame");
-                return;
-            }
-
-            NarrativeState state = Current.Game.GetComponent<NarrativeState>();
+            Section(list, "RHAH_Menu_SuiyinTrust");
+            Note(list, "RHAH_Menu_SuiyinTrust_Summary");
+            NarrativeState state = Current.Game?.GetComponent<NarrativeState>();
             if (state == null)
             {
-                Empty(list, "RHAH_Menu_Unavailable");
-                return;
+                Empty(list, "RHAH_Menu_SuiyinTrust_NoGame");
+            }
+            else
+            {
+                MenuControls.Anchor(list, "suiyin-trust-current");
+                Status(list, "RHAH_Menu_SuiyinTrust_Current", state.Snapshot().Trust.ToString());
+                Status(list, "RHAH_Menu_SuiyinTrust_Active",
+                    RHAH_EndingRuntime.CountsNow() ? "RHAH_Menu_Yes".Translate() : "RHAH_Menu_No".Translate());
             }
 
-            NarrativeSnapshot snapshot = state.Snapshot();
-            if (snapshot == null)
-            {
-                Empty(list, "RHAH_Menu_Unavailable");
-                return;
-            }
-
-            Status(list, "RHAH_Menu_Narrative_Revealed", snapshot.RevealedCount.ToString());
-            Status(list, "RHAH_Menu_Narrative_Trust", snapshot.Trust.ToString());
-            Status(list, "RHAH_Menu_Narrative_Rescued", snapshot.Rescued.ToString());
-            Status(list, "RHAH_Menu_Narrative_Lost", snapshot.Lost.ToString());
-            Status(list, "RHAH_Menu_Narrative_Failed",
-                snapshot.Failed ? "RHAH_Menu_Yes".Translate() : "RHAH_Menu_No".Translate());
-            Status(list, "RHAH_Menu_Narrative_Outcome", OutcomeLabel(state.CalculateOutcome()));
-            Section(list, "RHAH_Menu_Narrative_Nodes");
-            DrawNode(list, state, SuiyinNode.N001, "N-001");
-            DrawNode(list, state, SuiyinNode.N002, "N-002");
-            DrawNode(list, state, SuiyinNode.N003, "N-003");
-            DrawNode(list, state, SuiyinNode.N004, "N-004");
-            DrawNode(list, state, SuiyinNode.N005, "N-005");
-            DrawNode(list, state, SuiyinNode.N006, "N-006");
-            DrawNode(list, state, SuiyinNode.N008, "N-008");
-            DrawNode(list, state, SuiyinNode.N009, "N-009");
-            Section(list, "RHAH_Menu_Narrative_Thresholds");
-            RHAH_Settings narrative = RHAH_Mod.Settings;
-            if (narrative != null)
-            {
-                DrawNarrativeNumbers(list, narrative);
-                MenuControls.Anchor(list, "narrative-identity");
-                RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Ending_Identity".Translate(), ref narrative.endingIdentity, "RHAH_Ending_Identity_Tooltip".Translate());
-                narrative.endingTrustFloor = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "identity-partial", "RHAH_Settings_IdentityPartialTrust".Translate(narrative.endingTrustFloor), narrative.endingTrustFloor, -100f, 100f, "RHAH_Settings_IdentityPartialTrust_Tooltip".Translate());
-                narrative.endingHopeTrust = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "identity-full", "RHAH_Settings_IdentityFullTrust".Translate(narrative.endingHopeTrust), narrative.endingHopeTrust, narrative.endingTrustFloor, 100f, "RHAH_Settings_IdentityFullTrust_Tooltip".Translate());
-                narrative.CopyNarrative(state.Book.Config);
-            }
-            Section(list, "RHAH_Menu_Narrative_Journals");
-            for (int journal = 1; journal <= 14; journal++)
-            {
-                string label = "RHAH_Suiyin_Journal_Label".Translate(journal);
-                bool known = RHAH_JournalRuntime.HasJournal(journal);
-                if (!known)
-                {
-                    RHAH_IrisMenusWidgets.Label(list, label);
-                    continue;
-                }
-
-                if (list.ButtonText(label))
-                {
-                    Find.LetterStack.ReceiveLetter(
-                        label,
-                        ("RHAH_Journal_" + journal).Translate(),
-                        LetterDefOf.NeutralEvent);
-                }
-            }
-
-            int cutoff = RHAH_Mod.Settings == null ? -75 : RHAH_Mod.Settings.narrativeAsideCutoff;
-            if (snapshot.Trust <= cutoff)
-            {
-                Note(list, "RHAH_Menu_Narrative_TrustClosed");
-            }
+#if RIMWORLD_1_7
+            Note(list, "RHAH_Menu_SuiyinTrust_Compatibility17");
+#endif
+            RHAH_Settings settings = RHAH_Mod.Settings;
+            if (settings == null) return;
+            MenuControls.Anchor(list, "suiyin-trust-tempo");
+            RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_SuiyinTempo".Translate(), ref settings.suiYinThreatTempo,
+                "RHAH_Settings_SuiyinTempo_Tooltip".Translate());
+            DrawTrustNumbers(list, settings);
+            Section(list, "RHAH_Menu_SuiyinTrust_Observation");
+            settings.narrativeMissingDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-missing", "RHAH_Settings_TrustMissingDays".Translate(settings.narrativeMissingDays), settings.narrativeMissingDays, 0f, 60f, "RHAH_Settings_TrustMissingDays_Tooltip".Translate());
+            settings.narrativeObserveDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-observe", "RHAH_Settings_TrustObserveDays".Translate(settings.narrativeObserveDays), settings.narrativeObserveDays, 0f, 120f, "RHAH_Settings_TrustObserveDays_Tooltip".Translate());
         }
 
-        IEnumerable<MenuSearchEntry> SearchNarrative()
+        IEnumerable<MenuSearchEntry> SearchSuiyinTrust()
         {
-            if (!RHAH_EndingRuntime.NarrativeActive) yield break;
-            yield return new MenuSearchEntry("narrative-kingdom",
-                () => "RHAH_Menu_Narrative_Kingdom".Translate(),
-                context: () => "RHAH_Settings_Kingdom_Summary".Translate());
-            yield return Entry("narrative-outcome", "RHAH_Menu_Narrative_Outcome");
-            yield return Entry("narrative-nodes", "RHAH_Menu_Narrative_Nodes");
-            yield return Entry("narrative-thresholds", "RHAH_Menu_Narrative_Thresholds");
-            yield return Entry("narrative-identity", "RHAH_Ending_Identity");
-            yield return Entry("identity-partial", "RHAH_Settings_IdentityPartialTrust");
-            yield return Entry("identity-full", "RHAH_Settings_IdentityFullTrust");
-            yield return Entry("narrative-journals", "RHAH_Menu_Narrative_Journals");
+            yield return Entry("suiyin-trust-current", "RHAH_Menu_SuiyinTrust_Current");
+            yield return Entry("suiyin-trust-tempo", "RHAH_Settings_SuiyinTempo");
+            yield return Entry("suiyin-trust-deltas", "RHAH_Menu_SuiyinTrust_Deltas");
+            yield return Entry("trust-missing", "RHAH_Settings_TrustMissingDays");
+            yield return Entry("trust-observe", "RHAH_Settings_TrustObserveDays");
         }
 
         void DrawSettlement(Rect rect)
@@ -3028,9 +2967,10 @@ namespace HungerAndHavoc.Pawn.Compat
             }
 
             today = Mathf.Max(0f, GenDate.DaysPassedSinceSettleFloat);
-            trust = Current.Game.GetComponent<NarrativeState>()?.Snapshot().Trust ?? 0;
+            NarrativeState state = Current.Game.GetComponent<NarrativeState>();
+            trust = state?.Snapshot().Trust ?? 0;
 #if RIMWORLD_1_7
-            if (!RHAH_EndingRuntime.NarrativeActive) trust = 0;
+            if (state?.CareTrustEnabled != true) trust = 0;
 #endif
             season = RHAH_IncidentSchedule.SeasonIndex(RHAH_IncidentSchedule.SeasonOf(Find.AnyPlayerHomeMap));
         }
@@ -3082,14 +3022,6 @@ namespace HungerAndHavoc.Pawn.Compat
         void DrawDeveloper(Listing_Standard list)
         {
             Section(list, "RHAH_Menu_Developer");
-#if RIMWORLD_1_7
-            MenuControls.Anchor(list, "force-suiyin-narrative");
-            RHAH_EndingRuntime.DrawForceSettings(list);
-            if (RHAH_EndingRuntime.NarrativeActive)
-            {
-                DrawNarrative(list);
-            }
-#endif
             if (!string.IsNullOrEmpty(selectedPawnLabel))
             {
                 Status(list, "RHAH_Menu_Developer_LastPawn", selectedPawnLabel);
@@ -3099,10 +3031,6 @@ namespace HungerAndHavoc.Pawn.Compat
         IEnumerable<MenuSearchEntry> SearchDeveloper()
         {
             yield return Entry("developer-last-pawn", "RHAH_Menu_Developer_LastPawn");
-#if RIMWORLD_1_7
-            yield return Entry("force-suiyin-narrative", "RHAH_Settings_ForceSuiyinNarrative");
-            foreach (MenuSearchEntry entry in SearchNarrative()) yield return entry;
-#endif
         }
 
 
@@ -3196,48 +3124,22 @@ namespace HungerAndHavoc.Pawn.Compat
             Empty(list, "RHAH_Menu_Unavailable");
             Note(list, gapKey);
         }
-        void DrawNarrativeNumbers(Listing_Standard list, RHAH_Settings settings)
-        {
-            settings.narrativeProgressKinds = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-progress", "RHAH_Menu_Narrative_Progress".Translate(settings.narrativeProgressKinds), settings.narrativeProgressKinds, 1f, 14f, "RHAH_Settings_NarrativeKinds_Tooltip".Translate());
-            settings.narrativeRewardKinds = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-reward", "RHAH_Menu_Narrative_Reward".Translate(settings.narrativeRewardKinds), settings.narrativeRewardKinds, 1f, 14f, "RHAH_Settings_NarrativeKinds_Tooltip".Translate());
-            settings.narrativeEnvoyKinds = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-envoy", "RHAH_Menu_Narrative_Envoy".Translate(settings.narrativeEnvoyKinds), settings.narrativeEnvoyKinds, 1f, 14f, "RHAH_Settings_NarrativeKinds_Tooltip".Translate());
-            settings.narrativeRelicKinds = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-relic", "RHAH_Menu_Narrative_Relic".Translate(settings.narrativeRelicKinds), settings.narrativeRelicKinds, 1f, 14f, "RHAH_Settings_NarrativeKinds_Tooltip".Translate());
-            settings.narrativeTheftKinds = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-theft", "RHAH_Settings_NarrativeTheft".Translate(settings.narrativeTheftKinds), settings.narrativeTheftKinds, 1f, 14f, "RHAH_Settings_NarrativeTheft_Tooltip".Translate());
-            settings.narrativeRewardSilver = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-silver", "RHAH_Settings_NarrativeSilver".Translate(settings.narrativeRewardSilver), settings.narrativeRewardSilver, 0f, 10000f, "RHAH_Settings_NarrativeSilver_Tooltip".Translate());
-            settings.narrativeTrustBonusPercent = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-bonus", "RHAH_Settings_NarrativeBonus".Translate(settings.narrativeTrustBonusPercent), settings.narrativeTrustBonusPercent, 0f, 100f, "RHAH_Settings_NarrativeBonus_Tooltip".Translate());
-            settings.narrativeRescueCost = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-rescue", "RHAH_Settings_NarrativeRescue".Translate(settings.narrativeRescueCost), settings.narrativeRescueCost, 0f, 10000f, "RHAH_Settings_NarrativeRescue_Tooltip".Translate());
-            settings.narrativeRescueReward = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-reward-silver", "RHAH_Settings_NarrativeRescueReward".Translate(settings.narrativeRescueReward), settings.narrativeRescueReward, 0f, 20000f, "RHAH_Settings_NarrativeRescueReward_Tooltip".Translate());
-            settings.narrativeRelicTake = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-take", "RHAH_Settings_NarrativeTake".Translate(settings.narrativeRelicTake), settings.narrativeRelicTake, 0f, 10000f, "RHAH_Settings_NarrativeTake_Tooltip".Translate());
-            settings.narrativeRelicHand = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-hand", "RHAH_Settings_NarrativeHand".Translate(settings.narrativeRelicHand), settings.narrativeRelicHand, 0f, 10000f, "RHAH_Settings_NarrativeHand_Tooltip".Translate());
-            settings.narrativeMissingDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-missing", "RHAH_Settings_NarrativeMissing".Translate(settings.narrativeMissingDays), settings.narrativeMissingDays, 0f, 60f, "RHAH_Settings_NarrativeMissing_Tooltip".Translate());
-            settings.narrativeObserveDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-observe", "RHAH_Settings_NarrativeObserve".Translate(settings.narrativeObserveDays), settings.narrativeObserveDays, 0f, 120f, "RHAH_Settings_NarrativeObserve_Tooltip".Translate());
-            settings.narrativeHoleIgnoreDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-hole", "RHAH_Settings_NarrativeHole".Translate(settings.narrativeHoleIgnoreDays), settings.narrativeHoleIgnoreDays, 0f, 30f, "RHAH_Settings_NarrativeHole_Tooltip".Translate());
-            settings.narrativeEnvoyWaitDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-envoy-wait", "RHAH_Settings_NarrativeEnvoyWait".Translate(settings.narrativeEnvoyWaitDays), settings.narrativeEnvoyWaitDays, 0f, 30f, "RHAH_Settings_NarrativeEnvoyWait_Tooltip".Translate());
-            settings.narrativeEnvoyCheckDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-envoy-check", "RHAH_Settings_NarrativeEnvoyCheck".Translate(settings.narrativeEnvoyCheckDays), settings.narrativeEnvoyCheckDays, 0f, 30f, "RHAH_Settings_NarrativeEnvoyCheck_Tooltip".Translate());
-            settings.narrativeRelicDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-relic-days", "RHAH_Settings_NarrativeRelicDays".Translate(settings.narrativeRelicDays), settings.narrativeRelicDays, 0f, 120f, "RHAH_Settings_NarrativeRelicDays_Tooltip".Translate());
-            settings.narrativeRevisitYears = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-years", "RHAH_Settings_NarrativeYears".Translate(settings.narrativeRevisitYears), settings.narrativeRevisitYears, 0f, 20f, "RHAH_Settings_NarrativeYears_Tooltip".Translate());
-            settings.narrativeAsideCooldownDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-aside", "RHAH_Settings_NarrativeAside".Translate(settings.narrativeAsideCooldownDays), settings.narrativeAsideCooldownDays, 0f, 30f, "RHAH_Settings_NarrativeAside_Tooltip".Translate());
-            settings.narrativeAsideCutoff = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-cutoff", "RHAH_Settings_NarrativeCutoff".Translate(settings.narrativeAsideCutoff), settings.narrativeAsideCutoff, -100f, 0f, "RHAH_Settings_NarrativeCutoff_Tooltip".Translate());
-            settings.narrativeAdultYears = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "narrative-adult", "RHAH_Settings_NarrativeAdult".Translate(settings.narrativeAdultYears), settings.narrativeAdultYears, 1f, 80f, "RHAH_Settings_NarrativeAdult_Tooltip".Translate());
-            DrawTrustNumbers(list, settings);
-        }
 
         void DrawTrustNumbers(Listing_Standard list, RHAH_Settings settings)
         {
-            Section(list, "RHAH_Menu_Narrative_TrustDeltas");
+            MenuControls.Anchor(list, "suiyin-trust-deltas");
+            Section(list, "RHAH_Menu_SuiyinTrust_Deltas");
             settings.trustKill = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-kill", "RHAH_Settings_TrustKill".Translate(settings.trustKill), settings.trustKill, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
             settings.trustCaptive = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-captive", "RHAH_Settings_TrustCaptive".Translate(settings.trustCaptive), settings.trustCaptive, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustEntrustGood = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-entrust", "RHAH_Settings_TrustEntrust".Translate(settings.trustEntrustGood), settings.trustEntrustGood, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustEntrustCaptive = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-entrust-captive", "RHAH_Settings_TrustEntrustCaptive".Translate(settings.trustEntrustCaptive), settings.trustEntrustCaptive, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustEntrustStory = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-story", "RHAH_Settings_TrustStory".Translate(settings.trustEntrustStory), settings.trustEntrustStory, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustEntrustRegret = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-regret", "RHAH_Settings_TrustRegret".Translate(settings.trustEntrustRegret), settings.trustEntrustRegret, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustEntrustBanished = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-banished", "RHAH_Settings_TrustBanished".Translate(settings.trustEntrustBanished), settings.trustEntrustBanished, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustExchange = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-exchange", "RHAH_Settings_TrustExchange".Translate(settings.trustExchange), settings.trustExchange, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustHoleOpen = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-hole-open", "RHAH_Settings_TrustHoleOpen".Translate(settings.trustHoleOpen), settings.trustHoleOpen, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustHoleIgnore = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-hole-ignore", "RHAH_Settings_TrustHoleIgnore".Translate(settings.trustHoleIgnore), settings.trustHoleIgnore, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustHoleBait = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-hole-bait", "RHAH_Settings_TrustHoleBait".Translate(settings.trustHoleBait), settings.trustHoleBait, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustEnvoyFail = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-envoy", "RHAH_Settings_TrustEnvoy".Translate(settings.trustEnvoyFail), settings.trustEnvoyFail, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
-            settings.trustRelicFail = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-relic", "RHAH_Settings_TrustRelic".Translate(settings.trustRelicFail), settings.trustRelicFail, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+            if (Current.Game?.GetComponent<NarrativeState>()?.CareTrustEnabled == true)
+            {
+                settings.trustEntrustGood = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-entrust", "RHAH_Settings_TrustEntrust".Translate(settings.trustEntrustGood), settings.trustEntrustGood, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+                settings.trustEntrustCaptive = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-entrust-captive", "RHAH_Settings_TrustEntrustCaptive".Translate(settings.trustEntrustCaptive), settings.trustEntrustCaptive, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+                settings.trustEntrustStory = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-story", "RHAH_Settings_TrustStory".Translate(settings.trustEntrustStory), settings.trustEntrustStory, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+                settings.trustEntrustRegret = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-regret", "RHAH_Settings_TrustRegret".Translate(settings.trustEntrustRegret), settings.trustEntrustRegret, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+                settings.trustEntrustBanished = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-banished", "RHAH_Settings_TrustBanished".Translate(settings.trustEntrustBanished), settings.trustEntrustBanished, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+                settings.trustExchange = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-exchange", "RHAH_Settings_TrustExchange".Translate(settings.trustExchange), settings.trustExchange, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
+            }
             settings.trustHold = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-hold", "RHAH_Settings_TrustHold".Translate(settings.trustHold), settings.trustHold, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
             settings.trustDeliver = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-deliver", "RHAH_Settings_TrustDeliver".Translate(settings.trustDeliver), settings.trustDeliver, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
             settings.trustLeave = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "trust-leave", "RHAH_Settings_TrustLeave".Translate(settings.trustLeave), settings.trustLeave, -100f, 100f, "RHAH_Settings_TrustRange_Tooltip".Translate());
@@ -3288,7 +3190,6 @@ namespace HungerAndHavoc.Pawn.Compat
             settings.foodPerChild = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "food-child", "RHAH_Settings_FoodPerChild".Translate(settings.foodPerChild), settings.foodPerChild, 0f, 100f, "RHAH_Settings_FoodPerChild_Tooltip".Translate());
             settings.foodPerVisitor = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "food-visitor", "RHAH_Settings_FoodPerVisitor".Translate(settings.foodPerVisitor), settings.foodPerVisitor, 0f, 20f, "RHAH_Settings_FoodPerVisitor_Tooltip".Translate());
             settings.maxFoodRequest = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "food-cap", "RHAH_Settings_FoodRequestCap".Translate(settings.maxFoodRequest), settings.maxFoodRequest, 0f, 100f, "RHAH_Settings_FoodRequestCap_Tooltip".Translate());
-            settings.envoyMealCost = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "envoy-meals", "RHAH_Settings_EnvoyMeals".Translate(settings.envoyMealCost), settings.envoyMealCost, 0f, 100f, "RHAH_Settings_EnvoyMeals_Tooltip".Translate());
             settings.campMinAdults = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "camp-adult-min", "RHAH_Settings_CampAdultMin".Translate(settings.campMinAdults), settings.campMinAdults, 0f, 40f, "RHAH_Settings_CampRange_Tooltip".Translate());
             settings.campMaxAdults = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "camp-adult-max", "RHAH_Settings_CampAdultMax".Translate(settings.campMaxAdults), settings.campMaxAdults, settings.campMinAdults, 40f, "RHAH_Settings_CampRange_Tooltip".Translate());
             settings.campMinChildren = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "camp-child-min", "RHAH_Settings_CampChildMin".Translate(settings.campMinChildren), settings.campMinChildren, 0f, 80f, "RHAH_Settings_CampRange_Tooltip".Translate());
@@ -3296,10 +3197,6 @@ namespace HungerAndHavoc.Pawn.Compat
             settings.campGoodwill = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "camp-goodwill", "RHAH_Settings_CampGoodwill".Translate(settings.campGoodwill), settings.campGoodwill, -100f, 100f, "RHAH_Settings_CampGoodwill_Tooltip".Translate());
             settings.campDays = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "camp-days", "RHAH_Settings_CampDays".Translate(settings.campDays), settings.campDays, 1f, 120f, "RHAH_Settings_CampDays_Tooltip".Translate());
             settings.campHuts = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "camp-huts", "RHAH_Settings_CampHuts".Translate(settings.campHuts), settings.campHuts, 0f, 12f, "RHAH_Settings_CampHuts_Tooltip".Translate());
-            settings.holeWoodCost = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "hole-wood", "RHAH_Settings_HoleWood".Translate(settings.holeWoodCost), settings.holeWoodCost, 0f, 200f, "RHAH_Settings_HoleWood_Tooltip".Translate());
-            settings.holeCleanPortions = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "hole-clean", "RHAH_Settings_HoleClean".Translate(settings.holeCleanPortions), settings.holeCleanPortions, 0f, 50f, "RHAH_Settings_HoleClean_Tooltip".Translate());
-            settings.holeLossRange = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "hole-range", "RHAH_Settings_HoleRange".Translate(settings.holeLossRange), settings.holeLossRange, 1f, 60f, "RHAH_Settings_HoleRange_Tooltip".Translate());
-            settings.holeMaxLosses = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "hole-losses", "RHAH_Settings_HoleLosses".Translate(settings.holeMaxLosses), settings.holeMaxLosses, 0f, 20f, "RHAH_Settings_HoleLosses_Tooltip".Translate());
         }
 
         void DrawApparelIntensity(Listing_Standard list, RHAH_Settings settings)
@@ -3313,25 +3210,7 @@ namespace HungerAndHavoc.Pawn.Compat
             settings.apparelMaxPieces = RHAH_IrisMenusWidgets.TuneInt(list, weightBuffers, "apparel-pieces", "RHAH_Settings_ApparelPieces".Translate(settings.apparelMaxPieces), settings.apparelMaxPieces, 1f, 8f, "RHAH_Settings_ApparelPieces_Tooltip".Translate());
         }
 
-        static void DrawNode(Listing_Standard list, NarrativeState state, SuiyinNode node, string label)
-        {
-            bool enabled = state.SuiyinEnabled(node);
-            RHAH_IrisMenusWidgets.Checkbox(list, label, ref enabled);
-            state.SetSuiyinEnabled(node, enabled);
-        }
 
-        static int ClampKinds(Listing_Standard list, string anchor, string key, int value)
-        {
-            MenuControls.Anchor(list, anchor, 28f);
-            value = (int)list.Slider(value, 1f, 14f);
-            RHAH_IrisMenusWidgets.Label(list, "RHAH_Menu_Format_LabelValue".Translate(key.Translate(), value));
-            if (value < 1)
-            {
-                return 1;
-            }
-
-            return value > 14 ? 14 : value;
-        }
 
 
         static void Section(Listing_Standard list, string titleKey)
@@ -3419,9 +3298,5 @@ namespace HungerAndHavoc.Pawn.Compat
             return ("RHAH_Menu_Lifecycle_" + lifecycle).Translate();
         }
 
-        static string OutcomeLabel(NarrativeOutcome outcome)
-        {
-            return ("RHAH_Menu_Outcome_" + outcome).Translate();
-        }
     }
 }

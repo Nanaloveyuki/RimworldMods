@@ -8,8 +8,20 @@ RimWorld 1.6 / 1.7 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`�
 
 需要 NewRatkinPlus、Harmony、Biotech 和 Oxygen DSL Framework（`nanaloveyuki.oxygendsl`）。Oxygen DSL Framework 必须排在本模组前面。IrisMenus 用于分页设置。
 
-独立作品，不是“鼠灾-大荒年”的 Continued。Def 前缀 `RHAH_`，事件显示 ID 用 `I-`，剧情用 `N-` / `J-` / `R-`。
+独立作品，不是“鼠灾-大荒年”的 Continued。Def 前缀 `RHAH_`，普通事件显示 ID 用 `I-`。
 仅卸载本模组前，在已加载存档的设置里先停用这个存档的新内容，再备份并导出卸载用副本。退出后只卸本模组，保留鼠族、Harmony、Biotech 和 Oxygen DSL Framework，然后加载 `RHAH-removed-*`。`RHAH-backup-*` 仍含本模组数据，加载它必须留着本模组。
+
+## 当前变更 · 穗音仅保留信任
+
+穗音剧情、王国篇、身份揭示、日记回读及剧情奖励已移除，设置中也移除了强制启用入口。普通 `I-` 事件、八条长后续及「安置进度」保留。原版设置和 IrisMenus「穗音信任」页显示当前存档的信任，只能查看，不能直接改分。
+
+旧档信任值继续保留。穗音担任叙事者时，原有的信任累计与殖民地袭击概率修正保持不变。「穗音按信任调整大型威胁」开关仍可调整。1.7 默认不按信任修改来客态度和本模组事件频率，也不额外结算托孤、换子照料的信任；旧档原已启用的这些信任效果按原状态保留。移除剧情不会启用新的信任效果，也不恢复旧剧情流程。
+
+下文带有“历史”说明的剧情内容仅记录旧版本行为，以本节为准。升级前请备份存档；下文已有构建、部署和回归记录不代表本次修改已经验证或发布。
+
+本次通过完整结构与依赖检查、1.7 构建和 684 项离线回归；1.6 构建及 77 项针对性回归通过，缓存程序集构建仍有 UnityEngine 引用与 System.Runtime 版本警告。真实 1.7 游戏程序集探针确认信任累计、叙事者切换、正负信任权重、跳过类别、大型威胁超期保障及关闭开关后的原版路径。IrisMenus 信任页执行了中英日三种语言、有／无存档及开关交互；地图家园判定、底层绘制与字体测量使用替身，不是游戏内布局或玩家存档验收。本次未部署。
+
+Suiyin now retains trust only. Her stories, kingdom arc, identity revelations, journal reader, story rewards and force-enable controls have been removed. Ordinary I-series incidents, their eight long follow-ups and Settlement progress remain. Saved trust and its existing raid-probability effect are preserved. Default 1.7 saves keep visitor-attitude, incident-frequency and passive care trust effects disabled; older saves that already enabled those trust effects keep them. Historical story descriptions below do not describe the current version.
 
 ## 1.1.4 · 索粮食物与请求修复
 
@@ -57,7 +69,9 @@ RimWorld 1.6 / 1.7 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`�
 
 Extra litter children now sample inherited genes separately through vanilla inheritance and receive vanilla birth xenotype identities, instead of merging all parental endogenes or installing a full xenotype genome. Same heritable xenotypes retain their identity; different heritable xenotypes produce hybrids. Room-fertility conceptions store the parents and inherited gene set at conception. This deployment updates 1.7 and preserves the existing 1.6 binaries; existing children are not rewritten.
 
-## 1.1.1 · RimWorld 1.7 更新
+## 1.1.1 · RimWorld 1.7 更新（剧情说明为历史记录）
+
+本节的剧情暂停、保留及强制启用说明属于旧版行为；当前已移除剧情和强制启用入口。
 
 - 穗音剧情任务线默认隐藏并停止刷新，包括信任触发剧情、累计事件处理来信和王国篇。信任继续累计，仅用于袭击概率修正；已有剧情记录和人物保留。加载存档后可在模组设置，或 IrisMenus「开发者」页，勾选「强制启用穗音剧情（当前存档）」；此开关只影响当前存档。
 - I-053「祈求加入」两次接受触发至少间隔 15 年（900 天），旧档保留上次触发时间。
@@ -65,7 +79,7 @@ Extra litter children now sample inherited genes separately through vanilla inhe
 - 已经吃过的来客再次饥饿时可以继续接收简单餐、干肉饼等食物；历史投喂记录保留，不重复结算首次吃饱的效果。
 - 配给厅世界地图图标改用 1.7 中实际存在的原版贴图。
 
-这些行为变更仅适用于 1.7；下文旧版剧情和三年冷却说明适用于 1.6。
+当时的行为变更仅适用于 1.7；下文旧版剧情和三年冷却说明为历史记录。
 
 In RimWorld 1.7, Suiyin's storylines are hidden and paused by default. Trust still accumulates and affects raid probability, but does not trigger story or cumulative-incident letters. Existing story records and people are preserved. Enable the per-save force option in mod settings or IrisMenus' Developer page to resume stories. Pleading Join has a fifteen-year cooldown. Food trades use colonist delivery access, hungry visitors can receive food again, and the kingdom site's world icons use available 1.7 textures.
 
@@ -79,7 +93,7 @@ This mod and its required dependencies can be added to an existing save. Missing
 
 从 1.0.3 升级时，旧的单人投喂等待记录会在加载时自动转为新的等待名单，保留接收者、请求数量和等待期限，不需要手工编辑存档。再次保存只写新格式；原存档不会在加载时被覆盖。“仅此存档停用新内容”仍保留，也不会阻止已有记录迁移。
 
-王国篇 K1～K5 初步合作已接入。仅在穗音下由设置页或 IrisMenus 手动开启，不自动触发。接受后的寄件与商队行动在切换叙事者后仍按约定期限继续；新的委托及穗音私人回信等她回来。调查使用实际文书与免费副本，公开、补发和护送按真实交接结果回复，第五幕不是终局。既有信任及普通 I/N 事件不变
+历史剧情记录：王国篇 K1～K5 曾用于背景与初步合作，由穗音设置页或 IrisMenus 手动开启；当前已移除。
 
 ## 事件链存档兼容 / Event-chain save compatibility
 
@@ -102,7 +116,7 @@ Malformed legacy data is kept, including pending arrivals. Hunger and Havoc chai
 - “易子而食”：可选择实际殖民地孩子交接，或按设置交餐。成功后来客孩子加入殖民地，成人离开。患有鼠疫的孩子不能交接。
 - 已登记的八条长后续有实际人物、选择与后果，包括鼠妈回访、旧窝记物、换子追问、空投认领、认亲依恋与孤儿自称身份。新配置默认开启遗弃孩子和流民商队两类（含鼠疫场景），其它长后续可在事件类设置中开启。升级保留已经保存的选择，包括全部短后续；既有长事件照常继续。
 
-事件设置同步为 23 类。升级时旧逐事件配置恢复为类默认值，其它设置保留。穗音来信已依据作者的小故事调整：她会讲宫墙外的见闻、日记、有限资助和自己的犹疑。普通来访记录可在 IrisMenus 主动查看；交换答复、封洞、使者交易和记录取舍等直接结果改为短消息，重要线索、照料结果与身份揭示继续来信。已有选择信保留打开时的正文。
+事件设置同步为 23 类。升级时旧逐事件配置恢复为类默认值，其它设置保留。历史剧情记录：当时曾调整穗音来信、日记、资助、粮洞、使者、记录取舍与身份揭示；这些穗音剧情内容现已移除，普通来客的安置记录保留。
 
 鼠疫来客的病情、照料需求和传播风险并入主事件信，使用原事件的处置选项。独立检疫信、留观流程、专属信任结算和康复回访已移除；旧档加载时自动清理对应记录并解除检疫留驻，原文件保留。鼠疫疾病和传播仍按原规则运行。
 
@@ -149,11 +163,11 @@ Plague arrivals describe their illness, care needs, and transmission risk in the
 - IrisMenus 1.1.1 可正常显示本模组的分类设置。
 - 1.0.6 的旧长后续会在事件链激活前迁移，旧返访期限不会被误判为事件到期；停用新内容的存档也会迁移，保存后只写新格式。旧设置产生的无具体长后续记录保留，不阻塞其它事件。
 - 等待孩子成年、返访或地图准备时不再累积行动记录；关闭武装索粮后，历史请求不再反复解析来客名单。
-- 卸载导出时，王国站点剩余粮食会进入接收者背包，保留原有堆叠数量。
+- 历史剧情修复：卸载导出时，王国站点剩余粮食进入接收者背包；王国篇现已移除。
 - “耗子分妈”和母亲乞讨事件会建立真实母子关系；旧档按双方已保存的母子 ID 补齐，已有母亲关系保留。
 - 事件鼠蛋可通过殖民者右键菜单或人物操作栏的“收养”永久加入；两处都会结束访客停留，收养后继续保留玩家派系。
 - 右键菜单提供“驱逐全部”（目标的同批来客）和“只驱逐某人”。心情与信任按实际驱逐人数计算；鼠潮仍会反抗，单只操作只激怒目标本人。
-- IrisMenus 穗音搜索中的身份开关使用独立条目 ID 和定位锚点，不再使搜索索引失败；王国文书贴图路径改为原版资源的实际路径。
+- 历史剧情修复：穗音身份开关的搜索定位和王国文书贴图曾得到修正；这些内容现已移除。
 
 Removal exports clear Hunger and Havoc thought references from other mods' speech caches while keeping their other records. Caravan attacks send a red threat letter targeting the attackers on the encounter map. Hostile visitors become neutral when they accept a food handoff, and each recipient waits for their own share. Combat-capable hostile adult ratkin can attack colonists.
 
@@ -161,21 +175,21 @@ Temporary stays expire for children who cannot walk because of their age; an eli
 
 Meals preserve temporary workers' contract deadlines, and workers can continue their assigned work. Permanently joined colonists can work even if an old save retains an expired temporary contract. After a food handoff, visitors stop waiting and look for an acceptable meal in their own inventory. Food settings and dietary restrictions still apply.
 
-Legacy long follow-ups migrate before event-chain activation, including disabled saves, and subsequent saves use only the new format. Waiting no longer accumulates action receipts; settled armed requests no longer repeatedly resolve visitors. Removal exports preserve remaining kingdom-site food stacks in recipients' inventories. Mother-and-child incidents establish real parent relations, and saved reciprocal family IDs repair missing relations without replacing an existing mother. Suiyin's identity toggle has a unique IrisMenus search ID, and kingdom documents use the correct base-game texture path.
+Legacy long follow-ups migrate before event-chain activation, including disabled saves, and subsequent saves use only the new format. Waiting no longer accumulates action receipts; settled armed requests no longer repeatedly resolve visitors. Mother-and-child incidents establish real parent relations, and saved reciprocal family IDs repair missing relations without replacing an existing mother. Earlier kingdom-site, document-texture and identity-toggle fixes are historical; those story features have now been removed.
 
 Event-spawned young ratkin can join permanently through either the colonist's right-click menu or the pawn's Adopt command. Both end their visitor stay and preserve player faction membership. The right-click menu separates expelling the target's entire group from expelling only the named visitor. Mood and trust changes follow the actual recipients. Mouse swarms still resist; a single-target order provokes only that visitor.
 
-原来的五条普通事件结局已停用，旧结局设置和预览入口移除。穗音信任、普通来信、奖励与身份揭示保留；旧档中的历史结局和已经收到的信件继续保存。王国篇 K1～K5 用于背景与初步合作，远期政治结局仍在规划中。
+历史剧情记录：五条普通事件结局先前已停用；当时保留的穗音来信、奖励、身份揭示及王国篇也已在本次移除，当前仅保留信任及普通事件的安置观察。
 
-The five ordinary-event endings have been retired, along with their settings and previews. Suiyin's trust, ordinary notices, rewards, and identity letters remain. Existing ending history and received letters are kept. K1–K5 cover background and early cooperation; later political endings are still being planned.
+Historical story record: the five ordinary-event endings were retired earlier. Suiyin's letters, rewards, identity revelations and kingdom arc, retained at that time, have now also been removed. Trust and ordinary-event settlement observation remain.
 
 ## 设置
 
-原版模组设置页和 IrisMenus 总览页都有“重置本模组配置”。确认后恢复全部默认配置并保存；存档中的剧情进度、来客和仅此存档停用状态保留。
+原版模组设置页和 IrisMenus 总览页都有“重置本模组配置”。确认后恢复全部默认配置并保存；存档中的信任、安置记录、来客和仅此存档停用状态保留。
 
-IrisMenus 在“叙事”旁新增“安置进度”：左栏按记录日和事件展开来客队伍，选中后右侧显示该队伍的姓名、剩余时间、营养不良暂停及失踪等情况，并可手动刷新。记录日是开始追踪的日期；来源缺失时显示不详。各存档独立保存记录，队伍标签不再把内部标识显示成“第几批”。普通救济与换来的孩子按在场累计存活超过 3 天判定安置；营养不良暂停累计，康复后继续，普通饥饿、鼠疫等其它疾病及囚禁不阻断。在场者可继续等待，母子托付仍按成长和去向推进。旧档保留已有照护累计和已完成结果；普通来客过去未记录的有效时间从升级后的首次观察起累计。
+IrisMenus 在「穗音信任」旁保留「安置进度」：左栏按记录日和事件展开来客队伍，选中后右侧显示该队伍的姓名、剩余时间、营养不良暂停及失踪等情况，并可手动刷新。记录日是开始追踪的日期；来源缺失时显示不详。各存档独立保存记录，队伍标签不再把内部标识显示成“第几批”。普通救济与换来的孩子按在场累计存活超过 3 天判定安置；营养不良暂停累计，康复后继续，普通饥饿、鼠疫等其它疾病及囚禁不阻断。在场者可继续等待，母子托付的安置观察仍按成长和去向推进。旧档保留已有照护累计和已完成结果；普通来客过去未记录的有效时间从升级后的首次观察起累计。
 
-IrisMenus has a Settlement progress subpage beside Narrative. Expand recorded days and events in the left sidebar, then select a group to see its names, time remaining, malnutrition pauses and whereabouts on the right. Refresh is available. The recorded day marks the start of tracking; missing sources are shown as unknown. Records belong to each save, and internal group identifiers are no longer presented as visit counts. Ordinary relief and exchanged children settle after more than 3 accumulated days alive at the colony. Malnutrition pauses the timer; recovery resumes it. Hunger alone, plague, other illnesses and captivity do not block it. Present visitors can keep waiting; entrusted families retain their growth and whereabouts rules. Existing care progress and completed results are preserved. Unrecorded effective time for ordinary visitors starts accumulating after the first post-upgrade observation.
+IrisMenus keeps Settlement progress beside Suiyin trust. Expand recorded days and events in the left sidebar, then select a group to see its names, time remaining, malnutrition pauses and whereabouts on the right. Refresh is available. The recorded day marks the start of tracking; missing sources are shown as unknown. Records belong to each save. Ordinary relief and exchanged children settle after more than 3 accumulated days alive at the colony. Malnutrition pauses the timer; recovery resumes it. Hunger alone, plague, other illnesses and captivity do not block it. Present visitors can keep waiting; entrusted-family settlement observation keeps its growth and whereabouts rules. Existing care progress and completed results are preserved; previously unrecorded time starts accumulating after the upgrade.
 
 开发者事件页保留原场景的“即时刷新”，退出新池的婴儿索取除外。直接生成到当前地图，跳过排队和世界地图行进，窗口暂停时也可用。商队劫掠直接生成袭击者，危险的鼠族安居点直接生成居民，不要求派出远行队。原有“触发”仍走正常流程；新内容和类开关仍生效。
 

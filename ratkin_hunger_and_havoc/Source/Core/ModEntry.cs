@@ -60,19 +60,18 @@ namespace HungerAndHavoc.Core
             listing.CheckboxLabeled("RHAH_Settings_EnableNewContent".Translate(), ref Settings.enableNewContent,
                 "RHAH_Settings_EnableNewContent_Tooltip".Translate());
             DrawRemoval(listing);
+            listing.Label("RHAH_Menu_SuiyinTrust".Translate());
+            listing.Label("RHAH_Menu_SuiyinTrust_Summary".Translate());
+            Narrative.NarrativeState state = Current.Game?.GetComponent<Narrative.NarrativeState>();
+            listing.Label(state == null
+                ? "RHAH_Menu_SuiyinTrust_NoGame".Translate()
+                : "RHAH_Menu_SuiyinTrust_CurrentValue".Translate(state.Snapshot().Trust));
 #if RIMWORLD_1_7
-            Storyteller.Suiyin.RHAH_EndingRuntime.DrawForceSettings(listing);
-            bool showNarrative = Storyteller.Suiyin.RHAH_EndingRuntime.NarrativeActive;
-#else
-            bool showNarrative = true;
+            listing.Label("RHAH_Menu_SuiyinTrust_Compatibility17".Translate());
 #endif
-            if (showNarrative)
-            {
-                listing.Label("RHAH_Menu_Narrative_Kingdom".Translate());
-                listing.Label("RHAH_Settings_Kingdom_Summary".Translate());
-                Storyteller.Suiyin.KingdomArcRuntime.DrawEntry(listing);
-                listing.GapLine();
-            }
+            listing.CheckboxLabeled("RHAH_Settings_SuiyinTempo".Translate(), ref Settings.suiYinThreatTempo,
+                "RHAH_Settings_SuiyinTempo_Tooltip".Translate());
+            listing.GapLine();
             listing.CheckboxLabeled("RHAH_Settings_OptimizeGeneration".Translate(), ref Settings.optimizeGeneration,
                 "RHAH_Settings_OptimizeGeneration_Tooltip".Translate());
             bool relief = Settings.reliefEnabled;

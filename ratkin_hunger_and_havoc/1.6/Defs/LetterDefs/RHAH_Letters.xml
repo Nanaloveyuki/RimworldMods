@@ -39,14 +39,6 @@
     <flashInterval>90</flashInterval>
     <arriveSound>LetterArrive</arriveSound>
   </LetterDef>
-  <LetterDef>
-    <defName>RHAH_GrainHoleLetter</defName>
-    <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_GrainHole</letterClass>
-    <color>(168, 176, 142)</color>
-    <flashColor>(168, 176, 142)</flashColor>
-    <flashInterval>90</flashInterval>
-    <arriveSound>LetterArrive</arriveSound>
-  </LetterDef>
   <LetterDef ParentName="ThreatBig">
     <defName>RHAH_BanditAttackLetter</defName>
     <letterClass>HungerAndHavoc.Incidents.ChoiceLetter_RHAH_BanditAttack</letterClass>

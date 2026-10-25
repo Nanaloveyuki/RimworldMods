@@ -71,9 +71,6 @@ namespace HungerAndHavoc.Incidents
 
             RHAH_Runtime.RegisterBatch(context.Map, context.SpawnBatchId);
             int tick = Find.TickManager.TicksGame;
-            Current.Game?.GetComponent<Narrative.NarrativeState>()?.NoteIncident(
-                new Storyteller.Suiyin.SuiyinIncidentFact(DisplayId, context.Map.uniqueID, tick,
-                    context.SpawnBatchId, attackers.Count));
             List<int> loadIds = new List<int>(attackers.Count);
             for (int i = 0; i < attackers.Count; i++) loadIds.Add(attackers[i].thingIDNumber);
             context.Attitude = RHAH_Attitude.Hostile;

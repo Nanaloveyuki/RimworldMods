@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LanguageData>
-  <RHAH_RecordBox.label>古い箱</RHAH_RecordBox.label>
-  <RHAH_RecordBox.description>まだ蓋が閉まる古い木箱です。中には運搬の一覧表、配給の記録、湿った紙の束が入っています。</RHAH_RecordBox.description>
-  <RHAH_MigrationRecord.label>運搬記録</RHAH_MigrationRecord.label>
-  <RHAH_MigrationRecord.description>数枚がくっついた一覧表です。数量は二度書き直されており、最後の訂正には署名がありません。</RHAH_MigrationRecord.description>
-</LanguageData>

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using HungerAndHavoc.Identity;
 using HungerAndHavoc.Incidents;
@@ -19,7 +18,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                 return;
             }
 
-            if (!RHAH_EndingRuntime.NarrativeActive || !RHAH_EndingRuntime.CountsNow())
+            if (!RHAH_EndingRuntime.CountsNow() || Current.Game.GetComponent<NarrativeState>()?.CareTrustEnabled != true)
             {
                 return;
             }
@@ -46,7 +45,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal static void Tick(int tick)
         {
-            if (!RHAH_EndingRuntime.NarrativeActive || !RHAH_NarrativePace.Due(tick, CheckInterval, RHAH_NarrativePace.Spread * 2) || Current.Game == null)
+            if (!RHAH_NarrativePace.Due(tick, CheckInterval, RHAH_NarrativePace.Spread * 2) || Current.Game?.GetComponent<NarrativeState>()?.CareTrustEnabled != true)
             {
                 return;
             }
@@ -138,103 +137,10 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                     state.Commit(item => item.ResolveEntrust(record, tick, mother));
                 }
 
-                if (record.Outcome == SuiyinN004Outcome.ChildAlone)
-                {
-                    ApplyAlone(record, tick);
-                }
-                else if (record.Outcome == SuiyinN004Outcome.Captive && !record.EffectsApplied)
-                {
-                    ApplyCaptive(record);
-                    record.EffectsApplied = true;
-                }
-                else if (record.Outcome == SuiyinN004Outcome.FamilyHere && !record.EffectsApplied)
-                {
-                    ApplyFamily(record);
-                    record.EffectsApplied = true;
-                }
-                else if (record.Outcome == SuiyinN004Outcome.Regret && !record.EffectsApplied)
-                {
-                    ApplyRegret(record);
-                    record.EffectsApplied = true;
-                }
 
-                int reward = book.ClaimRescue(record, tick);
-                if (reward > 0)
-                {
-                    DropSilver(reward);
-                }
             }
         }
 
-        static void ApplyAlone(SuiyinN004Case record, int tick)
-        {
-            if (record.BreakUntil < 0 || tick < record.BreakUntil || record.Children == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < record.Children.Count; i++)
-            {
-                Verse.Pawn pawn = MemberPawn(record.Children[i]);
-                if (pawn?.needs?.mood?.thoughts?.memories != null)
-                {
-                    TryMemory(pawn, DefDatabase<ThoughtDef>.GetNamedSilentFail("RHAH_Thought_LeftAlone"));
-                }
-
-                if (!record.BreakTrait && RHAH_Revisit.BrokeToday(pawn, tick, record.BreakUntil))
-                {
-                    record.BreakTrait = RHAH_Revisit.TryGloom(pawn);
-                }
-            }
-
-            record.BreakUntil = -1;
-            record.EffectsApplied = true;
-        }
-
-        static void ApplyCaptive(SuiyinN004Case record)
-        {
-            if (record.Children == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < record.Children.Count; i++)
-            {
-                Verse.Pawn pawn = MemberPawn(record.Children[i]);
-                if (pawn?.needs?.mood?.thoughts?.memories != null)
-                {
-                    TryMemory(pawn, DefDatabase<ThoughtDef>.GetNamedSilentFail("RHAH_Thought_CaptiveYear"));
-                }
-            }
-        }
-
-        static void ApplyFamily(SuiyinN004Case record)
-        {
-            Verse.Pawn mother = FindPawn(record.MotherId);
-            if (mother?.needs?.mood?.thoughts?.memories == null || record.Children == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < record.Children.Count; i++)
-            {
-                Verse.Pawn child = MemberPawn(record.Children[i]);
-                if (child != null && !child.DevelopmentalStage.Adult())
-                {
-                    TryMemory(mother, DefDatabase<ThoughtDef>.GetNamedSilentFail("RHAH_Thought_FamilyHere"));
-                    return;
-                }
-            }
-        }
-
-        static void ApplyRegret(SuiyinN004Case record)
-        {
-            Verse.Pawn mother = FindPawn(record.MotherId);
-            if (mother?.needs?.mood?.thoughts?.memories != null)
-            {
-                TryMemory(mother, DefDatabase<ThoughtDef>.GetNamedSilentFail("RHAH_Thought_Regret"));
-            }
-        }
 
         static void TickCare(NarrativeState state, SuiyinBook book, int tick)
         {
@@ -365,71 +271,12 @@ namespace HungerAndHavoc.Storyteller.Suiyin
             return children;
         }
 
-        static Verse.Pawn MemberPawn(SuiyinMember member)
-        {
-            if (member == null || member.Presence == SuiyinPresence.Dead)
-            {
-                return null;
-            }
 
-            Verse.Pawn pawn = FindPawn(member.LoadId);
-            return pawn == null || pawn.Dead || pawn.Destroyed ? null : pawn;
-        }
-
-        static Map MapById(int mapId)
-        {
-            if (mapId <= 0 || Find.Maps == null)
-            {
-                return null;
-            }
-
-            for (int i = 0; i < Find.Maps.Count; i++)
-            {
-                Map map = Find.Maps[i];
-                if (map != null && map.uniqueID == mapId)
-                {
-                    return map;
-                }
-            }
-
-            return null;
-        }
         static Verse.Pawn FindPawn(int loadId)
         {
             int tick = Find.TickManager == null ? 0 : Find.TickManager.TicksGame;
             return RHAH_PawnIndex.Find(loadId, tick);
         }
 
-        static void TryMemory(Verse.Pawn pawn, ThoughtDef def)
-        {
-            if (def == null || pawn.needs.mood.thoughts.memories.Memories.Any(memory => memory.def == def))
-            {
-                return;
-            }
-
-            pawn.needs.mood.thoughts.memories.TryGainMemory(def);
-        }
-
-
-        static void DropSilver(int amount)
-        {
-            Map map = Find.AnyPlayerHomeMap;
-            if (map == null || amount <= 0)
-            {
-                return;
-            }
-
-            Thing silver = ThingMaker.MakeThing(ThingDefOf.Silver);
-            silver.stackCount = amount;
-            DropPodUtility.DropThingsNear(
-                DropCellFinder.TradeDropSpot(map),
-                map,
-                new List<Thing> { silver },
-                110,
-                false,
-                false,
-                true,
-                false);
-        }
     }
 }

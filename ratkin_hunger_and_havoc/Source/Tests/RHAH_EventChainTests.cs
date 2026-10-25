@@ -27,6 +27,138 @@ namespace HungerAndHavoc.Tests
             Current.Game = previousGame;
         }
 
+        [Theory]
+        [InlineData(EventChainMode.Active)]
+        [InlineData(EventChainMode.Paused)]
+        [InlineData(EventChainMode.Disabled)]
+        public void PreparationRetiresKingdomInstancesBeforeActivationWithoutChangingOrdinaryEvents(EventChainMode mode)
+        {
+            EventChainReceipt receipt = new EventChainReceipt
+            {
+                Key = "short:3", ActionId = "short", Status = "applied", Data = "saved outcome",
+                Reason = "saved reason", Revision = 3, Tick = 75
+            };
+            EventChainInstance follow = new EventChainInstance
+            {
+                Id = 7, DefinitionId = "I-002", DefinitionVersion = 1, SiteId = -9, Tile = 41,
+                Stage = 2, StartedTick = 10, DeadlineTick = 9000, NextTick = -1, Revision = 3,
+                Payload = "I-002|31|-9", PauseReason = "saved pause", End = EventChainEnd.None
+            };
+            follow.Receipts.Add(receipt);
+            EventChainInstance arrival = new EventChainInstance
+            {
+                Id = 11, DefinitionId = RHAH_EventChainProvider.ArrivalId, SiteId = 0,
+                Payload = "0", StartedTick = 0, NextTick = 120
+            };
+            EventChainProviderState state = new EventChainProviderState
+            {
+                ProviderId = RHAH_EventChainProvider.ProviderKey, NextId = 91,
+                MigrationStatus = "completed", Mode = mode, PausedTick = mode == EventChainMode.Active ? -1 : 50,
+                Reason = "saved provider reason",
+                Instances = new List<EventChainInstance>
+                {
+                    new EventChainInstance { Id = 80, DefinitionId = "RHAH_KingdomInvitation", Payload = "obsolete invitation" },
+                    follow,
+                    new EventChainInstance { Id = 90, DefinitionId = "RHAH_KingdomCollaboration", End = EventChainEnd.Completed },
+                    arrival
+                }
+            };
+            EventChainRuntime runtime = new EventChainRuntime(new List<EventChainProviderState> { state });
+            runtime.Register(new RHAH_EventChainProvider());
+
+            RHAH_EventChainMigration.PrepareGame(runtime);
+            RHAH_EventChainMigration.PrepareGame(runtime);
+            runtime.Activate(100);
+
+            Assert.Equal(new[] { follow, arrival }, state.Instances);
+            Assert.Null(runtime.Find(RHAH_EventChainProvider.ProviderKey, 80));
+            Assert.Null(runtime.Find(RHAH_EventChainProvider.ProviderKey, 90));
+            Assert.Same(follow, runtime.Find(RHAH_EventChainProvider.ProviderKey, 7));
+            Assert.Same(arrival, runtime.Find(RHAH_EventChainProvider.ProviderKey, 11));
+            Assert.Equal(91, state.NextId);
+            Assert.Equal(mode, state.Mode);
+            Assert.Equal(mode == EventChainMode.Active ? -1 : 50, state.PausedTick);
+            Assert.Equal("completed", state.MigrationStatus);
+            Assert.Equal("saved provider reason", state.Reason);
+            Assert.Equal("I-002", follow.DefinitionId);
+            Assert.Equal(1, follow.DefinitionVersion);
+            Assert.Equal(-9, follow.SiteId);
+            Assert.Equal(41, follow.Tile);
+            Assert.Equal(2, follow.Stage);
+            Assert.Equal(10, follow.StartedTick);
+            Assert.Equal(9000, follow.DeadlineTick);
+            Assert.Equal(-1, follow.NextTick);
+            Assert.Equal(3, follow.Revision);
+            Assert.Equal("I-002|31|-9", follow.Payload);
+            Assert.Equal("saved pause", follow.PauseReason);
+            Assert.Equal(EventChainEnd.None, follow.End);
+            Assert.Same(receipt, Assert.Single(follow.Receipts));
+            Assert.Equal("short:3", receipt.Key);
+            Assert.Equal("short", receipt.ActionId);
+            Assert.Equal("applied", receipt.Status);
+            Assert.Equal("saved outcome", receipt.Data);
+            Assert.Equal("saved reason", receipt.Reason);
+            Assert.Equal(3, receipt.Revision);
+            Assert.Equal(75, receipt.Tick);
+            Assert.Equal(120, arrival.NextTick);
+            Assert.Equal("0", arrival.Payload);
+            runtime.Tick(120);
+            Assert.Equal(mode == EventChainMode.Active ? EventChainEnd.Completed : EventChainEnd.None, arrival.End);
+        }
+
+        [Fact]
+        public void RetirementMatchesOnlyExactDefinitionsInTheOwnedPartitionEvenAfterFailedMigration()
+        {
+            EventChainInstance unrelated = new EventChainInstance { Id = 1, DefinitionId = "RHAH_KingdomInvitation_External" };
+            EventChainInstance differentCase = new EventChainInstance { Id = 2, DefinitionId = "rhah_kingdomcollaboration" };
+            EventChainInstance foreign = new EventChainInstance { Id = 1, DefinitionId = "RHAH_KingdomInvitation" };
+            EventChainProviderState owned = new EventChainProviderState
+            {
+                ProviderId = RHAH_EventChainProvider.ProviderKey, NextId = 5, Mode = EventChainMode.Paused,
+                MigrationStatus = "failed: retained originals",
+                Instances = new List<EventChainInstance>
+                {
+                    unrelated, differentCase, null,
+                    new EventChainInstance { Id = 3, DefinitionId = "RHAH_KingdomCollaboration" },
+                    new EventChainInstance { Id = 4, DefinitionId = "RHAH_KingdomInvitation" }
+                }
+            };
+            EventChainProviderState other = new EventChainProviderState
+            {
+                ProviderId = "another.mod", NextId = 2, Instances = new List<EventChainInstance> { foreign }
+            };
+            EventChainRuntime runtime = new EventChainRuntime(new List<EventChainProviderState> { owned, other });
+
+            RHAH_EventChainMigration.PrepareGame(runtime);
+
+            Assert.Equal(new[] { unrelated, differentCase, null }, owned.Instances);
+            Assert.Same(foreign, Assert.Single(other.Instances));
+            Assert.Equal(5, owned.NextId);
+            Assert.Equal(EventChainMode.Paused, owned.Mode);
+            Assert.Equal("failed: retained originals", owned.MigrationStatus);
+        }
+
+        [Theory]
+        [InlineData(2, 1)]
+        [InlineData(1, 2)]
+        public void RetirementDoesNotInterpretUnknownProviderFormats(int schemaVersion, int stateVersion)
+        {
+            EventChainInstance instance = new EventChainInstance { Id = 1, DefinitionId = "RHAH_KingdomInvitation" };
+            EventChainProviderState state = new EventChainProviderState
+            {
+                ProviderId = RHAH_EventChainProvider.ProviderKey, SchemaVersion = schemaVersion, StateVersion = stateVersion,
+                NextId = 2, Instances = new List<EventChainInstance> { instance }
+            };
+            EventChainRuntime runtime = new EventChainRuntime(new List<EventChainProviderState> { state });
+
+            RHAH_EventChainMigration.PrepareGame(runtime);
+
+            Assert.Same(instance, Assert.Single(state.Instances));
+            Assert.Equal(schemaVersion, state.SchemaVersion);
+            Assert.Equal(stateVersion, state.StateVersion);
+            Assert.Equal(2, state.NextId);
+        }
+
         [Fact]
         public void MigrationPreservesSavedFactsAndDoesNotMutateTheLegacyRecords()
         {

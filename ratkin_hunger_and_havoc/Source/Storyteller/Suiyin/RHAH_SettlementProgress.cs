@@ -139,7 +139,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                 return empty;
             }
 
-            int observeDays = RHAH_Mod.Settings?.narrativeObserveDays ?? book.Config.ObserveDays;
+            int observeDays = RHAH_Mod.Settings?.narrativeObserveDays ?? 30;
             int count = book.Journals.Count + book.N005.Count + book.N004.Count;
             Cache cache = caches.GetOrCreateValue(state);
             if (cache.Groups == null || tick < cache.Tick || tick / RHAH_JournalRuntime.CheckInterval != cache.Tick / RHAH_JournalRuntime.CheckInterval ||

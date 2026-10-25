@@ -142,12 +142,4 @@
   <RHAH_Settings_CampDays_Tooltip>避難キャンプのクエストが続く日数です。範囲は1～120日、初期値は15日。</RHAH_Settings_CampDays_Tooltip>
   <RHAH_Settings_CampHuts>小屋の数：{0}</RHAH_Settings_CampHuts>
   <RHAH_Settings_CampHuts_Tooltip>避難キャンプに生成される小屋の数です。範囲は0～12、初期値は4。</RHAH_Settings_CampHuts_Tooltip>
-  <RHAH_Settings_HoleWood>穴をふさぐ木材：{0}</RHAH_Settings_HoleWood>
-  <RHAH_Settings_HoleWood_Tooltip>食糧庫の穴をふさぐために必要な木材です。範囲は0～200、初期値は20。</RHAH_Settings_HoleWood_Tooltip>
-  <RHAH_Settings_HoleClean>穴の片付けで取り戻す食べ物：{0}</RHAH_Settings_HoleClean>
-  <RHAH_Settings_HoleClean_Tooltip>食糧庫の穴を片付けた時に取り戻す食べ物の数です。範囲は0～50、初期値は5。</RHAH_Settings_HoleClean_Tooltip>
-  <RHAH_Settings_HoleRange>食糧庫の穴の範囲：{0}</RHAH_Settings_HoleRange>
-  <RHAH_Settings_HoleRange_Tooltip>食糧庫の穴が食べ物を取る範囲をマス数で指定します。範囲は1～60、初期値は12。</RHAH_Settings_HoleRange_Tooltip>
-  <RHAH_Settings_HoleLosses>食糧庫の穴による損失回数：{0}</RHAH_Settings_HoleLosses>
-  <RHAH_Settings_HoleLosses_Tooltip>対処しない場合に食べ物を失う回数の上限です。範囲は0～20、初期値は3。</RHAH_Settings_HoleLosses_Tooltip>
 </LanguageData>

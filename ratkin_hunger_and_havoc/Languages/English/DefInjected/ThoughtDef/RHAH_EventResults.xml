@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <RHAH_Thought_LeftAlone.stages.0.label>left alone</RHAH_Thought_LeftAlone.stages.0.label>
-  <RHAH_Thought_LeftAlone.stages.0.description>The basket is gone. Nobody came back for me today.</RHAH_Thought_LeftAlone.stages.0.description>
-  <RHAH_Thought_CaptiveYear.stages.0.label>captive for a year</RHAH_Thought_CaptiveYear.stages.0.label>
-  <RHAH_Thought_CaptiveYear.stages.0.description>I have been captive for a year. Whenever someone comes, I hope they will open that door for me.</RHAH_Thought_CaptiveYear.stages.0.description>
-  <RHAH_Thought_FamilyHere.stages.0.label>my child is still with me</RHAH_Thought_FamilyHere.stages.0.label>
-  <RHAH_Thought_FamilyHere.stages.0.description>My child is still with me. I can watch my child grow up day by day.</RHAH_Thought_FamilyHere.stages.0.description>
-  <RHAH_Thought_Regret.stages.0.label>regret for my lost child</RHAH_Thought_Regret.stages.0.label>
-  <RHAH_Thought_Regret.stages.0.description>My child is dead. I keep wishing I had done more that day.</RHAH_Thought_Regret.stages.0.description>
   <RHAH_Thought_MotherGoneBad.stages.0.description>My mother left me here. I still remember where she put me.</RHAH_Thought_MotherGoneBad.stages.0.description>
   <RHAH_Thought_MotherGoneBad.stages.0.label>my mother left me here</RHAH_Thought_MotherGoneBad.stages.0.label>
   <RHAH_Thought_MotherGoneGood.stages.0.description>After my mother left, the people here fed me. I finally had enough to eat.</RHAH_Thought_MotherGoneGood.stages.0.description>

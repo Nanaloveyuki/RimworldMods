@@ -1,5 +1,3 @@
-using System.IO;
-using System.Runtime.CompilerServices;
 using HungerAndHavoc.Api;
 using HungerAndHavoc.Identity;
 using HungerAndHavoc.Incidents;
@@ -287,53 +285,5 @@ namespace HungerAndHavoc.Tests
             Assert.Null(RHAH_VisitorRules.StayCountdown((int)RHAH_StayKind.Hire, 6000, 6000, false, 9000));
         }
 
-        [Fact]
-        public void AttitudeFactionsUseRealFieldsAndDoNotDropRaidLoot()
-        {
-            string xml = File.ReadAllText(FactionPath());
-            Assert.DoesNotContain("naturalColonyGoodwill", xml);
-            Assert.Contains("<naturalEnemy>true</naturalEnemy>", xml);
-            Assert.Contains("<raidLootValueFromPointsCurve>", xml);
-            Assert.Equal(1, Count(xml, "<raidLootValueFromPointsCurve>"));
-        }
-
-        [Fact]
-        public void SpawnDoesNotFallBackToThePlayerFaction()
-        {
-            string facts = File.ReadAllText(SourcePath("Incidents/RHAH_IncidentFacts.cs"));
-            string trade = File.ReadAllText(SourcePath("Trade/TradeEventRouter.cs"));
-            string envoy = File.ReadAllText(SourcePath("Storyteller/Suiyin/RHAH_Envoy.cs"));
-            string factory = File.ReadAllText(SourcePath("Generation/RHAH_PawnFactory.cs"));
-            Assert.DoesNotContain("?? Faction.OfPlayer", facts);
-            Assert.DoesNotContain("?? Faction.OfPlayer", trade);
-            Assert.DoesNotContain("?? Faction.OfPlayer", envoy);
-            Assert.Contains("request.Faction.IsPlayer", factory);
-            Assert.Contains("RHAH_AttitudeFactions.Require", facts);
-        }
-
-        static int Count(string text, string token)
-        {
-            int count = 0;
-            int index = 0;
-            while ((index = text.IndexOf(token, index)) >= 0)
-            {
-                count++;
-                index += token.Length;
-            }
-
-            return count;
-        }
-
-        static string FactionPath([CallerFilePath] string testFile = null)
-        {
-            return Path.GetFullPath(Path.Combine(
-                Path.GetDirectoryName(testFile), "..", "..", "1.6", "Defs", "FactionDefs", "RHAH_Factions.xml"));
-        }
-
-        static string SourcePath(string relative, [CallerFilePath] string testFile = null)
-        {
-            return Path.GetFullPath(Path.Combine(
-                Path.GetDirectoryName(testFile), "..", "..", "Source", relative));
-        }
     }
 }

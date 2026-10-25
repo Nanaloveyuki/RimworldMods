@@ -4,16 +4,12 @@ import io
 import json
 import os
 from pathlib import Path
-import random
-import shutil
-import struct
 import subprocess
 import sys
 import tempfile
 import unittest
 from unittest import mock
 import zipfile
-import zlib
 
 SCRIPT = Path(__file__).resolve().parents[1] / "rhah_pipeline.py"
 spec = importlib.util.spec_from_file_location("rhah_pipeline", SCRIPT)
@@ -203,59 +199,6 @@ class DeploymentTests(unittest.TestCase):
             with self.assertRaisesRegex(pipeline.PipelineError, "SHA-256 mismatch"):
                 pipeline.synchronize(self.root, self.game, self.target, mock.Mock())
 
-    @unittest.skipUnless(shutil.which("ffmpeg"), "FFmpeg unavailable")
-    def test_kingdom_png_is_compressed_only_in_deployment(self):
-        width, height = 1024, 768
-        pixels = random.Random(42).randbytes(width * height * 3)
-        def chunk(kind, data):
-            return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data))
-        rows = b"".join(b"\x00" + pixels[y * width * 3:(y + 1) * width * 3] for y in range(height))
-        image = (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
-                 + chunk(b"IDAT", zlib.compress(rows)) + chunk(b"IEND", b""))
-        relative = "Textures/KingdomArc/nested/scene.PNG"
-        source = self.root / relative
-        source.parent.mkdir(parents=True)
-        source.write_bytes(image)
-        small = write(self.root, "Textures/KingdomArc/small.png")
-        small.write_bytes(b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0))
-                          + chunk(b"IDAT", zlib.compress(b"\x00\x11\x22\x33")) + chunk(b"IEND", b""))
-        original_hash = pipeline.sha256(source)
-        untouched_hash = pipeline.sha256(self.root / "Textures/image.png")
-        result = pipeline.synchronize(self.root, self.game, self.target, mock.Mock())
-        deployed = self.target / relative
-        self.assertGreaterEqual(deployed.stat().st_size, 400 * 1024)
-        self.assertLessEqual(deployed.stat().st_size, 750 * 1024)
-        self.assertEqual(pipeline.sha256(source), original_hash)
-        self.assertNotEqual(pipeline.sha256(deployed), original_hash)
-        self.assertEqual(pipeline.sha256(deployed), result["files"][relative])
-        deployed_width, deployed_height = struct.unpack(">II", deployed.read_bytes()[16:24])
-        self.assertLess(deployed_width, width)
-        self.assertAlmostEqual(deployed_width / deployed_height, width / height, delta=0.005)
-        self.assertEqual(pipeline.sha256(self.target / "Textures/image.png"), untouched_hash)
-        self.assertEqual((self.target / "Textures/KingdomArc/small.png").read_bytes(), small.read_bytes())
-        archive, _, _ = pipeline.make_package(self.root, self.base / "package")
-        with zipfile.ZipFile(archive) as bundle:
-            self.assertEqual(bundle.read(pipeline.MOD_NAME + "/" + relative), image)
-
-    def test_missing_ffmpeg_refuses_before_target_changes(self):
-        fixture(self.target)
-        marker = write(self.target, "README.md", "untouched")
-        source = write(self.root, "Textures/KingdomArc/large.png", "x" * (750 * 1024 + 1))
-        with mock.patch.object(pipeline.shutil, "which", return_value=None):
-            with self.assertRaisesRegex(pipeline.PipelineError, "FFmpeg is required"):
-                pipeline.synchronize(self.root, self.game, self.target, mock.Mock())
-        self.assertEqual(marker.read_text(), "untouched")
-        self.assertFalse((self.target / source.relative_to(self.root)).exists())
-
-    @unittest.skipUnless(shutil.which("ffmpeg"), "FFmpeg unavailable")
-    def test_invalid_kingdom_png_refuses_before_target_changes(self):
-        fixture(self.target)
-        marker = write(self.target, "README.md", "untouched")
-        source = write(self.root, "Textures/KingdomArc/invalid.png", "x" * (750 * 1024 + 1))
-        with self.assertRaisesRegex(pipeline.PipelineError, "compression failed"):
-            pipeline.synchronize(self.root, self.game, self.target, mock.Mock())
-        self.assertEqual(marker.read_text(), "untouched")
-        self.assertFalse((self.target / source.relative_to(self.root)).exists())
 
 
 class ProcessTests(unittest.TestCase):

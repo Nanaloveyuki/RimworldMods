@@ -53,7 +53,7 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void ProviderOwnsStableIncidentsInternalArrivalAndManualKingdomDefinitions()
+        public void ProviderOwnsOnlyStableIncidentsAndInternalArrival()
         {
             RHAH_EventChainProvider provider = new RHAH_EventChainProvider();
             Assert.Equal("nanaloveyuki.ratkin.hungerandhavoc", provider.ProviderId);
@@ -65,8 +65,6 @@ namespace HungerAndHavoc.Tests
             }
 
             expected.Add("RHAH_PredationArrival");
-            expected.Add("RHAH_KingdomInvitation");
-            expected.Add("RHAH_KingdomCollaboration");
             Assert.Equal("RHAH_PredationArrival", RHAH_EventChainProvider.ArrivalId);
             Assert.Equal(expected.Count, provider.Definitions.Count);
             for (int i = 0; i < provider.Definitions.Count; i++)
