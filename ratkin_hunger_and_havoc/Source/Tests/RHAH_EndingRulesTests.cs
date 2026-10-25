@@ -114,6 +114,42 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(loaded.CareTrustEnabled, Load().CareTrustEnabled);
         }
 
+        [Theory]
+        [InlineData(false, -1, false)]
+        [InlineData(true, -1, true)]
+        [InlineData(true, 99, true)]
+        public void DisabledCareNodesKeepTheirPublishedBehavior(bool started, int deadline, bool allowed)
+        {
+            File.WriteAllText(path, "<record><trust>64</trust><suiyinNarrativeForced>True</suiyinNarrativeForced>" +
+                "<suiyinEnabled><li>True</li><li>True</li><li>True</li><li>False</li><li>False</li></suiyinEnabled>" +
+                "<suiyinStarted><li>False</li><li>False</li><li>False</li><li>" + started + "</li><li>" + started + "</li></suiyinStarted>" +
+                "<suiyinDeadlineTick><li>-1</li><li>-1</li><li>-1</li><li>" + deadline + "</li><li>" + deadline + "</li></suiyinDeadlineTick></record>");
+            NarrativeState loaded = Load();
+            Assert.Equal(allowed, loaded.Book.OpenEntrust(7, 1, 100, new[] { 8 }));
+            Assert.Equal(allowed, loaded.Book.AcceptExchange(4, 1, 100, new[] { 9 }));
+            Assert.Equal(64, loaded.Snapshot().Trust);
+            Scribe.saver.InitSaving(path, "record");
+            loaded.ExposeData();
+            Scribe.saver.FinalizeSaving();
+            NarrativeState again = Load();
+            Assert.Equal(allowed, again.Book.OpenEntrust(17, 1, 100, new[] { 18 }));
+            Assert.Equal(allowed, again.Book.AcceptExchange(14, 1, 100, new[] { 19 }));
+        }
+
+        [Fact]
+        public void NewCarePolicyTakesPrecedenceWithoutReopeningCompletedCases()
+        {
+            File.WriteAllText(path, "<record><trust>64</trust><careEntrustEnabled>False</careEntrustEnabled><careExchangeEnabled>False</careExchangeEnabled>" +
+                "<entrustCases><li><id>7</id><motherId>8</motherId><outcome>FamilyHere</outcome><effectsApplied>True</effectsApplied></li></entrustCases>" +
+                "<exchangeCases><li><id>9</id><outcome>Cared</outcome><careClosed>True</careClosed></li></exchangeCases></record>");
+            NarrativeState loaded = Load();
+            Assert.False(loaded.Book.OpenEntrust(17, 1, 100, new[] { 18 }));
+            Assert.False(loaded.Book.AcceptExchange(19, 1, 100, new[] { 20 }));
+            Assert.Equal(SuiyinN004Outcome.FamilyHere, loaded.Commit(book => book.ResolveEntrust(book.N004[0], 100, SuiyinPresence.Dead)));
+            Assert.Equal(SuiyinN005Outcome.Cared, loaded.Commit(book => book.AdvanceCare(book.N005[0], 100)));
+            Assert.Equal(64, loaded.Snapshot().Trust);
+        }
+
         NarrativeState Load()
         {
             Scribe.loader.InitLoading(path);

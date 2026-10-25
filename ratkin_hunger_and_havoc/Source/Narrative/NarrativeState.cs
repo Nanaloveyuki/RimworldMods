@@ -65,6 +65,8 @@ namespace HungerAndHavoc.Narrative
                 Scribe_Values.Look(ref careTrustEnabled, "careTrustEnabled", false);
             }
 #endif
+            ReadCarePermission(ref book.EntrustEnabled, "careEntrustEnabled", 3);
+            ReadCarePermission(ref book.ExchangeEnabled, "careExchangeEnabled", 4);
             Scribe_Values.Look(ref book.NextCaseId, "nextCaseId", 1);
             Scribe_Collections.Look(ref book.N004, "entrustCases", LookMode.Deep);
             Scribe_Collections.Look(ref book.N005, "exchangeCases", LookMode.Deep);
@@ -76,6 +78,24 @@ namespace HungerAndHavoc.Narrative
                 book.Journals = book.Journals ?? new List<SuiyinJournalCase>();
                 book.Trust = trust;
             }
+        }
+
+        static void ReadCarePermission(ref bool enabled, string key, int legacyIndex)
+        {
+            if (Scribe.mode == LoadSaveMode.LoadingVars && Scribe.loader.curXmlParent?[key] == null)
+            {
+                System.Xml.XmlNode parent = Scribe.loader.curXmlParent;
+                System.Xml.XmlNodeList oldEnabled = parent?["suiyinEnabled"]?.SelectNodes("li");
+                System.Xml.XmlNodeList oldStarted = parent?["suiyinStarted"]?.SelectNodes("li");
+                bool allowed = oldEnabled == null || legacyIndex >= oldEnabled.Count ||
+                    !bool.TryParse(oldEnabled[legacyIndex].InnerText, out bool saved) || saved;
+                bool started = oldStarted != null && legacyIndex < oldStarted.Count &&
+                    bool.TryParse(oldStarted[legacyIndex].InnerText, out bool active) && active;
+                enabled = allowed || started;
+                return;
+            }
+
+            Scribe_Values.Look(ref enabled, key, true);
         }
     }
 }

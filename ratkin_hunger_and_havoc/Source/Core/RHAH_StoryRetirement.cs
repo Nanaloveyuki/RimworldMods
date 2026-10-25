@@ -11,6 +11,7 @@ namespace HungerAndHavoc.Core
     [HarmonyPatch(typeof(Game), "ExposeSmallComponents")]
     internal static class RHAH_StoryRetirement
     {
+        static readonly string[] worldPawnLists = { "pawnsAlive", "pawnsMothballed", "pawnsDead" };
         static readonly HashSet<string> letterDefs = new HashSet<string>(StringComparer.Ordinal)
         {
             "RHAH_GrainHoleLetter", "RHAH_EnvoyLetter", "RHAH_RevisitLetter", "RHAH_RecordLetter", "RHAH_KingdomArcLetter"
@@ -52,20 +53,20 @@ namespace HungerAndHavoc.Core
                 if (letterDefs.Contains(def ?? "") || letterClasses.Contains(type ?? ""))
                 {
                     Remember(node, "ID", "Letter_", removed);
-                    node.ParentNode?.RemoveChild(node);
+                    RemoveNode(node);
                 }
                 else if (thingDefs.Contains(def ?? ""))
                 {
                     Remember(node, "id", "Thing_", removed);
-                    node.ParentNode?.RemoveChild(node);
+                    RemoveNode(node);
                 }
                 else if (thoughtDefs.Contains(def ?? ""))
                 {
-                    node.ParentNode?.RemoveChild(node);
+                    RemoveNode(node);
                 }
                 else if (type == "HungerAndHavoc.Storyteller.Suiyin.CaravanArrivalAction_RHAH_KingdomSite")
                 {
-                    node.ParentNode?.RemoveChild(node);
+                    RemoveNode(node);
                 }
             }
 
@@ -93,11 +94,13 @@ namespace HungerAndHavoc.Core
                     if (mapped)
                     {
                         XmlAttribute className = site.Attributes["Class"] ?? site.OwnerDocument.CreateAttribute("Class");
-                        className.Value = "RimWorld.Planet.Site";
+                        className.Value = "RimWorld.Planet.Camp";
                         site.Attributes.SetNamedItem(className);
-                        site["def"].InnerText = "Site";
+                        site["def"].InnerText = "Camp";
                         RemoveChild(site, "parts");
-                        RemoveChild(site, "kingdomKind");
+                        RemoveChild(site, "kingdomSiteKind");
+                        RemoveChild(site, "kingdomRecipientGroup");
+                        RemoveChild(site, "kingdomPacketReceived");
                         RemoveChild(site, "kingdomSupply");
                         RemoveChild(site, "kingdomRecipients");
                     }
@@ -133,7 +136,7 @@ namespace HungerAndHavoc.Core
                 if (mark["def"]?.InnerText != "RHAH_HungerMark" || mark["sourceIncidentDisplayId"]?.InnerText != "N-008") continue;
                 XmlNode pawn = mark.ParentNode;
                 while (pawn != null && pawn["id"] == null) pawn = pawn.ParentNode;
-                if (pawn == null || !legacy.Contains(pawn["id"].InnerText)) continue;
+                if (pawn == null || !legacy.Contains(Thing.IDNumberFromThingID(pawn["id"].InnerText).ToString(System.Globalization.CultureInfo.InvariantCulture))) continue;
                 XmlNode extras = mark["extraData"]?["keys"];
                 bool held = false;
                 if (extras != null)
@@ -168,19 +171,24 @@ namespace HungerAndHavoc.Core
             XmlNode supply = site["kingdomSupply"];
             if (supply == null || supply.ChildNodes.Count == 0) return;
             List<XmlNode> inventories = new List<XmlNode>();
-            XmlNode pawns = game["world"]?["worldPawns"]?["pawnsAlive"];
+            XmlNode worldPawns = game["world"]?["worldPawns"];
             XmlNode recipients = site["kingdomRecipients"];
-            if (pawns != null && recipients != null)
+            if (worldPawns != null && recipients != null)
             {
                 foreach (XmlNode recipient in recipients.ChildNodes)
                 {
-                    foreach (XmlNode pawn in pawns.ChildNodes)
+                    foreach (string list in worldPawnLists)
                     {
-                        if ("Thing_" + pawn["id"]?.InnerText != recipient.InnerText) continue;
-                        XmlNode inventory = pawn["inventory"];
-                        XmlNode container = inventory?["innerContainer"];
-                        XmlNode innerList = container?["innerList"];
-                        if (!IsNull(pawn) && !IsNull(inventory) && !IsNull(container) && !IsNull(innerList) && !inventories.Contains(innerList)) inventories.Add(innerList);
+                        XmlNode pawns = worldPawns[list];
+                        if (pawns == null) continue;
+                        foreach (XmlNode pawn in pawns.ChildNodes)
+                        {
+                            if ("Thing_" + pawn["id"]?.InnerText != recipient.InnerText) continue;
+                            XmlNode inventory = pawn["inventory"];
+                            XmlNode container = inventory?["innerContainer"];
+                            XmlNode innerList = container?["innerList"];
+                            if (!IsNull(pawn) && !IsNull(inventory) && !IsNull(container) && !IsNull(innerList) && !inventories.Contains(innerList)) inventories.Add(innerList);
+                        }
                     }
                 }
             }
@@ -219,11 +227,26 @@ namespace HungerAndHavoc.Core
                 if (child.NodeType != XmlNodeType.Element) continue;
                 if (child.ChildNodes.Count == 1 && child.FirstChild.NodeType == XmlNodeType.Text && removed.Contains(child.InnerText))
                 {
-                    if (child.Name == "li") node.RemoveChild(child);
+                    if (child.Name == "li") RemoveNode(child);
                     else child.InnerText = "null";
                 }
                 else RemoveReferences(child, removed);
             }
+        }
+
+        // Scribe 字典按下标配对 深存档和引用删除都必须同时删另一侧
+        static void RemoveNode(XmlNode node)
+        {
+            XmlNode parent = node.ParentNode;
+            if (parent == null) return;
+            if (parent.Name == "keys" || parent.Name == "values")
+            {
+                XmlNode pair = parent.ParentNode?[parent.Name == "keys" ? "values" : "keys"];
+                int index = 0;
+                while (index < parent.ChildNodes.Count && parent.ChildNodes[index] != node) index++;
+                if (pair != null && index < pair.ChildNodes.Count) pair.RemoveChild(pair.ChildNodes[index]);
+            }
+            parent.RemoveChild(node);
         }
 
         static void RemoveChild(XmlNode parent, string name)

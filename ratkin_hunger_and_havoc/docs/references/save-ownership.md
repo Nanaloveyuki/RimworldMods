@@ -372,12 +372,14 @@ ODF 是必需依赖，事件链存档由 `Oxygendsl.Mod.GameComponent_Oxygendsl`
 
 1.7 新档的 `careTrustEnabled` 默认 false。缺键旧档仅从 `suiyinNarrativeForced` 迁移原启用状态；之后只写新键。它只保留已启用的来客态度、事件频率与托孤/换子照料信任效果，不恢复剧情，也没有强制启用菜单。1.6 保留原有启用行为。直接处置信任和穗音大型威胁修正不由此键关闭。
 
+`careEntrustEnabled`、`careExchangeEnabled` 默认 true，仅控制新增托孤/换子照料记录，不阻止已有案件继续结算。缺新键时，分别继承旧 `suiyinEnabled` / `suiyinStarted` 的零基槽 3、4：enabled 缺失默认 true，started 缺失默认 false，原许可是 enabled 或 started，不读取节点期限。新键存在时优先，保存只写新键。两键随 NarrativeState Remove。
+
 `RHAH_StoryRetirement` 在 `Game.ExposeSmallComponents` 的 LoadingVars 前处理内存 XML：
 
-- 精确删除已移除的剧情选择信、粮洞、记录箱、迁徙记录、王国文书和四种剧情记忆；清除指向这些实例的引用，不按前缀删除普通内容。
-- 未生成地图的 `RHAH_RecordSite` / `RHAH_KingdomSite` 删除；已有地图的地点保留 ID 与地图，转为原版 `Site`，记录地点地图生成器改为 `Encounter`。王国到达动作删除，真实人员、关系及普通库存保留。
-- 王国地点的真实 `kingdomSupply` 转给记录中的原版 worldPawns 接收者背包；找不到可接收的背包时中止加载，不能丢弃已有粮食。剧情文书不转移。
-- 身份组件加载时释放 `rhah:envoyHold` 保存的两项来客闸门；普通 `rhah:longHold` 仍在时不解除其留驻。更早缺持有键的旧使者按上方精确条件在内存 XML 解除。
+- 精确删除已移除的剧情选择信、粮洞、记录箱、迁徙记录、王国文书和四种剧情记忆；清除指向这些实例的引用，不按前缀删除普通内容。Scribe 字典的深存档或引用删除同步移除对应另一侧，保留逆重飞船普通物品与原位置的配对。
+- 未生成地图的 `RHAH_RecordSite` / `RHAH_KingdomSite` 删除；已有地图的地点保留 ID 与地图，转为原版 `Camp`，不生成缺少 SitePart 的空 Site；记录地点地图生成器改为 `Encounter`。王国到达动作删除，真实人员、关系及普通库存保留。
+- 王国地点的真实 `kingdomSupply` 转给记录中的原版 worldPawns 接收者背包，同时查找 pawnsAlive、pawnsMothballed 和 pawnsDead；找不到可接收的背包时中止加载，不能丢弃已有粮食。剧情文书不转移。
+- 身份组件加载时释放 `rhah:envoyHold` 保存的两项来客闸门；普通 `rhah:longHold` 仍在时不解除其留驻。更早缺持有键的旧使者按上方精确条件在内存 XML 解除，使用原版 Thing.IDNumberFromThingID 将完整 Thing ID 与使者数值 ID 对齐。
 
 ODF 激活前，仅从本 provider 的已知格式分区移除 `RHAH_KingdomInvitation`、`RHAH_KingdomCollaboration` 两种实例；其它实例、receipts、计数和分区元数据保留。未知格式不改写，继续交由 ODF 诊断。普通 I 系列事件与八条长后续不属于穗音剧情，继续执行。
 
@@ -446,7 +448,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_RefugeeMassacre | IncidentDef | Remove |
 | RHAH_ChildExchange | IncidentDef | Remove |
 | RHAH_MouseSwarm, RHAH_PleadingJoin, RHAH_BanditAttack | IncidentDef | Remove。I-052/I-053/I-054；保留真实鼠族 Pawn、原版特质、技能与原版装备 |
-| HungerAndHavoc.Narrative.NarrativeState | trust, nextCaseId, entrustCases, exchangeCases, journalCases；1.7 另有 careTrustEnabled | GameComponent | Remove。运行时只保存信任与普通来客结算；其它旧剧情键不再写出，迁移见上节 |
+| HungerAndHavoc.Narrative.NarrativeState | trust, nextCaseId, entrustCases, exchangeCases, journalCases, careEntrustEnabled, careExchangeEnabled；1.7 另有 careTrustEnabled | GameComponent | Remove。运行时只保存信任与普通来客结算；其它旧剧情键不再写出，迁移见上节 |
 | HungerAndHavoc.Storyteller.Suiyin.SuiyinMember | loadId, presence, care, child, careTicks, missingSince, lastCareTick | 嵌在安置记录里 | Remove；lastCareTick 默认 -1，旧累计保留，首次观察不补算未记录时间 |
 | HungerAndHavoc.Storyteller.Suiyin.SuiyinN004Case | id, motherId, mapId, startedTick, outcome, mother, missingSince, effectsApplied, children | 嵌在 entrustCases | Remove。只保留托孤信任结算，回访、奖励及剧情心情字段不再写出 |
 | HungerAndHavoc.Storyteller.Suiyin.SuiyinN005Case | id, mapId, startedTick, outcome, careClosed, children | 嵌在 exchangeCases | Remove。保留原照料信任结算 |

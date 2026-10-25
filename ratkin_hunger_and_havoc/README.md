@@ -21,6 +21,10 @@ RimWorld 1.6 / 1.7 模组。`packageId`：`nanaloveyuki.ratkin.hungerandhavoc`�
 
 本次通过完整结构与依赖检查、1.7 构建和 684 项离线回归；1.6 构建及 77 项针对性回归通过，缓存程序集构建仍有 UnityEngine 引用与 System.Runtime 版本警告。真实 1.7 游戏程序集探针确认信任累计、叙事者切换、正负信任权重、跳过类别、大型威胁超期保障及关闭开关后的原版路径。IrisMenus 信任页执行了中英日三种语言、有／无存档及开关交互；地图家园判定、底层绘制与字体测量使用替身，不是游戏内布局或玩家存档验收。本次未部署。
 
+升级兼容审查补充：修复王国收货人休眠后无法转交库存、剧情地图转为空 Site、旧使者禁止离场状态残留，以及删除剧情物品时破坏逆重飞船物品与坐标配对的问题。旧档单独关闭的托孤／换子信任结算继续关闭，已经结算的记录不重新结算。迁移只修改加载中的内存 XML，不覆盖原存档；找不到原收货人的有效背包时保留原档并中止加载，不静默丢弃物资。
+
+本轮用已发布 1.7 DLL 实际保存信任、关闭节点、部分照料进度和已完成记录，再用新版 Scribe 读取、保存并重读通过；同时验证地图父对象 ID 保留及原版 Camp 标签。完整 1.7 门禁和 692 项回归、1.6 构建与 85 项针对性回归通过。上述为真实序列化和合成升级场景，不是完整玩家存档或原生游戏加载验收；升级前仍请备份。本次未部署。
+
 Suiyin now retains trust only. Her stories, kingdom arc, identity revelations, journal reader, story rewards and force-enable controls have been removed. Ordinary I-series incidents, their eight long follow-ups and Settlement progress remain. Saved trust and its existing raid-probability effect are preserved. Default 1.7 saves keep visitor-attitude, incident-frequency and passive care trust effects disabled; older saves that already enabled those trust effects keep them. Historical story descriptions below do not describe the current version.
 
 ## 1.1.4 · 索粮食物与请求修复

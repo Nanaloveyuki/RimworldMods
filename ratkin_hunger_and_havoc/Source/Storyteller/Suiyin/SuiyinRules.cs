@@ -186,10 +186,12 @@ namespace HungerAndHavoc.Storyteller.Suiyin
         internal List<SuiyinJournalCase> Journals = new List<SuiyinJournalCase>();
         internal int NextCaseId = 1;
         internal int Trust;
+        internal bool EntrustEnabled = true;
+        internal bool ExchangeEnabled = true;
 
         internal bool OpenEntrust(int motherId, int mapId, int tick, IList<int> childIds)
         {
-            if (motherId <= 0 || childIds == null || childIds.Count == 0)
+            if (!EntrustEnabled || motherId <= 0 || childIds == null || childIds.Count == 0)
             {
                 return false;
             }
@@ -316,7 +318,7 @@ namespace HungerAndHavoc.Storyteller.Suiyin
 
         internal bool AcceptExchange(int id, int mapId, int tick, IList<int> childIds)
         {
-            if (id <= 0 || FindN005(id) != null)
+            if (!ExchangeEnabled || id <= 0 || FindN005(id) != null)
             {
                 return false;
             }
