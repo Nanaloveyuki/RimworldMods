@@ -606,6 +606,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.armedDemandEnabled | 全局 ModSettings，默认 true。仅 Siege 三场景建立带数量期限的请求，不受援助/访客信开关；关闭已有请求停止该 Lord 的索粮进攻并离场，不改其它袭击 |
 | RHAH_Settings.armedWeaponsEnabled | 全局 ModSettings，默认 true。只装备新 Siege 成年且可战者；原版低级武器品质普通及以下 |
 | RHAH_Settings.spaceApproachEnabled | 全局 ModSettings，默认 false。关闭时太空层家园不生成远行队。缺键保持关闭 |
+| RHAH_Settings.skylandIncidentsEnabled | 全局 ModSettings，默认 false。仅启用 RimSkyBlock_Skyland 时显示；关闭时空岛不刷新地图事件、不派新远行队，已排队及在途事件等待重新允许；与太空设置独立，缺键保持关闭 |
 | RHAH_Settings.approachSpeedMultiplier | 全局 ModSettings，默认 2，范围 0.5..4；1 为原始速度。在途鼠族远行队按当前倍率扣除行进消耗，抵达重试仍用真实一小时。缺键或非有限值用默认 |
 | RHAH_Settings.childExchangeFoodSubstitution | 全局 ModSettings，默认 true。易子而食玩家侧可用简单餐代替婴幼儿 |
 | RHAH_Settings.familyDropEnabled | 全局 ModSettings，默认 true |

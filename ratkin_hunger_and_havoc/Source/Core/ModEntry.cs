@@ -153,6 +153,11 @@ namespace HungerAndHavoc.Core
                 "RHAH_Settings_ArmedWeapons_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_SpaceApproach".Translate(), ref Settings.spaceApproachEnabled,
                 "RHAH_Settings_SpaceApproach_Tooltip".Translate());
+            if (HungerAndHavoc.Pawn.Compat.RHAH_SkylandCompat.Active)
+            {
+                listing.CheckboxLabeled("RHAH_Settings_SkylandIncidents".Translate(), ref Settings.skylandIncidentsEnabled,
+                    "RHAH_Settings_SkylandIncidents_Tooltip".Translate());
+            }
             listing.Label("RHAH_Settings_ApproachSpeed".Translate(Settings.approachSpeedMultiplier.ToString("0.00")),
                 tooltip: "RHAH_Settings_ApproachSpeed_Tooltip".Translate());
             Settings.approachSpeedMultiplier = listing.Slider(Incidents.RHAH_ApproachRules.ClampSpeed(Settings.approachSpeedMultiplier),

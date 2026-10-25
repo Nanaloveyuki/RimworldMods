@@ -25,6 +25,12 @@ namespace HungerAndHavoc.Incidents
             return Core.RHAH_Mod.Settings != null && Core.RHAH_Mod.Settings.spaceApproachEnabled;
         }
 
+        internal static bool AllowsHome(Map map)
+        {
+            return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
+                RHAH_ApproachRules.AllowsHome(SpaceHome(map), SpaceApproachEnabled());
+        }
+
         internal static bool TrySend(string displayId, float points, int mapId)
         {
             if (!Core.RHAH_Runtime.AllowsNewContent || string.IsNullOrEmpty(displayId) || Find.WorldObjects == null)
@@ -74,8 +80,7 @@ namespace HungerAndHavoc.Incidents
         static Map Home(int mapId)
         {
             Map home = Core.RHAH_MapResolver.MapById(mapId);
-            return home != null && home.IsPlayerHome &&
-                RHAH_ApproachRules.AllowsHome(SpaceHome(home), SpaceApproachEnabled()) ? home : null;
+            return home != null && home.IsPlayerHome && AllowsHome(home) ? home : null;
         }
 
         static PlanetTile OppositeShore(PlanetTile home)

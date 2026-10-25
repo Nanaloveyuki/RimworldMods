@@ -82,6 +82,8 @@
   <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>オンにすると、被災者のキャラバンは閉じ込められた部屋から脱出するための掘削を行いません。オフの場合、マップの端にたどり着けなければ、掘って道を作り立ち去ります。</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
   <RHAH_Settings_SpaceApproach>軌道の拠点で事件を許可</RHAH_Settings_SpaceApproach>
   <RHAH_Settings_SpaceApproach_Tooltip>初期設定はオフです。オフのとき、小惑星や SOS2 の軌道船を含む軌道上の拠点には、歩いて向かうラットキンの一行は生成されず、マップ事件も抽選されません。オンにすると許可されます。すでにオデッセイの軌道層にいる一行は、シャトルの離陸を妨げません。</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_SkylandIncidents>空島で事件を許可</RHAH_Settings_SkylandIncidents>
+  <RHAH_Settings_SkylandIncidents_Tooltip>初期設定はオフです。オフの間、RimSkyBlock_Skyland の空島マップでは、このModのマップ事件とラットキン遠行隊の来訪が発生しません。オンにすると許可されますが、遠行隊が空島に入れない場合があります。地上のマップには影響せず、軌道の拠点で事件を許可する設定とは別に切り替えられます。</RHAH_Settings_SkylandIncidents_Tooltip>
   <RHAH_Settings_ApproachSpeed>ラットキン遠行隊の速度：{0}x</RHAH_Settings_ApproachSpeed>
   <RHAH_Settings_ApproachSpeed_Tooltip>このModで拠点へ向かうラットキンの移動速度です。範囲は0.5x～4x、初期値は2x。1xは従来の速度で、平地では1日約3タイル進みます。変更は移動中の一行にもすぐ適用されます。</RHAH_Settings_ApproachSpeed_Tooltip>
   <RHAH_Settings_ChildExchangeFood>子供の代わりに食料を渡すことを許可</RHAH_Settings_ChildExchangeFood>

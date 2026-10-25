@@ -15,7 +15,8 @@ namespace HungerAndHavoc.Incidents
         protected override bool CanFireNowSub(IncidentParms parms)
         {
             Map map = ResolveMap(parms);
-            return map != null && RHAH_RuntimeAllows() && TemperatureAllows(map) && FindAnySpawnCell(map);
+            return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
+                RHAH_RuntimeAllows() && TemperatureAllows(map) && FindAnySpawnCell(map);
         }
 
         protected override bool TryExecuteWorker(IncidentParms parms)

@@ -2838,6 +2838,10 @@ namespace HungerAndHavoc.Pawn.Compat
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TraderIgnoreEnvironment".Translate(), ref settings.traderIgnoresHarshEnvironment, "RHAH_Settings_TraderIgnoreEnvironment_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TraderIgnoreEnclosed".Translate(), ref settings.traderIgnoresEnclosedSpace, "RHAH_Settings_TraderIgnoreEnclosed_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_SpaceApproach".Translate(), ref settings.spaceApproachEnabled, "RHAH_Settings_SpaceApproach_Tooltip".Translate());
+            if (HungerAndHavoc.Pawn.Compat.RHAH_SkylandCompat.Active)
+            {
+                RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_SkylandIncidents".Translate(), ref settings.skylandIncidentsEnabled, "RHAH_Settings_SkylandIncidents_Tooltip".Translate());
+            }
             MenuControls.Anchor(list, "approach-speed");
             settings.approachSpeedMultiplier = RHAH_IrisMenusWidgets.TuneFloat(list, weightBuffers, "approach-speed",
                 "RHAH_Settings_ApproachSpeed".Translate(settings.approachSpeedMultiplier.ToString("0.00")),

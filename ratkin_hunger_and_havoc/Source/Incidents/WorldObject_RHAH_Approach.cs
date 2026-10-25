@@ -300,7 +300,7 @@ namespace HungerAndHavoc.Incidents
                 return false;
             }
 
-            if (!RHAH_ApproachRules.AllowsHome(RHAH_Approach.SpaceHome(map), SpaceApproachEnabled()))
+            if (!RHAH_Approach.AllowsHome(map))
             {
                 return false;
             }
@@ -342,11 +342,6 @@ namespace HungerAndHavoc.Incidents
         bool SpaceLayer()
         {
             return RHAH_Approach.SpaceLayer(Tile);
-        }
-
-        bool SpaceApproachEnabled()
-        {
-            return RHAH_Approach.SpaceApproachEnabled();
         }
 
         bool OnDestination()

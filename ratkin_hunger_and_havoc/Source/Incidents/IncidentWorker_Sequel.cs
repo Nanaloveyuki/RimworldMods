@@ -17,7 +17,7 @@ namespace HungerAndHavoc.Incidents
 
             if (entry.DisplayId == "I-038")
             {
-                return Core.RHAH_MapResolver.Resolve(parms?.target as Map) != null;
+                return Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(Core.RHAH_MapResolver.Resolve(parms?.target as Map));
             }
 
             if (entry.Target == RHAH_IncidentTarget.Caravan)
@@ -31,7 +31,7 @@ namespace HungerAndHavoc.Incidents
             }
 
             Map map = Core.RHAH_MapResolver.Resolve(parms?.target as Map);
-            return map != null && FindAnySpawnCell(map);
+            return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) && FindAnySpawnCell(map);
         }
         static bool FindAnySpawnCell(Map map)
         {

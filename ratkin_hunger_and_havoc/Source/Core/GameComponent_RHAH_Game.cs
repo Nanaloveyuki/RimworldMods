@@ -193,6 +193,11 @@ namespace HungerAndHavoc.Core
                 return RHAH_ArrivalResult.Waiting;
             }
 
+            if (!Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map))
+            {
+                return RHAH_ArrivalResult.Waiting;
+            }
+
             IncidentDef arrivedDef = DefDatabase<IncidentDef>.GetNamedSilentFail(entry.DefName);
             if (arrivedDef == null || arrivedDef.Worker == null)
             {
@@ -303,6 +308,11 @@ namespace HungerAndHavoc.Core
                 }
 
                 if (queued.Unavailable)
+                {
+                    continue;
+                }
+
+                if (queued.Target is Map map && !Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map))
                 {
                     continue;
                 }

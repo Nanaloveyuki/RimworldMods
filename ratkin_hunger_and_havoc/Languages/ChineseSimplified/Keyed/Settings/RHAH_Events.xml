@@ -82,6 +82,8 @@
   <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>开启后，灾荒商队会继续在封闭房间内停留；关闭后，到不了地图边缘时，他们会挖路离开。</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
   <RHAH_Settings_SpaceApproach>允许太空家园刷新事件</RHAH_Settings_SpaceApproach>
   <RHAH_Settings_SpaceApproach_Tooltip>默认关闭。开启后，轨道、小行星和 SOS2 轨道船等太空家园也可出现地图事件和步行而来的鼠族远行队。位于奥德赛轨道层的鼠族远行队允许穿梭机正常起飞。</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_SkylandIncidents>允许空岛刷新事件</RHAH_Settings_SkylandIncidents>
+  <RHAH_Settings_SkylandIncidents_Tooltip>默认关闭。关闭时，RimSkyBlock_Skyland 的空岛地图不生成本模组的地图事件和鼠族远行队。开启后允许生成，但远行队仍可能无法进入空岛。地面地图不受影响，此选项与太空家园事件开关独立。</RHAH_Settings_SkylandIncidents_Tooltip>
   <RHAH_Settings_ApproachSpeed>鼠族远行队速度：{0}x</RHAH_Settings_ApproachSpeed>
   <RHAH_Settings_ApproachSpeed_Tooltip>调整本模组赶往据点的鼠族远行队速度，范围 0.5x～4x，默认 2x。1x 为原来的速度，平地约每天 3 格；修改后，在途队伍也立即按新速度赶路。</RHAH_Settings_ApproachSpeed_Tooltip>
   <RHAH_Settings_ChildExchangeFood>允许用食物代替交出孩子</RHAH_Settings_ChildExchangeFood>

@@ -82,6 +82,8 @@
   <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>On, famine traders stay inside a closed room instead of digging out. Off, they dig out when they cannot reach the map edge.</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
   <RHAH_Settings_SpaceApproach>Allow incidents at orbital homes</RHAH_Settings_SpaceApproach>
   <RHAH_Settings_SpaceApproach_Tooltip>Off by default. Orbital homes, asteroids, and SOS2 ships then receive no ratkin who walk in, and map incidents stay out of the draw. Turn this on to allow both. A group already on an Odyssey orbit layer still leaves the shuttle launch clear.</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_SkylandIncidents>Allow incidents on sky islands</RHAH_Settings_SkylandIncidents>
+  <RHAH_Settings_SkylandIncidents_Tooltip>Off by default. While off, island maps from RimSkyBlock_Skyland are excluded from this mod's map incidents and ratkin traveler arrivals. Turn on to allow both, though travelers may still be unable to enter the island. Ground maps are unaffected. This option is independent of the orbital-home incident setting.</RHAH_Settings_SkylandIncidents_Tooltip>
   <RHAH_Settings_ApproachSpeed>Ratkin traveler speed: {0}x</RHAH_Settings_ApproachSpeed>
   <RHAH_Settings_ApproachSpeed_Tooltip>Travel speed for this mod's ratkin groups heading to a colony. Range: 0.5x–4x; default: 2x. 1x is the original speed, about 3 tiles per day on flat terrain. Changes also apply immediately to groups already traveling.</RHAH_Settings_ApproachSpeed_Tooltip>
   <RHAH_Settings_ChildExchangeFood>Allow food in place of children</RHAH_Settings_ChildExchangeFood>

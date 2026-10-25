@@ -63,6 +63,7 @@ namespace HungerAndHavoc.Core
         public bool armedDemandEnabled = true;
         public bool armedWeaponsEnabled = true;
         public bool spaceApproachEnabled;
+        public bool skylandIncidentsEnabled;
         public float approachSpeedMultiplier = HungerAndHavoc.Incidents.RHAH_ApproachRules.DefaultSpeedMultiplier;
         public bool childExchangeFoodSubstitution = true;
         public bool familyDropEnabled = true;
@@ -306,6 +307,7 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref armedDemandEnabled, "armedDemandEnabled", true);
             Scribe_Values.Look(ref armedWeaponsEnabled, "armedWeaponsEnabled", true);
             Scribe_Values.Look(ref spaceApproachEnabled, "spaceApproachEnabled", false);
+            Scribe_Values.Look(ref skylandIncidentsEnabled, "skylandIncidentsEnabled", false);
             Scribe_Values.Look(ref approachSpeedMultiplier, "approachSpeedMultiplier", HungerAndHavoc.Incidents.RHAH_ApproachRules.DefaultSpeedMultiplier);
             Scribe_Values.Look(ref childExchangeFoodSubstitution, "childExchangeFoodSubstitution", true);
             Scribe_Values.Look(ref familyDropEnabled, "familyDropEnabled", true);

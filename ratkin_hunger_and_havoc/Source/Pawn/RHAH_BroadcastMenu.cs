@@ -19,7 +19,7 @@ namespace HungerAndHavoc.Pawn
             RHAH_Settings settings = RHAH_Mod.Settings;
             if (console == null || settings == null || !settings.broadcastEnabled || !RHAH_Runtime.AllowsNewContent ||
                 !console.Spawned || !console.Map.IsPlayerHome ||
-                !RHAH_ApproachRules.AllowsHome(RHAH_Approach.SpaceHome(console.Map), RHAH_Approach.SpaceApproachEnabled()))
+                !RHAH_Approach.AllowsHome(console.Map))
             {
                 return null;
             }
@@ -74,7 +74,7 @@ namespace HungerAndHavoc.Pawn
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
             if (!RHAH_Runtime.AllowsNewContent || settings == null || !settings.broadcastEnabled ||
                 game == null || console == null || !console.Spawned || !console.CanUseCommsNow || !console.Map.IsPlayerHome ||
-                !RHAH_ApproachRules.AllowsHome(RHAH_Approach.SpaceHome(console.Map), RHAH_Approach.SpaceApproachEnabled()))
+                !RHAH_Approach.AllowsHome(console.Map))
             {
                 return false;
             }
