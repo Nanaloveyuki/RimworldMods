@@ -10,6 +10,7 @@ namespace IrisMenus.UI
         private UiId[] ids;
         private UiControlVisual[] visuals;
         private UiTween selectedPosition;
+        private UiControlLine line;
         private bool initialized;
 
         public UiSegments(UiContext context, string[] options)
@@ -40,14 +41,16 @@ namespace IrisMenus.UI
             options = labels;
         }
 
-        public int Draw(Rect rect, int selected, bool enabled = true)
+        public int Draw(Rect rect, int selected, bool enabled = true, float scale = 1f)
         {
             selected = Mathf.Clamp(selected, 0, options.Length - 1);
-            float inset = Mathf.Min(3f, Mathf.Max(0f, Mathf.Min(rect.width, rect.height) * 0.25f));
+            float inset = Mathf.Min(2f * scale, Mathf.Max(0f, Mathf.Min(rect.width, rect.height) * 0.25f));
             float width = Mathf.Max(0f, rect.width - inset * 2f) / options.Length;
-            float height = Mathf.Max(0f, rect.height - inset * 2f);
+            float height = Mathf.Max(0f, rect.height - inset * 2f - 2f * scale);
+            bool focused = false;
+            float hover = 0f;
             UiPalette palette = context.Palette;
-            context.Fill(rect, palette.Sunken);
+            context.Fill(rect, palette.Input);
             for (int i = 0; i < options.Length; i++)
             {
                 Rect item = new Rect(rect.x + inset + width * i, rect.y + inset, width, height);
@@ -63,14 +66,20 @@ namespace IrisMenus.UI
                     if (next != i) { selected = next; context.Focus(ids[next]); }
                 }
                 visuals[i].Step(context, interaction, enabled);
+                focused |= enabled && interaction.Focused;
+                hover = Mathf.Max(hover, visuals[i].Hover);
                 using (context.Opacity(visuals[i].Opacity))
-                    context.Fill(item, visuals[i].Background(palette, palette.Sunken));
+                {
+                    Color hoverInk = palette.Ink;
+                    hoverInk.a = 0.05f * visuals[i].Hover;
+                    context.Fill(item, hoverInk);
+                }
             }
             if (!initialized) { selectedPosition.Snap(selected); initialized = true; }
             float position = selectedPosition.Step(selected, context.Time, UiMotion.Standard, context.ReducedMotion);
             Rect indicator = new Rect(rect.x + inset + position * width, rect.y + inset, width, height);
             using (context.Opacity(visuals[selected].Opacity))
-                context.Fill(indicator, Color.Lerp(palette.Selected, palette.Signal, visuals[selected].Press * 0.18f));
+                context.Fill(indicator, palette.Selected);
             for (int i = 0; i < options.Length; i++)
             {
                 Rect item = new Rect(rect.x + inset + width * i, rect.y + inset, width, height);
@@ -79,9 +88,9 @@ namespace IrisMenus.UI
                 using (context.Opacity(visuals[i].Opacity))
                 {
                     context.Label(item, options[i], ink, TextAnchor.MiddleCenter);
-                    visuals[i].DrawFocus(context, item);
                 }
             }
+            line.Draw(context, rect, focused, hover, scale: scale);
             return selected;
         }
     }

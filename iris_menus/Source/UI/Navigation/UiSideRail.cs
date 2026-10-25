@@ -15,7 +15,7 @@ namespace IrisMenus.UI
 
         // Counts and badges intentionally do not belong to this navigation primitive.
         public int Draw(Rect rect, int selected, bool enabled = true, bool[] itemEnabled = null,
-            float rowHeight = 44f, float gap = 4f, bool visible = true)
-            => navigation.Draw(rect, selected, true, rowHeight, gap, enabled, itemEnabled, visible);
+            float rowHeight = 44f, float gap = 4f, bool visible = true, UiGlyphKind[] icons = null)
+            => navigation.Draw(rect, selected, true, rowHeight, gap, enabled, itemEnabled, visible, icons);
     }
 }

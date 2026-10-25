@@ -7,9 +7,12 @@ namespace IrisMenus.UI
     {
         private readonly UiContext context;
         private readonly string controlName;
+        private readonly UiId clearId;
         private readonly int maxLength;
         private GUIStyle style;
         private UiControlVisual visual;
+        private UiControlLine line;
+        private UiControlVisual clearVisual;
         private UiTween error;
         private int editorHotControl;
 
@@ -19,6 +22,7 @@ namespace IrisMenus.UI
             if (maxLength < -1) throw new ArgumentOutOfRangeException(nameof(maxLength));
             this.maxLength = maxLength;
             Id = context.CreateId();
+            clearId = context.CreateId();
             controlName = "IrisMenus.UI.TextField." + Guid.NewGuid().ToString("N");
         }
 
@@ -27,7 +31,8 @@ namespace IrisMenus.UI
 
         // The returned string remains caller-owned. Native text editing supplies selection,
         // caret movement, clipboard shortcuts, horizontal scrolling and IME composition.
-        public string Draw(Rect rect, string value, string placeholder = null, bool enabled = true, bool invalid = false)
+        public string Draw(Rect rect, string value, string placeholder = null, bool enabled = true, bool invalid = false,
+            UiGlyphKind icon = UiGlyphKind.None, string shortcut = null, bool showClear = false, float scale = 1f)
         {
             if (style == null)
             {
@@ -49,10 +54,22 @@ namespace IrisMenus.UI
                 style.onFocused.background = null;
             }
             style.fontSize = Mathf.RoundToInt(context.FontSize);
+            style.fontStyle = context.FontStyle;
+            style.padding.left = style.padding.right = Mathf.RoundToInt(8f * scale);
+            style.padding.top = style.padding.bottom = Mathf.RoundToInt(3f * scale);
             value = value ?? string.Empty;
             Event current = context.Event;
             EventType original = current != null ? current.type : EventType.Ignore;
             bool wasCaptured = context.IsCaptured(Id);
+            float unit = Mathf.Max(0f, scale);
+            bool clearVisible = showClear && value.Length > 0;
+            Rect endRect = new Rect(rect.xMax - 32f * unit, rect.y, 28f * unit, rect.height);
+            UiInteraction clearInteraction = context.Interact(clearId, clearVisible ? endRect : default(Rect), enabled && clearVisible);
+            clearVisual.Step(context, clearInteraction, enabled);
+            if (clearInteraction.Clicked) { value = string.Empty; context.Focus(Id); }
+            float endWidth = clearVisible ? 36f * unit : !string.IsNullOrEmpty(shortcut) ? 62f * unit : 0f;
+            float startWidth = icon == UiGlyphKind.None ? 0f : 28f * unit;
+            Rect editorRect = new Rect(rect.x + startWidth, rect.y, Mathf.Max(0f, rect.width - startWidth - endWidth), rect.height);
             UiInteraction interaction = context.Interact(Id, rect, enabled, false);
             bool active = enabled && context.IsInputAllowed && context.IsFocused(Id);
             Submitted = active && (context.ConsumeKey(KeyCode.Return) || context.ConsumeKey(KeyCode.KeypadEnter));
@@ -61,10 +78,27 @@ namespace IrisMenus.UI
             UiPalette palette = context.Palette;
             using (context.Opacity(visual.Opacity))
             {
-                context.Fill(rect, visual.Background(palette, palette.Sunken));
-                Color border = Color.Lerp(palette.Line, palette.StrongLine, visual.Hover);
-                border = Color.Lerp(border, palette.Signal, visual.Focus);
-                context.Border(rect, Color.Lerp(border, palette.Error, invalidAmount), UiMotion.Lerp(1f, 2f, Mathf.Max(visual.Focus, invalidAmount)));
+                context.Fill(rect, palette.Input);
+                line.Draw(context, rect, active, visual.Hover, invalidAmount, unit);
+                if (icon != UiGlyphKind.None)
+                    UiGlyph.Draw(context, new Rect(rect.x + 10f * unit, rect.center.y - 8f * unit, 16f * unit, 16f * unit), icon, palette.Muted);
+                if (clearVisible)
+                {
+                    Color background = palette.Hover;
+                    background.a *= clearVisual.Hover;
+                    context.Fill(endRect, background);
+                    UiGlyph.Draw(context, new Rect(endRect.center.x - 7f * unit, endRect.center.y - 7f * unit, 14f * unit, 14f * unit), UiGlyphKind.Close, palette.Muted);
+                    clearVisual.DrawFocus(context, endRect);
+                }
+                else if (!string.IsNullOrEmpty(shortcut))
+                {
+                    Rect key = new Rect(rect.xMax - 54f * unit, rect.center.y - 10f * unit, 46f * unit, 20f * unit);
+                    context.Border(key, palette.Line);
+                    float fontSize = context.FontSize;
+                    context.FontSize = 11f * unit;
+                    context.Label(key, shortcut, palette.Muted, TextAnchor.MiddleCenter);
+                    context.FontSize = fontSize;
+                }
                 SetTextColor(palette.Ink);
                 string focusedName = GUI.GetNameOfFocusedControl();
                 if (active)
@@ -105,7 +139,7 @@ namespace IrisMenus.UI
                     }
                     GUIUtility.hotControl = active ? editorHotControl : 0;
                     GUI.SetNextControlName(controlName);
-                    value = GUI.TextField(rect, value, maxLength, style);
+                    value = GUI.TextField(editorRect, value, maxLength, style);
                     if (active) editorHotControl = GUIUtility.hotControl;
                 }
                 finally
@@ -120,7 +154,7 @@ namespace IrisMenus.UI
                 }
                 if (mouseDrag && active) context.Consume();
                 if (!active && value.Length == 0 && !string.IsNullOrEmpty(placeholder))
-                    context.Label(new Rect(rect.x + 8f, rect.y, Mathf.Max(0f, rect.width - 16f), rect.height), placeholder, palette.Muted);
+                    context.Label(new Rect(editorRect.x + 8f * unit, editorRect.y, Mathf.Max(0f, editorRect.width - 16f * unit), editorRect.height), placeholder, palette.Muted);
             }
             return value;
         }
@@ -129,6 +163,7 @@ namespace IrisMenus.UI
         public void Dispose()
         {
             context.Release(Id);
+            context.Release(clearId);
             if (context.IsFocused(Id)) context.Focus(default(UiId));
             if (GUI.GetNameOfFocusedControl() == controlName) GUI.FocusControl(null);
             editorHotControl = 0;

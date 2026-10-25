@@ -13,6 +13,9 @@ Markdown help and documentation content is covered in
 Reusable native controls, containers, overlays and their IMGUI/animation contracts are documented in
 [Native UI components](docs/references/native-ui-components.md). The explicit full-screen host uses them;
 the original window remains the default entry.
+The current 1.7 source follows the local Endfield-like prototype's component styling
+and timing; see the component guide's 2026-10-25 fidelity notes for screenshot evidence
+and remaining acceptance limits. It retains game fonts rather than bundling web fonts.
 Pages are grouped by Mod; only the selected group expands. Existing single-page
 registrations still open directly. Search supports global or owner-wide metadata
 results, pagination, and explicit anchors without drawing unselected pages.

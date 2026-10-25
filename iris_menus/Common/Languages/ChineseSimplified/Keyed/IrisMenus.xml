@@ -81,6 +81,7 @@
   <IM_NativeSearchResults>搜索结果</IM_NativeSearchResults>
   <IM_NativeChoosePage>从设置库选择 Mod，打开它的设置。</IM_NativeChoosePage>
   <IM_NativeThisPage>本页</IM_NativeThisPage>
+  <IM_NativeNotes>使用说明</IM_NativeNotes>
   <IM_NativeReset>恢复默认</IM_NativeReset>
   <IM_NativeSaveOnLeave>离开页面时保存设置</IM_NativeSaveOnLeave>
   <IM_NativeReturnOriginal>返回旧版界面</IM_NativeReturnOriginal>

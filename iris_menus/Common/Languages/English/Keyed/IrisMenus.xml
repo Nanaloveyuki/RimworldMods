@@ -81,6 +81,7 @@
   <IM_NativeSearchResults>Search results</IM_NativeSearchResults>
   <IM_NativeChoosePage>Select a mod from the library to open its settings.</IM_NativeChoosePage>
   <IM_NativeThisPage>This page</IM_NativeThisPage>
+  <IM_NativeNotes>Usage notes</IM_NativeNotes>
   <IM_NativeReset>Restore defaults</IM_NativeReset>
   <IM_NativeSaveOnLeave>Settings saved when leaving a page</IM_NativeSaveOnLeave>
   <IM_NativeReturnOriginal>Original interface</IM_NativeReturnOriginal>

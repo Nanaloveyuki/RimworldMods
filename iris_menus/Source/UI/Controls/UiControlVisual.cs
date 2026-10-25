@@ -50,4 +50,21 @@ namespace IrisMenus.UI
             context.Border(rect, color, 2f);
         }
     }
+
+    internal struct UiControlLine
+    {
+        private UiTween focus;
+
+        internal void Draw(UiContext context, Rect rect, bool focused, float hover, float invalid = 0f, float scale = 1f)
+        {
+            float amount = focus.Step(focused && invalid <= 0f ? 1f : 0f, context.Time,
+                focused ? UiMotion.Enter : UiMotion.Fast, context.ReducedMotion, focused ? UiEase.Exit : UiEase.Standard);
+            float height = Mathf.Min(rect.height, 2f * Mathf.Max(0f, scale));
+            Rect line = new Rect(rect.x, rect.yMax - height, rect.width, height);
+            Color border = Color.Lerp(context.Palette.StrongLine, context.Palette.Muted, hover);
+            context.Fill(line, Color.Lerp(border, context.Palette.Error, invalid));
+            line.width *= amount;
+            context.Fill(line, context.Palette.Ink);
+        }
+    }
 }

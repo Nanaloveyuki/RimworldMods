@@ -13,6 +13,7 @@ namespace IrisMenus.UI
         private readonly UiTween[] hover;
         private readonly UiTween[] press;
         private readonly UiTween[] focus;
+        private readonly UiTween[] activation;
         private UiTween indicatorX, indicatorY, indicatorWidth, indicatorHeight, indicatorAlpha;
         private UiTween presence = new UiTween(0f);
         private bool positioned;
@@ -26,6 +27,7 @@ namespace IrisMenus.UI
             hover = new UiTween[labels.Length];
             press = new UiTween[labels.Length];
             focus = new UiTween[labels.Length];
+            activation = new UiTween[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
                 if (labels[i] == null) throw new ArgumentException("Navigation labels cannot be null.", nameof(labels));
@@ -38,10 +40,12 @@ namespace IrisMenus.UI
         internal float Visibility => presence.Value;
 
         internal int Draw(Rect rect, int selected, bool vertical, float rowHeight, float gap,
-            bool enabled, bool[] itemEnabled, bool visible)
+            bool enabled, bool[] itemEnabled, bool visible, UiGlyphKind[] icons = null)
         {
             if (itemEnabled != null && itemEnabled.Length != ids.Length)
                 throw new ArgumentException("Enabled flags must match navigation labels.", nameof(itemEnabled));
+            if (icons != null && icons.Length != ids.Length)
+                throw new ArgumentException("Icons must match navigation labels.", nameof(icons));
             if (float.IsNaN(rowHeight) || float.IsInfinity(rowHeight) || rowHeight <= 0f)
                 throw new ArgumentOutOfRangeException(nameof(rowHeight));
             if (float.IsNaN(gap) || float.IsInfinity(gap) || gap < 0f)
@@ -82,28 +86,28 @@ namespace IrisMenus.UI
                 {
                     UiPalette palette = context.Palette;
                     if (!vertical)
-                        context.Fill(new Rect(0f, Mathf.Max(0f, local.height - 1f), local.width, 1f), palette.Line);
-                    Rect target = active < 0 ? new Rect() : ItemRect(local, active, vertical, rowHeight, gap);
-                    if (active >= 0 && !positioned)
-                    {
-                        indicatorX.Snap(target.x);
-                        indicatorY.Snap(target.y);
-                        indicatorWidth.Snap(target.width);
-                        indicatorHeight.Snap(target.height);
-                        indicatorAlpha.Snap(1f);
-                        positioned = true;
-                    }
-                    float ix = indicatorX.Step(active >= 0 ? target.x : indicatorX.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
-                    float iy = indicatorY.Step(active >= 0 ? target.y : indicatorY.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
-                    float iw = indicatorWidth.Step(active >= 0 ? target.width : indicatorWidth.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
-                    float ih = indicatorHeight.Step(active >= 0 ? target.height : indicatorHeight.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
-                    float ia = indicatorAlpha.Step(active >= 0 ? 1f : 0f, context.Time, UiMotion.Fast, context.ReducedMotion);
+                        context.Fill(new Rect(0f, Mathf.Max(0f, local.height - 1f), local.width, 1f), palette.StrongLine);
                     if (vertical)
                     {
+                        Rect target = active < 0 ? new Rect() : ItemRect(local, active, true, rowHeight, gap);
+                        if (active >= 0 && !positioned)
+                        {
+                            indicatorX.Snap(target.x);
+                            indicatorY.Snap(target.y);
+                            indicatorWidth.Snap(target.width);
+                            indicatorHeight.Snap(target.height);
+                            indicatorAlpha.Snap(1f);
+                            positioned = true;
+                        }
+                        float ix = indicatorX.Step(active >= 0 ? target.x : indicatorX.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
+                        float iy = indicatorY.Step(active >= 0 ? target.y : indicatorY.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
+                        float iw = indicatorWidth.Step(active >= 0 ? target.width : indicatorWidth.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
+                        float ih = indicatorHeight.Step(active >= 0 ? target.height : indicatorHeight.Target, context.Time, UiMotion.Standard, context.ReducedMotion);
+                        float ia = indicatorAlpha.Step(active >= 0 ? 1f : 0f, context.Time, UiMotion.Fast, context.ReducedMotion);
                         using (context.Opacity(ia))
                         {
                             context.Fill(new Rect(ix, iy, iw, ih), palette.Selected);
-                            context.Fill(new Rect(ix, iy + 8f, 3f, Mathf.Max(0f, ih - 16f)), palette.Signal);
+                            context.Fill(new Rect(ix, iy + (ih - 24f) * 0.5f, 3f, Mathf.Min(24f, ih)), palette.Signal);
                         }
                     }
                     for (int i = 0; i < ids.Length; i++)
@@ -117,20 +121,41 @@ namespace IrisMenus.UI
                         using (context.Opacity(available ? 1f : 0.42f))
                         {
                             Color fill = palette.Hover;
-                            fill.a *= Mathf.Max(h * 0.72f, p);
+                            fill.a *= Mathf.Max(h, p);
                             context.Fill(item, fill);
-                            Color outline = palette.Signal;
+                            float selectedAmount = vertical ? (i == active ? 1f : 0f) : activation[i].Step(i == active ? 1f : 0f,
+                                context.Time, UiMotion.Fast, context.ReducedMotion);
+                            if (!vertical)
+                            {
+                                Color selectedFill = palette.Selected;
+                                selectedFill.a *= selectedAmount;
+                                context.Fill(item, selectedFill);
+                            }
+                            Color outline = palette.Ink;
                             outline.a *= f;
                             context.Border(new Rect(item.x + 2f, item.y + 2f, Mathf.Max(0f, item.width - 4f), Mathf.Max(0f, item.height - 4f)), outline);
-                            Rect text = new Rect(item.x + 14f, item.y, Mathf.Max(0f, item.width - 28f), item.height);
-                            context.Label(text, labels[i], i == active ? (vertical ? palette.OnSelected : palette.Ink) : palette.Muted,
-                                vertical ? TextAnchor.MiddleLeft : TextAnchor.MiddleCenter);
+                            Color ink = Color.Lerp(palette.Muted, palette.OnSelected, selectedAmount);
+                            float iconWidth = icons != null && icons[i] != UiGlyphKind.None ? 30f : 0f;
+                            if (iconWidth > 0f)
+                                UiGlyph.Draw(context, new Rect(item.x + 14f, item.center.y - 9f, 18f, 18f), icons[i], ink);
+                            Rect text = new Rect(item.x + 14f + iconWidth, item.y,
+                                Mathf.Max(0f, item.width - 28f - iconWidth - (vertical ? 0f : selectedAmount * 22f)), item.height);
+                            FontStyle oldStyle = context.FontStyle;
+                            context.FontStyle = i == active ? FontStyle.Bold : FontStyle.Normal;
+                            context.Label(text, labels[i], ink, vertical ? TextAnchor.MiddleLeft : TextAnchor.MiddleCenter);
+                            context.FontStyle = oldStyle;
+                            if (!vertical && selectedAmount > 0f)
+                            {
+                                using (context.Opacity(selectedAmount))
+                                {
+                                    Rect arrow = new Rect(item.xMax - 26f, item.center.y - 10f, 20f, 20f);
+                                    context.Fill(arrow, palette.OnSelected);
+                                    Vector2 center = arrow.center;
+                                    context.Triangle(new Vector2(center.x - 2f, center.y - 3f),
+                                        new Vector2(center.x + 2f, center.y), new Vector2(center.x - 2f, center.y + 3f), palette.Selected);
+                                }
+                            }
                         }
-                    }
-                    if (!vertical)
-                    {
-                        using (context.Opacity(ia))
-                            context.Fill(new Rect(ix + 10f, Mathf.Max(0f, local.height - 3f), Mathf.Max(0f, iw - 20f), 3f), palette.Signal);
                     }
                 }
             }

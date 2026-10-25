@@ -11,6 +11,7 @@ namespace IrisMenus.UI
         private readonly float step;
         private UiControlVisual visual;
         private UiTween thumb;
+        private UiTween dragAccent;
         private bool initialized;
         private bool dragging;
         private float dragWidth;
@@ -34,7 +35,7 @@ namespace IrisMenus.UI
         public float Minimum => minimum;
         public float Maximum => maximum;
 
-        public float Draw(Rect rect, float value, bool enabled = true)
+        public float Draw(Rect rect, float value, bool enabled = true, float scale = 1f)
         {
             value = NormalizeValue(value);
             Event current = context.Event;
@@ -42,17 +43,18 @@ namespace IrisMenus.UI
             Vector2 mouse = current != null ? GUIUtility.GUIToScreenPoint(current.mousePosition) : Vector2.zero;
             bool captured = context.IsCaptured(Id);
             UiInteraction interaction = context.Interact(Id, rect, enabled, false);
-            float radius = Mathf.Max(0f, Mathf.Min(8f, Mathf.Min(rect.height, rect.width) * 0.25f));
-            float trackWidth = Mathf.Max(1f, rect.width - radius * 2f);
+            float unit = Mathf.Max(0f, Mathf.Min(scale, Mathf.Min(rect.height / 20f, rect.width / 12f)));
+            float halfWidth = 6f * unit;
+            float trackWidth = Mathf.Max(1f, rect.width - halfWidth * 2f);
             if (enabled && !captured && context.IsCaptured(Id) && type == EventType.MouseDown)
             {
                 dragging = true;
                 dragWidth = trackWidth;
                 lastMouse = mouse;
-                float center = rect.x + radius + (value - minimum) / (maximum - minimum) * trackWidth;
+                float center = rect.x + halfWidth + (value - minimum) / (maximum - minimum) * trackWidth;
                 // A thumb grab preserves its offset; clicking the track jumps to that position.
-                if (Mathf.Abs(current.mousePosition.x - center) > radius + 3f)
-                    value = NormalizeValue(minimum + Mathf.Clamp01((current.mousePosition.x - rect.x - radius) / trackWidth) * (maximum - minimum));
+                if (Mathf.Abs(current.mousePosition.x - center) > halfWidth + 3f * unit)
+                    value = NormalizeValue(minimum + Mathf.Clamp01((current.mousePosition.x - rect.x - halfWidth) / trackWidth) * (maximum - minimum));
                 dragValue = value;
             }
             if (dragging && enabled && captured && context.IsInputAllowed && (type == EventType.MouseDrag || type == EventType.MouseUp))
@@ -79,19 +81,20 @@ namespace IrisMenus.UI
             float target = (value - minimum) / (maximum - minimum);
             if (!initialized || dragging) { thumb.Snap(target); initialized = true; }
             float position = thumb.Step(target, context.Time, UiMotion.Standard, context.ReducedMotion);
-            float x = rect.x + radius + trackWidth * position;
-            Rect track = new Rect(rect.x + radius, rect.center.y - 2f, trackWidth, 4f);
+            float accent = dragAccent.Step(dragging ? 1f : 0f, context.Time, UiMotion.Fast, context.ReducedMotion);
+            float x = rect.x + halfWidth + trackWidth * position;
+            Rect track = new Rect(rect.x + halfWidth, rect.center.y - 2f * unit, trackWidth, 4f * unit);
             UiPalette palette = context.Palette;
             using (context.Opacity(visual.Opacity))
             {
-                context.Fill(track, Color.Lerp(palette.StrongLine, palette.Muted, visual.Hover * 0.25f), 2f);
-                context.Fill(new Rect(track.x, track.y, track.width * position, track.height), palette.Signal, 2f);
-                float haloRadius = radius + 4f + visual.Press * 2f;
-                Color halo = palette.Signal;
-                halo.a *= (visual.Hover * 0.12f + visual.Focus * 0.15f + visual.Press * 0.15f);
-                context.Fill(new Rect(x - haloRadius, rect.center.y - haloRadius, haloRadius * 2f, haloRadius * 2f), halo, haloRadius);
-                float thumbRadius = radius + visual.Press;
-                context.Fill(new Rect(x - thumbRadius, rect.center.y - thumbRadius, thumbRadius * 2f, thumbRadius * 2f), palette.Signal, thumbRadius);
+                context.Fill(track, palette.Line);
+                context.Fill(new Rect(track.x, track.y, track.width * position, track.height), palette.Ink);
+                Rect handle = new Rect(x - halfWidth, rect.center.y - 10f * unit, 12f * unit, 20f * unit);
+                context.Fill(new Rect(handle.x - 2f * unit, handle.y - 2f * unit, handle.width + 4f * unit, handle.height + 4f * unit), palette.Surface);
+                context.Fill(handle, palette.Selected);
+                Color centerInk = palette.AccentInk;
+                centerInk.a *= accent;
+                context.Fill(new Rect(x - unit, handle.y + 4f * unit, 2f * unit, 12f * unit), centerInk);
                 visual.DrawFocus(context, rect);
             }
             return value;

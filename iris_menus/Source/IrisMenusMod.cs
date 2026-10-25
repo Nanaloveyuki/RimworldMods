@@ -70,7 +70,7 @@ namespace IrisMenus
         internal int Density = 1;
         internal float NativePanelOpacity = 0.94f;
         internal bool ShowTips = true;
-        internal float TipDelay = 0.5f;
+        internal float TipDelay = 0.3f;
         internal bool SearchCurrentMod;
         internal string LastPage;
         internal Dictionary<string, string> LastSubItems = new Dictionary<string, string>();
@@ -95,7 +95,7 @@ namespace IrisMenus
             Scribe_Values.Look(ref Density, "nativeDensity", 1);
             Scribe_Values.Look(ref NativePanelOpacity, "nativePanelOpacity", 0.94f);
             Scribe_Values.Look(ref ShowTips, "showTips", true);
-            Scribe_Values.Look(ref TipDelay, "tipDelay", 0.5f);
+            Scribe_Values.Look(ref TipDelay, "tipDelay", 0.3f);
             Scribe_Values.Look(ref SearchCurrentMod, "searchCurrentMod", false);
             Scribe_Collections.Look(ref LastSubItems, "lastSubItems", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref HostView, "hostView", LookMode.Value, LookMode.Value);
@@ -107,7 +107,7 @@ namespace IrisMenus
             NativeScale = Mathf.Clamp(MenuLayout.Finite(NativeScale, 1f), 0.8f, 1.3f);
             Density = System.Math.Max(0, System.Math.Min(2, Density));
             NativePanelOpacity = Mathf.Clamp01(MenuLayout.Finite(NativePanelOpacity, 0.94f));
-            TipDelay = Mathf.Clamp(MenuLayout.Finite(TipDelay, 0.5f), 0.1f, 0.8f);
+            TipDelay = Mathf.Clamp(MenuLayout.Finite(TipDelay, 0.3f), 0.1f, 0.8f);
         }
 
         internal void ClearRememberedView()

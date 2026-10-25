@@ -21,38 +21,73 @@ namespace IrisMenus.UI
         public Color Scrim { get; }
         public Color Footer { get; }
         public Color FooterInk { get; }
+        public Color FooterLine { get; }
+        public Color FooterMuted { get; }
         public Color Error { get; }
+        public Color Input { get; }
+        public Color Button { get; }
+        public Color Sheet { get; }
+        public Color Rail { get; }
+        public Color SoftLine { get; }
+        public Color Marker { get; }
+        public Color Header { get; }
+        public Color HeaderInk { get; }
+        public Color Overlay { get; }
+        public Color AccentInk { get; }
+        public Color Preview { get; }
+        public Color PreviewShade { get; }
+        public Color PreviewEdge { get; }
+        public Color Mini { get; }
+        public Color MiniMark { get; }
+        public Color MiniTrack { get; }
+        public Color Shadow { get; }
 
-        public static readonly UiPalette Light = new UiPalette(
-            Rgb(0x252525), Rgb(0x545454), Rgb(0xf5f5f5), Rgb(0xffffff), Rgb(0xe5e5e5),
-            Rgb(0x000000, 0.11f), Rgb(0x000000, 0.24f), Rgb(0x000000, 0.05f),
-            Rgb(0x252525), Rgb(0xf5f5f5), Rgb(0xf1ec58), Rgb(0x252525),
-            Rgb(0x000000, 0.45f), Rgb(0x202326), Rgb(0xebedef), Rgb(0xa72d32));
-        public static readonly UiPalette Dark = new UiPalette(
-            Rgb(0xebedef), Rgb(0xb3b8bc), Rgb(0x272a2e), Rgb(0x303438), Rgb(0x202326),
-            Rgb(0xffffff, 0.13f), Rgb(0xffffff, 0.27f), Rgb(0xffffff, 0.06f),
-            Rgb(0xe6e9eb), Rgb(0x191c1e), Rgb(0xf1ec58), Rgb(0x485058),
-            Rgb(0x000000, 0.58f), Rgb(0x111315), Rgb(0xebedef), Rgb(0xff989d));
+        public static readonly UiPalette Light = new UiPalette(0f);
+        public static readonly UiPalette Dark = new UiPalette(1f);
 
-        private UiPalette(Color ink, Color muted, Color surface, Color raised, Color sunken,
-            Color line, Color strongLine, Color hover, Color selected, Color onSelected,
-            Color signal, Color switchOn, Color scrim, Color footer, Color footerInk, Color error)
+        private UiPalette(float dark)
         {
-            Ink = ink; Muted = muted; Surface = surface; Raised = raised; Sunken = sunken;
-            Line = line; StrongLine = strongLine; Hover = hover; Selected = selected;
-            OnSelected = onSelected; Signal = signal; SwitchOn = switchOn; Scrim = scrim;
-            Footer = footer; FooterInk = footerInk; Error = error;
+            Ink = Mix(0x252525, 0xebedef, dark);
+            Muted = Mix(0x545454, 0xb3b8bc, dark);
+            Surface = Mix(0xf5f5f5, 0x272a2e, dark);
+            Raised = Mix(0xffffff, 0x303438, dark);
+            Sunken = Mix(0xf2f2f2, 0x202326, dark);
+            Line = Mix(0x000000, 0xffffff, dark, 28f / 255f, 32f / 255f);
+            StrongLine = Mix(0x000000, 0xffffff, dark, 61f / 255f, 69f / 255f);
+            SoftLine = Mix(0x000000, 0xffffff, dark, 16f / 255f, 18f / 255f);
+            Hover = Mix(0xffffff, 0xffffff, dark, 84f / 255f, 15f / 255f);
+            Selected = Mix(0x252525, 0xe6e9eb, dark);
+            OnSelected = Mix(0xf5f5f5, 0x191c1e, dark);
+            Signal = Rgb(0xf1ec58);
+            SwitchOn = Mix(0x252525, 0x485058, dark);
+            Scrim = Rgb(0x000000, UiMotion.Lerp(0.5f, 0.7f, dark));
+            Footer = Mix(0x202326, 0x202326, dark, 1f, 0f);
+            FooterInk = Rgb(0xebedef);
+            FooterLine = Rgb(0xffffff, 69f / 255f);
+            FooterMuted = Rgb(0xb3b8bc);
+            Error = Mix(0xa72d32, 0xff989d, dark);
+            Input = Mix(0xffffff, 0xffffff, dark, 72f / 255f, 12f / 255f);
+            Button = Mix(0xffffff, 0x34383c, dark, 135f / 255f, 1f);
+            Sheet = Mix(0xf7f7f7, 0x272a2e, dark, 222f / 255f, 242f / 255f);
+            Rail = Mix(0xf2f2f2, 0x1a1d20, dark, 107f / 255f, 168f / 255f);
+            Marker = Mix(0x8a8a8a, 0x8d959c, dark);
+            Header = Rgb(0x1f1f1f);
+            HeaderInk = Rgb(0xfafafa);
+            Overlay = Mix(0xfafafa, 0x303438, dark);
+            AccentInk = Mix(0xfffa00, 0x6b5d00, dark);
+            Preview = Mix(0xb8b8b8, 0x141719, dark);
+            PreviewShade = Mix(0x8f8f8f, 0x434a52, dark, 107f / 255f, 107f / 255f);
+            PreviewEdge = Mix(0xffffff, 0xffffff, dark, 166f / 255f, 80f / 255f);
+            Mini = Mix(0xf6f6f6, 0x30353a, dark, 214f / 255f, 232f / 255f);
+            MiniMark = Mix(0x9c9c9c, 0x879099, dark);
+            MiniTrack = Mix(0xb4b4b4, 0x5c646b, dark);
+            Shadow = Mix(0x000000, 0x000000, dark, 20f / 255f, 96f / 255f);
         }
 
-        public static UiPalette Blend(float dark) => new UiPalette(
-            Color.Lerp(Light.Ink, Dark.Ink, dark), Color.Lerp(Light.Muted, Dark.Muted, dark),
-            Color.Lerp(Light.Surface, Dark.Surface, dark), Color.Lerp(Light.Raised, Dark.Raised, dark),
-            Color.Lerp(Light.Sunken, Dark.Sunken, dark), Color.Lerp(Light.Line, Dark.Line, dark),
-            Color.Lerp(Light.StrongLine, Dark.StrongLine, dark), Color.Lerp(Light.Hover, Dark.Hover, dark),
-            Color.Lerp(Light.Selected, Dark.Selected, dark), Color.Lerp(Light.OnSelected, Dark.OnSelected, dark),
-            Color.Lerp(Light.Signal, Dark.Signal, dark), Color.Lerp(Light.SwitchOn, Dark.SwitchOn, dark),
-            Color.Lerp(Light.Scrim, Dark.Scrim, dark), Color.Lerp(Light.Footer, Dark.Footer, dark),
-            Color.Lerp(Light.FooterInk, Dark.FooterInk, dark), Color.Lerp(Light.Error, Dark.Error, dark));
+        public static UiPalette Blend(float dark) => new UiPalette(Mathf.Clamp01(dark));
+
+        private static Color Mix(int light, int dark, float amount, float lightAlpha = 1f, float darkAlpha = 1f)
+            => Color.Lerp(Rgb(light, lightAlpha), Rgb(dark, darkAlpha), amount);
 
         private static Color Rgb(int rgb, float alpha = 1f) => new Color(
             ((rgb >> 16) & 255) / 255f, ((rgb >> 8) & 255) / 255f, (rgb & 255) / 255f, alpha);

@@ -44,6 +44,7 @@ namespace IrisMenus
         public virtual void DrawOverlay(Rect viewport) { }
         public virtual void Focus(string anchor) { }
         public virtual IReadOnlyList<MenuChapter> Chapters => Array.Empty<MenuChapter>();
+        public virtual string ActiveChapterId => null;
         public virtual IReadOnlyList<MenuNote> Notes => Array.Empty<MenuNote>();
         public virtual bool HasPreview => false;
         public virtual void DrawPreview(Rect rect) { }

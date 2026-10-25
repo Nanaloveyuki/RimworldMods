@@ -23,52 +23,84 @@ namespace IrisMenus
                 if (helpDialog.IsVisible && helpDialog.Draw(viewport, new Vector2(600f * scale, 400f * scale), "IrisMenus", drawHelp, true)) helpOpen = false;
             }
 
-            private void DrawContextPanel(Rect rect)
-            {
-                ui.Fill(rect, WithAlpha(ui.Palette.Surface, 0.94f));
-                DrawContext(rect.ContractedBy(14f * scale));
-            }
+            private void DrawContextPanel(Rect rect) => DrawContext(rect);
 
             private void DrawContext(Rect rect)
             {
                 if (selected?.Native == null) return;
-                float height = 40f * scale + selected.Chapters.Length * 42f * scale;
-                foreach (NoteState note in selected.Notes) height += note.Accordion.Measure(note.Open, note.Height(rect.width - 20f), 42f * scale);
-                if (selected.Native.HasPreview) height += 420f * scale;
+                float oldSize = ui.FontSize;
+                ui.FontSize = 12f * scale;
+                float contentWidth = Mathf.Max(1f, rect.width - 20f);
+                float height = selected.Chapters.Length > 0 ? 38f * scale + selected.Chapters.Length * 40f * scale + 30f * scale : 0f;
+                if (selected.Notes.Length > 0) height += 34f * scale;
+                foreach (NoteState note in selected.Notes) height += note.Accordion.Measure(note.Open, note.Height(contentWidth, scale), 42f * scale);
+                if (selected.Native.HasPreview) height += 432f * scale;
                 contextScroll.Draw(rect, height, drawContextContents);
+                ui.FontSize = oldSize;
             }
 
             private void DrawContextContents(Rect rect)
             {
                 if (selected?.Native == null) return;
+                UiPalette palette = ui.Palette;
                 float y = 0f;
-                ui.Label(new Rect(0f, y, rect.width, 30f * scale), T("IM_NativeThisPage"), ui.Palette.Muted);
-                y += 38f * scale;
-                for (int i = 0; i < selected.Chapters.Length; i++)
+                if (selected.Chapters.Length > 0)
                 {
-                    MenuChapter chapter = selected.Native.Chapters[i];
-                    if (selected.Chapters[i].Draw(new Rect(0f, y, rect.width, 36f * scale), chapter.Title() ?? ""))
+                    ui.FontSize = 11f * scale;
+                    ui.Label(new Rect(16f * scale, y, Mathf.Max(0f, rect.width - 16f * scale), 30f * scale), "// " + T("IM_NativeThisPage"), palette.Muted);
+                    y += 38f * scale;
+                    ui.Fill(new Rect(0f, y, 1f, selected.Chapters.Length * 40f * scale), palette.Line);
+                    string active = selected.Native.ActiveChapterId;
+                    int activeIndex = -1;
+                    for (int i = 0; i < selected.Chapters.Length; i++)
+                        if (selected.Native.Chapters[i].Id == active) { activeIndex = i; break; }
+                    float markerY = selected.ChapterMarker.Step(y + Mathf.Max(0, activeIndex) * 40f * scale + 10f * scale,
+                        ui.Time, UiMotion.Standard, ui.ReducedMotion);
+                    if (activeIndex >= 0) ui.Fill(new Rect(0f, markerY, 3f * scale, 20f * scale), palette.Ink);
+                    ui.FontSize = 13f * scale;
+                    for (int i = 0; i < selected.Chapters.Length; i++)
                     {
-                        try { selected.Native.Focus(chapter.Id); contextOpen = false; }
-                        catch (Exception exception) { ReportFailure("focus native " + selected.Page.Id + "/" + chapter.Id, exception); }
+                        MenuChapter chapter = selected.Native.Chapters[i];
+                        Rect row = new Rect(0f, y, rect.width, 40f * scale);
+                        UiInteraction interaction = ui.Interact(selected.Chapters[i].Id, row);
+                        ui.Label(new Rect(16f * scale, y, Mathf.Max(0f, rect.width - 20f * scale), row.height), chapter.Title() ?? "",
+                            activeIndex == i || interaction.Hovered ? palette.Ink : palette.Muted);
+                        if (interaction.Focused && ui.FocusVisible) ui.Border(row.ContractedBy(2f), palette.Ink);
+                        if (interaction.Clicked)
+                        {
+                            try { selected.Native.Focus(chapter.Id); contextOpen = false; }
+                            catch (Exception exception) { ReportFailure("focus native " + selected.Page.Id + "/" + chapter.Id, exception); }
+                        }
+                        y += row.height;
                     }
-                    y += 42f * scale;
+                    y += 30f * scale;
                 }
-                foreach (NoteState note in selected.Notes)
+                if (selected.Notes.Length > 0)
                 {
-                    float contentHeight = note.Height(rect.width);
-                    float height = note.Accordion.Measure(note.Open, contentHeight, 42f * scale);
-                    note.Open = note.Accordion.Draw(new Rect(0f, y, rect.width, height), note.Title, note.Open, contentHeight, note.Draw, headerHeight: 42f * scale);
-                    y += height + 8f * scale;
+                    ui.FontSize = 11f * scale;
+                    ui.Label(new Rect(0f, y, rect.width, 22f * scale), T("IM_NativeNotes"), palette.Muted);
+                    y += 34f * scale;
+                    ui.FontSize = 12f * scale;
+                    foreach (NoteState note in selected.Notes)
+                    {
+                        float contentHeight = note.Height(rect.width, scale);
+                        float height = note.Accordion.Measure(note.Open, contentHeight, 42f * scale);
+                        bool next = note.Accordion.Draw(new Rect(0f, y, rect.width, height), note.Title, note.Open, contentHeight, note.Draw, headerHeight: 42f * scale);
+                        if (next && !note.Open)
+                            foreach (NoteState sibling in selected.Notes) if (!ReferenceEquals(sibling, note)) sibling.Open = false;
+                        note.Open = next;
+                        y += height;
+                    }
                 }
-                if (selected.Native.HasPreview) selected.Native.DrawPreview(new Rect(0f, y + 16f * scale, rect.width, 400f * scale));
+                if (selected.Native.HasPreview) selected.Native.DrawPreview(new Rect(0f, y + 32f * scale, rect.width, 400f * scale));
             }
 
             private void DrawManagement(Rect rect)
             {
                 Rect list = new Rect(0f, 0f, rect.width, Mathf.Max(1f, rect.height - 54f * scale));
                 managementScroll.Draw(list, (host.adapters.Count + registeredOwners.Count + 1) * rowHeight, drawManagementRows);
-                if (done.Draw(new Rect(Mathf.Max(0f, rect.width - 140f * scale), rect.height - 40f * scale, Mathf.Min(140f * scale, rect.width), 36f * scale), T("IM_NativeDone"), primary: true)) managementOpen = false;
+                ui.Fill(new Rect(0f, rect.height - 50f * scale, rect.width, 1f), ui.Palette.Line);
+                if (done.Draw(new Rect(Mathf.Max(0f, rect.width - 140f * scale), rect.height - 40f * scale, Mathf.Min(140f * scale, rect.width), 36f * scale), T("IM_NativeDone"), primary: true, scale: scale)) managementOpen = false;
             }
 
             private void DrawManagementRows(Rect rect)
@@ -83,7 +115,7 @@ namespace IrisMenus
                 {
                     if (MenuRegistry.HasPages(page.Owner)) continue;
                     bool enabled = Settings.EnabledAdapters.Contains(page.Id);
-                    bool next = adapterChecks[page.Id].Draw(new Rect(0f, y, rect.width, rowHeight), enabled, page.DisplayModName);
+                    bool next = adapterChecks[page.Id].Draw(new Rect(0f, y, rect.width, rowHeight), enabled, page.DisplayModName, scale: scale);
                     if (next != enabled)
                     {
                         if (!next && host.session.Selected?.Id == page.Id && !host.session.Select(null)) return;
@@ -101,9 +133,10 @@ namespace IrisMenus
             {
                 ui.Label(new Rect(0f, 0f, rect.width, Mathf.Max(1f, rect.height - 60f * scale)), T("IM_NativeResetDescription"), ui.Palette.Ink, TextAnchor.UpperLeft, true);
                 float width = Mathf.Min(150f * scale, (rect.width - 12f * scale) * 0.5f);
-                if (cancelReset.Draw(new Rect(rect.width - width * 2f - 12f * scale, rect.height - 40f * scale, width, 36f * scale), T("CancelButton"))) resetOpen = false;
+                ui.Fill(new Rect(0f, rect.height - 50f * scale, rect.width, 1f), ui.Palette.Line);
+                if (cancelReset.Draw(new Rect(rect.width - width * 2f - 12f * scale, rect.height - 40f * scale, width, 36f * scale), T("CancelButton"), scale: scale)) resetOpen = false;
                 if (confirmReset.Draw(new Rect(rect.width - width, rect.height - 40f * scale, width, 36f * scale), T("IM_NativeReset"),
-                    ReferenceEquals(resetTarget, selected) && resetTarget?.Native?.CanReset == true, true))
+                    ReferenceEquals(resetTarget, selected) && resetTarget?.Native?.CanReset == true, true, scale: scale))
                 {
                     try { resetTarget.Native.Reset(); resetOpen = false; resetTarget = null; }
                     catch (Exception exception) { ReportFailure("reset native " + selected.Page.Id, exception); }
@@ -114,8 +147,9 @@ namespace IrisMenus
             {
                 ui.Label(new Rect(0f, 0f, rect.width, Mathf.Max(1f, rect.height - 116f * scale)), T("IM_NativeHelpDescription"), ui.Palette.Ink, TextAnchor.UpperLeft, true);
                 ui.Label(new Rect(0f, rect.height - 112f * scale, rect.width, 32f * scale), "Ctrl K  ·  " + T("IM_SearchGlobal") + "     Esc  ·  " + T("Back"), ui.Palette.Muted);
-                if (license.Draw(new Rect(0f, rect.height - 74f * scale, rect.width, 32f * scale), "endfield-ui · Apache-2.0")) Application.OpenURL("https://github.com/icaruszezen/endfield-ui");
-                if (closeHelp.Draw(new Rect(Mathf.Max(0f, rect.width - 140f * scale), rect.height - 36f * scale, Mathf.Min(rect.width, 140f * scale), 32f * scale), T("IM_NativeDone"), primary: true)) helpOpen = false;
+                if (license.Draw(new Rect(0f, rect.height - 74f * scale, rect.width, 32f * scale), "endfield-ui · Apache-2.0", variant: UiButtonVariant.Text, scale: scale)) Application.OpenURL("https://github.com/icaruszezen/endfield-ui");
+                ui.Fill(new Rect(0f, rect.height - 44f * scale, rect.width, 1f), ui.Palette.Line);
+                if (closeHelp.Draw(new Rect(Mathf.Max(0f, rect.width - 140f * scale), rect.height - 36f * scale, Mathf.Min(rect.width, 140f * scale), 32f * scale), T("IM_NativeDone"), primary: true, scale: scale)) helpOpen = false;
             }
         }
     }

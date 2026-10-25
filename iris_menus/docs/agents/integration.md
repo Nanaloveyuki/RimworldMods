@@ -63,6 +63,7 @@ public abstract class MenuNativePage : IDisposable
     public virtual void DrawOverlay(Rect viewport);
     public virtual void Focus(string anchor);
     public virtual IReadOnlyList<MenuChapter> Chapters;
+    public virtual string ActiveChapterId;
     public virtual IReadOnlyList<MenuNote> Notes;
     public virtual bool HasPreview;
     public virtual void DrawPreview(Rect rect);
@@ -79,7 +80,7 @@ These are signature summaries, not a compilable class definition.
 - Create controls once; no per-draw IDs or delegates. Do not call `BeginFrame`/`EndFrame` or dispose the borrowed context. The host runs them inside the actual IMGUI callback.
 - `Draw` receives a clipped local viewport beginning at zero. Own exactly one content scroll view. Host does not infer chapters, fields, defaults, changes or save status from a callback.
 - `Prepare` runs before host interactions. Prepare open popups here. `DrawOverlay` runs at root after content clips, before host drawers/dialogs. Keep input layering consistent with drawing.
-- Chapter and metadata IDs feed `Focus`; retain pending anchors until layout exists. `Notes` are text with localized callback titles and session-local accordion state. `HasPreview` enables a bounded explicit preview region; it is not a game-scene capture.
+- Chapter and metadata IDs feed `Focus`; retain pending anchors until layout exists. `ActiveChapterId` identifies the chapter currently visible in the page's scroll view; return null when unavailable. The host uses it for TOC emphasis without inferring scroll positions. `Notes` are localized text with a single-open session-local accordion (first initially open). `HasPreview` enables a bounded explicit preview region; it is not a game-scene capture.
 - `CanReset` is false by default. Opt in only when `Reset` implements real defaults. Confirmation is tied to the originating page; do not reset another page after registry changes. Save remains the ordinary page's save callback.
 - Factory, prepare, draw and overlay exceptions enter a retry view; do not silently replace a failed native page with its legacy drawer. Disposal is attempted once, reported on error, and cannot trap the window. Balance all GUI groups; the host cannot repair arbitrary consumer imbalance.
 - Without a presentation, the original drawer renders in an isolated dark compatibility panel even under Light. It retains native text colors and one scrolling owner, rather than pretending to be light-theme aware.

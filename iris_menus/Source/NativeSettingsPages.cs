@@ -170,23 +170,29 @@ namespace IrisMenus
             internal bool Draw(Rect row, float scale, bool stacked, bool enabled, MenuSettings settings)
             {
                 UiPalette palette = context.Palette;
-                float labelHeight = stacked ? 34f * scale : row.height;
-                float controlWidth = stacked ? row.width : Mathf.Min(290f * scale, row.width * 0.47f);
-                Rect labelRect = new Rect(row.x, row.y, stacked ? row.width : Mathf.Max(0f, row.width - controlWidth - 16f * scale), labelHeight);
-                Rect control = new Rect(row.xMax - controlWidth, stacked ? row.y + labelHeight : row.center.y - 20f * scale,
+                bool rowStacked = stacked && kind != RowKind.Switch;
+                float labelHeight = rowStacked ? 34f * scale : row.height;
+                float controlWidth = kind == RowKind.Switch ? 52f * scale : rowStacked ? row.width : Mathf.Min(290f * scale, row.width * 0.45f);
+                Rect labelRect = new Rect(row.x, row.y, rowStacked ? row.width : Mathf.Max(0f, row.width - controlWidth - 16f * scale), labelHeight);
+                Rect control = new Rect(row.xMax - controlWidth, rowStacked ? row.y + labelHeight : row.center.y - 20f * scale,
                     controlWidth, 40f * scale);
                 using (context.Opacity(enabled ? 1f : 0.4f))
-                    context.Label(labelRect, label, palette.Ink, wrap: true);
+                {
+                    float hintWidth = hint == null ? 0f : 22f * scale;
+                    context.Label(new Rect(labelRect.x, labelRect.y, Mathf.Max(0f, labelRect.width - hintWidth), labelRect.height), label, palette.Ink, wrap: true);
+                    if (hint != null)
+                        UiGlyph.Draw(context, new Rect(labelRect.xMax - 15f * scale, labelRect.center.y - 6.5f * scale, 13f * scale, 13f * scale), UiGlyphKind.Help, palette.Muted);
+                }
                 float before = get();
                 float after = before;
                 switch (kind)
                 {
                     case RowKind.Switch:
-                        after = toggle.Draw(new Rect(control.xMax - 56f * scale, control.y, 56f * scale, control.height), before > 0f, enabled: enabled) ? 1f : 0f;
+                        after = toggle.Draw(new Rect(control.xMax - 52f * scale, control.y, 52f * scale, control.height), before > 0f, enabled: enabled, scale: scale) ? 1f : 0f;
                         break;
                     case RowKind.Slider:
                         float outputWidth = 64f * scale;
-                        after = slider.Draw(new Rect(control.x, control.y, Mathf.Max(0f, control.width - outputWidth - 12f * scale), control.height), before, enabled);
+                        after = slider.Draw(new Rect(control.x, control.y, Mathf.Max(0f, control.width - outputWidth - 12f * scale), control.height), before, enabled, scale: scale);
                         if (after != outputValue)
                         {
                             outputValue = after;
@@ -195,8 +201,8 @@ namespace IrisMenus
                         using (context.Opacity(enabled ? 1f : 0.4f))
                             context.Label(new Rect(control.xMax - outputWidth, control.y, outputWidth, control.height), output, palette.Ink, TextAnchor.MiddleRight);
                         break;
-                    case RowKind.Segments: after = segments.Draw(control, Mathf.RoundToInt(before), enabled); break;
-                    case RowKind.Select: after = select.Draw(control, Mathf.RoundToInt(before), enabled); break;
+                    case RowKind.Segments: after = segments.Draw(control, Mathf.RoundToInt(before), enabled, scale: scale); break;
+                    case RowKind.Select: after = select.Draw(control, Mathf.RoundToInt(before), enabled, scale: scale); break;
                 }
                 tooltip.Delay = settings.TipDelay;
                 if (hint != null && context.IsRectVisible(row)) tooltip.Observe(row, hint, FocusTarget, settings.ShowTips && enabled);
@@ -218,7 +224,7 @@ namespace IrisMenus
             internal void DrawTooltip(Rect viewport, float scale, MenuSettings settings)
             {
                 if (!settings.ShowTips) tooltip.Dismiss();
-                tooltip.DrawOverlay(viewport, new Vector2(320f * scale, 92f * scale));
+                tooltip.DrawOverlay(viewport, new Vector2(320f * scale, 92f * scale), scale);
             }
 
             internal void Dispose()
@@ -248,12 +254,11 @@ namespace IrisMenus
             private readonly MenuChapter[] chapters;
             private readonly MenuNote[] notes;
             private readonly int firstSectionCount;
-            private string language, firstTitle, secondTitle, savedLabel;
-            private float scale, rowHeight;
+            private string language, firstTitle, secondTitle;
+            private float scale, rowHeight, secondSectionY, naturalHeight, viewportHeight;
             private bool stacked;
             private int previewScaleValue = -1, previewOpacityValue = -1;
             private string previewScale, previewOpacity;
-            private readonly NativeBackdrop backdrop = new NativeBackdrop();
             private readonly string scrollKey;
             private float savedScroll;
             private string currentAppearance, densityLabel, scaleLabel, opacityLabel, motionLabel;
@@ -329,6 +334,8 @@ namespace IrisMenus
 
             public override IReadOnlyList<MenuChapter> Chapters => chapters;
             public override IReadOnlyList<MenuNote> Notes => notes;
+            public override string ActiveChapterId => chapters[scroll.Position.y + 24f * scale >= secondSectionY ||
+                (naturalHeight > viewportHeight && scroll.Position.y >= naturalHeight - viewportHeight - 1f) ? 1 : 0].Id;
             public override bool HasPreview => appearance;
             public override bool CanReset => true;
 
@@ -343,7 +350,6 @@ namespace IrisMenus
                 language = LanguageDatabase.activeLanguage?.folderName;
                 firstTitle = chapters[0].Title();
                 secondTitle = chapters[1].Title();
-                savedLabel = T("IM_NativeSavedAutomatically");
                 for (int i = 0; i < rows.Length; i++) rows[i].Translate();
                 currentAppearance = T("IM_NativeCurrentAppearance");
                 densityLabel = T("IM_NativeDensity");
@@ -367,11 +373,12 @@ namespace IrisMenus
             {
                 scale = settings.NativeScale;
                 float contentWidth = Mathf.Max(0f, rect.width - 20f);
-                float inset = Mathf.Min(28f * scale, contentWidth * 0.06f);
-                stacked = contentWidth - inset * 2f < 450f * scale;
+                stacked = contentWidth < 450f * scale;
                 rowHeight = (stacked ? settings.Density == 0 ? 88f : settings.Density == 2 ? 112f : 100f :
                     settings.Density == 0 ? 54f : settings.Density == 2 ? 78f : 66f) * scale;
-                float naturalHeight = rows.Length * rowHeight + 2f * 64f * scale + 24f * scale + 58f * scale;
+                secondSectionY = 64f * scale + firstSectionCount * rowHeight;
+                naturalHeight = rows.Length * rowHeight + 128f * scale;
+                viewportHeight = rect.height;
                 scroll.Draw(rect, naturalHeight, drawContent);
                 if (settings.RememberState && savedScroll != scroll.Position.y)
                 {
@@ -384,37 +391,33 @@ namespace IrisMenus
             {
                 float firstHeight = 64f * scale + firstSectionCount * rowHeight;
                 DrawSection(new Rect(0f, 0f, rect.width, firstHeight), 0, firstTitle, 0, firstSectionCount);
-                float secondY = firstHeight + 24f * scale;
                 float secondHeight = 64f * scale + (rows.Length - firstSectionCount) * rowHeight;
-                DrawSection(new Rect(0f, secondY, rect.width, secondHeight), 1, secondTitle, firstSectionCount, rows.Length - firstSectionCount);
-                context.Label(new Rect(4f * scale, secondY + secondHeight + 12f * scale, Mathf.Max(0f, rect.width - 8f * scale), 36f * scale),
-                    savedLabel, context.Palette.Muted, wrap: true);
+                DrawSection(new Rect(0f, secondSectionY, rect.width, secondHeight), 1, secondTitle, firstSectionCount, rows.Length - firstSectionCount);
             }
 
             private void DrawSection(Rect panel, int anchor, string title, int start, int count)
             {
                 UiPalette palette = context.Palette;
-                Color sheet = palette.Surface;
-                sheet.a = 0.86f;
-                context.Fill(panel, sheet);
                 scroll.Anchor(anchor, panel, focusTarget: rows[start].FocusTarget);
-                float inset = Mathf.Min(28f * scale, panel.width * 0.06f);
-                float width = Mathf.Max(0f, panel.width - inset * 2f);
-                context.Fill(new Rect(panel.x + inset, panel.y + 30f * scale, 3f * scale, 10f * scale), palette.Muted);
-                context.Label(new Rect(panel.x + inset + 12f * scale, panel.y + 18f * scale, Mathf.Max(0f, width - 12f * scale), 32f * scale), title, palette.Muted);
+                float oldSize = context.FontSize;
+                FontStyle oldStyle = context.FontStyle;
+                context.FontSize = 12f * scale;
+                context.FontStyle = FontStyle.Bold;
+                context.Fill(new Rect(panel.x, panel.y + 30f * scale, 3f * scale, 10f * scale), palette.Marker);
+                context.Label(new Rect(panel.x + 12f * scale, panel.y + 18f * scale, Mathf.Max(0f, panel.width - 12f * scale), 32f * scale), title, palette.Muted);
+                context.FontStyle = FontStyle.Normal;
+                context.FontSize = 13f * scale;
                 for (int i = start; i < start + count; i++)
                 {
-                    Rect row = new Rect(panel.x + inset, panel.y + 52f * scale + (i - start) * rowHeight, width, rowHeight);
+                    Rect row = new Rect(panel.x, panel.y + 52f * scale + (i - start) * rowHeight, panel.width, rowHeight);
                     scroll.Anchor(i + 2, row, focusTarget: rows[i].FocusTarget);
                     bool enabled = appearance || i != 4 || settings.ShowTips;
                     rows[i].Draw(row, scale, stacked, enabled, settings);
                     if (i < start + count - 1)
-                    {
-                        Color line = palette.Line;
-                        line.a *= 0.55f;
-                        context.Fill(new Rect(row.x, row.yMax - 1f, row.width, 1f), line);
-                    }
+                        context.Fill(new Rect(row.x, row.yMax - 1f, row.width, 1f), palette.SoftLine);
                 }
+                context.FontSize = oldSize;
+                context.FontStyle = oldStyle;
             }
 
             public override void DrawOverlay(Rect viewport)
@@ -447,7 +450,7 @@ namespace IrisMenus
                     settings.ShowMainButton = true;
                     settings.SearchCurrentMod = false;
                     settings.ShowTips = true;
-                    settings.TipDelay = 0.5f;
+                    settings.TipDelay = 0.3f;
                 }
             }
 
@@ -456,53 +459,101 @@ namespace IrisMenus
                 if (!appearance || rect.width <= 0f || rect.height <= 0f) return;
                 UiPalette palette = context.Palette;
                 float s = settings.NativeScale;
-                float labelHeight = 30f * s;
-                context.Label(new Rect(rect.x, rect.y, rect.width, labelHeight), currentAppearance, palette.Muted);
+                float oldSize = context.FontSize;
+                context.FontSize = 11f * s;
+                float labelHeight = 22f * s;
+                UiGlyph.Draw(context, new Rect(rect.x, rect.y + 4f * s, 14f * s, 14f * s), UiGlyphKind.Grid, palette.Muted);
+                context.Label(new Rect(rect.x + 22f * s, rect.y, Mathf.Max(0f, rect.width - 22f * s), labelHeight), currentAppearance, palette.Muted);
                 float sceneHeight = Mathf.Min(rect.width * 0.75f, Mathf.Max(0f, rect.height - 170f * s));
-                if (sceneHeight < 80f) return;
-                Rect sample = new Rect(rect.x, rect.y + labelHeight + 12f * s, rect.width, sceneHeight);
-                backdrop.Draw(context, sample);
-                float miniWidth = Mathf.Min(sample.width - 24f, 210f * s);
-                float miniHeight = Mathf.Min(sample.height - 24f, 138f * s);
+                if (sceneHeight < 80f) { context.FontSize = oldSize; return; }
+                Rect sample = new Rect(rect.x, rect.y + labelHeight + 15f * s, rect.width, sceneHeight);
+                DrawPreviewScene(sample, palette, s);
+                float miniWidth = Mathf.Min(sample.width - 38f * s, 244f * s);
+                float miniHeight = Mathf.Min(sample.height - 36f * s, 142f * s);
                 Rect window = new Rect(sample.center.x - miniWidth * 0.5f, sample.center.y - miniHeight * 0.5f, miniWidth, miniHeight);
-                Color fill = palette.Surface;
-                fill.a = settings.NativePanelOpacity;
+                Color fill = palette.Mini;
+                fill.a *= settings.NativePanelOpacity;
+                context.Fill(new Rect(window.x + 3f * s, window.y + 8f * s, window.width, window.height), palette.Shadow);
                 context.Fill(window, fill);
-                context.Border(window, palette.StrongLine);
-                float top = window.y + 24f;
+                context.Border(window, palette.PreviewEdge);
+                float unit = Mathf.Min(s, window.width / 244f);
+                float top = window.y + 28f * unit;
                 context.Fill(new Rect(window.x, top, window.width, 1f), palette.Line);
-                context.Label(new Rect(window.x + 10f, window.y, window.width - 20f, 24f), "IrisMenus", palette.Ink);
-                float navWidth = window.width * 0.26f;
+                context.FontSize = 9f * s;
+                context.Label(new Rect(window.x + 11f * unit, window.y, window.width - 22f * unit, top - window.y), "IrisMenus", palette.Ink);
+                UiGlyph.Draw(context, new Rect(window.xMax - 18f * unit, window.y + 9f * unit, 10f * unit, 10f * unit), UiGlyphKind.Close, palette.Muted);
+                float navWidth = window.width * 0.27f;
                 context.Fill(new Rect(window.x + navWidth, top, 1f, window.yMax - top), palette.Line);
-                float gap = settings.Density == 0 ? 9f : settings.Density == 2 ? 17f : 13f;
+                float gap = (settings.Density == 0 ? 9f : settings.Density == 2 ? 17f : 13f) * unit;
                 for (int i = 0; i < 3; i++)
-                {
-                    context.Fill(new Rect(window.x + 7f, top + 12f + i * (gap + 5f), Mathf.Max(0f, navWidth - 14f), i == 0 ? 12f : 4f), i == 0 ? palette.Selected : palette.Muted);
-                }
-                Rect content = new Rect(window.x + navWidth + 12f, top + 12f, Mathf.Max(0f, window.width - navWidth - 24f), Mathf.Max(0f, window.yMax - top - 24f));
-                DrawMiniRow(content, 0f, settings.ShowTips, palette);
-                DrawMiniRow(content, gap + 12f, !settings.ReducedMotion, palette);
-                float sliderY = Mathf.Min(content.yMax - 4f, content.y + 2f * (gap + 12f));
-                context.Fill(new Rect(content.x, sliderY, content.width, 2f), palette.StrongLine);
+                    context.Fill(new Rect(window.x + 7f * unit, top + 12f * unit + i * (gap + 5f * unit),
+                        Mathf.Max(0f, navWidth - 14f * unit), (i == 0 ? 12f : 4f) * unit), i == 0 ? palette.Selected : palette.MiniMark);
+                Rect content = new Rect(window.x + navWidth + 13f * unit, top + 12f * unit,
+                    Mathf.Max(0f, window.width - navWidth - 26f * unit), Mathf.Max(0f, window.yMax - top - 24f * unit));
+                DrawMiniRow(content, 0f, settings.ShowTips, palette, unit);
+                DrawMiniRow(content, gap + 12f * unit, !settings.ReducedMotion, palette, unit);
+                float sliderY = Mathf.Min(content.yMax - 4f * unit, content.y + 2f * (gap + 12f * unit));
+                context.Fill(new Rect(content.x, sliderY, content.width, 2f * unit), palette.MiniTrack);
                 float amount = Mathf.InverseLerp(0.8f, 1.3f, settings.NativeScale);
-                context.Fill(new Rect(content.x, sliderY, content.width * amount, 2f), palette.Selected);
-                context.Fill(new Rect(content.x + content.width * amount - 2f, sliderY - 3f, 4f, 8f), palette.Selected);
+                context.Fill(new Rect(content.x, sliderY, content.width * amount, 2f * unit), palette.Selected);
+                context.Fill(new Rect(content.x + content.width * amount - 2f * unit, sliderY - 3f * unit, 4f * unit, 8f * unit), palette.Selected);
                 UpdatePreviewValues();
-                float yFacts = sample.yMax + 12f * s;
+                context.FontSize = 11f * s;
+                float yFacts = sample.yMax + 24f * s;
+                context.Fill(new Rect(rect.x, yFacts, rect.width, 1f), palette.StrongLine);
+                yFacts += 16f * s;
                 DrawFact(rect.x, yFacts, rect.width, scaleLabel, previewScale);
-                DrawFact(rect.x, yFacts + 30f * s, rect.width, opacityLabel, previewOpacity);
-                DrawFact(rect.x, yFacts + 60f * s, rect.width, densityLabel, settings.Density == 0 ? compact : settings.Density == 2 ? relaxed : standard);
-                DrawFact(rect.x, yFacts + 90f * s, rect.width, motionLabel, settings.ReducedMotion ? offLabel : onLabel);
+                DrawFact(rect.x, yFacts + 26f * s, rect.width, opacityLabel, previewOpacity);
+                DrawFact(rect.x, yFacts + 52f * s, rect.width, densityLabel, settings.Density == 0 ? compact : settings.Density == 2 ? relaxed : standard);
+                DrawFact(rect.x, yFacts + 78f * s, rect.width, motionLabel, settings.ReducedMotion ? offLabel : onLabel);
+                context.FontSize = oldSize;
             }
 
-            private void DrawMiniRow(Rect content, float offset, bool on, UiPalette palette)
+            private void DrawMiniRow(Rect content, float offset, bool on, UiPalette palette, float unit)
             {
                 float y = content.y + offset;
-                context.Fill(new Rect(content.x, y + 4f, Mathf.Min(28f, content.width * 0.35f), 3f), palette.Muted);
-                Rect track = new Rect(content.xMax - 20f, y, 20f, 10f);
-                context.Fill(track, on ? palette.SwitchOn : palette.StrongLine, 5f);
-                context.Fill(new Rect(on ? track.xMax - 8f : track.x + 2f, y + 2f, 6f, 6f), on ? palette.Signal : palette.Surface, 3f);
+                context.Fill(new Rect(content.x, y + 4f * unit, Mathf.Min(28f * unit, content.width * 0.35f), 3f * unit), palette.MiniMark);
+                Rect track = new Rect(content.xMax - 20f * unit, y, 20f * unit, 10f * unit);
+                context.Fill(track, on ? palette.SwitchOn : palette.MiniTrack, 5f * unit);
+                context.Fill(new Rect(on ? track.xMax - 8f * unit : track.x + 2f * unit, y + 2f * unit, 6f * unit, 6f * unit),
+                    on ? palette.Signal : palette.Surface, 3f * unit);
             }
+
+            private void DrawPreviewScene(Rect sample, UiPalette palette, float scale)
+            {
+                using (context.Clip(sample))
+                {
+                    Rect local = new Rect(0f, 0f, sample.width, sample.height);
+                    context.Fill(local, palette.Preview);
+                    float extent = Mathf.Max(local.width, local.height) * 1.6f;
+                    Vector2 center = local.center;
+                    float angle = -20f * Mathf.Deg2Rad;
+                    float cosine = Mathf.Cos(angle), sine = Mathf.Sin(angle);
+                    float spacing = 32f * scale;
+                    for (float offset = -extent; offset <= extent; offset += spacing)
+                    {
+                        context.Line(center + Rotate(new Vector2(offset, -extent), cosine, sine), center + Rotate(new Vector2(offset, extent), cosine, sine), palette.SoftLine);
+                        context.Line(center + Rotate(new Vector2(-extent, offset), cosine, sine), center + Rotate(new Vector2(extent, offset), cosine, sine), palette.SoftLine);
+                    }
+                    angle = 30f * Mathf.Deg2Rad;
+                    cosine = Mathf.Cos(angle); sine = Mathf.Sin(angle);
+                    float halfBand = local.height * 0.175f;
+                    Vector2 a = center + Rotate(new Vector2(-extent, -halfBand), cosine, sine);
+                    Vector2 b = center + Rotate(new Vector2(extent, -halfBand), cosine, sine);
+                    Vector2 c = center + Rotate(new Vector2(extent, halfBand), cosine, sine);
+                    Vector2 d = center + Rotate(new Vector2(-extent, halfBand), cosine, sine);
+                    context.Triangle(a, b, c, palette.PreviewShade);
+                    context.Triangle(a, c, d, palette.PreviewShade);
+                    float inset = 8f * scale, length = 8f * scale;
+                    context.Line(new Vector2(inset, inset + length), new Vector2(inset, inset), palette.PreviewEdge);
+                    context.Line(new Vector2(inset, inset), new Vector2(inset + length, inset), palette.PreviewEdge);
+                    context.Line(new Vector2(local.width - inset - length, local.height - inset), new Vector2(local.width - inset, local.height - inset), palette.PreviewEdge);
+                    context.Line(new Vector2(local.width - inset, local.height - inset), new Vector2(local.width - inset, local.height - inset - length), palette.PreviewEdge);
+                }
+            }
+
+            private static Vector2 Rotate(Vector2 point, float cosine, float sine) =>
+                new Vector2(point.x * cosine - point.y * sine, point.x * sine + point.y * cosine);
 
             private void UpdatePreviewValues()
             {
@@ -520,7 +571,6 @@ namespace IrisMenus
 
             public override void Dispose()
             {
-                backdrop.Dispose();
                 for (int i = 0; i < rows.Length; i++) rows[i].Dispose();
                 context.Release(scroll.Id);
                 for (int i = 0; i < scroll.AnchorCount; i++) context.Release(scroll.AnchorId(i));

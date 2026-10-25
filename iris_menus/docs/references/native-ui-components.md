@@ -29,7 +29,7 @@
 - `UiTextField` 使用原生 `GUI.TextField` 编辑器。字段从 surface 永久移除时调用它的 `Dispose()`，只释放该字段的原生焦点／捕获；surface 关闭时先释放文本字段，再 `UiContext.Dispose()`。不要在未退出的 scope 内释放 context。
 - 这些实例是窗口会话状态，不提供序列化、设置存储、保存回调、跨重开／重启记忆或无障碍平台语义桥接。
 
-矩形控件、导航背景、下拉／提示／模态面板和滚动条使用直角；Switch 胶囊轨道／圆 thumb、Slider 圆端轨道／圆 thumb／halo 保留圆形。共享背景把 `Palette.Hover` 作为带 alpha 的叠加色合成到原底色，不把原底色插值成半透明：悬停停留期间保持目标颜色，移出后才恢复。
+矩形控件、导航背景、下拉／提示／模态面板和滚动条使用直角；Switch 保留胶囊轨道和圆 thumb，Slider 使用矩形 thumb。共享背景反馈保留底色 alpha；输入框、Select 和 Segments 使用底边线及墨色聚焦擦出效果。
 
 ## 每个 IMGUI pass 的固定顺序
 
@@ -144,18 +144,18 @@ sealed class NativePanel : IDisposable
 
 |类型|调用与返回约定|
 |---|---|
-|`UiButton`|`Draw(rect, label, enabled, primary)` 返回激活；`Id` 可用于焦点和 tooltip。`primary` 选择强调样式，不隐含提交行为|
+|`UiButton`|`Draw` 返回激活；`Id` 可用于焦点和 tooltip。`primary` 默认选择 Control；显式 `variant` 可选 Control／Light／Action／Text／Ghost，并可传 `icon`、图标角度及 `scale`。不隐含提交行为|
 |`UiSwitch`／`UiCheckbox`|`Draw(rect, value, label, enabled)` 返回调用方的新布尔值；初次绘制直接匹配已有值|
 |`UiSlider`|构造时配置有限的 min／max 和非负 step，max 必须大于 min；`Draw` 返回限制并量化后的值。`IsDragging` 暴露拖动状态。抓住 thumb 保持偏移，点轨道跳到相应值；拖动用屏幕坐标增量，布局移动不会被当成手指移动|
 |`UiSegments`|构造或 `SetOptions(labels)` 配置；`Draw(rect, selected, enabled)` 返回索引，越界输入会限制到有效项；`GetItemId` 提供稳定项目身份|
-|`UiTextField`|`Draw(rect, value, placeholder, enabled, invalid)` 返回字符串；`Submitted` 仅表示本 pass 的 Enter 提交。`invalid` 只控制反馈，不负责验证、错误信息或阻止保存|
+|`UiTextField`|`Draw(rect, value, placeholder, enabled, invalid, icon, shortcut, showClear, scale)` 返回字符串；图标、快捷键提示及清除按钮均可选。`Submitted` 仅表示本 pass 的 Enter 提交；`invalid` 不负责验证、错误信息或阻止保存|
 |`UiSelect`|`Open(selected)`／`Close()`、`IsOpen`／`IsVisible` 区分逻辑打开与退出动画；必须配套 `Prepare`、触发器 `Draw` 和根层 `DrawPopup`。选项提交发生于 popup 返回值，取消不修改所选索引；可配置可见行数与行高，长列表有滚轮和可拖动滚动条|
-|`UiTooltip`|默认延迟 0.5 秒；`Observe` 支持 hover 和传入目标 `Id` 的键盘焦点，不参与捕获或 Tab 顺序。点击／Esc 抑制当前提示，`Dismiss` 保留退出文本并淡出；`DrawOverlay(bounds, size)` 由调用方给出尺寸并约束在 bounds 内|
+|`UiTooltip`|默认延迟 0.3 秒；键盘焦点立即显示，同一 Context 内相邻提示有 400ms 免等待窗口。`Observe` 不参与捕获或 Tab 顺序。点击／Esc 抑制当前提示，`Dismiss` 保留退出文本；`DrawOverlay(bounds, size, scale)` 优先上方、必要时翻转，尺寸由调用方提供|
 |`UiSideRail`／`UiTabs`|`Draw` 返回选择索引，`itemEnabled` 若提供必须与标签数一致；`ItemId` 用于稳定焦点。`visible=false` 继续绘制退出但停止输入；SideRail 可用 `NaturalHeight` 计算完整高度，不自行提供滚动|
 |`UiAccordion`|先 `Measure(expanded, naturalContentHeight, headerHeight)` 为后续兄弟布局留位置，再用该高度 `Draw` 并保存返回的展开状态；默认 header 44。回调保持自然高度，通过裁切隐藏折叠部分；逻辑折叠即禁用内容输入，退出期间可继续绘制|
 |`UiScrollView`|`Draw(rect, naturalContentHeight, cachedCallback, enabled)` 每 pass 调用一次内容回调；返回是否解析了待定位的 anchor 请求。`Position`／`VisibleRect` 暴露滚动位置和自然内容中的可见范围，`SetPosition`／`Reset` 由调用方显式控制|
-|`UiPageTransition`|用缓存的页面 `UiId`、当前请求页面的回调调用 `Draw`；可指定 `direction`、`visible`、`initialFocus`。每次至多执行一个回调，切页退出区间不执行任何旧／新页面回调，不做双页实时 crossfade，也不保留已删除页面的 drawer|
-|`UiFooter`|`Draw` 接收 leading／trailing 文本及可选缓存 action 回调、action 宽度和 visible；action 使用自己的局部 Rect。两种主题都采用深色底及 `Palette.FooterInk`。文字不表示真实保存／修改状态，需调用方提供事实|
+|`UiPageTransition`|用缓存页面 `UiId`、最新页面回调及可选 `visible`／`initialFocus` 调用 `Draw`。切页立即替换，每 pass 至多执行一个回调；只做原位淡入，不保留旧 drawer、不等待空白退出区间|
+|`UiFooter`|`Draw` 接收 leading／trailing 文本及可选缓存 action 回调、action 宽度和 visible；action 使用局部 Rect。浅色主题为深色带，深色主题透明，两者保留顶部分隔线。文字需由调用方提供真实状态|
 |`UiDrawer`／`UiDialog`|先 `Prepare(open)`，再在 `IsVisible` 时 `Draw`；返回关闭请求，不修改调用方 open 值。Drawer 可选左右侧，默认允许点 scrim 关闭；Dialog 默认不因 scrim 关闭。`dismissible=false` 隐藏关闭按钮且不以 Esc／scrim 请求关闭；退出期继续遮挡背景但不编辑内容|
 
 ### 显式 anchor 与逻辑可用性
@@ -177,27 +177,27 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 ## 动效清单
 
-`UiTween.Step` 先采样当前曲线再重定向，使用 cubic ease-out，不因反向操作跳回旧起点。公共时长为 `Fast=0.12s`、`Standard=0.18s`、`Enter=0.24s`、`Exit=0.16s`。同帧多 pass 使用相同 `context.Time`，不会重复累加 delta。`ReducedMotion` 在 `BeginFrame` 显式传入，所绘制组件的 tween 立即到目标；它不读取系统偏好，也不负责保存该偏好。延迟 tooltip 的 0.5 秒等待和 anchor 高亮保持时间不是位移动画，不因此取消。
+`UiTween.Step` 先采样当前曲线再重定向，不因反向操作跳回旧起点。`UiEase.Standard` 对应 CSS ease，`Exit` 对应 ease-out，`Iris` 为 `cubic-bezier(.2,.7,.2,1)`。公共时长为 `Fast=Standard=Exit=0.2s`、`Enter=0.3s`、`Sheet=0.22s`；具体组件可单独指定。同帧多 pass 使用相同 `context.Time`。`ReducedMotion` 在 `BeginFrame` 显式传入，所绘制 tween 立即到目标；它不读取或保存系统偏好，tooltip 等待和 anchor 高亮保持时间不因此取消。
 
 |对象|已实现的局部动画|
 |---|---|
-|主题|Light／Dark 的所有语义颜色按 Standard 混合；初次主题直接匹配，不先闪另一主题|
-|共享控件反馈|hover／press／focus 按 Fast 过渡；显式 disabled 按 Standard 过渡至 0.42 透明度；键盘焦点使用 Signal 描边，指针点击不启用焦点框|
-|Button|普通／primary 背景和边框反馈；按下时文字下移约 1 UI 单位，不移动命中 Rect|
-|Switch|thumb 横向位置与轨道／thumb 颜色按 Standard 切换；按下 thumb 加宽，hover 影响关闭轨道颜色|
-|Checkbox|选中底色／边框变化，勾线分两段描出并调整透明度；取消沿当前进度反向|
-|Slider|非拖动值的 thumb／填充位置按 Standard 过渡，拖动直接跟随值；halo、thumb 半径和颜色有 hover／press／focus 反馈|
-|Segments|选中底块按 Standard 横移，各标签按当前位置混合前景色，项目保留独立交互反馈|
-|TextField|背景／focus 反馈；invalid 的 Error 色与描边宽度按 Standard 过渡；光标、选区、输入法由原生编辑器负责|
-|Select|触发器箭头翻转；popup Enter／Exit 淡入淡出及 6 UI 单位偏移，真实 panel Rect 同时用于命中；选中行颜色／勾标和键盘高亮过渡；滚动位置按 Fast 过渡，滚动条带交互反馈|
-|Tooltip|等待后 Enter／Exit 淡入淡出及 4 UI 单位偏移；离开目标保留文字至退出结束，不截获输入|
-|SideRail／Tabs|整体 Enter／Exit；选中指示器的 x／y／宽／高按 Standard 过渡，无选中项时指示器淡出；项目 hover／press／focus；rail 选中面板／侧标、tabs 下划线|
-|Accordion|展开 Enter／收起 Exit 改变可见高度、内容透明度和箭头 90° 旋转；标题 hover／press／focus，内容自然布局不被压扁|
-|ScrollView|章节定位和键盘滚动按 Enter 过渡；到达章节的 Signal 高亮按 Standard 进出，保持约 2.5 秒；直接滚动打断程序动画|
-|PageTransition|进入透明度及 16 UI 单位起始位移，退出目标为相反方向 12 UI 单位；切页有无回调的退出间隔，随后只进入最新请求页；可显式移交初始焦点|
-|Footer|Enter／Exit 透明度；隐藏即禁用 action 输入，退出时仍绘制|
-|Drawer|左右边缘真实 panel 位置滑入／滑出，scrim 与内容透明度同步；关闭按钮 hover／press／focus|
-|Dialog|panel 从 0.94 到 1 的实际尺寸变化及淡入淡出，内容保留自然布局并裁切，不靠 `GUI.matrix` 缩放输入；scrim 与关闭按钮反馈|
+|主题|Light／Dark 语义色按 180ms Iris 曲线混合；初次主题直接匹配|
+|共享控件反馈|hover／press／focus 按 Fast 过渡；disabled 到 0.42 透明度；指针点击不启用键盘焦点框|
+|Button|Control／Light 左竖条在 300ms 内变箭头；Control 始终深灰底，按下不偏移文字；图标旋转由调用方指定|
+|Switch|52×28 自然尺寸，20px thumb、4px 内距、24px 行程；开启 thumb 为黄色，不按压变形|
+|Checkbox|选中底色、边框及强调色勾线过渡；取消沿当前进度反向|
+|Slider|12×20 矩形 thumb、2px surface 外框、4px 墨色轨道填充；拖动时强调中线，不画圆形 halo|
+|Segments|选中底块平移、标签颜色与项目反馈；底线及墨色聚焦擦出|
+|TextField|底边线、hover 及墨色聚焦擦出；invalid 过渡到 Error；光标、选区、输入法仍由原生编辑器负责|
+|Select|触发器三角旋转，popup 淡入淡出及偏移；半宽强调顶条，选中行灰底及左侧墨色标记，键盘高亮和滚动反馈保留|
+|Tooltip|反转主题、有箭头；200ms 淡入并归位 4px，退出仅淡出；离开目标保留文字，不截获输入|
+|SideRail／Tabs|rail 指示面板几何移动；Tabs 按项淡入选中底色及箭头方块，不用滑动下划线；项目 hover／press／focus 保留|
+|Accordion|300ms 可见高度过渡，无内容淡入；透明分隔列表、展开标题加粗，加号旋转为减号|
+|ScrollView|章节定位及键盘滚动按 Enter；到达章节高亮约 2.5 秒；直接滚动打断程序动画。细墨色滚动条、透明轨道，不沿用原版粗黑条|
+|PageTransition|最新页面立即原位替换，220ms Iris 透明度入场，无横移或空白等待；可移交初始焦点|
+|Footer|Enter／Exit 透明度；隐藏即禁用 action 输入，退出仍绘制|
+|Drawer|不透明面板 300ms ease-out 滑动，遮罩独立 200ms 淡入淡出；深色斜纹标题带，关闭图标悬停旋转 90°|
+|Dialog|自然尺寸面板从下方 8px 归位（300ms ease-out），200ms 透明度，退出原地淡出；居中标题、深色斜纹带及边缘点阵，不缩放内容|
 
 保留的 Drawer／Dialog 从打开时记录焦点，最上层退出完成后尝试恢复原焦点。调用方仍需保证目的控件有效，并让组件继续参与 IMGUI pass。组件动效不包括主 `MenuWindow` 开关、保存失败门控、暂停／Frost 资源持有或第三方 drawer 的内部动画。
 
@@ -228,11 +228,23 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 ## Full-screen host status — 2026-10-24
 
-Development and testing paused at the user's request. The current implementation is
-incomplete and has known UI issues. Full acceptance remains deferred, not passed.
+Development and testing paused at the user's request on 2026-10-24; work resumed
+for prototype fidelity alignment on 2026-10-25. Full acceptance remains deferred, not passed.
 The 1.7 provider/API consumer build succeeded with no warnings or errors; the existing
 engine-double suite passed 205 assertions. Limited isolated-game checks exercised
 factory/draw retry, save-failure navigation/close gates, keyboard focus and dynamic
 page removal. These checks do not establish full UI, lifecycle or compatibility acceptance.
 The isolated instance was stopped normally. No release version was assigned.
+
+## 原型样式对齐 — 2026-10-25
+
+本轮按 `tmp/light-ui-prototype/src` 的最终 CSS 与已安装 `@endfield-ui/react` 源码对齐，不复制网页会话中的虚构设置。当前组件接口与时序以上文为准；本节继续记录后续对齐及其实际验证边界。
+
+- 换页改为立即替换与 220ms 原位淡入；Tabs 恢复选中底色和箭头方块。表单底线、按钮竖条变箭头、黄色开关 thumb、矩形 slider thumb、Select 和 Tooltip 装饰及主题已对齐。
+- 宿主使用连续 sheet、透明说明区、实际滚动章节标记及单项展开说明。深色 footer 透明；图标、字号层次、预览网格与斜纹、Dialog／Drawer 深色标题带及独立进退场节奏已更新。滚动条改为细墨色 thumb 与透明轨道。
+- 不新增字体文件，继续使用游戏字体；字体度量、矢量图标栅格化、环形近似阴影与网页实现并非逐像素相同。网页响应式布局按游戏视口适配，不能据本轮桌面截图推定所有缩放比例一致。
+- 最终 1.7 provider／API consumer 构建为 0 warnings／0 errors；既有 `RuntimeChecks` 通过 205 项断言（不覆盖原生 UI 渲染）。标准脚本完成 22 文件暂存及 SHA-256 校验，未部署到安装目录。
+- 在隔离 RimWorld 1.7.4985、1280×720、UI scale 0.9375 主菜单实例查看了 Light／Dark 外观页、深色抽屉与帮助对话框；通过页面 `Focus("background")` 观察滚动到背景项及 TOC 标记切换。仅用反射设置隔离状态，不等于真实鼠标点击验收。
+- 捕获日志含 `FrostSceneBinding probably needs a StaticConstructorOnStartup attribute` 资源线程警告；本轮没有把日志描述为完全干净。完整交互、拖动、输入法、多 Mod 兼容、动态录像及性能验收未执行。实例正常退出，私有游戏链接及复制目录已清理，截图保留在 `C:/RimCarbon14/iris-fidelity-20261025/RimCarbon14/artifacts/`；未加载生存存档，未变更保留的 1.6 发布文件。
+
 

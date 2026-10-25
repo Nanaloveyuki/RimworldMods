@@ -26,6 +26,7 @@ namespace IrisMenus.UI
         private readonly GUIStyle labelStyle = new GUIStyle { fontSize = 16, richText = false };
 
         public UiPalette Palette { get; private set; }
+        public float ThemeAmount => themeBlend.Value;
         public bool ReducedMotion { get; private set; }
         public double Time { get; private set; }
         public int Frame { get; private set; } = -1;
@@ -38,6 +39,7 @@ namespace IrisMenus.UI
         public bool IsInputAllowed => input && Alpha > 0f && (modal == default || modal == layer);
         public float Alpha { get; private set; } = 1f;
         public float FontSize { get; set; } = 16f;
+        public FontStyle FontStyle { get; set; } = FontStyle.Normal;
 
         public UiId CreateId()
         {
@@ -68,7 +70,7 @@ namespace IrisMenus.UI
             ReducedMotion = reducedMotion;
             float dark = theme == UiTheme.Dark ? 1f : 0f;
             if (!initialized) { themeBlend.Snap(dark); initialized = true; }
-            Palette = UiPalette.Blend(themeBlend.Step(dark, Time, UiMotion.Standard, reducedMotion));
+            Palette = UiPalette.Blend(themeBlend.Step(dark, Time, 0.18f, reducedMotion, UiEase.Iris));
             modal = layer = default;
             input = true;
             Alpha = 1f;
@@ -201,12 +203,13 @@ namespace IrisMenus.UI
             if (!IsRepaint) return;
             color.a *= Alpha;
 #if RIMWORLD_1_7
-            UnityStubs.Gui.GuiBackend.Current?.DrawText(rect, text ?? string.Empty, 1, FontSize, FontStyle.Normal, anchor, wrap, color, default, false);
+            UnityStubs.Gui.GuiBackend.Current?.DrawText(rect, text ?? string.Empty, 1, FontSize, FontStyle, anchor, wrap, color, default, false);
 #else
             Color previous = GUI.color;
             Color content = GUI.contentColor;
             labelStyle.font = Text.CurFontStyle.font;
             labelStyle.fontSize = Mathf.RoundToInt(FontSize);
+            labelStyle.fontStyle = FontStyle;
             labelStyle.normal.textColor = color;
             labelStyle.alignment = anchor;
             labelStyle.wordWrap = wrap;
@@ -215,6 +218,39 @@ namespace IrisMenus.UI
             finally { GUI.color = previous; GUI.contentColor = content; }
 #endif
         }
+
+        public void Triangle(Vector2 a, Vector2 b, Vector2 c, Color color)
+        {
+            if (!IsRepaint) return;
+#if RIMWORLD_1_7
+            color.a *= Alpha;
+            Span<UnityStubs.Gui.GuiVertex> vertices = stackalloc UnityStubs.Gui.GuiVertex[3];
+            vertices[0] = new UnityStubs.Gui.GuiVertex { position = a, color = color };
+            vertices[1] = new UnityStubs.Gui.GuiVertex { position = b, color = color };
+            vertices[2] = new UnityStubs.Gui.GuiVertex { position = c, color = color };
+            UnityStubs.Gui.GuiBackend.Current?.DrawPrimitives(4, vertices, null, false);
+#else
+            float minY = Mathf.Min(a.y, Mathf.Min(b.y, c.y));
+            float maxY = Mathf.Max(a.y, Mathf.Max(b.y, c.y));
+            for (float y = minY; y < maxY; y += 1f)
+            {
+                float left = float.PositiveInfinity, right = float.NegativeInfinity;
+                TriangleEdge(a, b, y + 0.5f, ref left, ref right);
+                TriangleEdge(b, c, y + 0.5f, ref left, ref right);
+                TriangleEdge(c, a, y + 0.5f, ref left, ref right);
+                if (right > left) Fill(new Rect(left, y, right - left, Mathf.Min(1f, maxY - y)), color);
+            }
+#endif
+        }
+
+#if !RIMWORLD_1_7
+        private static void TriangleEdge(Vector2 a, Vector2 b, float y, ref float left, ref float right)
+        {
+            if (y < Mathf.Min(a.y, b.y) || y >= Mathf.Max(a.y, b.y)) return;
+            float x = a.x + (b.x - a.x) * (y - a.y) / (b.y - a.y);
+            left = Mathf.Min(left, x); right = Mathf.Max(right, x);
+        }
+#endif
 
         public void Line(Vector2 from, Vector2 to, Color color, float width = 1f)
         {

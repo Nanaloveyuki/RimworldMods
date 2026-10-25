@@ -15,7 +15,7 @@ namespace IrisMenus.UI
 
         public float Visibility => visibility.Value;
 
-        // Footer is intentionally dark in BOTH themes; use FooterInk for custom actions.
+        // Theme tokens keep the dark footer transparent and retain its light-theme dark band.
         public void Draw(Rect rect, string leading, string trailing = null, Action<Rect> drawActions = null,
             float actionsWidth = 0f, bool visible = true)
         {
@@ -31,15 +31,14 @@ namespace IrisMenus.UI
             {
                 UiPalette palette = context.Palette;
                 context.Fill(new Rect(0f, 0f, rect.width, rect.height), palette.Footer);
+                context.Fill(new Rect(0f, 0f, rect.width, 1f), palette.FooterLine);
                 float actionWidth = drawActions == null ? 0f : Mathf.Min(actionsWidth, Mathf.Max(0f, rect.width - 32f));
                 float textWidth = Mathf.Max(0f, rect.width - actionWidth - 32f);
                 float leftWidth = trailing == null ? textWidth : textWidth * 0.6f;
                 context.Label(new Rect(16f, 0f, leftWidth, rect.height), leading, palette.FooterInk);
                 if (trailing != null)
                 {
-                    Color muted = palette.FooterInk;
-                    muted.a *= 0.7f;
-                    context.Label(new Rect(16f + leftWidth, 0f, textWidth - leftWidth, rect.height), trailing, muted, TextAnchor.MiddleRight);
+                    context.Label(new Rect(16f + leftWidth, 0f, textWidth - leftWidth, rect.height), trailing, palette.FooterMuted, TextAnchor.MiddleRight);
                 }
                 if (drawActions != null)
                 {

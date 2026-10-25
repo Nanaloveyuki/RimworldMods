@@ -7,6 +7,7 @@ namespace IrisMenus.UI
     {
         private readonly UiContext context;
         private readonly UiId[] anchorIds;
+        private readonly UiId scrollbarId;
         private readonly Rect[] anchorRects;
         private readonly int[] anchorPasses;
         private Vector2 position;
@@ -24,12 +25,15 @@ namespace IrisMenus.UI
         private double highlightUntil;
         private bool drawing;
         private bool animating;
+        private bool scrollbarDragging;
+        private float dragMouse, dragPosition, dragTravel, dragRange;
 
         public UiScrollView(UiContext context, int anchorCount = 0)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             if (anchorCount < 0) throw new ArgumentOutOfRangeException(nameof(anchorCount));
             Id = context.CreateId();
+            scrollbarId = context.CreateId();
             anchorIds = new UiId[anchorCount];
             anchorRects = new Rect[anchorCount];
             anchorPasses = new int[anchorCount];
@@ -149,7 +153,7 @@ namespace IrisMenus.UI
                 GUI.enabled = previousEnabled && !blocked;
                 if (blocked && inputEvent != null && previousEventType != EventType.Layout && previousEventType != EventType.Repaint)
                     inputEvent.type = EventType.Ignore;
-                try { position = GUI.BeginScrollView(viewport, position, content, false, contentHeight > rect.height); }
+                try { position = GUI.BeginScrollView(viewport, position, content, GUIStyle.none, GUIStyle.none); }
                 finally
                 {
                     GUI.enabled = previousEnabled;
@@ -180,8 +184,9 @@ namespace IrisMenus.UI
                     try { GUI.EndScrollView(); }
                     finally { if (blocked && inputEvent != null) inputEvent.type = endEventType; }
                 }
+                DrawScrollbar(viewport, maximum, enabled);
                 UiInteraction interaction = context.Interact(Id, viewport, enabled);
-                if (interaction.Focused)
+                if (interaction.Focused || context.IsFocused(scrollbarId))
                 {
                     float requested = position.y;
                     bool moved = false;
@@ -219,6 +224,43 @@ namespace IrisMenus.UI
                 }
             }
             return resolved;
+        }
+
+        private void DrawScrollbar(Rect rect, float maximum, bool enabled)
+        {
+            Rect track = new Rect(rect.xMax - 12f, rect.y, 12f, rect.height);
+            Event input = context.Event;
+            EventType type = input != null ? input.type : EventType.Ignore;
+            bool captured = context.IsCaptured(scrollbarId);
+            float mouse = input != null ? GUIUtility.GUIToScreenPoint(input.mousePosition).y : 0f;
+            UiInteraction interaction = context.Interact(scrollbarId, maximum > 0f ? track : default(Rect), enabled && maximum > 0f, false);
+            if (maximum <= 0f) { scrollbarDragging = false; return; }
+            float height = Mathf.Min(track.height, Mathf.Max(24f, track.height * rect.height / contentHeight));
+            float travel = Mathf.Max(1f, track.height - height);
+            float top = track.y + position.y / maximum * travel;
+            if (!captured && context.IsCaptured(scrollbarId) && type == EventType.MouseDown)
+            {
+                scrollbarDragging = true;
+                dragMouse = mouse;
+                dragTravel = travel;
+                dragRange = maximum;
+                if (input.mousePosition.y < top || input.mousePosition.y > top + height)
+                    position.y = Mathf.Clamp01((input.mousePosition.y - track.y - height * 0.5f) / travel) * maximum;
+                dragPosition = position.y;
+                animating = false;
+                focusAfterScroll = -1;
+                scroll.Snap(position.y);
+            }
+            if (scrollbarDragging && captured && enabled && context.IsInputAllowed && (type == EventType.MouseDrag || type == EventType.MouseUp))
+            {
+                position.y = Mathf.Clamp(dragPosition + (mouse - dragMouse) / dragTravel * dragRange, 0f, maximum);
+                scroll.Snap(position.y);
+                if (type == EventType.MouseDrag) context.Consume();
+            }
+            if (!context.IsCaptured(scrollbarId)) scrollbarDragging = false;
+            Color ink = interaction.Hovered || captured ? context.Palette.Muted : context.Palette.StrongLine;
+            context.Fill(new Rect(track.xMax - 6f, track.y + position.y / maximum * travel, 6f, height), ink);
+            if (interaction.Focused && context.FocusVisible) context.Border(track, context.Palette.Ink);
         }
 
         private bool IsInsideVisible(Rect rect)

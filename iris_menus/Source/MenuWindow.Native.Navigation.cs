@@ -32,6 +32,7 @@ namespace IrisMenus
                 internal int TabIndex;
                 internal UiButton[] Chapters;
                 internal NoteState[] Notes;
+                internal UiTween ChapterMarker;
                 internal readonly Dictionary<string, UiButton> Actions = new Dictionary<string, UiButton>(StringComparer.Ordinal);
                 internal PageState(MenuPage page, UiContext ui)
                 {
@@ -78,14 +79,14 @@ namespace IrisMenus
                 internal readonly Action<Rect> Draw;
                 internal bool Open;
                 internal string Title => note.Title() ?? "";
-                internal float Height(float width) => Mathf.Max(60f, Text.CalcHeight(note.Text() ?? "", Mathf.Max(1f, width - 28f)) + 28f);
+                internal float Height(float width, float scale) => Mathf.Max(48f * scale, Text.CalcHeight(note.Text() ?? "", Mathf.Max(1f, width)) + 16f * scale);
                 internal NoteState(MenuNote note, UiContext ui, bool open)
                 {
                     this.note = note; this.ui = ui; Open = open;
                     Accordion = new UiAccordion(ui, open);
                     Draw = DrawText;
                 }
-                private void DrawText(Rect rect) => ui.Label(rect.ContractedBy(14f), note.Text() ?? "", ui.Palette.Muted, TextAnchor.UpperLeft, true);
+                private void DrawText(Rect rect) => ui.Label(new Rect(rect.x, rect.y, rect.width, Mathf.Max(0f, rect.height - 16f)), note.Text() ?? "", ui.Palette.Muted, TextAnchor.UpperLeft, true);
             }
 
             private void SyncCatalog()
@@ -110,8 +111,11 @@ namespace IrisMenus
                 foreach (string id in removed) states.Remove(id);
                 foreach (OwnerGroup group in owners) (group.Hosted ? hostedOwners : registeredOwners).Add(group);
                 registeredLabels = new string[registeredOwners.Count]; hostedLabels = new string[hostedOwners.Count];
-                for (int i = 0; i < registeredLabels.Length; i++) registeredLabels[i] = registeredOwners[i].Name;
-                for (int i = 0; i < hostedLabels.Length; i++) hostedLabels[i] = hostedOwners[i].Name;
+                registeredIcons = new UiGlyphKind[registeredOwners.Count]; hostedIcons = new UiGlyphKind[hostedOwners.Count];
+                for (int i = 0; i < registeredLabels.Length; i++)
+                { registeredLabels[i] = registeredOwners[i].Name; registeredIcons[i] = UiGlyphKind.Settings; }
+                for (int i = 0; i < hostedLabels.Length; i++)
+                { hostedLabels[i] = hostedOwners[i].Name; hostedIcons[i] = UiGlyphKind.Layers; }
                 registeredRail = new UiSideRail(ui, registeredLabels); hostedRail = new UiSideRail(ui, hostedLabels);
                 foreach (PageState state in states.Values) BindTabs(state);
                 foreach (MenuPage adapter in host.adapters)
@@ -157,9 +161,9 @@ namespace IrisMenus
                 if (selected?.Tabs == null) return;
                 float width = Mathf.Max(1f, main.width - 108f * scale);
                 int index = selected.TabIndex;
-                Rect rect = new Rect(main.x, main.y, Mathf.Min(width, selected.Tabs.Count * 180f * scale), 44f * scale);
+                Rect rect = new Rect(main.x, main.y, Mathf.Min(width, selected.Tabs.Count * 160f * scale), 44f * scale);
                 if (selected.Tabs.Count * 120f * scale <= width) index = selected.Tabs.Draw(rect, index);
-                else index = selected.TabSelect.Draw(new Rect(rect.x, rect.y, Mathf.Min(340f * scale, width), rect.height), index);
+                else index = selected.TabSelect.Draw(new Rect(rect.x, rect.y, Mathf.Min(340f * scale, width), rect.height), index, scale: scale);
                 if (index != selected.TabIndex) SelectTab(index);
             }
 
@@ -194,15 +198,22 @@ namespace IrisMenus
 
             private void DrawRailPanel(Rect rect)
             {
-                ui.Fill(rect, WithAlpha(ui.Palette.Surface, 0.52f));
-                ui.Label(new Rect(rect.x + 20f * scale, rect.y, rect.width - 40f * scale, 52f * scale), T("IM_NativeLibrary"), ui.Palette.Ink);
-                ui.Fill(new Rect(rect.x, rect.y + 52f * scale, rect.width, 1f), ui.Palette.Line);
-                Rect list = new Rect(rect.x + 8f * scale, rect.y + 66f * scale, rect.width - 16f * scale, Mathf.Max(1f, rect.height - 130f * scale));
+                UiPalette palette = ui.Palette;
+                ui.Fill(rect, palette.Rail);
+                float oldSize = ui.FontSize;
+                ui.FontSize = 15f * scale;
+                ui.Label(new Rect(rect.x + 22f * scale, rect.y, rect.width - 44f * scale, 64f * scale), T("IM_NativeLibrary"), palette.Ink);
+                ui.Fill(new Rect(rect.x, rect.y + 64f * scale, rect.width, 1f), palette.Line);
+                Rect list = new Rect(rect.x, rect.y + 82f * scale, rect.width, Mathf.Max(1f, rect.height - 158f * scale));
                 railScroll.Draw(list, RailHeight(), drawRail);
-                if (manage.Draw(new Rect(rect.x + 18f * scale, rect.yMax - 52f * scale, rect.width - 36f * scale, 38f * scale), T("IM_Manage"))) managementOpen = true;
+                ui.Fill(new Rect(rect.x, rect.yMax - 70f * scale, rect.width, 1f), palette.Line);
+                ui.FontSize = 12f * scale;
+                if (manage.Draw(new Rect(rect.x + 18f * scale, rect.yMax - 52f * scale, rect.width - 36f * scale, 38f * scale),
+                    T("IM_Manage"), variant: UiButtonVariant.Light, icon: UiGlyphKind.Plus, scale: scale)) managementOpen = true;
+                ui.FontSize = oldSize;
             }
 
-            private float RailHeight() => 76f * scale + registeredRail.NaturalHeight(rowHeight) + hostedRail.NaturalHeight(rowHeight);
+            private float RailHeight() => 76f * scale + registeredRail.NaturalHeight(rowHeight, 0f) + hostedRail.NaturalHeight(rowHeight, 0f);
 
             private void DrawRail(Rect rect)
             {
@@ -214,15 +225,20 @@ namespace IrisMenus
             private void DrawRailGroup(List<OwnerGroup> groups, UiSideRail rail, string label, ref float y, float width)
             {
                 if (groups.Count == 0) return;
-                ui.Label(new Rect(14f * scale, y, width - 28f * scale, 30f * scale), label, ui.Palette.Muted);
+                float oldSize = ui.FontSize;
+                ui.FontSize = 11f * scale;
+                ui.Label(new Rect(22f * scale, y, width - 44f * scale, 30f * scale), label, ui.Palette.Muted);
                 y += 34f * scale;
+                ui.FontSize = 13f * scale;
                 int active = -1;
                 if (!host.browse.ShowResults)
                     for (int i = 0; i < groups.Count; i++) if (ReferenceEquals(groups[i].Content, host.session.Selected?.Content)) active = i;
-                float height = rail.NaturalHeight(rowHeight);
-                int next = rail.Draw(new Rect(0f, y, width, height), active, rowHeight: rowHeight);
+                float height = rail.NaturalHeight(rowHeight, 0f);
+                int next = rail.Draw(new Rect(0f, y, width, height), active, rowHeight: rowHeight, gap: 0f,
+                    icons: ReferenceEquals(groups, registeredOwners) ? registeredIcons : hostedIcons);
                 if (next >= 0 && next != active) NavigateOwner(groups[next]);
                 y += height + 12f * scale;
+                ui.FontSize = oldSize;
             }
 
             private void ChangeQuery(string query)
