@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 using System;
 using HungerAndHavoc.Api;
+using HungerAndHavoc.Core;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -892,6 +893,14 @@ namespace HungerAndHavoc.Pawn
         internal static bool AllowsModBehavior(int stayKind)
         {
             return !IsColonyStay(stayKind);
+        }
+
+        // 离场 duty 统一带 canDig 原版只在走不到地图边缘时才砸门墙 走得到时行为不变
+        internal static PawnDuty CreateLeaveDuty()
+        {
+            PawnDuty duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);
+            duty.canDig = true;
+            return duty;
         }
 
         internal static bool IsPassiveDefense(JobDef def)

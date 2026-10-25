@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using HungerAndHavoc.Identity;
 using HungerAndHavoc.Api;
 using HungerAndHavoc.Core;
@@ -11,6 +12,21 @@ namespace HungerAndHavoc.Pawn
 {
     public class JobGiver_RHAH_Leave : ThinkNode_JobGiver
     {
+        // 全封闭的来客每个闲置 tick 都会问到 搜不到就按游戏内小时冷却 省掉区域 BFS
+        const int FailedExitSearchCooldownTicks = GenDate.TicksPerHour;
+
+        // 冷却期内发原地等待 取 120 与原版回退游荡节点同频
+        const int CooldownWaitJobTicks = 120;
+
+        // 不落盘 读档后是新 pawn 实例 表项自然为空 最多重搜一次
+        static readonly ConditionalWeakTable<Verse.Pawn, ExitSearchCooldown> ExitSearchCooldowns =
+            new ConditionalWeakTable<Verse.Pawn, ExitSearchCooldown>();
+
+        sealed class ExitSearchCooldown
+        {
+            internal int nextSearchTick;
+        }
+
         protected override Job TryGiveJob(Verse.Pawn pawn)
         {
             return TryCreate(pawn);
@@ -43,6 +59,14 @@ namespace HungerAndHavoc.Pawn
             if (!RHAH_BatchAttitude.CanOrderLeave(pawn))
             {
                 return null;
+            }
+
+            // 冷却判断放在建快照之前 冷却期内一次搜索和一次分配都不发生
+            int now = Find.TickManager == null ? 0 : Find.TickManager.TicksGame;
+            ExitSearchCooldown cooldown;
+            if (ExitSearchCooldowns.TryGetValue(pawn, out cooldown) && !IsExitSearchCooldownOver(cooldown, now))
+            {
+                return CreateCooldownWaitJob();
             }
 
             IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
@@ -80,8 +104,9 @@ namespace HungerAndHavoc.Pawn
             IntVec3 spot;
             if (!RCellFinder.TryFindBestExitSpot(pawn, out spot))
             {
-                return null;
+                return DigOutWhenNoExit(pawn, now);
             }
+            ExitSearchCooldowns.Remove(pawn);
 
             if (HasUnreadyCarriedChild(pawn))
             {
@@ -106,6 +131,47 @@ namespace HungerAndHavoc.Pawn
             return job;
         }
 
+
+        // 走不到地图边缘时改走凿墙出图 否则全封闭基地里的离场来客永远走不掉
+        static Job DigOutWhenNoExit(Verse.Pawn pawn, int now)
+        {
+            if (pawn.mindState != null)
+            {
+                // 寻路按当时的 duty.canDig 决定能不能砸墙 调用方不保证已经换上离场 duty
+                pawn.mindState.duty = RHAH_VisitorRules.CreateLeaveDuty();
+            }
+
+            Job job = JobGiver_RHAH_DigOutWhenNoExit.TryCreate(pawn);
+            if (job != null)
+            {
+                ExitSearchCooldowns.Remove(pawn);
+                return job;
+            }
+
+            ExitSearchCooldown cooldown;
+            if (!ExitSearchCooldowns.TryGetValue(pawn, out cooldown))
+            {
+                cooldown = new ExitSearchCooldown();
+                ExitSearchCooldowns.Add(pawn, cooldown);
+            }
+            cooldown.nextSearchTick = now + FailedExitSearchCooldownTicks;
+            return CreateCooldownWaitJob();
+        }
+
+        // 原地等待 不寻路也不改状态 到期后 JobTracker 会重新问
+        // 不开 checkOverrideOnExpire 同 def 的连发 job 会被判成续做而丢弃 旧 job 就不更新了
+        static Job CreateCooldownWaitJob()
+        {
+            Job job = JobMaker.MakeJob(JobDefOf.Wait);
+            job.expiryInterval = CooldownWaitJobTicks;
+            return job;
+        }
+
+        // 时间往回拨时旧值可能远在未来 按到期处理 免得很久不再检查
+        static bool IsExitSearchCooldownOver(ExitSearchCooldown cooldown, int now)
+        {
+            return now >= cooldown.nextSearchTick || cooldown.nextSearchTick - now > FailedExitSearchCooldownTicks;
+        }
 
         static Job CarryDependent(Verse.Pawn pawn)
         {
@@ -178,6 +244,12 @@ namespace HungerAndHavoc.Pawn
             return child != null && (!RHAH_BatchAttitude.CanOrderLeave(child) ||
                 RHAH_Api.Get(child).Lifecycle != RHAH_Lifecycle.Leaving ||
                 !RHAH_Api.Allows(child, RHAH_BehaviorGate.ExitMap));
+        }
+
+        // 抱持者由 JobDriver_RHAH_CarryYoung 保证双方都允许离图后一起走 其它 giver 不许单独带走
+        internal static bool CanDepartAlone(Verse.Pawn pawn)
+        {
+            return pawn != null && pawn.CarriedBy == null && pawn.carryTracker?.CarriedThing == null;
         }
 
         internal static bool WasDropped(Lord lord, Verse.Pawn child)

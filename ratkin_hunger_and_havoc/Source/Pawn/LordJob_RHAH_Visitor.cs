@@ -641,7 +641,7 @@ namespace HungerAndHavoc.Pawn
             {
                 Verse.Pawn pawn = lord.ownedPawns[i];
                 PawnDuty duty = RHAH_Api.Get(pawn)?.Lifecycle == RHAH_Lifecycle.Leaving
-                    ? new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave)
+                    ? RHAH_VisitorRules.CreateLeaveDuty()
                     : HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.HasEdgeHold(pawn)
                         ? new PawnDuty(RHAH_DefOf.RHAH_VisitorSeek, pawn.Position, 0f)
                         : new PawnDuty(RimWorld.DutyDefOf.TravelOrWait, Data.dest, -1f);
@@ -725,7 +725,7 @@ namespace HungerAndHavoc.Pawn
             {
                 Verse.Pawn pawn = lord.ownedPawns[i];
                 pawn.mindState.duty = RHAH_Api.Get(pawn)?.Lifecycle == RHAH_Lifecycle.Leaving
-                    ? new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave)
+                    ? RHAH_VisitorRules.CreateLeaveDuty()
                     : new PawnDuty(RHAH_DefOf.RHAH_VisitorSeek, waitSpot, 10f);
             }
         }
@@ -751,7 +751,7 @@ namespace HungerAndHavoc.Pawn
                     continue;
                 }
                 RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.Leaving);
-                pawn.mindState.duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);
+                pawn.mindState.duty = RHAH_VisitorRules.CreateLeaveDuty();
             }
         }
     }
@@ -775,7 +775,7 @@ namespace HungerAndHavoc.Pawn
             {
                 Verse.Pawn pawn = lord.ownedPawns[i];
                 pawn.mindState.duty = RHAH_Api.Get(pawn)?.Lifecycle == RHAH_Lifecycle.Leaving
-                    ? new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave)
+                    ? RHAH_VisitorRules.CreateLeaveDuty()
                     : new PawnDuty(DutyDefOf.WanderClose_NoNeeds, pawn.Position, 3f);
             }
         }
@@ -795,7 +795,7 @@ namespace HungerAndHavoc.Pawn
                     continue;
                 }
                 RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.Leaving);
-                pawn.mindState.duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);
+                pawn.mindState.duty = RHAH_VisitorRules.CreateLeaveDuty();
                 if (pawn.CurJob != null)
                 {
                     pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);

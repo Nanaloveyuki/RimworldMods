@@ -172,8 +172,6 @@ namespace HungerAndHavoc.Core
                 "RHAH_Settings_PrisonerScavenge_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_TailBite".Translate(), ref Settings.tailBiteEnabled,
                 "RHAH_Settings_TailBite_Tooltip".Translate());
-            listing.CheckboxLabeled("RHAH_Settings_FamineDoors".Translate(), ref Settings.famineVisitorsOpenDoors,
-                "RHAH_Settings_FamineDoors_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_PlagueSafe".Translate(), ref Settings.plagueSafeMode,
                 "RHAH_Settings_PlagueSafe_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_GreenLetters".Translate(), ref Settings.greenIncidentLetters,

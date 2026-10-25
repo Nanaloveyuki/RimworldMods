@@ -131,7 +131,7 @@ namespace HungerAndHavoc.Pawn
             RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.Leaving);
             if (pawn.mindState != null)
             {
-                pawn.mindState.duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);
+                pawn.mindState.duty = RHAH_VisitorRules.CreateLeaveDuty();
             }
             pawn.jobs?.StopAll();
             return true;

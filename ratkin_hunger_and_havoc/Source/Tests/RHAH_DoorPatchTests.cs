@@ -74,13 +74,21 @@ namespace HungerAndHavoc.Tests
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]
-        public void EveryAttitudeFactionStillUsesTheSetting(int index)
+        public void ActiveVisitorsCannotOpenDoors(int index)
         {
             Verse.Pawn pawn = Member(new Faction { def = attitudeDefs[index] });
             Assert.False(OpenResult(pawn, true));
-            RHAH_Mod.Settings.famineVisitorsOpenDoors = true;
-            Assert.True(OpenResult(pawn, true));
             Assert.False(OpenResult(pawn, false));
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(4)]
+        public void LeavingVisitorsKeepVanillaDoorPermission(int index)
+        {
+            Verse.Pawn pawn = Member(new Faction { def = attitudeDefs[index] });
+            RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.Leaving);
+            Assert.True(OpenResult(pawn, true));
         }
 
         [Fact]

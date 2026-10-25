@@ -613,7 +613,6 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.motherFeedEnabled | 全局 ModSettings，默认 true |
 | RHAH_Settings.prisonerScavengeEnabled | 全局 ModSettings，默认 true |
 | RHAH_Settings.tailBiteEnabled | 全局 ModSettings，默认 false |
-| RHAH_Settings.famineVisitorsOpenDoors | 全局 ModSettings，默认 false。开启后饥民可以开门，地图上有敌人时仍不开 |
 | RHAH_Settings.plagueSafeMode | 全局 ModSettings，默认 false。开启后鼠疫停在致死严重度以下 |
 | RHAH_Settings.greenIncidentLetters | 全局 ModSettings，默认 true。关闭后鼠饥事件信用原版颜色 |
 | RHAH_Settings.broadcastEnabled | 全局 ModSettings，默认 true |

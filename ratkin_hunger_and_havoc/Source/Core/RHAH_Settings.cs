@@ -70,7 +70,6 @@ namespace HungerAndHavoc.Core
         public bool motherFeedEnabled = true;
         public bool prisonerScavengeEnabled = true;
         public bool tailBiteEnabled;
-        public bool famineVisitorsOpenDoors;
         public bool plagueSafeMode;
         public bool greenIncidentLetters = true;
         public bool broadcastEnabled = true;
@@ -314,7 +313,6 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref motherFeedEnabled, "motherFeedEnabled", true);
             Scribe_Values.Look(ref prisonerScavengeEnabled, "prisonerScavengeEnabled", true);
             Scribe_Values.Look(ref tailBiteEnabled, "tailBiteEnabled", false);
-            Scribe_Values.Look(ref famineVisitorsOpenDoors, "famineVisitorsOpenDoors", false);
             Scribe_Values.Look(ref plagueSafeMode, "plagueSafeMode", false);
             Scribe_Values.Look(ref greenIncidentLetters, "greenIncidentLetters", true);
             Scribe_Values.Look(ref broadcastEnabled, "broadcastEnabled", true);

@@ -51,8 +51,6 @@
   <RHAH_Settings_PrisonerScavenge_Tooltip>オフにすると、空腹の囚人は地面の汚れを1層なめ取らなくなります。</RHAH_Settings_PrisonerScavenge_Tooltip>
   <RHAH_Settings_TailBite>尾をかじることを許可</RHAH_Settings_TailBite>
   <RHAH_Settings_TailBite_Tooltip>オンにすると、空腹の囚人は、近くで眠っている3歳未満でラットキンの尾が残っている囚人の尾をかみ切ります。初期設定はオフです。</RHAH_Settings_TailBite_Tooltip>
-  <RHAH_Settings_FamineDoors>飢えた訪問者の開門を許可</RHAH_Settings_FamineDoors>
-  <RHAH_Settings_FamineDoors_Tooltip>初期設定はオフです。オンにすると、飢えた訪問者は入植者のドアを開けられます。マップ上に敵がいる間は開けません。</RHAH_Settings_FamineDoors_Tooltip>
   <RHAH_Settings_BegFailMood>物乞いを断られた時の心情：{0}</RHAH_Settings_BegFailMood>
   <RHAH_Settings_BegFailMood_Tooltip>食べ物をもらえなかった時の心情です。範囲は-50～50、初期値は-5。</RHAH_Settings_BegFailMood_Tooltip>
   <RHAH_Settings_BegSuccessMood>物乞い成功時の心情：{0}</RHAH_Settings_BegSuccessMood>
