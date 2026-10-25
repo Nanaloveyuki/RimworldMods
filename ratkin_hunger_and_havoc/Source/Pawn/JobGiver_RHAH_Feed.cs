@@ -34,7 +34,7 @@ namespace HungerAndHavoc.Pawn
 
             if (RHAH_VisitorRules.BlocksReliefFeed(
                 pawn.Downed,
-                ModsConfig.IsActive("cyanobot.toddlers"),
+                Compat.RHAH_ToddlerPresence.Active,
                 Compat.RHAH_ChildMovement.ManipulationStage(pawn)))
             {
                 return null;

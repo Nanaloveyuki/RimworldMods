@@ -28,7 +28,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
         internal static bool LiftsAgeImmobility(Verse.Pawn pawn)
         {
-            bool toddlers = ModsConfig.IsActive("cyanobot.toddlers");
+            bool toddlers = RHAH_ToddlerPresence.Active;
             bool eventBaby = HungerAndHavoc.Api.RHAH_Api.IsOrigin(pawn) && pawn.DevelopmentalStage == DevelopmentalStage.Baby;
             bool injured = pawn.health != null && pawn.health.Downed && !AgeOnlyDown(pawn);
             LifeStageDef stage = pawn.ageTracker != null ? pawn.ageTracker.CurLifeStage : null;

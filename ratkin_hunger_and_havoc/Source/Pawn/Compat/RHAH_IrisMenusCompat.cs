@@ -2480,7 +2480,7 @@ namespace HungerAndHavoc.Pawn.Compat
             MenuControls.Anchor(list, "young-age");
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_YoungAge".Translate(), ref settings.youngAgeFollowsRange, "RHAH_Settings_YoungAge_Tooltip".Translate());
             MenuControls.Anchor(list, "immobile-babies");
-            RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_ImmobileBabies".Translate(), ref settings.allowImmobileBabies, ToddlersActive() ? "RHAH_Settings_ImmobileBabies_Toddlers".Translate() : "RHAH_Settings_ImmobileBabies_Tooltip".Translate());
+            RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_ImmobileBabies".Translate(), ref settings.allowImmobileBabies, ImmobileBabiesTip());
             DrawModeSelect(list, "gender-mode", "RHAH_Settings_Gender", settings.genderMode, 4, mode => settings.genderMode = mode);
             if (settings.genderMode == 1)
             {
@@ -2648,9 +2648,17 @@ namespace HungerAndHavoc.Pawn.Compat
             }
         }
 
-        static bool ToddlersActive()
+        // 抬龄的真实闸门是"婴儿能被抱走" 光有 Toddlers 不够
+        static string ImmobileBabiesTip()
         {
-            return ModsConfig.IsActive("cyanobot.toddlers");
+            if (RHAH_ToddlerPresence.BabiesCarriable)
+            {
+                return "RHAH_Settings_ImmobileBabies_Toddlers".Translate();
+            }
+
+            return RHAH_ToddlerPresence.Active
+                ? "RHAH_Settings_ImmobileBabies_NoCarry".Translate()
+                : "RHAH_Settings_ImmobileBabies_Tooltip".Translate();
         }
 
         void DrawContentToggles(Listing_Standard list, RHAH_Settings settings)
