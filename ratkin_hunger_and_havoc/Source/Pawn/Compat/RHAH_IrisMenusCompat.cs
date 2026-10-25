@@ -1522,7 +1522,6 @@ namespace HungerAndHavoc.Pawn.Compat
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_MotherFeed".Translate(), ref settings.motherFeedEnabled, "RHAH_Settings_MotherFeed_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_PrisonerScavenge".Translate(), ref settings.prisonerScavengeEnabled, "RHAH_Settings_PrisonerScavenge_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TailBite".Translate(), ref settings.tailBiteEnabled, "RHAH_Settings_TailBite_Tooltip".Translate());
-            RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_FamineDoors".Translate(), ref settings.famineVisitorsOpenDoors, "RHAH_Settings_FamineDoors_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_GreenLetters".Translate(), ref settings.greenIncidentLetters, "RHAH_Settings_GreenLetters_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_Broadcast".Translate(), ref settings.broadcastEnabled, "RHAH_Settings_Broadcast_Tooltip".Translate());
             string cooldown = Buffer(weightBuffers, "broadcast-days", settings.broadcastCooldownDays, "0");

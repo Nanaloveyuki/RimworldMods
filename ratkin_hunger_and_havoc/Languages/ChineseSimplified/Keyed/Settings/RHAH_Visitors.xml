@@ -51,8 +51,6 @@
   <RHAH_Settings_PrisonerScavenge_Tooltip>开启后，饥饿的囚犯会舔食地上的污物，每次舔掉一层。</RHAH_Settings_PrisonerScavenge_Tooltip>
   <RHAH_Settings_TailBite>允许咬尾巴</RHAH_Settings_TailBite>
   <RHAH_Settings_TailBite_Tooltip>开启后，饥饿的囚犯会咬掉近处睡着、不满 3 岁且仍有鼠尾的囚犯的尾巴。默认关闭。</RHAH_Settings_TailBite_Tooltip>
-  <RHAH_Settings_FamineDoors>允许饥民开门</RHAH_Settings_FamineDoors>
-  <RHAH_Settings_FamineDoors_Tooltip>默认关闭。开启后，饥民可在地图上没有敌人时打开殖民者的门。</RHAH_Settings_FamineDoors_Tooltip>
   <RHAH_Settings_BegFailMood>乞讨被拒心情：{0}</RHAH_Settings_BegFailMood>
   <RHAH_Settings_BegFailMood_Tooltip>来客乞讨失败时获得的心情变化。范围 -50 到 50，默认 -5。</RHAH_Settings_BegFailMood_Tooltip>
   <RHAH_Settings_BegSuccessMood>乞讨成功心情：{0}</RHAH_Settings_BegSuccessMood>

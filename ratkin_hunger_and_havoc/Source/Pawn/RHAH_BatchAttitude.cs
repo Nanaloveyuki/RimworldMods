@@ -262,7 +262,7 @@ namespace HungerAndHavoc.Pawn
                 RHAH_Api.SetLifecycle(members[i], RHAH_Lifecycle.Leaving);
                 if (members[i].mindState != null)
                 {
-                    members[i].mindState.duty = new PawnDuty(RHAH_DefOf.RHAH_VisitorLeave);
+                    members[i].mindState.duty = RHAH_VisitorRules.CreateLeaveDuty();
                 }
             }
 

@@ -51,8 +51,6 @@
   <RHAH_Settings_PrisonerScavenge_Tooltip>Off, a hungry prisoner leaves the filth on the ground.</RHAH_Settings_PrisonerScavenge_Tooltip>
   <RHAH_Settings_TailBite>Allow tail bites</RHAH_Settings_TailBite>
   <RHAH_Settings_TailBite_Tooltip>On, a hungry prisoner bites off the tail of a nearby sleeping prisoner under 3 who still has one. Off by default.</RHAH_Settings_TailBite_Tooltip>
-  <RHAH_Settings_FamineDoors>Famine visitors may open doors</RHAH_Settings_FamineDoors>
-  <RHAH_Settings_FamineDoors_Tooltip>Off by default. On, famine visitors may open colonist doors. They still leave doors shut while an enemy is on the map.</RHAH_Settings_FamineDoors_Tooltip>
   <RHAH_Settings_BegFailMood>Beg refused: {0}</RHAH_Settings_BegFailMood>
   <RHAH_Settings_BegFailMood_Tooltip>Mood after a refused beg. -50 to 50, default -5.</RHAH_Settings_BegFailMood_Tooltip>
   <RHAH_Settings_BegSuccessMood>Beg succeeded: {0}</RHAH_Settings_BegSuccessMood>
