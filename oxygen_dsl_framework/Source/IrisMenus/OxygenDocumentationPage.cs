@@ -7,7 +7,7 @@ using Verse;
 
 namespace Oxygendsl.IrisMenus
 {
-    internal sealed class OxygenDocumentationPage
+    internal sealed partial class OxygenDocumentationPage
     {
         private const float Gap = 8f;
         private const float Padding = 8f;
@@ -20,6 +20,7 @@ namespace Oxygendsl.IrisMenus
         private int selectedArticle;
         private int selectedBlock = -1;
         private int pendingBlock = -1;
+        private int selectionRevision;
         private bool focusNavigation;
         private bool clearControlFocus;
         private bool sourceMode;
@@ -50,6 +51,8 @@ namespace Oxygendsl.IrisMenus
         }
 
         public IEnumerable<MenuSearchEntry> SearchEntries() { return catalog.SearchEntries(); }
+
+        internal MenuNativePage CreateNative(global::IrisMenus.UI.UiContext context) { return new NativePage(context, this); }
 
         public void Focus(string id)
         {
@@ -117,6 +120,7 @@ namespace Oxygendsl.IrisMenus
 
         private void Select(int article, int block)
         {
+            selectionRevision++;
             selectedArticle = article;
             selectedBlock = block;
             pendingBlock = block < 0 ? 0 : block;

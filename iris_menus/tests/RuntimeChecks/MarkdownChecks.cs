@@ -36,8 +36,49 @@ internal static class MarkdownChecks
             "<b>Heading</b>\n- <b>item</b>\n1. <i>next</i>", "Common settings-page blocks are parsed");
         check(parser.Parse(@"\**bold**") == "**bold**", "Escaped Markdown delimiter stays literal");
         check(parser.Parse("line\r\nnext") == "line\nnext", "Windows line endings are normalized");
-        check(parser.Parse("See [the guide](guide/start.md) now") ==
-            "See <color=#66b3ffff>the guide</color> now", "Markdown links render with link color");
+        check(parser.Parse("See [the guide](test.mod://DocumentItem/help/start:2) now") ==
+            "See <color=#66b3ffff>the guide</color> now", "Internal document links render with link color");
+        var linked = new DynamicMarkdown(() => "See [guide](test.mod://DocumentItem/help/start:2)");
+        check(linked.Links.Count == 1 && linked.Links[0].Uri.ChildId == "start" && linked.Links[0].Uri.Line == 2,
+            "Markdown preserves package, child document and line targets");
+        check(new DynamicMarkdown(() => "See [web](https://example.com)").Links.Count == 0,
+            "External Markdown links are not interactive document links");
+        check(DocumentUri.TryParse("Test.Mod://DocumentItem/Guide%20page/Intro:12", out DocumentUri address) &&
+            address.PackageId == "test.mod" && address.PageId == "Guide page" && address.ChildId == "Intro" && address.Line == 12 &&
+            address.ToString() == "test.mod://DocumentItem/Guide%20page/Intro:12", "Package URI roundtrips encoded IDs and one-based lines");
+        foreach (string invalid in new[] { "im://help", "test.mod://SubItem/page:1", "test.mod://DocumentItem/parent/child:0",
+            "test.mod://DocumentItem/../child", "test.mod://DocumentItem/a%2Fb", "test.mod://DocumentItem/a%ZZ", "test.mod://DocumentItem/a?x=1",
+            "test.mod://DocumentItem/a:2147483648", "test.mod://DocumentItem/a/b/c" })
+            check(!DocumentUri.TryParse(invalid, out _), "Invalid document target rejected: " + invalid);
+         check(parser.Parse("See [the guide](guide/start.md) now") ==
+             "See <color=#66b3ffff>the guide</color> now", "Markdown links render with link color");
+
+        var multiple = Markdown.Interactive(() => "[first](test.mod://DocumentItem/first) / [second](test.mod://DocumentItem/second)");
+        string opened = null;
+        Event.current = new Event { type = EventType.MouseUp, mousePosition = new Vector2 { x = 9f, y = 1f } };
+        multiple.Draw(new Rect(0f, 0f, 100f, 20f), uri => opened = uri.PageId);
+        check(opened == "second", "Clicking the second link on a line opens its own target");
+        Event.current = new Event { type = EventType.MouseUp, mousePosition = new Vector2 { x = 6f, y = 1f } };
+        opened = null;
+        multiple.Draw(new Rect(0f, 0f, 100f, 20f), uri => opened = uri.PageId);
+        check(opened == null && Event.current.type == EventType.MouseUp, "Text between links does not navigate or consume input");
+        var wrapped = Markdown.Interactive(() => "# **[abcdefgh](test.mod://DocumentItem/wrapped)**\r\n\\[literal](test.mod://DocumentItem/ignored)");
+        Event.current = new Event { type = EventType.MouseUp, mousePosition = new Vector2 { x = 12f, y = 23f } };
+        opened = null;
+        wrapped.Draw(new Rect(10f, 20f, 4f, 12f), uri => opened = uri.PageId);
+        check(opened == "wrapped" && Event.current.type == EventType.Used,
+            "Wrapped formatted links navigate from their continuation line at an offset origin");
+        check(wrapped.Links.Count == 1, "Escaped link syntax stays noninteractive");
+        Event.current = new Event { type = EventType.MouseUp, button = 1, mousePosition = new Vector2 { x = 12f, y = 21f } };
+        opened = null;
+        wrapped.Draw(new Rect(10f, 20f, 4f, 12f), uri => opened = uri.PageId);
+        check(opened == null, "Right clicks do not activate document links");
+        GUI.enabled = false;
+        Event.current.button = 0;
+        wrapped.Draw(new Rect(10f, 20f, 4f, 12f), uri => opened = uri.PageId);
+        check(opened == null, "Disabled Markdown does not navigate");
+        GUI.enabled = true;
+        Event.current = new Event();
 
         string source = "**one**";
         var dynamicParser = new CountingParser();

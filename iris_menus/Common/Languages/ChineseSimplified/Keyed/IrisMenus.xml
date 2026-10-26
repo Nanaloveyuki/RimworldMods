@@ -60,7 +60,6 @@
   <IM_NativeTips>显示悬停提示</IM_NativeTips>
   <IM_NativeTipDelay>提示延迟</IM_NativeTipDelay>
   <IM_NativeTipDelayHint>鼠标停留后，IrisMenus 显示提示前等待的时间，单位为毫秒。</IM_NativeTipDelayHint>
-  <IM_NativeSavedAutomatically>离开页面时保存更改。</IM_NativeSavedAutomatically>
   <IM_NativeCurrentAppearance>当前外观</IM_NativeCurrentAppearance>
   <IM_NativeOn>开启</IM_NativeOn>
   <IM_NativeOff>关闭</IM_NativeOff>
@@ -72,7 +71,9 @@
   <IM_NativeNavigationNote>记住上次页面用于重新打开 IrisMenus 时返回之前的浏览位置。默认搜索范围决定从页面开始搜索时，查找全部 Mod 还是当前 Mod。</IM_NativeNavigationNote>
   <IM_NativeInteractionNoteTitle>悬停提示</IM_NativeInteractionNoteTitle>
   <IM_NativeInteractionNote>悬停提示用于说明 IrisMenus 全屏界面的控件。调整提示延迟可以改变显示时机，也可以关闭提示。</IM_NativeInteractionNote>
-  <IM_NativeOpen>打开全屏新版界面</IM_NativeOpen>
+  <IM_NativeMode>新版界面</IM_NativeMode>
+  <IM_NativeModeTip>在旧版窗口与全屏新版之间切换。当前设置保存成功后才会切换。</IM_NativeModeTip>
+  <IM_LinkUnavailable>无法打开此设置链接：{0}</IM_LinkUnavailable>
   <IM_NativeModSettings>Mod 设置</IM_NativeModSettings>
   <IM_NativeSwitchLight>切换到浅色主题</IM_NativeSwitchLight>
   <IM_NativeSwitchDark>切换到深色主题</IM_NativeSwitchDark>
@@ -83,14 +84,61 @@
   <IM_NativeThisPage>本页</IM_NativeThisPage>
   <IM_NativeNotes>使用说明</IM_NativeNotes>
   <IM_NativeReset>恢复默认</IM_NativeReset>
-  <IM_NativeSaveOnLeave>离开页面时保存设置</IM_NativeSaveOnLeave>
-  <IM_NativeReturnOriginal>返回旧版界面</IM_NativeReturnOriginal>
   <IM_NativeLibrary>设置库</IM_NativeLibrary>
   <IM_NativeRegistered>已接入</IM_NativeRegistered>
   <IM_NativeHosted>已托管</IM_NativeHosted>
+  <IM_NativePinned>已置顶</IM_NativePinned>
+  <IM_NativePin>置顶</IM_NativePin>
+  <IM_NativeUnpin>取消置顶</IM_NativeUnpin>
+  <IM_NativeAlias>修改侧栏名称…</IM_NativeAlias>
+  <IM_NativeMoveUp>上移</IM_NativeMoveUp>
+  <IM_NativeMoveDown>下移</IM_NativeMoveDown>
+  <IM_NativeRemove>从侧栏移除</IM_NativeRemove>
+  <IM_NativeAliasTitle>侧栏名称</IM_NativeAliasTitle>
+  <IM_NativeAliasDescription>为这个 Mod 设置名称。留空即可恢复默认名称。</IM_NativeAliasDescription>
+  <IM_NativeAliasPlaceholder>Mod 名称</IM_NativeAliasPlaceholder>
+  <IM_NativeSave>保存</IM_NativeSave>
   <IM_NativeOpenResult>打开</IM_NativeOpenResult>
   <IM_NativeResetTitle>恢复本页默认设置？</IM_NativeResetTitle>
   <IM_NativeResetDescription>仅恢复本页声明的设置，不改动其他页面、Mod 或窗口位置。</IM_NativeResetDescription>
   <IM_NativeDone>完成</IM_NativeDone>
-  <IM_NativeHelpDescription>全屏 IrisMenus 与旧版共用设置页面和保存归属。未声明原生呈现的页面保留原有控件，显示在深色兼容区域中。章节、说明、预览和恢复默认仅在页面明确提供时显示。搜索结果打开所属页面，不推断可编辑字段。</IM_NativeHelpDescription>
+  <IM_NativeHelpDescription>全屏 IrisMenus 与旧版共用设置页面和保存归属。托管页面保留原有控件与布局，常规背景和文字随当前主题变化。章节、说明、预览和恢复默认仅在页面明确提供时显示。切换界面会保留当前页面与浏览位置。</IM_NativeHelpDescription>
+  <IM_NativeManagementTitle>添加 Mod 到设置库</IM_NativeManagementTitle>
+  <IM_NativeManagementHint>选择要在 IrisMenus 中显示的托管设置；不会启用或停用游戏 Mod。</IM_NativeManagementHint>
+  <IM_NativeManagementShown>已显示在设置库</IM_NativeManagementShown>
+  <IM_NativeManagementHidden>未显示在设置库</IM_NativeManagementHidden>
+  <IM_NativeManagementAlwaysShown>已接入 · 始终显示</IM_NativeManagementAlwaysShown>
+  <IM_NativeManagementNoPreview>暂无预览图</IM_NativeManagementNoPreview>
+  <IM_NativeManagementEmpty>没有可用的设置页面。</IM_NativeManagementEmpty>
+  <IM_ValueColors>物品价值配色</IM_ValueColors>
+  <IM_ValueColorsHint>按单件物品的市场价值配色，不计算整组价值。每档包含起始值，不包含下一档起始值；最后一档没有上限，首档固定从 0 开始。点击色块可调整颜色，应用后立即生效。</IM_ValueColorsHint>
+  <IM_ValueAddBand>添加价值档位</IM_ValueAddBand>
+  <IM_ValueRemoveBand>移除</IM_ValueRemoveBand>
+  <IM_ValueThreshold>起始价值</IM_ValueThreshold>
+  <IM_ValueThresholdInvalid>请输入大于上一档、小于下一档起始值的有限数值。</IM_ValueThresholdInvalid>
+  <IM_ValueChooseColor>选择颜色</IM_ValueChooseColor>
+  <IM_ValueApply>应用</IM_ValueApply>
+  <IM_ValueOriginal>原色</IM_ValueOriginal>
+  <IM_ValuePreview>预览</IM_ValuePreview>
+  <IM_ValueRestoreDefaults>恢复默认</IM_ValueRestoreDefaults>
+  <IM_ValueResetConfirm>恢复默认物品价值档位及配色？不会改动其他设置。</IM_ValueResetConfirm>
+  <IM_ThingRegistry>物品注册表</IM_ThingRegistry>
+  <IM_RegistryProgress>已索引 {0} / {1} 个物品</IM_RegistryProgress>
+  <IM_RegistryCategories>原版分类</IM_RegistryCategories>
+  <IM_RegistryUncategorized>未分类</IM_RegistryUncategorized>
+  <IM_RegistryAll>所有物品</IM_RegistryAll>
+  <IM_RegistrySearch>搜索名称、DefName 或来源 Mod</IM_RegistrySearch>
+  <IM_RegistryErrors>索引诊断</IM_RegistryErrors>
+  <IM_RegistryNoErrors>没有索引错误</IM_RegistryNoErrors>
+  <IM_RegistryDump>输出注册表到日志</IM_RegistryDump>
+  <IM_RegistrySource>来源</IM_RegistrySource>
+  <IrisMenus_ItemValue_Label>价值：{0}</IrisMenus_ItemValue_Label>
+  <IrisMenus_ItemValue_Tooltip>{0}\n单件市场价值：{1}\n价值档位：{2}</IrisMenus_ItemValue_Tooltip>
+  <IrisMenus_Items_Uncategorized>未分类</IrisMenus_Items_Uncategorized>
+  <IM_MarqueeText>背景跑马灯文字</IM_MarqueeText>
+  <IM_ToastDuration>轻提示显示时长</IM_ToastDuration>
+  <IM_SaveHint>设置修改即时生效，离开页面时自动保存。</IM_SaveHint>
+  <IM_SettingsSaved>设置已保存</IM_SettingsSaved>
+  <IM_ModAuthor>作者：{0}</IM_ModAuthor>
+  <IM_ShowToasts>显示轻提示</IM_ShowToasts>
 </LanguageData>

@@ -89,6 +89,17 @@ namespace IrisMenus
                 markdown.Draw(rect);
             list.Gap(4f);
         }
+        public static void Markdown(Listing_Standard list, IInteractiveMarkdown markdown, Action<DocumentUri> openLink)
+        {
+            if (list == null) throw new ArgumentNullException(nameof(list));
+            if (markdown == null) throw new ArgumentNullException(nameof(markdown));
+            if (openLink == null) throw new ArgumentNullException(nameof(openLink));
+            float height = Mathf.Max(30f, markdown.Measure(list.ColumnWidth));
+            Rect rect = list.GetRect(height);
+            if (list.BoundingRectCached == null || rect.Overlaps(list.BoundingRectCached.Value))
+                markdown.Draw(rect, openLink);
+            list.Gap(4f);
+        }
 
         private static Rect FieldRow(Listing_Standard list, string label)
         {

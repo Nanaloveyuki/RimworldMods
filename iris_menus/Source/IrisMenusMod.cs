@@ -55,6 +55,9 @@ namespace IrisMenus
     public sealed class MenuSettings : ModSettings
     {
         internal List<string> EnabledAdapters = new List<string>();
+        internal List<string> SidebarPins = new List<string>();
+        internal List<string> SidebarOrder = new List<string>();
+        internal Dictionary<string, string> SidebarAliases = new Dictionary<string, string>();
         internal float Width;
         internal float Height;
         internal float X = -1f;
@@ -64,6 +67,7 @@ namespace IrisMenus
         internal float Transparency = 0.65f;
         internal bool RememberState = true;
         internal bool ShowMainButton = true;
+        internal bool NativeMode;
         internal IrisMenus.UI.UiTheme Theme = IrisMenus.UI.UiTheme.Light;
         internal bool ReducedMotion;
         internal float NativeScale = 1f;
@@ -72,6 +76,10 @@ namespace IrisMenus
         internal bool ShowTips = true;
         internal float TipDelay = 0.3f;
         internal bool SearchCurrentMod;
+        internal string MarqueeText = "IRIS MENUS";
+        internal float ToastDuration = 3f;
+        internal bool ShowToasts = true;
+        internal List<ItemValueBand> ItemValueBands = ItemValueColors.CreateDefaults();
         internal string LastPage;
         internal Dictionary<string, string> LastSubItems = new Dictionary<string, string>();
         internal Dictionary<string, string> HostView = new Dictionary<string, string>();
@@ -89,6 +97,7 @@ namespace IrisMenus
             Scribe_Values.Look(ref LastPage, "lastPage");
             Scribe_Values.Look(ref RememberState, "rememberState", true);
             Scribe_Values.Look(ref ShowMainButton, "showMainButton", true);
+            Scribe_Values.Look(ref NativeMode, "nativeMode", false);
             Scribe_Values.Look(ref Theme, "nativeTheme", IrisMenus.UI.UiTheme.Light);
             Scribe_Values.Look(ref ReducedMotion, "reducedMotion", false);
             Scribe_Values.Look(ref NativeScale, "nativeScale", 1f);
@@ -97,17 +106,30 @@ namespace IrisMenus
             Scribe_Values.Look(ref ShowTips, "showTips", true);
             Scribe_Values.Look(ref TipDelay, "tipDelay", 0.3f);
             Scribe_Values.Look(ref SearchCurrentMod, "searchCurrentMod", false);
+            Scribe_Values.Look(ref MarqueeText, "marqueeText", "IRIS MENUS");
+            Scribe_Values.Look(ref ToastDuration, "toastDuration", 3f);
+            Scribe_Values.Look(ref ShowToasts, "showToasts", true);
+            Scribe_Collections.Look(ref ItemValueBands, "itemValueBands", LookMode.Deep);
             Scribe_Collections.Look(ref LastSubItems, "lastSubItems", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref HostView, "hostView", LookMode.Value, LookMode.Value);
+            Scribe_Collections.Look(ref SidebarPins, "sidebarPins", LookMode.Value);
+            Scribe_Collections.Look(ref SidebarOrder, "sidebarOrder", LookMode.Value);
+            Scribe_Collections.Look(ref SidebarAliases, "sidebarAliases", LookMode.Value, LookMode.Value);
+            if (SidebarPins == null) SidebarPins = new List<string>();
+            if (SidebarOrder == null) SidebarOrder = new List<string>();
+            if (SidebarAliases == null) SidebarAliases = new Dictionary<string, string>();
             if (EnabledAdapters == null) EnabledAdapters = new List<string>();
             if (LastSubItems == null) LastSubItems = new Dictionary<string, string>();
             if (HostView == null) HostView = new Dictionary<string, string>();
+            if (Scribe.mode == LoadSaveMode.PostLoadInit) ItemValueColors.Normalize(ref ItemValueBands);
             Blur = Mathf.Clamp01(MenuLayout.Finite(Blur, 0.5f));
             Transparency = Mathf.Clamp01(MenuLayout.Finite(Transparency, 0.65f));
             NativeScale = Mathf.Clamp(MenuLayout.Finite(NativeScale, 1f), 0.8f, 1.3f);
             Density = System.Math.Max(0, System.Math.Min(2, Density));
             NativePanelOpacity = Mathf.Clamp01(MenuLayout.Finite(NativePanelOpacity, 0.94f));
             TipDelay = Mathf.Clamp(MenuLayout.Finite(TipDelay, 0.3f), 0.1f, 0.8f);
+            MarqueeText = MarqueeText ?? "IRIS MENUS";
+            ToastDuration = Mathf.Clamp(MenuLayout.Finite(ToastDuration, 3f), 1f, 10f);
         }
 
         internal void ClearRememberedView()

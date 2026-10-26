@@ -11,7 +11,6 @@ namespace IrisMenus.UI
         private readonly int maxLength;
         private GUIStyle style;
         private UiControlVisual visual;
-        private UiControlLine line;
         private UiControlVisual clearVisual;
         private UiTween error;
         private int editorHotControl;
@@ -58,12 +57,21 @@ namespace IrisMenus.UI
             style.padding.left = style.padding.right = Mathf.RoundToInt(8f * scale);
             style.padding.top = style.padding.bottom = Mathf.RoundToInt(3f * scale);
             value = value ?? string.Empty;
+            string originalValue = value;
             Event current = context.Event;
             EventType original = current != null ? current.type : EventType.Ignore;
             bool wasCaptured = context.IsCaptured(Id);
             float unit = Mathf.Max(0f, scale);
             bool clearVisible = showClear && value.Length > 0;
             Rect endRect = new Rect(rect.xMax - 32f * unit, rect.y, 28f * unit, rect.height);
+            if (enabled && context.IsInputAllowed && context.IsFocused(Id) && current != null
+                && original == EventType.MouseDown && !rect.Contains(current.mousePosition))
+            {
+                context.Focus(default);
+                context.Release(Id);
+                editorHotControl = 0;
+                if (GUI.GetNameOfFocusedControl() == controlName) GUI.FocusControl(null);
+            }
             UiInteraction clearInteraction = context.Interact(clearId, clearVisible ? endRect : default(Rect), enabled && clearVisible);
             clearVisual.Step(context, clearInteraction, enabled);
             if (clearInteraction.Clicked) { value = string.Empty; context.Focus(Id); }
@@ -76,10 +84,10 @@ namespace IrisMenus.UI
             visual.Step(context, interaction, enabled);
             float invalidAmount = error.Step(invalid ? 1f : 0f, context.Time, UiMotion.Standard, context.ReducedMotion);
             UiPalette palette = context.Palette;
+            Color inputFill = icon == UiGlyphKind.Search ? palette.SearchInput : palette.Input;
             using (context.Opacity(visual.Opacity))
             {
-                context.Fill(rect, palette.Input);
-                line.Draw(context, rect, active, visual.Hover, invalidAmount, unit);
+                context.Fill(rect, inputFill);
                 if (icon != UiGlyphKind.None)
                     UiGlyph.Draw(context, new Rect(rect.x + 10f * unit, rect.center.y - 8f * unit, 16f * unit, 16f * unit), icon, palette.Muted);
                 if (clearVisible)
@@ -156,9 +164,10 @@ namespace IrisMenus.UI
                 if (!active && value.Length == 0 && !string.IsNullOrEmpty(placeholder))
                     context.Label(new Rect(editorRect.x + 8f * unit, editorRect.y, Mathf.Max(0f, editorRect.width - 16f * unit), editorRect.height), placeholder, palette.Muted);
             }
+            if (!string.Equals(value, originalValue, StringComparison.Ordinal)) GUI.changed = true;
             return value;
-        }
 
+        }
         // Call when a retained field is removed from a surface, to release only its native focus.
         public void Dispose()
         {

@@ -128,9 +128,8 @@ namespace AdvancedRimTalk.Integration
             {
                 Refresh();
                 Layout(Mathf.Max(1f, rect.width));
-                foreach (Rect header in tableHeaders)
-                    Widgets.DrawBoxSolid(Offset(header, rect), new Color(0.18f, 0.2f, 0.22f, 0.9f));
-                foreach (Rect row in tableRows) Widgets.DrawBox(Offset(row, rect));
+                foreach (Rect row in tableRows) Widgets.DrawMenuSection(Offset(row, rect));
+                foreach (Rect header in tableHeaders) Widgets.DrawWindowBackground(Offset(header, rect));
                 string clicked = null;
                 foreach (var item in layout)
                 {

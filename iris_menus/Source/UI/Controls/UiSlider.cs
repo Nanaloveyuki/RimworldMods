@@ -35,21 +35,25 @@ namespace IrisMenus.UI
         public float Minimum => minimum;
         public float Maximum => maximum;
 
-        public float Draw(Rect rect, float value, bool enabled = true, float scale = 1f)
+        public float Draw(Rect rect, float value, bool enabled = true, float scale = 1f) =>
+            DrawHosted(rect, rect, value, enabled, scale);
+
+        internal float DrawHosted(Rect rect, Rect inputRect, float value, bool enabled = true, float scale = 1f)
         {
             value = NormalizeValue(value);
+            float previous = value;
             Event current = context.Event;
             EventType type = current != null ? current.type : EventType.Ignore;
-            Vector2 mouse = current != null ? GUIUtility.GUIToScreenPoint(current.mousePosition) : Vector2.zero;
+            Vector2 mouse = current != null ? UiCoordinates.ToScreen(current.mousePosition) : Vector2.zero;
             bool captured = context.IsCaptured(Id);
-            UiInteraction interaction = context.Interact(Id, rect, enabled, false);
+            UiInteraction interaction = context.Interact(Id, inputRect, enabled, false);
             float unit = Mathf.Max(0f, Mathf.Min(scale, Mathf.Min(rect.height / 20f, rect.width / 12f)));
             float halfWidth = 6f * unit;
             float trackWidth = Mathf.Max(1f, rect.width - halfWidth * 2f);
             if (enabled && !captured && context.IsCaptured(Id) && type == EventType.MouseDown)
             {
                 dragging = true;
-                dragWidth = trackWidth;
+                dragWidth = Mathf.Max(0.01f, Mathf.Abs(UiCoordinates.ToScreen(new Vector2(rect.x + trackWidth, rect.y)).x - UiCoordinates.ToScreen(rect.position).x));
                 lastMouse = mouse;
                 float center = rect.x + halfWidth + (value - minimum) / (maximum - minimum) * trackWidth;
                 // A thumb grab preserves its offset; clicking the track jumps to that position.
@@ -97,6 +101,7 @@ namespace IrisMenus.UI
                 context.Fill(new Rect(x - unit, handle.y + 4f * unit, 2f * unit, 12f * unit), centerInk);
                 visual.DrawFocus(context, rect);
             }
+            if (value != previous) GUI.changed = true;
             return value;
         }
 

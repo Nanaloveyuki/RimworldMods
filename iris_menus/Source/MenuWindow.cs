@@ -20,6 +20,8 @@ namespace IrisMenus
         private Vector2 resultScroll;
         private readonly FrostBackground background;
         private readonly MenuSession session = new MenuSession(ReportFailure);
+        private readonly UI.UiContext modeContext = new UI.UiContext();
+        private readonly UI.UiSwitch legacyMode;
         private Vector2 navigationScroll;
         private Vector2 adapterScroll;
         private bool showNavigation;
@@ -27,11 +29,23 @@ namespace IrisMenus
         private bool restoreResultScroll;
         private MenuPage requestedPage;
         private NativeSurface nativeSurface;
+        private MenuPage pendingNativeUriPage;
+        private string pendingNativeUriAnchor;
+        private bool nativeActive;
+        private readonly UI.UiContext loadingContext = new UI.UiContext();
+        private readonly UI.UiLoader searchLoader;
         private Rect legacyRect;
-        internal bool NativeFullscreen => nativeSurface != null;
-        internal float NativeOpacity => nativeSurface?.Opacity ?? 0f;
+        internal bool NativeFullscreen => nativeActive;
+        internal float NativeOpacity => NativeFullscreen ? nativeSurface.Opacity : 0f;
         protected override float Margin => NativeFullscreen ? 0f : base.Margin;
         private MenuSettings Settings => IrisMenusMod.Instance.Settings;
+
+        internal bool ShowToast(string message, UI.UiToastTone tone)
+        {
+            if (!NativeFullscreen || nativeSurface.Closing || string.IsNullOrWhiteSpace(message)) return false;
+            nativeSurface.ShowToast(message, tone);
+            return true;
+        }
 
         public MenuWindow() : this(new FrostBackground(), null) { }
         internal MenuWindow(MenuPage page) : this(new FrostBackground(), page) { }
@@ -39,6 +53,8 @@ namespace IrisMenus
         private MenuWindow(FrostBackground drawing, MenuPage requested) : base(drawing)
         {
             background = drawing;
+            legacyMode = new UI.UiSwitch(modeContext);
+            searchLoader = new UI.UiLoader(loadingContext);
 #if !RIMWORLD_1_7
             background.Owner = this;
 #endif
@@ -69,6 +85,7 @@ namespace IrisMenus
             base.PostOpen();
             if (Settings.X >= 0f) windowRect.position = new Vector2(Settings.X, Settings.Y);
             ClampGeometry();
+            if (Settings.NativeMode) EnterNative();
 #if !RIMWORLD_1_7
             background.Start();
 #endif
@@ -96,8 +113,8 @@ namespace IrisMenus
         public override void WindowUpdate()
         {
             base.WindowUpdate();
-            if (nativeSurface != null && nativeSurface.ReadyToClose) base.Close();
-            else if (nativeSurface != null && nativeSurface.ReadyToReturn) LeaveNative();
+            if (NativeFullscreen && nativeSurface.ReadyToClose) base.Close();
+            else if (NativeFullscreen && nativeSurface.ReadyToReturn) LeaveNative();
         }
 
         public override void OnCancelKeyPressed()
@@ -107,11 +124,11 @@ namespace IrisMenus
 
         public override bool OnCloseRequest()
         {
-            if (nativeSurface != null && nativeSurface.ReadyToClose) return true;
-            if (nativeSurface != null && nativeSurface.Closing) return false;
+            if (NativeFullscreen && nativeSurface.ReadyToClose) return true;
+            if (NativeFullscreen && nativeSurface.Closing) return false;
             if (!session.Save() || !SaveWindowSettings()) return false;
             closeSaved = true;
-            if (nativeSurface != null)
+            if (NativeFullscreen)
             {
                 nativeSurface.BeginClose();
                 return false;
@@ -129,11 +146,34 @@ namespace IrisMenus
             finally
             {
                 nativeSurface?.Dispose();
+                modeContext.Dispose();
+                loadingContext.Dispose();
                 nativeSurface = null;
                 catalog?.Dispose();
                 background.Dispose();
                 base.PreClose();
             }
+        }
+
+        internal bool NavigateUri(MenuPage page, Action focus, string anchor = null)
+        {
+            if (page == null || (NativeFullscreen && nativeSurface.Closing) || !session.Select(page)) return false;
+            browse.Navigate(page);
+            RememberPage(page);
+            if (session.Selected != page) return false;
+            try
+            {
+                focus?.Invoke();
+                pendingNativeUriPage = page;
+                pendingNativeUriAnchor = anchor;
+                if (NativeFullscreen)
+                {
+                    nativeSurface.Navigated(page, anchor);
+                    pendingNativeUriPage = null;
+                }
+                return true;
+            }
+            catch (Exception exception) { ReportFailure("open link " + page.Id, exception); return false; }
         }
 
         private bool SaveWindowSettings()
@@ -242,7 +282,7 @@ namespace IrisMenus
             if (catalogRevision != MenuRegistry.Revision || !ReferenceEquals(catalogLanguage, LanguageDatabase.activeLanguage)) RefreshCatalog();
             catalog.Query(browse.Query, browse.Scope);
             if (catalogFrame != Time.frameCount) { catalog.Advance(); catalogFrame = Time.frameCount; }
-            if (nativeSurface != null)
+            if (NativeFullscreen)
             {
                 nativeSurface.Draw(inRect);
                 return;
@@ -333,7 +373,17 @@ namespace IrisMenus
             Rect nativeEntry = new Rect(layout.MainButton.x,
                 inlineMainButton ? remember.center.y - 12f : layout.MainButton.y + 20f,
                 layout.MainButton.width, 24f);
-            if (Widgets.ButtonText(nativeEntry, "IM_NativeOpen".Translate())) EnterNative();
+            bool newMode;
+            modeContext.BeginFrame(new Rect(0f, 0f, windowRect.width, windowRect.height), UI.UiTheme.Dark, Settings.ReducedMotion);
+            modeContext.FontSize = 13f;
+            try
+            {
+                using (modeContext.Input(Find.WindowStack.GetsInput(this)))
+                    newMode = legacyMode.Draw(nativeEntry, false, "IM_NativeMode".Translate(), scale: 0.7f);
+            }
+            finally { modeContext.EndFrame(); }
+            TooltipHandler.TipRegion(nativeEntry, "IM_NativeModeTip".Translate());
+            if (newMode) RequestMode(true);
             float sliderWidth = layout.Compact ? footer.width / 2f - 16f : Mathf.Max(120f, layout.Navigation.width - 20f);
             GUI.enabled = Settings.FrostEnabled;
             Settings.Blur = FooterSlider(new Rect(10f, footer.y + 4f, sliderWidth, 28f), "IM_Blur", Settings.Blur);
@@ -441,7 +491,7 @@ namespace IrisMenus
 
         private void DrawSelected(Rect rect)
         {
-            float strip = DrawOwnerActions(rect);
+            float strip = NativeFullscreen ? nativeSurface.DrawNativeActions(rect) : DrawOwnerActions(rect);
             Rect page = new Rect(rect.x, rect.y + strip, rect.width, Mathf.Max(1f, rect.height - strip));
             if (session.DrawFailed)
             {
@@ -451,8 +501,14 @@ namespace IrisMenus
             }
             var state = new GuiState();
             GUI.BeginGroup(page);
-            try { session.Draw(new Rect(0f, 0f, page.width, page.height)); }
-            finally { GUI.EndGroup(); state.Restore(); }
+            try
+            {
+                if (NativeFullscreen) GUI.changed = false;
+                using (NativeFullscreen ? nativeSurface.AdaptHostedCallback() : default(HostedGuiTheme.Scope))
+                    session.Draw(new Rect(0f, 0f, page.width, page.height));
+                if (NativeFullscreen && GUI.changed) nativeSurface.RecordEdit();
+            }
+            finally { try { GUI.EndGroup(); } finally { state.Restore(); } }
         }
 
         private float DrawOwnerActions(Rect rect)
@@ -625,6 +681,12 @@ namespace IrisMenus
                 adapterScroll = resultScroll = Vector2.zero;
                 catalog.Query(browse.Query, browse.Scope);
                 RebuildNavigation();
+            }
+            if (catalog.Pending && browse.Query.Length > 0 && Event.current.type == EventType.Repaint)
+            {
+                loadingContext.BeginFrame(new Rect(0f, 0f, windowRect.width, windowRect.height), UI.UiTheme.Dark, Settings.ReducedMotion);
+                try { searchLoader.Draw(new Rect(field.x, field.yMax + 2f, field.width, 4f), "IM_Indexing".Translate()); }
+                finally { loadingContext.EndFrame(); }
             }
             return new Rect(rect.x, rect.y + 40f, rect.width, Mathf.Max(1f, rect.height - 40f));
         }

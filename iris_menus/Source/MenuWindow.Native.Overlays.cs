@@ -10,7 +10,6 @@ namespace IrisMenus
         private sealed partial class NativeSurface
         {
             private readonly UiButton navigationToggle;
-            private readonly Action<Rect> drawManagementRows;
             private readonly Action<Rect> drawContextContents;
             private readonly Action<Rect> drawRailPanel;
 
@@ -18,7 +17,6 @@ namespace IrisMenus
             {
                 if (navigationDrawer.IsVisible && navigationDrawer.Draw(viewport, Mathf.Min(320f * scale, viewport.width), T("IM_NativeLibrary"), drawRailPanel, UiDrawerSide.Left)) navigationOpen = false;
                 if (contextDrawer.IsVisible && contextDrawer.Draw(viewport, Mathf.Min(380f * scale, viewport.width), T("IM_NativeThisPage"), drawContext)) contextOpen = false;
-                if (managementDialog.IsVisible && managementDialog.Draw(viewport, new Vector2(620f * scale, 560f * scale), T("IM_Manage"), drawManagement, true)) managementOpen = false;
                 if (resetDialog.IsVisible && resetDialog.Draw(viewport, new Vector2(520f * scale, 280f * scale), T("IM_NativeResetTitle"), drawReset)) resetOpen = false;
                 if (helpDialog.IsVisible && helpDialog.Draw(viewport, new Vector2(600f * scale, 400f * scale), "IrisMenus", drawHelp, true)) helpOpen = false;
             }
@@ -63,8 +61,10 @@ namespace IrisMenus
                         MenuChapter chapter = selected.Native.Chapters[i];
                         Rect row = new Rect(0f, y, rect.width, 40f * scale);
                         UiInteraction interaction = ui.Interact(selected.Chapters[i].Id, row);
+                        float inkAmount = selected.ChapterInk[i].Step(activeIndex == i || interaction.Hovered || interaction.Pressed ? 1f : 0f,
+                            ui.Time, UiMotion.Fast, ui.ReducedMotion);
                         ui.Label(new Rect(16f * scale, y, Mathf.Max(0f, rect.width - 20f * scale), row.height), chapter.Title() ?? "",
-                            activeIndex == i || interaction.Hovered ? palette.Ink : palette.Muted);
+                            Color.Lerp(palette.Muted, palette.Ink, inkAmount));
                         if (interaction.Focused && ui.FocusVisible) ui.Border(row.ContractedBy(2f), palette.Ink);
                         if (interaction.Clicked)
                         {
@@ -95,39 +95,6 @@ namespace IrisMenus
                 if (selected.Native.HasPreview) selected.Native.DrawPreview(new Rect(0f, y + 32f * scale, rect.width, 400f * scale));
             }
 
-            private void DrawManagement(Rect rect)
-            {
-                Rect list = new Rect(0f, 0f, rect.width, Mathf.Max(1f, rect.height - 54f * scale));
-                managementScroll.Draw(list, (host.adapters.Count + registeredOwners.Count + 1) * rowHeight, drawManagementRows);
-                ui.Fill(new Rect(0f, rect.height - 50f * scale, rect.width, 1f), ui.Palette.Line);
-                if (done.Draw(new Rect(Mathf.Max(0f, rect.width - 140f * scale), rect.height - 40f * scale, Mathf.Min(140f * scale, rect.width), 36f * scale), T("IM_NativeDone"), primary: true, scale: scale)) managementOpen = false;
-            }
-
-            private void DrawManagementRows(Rect rect)
-            {
-                float y = 0f;
-                foreach (OwnerGroup group in registeredOwners)
-                {
-                    ui.Label(new Rect(0f, y, rect.width, rowHeight), group.Name + "  ·  " + T("IM_NativeRegistered"), ui.Palette.Muted);
-                    y += rowHeight;
-                }
-                foreach (MenuPage page in host.adapters)
-                {
-                    if (MenuRegistry.HasPages(page.Owner)) continue;
-                    bool enabled = Settings.EnabledAdapters.Contains(page.Id);
-                    bool next = adapterChecks[page.Id].Draw(new Rect(0f, y, rect.width, rowHeight), enabled, page.DisplayModName, scale: scale);
-                    if (next != enabled)
-                    {
-                        if (!next && host.session.Selected?.Id == page.Id && !host.session.Select(null)) return;
-                        if (next) Settings.EnabledAdapters.Add(page.Id);
-                        else Settings.EnabledAdapters.RemoveAll(id => id == page.Id);
-                        if (!next && host.session.Selected == null) host.browse.Navigate(null);
-                        host.catalogRevision = -1;
-                    }
-                    y += rowHeight;
-                }
-                if (y == 0f) ui.Label(rect, T("IM_Empty"), ui.Palette.Muted);
-            }
 
             private void DrawReset(Rect rect)
             {
@@ -138,16 +105,15 @@ namespace IrisMenus
                 if (confirmReset.Draw(new Rect(rect.width - width, rect.height - 40f * scale, width, 36f * scale), T("IM_NativeReset"),
                     ReferenceEquals(resetTarget, selected) && resetTarget?.Native?.CanReset == true, true, scale: scale))
                 {
-                    try { resetTarget.Native.Reset(); resetOpen = false; resetTarget = null; }
+                    try { resetTarget.Native.Reset(); RecordEdit(); resetOpen = false; resetTarget = null; }
                     catch (Exception exception) { ReportFailure("reset native " + selected.Page.Id, exception); }
                 }
             }
 
             private void DrawHelp(Rect rect)
             {
-                ui.Label(new Rect(0f, 0f, rect.width, Mathf.Max(1f, rect.height - 116f * scale)), T("IM_NativeHelpDescription"), ui.Palette.Ink, TextAnchor.UpperLeft, true);
-                ui.Label(new Rect(0f, rect.height - 112f * scale, rect.width, 32f * scale), "Ctrl K  ·  " + T("IM_SearchGlobal") + "     Esc  ·  " + T("Back"), ui.Palette.Muted);
-                if (license.Draw(new Rect(0f, rect.height - 74f * scale, rect.width, 32f * scale), "endfield-ui · Apache-2.0", variant: UiButtonVariant.Text, scale: scale)) Application.OpenURL("https://github.com/icaruszezen/endfield-ui");
+                ui.Label(new Rect(0f, 0f, rect.width, Mathf.Max(1f, rect.height - 78f * scale)), T("IM_NativeHelpDescription"), ui.Palette.Ink, TextAnchor.UpperLeft, true);
+                ui.Label(new Rect(0f, rect.height - 74f * scale, rect.width, 32f * scale), "Ctrl K  ·  " + T("IM_SearchGlobal") + "     Esc  ·  " + T("Back"), ui.Palette.Muted);
                 ui.Fill(new Rect(0f, rect.height - 44f * scale, rect.width, 1f), ui.Palette.Line);
                 if (closeHelp.Draw(new Rect(Mathf.Max(0f, rect.width - 140f * scale), rect.height - 36f * scale, Mathf.Min(rect.width, 140f * scale), 32f * scale), T("IM_NativeDone"), primary: true, scale: scale)) helpOpen = false;
             }

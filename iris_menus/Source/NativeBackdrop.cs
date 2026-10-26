@@ -1,6 +1,7 @@
 using System;
 using IrisMenus.UI;
 using UnityEngine;
+using Verse;
 
 namespace IrisMenus
 {
@@ -11,8 +12,13 @@ namespace IrisMenus
         private readonly Color[] pixels = new Color[Height];
         private Texture2D texture;
         private float lastDark = -1f;
+        private Texture2D print;
+        private string marquee;
+        private float marqueeWidth, marqueeFont;
+        private double lastTime;
+        private float offset;
 
-        internal void Draw(UiContext context, Rect rect)
+        internal void Draw(UiContext context, Rect rect, string text)
         {
             if (!context.IsRepaint || rect.width <= 0f || rect.height <= 0f) return;
             float dark = Mathf.InverseLerp(UiPalette.Light.Ink.r, UiPalette.Dark.Ink.r, context.Palette.Ink.r);
@@ -44,9 +50,53 @@ namespace IrisMenus
             {
                 GUI.color = new Color(1f, 1f, 1f, context.Alpha);
                 GUI.DrawTexture(rect, texture, ScaleMode.StretchToFill, true);
+                if (print == null) print = ContentFinder<Texture2D>.Get("IrisMenus/UI/PlanarPrint");
+                float scale = context.Scale;
+                Color ink = context.Palette.Ink;
+                GUI.color = new Color(ink.r, ink.g, ink.b, context.Alpha * 0.095f);
+                float height = Mathf.Min(360f * scale, rect.height * 0.45f);
+                GUI.DrawTexture(new Rect(rect.x, rect.yMax - 40f * scale - height, height * 1.18f, height), print, ScaleMode.StretchToFill, true);
+                context.Fill(new Rect(rect.x, rect.y + 116f * scale, 6f * scale, 64f * scale), Faint(ink, 0.07f));
+                DrawMarquee(context, rect, text, scale);
             }
             finally { GUI.color = previous; }
         }
+
+        private void DrawMarquee(UiContext context, Rect rect, string text, float scale)
+        {
+            float previousFont = context.FontSize;
+            FontStyle previousStyle = context.FontStyle;
+            try
+            {
+                context.FontSize = 104f * scale;
+                context.FontStyle = FontStyle.Bold;
+                if (marquee != text || marqueeFont != context.FontSize)
+                {
+                    marquee = text; marqueeFont = context.FontSize;
+                    marqueeWidth = UiTextMetrics.Width(context, marquee);
+                    offset = 0f;
+                }
+                float elapsed = lastTime == 0d ? 0f : (float)Math.Max(0d, context.Time - lastTime);
+                lastTime = context.Time;
+                if (marqueeWidth <= 0f) return;
+                float pitch = marqueeWidth + 48f * scale;
+                if (!context.ReducedMotion) offset = (offset + elapsed * 16f * scale) % pitch;
+                Rect area = new Rect(rect.x, rect.yMax - 176f * scale,
+                    rect.width, 128f * scale);
+                using (context.Clip(area))
+                {
+                    Color color = Faint(context.Palette.Ink, 0.18f);
+                    float x = context.ReducedMotion ? 0f : -offset;
+                    context.Label(new Rect(x, 0f, marqueeWidth, area.height), marquee, color);
+                    if (!context.ReducedMotion)
+                        for (x += pitch; x < area.width; x += pitch)
+                            context.Label(new Rect(x, 0f, marqueeWidth, area.height), marquee, color);
+                }
+            }
+            finally { context.FontSize = previousFont; context.FontStyle = previousStyle; }
+        }
+
+        private static Color Faint(Color color, float alpha) { color.a = alpha; return color; }
 
         private static Color Rgb(int rgb) => new Color(((rgb >> 16) & 255) / 255f, ((rgb >> 8) & 255) / 255f, (rgb & 255) / 255f);
 

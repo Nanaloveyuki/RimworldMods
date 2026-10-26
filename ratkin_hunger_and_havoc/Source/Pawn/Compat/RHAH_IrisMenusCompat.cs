@@ -67,7 +67,7 @@ namespace HungerAndHavoc.Pawn.Compat
         }
     }
 
-    internal sealed class RHAH_IrisMenusPages
+    internal sealed partial class RHAH_IrisMenusPages
     {
         const float ControlRow = 34f;
         const float IncidentMetaHeight = 42f;
@@ -1327,8 +1327,7 @@ namespace HungerAndHavoc.Pawn.Compat
                 ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
                 string label = def == null ? defName : def.LabelCap;
                 bool enabled = settings.IsTemperatureApparelEnabled(defName);
-                MenuControls.Anchor(list, "temp-" + defName);
-                RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TemperatureApparel".Translate(label), ref enabled, "RHAH_Settings_TemperatureApparel_Tooltip".Translate());
+                enabled = DrawTemperatureItem(list, def, defName, label, enabled);
                 if (enabled != settings.IsTemperatureApparelEnabled(defName))
                 {
                     settings.SetTemperatureApparelEnabled(defName, enabled);
@@ -1586,442 +1585,27 @@ namespace HungerAndHavoc.Pawn.Compat
 
         void DrawFoodList(Listing_Standard list, RHAH_Settings settings)
         {
-            MenuControls.Anchor(list, "relief-foods", 86f);
-            RHAH_IrisMenusWidgets.Quote(list, "relief-foods-note", "RHAH_Settings_ReliefFoods_Quote".Translate());
-            Rect buttons = list.GetRect(28f);
-            if (Widgets.ButtonText(new Rect(buttons.x, buttons.y, 140f, 26f),
-                "RHAH_Settings_ReliefFoods_All".Translate()))
-            {
-                settings.SetAllReliefFood(true, null);
-            }
-
-            if (Widgets.ButtonText(new Rect(buttons.x + 148f, buttons.y, 140f, 26f),
-                "RHAH_Settings_ReliefFoods_None".Translate()))
-            {
-                List<ThingDef> foods = new List<ThingDef>();
-                RHAH_ReliefFood.AppendCandidateFoods(foods);
-                List<string> names = new List<string>(foods.Count);
-                for (int i = 0; i < foods.Count; i++)
-                {
-                    names.Add(foods[i].defName);
-                }
-
-                settings.SetAllReliefFood(false, names);
-            }
-
-            list.Gap(4f);
-            Rect search = list.GetRect(28f);
-            foodQuery = Widgets.TextField(search, foodQuery ?? string.Empty);
-            if (string.IsNullOrEmpty(foodQuery))
-            {
-                GUI.color = Color.gray;
-                Widgets.Label(new Rect(search.x + 6f, search.y, search.width - 8f, search.height),
-                    "RHAH_Settings_ReliefFoods_Search".Translate());
-                GUI.color = Color.white;
-            }
-
-            list.Gap(4f);
-            List<ThingDef> listed = new List<ThingDef>();
-            RHAH_ReliefFood.AppendCandidateFoods(listed);
-            List<List<ThingDef>> groups = RHAH_ReliefFood.GroupBySourceMod(listed);
-            bool searching = !string.IsNullOrEmpty(foodQuery);
-            bool any = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                List<ThingDef> matched = MatchedFoods(groups[i]);
-                if (matched.Count == 0)
-                {
-                    continue;
-                }
-
-                any = true;
-                string modName = RHAH_ReliefFood.SourceModName(groups[i][0]);
-                string key = modName ?? string.Empty;
-                if (pendingFoodMod != null && string.Equals(pendingFoodMod, key, StringComparison.Ordinal))
-                {
-                    collapsedFoodMods.Remove(key);
-                    pendingFoodMod = null;
-                }
-
-                bool open = searching || !collapsedFoodMods.Contains(key);
-                string title = "RHAH_Menu_Format_GroupCount".Translate(modName ?? "RHAH_Menu_Genes_UnknownMod".Translate(), matched.Count);
-                MenuControls.Anchor(list, "relief-food-mod-" + key, 28f);
-                if (DrawFoodFold(list, title, open))
-                {
-                    if (open)
-                    {
-                        collapsedFoodMods.Add(key);
-                    }
-                    else
-                    {
-                        collapsedFoodMods.Remove(key);
-                    }
-
-                    open = !open;
-                }
-
-                if (!open)
-                {
-                    continue;
-                }
-
-                for (int foodIndex = 0; foodIndex < matched.Count; foodIndex++)
-                {
-                    ThingDef food = matched[foodIndex];
-                    bool enabled = settings.IsReliefFoodEnabled(food.defName);
-                    if (RHAH_IrisMenusWidgets.Checkbox(list, "relief-food-" + food.defName, food.LabelCap, ref enabled))
-                    {
-                        settings.SetReliefFoodEnabled(food.defName, enabled);
-                    }
-                }
-            }
-
-            if (!any)
-            {
-                Empty(list, "RHAH_Settings_ReliefFoods_Empty");
-            }
+            reliefItems.Draw(list, settings, ref foodQuery, collapsedFoodMods, ref pendingFoodMod);
         }
 
         void DrawGiveFoodList(Listing_Standard list, RHAH_Settings settings)
         {
-            MenuControls.Anchor(list, "give-foods", 120f);
-            RHAH_IrisMenusWidgets.Quote(list, "give-foods-note", "RHAH_Settings_GiveFoods_Quote".Translate());
-            DrawModeSelect(list, "give-food-sort", "RHAH_Settings_GiveFoods_Sort", settings.giveFoodListMode, 3, mode => settings.giveFoodListMode = mode);
-            Rect buttons = list.GetRect(28f);
-            if (Widgets.ButtonText(new Rect(buttons.x, buttons.y, 140f, 26f),
-                "RHAH_Settings_GiveFoods_All".Translate()))
-            {
-                settings.SetAllGiveFood(true, null);
-            }
-
-            if (Widgets.ButtonText(new Rect(buttons.x + 148f, buttons.y, 140f, 26f),
-                "RHAH_Settings_GiveFoods_None".Translate()))
-            {
-                List<ThingDef> foods = new List<ThingDef>();
-                RHAH_ReliefFood.AppendCandidateFoods(foods);
-                List<string> names = new List<string>(foods.Count);
-                for (int i = 0; i < foods.Count; i++)
-                {
-                    names.Add(foods[i].defName);
-                }
-
-                settings.SetAllGiveFood(false, names);
-            }
-
-            list.Gap(4f);
-            Rect search = list.GetRect(28f);
-            giveFoodQuery = Widgets.TextField(search, giveFoodQuery ?? string.Empty);
-            if (string.IsNullOrEmpty(giveFoodQuery))
-            {
-                GUI.color = Color.gray;
-                Widgets.Label(new Rect(search.x + 6f, search.y, search.width - 8f, search.height),
-                    "RHAH_Settings_GiveFoods_Search".Translate());
-                GUI.color = Color.white;
-            }
-
-            list.Gap(4f);
-            List<ThingDef> listed = new List<ThingDef>();
-            RHAH_ReliefFood.AppendCandidateFoods(listed);
-            List<List<ThingDef>> groups = RHAH_ReliefFood.GroupFoods(settings.giveFoodListMode, listed);
-            bool searching = !string.IsNullOrEmpty(giveFoodQuery);
-            bool any = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                List<ThingDef> matched = MatchedGiveFoods(groups[i]);
-                if (matched.Count == 0)
-                {
-                    continue;
-                }
-
-                any = true;
-                string key = RHAH_ReliefFood.GroupKey(settings.giveFoodListMode, groups[i][0]);
-                if (pendingGiveFoodGroup != null && string.Equals(pendingGiveFoodGroup, key, StringComparison.Ordinal))
-                {
-                    collapsedGiveFoodGroups.Remove(key);
-                    pendingGiveFoodGroup = null;
-                }
-
-                bool open = searching || !collapsedGiveFoodGroups.Contains(key);
-                string title = "RHAH_Menu_Format_GroupCount".Translate(GiveFoodTitle(settings.giveFoodListMode, key), matched.Count);
-                MenuControls.Anchor(list, "give-food-group-" + key, 28f);
-                if (DrawFoodFold(list, title, open))
-                {
-                    if (open)
-                    {
-                        collapsedGiveFoodGroups.Add(key);
-                    }
-                    else
-                    {
-                        collapsedGiveFoodGroups.Remove(key);
-                    }
-
-                    open = !open;
-                }
-
-                if (!open)
-                {
-                    continue;
-                }
-
-                for (int foodIndex = 0; foodIndex < matched.Count; foodIndex++)
-                {
-                    ThingDef food = matched[foodIndex];
-                    bool enabled = settings.IsGiveFoodEnabled(food.defName);
-                    if (RHAH_IrisMenusWidgets.Checkbox(list, "give-food-" + food.defName, food.LabelCap, ref enabled))
-                    {
-                        settings.SetGiveFoodEnabled(food.defName, enabled);
-                    }
-                }
-            }
-
-            if (!any)
-            {
-                Empty(list, "RHAH_Settings_GiveFoods_Empty");
-            }
+            giveItems.Draw(list, settings, ref giveFoodQuery, collapsedGiveFoodGroups, ref pendingGiveFoodGroup);
         }
 
 
         void DrawBegFoodList(Listing_Standard list, RHAH_Settings settings)
         {
-            MenuControls.Anchor(list, "beg-foods", 120f);
-            RHAH_IrisMenusWidgets.Quote(list, "beg-foods-note", "RHAH_Settings_BegFoods_Quote".Translate());
-            DrawModeSelect(list, "beg-food-sort", "RHAH_Settings_BegFoods_Sort", settings.begFoodListMode, 3, mode => settings.begFoodListMode = mode);
-            Rect buttons = list.GetRect(28f);
-            if (Widgets.ButtonText(new Rect(buttons.x, buttons.y, 140f, 26f),
-                "RHAH_Settings_BegFoods_All".Translate()))
-            {
-                settings.SetAllBegFood(true, null);
-            }
-
-            if (Widgets.ButtonText(new Rect(buttons.x + 148f, buttons.y, 140f, 26f),
-                "RHAH_Settings_BegFoods_None".Translate()))
-            {
-                List<ThingDef> foods = new List<ThingDef>();
-                RHAH_ReliefFood.AppendBegFoods(foods);
-                List<string> names = new List<string>(foods.Count);
-                for (int i = 0; i < foods.Count; i++)
-                {
-                    names.Add(foods[i].defName);
-                }
-
-                settings.SetAllBegFood(false, names);
-            }
-
-            list.Gap(4f);
-            Rect search = list.GetRect(28f);
-            begFoodQuery = Widgets.TextField(search, begFoodQuery ?? string.Empty);
-            if (string.IsNullOrEmpty(begFoodQuery))
-            {
-                GUI.color = Color.gray;
-                Widgets.Label(new Rect(search.x + 6f, search.y, search.width - 8f, search.height),
-                    "RHAH_Settings_BegFoods_Search".Translate());
-                GUI.color = Color.white;
-            }
-
-            list.Gap(4f);
-            List<ThingDef> listed = new List<ThingDef>();
-            RHAH_ReliefFood.AppendBegFoods(listed);
-            List<List<ThingDef>> groups = RHAH_ReliefFood.GroupFoods(settings.begFoodListMode, listed);
-            bool searching = !string.IsNullOrEmpty(begFoodQuery);
-            bool any = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                List<ThingDef> matched = MatchedBegFoods(groups[i]);
-                if (matched.Count == 0)
-                {
-                    continue;
-                }
-
-                any = true;
-                string key = RHAH_ReliefFood.GroupKey(settings.begFoodListMode, groups[i][0]);
-                if (pendingBegFoodGroup != null && string.Equals(pendingBegFoodGroup, key, StringComparison.Ordinal))
-                {
-                    collapsedBegFoodGroups.Remove(key);
-                    pendingBegFoodGroup = null;
-                }
-
-                bool open = searching || !collapsedBegFoodGroups.Contains(key);
-                string title = "RHAH_Menu_Format_GroupCount".Translate(GiveFoodTitle(settings.begFoodListMode, key), matched.Count);
-                MenuControls.Anchor(list, "beg-food-group-" + key, 28f);
-                if (DrawFoodFold(list, title, open))
-                {
-                    if (open)
-                    {
-                        collapsedBegFoodGroups.Add(key);
-                    }
-                    else
-                    {
-                        collapsedBegFoodGroups.Remove(key);
-                    }
-
-                    open = !open;
-                }
-
-                if (!open)
-                {
-                    continue;
-                }
-
-                for (int foodIndex = 0; foodIndex < matched.Count; foodIndex++)
-                {
-                    ThingDef food = matched[foodIndex];
-                    bool enabled = settings.IsBegFoodEnabled(food.defName);
-                    if (RHAH_IrisMenusWidgets.Checkbox(list, "beg-food-" + food.defName, food.LabelCap, ref enabled))
-                    {
-                        settings.SetBegFoodEnabled(food.defName, enabled);
-                    }
-                }
-            }
-
-            if (!any)
-            {
-                Empty(list, "RHAH_Settings_BegFoods_Empty");
-            }
+            begItems.Draw(list, settings, ref begFoodQuery, collapsedBegFoodGroups, ref pendingBegFoodGroup);
         }
 
         void DrawDemandFoodList(Listing_Standard list, RHAH_Settings settings)
         {
-            MenuControls.Anchor(list, "demand-foods", 120f);
-            Section(list, "RHAH_Settings_DemandFoods");
-            RHAH_IrisMenusWidgets.Quote(list, "demand-foods-note", "RHAH_Settings_DemandFoods_Quote".Translate());
-            DrawModeSelect(list, "demand-food-sort", "RHAH_Settings_DemandFoods_Sort", settings.demandFoodListMode, 3, mode => settings.demandFoodListMode = mode);
-            List<ThingDef> listed = new List<ThingDef>();
-            RHAH_DemandFood.AppendCandidates(listed);
-            MenuControls.Anchor(list, "demand-food-all", 28f);
-            MenuControls.Anchor(list, "demand-food-none", 28f);
-            MenuControls.Anchor(list, "demand-food-reset", 28f);
-            Rect buttons = list.GetRect(28f);
-            float buttonWidth = (buttons.width - 16f) / 3f;
-            if (Widgets.ButtonText(new Rect(buttons.x, buttons.y, buttonWidth, 26f),
-                "RHAH_Settings_DemandFoods_All".Translate()))
-            {
-                settings.SetAllDemandFood(true, listed);
-            }
-
-            if (Widgets.ButtonText(new Rect(buttons.x + buttonWidth + 8f, buttons.y, buttonWidth, 26f),
-                "RHAH_Settings_DemandFoods_None".Translate()))
-            {
-                settings.SetAllDemandFood(false, listed);
-            }
-
-            if (Widgets.ButtonText(new Rect(buttons.x + (buttonWidth + 8f) * 2f, buttons.y, buttonWidth, 26f),
-                "RHAH_Settings_DemandFoods_Reset".Translate()))
-            {
-                settings.ResetDemandFoods();
-            }
-
-            list.Gap(4f);
-            MenuControls.Anchor(list, "demand-food-search", 28f);
-            Rect search = list.GetRect(28f);
-            demandFoodQuery = Widgets.TextField(search, demandFoodQuery ?? string.Empty);
-            if (string.IsNullOrEmpty(demandFoodQuery))
-            {
-                GUI.color = Color.gray;
-                Widgets.Label(new Rect(search.x + 6f, search.y, search.width - 8f, search.height),
-                    "RHAH_Settings_DemandFoods_Search".Translate());
-                GUI.color = Color.white;
-            }
-
-            list.Gap(4f);
-            List<List<ThingDef>> groups = RHAH_ReliefFood.GroupFoods(settings.demandFoodListMode, listed);
-            bool searching = !string.IsNullOrEmpty(demandFoodQuery);
-            bool any = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                List<ThingDef> matched = new List<ThingDef>();
-                for (int foodIndex = 0; foodIndex < groups[i].Count; foodIndex++)
-                {
-                    ThingDef food = groups[i][foodIndex];
-                    if (RHAH_ReliefFood.MatchesQuery(food, demandFoodQuery))
-                    {
-                        matched.Add(food);
-                    }
-                }
-
-                if (matched.Count == 0)
-                {
-                    continue;
-                }
-
-                any = true;
-                string key = RHAH_ReliefFood.GroupKey(settings.demandFoodListMode, groups[i][0]);
-                if (pendingDemandFoodGroup != null && string.Equals(pendingDemandFoodGroup, key, StringComparison.Ordinal))
-                {
-                    collapsedDemandFoodGroups.Remove(key);
-                    pendingDemandFoodGroup = null;
-                }
-
-                bool open = searching || !collapsedDemandFoodGroups.Contains(key);
-                string title = "RHAH_Menu_Format_GroupCount".Translate(GiveFoodTitle(settings.demandFoodListMode, key), matched.Count);
-                MenuControls.Anchor(list, "demand-food-group-" + key, 28f);
-                if (DrawFoodFold(list, title, open))
-                {
-                    if (open)
-                    {
-                        collapsedDemandFoodGroups.Add(key);
-                    }
-                    else
-                    {
-                        collapsedDemandFoodGroups.Remove(key);
-                    }
-
-                    open = !open;
-                }
-
-                if (!open)
-                {
-                    continue;
-                }
-
-                for (int foodIndex = 0; foodIndex < matched.Count; foodIndex++)
-                {
-                    ThingDef food = matched[foodIndex];
-                    bool previous = settings.IsDemandFoodEnabled(food);
-                    bool enabled = previous;
-                    float nutrition = food.GetStatValueAbstract(StatDefOf.Nutrition);
-                    string label = "RHAH_Settings_DemandFoods_Row".Translate(food.LabelCap, nutrition.ToString("0.###"), (nutrition / 0.9f).ToString("0.###"));
-                    if (RHAH_IrisMenusWidgets.Checkbox(list, "demand-food-" + food.defName, label, ref enabled) && enabled != previous)
-                    {
-                        settings.SetDemandFoodEnabled(food.defName, enabled);
-                    }
-                }
-            }
-
-            if (!any)
-            {
-                Empty(list, "RHAH_Settings_DemandFoods_Empty");
-            }
-
+            demandItems.Draw(list, settings, ref demandFoodQuery, collapsedDemandFoodGroups, ref pendingDemandFoodGroup);
             list.Gap(12f);
         }
 
-        List<ThingDef> MatchedBegFoods(List<ThingDef> foods)
-        {
-            List<ThingDef> matched = new List<ThingDef>();
-            for (int i = 0; i < foods.Count; i++)
-            {
-                if (RHAH_ReliefFood.MatchesQuery(foods[i], begFoodQuery))
-                {
-                    matched.Add(foods[i]);
-                }
-            }
 
-            return matched;
-        }
-
-        List<ThingDef> MatchedGiveFoods(List<ThingDef> foods)
-        {
-            List<ThingDef> matched = new List<ThingDef>();
-            for (int i = 0; i < foods.Count; i++)
-            {
-                if (RHAH_ReliefFood.MatchesQuery(foods[i], giveFoodQuery))
-                {
-                    matched.Add(foods[i]);
-                }
-            }
-
-            return matched;
-        }
 
         static string GiveFoodTitle(int mode, string key)
         {
@@ -2029,34 +1613,7 @@ namespace HungerAndHavoc.Pawn.Compat
             return title ?? (mode == 2 ? "RHAH_Settings_GiveFoods_Other".Translate() : "RHAH_Menu_Genes_UnknownMod".Translate());
         }
 
-        List<ThingDef> MatchedFoods(List<ThingDef> foods)
-        {
-            List<ThingDef> matched = new List<ThingDef>();
-            for (int i = 0; i < foods.Count; i++)
-            {
-                if (RHAH_ReliefFood.MatchesQuery(foods[i], foodQuery))
-                {
-                    matched.Add(foods[i]);
-                }
-            }
 
-            return matched;
-        }
-
-        static bool DrawFoodFold(Listing_Standard list, string title, bool open)
-        {
-            Rect row = list.GetRect(28f);
-            if (!RHAH_IrisMenusWidgets.IsVisible(row))
-            {
-                return false;
-            }
-
-            Widgets.DrawHighlightIfMouseover(row);
-            Rect mark = new Rect(row.x, row.y + 2f, 24f, 24f);
-            Widgets.DrawTextureFitted(mark, open ? TexButton.Collapse : TexButton.Reveal, 0.7f);
-            Widgets.Label(new Rect(row.x + 26f, row.y, row.width - 26f, row.height), title);
-            return Widgets.ButtonInvisible(row);
-        }
 
         IEnumerable<MenuSearchEntry> SearchRelief()
         {
@@ -2509,113 +2066,9 @@ namespace HungerAndHavoc.Pawn.Compat
 
         void DrawApparelList(Listing_Standard list, RHAH_Settings settings)
         {
-            MenuControls.Anchor(list, "refugee-apparel", 120f);
-            RHAH_IrisMenusWidgets.Quote(list, "refugee-apparel-note", "RHAH_Settings_RefugeeApparel_Quote".Translate());
-            DrawModeSelect(list, "refugee-apparel-sort", "RHAH_Settings_RefugeeApparel_Sort", settings.apparelListMode, 3, mode => settings.apparelListMode = mode);
-            Rect buttons = list.GetRect(28f);
-            if (Widgets.ButtonText(new Rect(buttons.x, buttons.y, 140f, 26f), "RHAH_Settings_RefugeeApparel_All".Translate()))
-            {
-                settings.SetAllRefugeeApparel(true, null);
-            }
-
-            if (Widgets.ButtonText(new Rect(buttons.x + 148f, buttons.y, 140f, 26f), "RHAH_Settings_RefugeeApparel_None".Translate()))
-            {
-                List<ThingDef> apparel = new List<ThingDef>();
-                RHAH_ApparelAssigner.AppendCandidates(apparel);
-                List<string> names = new List<string>(apparel.Count);
-                for (int i = 0; i < apparel.Count; i++)
-                {
-                    names.Add(apparel[i].defName);
-                }
-
-                settings.SetAllRefugeeApparel(false, names);
-            }
-
-            list.Gap(4f);
-            Rect search = list.GetRect(28f);
-            apparelQuery = Widgets.TextField(search, apparelQuery ?? string.Empty);
-            if (string.IsNullOrEmpty(apparelQuery))
-            {
-                GUI.color = Color.gray;
-                Widgets.Label(new Rect(search.x + 6f, search.y, search.width - 8f, search.height), "RHAH_Settings_RefugeeApparel_Search".Translate());
-                GUI.color = Color.white;
-            }
-
-            list.Gap(4f);
-            List<ThingDef> listed = new List<ThingDef>();
-            RHAH_ApparelAssigner.AppendCandidates(listed);
-            List<List<ThingDef>> groups = RHAH_ReliefFood.GroupFoods(settings.apparelListMode, listed);
-            bool searching = !string.IsNullOrEmpty(apparelQuery);
-            bool any = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                List<ThingDef> matched = MatchedApparel(groups[i]);
-                if (matched.Count == 0)
-                {
-                    continue;
-                }
-
-                any = true;
-                string key = RHAH_ReliefFood.GroupKey(settings.apparelListMode, groups[i][0]);
-                if (pendingApparelGroup != null && string.Equals(pendingApparelGroup, key, StringComparison.Ordinal))
-                {
-                    collapsedApparelGroups.Remove(key);
-                    pendingApparelGroup = null;
-                }
-
-                bool open = searching || !collapsedApparelGroups.Contains(key);
-                string title = "RHAH_Menu_Format_GroupCount".Translate(ApparelTitle(settings.apparelListMode, key), matched.Count);
-                MenuControls.Anchor(list, "refugee-apparel-group-" + key, 28f);
-                if (DrawFoodFold(list, title, open))
-                {
-                    if (open)
-                    {
-                        collapsedApparelGroups.Add(key);
-                    }
-                    else
-                    {
-                        collapsedApparelGroups.Remove(key);
-                    }
-
-                    open = !open;
-                }
-
-                if (!open)
-                {
-                    continue;
-                }
-
-                for (int apparelIndex = 0; apparelIndex < matched.Count; apparelIndex++)
-                {
-                    ThingDef def = matched[apparelIndex];
-                    bool enabled = settings.IsRefugeeApparelEnabled(def.defName);
-                    if (RHAH_IrisMenusWidgets.Checkbox(list, "refugee-apparel-" + def.defName, def.LabelCap, ref enabled,
-                        "RHAH_Settings_RefugeeApparel_Tooltip".Translate()))
-                    {
-                        settings.SetRefugeeApparelEnabled(def.defName, enabled);
-                    }
-                }
-            }
-
-            if (!any)
-            {
-                Empty(list, "RHAH_Settings_RefugeeApparel_Empty");
-            }
+            apparelItems.Draw(list, settings, ref apparelQuery, collapsedApparelGroups, ref pendingApparelGroup);
         }
 
-        List<ThingDef> MatchedApparel(List<ThingDef> apparel)
-        {
-            List<ThingDef> matched = new List<ThingDef>();
-            for (int i = 0; i < apparel.Count; i++)
-            {
-                if (RHAH_ReliefFood.MatchesQuery(apparel[i], apparelQuery))
-                {
-                    matched.Add(apparel[i]);
-                }
-            }
-
-            return matched;
-        }
 
         static string ApparelTitle(int mode, string key)
         {
@@ -2625,14 +2078,12 @@ namespace HungerAndHavoc.Pawn.Compat
 
         void DrawModeSelect(Listing_Standard list, string anchor, string key, int selected, int count, Action<int> assign)
         {
-            List<int> options = new List<int>(count);
-            for (int i = 0; i < count; i++)
+            if (!sortChoices.TryGetValue(key, out RHAH_IrisMenusChoiceLabels labels))
             {
-                options.Add(i);
+                labels = new RHAH_IrisMenusChoiceLabels(key, count);
+                sortChoices.Add(key, labels);
             }
-
-            MenuControls.Anchor(list, anchor);
-            MenuControls.Select(list, key.Translate(), selected, options, mode => (key + "_" + mode).Translate(), assign);
+            MenuItemControls.ChoiceSort(list, anchor, key.Translate(), selected, labels.Options, assign);
         }
 
         void DrawContentSearch(Listing_Standard list)
@@ -2711,7 +2162,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
                 bool open = searching || !collapsedContentGroups.Contains(fold);
                 MenuControls.Anchor(list, fold, 28f);
-                if (DrawFoodFold(list, "RHAH_Menu_Format_GroupCount".Translate(GroupTitle(key), groups[key].Count), open))
+                if (DrawContentFold(list, "RHAH_Menu_Format_GroupCount".Translate(GroupTitle(key), groups[key].Count), open))
                 {
                     if (open)
                     {

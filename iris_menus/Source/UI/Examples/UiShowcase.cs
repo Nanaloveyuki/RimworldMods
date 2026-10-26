@@ -17,6 +17,11 @@ namespace IrisMenus.UI
         private readonly UiCheckbox checkbox;
         private readonly UiSlider slider;
         private readonly UiTextField field;
+        private readonly UiNumberField number;
+        private readonly UiRadioGroup radio;
+        private readonly UiField reusableField;
+        private readonly UiSectionTitle sectionTitle;
+        private readonly UiPanel panel;
         private readonly UiSelect select;
         private readonly UiButton drawerButton, dialogButton, nestedDialogButton, closeButton, jumpButton, disabledButton;
         private readonly UiAccordion accordion;
@@ -28,9 +33,9 @@ namespace IrisMenus.UI
         private readonly UiTooltip tooltip;
         private readonly UiId formPage, layoutPage;
         private readonly Action<Rect> drawForm, drawLayout, drawScroll, drawAccordion, drawDrawer, drawDialog;
-        private int selectedRail, selectedTab, selectedTheme, selectedOption;
+        private int selectedRail, selectedTab, selectedTheme, selectedOption, selectedRadio;
         private bool reducedMotion, switched = true, checkedValue, expanded = true, drawerOpen, dialogOpen;
-        private float strength = 35f;
+        private float strength = 35f, numericValue = 12.5f;
         private string text = string.Empty;
 
         internal UiShowcase()
@@ -50,6 +55,11 @@ namespace IrisMenus.UI
             closeButton = new UiButton(context);
             jumpButton = new UiButton(context);
             disabledButton = new UiButton(context);
+            number = new UiNumberField(context, 0f, 100f, 0.5f);
+            radio = new UiRadioGroup(context, new[] { "自动", "手动", "继承" });
+            reusableField = new UiField(context);
+            sectionTitle = new UiSectionTitle(context);
+            panel = new UiPanel(context);
             accordion = new UiAccordion(context, true);
             scroll = new UiScrollView(context, 2);
             drawer = new UiDrawer(context);
@@ -97,18 +107,18 @@ namespace IrisMenus.UI
         private void DrawForm(Rect rect)
         {
             float width = Mathf.Min(480f, rect.width);
-            switched = toggle.Draw(new Rect(0f, 0f, width, 40f), switched, "启用选项");
-            checkedValue = checkbox.Draw(new Rect(0f, 52f, width, 40f), checkedValue, "保留当前选择");
-            context.Label(new Rect(0f, 104f, width, 28f), "强度 · " + strength.ToString("0"), context.Palette.Ink);
-            strength = slider.Draw(new Rect(0f, 136f, width, 36f), strength);
-            context.Label(new Rect(0f, 184f, width, 28f), "名称", context.Palette.Ink);
-            text = field.Draw(new Rect(0f, 216f, width, 40f), text, "输入文字", invalid: selectedTab == 1 && text.Length == 0);
-            context.Label(new Rect(0f, 268f, width, 28f), "显示方式", context.Palette.Ink);
-            selectedOption = select.Draw(new Rect(0f, 300f, width, 40f), selectedOption);
-            Rect button = new Rect(0f, 356f, Mathf.Min(180f, width), 40f);
-            if (drawerButton.Draw(button, "查看说明")) drawerOpen = true;
-            tooltip.Observe(button, "说明以抽屉展开；Esc 只关闭当前最上层。", drawerButton.Id);
-            disabledButton.Draw(new Rect(196f, 356f, Mathf.Max(0f, width - 196f), 40f), "不可用", false);
+            sectionTitle.Draw(new Rect(0f, 0f, width, sectionTitle.Measure()), "可复用表单控件");
+            panel.Draw(new Rect(0f, 46f, width, 410f), content =>
+            {
+                reusableField.Draw(new Rect(content.x, content.y, content.width, 54f), "开关", "悬停查看提示", control => switched = toggle.Draw(control, switched, "启用选项"));
+                checkedValue = checkbox.Draw(new Rect(content.x, content.y + 62f, content.width, 40f), checkedValue, "保留当前选择");
+                reusableField.Draw(new Rect(content.x, content.y + 112f, content.width, 54f), "数值", "按回车提交并限制在范围内", control => numericValue = number.Draw(control, numericValue));
+                reusableField.Draw(new Rect(content.x, content.y + 176f, content.width, 54f), "强度", null, control => strength = slider.Draw(control, strength));
+                selectedRadio = radio.Draw(new Rect(content.x, content.y + 244f, content.width, 120f), selectedRadio);
+            });
+            if (drawerButton.Draw(new Rect(0f, 470f, 180f, 40f), "查看说明")) drawerOpen = true;
+            tooltip.Observe(new Rect(0f, 470f, 180f, 40f), "说明以抽屉展开；Esc 只关闭当前最上层。", drawerButton.Id);
+            disabledButton.Draw(new Rect(196f, 470f, Mathf.Max(0f, width - 196f), 40f), "不可用", false);
         }
 
         private void DrawLayout(Rect rect)
@@ -145,7 +155,7 @@ namespace IrisMenus.UI
             if (closeButton.Draw(new Rect(Mathf.Max(0f, rect.width - 140f), 76f, 140f, 40f), "返回", primary: true)) dialogOpen = false;
         }
 
-        internal void Dispose() { field.Dispose(); context.Dispose(); }
+        internal void Dispose() { field.Dispose(); number.Dispose(); reusableField.Dispose(); context.Dispose(); }
     }
 
     internal sealed class UiShowcaseWindow : Window

@@ -44,6 +44,7 @@ namespace IrisMenus.UI
         public int Draw(Rect rect, int selected, bool enabled = true, float scale = 1f)
         {
             selected = Mathf.Clamp(selected, 0, options.Length - 1);
+            int previous = selected;
             float inset = Mathf.Min(2f * scale, Mathf.Max(0f, Mathf.Min(rect.width, rect.height) * 0.25f));
             float width = Mathf.Max(0f, rect.width - inset * 2f) / options.Length;
             float height = Mathf.Max(0f, rect.height - inset * 2f - 2f * scale);
@@ -91,6 +92,7 @@ namespace IrisMenus.UI
                 }
             }
             line.Draw(context, rect, focused, hover, scale: scale);
+            if (selected != previous) GUI.changed = true;
             return selected;
         }
     }

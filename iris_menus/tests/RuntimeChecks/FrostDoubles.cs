@@ -29,13 +29,45 @@ namespace UnityEngine
         public Color(float r, float g, float b, float a) { this.r = r; this.g = g; this.b = b; this.a = a; }
         public static Color white => new Color(1, 1, 1, 1);
     }
-    public class GUIStyle { }
-    public enum EventType { Repaint }
+    public enum TextAnchor { UpperLeft }
+    public sealed class GUIContent { public string text; }
+    public class GUIStyle
+    {
+        public TextAnchor alignment;
+        public bool wordWrap;
+        public float lineHeight => 2f;
+        public Vector2 CalcSize(GUIContent content) => new Vector2 { x = 1f, y = 2f };
+        public Vector2 GetCursorPixelPosition(Rect rect, GUIContent content, int index)
+        {
+            float x = 0f, y = 0f;
+            for (int i = 0; i < index; i++)
+            {
+                if (content.text[i] == '<')
+                {
+                    int close = content.text.IndexOf('>', i + 1);
+                    if (close >= 0) { i = close; continue; }
+                }
+                if (content.text[i] == '\n') { x = 0f; y += 2f; continue; }
+                if (x >= rect.width) { x = 0f; y += 2f; }
+                x++;
+            }
+            return new Vector2 { x = rect.x + x, y = rect.y + y };
+        }
+    }
+    public enum EventType { Repaint, MouseUp, Used }
     public enum ScaleMode { StretchToFill }
-    public class Event { public static Event current = new Event(); public EventType type; }
+    public class Event
+    {
+        public static Event current = new Event();
+        public EventType type;
+        public int button;
+        public Vector2 mousePosition;
+        public void Use() { type = EventType.Used; }
+    }
     public static class Time { public static int frameCount; public static float realtimeSinceStartup; }
     public static class GUI
     {
+        public static bool enabled = true;
         public static Color color;
         public static int TextureDraws;
         public static float OverlayAlpha;

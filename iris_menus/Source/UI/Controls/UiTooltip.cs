@@ -66,8 +66,7 @@ namespace IrisMenus.UI
                 enteredAt = context.Time;
                 eligible = true;
             }
-            Vector2 screen = GUIUtility.GUIToScreenPoint(anchor.position);
-            anchorScreen = new Rect(screen.x, screen.y, anchor.width, anchor.height);
+            anchorScreen = UiCoordinates.ToScreen(anchor);
             text = content;
             Event current = context.Event;
             if (current != null && (current.rawType == EventType.MouseDown ||
@@ -110,8 +109,7 @@ namespace IrisMenus.UI
             float unit = Mathf.Max(0f, scale);
             float width = Mathf.Clamp(size.x, 0f, bounds.width);
             float height = Mathf.Clamp(size.y, 0f, bounds.height);
-            Vector2 local = GUIUtility.ScreenToGUIPoint(anchorScreen.position);
-            Rect anchor = new Rect(local.x, local.y, anchorScreen.width, anchorScreen.height);
+            Rect anchor = UiCoordinates.FromScreen(anchorScreen);
             bool below = anchor.y - height - 8f * unit < bounds.y && anchor.yMax + height + 8f * unit <= bounds.yMax;
             float x = Mathf.Clamp(anchor.center.x - width * 0.5f, bounds.x, bounds.xMax - width);
             float y = below ? anchor.yMax + 8f * unit : anchor.y - height - 8f * unit;

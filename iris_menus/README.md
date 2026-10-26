@@ -12,13 +12,21 @@ Markdown help and documentation content is covered in
 [docs/references/markdown.md](docs/references/markdown.md).
 Reusable native controls, containers, overlays and their IMGUI/animation contracts are documented in
 [Native UI components](docs/references/native-ui-components.md). The explicit full-screen host uses them;
-the original window remains the default entry.
+the original window remains the first-use default. The selected presentation is
+saved independently of page-history memory and restored when opening again.
+Both presentations expose a **New interface** switch reflecting the current mode.
+Switching saves the selected page and host settings once, and stays in the current
+mode if either save fails. The same window/session keeps selection, query, result
+position and legacy window geometry. Native page instances remain alive across
+roundtrips, retaining their scroll positions and edit buffers until final disposal.
 The current 1.7 source follows the local Endfield-like prototype's component styling
 and timing; see the component guide's 2026-10-25 fidelity notes for screenshot evidence
 and remaining acceptance limits. It retains game fonts rather than bundling web fonts.
 Pages are grouped by Mod; only the selected group expands. Existing single-page
 registrations still open directly. Search supports global or owner-wide metadata
 results, pagination, and explicit anchors without drawing unselected pages.
+The native header search exits management and searches the configured global or
+current-Mod scope, rather than leaving matching results behind the management page.
 
 Reference `IrisMenus.dll` with `Private=false`, declare a mod dependency on
 `Nanaloveyuki.IrisMenus`, and register on the game thread, usually in your Mod
@@ -60,8 +68,10 @@ instances with a nonempty `SettingsCategory()` are listed. Selection persists
 by package ID and full Mod type name; unloaded selections remain stored.
 Explicitly registered owners take precedence over adapters.
 
-The list includes aspect-fit ModIcons, with RimWorld's default icon for packages
-without custom icons, and wraps long names without overlapping the checkbox.
+The original interface's list uses aspect-fit ModIcons and wraps long names.
+The full-screen interface uses a dedicated desktop library page with
+`About/Preview.png` thumbnails, current-language aliases (or the About name),
+and hosted-page visibility controls. These controls do not enable or disable game mods.
 
 ### Language-specific Mod names
 
@@ -92,6 +102,16 @@ without an extra outer scroll view, and use the original `WriteSettings()`.
 It does not emulate `Dialog_ModSettings`, its lifecycle, or mod-specific patches
 to that dialog. Drawing failures are logged and the page exposes a retry action.
 Unbalanced third-party IMGUI groups cannot be reliably recovered by the host.
+In the 1.7 full-screen host, common backgrounds, buttons, sliders, default checkboxes,
+toggles and native input chrome follow Light/Dark without relocating controls.
+Standard labeled checkboxes/toggles use switch visuals; custom checkbox textures
+and custom style backgrounds remain native. Plain/rich text receives final-draw
+contrast adjustment without rewriting strings, tags or native editor buffers.
+Caller and rich-text opacity are preserved, not forced opaque. Adaptation is scoped
+to the selected callback; the old presentation and unrelated windows remain native.
+Custom images/shaders and arbitrary consumer background colors are not covered.
+The [mode/theme smoke recipe](docs/adr/0001-native-settings-presentation.md#新旧切换与托管主题冒烟步骤)
+covers roundtrips, save failures, reduced motion and exception isolation.
 
 Character Editor (`CharacterEditor.CharacterEditorMod`, Workshop 1874644848)
 uses its drawing callback to open a separate configuration window and close
@@ -220,11 +240,28 @@ unaffected.
 
 ## Release notes
 
+### Unreleased — item controls and inspectable registry (1.7)
+
+- Adapt common hosted controls and plain/rich text to Light/Dark without requiring
+  consumer rewrites; retain native input editors, values and callback ownership.
+  Align switch enabled/disabled colors and geometry with upstream switch states.
+  See the component guide's hosted-theme verification notes for exercised limits.
+- Add reusable item slots, virtualized item rows, grouped hosted lists, ChoiceSort,
+  real-progress loaders and an opaque RGB color-picker dialog.
+- Add shared single-item market-value colors: gray below 50, green from 50,
+  blue from 200, purple from 500 and gold from 1500. IrisMenus settings expose
+  threshold sliders/numeric fields, color editing, add/remove and reset.
+- Index loaded ThingDefs at startup in batches of 256 using the game's categories.
+  Expose processed/total progress, lookup, direct category membership, uncategorized
+  definitions and diagnostics; provide a searchable registry page and log export.
+- RHAH consumes the shared item lists and grouping choices without changing its
+  whitelist settings or bulk-selection behavior. Legacy settings remain available.
+- Verification and limitations: see the [component guide's 2026-10-26 notes](docs/references/native-ui-components.md#物品组件与注册表验收--2026-10-26).
+
 ### Unreleased — native full-screen interface (1.7, in progress)
 
-Development paused at the user's request on 2026-10-24. The implementation remains
-incomplete and has known UI issues; full game acceptance is deferred until implementation
-is complete. The entries below describe current code, not a verified release.
+The implementation is in progress. The entries below describe current code,
+not a verified release; remaining interactive acceptance is being performed manually.
 
 - Add an explicit full-screen entry in the old footer without increasing footer height;
   keep the old main-button/settings routing and restore old geometry when returning.
@@ -237,8 +274,33 @@ is complete. The entries below describe current code, not a verified release.
   preserve higher dialogs, input ownership, pause and normal restoration after exit.
 - Add working appearance/behavior settings in both presentations; persist scale, density,
   theme, reduced motion, tips, search preference and native panel opacity.
+- Add a 720ms, column-by-column square-scale window transition on 1.7, using a
+  frozen GPU frame rather than repeated hosted callbacks; reduced motion skips it.
+- Add a low-contrast geometric background print and editable lower-left marquee,
+  plus About.xml name, author and version metadata in the footer with ellipsis.
+- Add reusable `UiToast` notifications and `MenuRegistry.ShowToast`; automatic edit
+  hints appear three seconds after the last actual edit, not ordinary navigation.
+  Honor the notification switch and configurable 1–10 second display duration;
+  save timing remains unchanged.
 - Keep factory/draw failures retryable, save failures blocking, confirmation targets stable,
   and consumer disposal errors unable to trap the window.
+- Correct overlay input ownership, search blur/Escape behavior, navigation animation
+  state and screen-scaled popup/drag coordinates. Preserve SubItem tabs with
+  upper-right pagination and middle-ellipsized long labels, including scale changes.
+- Replace the add-mod drawer with a desktop library page showing Preview images,
+  localized names and hosted-settings visibility controls. Remove the page's
+  automatic-save hint while retaining its reset action and existing save gates.
+- Persist the selected presentation across reopen/restart independently of page memory.
+  Keep failed saves from committing a presentation change; retain the legacy first-use default.
+- Show native header search results after leaving management; retain configured search scope.
+- Give light buttons an opaque gray base with distinct hover/pressed shading.
+- Theme native hosted tabs and scrollbar paint without replacing their input/callbacks.
+  Include narrowly scoped RimTalk/RimChat custom navigation painters; RimChat 1.7
+  compatibility is not established by these hooks.
+- Use one native owner-action strip for hosted and native pages, with text measurement
+  matching the drawn font, scale and button padding.
+- ODF documentation uses native topic/chapter navigation and theme-correct prose,
+  literal source and code. Advanced RimTalk retains its document links and syntax colors.
 
 ### 1.1.2
 

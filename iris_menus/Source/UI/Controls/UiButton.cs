@@ -24,12 +24,20 @@ namespace IrisMenus.UI
             float iconRotation = 0f, float hoverIconRotation = 0f, float scale = 1f)
         {
             UiInteraction interaction = context.Interact(Id, rect, enabled);
+            DrawVisual(rect, label, interaction, enabled, primary, variant, icon, iconRotation, hoverIconRotation, scale);
+            return interaction.Clicked;
+        }
+
+        internal Color DrawVisual(Rect rect, string label, UiInteraction interaction, bool enabled = true,
+            bool primary = false, UiButtonVariant? variant = null, UiGlyphKind icon = UiGlyphKind.None,
+            float iconRotation = 0f, float hoverIconRotation = 0f, float scale = 1f, bool drawContent = true)
+        {
             visual.Step(context, interaction, enabled);
             bool iconOnly = string.IsNullOrEmpty(label) && icon != UiGlyphKind.None;
             UiButtonVariant kind = variant ?? (iconOnly ? UiButtonVariant.Ghost : primary ? UiButtonVariant.Control : UiButtonVariant.Light);
             bool marked = !iconOnly && (kind == UiButtonVariant.Control || kind == UiButtonVariant.Light);
             UiGlyphKind glyphKind = icon == UiGlyphKind.None && kind == UiButtonVariant.Text ? UiGlyphKind.ArrowRight : icon;
-            float morph = marker.Step(enabled && (interaction.Hovered || interaction.Pressed) ? 1f : 0f,
+            float morph = marker.Step(enabled && context.IsInputAllowed && (interaction.Hovered || interaction.Pressed) ? 1f : 0f,
                 context.Time, UiMotion.Enter, context.ReducedMotion);
             UiPalette palette = context.Palette;
             float unit = Mathf.Max(0f, scale);
@@ -44,8 +52,8 @@ namespace IrisMenus.UI
                 }
                 else if (kind == UiButtonVariant.Light)
                 {
-                    Color background = Color.Lerp(palette.Button, palette.Sunken, visual.Hover);
-                    context.Fill(rect, Color.Lerp(background, palette.Line, visual.Press * 0.3f));
+                    Color background = Color.Lerp(palette.Button, palette.Marker, visual.Hover * 0.16f);
+                    context.Fill(rect, Color.Lerp(background, palette.Ink, visual.Press * 0.1f));
                 }
                 else if (kind == UiButtonVariant.Action)
                 {
@@ -63,6 +71,11 @@ namespace IrisMenus.UI
                 }
                 else ink = Color.Lerp(ink, palette.Muted, visual.Press);
 
+                if (!drawContent)
+                {
+                    visual.DrawFocus(context, rect);
+                    return ink;
+                }
                 float padding = marked ? (rect.height <= 32f * unit ? 28f : 40f) * unit : 10f * unit;
                 Rect content = new Rect(rect.x + padding, rect.y, Mathf.Max(0f, rect.width - padding * 2f), rect.height);
                 if (kind == UiButtonVariant.Action) content.width = Mathf.Max(0f, content.width - 18f * unit);
@@ -70,10 +83,12 @@ namespace IrisMenus.UI
                 {
                     bool small = rect.height <= 32f * unit;
                     float height = Mathf.Min(rect.height * 0.5f, (small ? 16f : 20f) * unit);
-                    float width = (small ? 8f : 10f) * unit;
                     float bar = (small ? 2f : 3f) * unit;
+                    float side = height * 0.6f;
+                    float width = side * 0.8660254f;
                     float left = rect.x + ((small ? 12f : 16f) + (small ? 4f : 6f) * morph) * unit;
                     float top = rect.center.y - height * 0.5f;
+                    // Matching vertex order keeps the bar continuous as the right edge collapses to a tip.
                     Vector2 a = new Vector2(left, top + height * 0.2f * morph);
                     Vector2 b = new Vector2(left + UiMotion.Lerp(bar, width, morph), top + height * 0.5f * morph);
                     Vector2 c = new Vector2(left + bar * (1f - morph), top + height * UiMotion.Lerp(1f, 0.8f, morph));
@@ -100,7 +115,7 @@ namespace IrisMenus.UI
                     context.Fill(new Rect(content.x, rect.yMax - 2f * unit, content.width, unit), ink);
                 visual.DrawFocus(context, rect);
             }
-            return interaction.Clicked;
+            return ink;
         }
     }
 }

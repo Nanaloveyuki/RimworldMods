@@ -1,0 +1,210 @@
+IrisMenus third-party notices
+============================
+
+Third-party materials retain their original licenses. IrisMenus LICENSE applies
+only to Nanaloveyuki-owned contributions; it does not relicense these materials.
+These credits and license texts belong in this distributed file, not the game UI.
+
+Lucide icons
+------------
+Project: https://lucide.dev
+Official source: https://github.com/lucide-icons/lucide
+Pinned version: 0.468.0
+Pinned commit: f12b0de177fbc2a6795e99be065887e72b237123
+Source directory:
+https://github.com/lucide-icons/lucide/tree/f12b0de177fbc2a6795e99be065887e72b237123/icons
+
+Only the 14 glyphs mapped below are included, not the complete icon library.
+The corresponding official icons/<name>.svg files were downloaded directly from
+that commit. Their path geometry, 24x24 viewBox, round caps/joins and 2-unit stroke
+were preserved. currentColor was resolved to white and each SVG rasterized by
+rsvg-convert 2.63.4 to a transparent 96x96 PNG for tinting at native UI sizes.
+No SVG parser, icon package, network download or rasterization runs in the game.
+Generated files are in Common/Textures/IrisMenus/UI/Glyphs/<name>.png.
+Grid uses Lucide Grip, matching the prototype's dotted grip symbol. Settings
+retains SlidersHorizontal for the reusable public glyph API even when individual
+mods supply their own sidebar icons. ArrowRight remains a right-pointing source
+icon so existing render-only rotation arguments preserve their meaning.
+
+UiGlyphKind -> official source SVG -> distributed PNG:
+  Search: icons/search.svg -> search.png
+  Close: icons/x.svg -> x.png
+  Sun: icons/sun.svg -> sun.png
+  Moon: icons/moon.svg -> moon.png
+  Plus: icons/plus.svg -> plus.png
+  ArrowRight: icons/arrow-right.svg -> arrow-right.png
+  ChevronRight: icons/chevron-right.svg -> chevron-right.png
+  Help: icons/circle-help.svg -> circle-help.png
+  Menu: icons/menu.svg -> menu.png
+  Settings: icons/sliders-horizontal.svg -> sliders-horizontal.png
+  Layers: icons/layers-2.svg -> layers-2.png
+  Grid: icons/grip.svg -> grip.png
+  Check: icons/check.svg -> check.png
+  Reset: icons/rotate-ccw.svg -> rotate-ccw.png
+
+Original SVG SHA-256 (before resolving currentColor):
+  search.svg  9322d964b61cf729b3a81210568d5a97eaf4a1f3239f25a056fda3013bf35611
+  x.svg  4a9cdab38fbb96162e7dace28e33f4ca0e49d8963a6162abc3d4691b7d675117
+  sun.svg  a3955c8b0425fcc5c9ba12d2bdd77fe53b2cd5dd05e7742a56f342e996fb2ef8
+  moon.svg  47503477c9c6848eeaff01c324093e1a04a7d264220f580662d92f229eaa428e
+  plus.svg  7f6af73bf1ff6c4bca3f18351c8d1bdec6749c0c2530c4de5da85d520c21df17
+  arrow-right.svg  288397fdb73bb4f783cf9eabb726ff47357df1d4e3f1201dd748090579f108b9
+  chevron-right.svg  2758143d7b2434e4aa7307dfd34405c87909ff4052f21b5f3f40d45224b4f19b
+  circle-help.svg  975db087da041530dbf59ba1e61a7b99c3519fad43dae6375e42ccc74ba63924
+  menu.svg  90a31b3ab1cf6c796b6024560324daf425233ae3c11f30818b182ce557bafa99
+  sliders-horizontal.svg  4a6b5404724a439227964670bf9eb71bcebd98384178441e50093f2620169b1a
+  layers-2.svg  2fb9f11b92b06fedd9190c16d9781d4a34bb2151050ff1e0a484a411b4e18c03
+  grip.svg  8d6b255a3c545696ba446fd51709e49c3116b1329b95170745da39fb07824aec
+  check.svg  7f33acc9a77a61659531044525fc008edebe215bf4dcf1c789c8674ad3277db0
+  rotate-ccw.svg  622685386ab4017eabfde01cd74550a20b1924df233b353f73b6b155371f2afd
+
+Lucide license source: https://raw.githubusercontent.com/lucide-icons/lucide/f12b0de177fbc2a6795e99be065887e72b237123/LICENSE
+
+ISC License
+
+Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Feather-origin portions
+----------------------
+Lucide credits Feather as an upstream source. The following MIT notice is
+retained in addition to Lucide's ISC notice.
+Source: https://github.com/feathericons/feather/blob/v4.29.2/LICENSE
+
+The MIT License (MIT)
+
+Copyright (c) 2013-2023 Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+endfield-ui
+-----------
+Project: https://github.com/icaruszezen/endfield-ui
+Reference package: @endfield-ui/react 1.2.1 (main entry, not the /game entry)
+Pinned tag: v1.2.1
+Pinned commit: a82657af920e8feaa2abbb29a0cf47a8f9a65a66
+
+IrisMenus' native controls and visual tokens adapt the original main-entry
+component design for RimWorld's native UI and game fonts. The upstream React
+runtime/package is not included in the game distribution. Native adaptation and
+changes are maintained in Source/UI and Source/MenuWindow.Native*.cs.
+
+The upstream license at this version is MIT, not Apache-2.0. IrisMenus' separate
+dual-license grant does not change the upstream license. Its copyright notice,
+permission text and complete upstream legal/trademark notice are preserved below.
+The upstream /game official images, commercial font files, logos and audio are
+not imported into IrisMenus by this adaptation.
+
+License source: https://raw.githubusercontent.com/icaruszezen/endfield-ui/a82657af920e8feaa2abbb29a0cf47a8f9a65a66/LICENSE
+
+MIT License
+
+Copyright (c) 2026 球球
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Upstream NOTICE.md (verbatim)
+----------------------------
+Source: https://raw.githubusercontent.com/icaruszezen/endfield-ui/a82657af920e8feaa2abbb29a0cf47a8f9a65a66/NOTICE.md
+
+# 版权与商标声明
+
+本项目是**非官方**的爱好者项目，与上海鹰角网络科技有限公司（Hypergryph）、GRYPHLINE 及其关联公司没有任何隶属、赞助或授权关系。
+
+## 归属
+
+- 《明日方舟：终末地》（Arknights: Endfield）的名称、标志、角色、美术、界面、字体及其他一切官方素材，版权与商标权归鹰角网络及其权利人所有。
+- 本仓库以 [MIT License](LICENSE) 发布的范围**仅限仓库内的原创内容**：文档文字、原创 SVG 图解、设计令牌、组件代码与原创图标。
+
+## 本仓库不包含
+
+除了下一节单独说明的 Game 实机风格入口，本仓库不包含：
+
+- 官方截图、立绘、Logo、图标、纹理、视频或音频；
+- 官方网站或游戏客户端使用的字体文件（含 Novecento Sans Wide、Gilroy 等商业字体）；
+- 从官方网站或客户端提取的源码与样式表。
+
+文档中出现的色值、字号、时长等数据来自对**公开网页**的观察与测量，属于对事实的记录；所有官方画面一律以外部链接引用，不做转存。
+
+字体、音频、视频和从官方提取的源码，Game 实机风格入口同样不包含。
+
+## Game 实机风格入口的官方图片
+
+组件库有一个单独的入口 `@endfield-ui/react/game`（源码在 `packages/ui/src/game`），收的是照游戏内界面复刻的一组控件，和一个官网的开屏页。**它带着 30 张官方图片**，这是本仓库里唯一有官方素材的地方：
+
+| 用在哪 | 张数 | 位置（相对 `packages/ui/src/game`） | 随 npm 包 |
+| --- | --- | --- | --- |
+| `RoundedIconButton` 的纹理 | 1 | `rounded-button/assets/` | 是 |
+| `BannerAlert`、`FullWidthAlert` 的横幅、底图与标志底图 | 4 | `banner-alert/assets/` | 是 |
+| `ItemCard` 的亮暗背景与稀有度底边 | 12 | `item-card/assets/` | 是 |
+| `ItemTooltipCard` 的标题纹理、详情入口图标、正文底图 | 3 | `item-tooltip-card/assets/` | 是 |
+| `EndfieldSplashScreen` 的底图（横、竖各一张）、游戏标志、微标与三角标 | 5 | `splash-screen/assets/` | 是 |
+| 预览站里物品示例用的图标 | 5 | `item-card/assets/` | 否 |
+
+- 前四行和最后一行的 25 张取自游戏界面与物品图，经社区项目 [EndfieldMap](https://github.com/ArkEndfield/EndfieldMap) 和 EndfieldWiki 转来；`EndfieldSplashScreen` 的 5 张是 2026-10-14 直接从[官网](https://endfield.hypergryph.com/)首页的加载页取的，原样存。**本仓库没有取得授权**，两个上游仓库也没有为它们标明许可。
+- 它们的权利归鹰角网络及其权利人。**MIT 许可不覆盖这些图片**，本仓库不宣称对它们有任何权利，也给不了使用方使用它们的权利。
+- 其中 `splash-screen/assets/splash_logo.svg` 就是游戏的标志「明日方舟：终末地 / ARKNIGHTS ENDFIELD」；`banner-alert/assets/deco_common_logo_bg.png` 里是官方的「终末地 / ENDFIELD INDUSTRIES」标志；`AnimatedDialog` 的装饰条上有代码画的 `ARKNIGHTS:ENDFIELD`、`ENDFIELD` 字样；`EndfieldSplashScreen` 默认的标语是官网的 `OVER THE FRONTIER / INTO THE FRONT`。前三处涉及商标。
+- 逐张的路径、尺寸、字节数、SHA256 和来源登记在 [`packages/ui/src/game/resource-provenance.json`](packages/ui/src/game/resource-provenance.json)，随包在 `dist/game/resource-provenance.json`。发布的包里，这些图片只在 `dist/game/assets/` 一处。
+- 主入口（`@endfield-ui/react`）、主样式、令牌和母题工具类里没有它们。不引 `@endfield-ui/react/game` 和 `@endfield-ui/react/game.css`，就不会加载其中任何一张。
+- 使用方可以整类关掉这些图片（在 `<html>` 上写 `data-ef-game-images="off"`，控件退回代码画的样子），也可以经变量逐张换成自己的。
+- 权利人提出异议时，我们会拿掉被指出的图片、发补丁版本，并把受影响的旧版本在 npm 上标记为弃用。这个入口的图片不在语义化版本的承诺之内。
+
+风险和处理的完整说明、给使用方的建议，见 [docs/design/game/README.md](docs/design/game/README.md#风险与处理)。
+
+物品详情卡"获取途径"的两个图标用的是 [Lucide](https://lucide.dev) 的 `package-search`、`chevrons-right` 路径，不是本库的原创图标，也不是官方素材。Lucide 的 ISC 许可与其中 Feather 图标的 MIT 声明保存在 `packages/ui/src/game/item-tooltip-card/LICENSE.lucide`，随包在 `dist/game/LICENSE.lucide`。
+
+## 使用本项目时请注意
+
+- 本项目提供的是"受终末地视觉语言启发"的设计规范和按它实现的组件库，不是官方设计规范，也不代表官方立场。
+- 请不要用它制作可能被误认为官方产品、官方公告或官方周边的内容。
+- 公开发布或商业使用衍生作品前，请自行确认符合鹰角网络的同人创作与素材使用政策；截至本文档撰写时，我们没有检索到针对《终末地》的官方同人创作规范原文，以官方最新公告为准。用了 Game 实机风格入口的，这一条尤其要紧：那里的图片是官方素材。
+- 权利人如认为本仓库内容不妥，请通过 Issue 联系，我们会及时处理。
+
+## 引用的开源项目
+
+文档参考了若干社区开源项目的方法与结论，逐项出处与许可证见 [docs/design/references/open-source-projects.md](docs/design/references/open-source-projects.md)。这些项目的内容版权归各自作者所有；主库没有复制它们的代码或素材。
+
+Game 实机风格入口的控件迁自 [EndfieldMap](https://github.com/ArkEndfield/EndfieldMap/tree/main/packages/web-components) 的组件实现，物品卡片与详情卡的排版参考了 EndfieldWiki，经 [icaruszezen/endfield-ui#1](https://github.com/icaruszezen/endfield-ui/pull/1) 从 ArkEndfield 组织的仓库提交进来。交互行为改由 Base UI 承担，没有带入音效、字体文件或外链资源；带入的图片见上一节。

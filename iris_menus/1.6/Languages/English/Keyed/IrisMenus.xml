@@ -32,4 +32,29 @@
   <IM_OwnerActions>Mod actions</IM_OwnerActions>
   <IM_ActionUnavailable>This action is not available right now.</IM_ActionUnavailable>
   <IM_ActionFailed>The action could not be completed. See the log for details.</IM_ActionFailed>
+  <IM_ValueColors>Item value colors</IM_ValueColors>
+  <IM_ValueColorsHint>Colors use the market value of one item, not its stack. Each band includes its starting value and ends at the next band's start; the final band has no upper limit. The first band always starts at 0. Click a color to edit it; changes take effect when you apply the color.</IM_ValueColorsHint>
+  <IM_ValueAddBand>Add value band</IM_ValueAddBand>
+  <IM_ValueRemoveBand>Remove</IM_ValueRemoveBand>
+  <IM_ValueThreshold>Starting value</IM_ValueThreshold>
+  <IM_ValueThresholdInvalid>Enter a finite value above the previous start and below the next start.</IM_ValueThresholdInvalid>
+  <IM_ValueChooseColor>Choose color</IM_ValueChooseColor>
+  <IM_ValueApply>Apply</IM_ValueApply>
+  <IM_ValueOriginal>Original</IM_ValueOriginal>
+  <IM_ValuePreview>Preview</IM_ValuePreview>
+  <IM_ValueRestoreDefaults>Restore defaults</IM_ValueRestoreDefaults>
+  <IM_ValueResetConfirm>Restore the default item value bands and colors? Other settings are not changed.</IM_ValueResetConfirm>
+  <IM_ThingRegistry>Item registry</IM_ThingRegistry>
+  <IM_RegistryProgress>Indexed {0} / {1} things</IM_RegistryProgress>
+  <IM_RegistryCategories>Game categories</IM_RegistryCategories>
+  <IM_RegistryUncategorized>Uncategorized</IM_RegistryUncategorized>
+  <IM_RegistryAll>All things</IM_RegistryAll>
+  <IM_RegistrySearch>Search name, DefName or source mod</IM_RegistrySearch>
+  <IM_RegistryErrors>Index diagnostics</IM_RegistryErrors>
+  <IM_RegistryNoErrors>No indexing errors</IM_RegistryNoErrors>
+  <IM_RegistryDump>Log registry snapshot</IM_RegistryDump>
+  <IM_RegistrySource>Source</IM_RegistrySource>
+  <IrisMenus_ItemValue_Label>Value: {0}</IrisMenus_ItemValue_Label>
+  <IrisMenus_ItemValue_Tooltip>{0}\nMarket value per item: {1}\nValue band: {2}</IrisMenus_ItemValue_Tooltip>
+  <IrisMenus_Items_Uncategorized>Uncategorized</IrisMenus_Items_Uncategorized>
 </LanguageData>

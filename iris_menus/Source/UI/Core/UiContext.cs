@@ -38,6 +38,7 @@ namespace IrisMenus.UI
         public bool IsRepaint => Event != null && Event.type == EventType.Repaint;
         public bool IsInputAllowed => input && Alpha > 0f && (modal == default || modal == layer);
         public float Alpha { get; private set; } = 1f;
+        public float Scale { get; internal set; } = 1f;
         public float FontSize { get; set; } = 16f;
         public FontStyle FontStyle { get; set; } = FontStyle.Normal;
 
@@ -64,7 +65,9 @@ namespace IrisMenus.UI
             Viewport = viewport;
             if (Event != null)
             {
-                if (Event.type == EventType.KeyDown) FocusVisible = true;
+                if (Event.type == EventType.KeyDown && (Event.keyCode == KeyCode.Tab || Event.keyCode == KeyCode.UpArrow
+                    || Event.keyCode == KeyCode.DownArrow || Event.keyCode == KeyCode.LeftArrow || Event.keyCode == KeyCode.RightArrow
+                    || Event.keyCode == KeyCode.Home || Event.keyCode == KeyCode.End)) FocusVisible = true;
                 else if (Event.type == EventType.MouseDown) FocusVisible = false;
             }
             ReducedMotion = reducedMotion;
@@ -83,12 +86,18 @@ namespace IrisMenus.UI
         public void EndFrame()
         {
             if (scopeDepth != 0) throw new InvalidOperationException("Unbalanced UI scopes.");
+            // Blank surfaces do not take part in Interact, but still dismiss text/keyboard focus.
+            if (Event != null && Event.type == EventType.MouseDown && input && modal == default)
+                Focus(default);
             if (Event != null && Event.type == EventType.KeyDown && Event.keyCode == KeyCode.Tab && input)
             {
                 MoveFocus(Event.shift ? -1 : 1);
                 Consume();
             }
             if (Captured != default && (!currentIds.Contains(Captured) || (Event != null && Event.type == EventType.MouseUp))) Release(Captured);
+            if (modal != default && Event != null && (Event.type == EventType.MouseDown || Event.type == EventType.MouseUp
+                || Event.type == EventType.MouseDrag || Event.type == EventType.ScrollWheel
+                || Event.type == EventType.KeyDown || Event.type == EventType.KeyUp)) Consume();
         }
 
         public void SetModal(UiId id)
@@ -144,6 +153,7 @@ namespace IrisMenus.UI
         public bool IsCaptured(UiId id) => Captured == id;
         public bool IsFocused(UiId id) => Focused == id;
         public void Focus(UiId id) { Focused = id; focusedFrame = Frame; keyboardPressed = default; }
+        internal void RestoreFocus(UiId id, bool visible) { Focus(id); FocusVisible = visible; }
         public bool IsRectVisible(Rect rect) => rect.width > 0f && rect.height > 0f && Intersects(ToScreen(rect), screenClip);
         public void Release(UiId id)
         {
@@ -154,7 +164,7 @@ namespace IrisMenus.UI
         public bool Hit(Rect rect)
         {
             if (!IsInputAllowed || Event == null || !rect.Contains(Event.mousePosition)) return false;
-            if (!screenClip.Contains(GUIUtility.GUIToScreenPoint(Event.mousePosition))) return false;
+            if (!screenClip.Contains(UiCoordinates.ToScreen(Event.mousePosition))) return false;
 #if RIMWORLD_1_7
             if (UnityStubs.Gui.GuiBackend.Current?.MouseOutsideHitClip == true) return false;
 #endif
@@ -291,12 +301,7 @@ namespace IrisMenus.UI
             Focused = default;
         }
 
-        private static Rect ToScreen(Rect rect)
-        {
-            Vector2 min = GUIUtility.GUIToScreenPoint(new Vector2(rect.xMin, rect.yMin));
-            Vector2 max = GUIUtility.GUIToScreenPoint(new Vector2(rect.xMax, rect.yMax));
-            return new Rect(Math.Min(min.x, max.x), Math.Min(min.y, max.y), Math.Abs(max.x - min.x), Math.Abs(max.y - min.y));
-        }
+        private static Rect ToScreen(Rect rect) => UiCoordinates.ToScreen(rect);
         private static bool Intersects(Rect a, Rect b) => a.xMin < b.xMax && a.xMax > b.xMin && a.yMin < b.yMax && a.yMax > b.yMin;
         private static Rect Intersection(Rect a, Rect b)
         {
@@ -329,7 +334,7 @@ namespace IrisMenus.UI
                 if (kind == 0) owner.layer = nextLayer;
                 else if (kind == 1) { owner.screenClip = Intersection(owner.screenClip, ToScreen(rect)); GUI.BeginGroup(rect); }
                 else if (kind == 2) owner.Alpha *= Mathf.Clamp01(alpha);
-                else { owner.input &= input; GUI.enabled &= input && owner.IsInputAllowed; }
+                else { owner.input &= input; GUI.enabled &= input; }
             }
             public void Dispose()
             {

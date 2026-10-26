@@ -21,7 +21,15 @@ namespace IrisMenus.UI
         public bool Draw(Rect rect, bool value, string label = null, bool enabled = true, float scale = 1f)
         {
             UiInteraction interaction = context.Interact(Id, rect, enabled);
-            if (interaction.Clicked) value = !value;
+            if (interaction.Clicked) { value = !value; GUI.changed = true; }
+            DrawVisual(rect, value, interaction, label, enabled, scale);
+            return value;
+        }
+
+        // Hosted vanilla controls keep their own input/painting semantics.
+        internal void DrawVisual(Rect rect, bool value, UiInteraction interaction, string label = null,
+            bool enabled = true, float scale = 1f)
+        {
             visual.Step(context, interaction, enabled);
             if (!initialized) { state.Snap(value ? 1f : 0f); initialized = true; }
             float check = state.Step(value ? 1f : 0f, context.Time, UiMotion.Standard, context.ReducedMotion);
@@ -49,7 +57,6 @@ namespace IrisMenus.UI
                 if (!string.IsNullOrEmpty(label)) context.Label(new Rect(box.xMax + 10f * scale, rect.y, Mathf.Max(0f, rect.width - size - 10f * scale), rect.height), label, palette.Ink);
                 visual.DrawFocus(context, rect);
             }
-            return value;
         }
     }
 }

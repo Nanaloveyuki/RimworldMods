@@ -12,12 +12,14 @@
     "About",
     "LoadFolders.xml",
     "LICENSE",
+    "NOTICE",
     {
       "source": "README.md",
       "optional": true
     },
     "Common/Defs",
     "Common/Languages",
+    "Common/Textures",
     "1.7/Rendering",
     "1.7/Assemblies/IrisMenus.dll",
     "docs",
@@ -28,6 +30,21 @@
   ],
   "required": [
     "1.7/Assemblies/IrisMenus.dll",
-    "1.7/Rendering/Frost17.frag.glsl"
+    "1.7/Rendering/Frost17.frag.glsl",
+    "NOTICE",
+    "Common/Textures/IrisMenus/UI/Glyphs/search.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/x.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/sun.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/moon.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/plus.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/arrow-right.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/chevron-right.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/circle-help.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/menu.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/sliders-horizontal.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/layers-2.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/grip.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/check.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/rotate-ccw.png"
   ]
 }

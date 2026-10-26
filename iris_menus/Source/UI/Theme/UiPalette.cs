@@ -18,6 +18,11 @@ namespace IrisMenus.UI
         public Color OnSelected { get; }
         public Color Signal { get; }
         public Color SwitchOn { get; }
+        public Color SwitchOff { get; }
+        public Color SwitchHover { get; }
+        public Color SwitchDisabled { get; }
+        public Color SwitchThumb { get; }
+        public Color SwitchFocus { get; }
         public Color Scrim { get; }
         public Color Footer { get; }
         public Color FooterInk { get; }
@@ -25,6 +30,7 @@ namespace IrisMenus.UI
         public Color FooterMuted { get; }
         public Color Error { get; }
         public Color Input { get; }
+        public Color SearchInput { get; }
         public Color Button { get; }
         public Color Sheet { get; }
         public Color Rail { get; }
@@ -59,15 +65,22 @@ namespace IrisMenus.UI
             Selected = Mix(0x252525, 0xe6e9eb, dark);
             OnSelected = Mix(0xf5f5f5, 0x191c1e, dark);
             Signal = Rgb(0xf1ec58);
-            SwitchOn = Mix(0x252525, 0x485058, dark);
+            SwitchOn = Mix(0x191919, 0xfafafa, dark);
+            SwitchOff = Mix(0xb3b3b3, 0x626262, dark);
+            SwitchHover = Rgb(0x8a8a8a);
+            SwitchDisabled = Mix(0xe6e6e6, 0x282828, dark);
+            SwitchThumb = Mix(0xfafafa, 0x1f1f1f, dark);
+            SwitchFocus = Mix(0x191919, 0xfffa00, dark);
             Scrim = Rgb(0x000000, UiMotion.Lerp(0.5f, 0.7f, dark));
             Footer = Mix(0x202326, 0x202326, dark, 1f, 0f);
             FooterInk = Rgb(0xebedef);
             FooterLine = Rgb(0xffffff, 69f / 255f);
             FooterMuted = Rgb(0xb3b8bc);
             Error = Mix(0xa72d32, 0xff989d, dark);
-            Input = Mix(0xffffff, 0xffffff, dark, 72f / 255f, 12f / 255f);
-            Button = Mix(0xffffff, 0x34383c, dark, 135f / 255f, 1f);
+            // Editable controls use a pale-gray light surface; search keeps its translucent white styling.
+            Input = Mix(0xe6e6e6, 0xffffff, dark, 1f, 12f / 255f);
+            SearchInput = Mix(0xffffff, 0xffffff, dark, 72f / 255f, 12f / 255f);
+            Button = Mix(0xe0e0e0, 0x34383c, dark);
             Sheet = Mix(0xf7f7f7, 0x272a2e, dark, 222f / 255f, 242f / 255f);
             Rail = Mix(0xf2f2f2, 0x1a1d20, dark, 107f / 255f, 168f / 255f);
             Marker = Mix(0x8a8a8a, 0x8d959c, dark);

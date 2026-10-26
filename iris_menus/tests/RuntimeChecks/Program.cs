@@ -21,6 +21,8 @@ internal static class Program
         MarkdownChecks.Run(Check);
         CatalogChecks.Run(Check);
         ModNameChecks.Run(Check);
+        ItemValueChecks.Run(Check);
+        ThingRegistryChecks.Run(Check);
         Console.WriteLine("PASS: " + assertions + " runtime assertions (engine doubles; no game rendering).");
     }
 

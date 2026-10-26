@@ -79,8 +79,13 @@ namespace IrisMenus
         public static string GetModDisplayName(ModContentPack content)
         {
             if (content == null) throw new ArgumentNullException(nameof(content));
+            if (IrisMenusMod.Instance != null && IrisMenusMod.Instance.Settings.SidebarAliases.TryGetValue(SidebarIdentity(content), out string playerAlias)
+                && !string.IsNullOrWhiteSpace(playerAlias)) return playerAlias;
             return TryGetModNameAlias(content, out string alias) ? alias : content.Name;
         }
+
+        internal static string SidebarIdentity(ModContentPack content) =>
+            content.PackageIdPlayerFacing ?? content.Name ?? string.Empty;
 
         internal static bool TryGetModNameAlias(ModContentPack content, out string alias)
         {

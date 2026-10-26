@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace IrisMenus
@@ -15,12 +16,17 @@ namespace IrisMenus
     /// </summary>
     public sealed class MarkdownParser : IMarkdownParser
     {
-        public string Parse(string markdown)
+        public string Parse(string markdown) => ParseDocument(markdown, null);
+
+        internal static string ParseDocument(string markdown, List<MarkdownLink> links)
         {
             if (string.IsNullOrEmpty(markdown)) return string.Empty;
 
             var result = new StringBuilder(markdown.Length + 16);
             int lineStart = 0;
+            bool inFence = false;
+            char fenceMarker = '\0';
+            int fenceLength = 0;
             while (lineStart <= markdown.Length)
             {
                 int lineEnd = markdown.IndexOf('\n', lineStart);
@@ -29,17 +35,53 @@ namespace IrisMenus
 
                 int contentEnd = lineEnd;
                 if (contentEnd > lineStart && markdown[contentEnd - 1] == '\r') contentEnd--;
-                AppendBlockLine(result, markdown.Substring(lineStart, contentEnd - lineStart));
+                string line = markdown.Substring(lineStart, contentEnd - lineStart);
+                if (TryFence(line, out char marker, out int length))
+                {
+                    if (!inFence)
+                    {
+                        inFence = true;
+                        fenceMarker = marker;
+                        fenceLength = length;
+                    }
+                    else if (marker == fenceMarker && length >= fenceLength)
+                    {
+                        inFence = false;
+                    }
+                    result.Append(line);
+                }
+                else if (inFence)
+                {
+                    // Fenced content is literal: emphasis and rich-text tags are not parsed.
+                    result.Append(line);
+                }
+                else
+                {
+                    AppendBlockLine(result, line, links, lineStart);
+                }
 
                 if (!hasNewline) break;
                 result.Append('\n');
                 lineStart = lineEnd + 1;
-                if (lineStart == markdown.Length) break;
             }
             return result.ToString();
         }
 
-        private static void AppendBlockLine(StringBuilder result, string line)
+        private static bool TryFence(string line, out char marker, out int length)
+        {
+            marker = '\0';
+            length = 0;
+            int start = 0;
+            while (start < line.Length && start < 3 && line[start] == ' ') start++;
+            if (start >= line.Length || (line[start] != '`' && line[start] != '~')) return false;
+            marker = line[start];
+            int cursor = start;
+            while (cursor < line.Length && line[cursor] == marker) cursor++;
+            length = cursor - start;
+            return length >= 3;
+        }
+
+        private static void AppendBlockLine(StringBuilder result, string line, List<MarkdownLink> links, int lineStart)
         {
             int start = 0;
             int leadingSpaces = 0;
@@ -64,11 +106,12 @@ namespace IrisMenus
             if (headingEnd > start && headingEnd - start <= 6 &&
                 headingEnd < line.Length && char.IsWhiteSpace(line[headingEnd]))
             {
-                string heading = line.Substring(headingEnd).Trim();
-                heading = TrimClosingHeadingMarkers(heading);
-                string headingSource = line.Substring(0, start) + heading;
+                int headingStart = headingEnd;
+                while (headingStart < line.Length && char.IsWhiteSpace(line[headingStart])) headingStart++;
+                string heading = TrimClosingHeadingMarkers(line.Substring(headingStart).TrimEnd());
                 result.Append("<b>");
-                result.Append(ParseInline(headingSource));
+                result.Append(ParseInline(line.Substring(0, start), links, result.Length, lineStart, 0));
+                result.Append(ParseInline(heading, links, result.Length, lineStart, headingStart));
                 result.Append("</b>");
                 return;
             }
@@ -76,9 +119,11 @@ namespace IrisMenus
             if (start < line.Length && (line[start] == '-' || line[start] == '+' || line[start] == '*') &&
                 start + 1 < line.Length && char.IsWhiteSpace(line[start + 1]))
             {
-                result.Append(ParseInline(line.Substring(0, start)));
+                result.Append(ParseInline(line.Substring(0, start), links, result.Length, lineStart, 0));
                 result.Append("- ");
-                result.Append(ParseInline(line.Substring(start + 1).TrimStart()));
+                int contentStart = start + 1;
+                while (contentStart < line.Length && char.IsWhiteSpace(line[contentStart])) contentStart++;
+                result.Append(ParseInline(line.Substring(contentStart), links, result.Length, lineStart, contentStart));
                 return;
             }
 
@@ -87,23 +132,27 @@ namespace IrisMenus
             if (orderedEnd > start && orderedEnd < line.Length && line[orderedEnd] == '.' &&
                 orderedEnd + 1 < line.Length && char.IsWhiteSpace(line[orderedEnd + 1]))
             {
-                result.Append(ParseInline(line.Substring(0, start)));
+                result.Append(ParseInline(line.Substring(0, start), links, result.Length, lineStart, 0));
                 result.Append(line.Substring(start, orderedEnd - start + 1));
                 result.Append(' ');
-                result.Append(ParseInline(line.Substring(orderedEnd + 1).TrimStart()));
+                int contentStart = orderedEnd + 1;
+                while (contentStart < line.Length && char.IsWhiteSpace(line[contentStart])) contentStart++;
+                result.Append(ParseInline(line.Substring(contentStart), links, result.Length, lineStart, contentStart));
                 return;
             }
 
             if (start < line.Length && line[start] == '>' &&
                 start + 1 < line.Length && char.IsWhiteSpace(line[start + 1]))
             {
-                result.Append(ParseInline(line.Substring(0, start)));
+                result.Append(ParseInline(line.Substring(0, start), links, result.Length, lineStart, 0));
                 result.Append("> ");
-                result.Append(ParseInline(line.Substring(start + 1).TrimStart()));
+                int contentStart = start + 1;
+                while (contentStart < line.Length && char.IsWhiteSpace(line[contentStart])) contentStart++;
+                result.Append(ParseInline(line.Substring(contentStart), links, result.Length, lineStart, contentStart));
                 return;
             }
 
-            result.Append(ParseInline(line));
+            result.Append(ParseInline(line, links, result.Length, lineStart, 0));
         }
 
         private static string TrimClosingHeadingMarkers(string heading)
@@ -115,7 +164,7 @@ namespace IrisMenus
             return heading.Substring(0, markerStart).TrimEnd();
         }
 
-        private static string ParseInline(string text)
+        private static string ParseInline(string text, List<MarkdownLink> links, int renderedOffset, int lineStart, int column)
         {
             var result = new StringBuilder(text.Length + 8);
             int index = 0;
@@ -144,7 +193,11 @@ namespace IrisMenus
                     {
                         string label = text.Substring(index + 1, labelEnd - index - 1);
                         result.Append("<color=#66b3ffff>");
-                        result.Append(ParseInline(label));
+                        int renderedStart = renderedOffset + result.Length;
+                        result.Append(ParseInline(label, null, 0, lineStart, column + index + 1));
+                        if (links != null && DocumentUri.TryParse(text.Substring(labelEnd + 2, destinationEnd - labelEnd - 2), out DocumentUri uri))
+                            links.Add(new MarkdownLink(label, uri, lineStart, column + index,
+                                renderedStart, renderedOffset + result.Length));
                         result.Append("</color>");
                         index = destinationEnd + 1;
                         continue;
@@ -158,7 +211,8 @@ namespace IrisMenus
                     if (closing >= 0)
                     {
                         result.Append("<b>");
-                        result.Append(ParseInline(text.Substring(index + 2, closing - index - 2)));
+                        result.Append(ParseInline(text.Substring(index + 2, closing - index - 2), links,
+                            renderedOffset + result.Length, lineStart, column + index + 2));
                         result.Append("</b>");
                         index = closing + 2;
                         continue;
@@ -173,7 +227,8 @@ namespace IrisMenus
                     if (closing >= 0)
                     {
                         result.Append("<i>");
-                        result.Append(ParseInline(text.Substring(index + 1, closing - index - 1)));
+                        result.Append(ParseInline(text.Substring(index + 1, closing - index - 1), links,
+                            renderedOffset + result.Length, lineStart, column + index + 1));
                         result.Append("</i>");
                         index = closing + 1;
                         continue;

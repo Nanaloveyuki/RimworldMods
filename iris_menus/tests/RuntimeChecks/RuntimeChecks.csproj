@@ -21,6 +21,10 @@
     <Compile Include="../../Source/MenuControls.cs" Link="Production/MenuControls.cs" />
     <Compile Include="../../Source/MarkdownParser.cs" Link="Production/MarkdownParser.cs" />
     <Compile Include="../../Source/MarkdownViews.cs" Link="Production/MarkdownViews.cs" />
+    <Compile Include="../../Source/Documents.cs" Link="Production/Documents.cs" />
+    <Compile Include="../../Source/MarkdownDocument.cs" Link="Production/MarkdownDocument.cs" />
+    <Compile Include="../../Source/ItemValueColors.cs" Link="Production/ItemValueColors.cs" />
+    <Compile Include="../../Source/ThingRegistry.cs" Link="Production/ThingRegistry.cs" />
     <PackageReference Include="Lib.Harmony" Version="2.4.1" />
   </ItemGroup>
 </Project>

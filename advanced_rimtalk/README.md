@@ -128,6 +128,13 @@ Arti functions and `const` declarations are registered in a per-game global inst
 
 For detailed Pawn data, use the read-only `pawn.info` object (or `core.pawn.info` for the current Pawn). It exposes structured age decomposition, health state, all Hediffs including hidden ones, needs, prompt context, and the public Pawn trackers; existing `pawn.age`, `pawn.health`, and raw tracker paths remain compatible.
 
+### IrisMenus documentation themes
+
+Documentation panels and table cells use standard game surfaces, allowing IrisMenus'
+native hosted theme to adapt Light/Dark backgrounds alongside the existing text-color
+contrast path. Arti token color tags, document links, source mode and clipboard content
+remain unchanged; no blanket monochrome tint is applied to syntax highlighting.
+
 ## Build
 
 Install the **.NET 10 SDK**. `Directory.Build.props` shares reference paths between the mod and checks, with Windows and WSL defaults. `Assembly-CSharp.dll` and `UnityStubs.dll` come from the RimWorld 1.7 installation root (`E:\Apps\Steam\steamapps\common\RimWorld`), not the former Unity `RimWorldWin64_Data/Managed` directory. Harmony defaults to the installed `Mods/2009463077/1.7/Assemblies/0Harmony.dll` (Harmony 3). Override `RimWorldDir` to select the installation, or `RimWorldAssemblyDir`, `RimTalkModDir`, `RimTalkAssemblyDir`, and `HarmonyAssemblyPath` for individual references.

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -14,8 +15,30 @@ namespace IrisMenus
             {
                 internal ModContentPack Content;
                 internal readonly List<MenuPage> Pages = new List<MenuPage>();
+                internal readonly UiTabs Tabs;
+                internal OwnerGroup(UiContext ui, ModContentPack content)
+                { Content = content; Tabs = new UiTabs(ui, Array.Empty<string>()); }
+
+                internal void SyncTabs()
+                {
+                    var labels = new List<string>();
+                    var ids = new List<string>();
+                    foreach (MenuPage page in Pages)
+                    {
+                        if (page.ActionLauncher) continue;
+                        labels.Add(page.DisplayTitle); ids.Add(page.Id);
+                    }
+                    Tabs.SetItems(labels.ToArray(), ids.ToArray());
+                }
                 internal string Name => Pages[0].DisplayModName;
-                internal bool Hosted => Pages[0].Adapted;
+                internal bool Hosted
+                {
+                    get
+                    {
+                        foreach (MenuPage page in Pages) if (!page.Adapted) return false;
+                        return true;
+                    }
+                }
             }
 
             private sealed class PageState : IDisposable
@@ -27,10 +50,9 @@ namespace IrisMenus
                 internal MenuNativePage Native;
                 internal bool Failed;
                 internal OwnerGroup Group;
-                internal UiTabs Tabs;
-                internal UiSelect TabSelect;
                 internal int TabIndex;
                 internal UiButton[] Chapters;
+                internal UiTween[] ChapterInk;
                 internal NoteState[] Notes;
                 internal UiTween ChapterMarker;
                 internal readonly Dictionary<string, UiButton> Actions = new Dictionary<string, UiButton>(StringComparer.Ordinal);
@@ -51,6 +73,7 @@ namespace IrisMenus
                         if (Native != null)
                         {
                             Chapters = new UiButton[Native.Chapters.Count];
+                            ChapterInk = new UiTween[Chapters.Length];
                             for (int i = 0; i < Chapters.Length; i++) Chapters[i] = new UiButton(ui);
                             Notes = new NoteState[Native.Notes.Count];
                             for (int i = 0; i < Notes.Length; i++) Notes[i] = new NoteState(Native.Notes[i], ui, i == 0);
@@ -60,6 +83,7 @@ namespace IrisMenus
                     {
                         Dispose();
                         Chapters = Array.Empty<UiButton>(); Notes = Array.Empty<NoteState>();
+                        ChapterInk = Array.Empty<UiTween>();
                         Failed = true; ReportFailure("create native " + Page.Id, exception);
                     }
                 }
@@ -94,13 +118,21 @@ namespace IrisMenus
                 if (revision == host.catalogRevision && ReferenceEquals(language, host.catalogLanguage)) return;
                 revision = host.catalogRevision; language = host.catalogLanguage;
                 var valid = new HashSet<string>(StringComparer.Ordinal);
+                OwnerGroup[] previousGroups = owners.ToArray();
+                foreach (OwnerGroup group in previousGroups) group.Pages.Clear();
                 owners.Clear(); registeredOwners.Clear(); hostedOwners.Clear();
                 foreach (MenuPage page in host.pages)
                 {
                     valid.Add(page.Id);
                     OwnerGroup group = null;
                     foreach (OwnerGroup candidate in owners) if (ReferenceEquals(candidate.Content, page.Content)) { group = candidate; break; }
-                    if (group == null) { group = new OwnerGroup { Content = page.Content }; owners.Add(group); }
+                    if (group == null)
+                    {
+                        foreach (OwnerGroup candidate in previousGroups)
+                            if (ReferenceEquals(candidate.Content, page.Content)) { group = candidate; break; }
+                        if (group == null) group = new OwnerGroup(ui, page.Content);
+                        owners.Add(group);
+                    }
                     group.Pages.Add(page);
                     if (states.TryGetValue(page.Id, out PageState previous) &&
                         (!ReferenceEquals(previous.Page, page) || !ReferenceEquals(previous.Presentation, MenuRegistry.PresentationFor(page))))
@@ -109,17 +141,87 @@ namespace IrisMenus
                 var removed = new List<string>();
                 foreach (var pair in states) if (!valid.Contains(pair.Key)) { pair.Value.Dispose(); removed.Add(pair.Key); }
                 foreach (string id in removed) states.Remove(id);
-                foreach (OwnerGroup group in owners) (group.Hosted ? hostedOwners : registeredOwners).Add(group);
-                registeredLabels = new string[registeredOwners.Count]; hostedLabels = new string[hostedOwners.Count];
-                registeredIcons = new UiGlyphKind[registeredOwners.Count]; hostedIcons = new UiGlyphKind[hostedOwners.Count];
-                for (int i = 0; i < registeredLabels.Length; i++)
-                { registeredLabels[i] = registeredOwners[i].Name; registeredIcons[i] = UiGlyphKind.Settings; }
-                for (int i = 0; i < hostedLabels.Length; i++)
-                { hostedLabels[i] = hostedOwners[i].Name; hostedIcons[i] = UiGlyphKind.Layers; }
-                registeredRail = new UiSideRail(ui, registeredLabels); hostedRail = new UiSideRail(ui, hostedLabels);
+                ApplySidebarOrder();
+                foreach (OwnerGroup group in owners)
+                {
+                    group.SyncTabs();
+                    (group.Hosted ? hostedOwners : registeredOwners).Add(group);
+                }
+                sidebarOwners.Clear();
+                foreach (string key in Settings.SidebarPins)
+                    foreach (OwnerGroup group in owners)
+                        if (MenuRegistry.SidebarIdentity(group.Content) == key && !sidebarOwners.Contains(group)) sidebarOwners.Add(group);
+                pinnedCount = sidebarOwners.Count;
+                foreach (OwnerGroup group in registeredOwners)
+                    if (!Settings.SidebarPins.Contains(MenuRegistry.SidebarIdentity(group.Content))) sidebarOwners.Add(group);
+                registeredCount = sidebarOwners.Count;
+                foreach (OwnerGroup group in hostedOwners)
+                    if (!Settings.SidebarPins.Contains(MenuRegistry.SidebarIdentity(group.Content))) sidebarOwners.Add(group);
+                sidebarLabels = new string[sidebarOwners.Count];
+                sidebarIcons = new Texture2D[sidebarOwners.Count];
+                sidebarKeys = new string[sidebarOwners.Count];
+                sidebarRects = new Rect[sidebarOwners.Count];
+                for (int i = 0; i < sidebarOwners.Count; i++)
+                {
+                    sidebarLabels[i] = sidebarOwners[i].Name;
+                    sidebarIcons[i] = ModIcon(sidebarOwners[i].Content);
+                    sidebarKeys[i] = MenuRegistry.SidebarIdentity(sidebarOwners[i].Content);
+                }
+                sidebarRail = sidebarRail ?? new UiSideRail(ui, sidebarLabels, sidebarKeys);
+                sidebarRail.SetItems(sidebarLabels, sidebarKeys);
                 foreach (PageState state in states.Values) BindTabs(state);
-                foreach (MenuPage adapter in host.adapters)
-                    if (!adapterChecks.ContainsKey(adapter.Id)) adapterChecks.Add(adapter.Id, new UiCheckbox(ui));
+            }
+
+            private Rect[] sidebarRects = Array.Empty<Rect>();
+            private int pinnedCount, registeredCount;
+            private void ApplySidebarOrder()
+            {
+                owners.Sort((left, right) =>
+                {
+                    string lk = MenuRegistry.SidebarIdentity(left.Content), rk = MenuRegistry.SidebarIdentity(right.Content);
+                    int li = Settings.SidebarOrder.IndexOf(lk), ri = Settings.SidebarOrder.IndexOf(rk);
+                    if (li < 0) li = int.MaxValue; if (ri < 0) ri = int.MaxValue;
+                    if (li != ri) return li.CompareTo(ri);
+                    return StringComparer.CurrentCultureIgnoreCase.Compare(left.Name, right.Name);
+                });
+            }
+
+
+            private readonly List<OwnerGroup> sidebarOwners = new List<OwnerGroup>();
+            private UiSideRail sidebarRail;
+            private string[] sidebarLabels = Array.Empty<string>(), sidebarKeys = Array.Empty<string>();
+            private Texture2D[] sidebarIcons = Array.Empty<Texture2D>();
+            private readonly Dictionary<ModContentPack, Texture2D> modIcons = new Dictionary<ModContentPack, Texture2D>();
+
+            private Texture2D ModIcon(ModContentPack content)
+            {
+                if (content == null) return null;
+                if (modIcons.TryGetValue(content, out Texture2D cached)) return cached;
+                string path = Path.Combine(content.RootDir, "About", "ModIcon.png");
+                Texture2D icon = null;
+                try
+                {
+                    if (File.Exists(path))
+                    {
+                        icon = new Texture2D(0, 0);
+                        if (!icon.LoadImage(File.ReadAllBytes(path)))
+                        { UnityEngine.Object.Destroy(icon); icon = null; }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    if (icon != null) UnityEngine.Object.Destroy(icon);
+                    icon = null;
+                    Log.Warning("[IrisMenus] Cannot load ModIcon at " + path + ": " + exception.Message);
+                }
+                modIcons.Add(content, icon);
+                return icon;
+            }
+
+            private void DisposeModIcons()
+            {
+                foreach (Texture2D icon in modIcons.Values) if (icon != null) UnityEngine.Object.Destroy(icon);
+                modIcons.Clear();
             }
 
             private PageState GetPage(MenuPage page)
@@ -134,18 +236,12 @@ namespace IrisMenus
 
             private void BindTabs(PageState state)
             {
+                state.Group = null; state.TabIndex = -1;
                 foreach (OwnerGroup group in owners)
                 {
                     if (!ReferenceEquals(group.Content, state.Page.Content)) continue;
                     state.Group = group;
-                    var labels = new List<string>();
-                    foreach (MenuPage page in group.Pages)
-                        if (!page.ActionLauncher) labels.Add(page.DisplayTitle);
-                    if (labels.Count == 0) { state.Tabs = null; state.TabSelect = null; return; }
-                    state.Tabs = new UiTabs(ui, labels.ToArray());
-                    state.TabSelect = new UiSelect(ui, labels.ToArray());
                     int index = 0;
-                    state.TabIndex = -1;
                     foreach (MenuPage page in group.Pages)
                     {
                         if (page.ActionLauncher) continue;
@@ -158,12 +254,11 @@ namespace IrisMenus
 
             private void DrawTabs(Rect main)
             {
-                if (selected?.Tabs == null) return;
+                UiTabs tabs = selected?.Group?.Tabs;
+                if (tabs == null || tabs.Count == 0) return;
                 float width = Mathf.Max(1f, main.width - 108f * scale);
-                int index = selected.TabIndex;
-                Rect rect = new Rect(main.x, main.y, Mathf.Min(width, selected.Tabs.Count * 160f * scale), 44f * scale);
-                if (selected.Tabs.Count * 120f * scale <= width) index = selected.Tabs.Draw(rect, index);
-                else index = selected.TabSelect.Draw(new Rect(rect.x, rect.y, Mathf.Min(340f * scale, width), rect.height), index, scale: scale);
+                Rect pager = new Rect(main.xMax - 196f * scale, main.y - 64f * scale, 196f * scale, 40f * scale);
+                int index = tabs.Draw(new Rect(main.x, main.y, width, 44f * scale), selected.TabIndex, scale: scale, paginationRect: pager);
                 if (index != selected.TabIndex) SelectTab(index);
             }
 
@@ -180,12 +275,11 @@ namespace IrisMenus
 
             private void Navigate(MenuPage page)
             {
-                MenuPage old = host.session.Selected;
                 host.Select(page);
                 if (!ReferenceEquals(host.session.Selected, page)) return;
+                managementOpen = false;
                 navigationOpen = contextOpen = false;
                 pageChanged = true;
-                if (!ReferenceEquals(old, page)) selected?.TabSelect?.Close();
             }
 
             private void NavigateOwner(OwnerGroup group)
@@ -209,42 +303,52 @@ namespace IrisMenus
                 ui.Fill(new Rect(rect.x, rect.yMax - 70f * scale, rect.width, 1f), palette.Line);
                 ui.FontSize = 12f * scale;
                 if (manage.Draw(new Rect(rect.x + 18f * scale, rect.yMax - 52f * scale, rect.width - 36f * scale, 38f * scale),
-                    T("IM_Manage"), variant: UiButtonVariant.Light, icon: UiGlyphKind.Plus, scale: scale)) managementOpen = true;
+                    T("IM_Manage"), variant: UiButtonVariant.Light, icon: UiGlyphKind.Plus, scale: scale))
+                {
+                    managementOpen = true;
+                    navigationOpen = contextOpen = false;
+                    ui.Focus(default(UiId));
+                }
                 ui.FontSize = oldSize;
             }
 
-            private float RailHeight() => 76f * scale + registeredRail.NaturalHeight(rowHeight, 0f) + hostedRail.NaturalHeight(rowHeight, 0f);
+            private float RailHeight() => 3f * 34f * scale + sidebarOwners.Count * rowHeight + 16f * scale;
 
             private void DrawRail(Rect rect)
             {
-                float y = 0f;
-                DrawRailGroup(registeredOwners, registeredRail, T("IM_NativeRegistered"), ref y, rect.width);
-                DrawRailGroup(hostedOwners, hostedRail, T("IM_NativeHosted"), ref y, rect.width);
-            }
-
-            private void DrawRailGroup(List<OwnerGroup> groups, UiSideRail rail, string label, ref float y, float width)
-            {
-                if (groups.Count == 0) return;
                 float oldSize = ui.FontSize;
-                ui.FontSize = 11f * scale;
-                ui.Label(new Rect(22f * scale, y, width - 44f * scale, 30f * scale), label, ui.Palette.Muted);
-                y += 34f * scale;
-                ui.FontSize = 13f * scale;
+                float y = 0f;
+                for (int category = 0; category < 3; category++)
+                {
+                    int first = category == 0 ? 0 : category == 1 ? pinnedCount : registeredCount;
+                    int end = category == 0 ? pinnedCount : category == 1 ? registeredCount : sidebarOwners.Count;
+                    ui.FontSize = 10f * scale;
+                    ui.Label(new Rect(22f * scale, y, Mathf.Max(0f, rect.width - 44f * scale), 30f * scale),
+                        "// " + T(category == 0 ? "IM_NativePinned" : category == 1 ? "IM_NativeRegistered" : "IM_NativeHosted"), ui.Palette.Marker);
+                    y += 34f * scale;
+                    for (int i = first; i < end; i++)
+                    {
+                        sidebarRects[i] = new Rect(0f, y, rect.width, rowHeight);
+                        HandleSidebarContext(sidebarRects[i], i);
+                        y += rowHeight;
+                    }
+                }
                 int active = -1;
                 if (!host.browse.ShowResults)
-                    for (int i = 0; i < groups.Count; i++) if (ReferenceEquals(groups[i].Content, host.session.Selected?.Content)) active = i;
-                float height = rail.NaturalHeight(rowHeight, 0f);
-                int next = rail.Draw(new Rect(0f, y, width, height), active, rowHeight: rowHeight, gap: 0f,
-                    icons: ReferenceEquals(groups, registeredOwners) ? registeredIcons : hostedIcons);
-                if (next >= 0 && next != active) NavigateOwner(groups[next]);
-                y += height + 12f * scale;
+                    for (int i = 0; i < sidebarOwners.Count; i++)
+                        if (ReferenceEquals(sidebarOwners[i].Content, host.session.Selected?.Content)) { active = i; break; }
+                ui.FontSize = 13f * scale;
+                int next = sidebarRail.Draw(new Rect(0f, 0f, rect.width, RailHeight()), active,
+                    rowHeight: rowHeight, gap: 0f, icons: sidebarIcons, itemRects: sidebarRects);
+                if (next >= 0 && next != active) NavigateOwner(sidebarOwners[next]);
                 ui.FontSize = oldSize;
             }
 
             private void ChangeQuery(string query)
             {
-                if (host.browse.Query.Length == 0 && query.Length > 0 && !host.browse.ViewingTarget)
+                if (host.browse.Query.Length == 0 || host.browse.Managing)
                     host.browse.SetSearchScope(Settings.SearchCurrentMod ? host.session.Selected?.OwnerId : null);
+                managementOpen = navigationOpen = contextOpen = false;
                 host.browse.Search(query);
                 host.resultScroll = host.adapterScroll = Vector2.zero;
                 resultsScroll.Reset(); host.catalog.Query(query, host.browse.Scope); host.RebuildNavigation();
@@ -265,6 +369,7 @@ namespace IrisMenus
                 if (!host.catalog.Pending) host.browse.ResultPage = Math.Min(host.browse.ResultPage, pageCount - 1);
                 resultStart = host.browse.ResultPage * MenuCatalog.PageSize;
                 resultEnd = Math.Min(count, resultStart + MenuCatalog.PageSize);
+                if (host.catalog.Pending) searchLoader.Draw(new Rect(rect.x, rect.y + 42f * scale, rect.width, 4f * scale), T("IM_Indexing"), scale: scale);
                 Rect body = new Rect(rect.x, rect.y + 50f * scale, rect.width, Mathf.Max(1f, rect.height - 98f * scale));
                 if (resultEnd <= resultStart) ui.Label(body, T(host.catalog.Pending ? "IM_Indexing" : "IM_NoResults"), ui.Palette.Muted, TextAnchor.MiddleCenter, true);
                 else
@@ -306,22 +411,26 @@ namespace IrisMenus
                 }
             }
 
-            private float DrawNativeActions(Rect rect)
+            internal float DrawNativeActions(Rect rect)
             {
                 var actions = MenuOwnerActions.For(selected.Page);
                 float x = rect.x, y = rect.y;
                 bool any = false;
+                float font = ui.FontSize;
+                ui.FontSize = 13f * scale;
                 foreach (MenuOwnerAction action in actions)
                 {
                     if (!action.IsVisible()) continue;
                     if (!selected.Actions.TryGetValue(action.Id, out UiButton button))
                     { button = new UiButton(ui); selected.Actions.Add(action.Id, button); }
                     string label = action.DisplayLabel();
-                    float width = Mathf.Clamp(Text.CalcSize(label).x + 24f * scale, 100f * scale, Mathf.Max(100f * scale, rect.width));
+                    float width = Mathf.Clamp(UiTextMetrics.Width(ui, label) + 80f * scale, 140f * scale, Mathf.Max(140f * scale, rect.width));
                     if (x > rect.x && x + width > rect.xMax) { x = rect.x; y += 44f * scale; }
-                    if (button.Draw(new Rect(x, y, Mathf.Min(width, rect.width), 36f * scale), label, action.IsEnabled())) Activate(action);
+                    if (button.Draw(new Rect(x, y, Mathf.Min(width, rect.width), 36f * scale), label, action.IsEnabled(),
+                        variant: UiButtonVariant.Light, scale: scale)) Activate(action);
                     x += width + 8f * scale; any = true;
                 }
+                ui.FontSize = font;
                 return any ? y - rect.y + 48f * scale : 0f;
             }
         }

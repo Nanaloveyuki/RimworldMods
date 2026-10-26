@@ -12,8 +12,6 @@ namespace AdvancedRimTalk.UI
         private const float LeftPanelWidth = 255f;
         private const float PanelGap = 8f;
         private const float RowHeight = 24f;
-        private static readonly Color PanelBackground =
-            new Color(0.05f, 0.05f, 0.05f, 0.55f);
         private static readonly Color SectionColor =
             new Color(1f, 0.85f, 0.55f);
 
@@ -123,7 +121,7 @@ namespace AdvancedRimTalk.UI
 
         private void DrawNavigation(Rect rect)
         {
-            Widgets.DrawBoxSolid(rect, PanelBackground);
+            Widgets.DrawMenuSection(rect);
             float contentWidth = Mathf.Max(1f, rect.width - 18f);
             float contentHeight = 64f + catalog.Categories.Count * 30f;
             foreach (DocumentationCategory category in catalog.Categories)
@@ -226,7 +224,7 @@ namespace AdvancedRimTalk.UI
 
         private void DrawDocument(Rect rect)
         {
-            Widgets.DrawBoxSolid(rect, PanelBackground);
+            Widgets.DrawMenuSection(rect);
             if (selectedEntry == null)
             {
                 Text.Anchor = TextAnchor.MiddleCenter;

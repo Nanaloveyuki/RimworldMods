@@ -4,7 +4,10 @@ namespace Verse
 {
     public class ModSettings { public virtual void ExposeData() { } }
     public static class Translation { public static string Translate(this string text) => text; }
-    public enum LookMode { Value }
+    public interface IExposable { void ExposeData(); }
+    public enum LoadSaveMode { Inactive, Saving, LoadingVars, PostLoadInit }
+    public static class Scribe { public static LoadSaveMode mode; }
+    public enum LookMode { Value, Deep }
     public static class Scribe_Values
     {
         public static bool Loading;

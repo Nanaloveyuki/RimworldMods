@@ -9,6 +9,7 @@ namespace IrisMenus.UI
         internal readonly UiId Id;
         private readonly UiId closeId;
         private UiId previousFocus;
+        private bool previousFocusVisible;
         private readonly bool slides;
         private UiTween opacity, position;
         private UiTween hover, press, focus;
@@ -36,6 +37,7 @@ namespace IrisMenus.UI
             if (open && !retained)
             {
                 previousFocus = Context.Focused;
+                previousFocusVisible = Context.FocusVisible;
                 focusOnEntry = true;
                 retained = true;
                 position.Snap(0f);
@@ -49,7 +51,7 @@ namespace IrisMenus.UI
             else position.Snap(position.Value);
             if (!open && alpha <= 0f && !opacity.IsRunning && (!slides || !position.IsRunning))
             {
-                if (retained && wasTopLayer) Context.Focus(previousFocus);
+                if (retained && wasTopLayer) Context.RestoreFocus(previousFocus, previousFocusVisible);
                 retained = false;
                 focusOnEntry = false;
             }

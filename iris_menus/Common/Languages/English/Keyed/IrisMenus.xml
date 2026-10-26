@@ -60,7 +60,6 @@
   <IM_NativeTips>Show hover tips</IM_NativeTips>
   <IM_NativeTipDelay>Tip delay</IM_NativeTipDelay>
   <IM_NativeTipDelayHint>How long to wait before showing an IrisMenus hover tip, in milliseconds.</IM_NativeTipDelayHint>
-  <IM_NativeSavedAutomatically>Changes are saved when leaving this page.</IM_NativeSavedAutomatically>
   <IM_NativeCurrentAppearance>Current appearance</IM_NativeCurrentAppearance>
   <IM_NativeOn>On</IM_NativeOn>
   <IM_NativeOff>Off</IM_NativeOff>
@@ -72,7 +71,9 @@
   <IM_NativeNavigationNote>Remember last page restores your browsing position when IrisMenus opens. The default search scope chooses all mods or the current mod when starting a search from a page.</IM_NativeNavigationNote>
   <IM_NativeInteractionNoteTitle>Hover tips</IM_NativeInteractionNoteTitle>
   <IM_NativeInteractionNote>Hover tips explain full-screen IrisMenus controls. Adjust the delay to change how soon they appear, or turn tips off.</IM_NativeInteractionNote>
-  <IM_NativeOpen>Open full-screen interface</IM_NativeOpen>
+  <IM_NativeMode>New interface</IM_NativeMode>
+  <IM_NativeModeTip>Switch between the original window and the full-screen interface. Current settings must save successfully before switching.</IM_NativeModeTip>
+  <IM_LinkUnavailable>Cannot open this settings link: {0}</IM_LinkUnavailable>
   <IM_NativeModSettings>Mod settings</IM_NativeModSettings>
   <IM_NativeSwitchLight>Switch to light theme</IM_NativeSwitchLight>
   <IM_NativeSwitchDark>Switch to dark theme</IM_NativeSwitchDark>
@@ -83,14 +84,61 @@
   <IM_NativeThisPage>This page</IM_NativeThisPage>
   <IM_NativeNotes>Usage notes</IM_NativeNotes>
   <IM_NativeReset>Restore defaults</IM_NativeReset>
-  <IM_NativeSaveOnLeave>Settings saved when leaving a page</IM_NativeSaveOnLeave>
-  <IM_NativeReturnOriginal>Original interface</IM_NativeReturnOriginal>
   <IM_NativeLibrary>Settings library</IM_NativeLibrary>
   <IM_NativeRegistered>Registered</IM_NativeRegistered>
   <IM_NativeHosted>Hosted</IM_NativeHosted>
+  <IM_NativePinned>Pinned</IM_NativePinned>
+  <IM_NativePin>Pin to top</IM_NativePin>
+  <IM_NativeUnpin>Unpin</IM_NativeUnpin>
+  <IM_NativeAlias>Rename in sidebar…</IM_NativeAlias>
+  <IM_NativeMoveUp>Move up</IM_NativeMoveUp>
+  <IM_NativeMoveDown>Move down</IM_NativeMoveDown>
+  <IM_NativeRemove>Remove from sidebar</IM_NativeRemove>
+  <IM_NativeAliasTitle>Sidebar name</IM_NativeAliasTitle>
+  <IM_NativeAliasDescription>Choose a name for this mod. Leave it empty to restore its default name.</IM_NativeAliasDescription>
+  <IM_NativeAliasPlaceholder>Mod name</IM_NativeAliasPlaceholder>
+  <IM_NativeSave>Save</IM_NativeSave>
   <IM_NativeOpenResult>Open</IM_NativeOpenResult>
   <IM_NativeResetTitle>Restore this page's defaults?</IM_NativeResetTitle>
   <IM_NativeResetDescription>Restore the settings declared by this page. Other pages, mods and window geometry are not changed.</IM_NativeResetDescription>
   <IM_NativeDone>Done</IM_NativeDone>
-  <IM_NativeHelpDescription>Full-screen IrisMenus uses the same settings pages and save owners as the original interface. Pages without a native presentation retain their original controls on a dark compatibility surface. Chapters, notes, previews and reset are shown only when a page explicitly provides them. Searches open the owning page; they do not infer editable fields.</IM_NativeHelpDescription>
+  <IM_NativeHelpDescription>Full-screen IrisMenus uses the same settings pages and save owners as the original interface. Hosted pages retain their controls and layout while ordinary backgrounds and text follow the current theme. Chapters, notes, previews and reset are shown only when a page explicitly provides them. The interface switch preserves the current page and browsing position.</IM_NativeHelpDescription>
+  <IM_NativeManagementTitle>Add mods to the settings library</IM_NativeManagementTitle>
+  <IM_NativeManagementHint>Choose which hosted settings appear in IrisMenus. This does not enable or disable game mods.</IM_NativeManagementHint>
+  <IM_NativeManagementShown>Shown in library</IM_NativeManagementShown>
+  <IM_NativeManagementHidden>Hidden from library</IM_NativeManagementHidden>
+  <IM_NativeManagementAlwaysShown>Registered · always shown</IM_NativeManagementAlwaysShown>
+  <IM_NativeManagementNoPreview>No preview image</IM_NativeManagementNoPreview>
+  <IM_NativeManagementEmpty>No settings pages are available.</IM_NativeManagementEmpty>
+  <IM_ValueColors>Item value colors</IM_ValueColors>
+  <IM_ValueColorsHint>Colors use the market value of one item, not its stack. Each band includes its starting value and ends at the next band's start; the final band has no upper limit. The first band always starts at 0. Click a color to edit it; changes take effect when you apply the color.</IM_ValueColorsHint>
+  <IM_ValueAddBand>Add value band</IM_ValueAddBand>
+  <IM_ValueRemoveBand>Remove</IM_ValueRemoveBand>
+  <IM_ValueThreshold>Starting value</IM_ValueThreshold>
+  <IM_ValueThresholdInvalid>Enter a finite value above the previous start and below the next start.</IM_ValueThresholdInvalid>
+  <IM_ValueChooseColor>Choose color</IM_ValueChooseColor>
+  <IM_ValueApply>Apply</IM_ValueApply>
+  <IM_ValueOriginal>Original</IM_ValueOriginal>
+  <IM_ValuePreview>Preview</IM_ValuePreview>
+  <IM_ValueRestoreDefaults>Restore defaults</IM_ValueRestoreDefaults>
+  <IM_ValueResetConfirm>Restore the default item value bands and colors? Other settings are not changed.</IM_ValueResetConfirm>
+  <IM_ThingRegistry>Item registry</IM_ThingRegistry>
+  <IM_RegistryProgress>Indexed {0} / {1} things</IM_RegistryProgress>
+  <IM_RegistryCategories>Game categories</IM_RegistryCategories>
+  <IM_RegistryUncategorized>Uncategorized</IM_RegistryUncategorized>
+  <IM_RegistryAll>All things</IM_RegistryAll>
+  <IM_RegistrySearch>Search name, DefName or source mod</IM_RegistrySearch>
+  <IM_RegistryErrors>Index diagnostics</IM_RegistryErrors>
+  <IM_RegistryNoErrors>No indexing errors</IM_RegistryNoErrors>
+  <IM_RegistryDump>Log registry snapshot</IM_RegistryDump>
+  <IM_RegistrySource>Source</IM_RegistrySource>
+  <IrisMenus_ItemValue_Label>Value: {0}</IrisMenus_ItemValue_Label>
+  <IrisMenus_ItemValue_Tooltip>{0}\nMarket value per item: {1}\nValue band: {2}</IrisMenus_ItemValue_Tooltip>
+  <IrisMenus_Items_Uncategorized>Uncategorized</IrisMenus_Items_Uncategorized>
+  <IM_MarqueeText>Background marquee text</IM_MarqueeText>
+  <IM_ToastDuration>Notification duration</IM_ToastDuration>
+  <IM_SaveHint>Changes apply immediately. Settings save when you leave the page.</IM_SaveHint>
+  <IM_SettingsSaved>Settings saved</IM_SettingsSaved>
+  <IM_ModAuthor>Author: {0}</IM_ModAuthor>
+  <IM_ShowToasts>Show notifications</IM_ShowToasts>
 </LanguageData>

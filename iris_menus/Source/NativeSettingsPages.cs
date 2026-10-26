@@ -21,6 +21,10 @@ namespace IrisMenus
             MenuRegistry.RegisterSubItemListing(mod, "behavior", () => T("IM_NativeBehavior"), DrawLegacyBehavior, mod.WriteSettings);
             MenuRegistry.RegisterPresentation(mod, "behavior", new MenuPresentation(context => new SettingsPage(context, mod, false)));
             MenuRegistry.RegisterSearchProvider(mod, "behavior", BehaviorSearch);
+            MenuRegistry.RegisterSubItemListing(mod, "value-colors", () => T("IM_ValueColors"), ItemValuePalettePage.DrawLegacy, mod.WriteSettings);
+            MenuRegistry.RegisterPresentation(mod, "value-colors", new MenuPresentation(context => new ItemValuePalettePage(context, mod)));
+            MenuRegistry.RegisterSearchProvider(mod, "value-colors", () => new[] { Search("bands", "IM_ValueColors", "IM_ValueColors", "IM_ValueColorsHint") });
+            ThingRegistryPage.Register(mod);
             registered = true;
         }
 
@@ -43,6 +47,9 @@ namespace IrisMenus
             MenuControls.Section(list, T("IM_NativeBackground"));
             MenuControls.Anchor(list, "opacity");
             settings.NativePanelOpacity = MenuControls.Slider(list, T("IM_NativeOpacity"), settings.NativePanelOpacity, 0f, 1f, "P0", T("IM_NativeOpacityHint"));
+            MenuControls.Anchor(list, "marquee");
+            list.Label(T("IM_MarqueeText"));
+            settings.MarqueeText = Widgets.TextField(list.GetRect(32f), settings.MarqueeText);
         }
 
         private static void DrawLegacyBehavior(Listing_Standard list)
@@ -72,6 +79,10 @@ namespace IrisMenus
                 settings.TipDelay = MenuControls.Slider(list, T("IM_NativeTipDelay"), settings.TipDelay * 1000f, 100f, 800f, "F0", T("IM_NativeTipDelayHint")) / 1000f;
             }
             finally { GUI.enabled = enabled; }
+            MenuControls.Anchor(list, "toasts");
+            MenuControls.Checkbox(list, T("IM_ShowToasts"), ref settings.ShowToasts);
+            MenuControls.Anchor(list, "toast-duration");
+            settings.ToastDuration = MenuControls.Slider(list, T("IM_ToastDuration"), settings.ToastDuration, 1f, 10f, "F0");
         }
 
         private static readonly UiTheme[] legacyThemes = { UiTheme.Light, UiTheme.Dark };
@@ -88,7 +99,8 @@ namespace IrisMenus
             Search("density", "IM_NativeDensity", "IM_NativeDisplay"),
             Search("scale", "IM_NativeScale", "IM_NativeDisplay"),
             Search("motion", "IM_NativeMotion", "IM_NativeDisplay", "IM_NativeMotionHint"),
-            Search("opacity", "IM_NativeOpacity", "IM_NativeBackground", "IM_NativeOpacityHint")
+            Search("opacity", "IM_NativeOpacity", "IM_NativeBackground", "IM_NativeOpacityHint"),
+            Search("marquee", "IM_MarqueeText", "IM_NativeBackground")
         };
         private static readonly MenuSearchEntry[] behaviorSearch =
         {
@@ -96,12 +108,14 @@ namespace IrisMenus
             Search("main-button", "IM_NativeMainButton", "IM_NativeNavigation", "IM_NativeMainButtonHint"),
             Search("search-scope", "IM_NativeSearchScope", "IM_NativeNavigation"),
             Search("tips", "IM_NativeTips", "IM_NativeInteraction"),
-            Search("tip-delay", "IM_NativeTipDelay", "IM_NativeInteraction", "IM_NativeTipDelayHint")
+            Search("tip-delay", "IM_NativeTipDelay", "IM_NativeInteraction", "IM_NativeTipDelayHint"),
+            Search("toast-duration", "IM_ToastDuration", "IM_NativeInteraction"),
+            Search("toasts", "IM_ShowToasts", "IM_NativeInteraction")
         };
         private static IEnumerable<MenuSearchEntry> AppearanceSearch() => appearanceSearch;
         private static IEnumerable<MenuSearchEntry> BehaviorSearch() => behaviorSearch;
 
-        private enum RowKind { Switch, Slider, Segments, Select }
+        private enum RowKind { Switch, Slider, Segments, Select, Text }
 
         private sealed class SettingRow
         {
@@ -115,10 +129,13 @@ namespace IrisMenus
             private readonly UiSlider slider;
             private readonly UiSegments segments;
             private readonly UiSelect select;
-            private readonly UiTooltip tooltip;
+            private readonly UiHoverCard tooltip;
             private readonly string suffix;
             private readonly float displayMultiplier;
             private string label, hint, output;
+            private readonly UiTextField textField;
+            private readonly Func<string> getText;
+            private readonly Action<string> setText;
             private float outputValue = float.NaN;
 
             internal SettingRow(UiContext context, string id, string labelKey, RowKind kind,
@@ -136,7 +153,7 @@ namespace IrisMenus
                 this.optionKeys = optionKeys;
                 this.displayMultiplier = displayMultiplier;
                 this.suffix = suffix;
-                tooltip = new UiTooltip(context);
+                tooltip = new UiHoverCard(context);
                 switch (kind)
                 {
                     case RowKind.Switch: toggle = new UiSwitch(context); break;
@@ -146,8 +163,20 @@ namespace IrisMenus
                 }
             }
 
+            internal SettingRow(UiContext context, string id, string labelKey, Func<string> get, Action<string> set)
+            {
+                this.context = context;
+                Id = id;
+                this.labelKey = labelKey;
+                kind = RowKind.Text;
+                getText = get;
+                setText = set;
+                textField = new UiTextField(context);
+                tooltip = new UiHoverCard(context);
+            }
+
             internal string Id { get; }
-            internal UiId FocusTarget => toggle != null ? toggle.Id : slider != null ? slider.Id :
+            internal UiId FocusTarget => textField != null ? textField.Id : toggle != null ? toggle.Id : slider != null ? slider.Id :
                 select != null ? select.Id : segments.GetItemId(Mathf.Clamp(Mathf.RoundToInt(get()), 0, segments.Count - 1));
 
             private string[] TranslateOptions()
@@ -182,6 +211,14 @@ namespace IrisMenus
                     context.Label(new Rect(labelRect.x, labelRect.y, Mathf.Max(0f, labelRect.width - hintWidth), labelRect.height), label, palette.Ink, wrap: true);
                     if (hint != null)
                         UiGlyph.Draw(context, new Rect(labelRect.xMax - 15f * scale, labelRect.center.y - 6.5f * scale, 13f * scale, 13f * scale), UiGlyphKind.Help, palette.Muted);
+                }
+                if (kind == RowKind.Text)
+                {
+                    string previous = getText();
+                    string next = textField.Draw(control, previous, enabled: enabled, scale: scale);
+                    if (previous == next) return false;
+                    setText(next);
+                    return true;
                 }
                 float before = get();
                 float after = before;
@@ -224,12 +261,13 @@ namespace IrisMenus
             internal void DrawTooltip(Rect viewport, float scale, MenuSettings settings)
             {
                 if (!settings.ShowTips) tooltip.Dismiss();
-                tooltip.DrawOverlay(viewport, new Vector2(320f * scale, 92f * scale), scale);
+                tooltip.DrawOverlay(viewport, scale);
             }
 
             internal void Dispose()
             {
                 select?.Close();
+                textField?.Dispose();
                 if (toggle != null) context.Release(toggle.Id);
                 if (slider != null) context.Release(slider.Id);
                 if (select != null)
@@ -284,7 +322,8 @@ namespace IrisMenus
                         new SettingRow(context, "motion", "IM_NativeMotion", RowKind.Switch,
                             () => settings.ReducedMotion ? 0f : 1f, value => settings.ReducedMotion = value == 0f, "IM_NativeMotionHint"),
                         new SettingRow(context, "opacity", "IM_NativeOpacity", RowKind.Slider,
-                            () => settings.NativePanelOpacity, value => settings.NativePanelOpacity = value, "IM_NativeOpacityHint")
+                            () => settings.NativePanelOpacity, value => settings.NativePanelOpacity = value, "IM_NativeOpacityHint"),
+                        new SettingRow(context, "marquee", "IM_MarqueeText", () => settings.MarqueeText, value => settings.MarqueeText = value)
                     };
                     firstSectionCount = 4;
                     chapters = new[] { new MenuChapter("display", Text("IM_NativeDisplay")), new MenuChapter("background", Text("IM_NativeBackground")) };
@@ -309,7 +348,12 @@ namespace IrisMenus
                             () => settings.ShowTips ? 1f : 0f, value => settings.ShowTips = value > 0f),
                         new SettingRow(context, "tip-delay", "IM_NativeTipDelay", RowKind.Slider,
                             () => settings.TipDelay, value => settings.TipDelay = value, "IM_NativeTipDelayHint",
-                            min: 0.1f, max: 0.8f, step: 0.05f, displayMultiplier: 1000f, suffix: " ms")
+                            min: 0.1f, max: 0.8f, step: 0.05f, displayMultiplier: 1000f, suffix: " ms"),
+                        new SettingRow(context, "toast-duration", "IM_ToastDuration", RowKind.Slider,
+                            () => settings.ToastDuration, value => settings.ToastDuration = value,
+                            min: 1f, max: 10f, step: 1f, displayMultiplier: 1f, suffix: " s"),
+                        new SettingRow(context, "toasts", "IM_ShowToasts", RowKind.Switch,
+                            () => settings.ShowToasts ? 1f : 0f, value => settings.ShowToasts = value > 0f)
                     };
                     firstSectionCount = 3;
                     chapters = new[] { new MenuChapter("navigation", Text("IM_NativeNavigation")), new MenuChapter("interaction", Text("IM_NativeInteraction")) };
@@ -443,6 +487,7 @@ namespace IrisMenus
                     settings.NativeScale = 1f;
                     settings.ReducedMotion = false;
                     settings.NativePanelOpacity = 0.94f;
+                    settings.MarqueeText = "IRIS MENUS";
                 }
                 else
                 {
@@ -451,6 +496,8 @@ namespace IrisMenus
                     settings.SearchCurrentMod = false;
                     settings.ShowTips = true;
                     settings.TipDelay = 0.3f;
+                    settings.ToastDuration = 3f;
+                    settings.ShowToasts = true;
                 }
             }
 

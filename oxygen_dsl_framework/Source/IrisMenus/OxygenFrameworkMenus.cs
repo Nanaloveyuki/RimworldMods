@@ -20,6 +20,7 @@ namespace Oxygendsl.IrisMenus
                 () => "Oxygendsl_SettingsTitle".Translate(), owner.DrawSettingsPage);
             MenuRegistry.RegisterSubItem(owner, "documentation",
                 () => "Oxygendsl_DocumentationTitle".Translate(), documentation.Draw);
+            MenuRegistry.RegisterPresentation(owner, "documentation", new MenuPresentation(documentation.CreateNative));
             MenuRegistry.RegisterSearchProvider(owner, "documentation",
                 documentation.SearchEntries, documentation.Focus);
         }

@@ -89,8 +89,8 @@ namespace IrisMenus.UI
             if (!drawing) throw new InvalidOperationException("Anchors must be registered inside UiScrollView.Draw.");
             if (!available) return;
             if (anchorPasses[index] == pass) throw new InvalidOperationException("An anchor can only be registered once per scroll pass.");
-            Vector2 screen = GUIUtility.GUIToScreenPoint(new Vector2(rect.x, rect.y));
-            Rect contentRect = new Rect(screen.x - contentScreenOrigin.x, screen.y - contentScreenOrigin.y, rect.width, rect.height);
+            Vector2 origin = UiCoordinates.FromScreen(contentScreenOrigin);
+            Rect contentRect = new Rect(rect.x - origin.x, rect.y - origin.y, rect.width, rect.height);
             anchorRects[index] = contentRect;
             anchorPasses[index] = pass;
             if (highlightedAnchor == index)
@@ -170,7 +170,7 @@ namespace IrisMenus.UI
                 {
                     using (context.Clip(content))
                     {
-                        contentScreenOrigin = GUIUtility.GUIToScreenPoint(Vector2.zero);
+                        contentScreenOrigin = UiCoordinates.ToScreen(Vector2.zero);
                         drawing = true;
                         try { drawContent(content); }
                         finally { drawing = false; }
@@ -182,7 +182,8 @@ namespace IrisMenus.UI
                     if (blocked && inputEvent != null && endEventType != EventType.Layout && endEventType != EventType.Repaint)
                         inputEvent.type = EventType.Ignore;
                     try { GUI.EndScrollView(); }
-                    finally { if (blocked && inputEvent != null) inputEvent.type = endEventType; }
+                    // Event.type can report Ignore only while the pointer is outside this scroll's hit clip.
+                    finally { if (blocked && inputEvent != null) inputEvent.type = previousEventType; }
                 }
                 DrawScrollbar(viewport, maximum, enabled);
                 UiInteraction interaction = context.Interact(Id, viewport, enabled);
@@ -232,7 +233,7 @@ namespace IrisMenus.UI
             Event input = context.Event;
             EventType type = input != null ? input.type : EventType.Ignore;
             bool captured = context.IsCaptured(scrollbarId);
-            float mouse = input != null ? GUIUtility.GUIToScreenPoint(input.mousePosition).y : 0f;
+            float mouse = input != null ? UiCoordinates.ToScreen(input.mousePosition).y : 0f;
             UiInteraction interaction = context.Interact(scrollbarId, maximum > 0f ? track : default(Rect), enabled && maximum > 0f, false);
             if (maximum <= 0f) { scrollbarDragging = false; return; }
             float height = Mathf.Min(track.height, Mathf.Max(24f, track.height * rect.height / contentHeight));
@@ -242,7 +243,7 @@ namespace IrisMenus.UI
             {
                 scrollbarDragging = true;
                 dragMouse = mouse;
-                dragTravel = travel;
+                dragTravel = Mathf.Max(0.01f, Mathf.Abs(UiCoordinates.ToScreen(new Vector2(track.x, track.y + travel)).y - UiCoordinates.ToScreen(track.position).y));
                 dragRange = maximum;
                 if (input.mousePosition.y < top || input.mousePosition.y > top + height)
                     position.y = Mathf.Clamp01((input.mousePosition.y - track.y - height * 0.5f) / travel) * maximum;
@@ -258,8 +259,8 @@ namespace IrisMenus.UI
                 if (type == EventType.MouseDrag) context.Consume();
             }
             if (!context.IsCaptured(scrollbarId)) scrollbarDragging = false;
-            Color ink = interaction.Hovered || captured ? context.Palette.Muted : context.Palette.StrongLine;
-            context.Fill(new Rect(track.xMax - 6f, track.y + position.y / maximum * travel, 6f, height), ink);
+            Color ink = Color.Lerp(Color.black, Color.white, context.ThemeAmount);
+            context.Fill(new Rect(track.xMax - 3f, track.y + position.y / maximum * travel, 3f, height), ink);
             if (interaction.Focused && context.FocusVisible) context.Border(track, context.Palette.Ink);
         }
 

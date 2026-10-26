@@ -14,7 +14,11 @@ namespace IrisMenus
         internal static void Install()
         {
             if (installed) return;
-            new Harmony("Nanaloveyuki.IrisMenus.SettingsEntry").PatchAll(typeof(SettingsEntryRouter).Assembly);
+            var harmony = new Harmony("Nanaloveyuki.IrisMenus.SettingsEntry");
+            harmony.PatchAll(typeof(SettingsEntryRouter).Assembly);
+#if RIMWORLD_1_7
+            HostedGuiTheme.Install(harmony);
+#endif
             installed = true;
         }
 

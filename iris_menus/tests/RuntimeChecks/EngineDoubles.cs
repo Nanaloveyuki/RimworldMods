@@ -11,6 +11,7 @@ namespace UnityEngine
         public float yMax => y + height;
         public Rect(float x, float y, float width, float height) { this.x = x; this.y = y; this.width = width; this.height = height; }
         public bool Overlaps(Rect other) => x < other.xMax && xMax > other.x && y < other.yMax && yMax > other.y;
+        public bool Contains(Vector2 point) => point.x >= x && point.x < xMax && point.y >= y && point.y < yMax;
     }
     public struct Vector2 { public float x, y; public static Vector2 zero => default; }
     public static class Mathf
@@ -49,6 +50,8 @@ namespace Verse
         public static List<string> Errors = new List<string>();
         public static void Error(string text) { Errors.Add(text); }
         public static void Warning(string text) { Errors.Add(text); }
+        public static readonly List<string> Messages = new List<string>();
+        public static void Message(string text) { Messages.Add(text); }
     }
     public sealed class LoadedLanguage
     {
@@ -125,6 +128,9 @@ namespace Verse
     }
     public static class Text
     {
+        public static UnityEngine.TextAnchor Anchor;
+        public static bool WordWrap = true;
+        public static UnityEngine.GUIStyle CurFontStyle = new UnityEngine.GUIStyle();
         public static float CalcHeight(string text, float width) => text == null ? 0f : text.Length;
         public static UnityEngine.Vector2 CalcSize(string text) => new UnityEngine.Vector2 { x = text == null ? 0f : text.Length, y = 1f };
     }

@@ -32,4 +32,29 @@
   <IM_OwnerActions>Mod 操作</IM_OwnerActions>
   <IM_ActionUnavailable>此操作当前不可用。</IM_ActionUnavailable>
   <IM_ActionFailed>操作未能完成，详情请查看日志。</IM_ActionFailed>
+  <IM_ValueColors>物品价值配色</IM_ValueColors>
+  <IM_ValueColorsHint>按单件物品的市场价值配色，不计算整组价值。每档包含起始值，不包含下一档起始值；最后一档没有上限，首档固定从 0 开始。点击色块可调整颜色，应用后立即生效。</IM_ValueColorsHint>
+  <IM_ValueAddBand>添加价值档位</IM_ValueAddBand>
+  <IM_ValueRemoveBand>移除</IM_ValueRemoveBand>
+  <IM_ValueThreshold>起始价值</IM_ValueThreshold>
+  <IM_ValueThresholdInvalid>请输入大于上一档、小于下一档起始值的有限数值。</IM_ValueThresholdInvalid>
+  <IM_ValueChooseColor>选择颜色</IM_ValueChooseColor>
+  <IM_ValueApply>应用</IM_ValueApply>
+  <IM_ValueOriginal>原色</IM_ValueOriginal>
+  <IM_ValuePreview>预览</IM_ValuePreview>
+  <IM_ValueRestoreDefaults>恢复默认</IM_ValueRestoreDefaults>
+  <IM_ValueResetConfirm>恢复默认物品价值档位及配色？不会改动其他设置。</IM_ValueResetConfirm>
+  <IM_ThingRegistry>物品注册表</IM_ThingRegistry>
+  <IM_RegistryProgress>已索引 {0} / {1} 个物品</IM_RegistryProgress>
+  <IM_RegistryCategories>原版分类</IM_RegistryCategories>
+  <IM_RegistryUncategorized>未分类</IM_RegistryUncategorized>
+  <IM_RegistryAll>所有物品</IM_RegistryAll>
+  <IM_RegistrySearch>搜索名称、DefName 或来源 Mod</IM_RegistrySearch>
+  <IM_RegistryErrors>索引诊断</IM_RegistryErrors>
+  <IM_RegistryNoErrors>没有索引错误</IM_RegistryNoErrors>
+  <IM_RegistryDump>输出注册表到日志</IM_RegistryDump>
+  <IM_RegistrySource>来源</IM_RegistrySource>
+  <IrisMenus_ItemValue_Label>价值：{0}</IrisMenus_ItemValue_Label>
+  <IrisMenus_ItemValue_Tooltip>{0}\n单件市场价值：{1}\n价值档位：{2}</IrisMenus_ItemValue_Tooltip>
+  <IrisMenus_Items_Uncategorized>未分类</IrisMenus_Items_Uncategorized>
 </LanguageData>

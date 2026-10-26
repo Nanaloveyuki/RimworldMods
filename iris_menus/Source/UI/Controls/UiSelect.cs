@@ -111,8 +111,7 @@ namespace IrisMenus.UI
         public int Draw(Rect rect, int selected, bool enabled = true, string placeholder = "", float scale = 1f)
         {
             drawingScale = Mathf.Max(0f, scale);
-            Vector2 screen = GUIUtility.GUIToScreenPoint(new Vector2(rect.x, rect.y));
-            anchorScreen = new Rect(screen.x, screen.y, rect.width, rect.height);
+            anchorScreen = UiCoordinates.ToScreen(rect);
             hasAnchor = true;
             bool usable = enabled && options.Length > 0;
             if (!IsVisible && restoreFocus && context.IsInputAllowed)
@@ -172,8 +171,7 @@ namespace IrisMenus.UI
             if (!IsVisible || !hasAnchor || options.Length == 0 || bounds.width <= 0f || bounds.height <= 0f) return selected;
             using (context.Layer(overlayId))
             {
-                Vector2 local = GUIUtility.ScreenToGUIPoint(anchorScreen.position);
-                Rect anchor = new Rect(local.x, local.y, anchorScreen.width, anchorScreen.height);
+                Rect anchor = UiCoordinates.FromScreen(anchorScreen);
                 Rect popup = PlacePopup(anchor, bounds);
                 // Translate the rect itself, so outside clicks and row hits match the panel.
                 float offset = (1f - entrance.Value) * 4f * drawingScale * (popup.y >= anchor.yMax ? -1f : 1f);
@@ -202,6 +200,7 @@ namespace IrisMenus.UI
                         else if (context.ConsumeKey(KeyCode.PageDown)) next += Mathf.Max(1, Mathf.FloorToInt(contentHeight / DrawnRowHeight));
                         else if (context.ConsumeKey(KeyCode.Return) || context.ConsumeKey(KeyCode.KeypadEnter) || context.ConsumeKey(KeyCode.Space))
                         {
+                            if (selected != highlighted) GUI.changed = true;
                             selected = highlighted;
                             Close();
                         }
@@ -255,7 +254,11 @@ namespace IrisMenus.UI
                             Rect row = new Rect(0f, i * DrawnRowHeight - drawnScroll, viewport.width, DrawnRowHeight);
                             UiInteraction interaction = context.Interact(optionIds[i], row, open && enabled, false);
                             if (interaction.Hovered && current != null && (current.type == EventType.MouseMove || current.type == EventType.MouseDrag)) highlighted = i;
-                            if (interaction.Clicked) { selected = i; highlighted = i; Close(); }
+                            if (interaction.Clicked)
+                            {
+                                if (selected != i) GUI.changed = true;
+                                selected = i; highlighted = i; Close();
+                            }
                             optionVisuals[i].Step(context, interaction, enabled && open);
                             float chosen = selection[i].Step(selected == i ? 1f : 0f, context.Time, UiMotion.Standard, context.ReducedMotion);
                             float keyboardHover = highlights[i].Step(highlighted == i && open ? 1f : 0f, context.Time, UiMotion.Fast, context.ReducedMotion);
@@ -334,7 +337,7 @@ namespace IrisMenus.UI
         {
             Event current = context.Event;
             EventType type = current != null ? current.type : EventType.Ignore;
-            float mouse = current != null ? GUIUtility.GUIToScreenPoint(current.mousePosition).y : 0f;
+            float mouse = current != null ? UiCoordinates.ToScreen(current.mousePosition).y : 0f;
             bool captured = context.IsCaptured(scrollbarId);
             UiInteraction interaction = context.Interact(scrollbarId, track, enabled, false);
             float height = Mathf.Min(track.height, Mathf.Max(18f, track.height * viewportHeight / (viewportHeight + maximum)));
@@ -344,7 +347,7 @@ namespace IrisMenus.UI
             {
                 scrollDragging = true;
                 scrollDragMouse = mouse;
-                scrollDragTravel = travel;
+                scrollDragTravel = Mathf.Max(0.01f, Mathf.Abs(UiCoordinates.ToScreen(new Vector2(track.x, track.y + travel)).y - UiCoordinates.ToScreen(track.position).y));
                 scrollDragRange = maximum;
                 if (current.mousePosition.y < thumbY || current.mousePosition.y > thumbY + height)
                     scroll = Mathf.Clamp01((current.mousePosition.y - track.y - height * 0.5f) / travel) * maximum;
@@ -362,10 +365,8 @@ namespace IrisMenus.UI
             UiPalette palette = context.Palette;
             using (context.Opacity(scrollbarVisual.Opacity))
             {
-                context.Fill(track, palette.Sunken);
-                Color ink = Color.Lerp(palette.StrongLine, palette.Muted, scrollbarVisual.Hover);
-                ink = Color.Lerp(ink, palette.Signal, Mathf.Max(scrollbarVisual.Press, scrollbarVisual.Focus));
-                context.Fill(new Rect(track.x, track.y + scrollMotion.Value / maximum * travel, track.width, height), ink);
+                Color ink = Color.Lerp(Color.black, Color.white, context.ThemeAmount);
+                context.Fill(new Rect(track.xMax - 3f * drawingScale, track.y + scrollMotion.Value / maximum * travel, 3f * drawingScale, height), ink);
                 scrollbarVisual.DrawFocus(context, track);
             }
         }
