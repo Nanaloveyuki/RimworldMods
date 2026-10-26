@@ -84,14 +84,15 @@
   <RHAH_Choice_AllyNext>Next page</RHAH_Choice_AllyNext>
   <RHAH_Choice_AllyBack>Back</RHAH_Choice_AllyBack>
   <RHAH_Choice_NoAlly>No allied faction can take them.</RHAH_Choice_NoAlly>
-  <RHAH_Choice_AllySent>{0} people are on their way to {1}. They will become members of that faction only after successfully leaving this map, increasing its goodwill based on the market value of those who leave. This whole transfer can grant up to +10 goodwill. They cannot be found directly at its settlement.</RHAH_Choice_AllySent>
+  <RHAH_Choice_AllyRefused>The faction you picked cannot take these visitors right now (it may have been defeated, lost its settlements, or no longer be your ally).</RHAH_Choice_AllyRefused>
+  <RHAH_Choice_AllySent>{0} people have been ordered to leave and are on their way to {1}. They will become members of that faction only after they walk off this map; goodwill and any gift are settled after that, with this whole transfer granting up to +10 goodwill. They cannot be found directly at its settlement.</RHAH_Choice_AllySent>
   <RHAH_Choice_AllyGiftLabel>A gift from an ally</RHAH_Choice_AllyGiftLabel>
   <RHAH_Choice_AllyGiftText>{0} has sent supplies by drop pod to thank us for sending these visitors to join them.</RHAH_Choice_AllyGiftText>
   <RHAH_Choice_AllyGoodwillReason>Taking in visitors</RHAH_Choice_AllyGoodwillReason>
   <RHAH_Choice_NoCustodyTarget>No visitor can currently be captured or enslaved. They may be in a mental break, have already left, or be protected from imprisonment.</RHAH_Choice_NoCustodyTarget>
   <RHAH_Choice_NoPresent>The visitors have left. Nobody remains to receive this arrangement.</RHAH_Choice_NoPresent>
   <RHAH_Choice_NoRecruit>None of these visitors can be taken in, hired, or joined to the colony.</RHAH_Choice_NoRecruit>
-  <RHAH_Choice_NoTransfer>No visitor can currently be sent to an ally and leave the map.</RHAH_Choice_NoTransfer>
+  <RHAH_Choice_NoLeave>No visitor in this batch can leave the map right now (story hold, mouse swarm, or a third party blocking their departure).</RHAH_Choice_NoLeave>
   <RHAH_Choice_NoIdeology>Enslaving needs the Ideology expansion.</RHAH_Choice_NoIdeology>
   <RHAH_Choice_CustodyFailed>The attempt to capture or enslave the visitors failed. You can choose again in the letter.</RHAH_Choice_CustodyFailed>
   <RHAH_Choice_FeedHint>The visitors will wait for you to arrange food delivery. Select a colonist, then right-click a waiting visitor and choose the food to give them.</RHAH_Choice_FeedHint>

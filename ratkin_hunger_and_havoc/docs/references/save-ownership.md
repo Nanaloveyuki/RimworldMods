@@ -161,7 +161,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | ExpireTick | expireTick | -1 | 否 | |
 | Settled | settled | None | 否 | `RHAH_ChoiceAction`。旧文本 `Prison` 和旧数值 `12` 读取为 `Capture`（关闭状态）；再存档写 `Capture`。其它名称和编号保持原有枚举存读，缺键仍为 `None` |
 | PawnLoadIds | pawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同 |
-| AllyFactionId | allyFactionId | 0 | 否 | 转送目标派系 loadID，0 表示没有记录目标。转送完成后仍保留，作为回礼来源；待入籍成员以 AllyPawnIds 判断。旧档缺键为 0 |
+| AllyFactionId | allyFactionId | -1 | 否 | 转送目标派系 loadID，-1 表示没有记录目标；0 是合法 loadID（每个世界的第一家派系就是 0），不能当未设置。转送完成后仍保留，作为回礼来源；待入籍成员以 AllyPawnIds 判断。旧档缺键为 -1；旧档里的 0 只可能来自从未成功送出的记录，读回后等同未设置（AllyPawnIds 为空，不会触发入籍） |
 | AllyPawnIds | allyPawnIds | 空集合 | 是 | 已下令离场、离图后才改入盟友的 pawn thingID。`PostLoadInit` 补空列表；null 与空集合语义相同。人离图或死亡后移除 |
 | AllyTransferredValue | allyTransferredValue | 0 | 否 | 本批成功离场来客的累计市场价值；仅成功转送时累加，旧档缺键为 0 |
 | AllyGoodwillGranted | allyGoodwillGranted | 0 | 否 | 本批已发放的转送好感；每次按累计目标 `min(10, ceil(AllyTransferredValue / 500))` 减去此值补发，非正价值目标为 0。旧档缺键为 0 |
