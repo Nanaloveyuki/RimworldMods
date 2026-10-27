@@ -222,4 +222,22 @@ namespace Verse
 namespace IrisMenus.UI
 {
     public enum UiTheme { Light, Dark }
+    public sealed class UiContext { }
+    public sealed class UiScrollView : IDisposable
+    {
+        public UiScrollView(UiContext context, int anchorCount) { }
+        public UnityEngine.Vector2 Position { get; private set; }
+        public UnityEngine.Rect VisibleRect { get; private set; }
+        public void Reset() => SetPosition(0f);
+        public void SetPosition(float y) => Position = new UnityEngine.Vector2 { y = y };
+        public void FocusAnchor(int index) { }
+        public void Anchor(int index, UnityEngine.Rect rect) { }
+        public bool Draw(UnityEngine.Rect rect, float height, Action<UnityEngine.Rect> draw)
+        {
+            VisibleRect = rect;
+            draw(new UnityEngine.Rect(0f, 0f, rect.width, height));
+            return false;
+        }
+        public void Dispose() { }
+    }
 }

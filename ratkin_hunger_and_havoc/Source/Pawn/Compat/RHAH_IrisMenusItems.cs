@@ -25,9 +25,11 @@ namespace HungerAndHavoc.Pawn.Compat
         readonly MenuThingsList temperatureList = new MenuThingsList("temp-", "temp-group-");
         object temperatureLanguage;
 
-        static bool DrawContentFold(Listing_Standard list, string title, bool open)
+        static bool DrawContentFold(Listing_Standard list, string id, string title, bool open)
         {
             Rect row = list.GetRect(28f);
+            if (RHAH_IrisMenusWidgets.Native != null)
+                return RHAH_IrisMenusWidgets.Button(row, "fold-" + id, (open ? "−  " : "+  ") + title);
             if (!RHAH_IrisMenusWidgets.IsVisible(row)) return false;
             Widgets.DrawHighlightIfMouseover(row);
             Widgets.DrawTextureFitted(new Rect(row.x, row.y + 2f, 24f, 24f), open ? TexButton.Collapse : TexButton.Reveal, 0.7f);
@@ -39,8 +41,7 @@ namespace HungerAndHavoc.Pawn.Compat
         {
             if (def == null)
             {
-                MenuControls.Anchor(list, "temp-" + defName);
-                RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_TemperatureApparel".Translate(label), ref enabled, "RHAH_Settings_TemperatureApparel_Tooltip".Translate());
+                RHAH_IrisMenusWidgets.Checkbox(list, "temp-" + defName, "RHAH_Settings_TemperatureApparel".Translate(label), ref enabled, "RHAH_Settings_TemperatureApparel_Tooltip".Translate());
                 return enabled;
             }
             if (!ReferenceEquals(temperatureLanguage, LanguageDatabase.activeLanguage))
@@ -154,15 +155,7 @@ namespace HungerAndHavoc.Pawn.Compat
             DrawBulk(list);
             MenuControls.Anchor(list, searchAnchor, 28f);
             Rect search = list.GetRect(28f);
-            GUI.SetNextControlName(searchControl);
-            query = Widgets.TextField(search, query ?? string.Empty);
-            if (string.IsNullOrEmpty(query) && GUI.GetNameOfFocusedControl() != searchControl && RHAH_IrisMenusWidgets.IsVisible(search))
-            {
-                Color previous = GUI.color;
-                GUI.color = Color.gray;
-                Widgets.Label(new Rect(search.x + 6f, search.y, search.width - 8f, search.height), searchLabel);
-                GUI.color = previous;
-            }
+            query = RHAH_IrisMenusWidgets.TextField(search, searchControl, query ?? string.Empty, searchLabel);
             list.Gap(4f);
             if (mode != CurrentMode) PrepareGroups();
             view.Draw(list, query, collapsed, ref pending, selected, assign, emptyLabel);
@@ -240,9 +233,9 @@ namespace HungerAndHavoc.Pawn.Compat
             float width = (row.width - 8f * (count - 1)) / count;
             if (RHAH_IrisMenusWidgets.IsVisible(row))
             {
-                if (Widgets.ButtonText(new Rect(row.x, row.y, width, 26f), allLabel)) SetAll(true);
-                if (Widgets.ButtonText(new Rect(row.x + width + 8f, row.y, width, 26f), noneLabel)) SetAll(false);
-                if (resetLabel != null && Widgets.ButtonText(new Rect(row.x + (width + 8f) * 2f, row.y, width, 26f), resetLabel)) settings.ResetDemandFoods();
+                if (RHAH_IrisMenusWidgets.Button(new Rect(row.x, row.y, width, 26f), allAnchor, allLabel)) SetAll(true);
+                if (RHAH_IrisMenusWidgets.Button(new Rect(row.x + width + 8f, row.y, width, 26f), noneAnchor, noneLabel)) SetAll(false);
+                if (resetLabel != null && RHAH_IrisMenusWidgets.Button(new Rect(row.x + (width + 8f) * 2f, row.y, width, 26f), resetAnchor, resetLabel)) settings.ResetDemandFoods();
             }
             list.Gap(4f);
         }

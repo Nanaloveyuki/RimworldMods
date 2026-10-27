@@ -236,16 +236,21 @@ namespace HungerAndHavoc.Core
         {
             if (listing.ButtonText("RHAH_Settings_Reset".Translate()))
             {
-                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
-                    "RHAH_Settings_ResetConfirm".Translate(),
-                    () =>
-                    {
-                        Settings.ResetToDefaults();
-                        SettingsReset?.Invoke();
-                        Settings.Mod.WriteSettings();
-                    },
-                    destructive: true));
+                ConfirmResetSettings();
             }
+        }
+
+        internal static void ConfirmResetSettings()
+        {
+            Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                "RHAH_Settings_ResetConfirm".Translate(),
+                () =>
+                {
+                    Settings.ResetToDefaults();
+                    SettingsReset?.Invoke();
+                    Settings.Mod.WriteSettings();
+                },
+                destructive: true));
         }
 
         static void DrawRemoval(Listing_Standard listing)

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <RHAH_Menu_General>全般</RHAH_Menu_General>
+  <RHAH_Menu_Generation>訪問者の生成</RHAH_Menu_Generation>
+  <RHAH_Menu_TrustAndSettlement>信頼と定住</RHAH_Menu_TrustAndSettlement>
   <RHAH_Menu_Format_LabelValue>{0}：{1}</RHAH_Menu_Format_LabelValue>
   <RHAH_Menu_Format_IdentifiedLabel>{0}  {1}</RHAH_Menu_Format_IdentifiedLabel>
   <RHAH_Menu_Format_GroupCount>{0}（{1}）</RHAH_Menu_Format_GroupCount>

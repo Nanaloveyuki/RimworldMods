@@ -84,18 +84,17 @@
     </Reference>
   </ItemGroup>
   <PropertyGroup>
-    <IrisMenusDll>$(RimWorldDir)/Mods/IrisMenus/$(RimWorldVersion)/Assemblies/IrisMenus.dll</IrisMenusDll>
+    <IrisMenusDll Condition="'$(IrisMenusDll)' == ''">$(RimWorldDir)/Mods/IrisMenus/$(RimWorldVersion)/Assemblies/IrisMenus.dll</IrisMenusDll>
   </PropertyGroup>
-  <ItemGroup Condition="!Exists('$(IrisMenusDll)')">
-    <Compile Remove="Pawn\Compat\RHAH_IrisMenusCompat.cs" />
-    <Compile Remove="Pawn\Compat\RHAH_IrisMenusWidgets.cs" />
+  <ItemGroup Condition="'$(RimWorldVersion)' != '1.7' or !Exists('$(IrisMenusDll)')">
+    <Compile Remove="Pawn\Compat\RHAH_IrisMenus*.cs" />
   </ItemGroup>
-  <ItemGroup Condition="Exists('$(IrisMenusDll)')">
+  <ItemGroup Condition="'$(RimWorldVersion)' == '1.7' and Exists('$(IrisMenusDll)')">
     <ReferencePath Include="$(IrisMenusDll)">
       <Aliases>iris</Aliases>
     </ReferencePath>
   </ItemGroup>
-  <PropertyGroup Condition="Exists('$(IrisMenusDll)')">
+  <PropertyGroup Condition="'$(RimWorldVersion)' == '1.7' and Exists('$(IrisMenusDll)')">
     <DefineConstants>$(DefineConstants);RHAH_IRISMENUS</DefineConstants>
   </PropertyGroup>
 

@@ -27,6 +27,7 @@
 - `UiSegments.SetOptions`／`UiSelect.SetOptions` 用于配置变化，不能逐帧调用。它们保留传入的标签数组；数量变化会重建项目身份。Segments 至少一项；Select 允许空数组，此时不可打开。标签不能为 `null`。Select 配置变化会重置搜索和滚动。
 - 页面回调中的 Rect 通常是组件建立 GUI group 后的**局部自然尺寸**。不要再加宿主 Rect 的 x／y。布局高度和 tooltip 尺寸由调用方提供；没有自动布局树、反射字段发现或文本高度测量承诺。
 - `UiTextField` 使用原生 `GUI.TextField` 编辑器。字段从 surface 永久移除时调用它的 `Dispose()`，只释放该字段的原生焦点／捕获；surface 关闭时先释放文本字段，再 `UiContext.Dispose()`。不要在未退出的 scope 内释放 context。
+- `UiScrollView.Dispose()` 释放滚动条捕获、焦点和章节定位状态；不释放借用的 context。复用 `Listing_Standard` 页面可持有 `new MenuScrollView(context)`，同样在页面关闭时释放。
 - 这些实例是窗口会话状态，不提供序列化、设置存储、保存回调、跨重开／重启记忆或无障碍平台语义桥接。
 
 矩形控件、导航背景、下拉／提示／模态面板和滚动条使用直角；Switch 保留胶囊轨道和圆 thumb，Slider 使用矩形 thumb。共享背景反馈保留底色 alpha；输入框、Select 和 Segments 使用底边线及墨色聚焦擦出效果。

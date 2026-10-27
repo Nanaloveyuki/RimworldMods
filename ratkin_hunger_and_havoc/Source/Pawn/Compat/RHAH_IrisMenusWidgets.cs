@@ -1,7 +1,6 @@
 extern alias iris;
-using System.Collections.Generic;
 using System;
-using System.Reflection;
+using System.Collections.Generic;
 using HungerAndHavoc.Generation;
 using HungerAndHavoc.Incidents;
 using iris::IrisMenus;
@@ -14,132 +13,65 @@ namespace HungerAndHavoc.Pawn.Compat
     {
         internal const float CardPad = 4f;
         internal const float CardGap = 4f;
-
-        // 可选公开能力：Iris 报告实际绘制的内容窗口。旧版没有该属性时不裁剪，属受支持的降级。
-        // 只解析一次，缺失或异常各记一条警告。
-        static readonly Func<MenuScrollView, Rect> hostVisibleRect = ResolveHostVisibleRect();
-        static readonly bool cullToHostVisibleRect = hostVisibleRect != null;
-
-        static Func<MenuScrollView, Rect> ResolveHostVisibleRect()
-        {
-            try
-            {
-                PropertyInfo property = typeof(MenuScrollView).GetProperty(
-                    "VisibleRect", BindingFlags.Public | BindingFlags.Instance);
-                MethodInfo getter = property?.GetGetMethod();
-                if (getter != null && property.PropertyType == typeof(Rect))
-                {
-                    return (Func<MenuScrollView, Rect>)Delegate.CreateDelegate(typeof(Func<MenuScrollView, Rect>), getter);
-                }
-            }
-            catch (Exception exception)
-            {
-                Log.Warning("[RHAH] IrisMenus scroll window is unavailable. Page content is drawn without culling.\n" +
-                    exception.Message);
-                return null;
-            }
-
-            Log.Warning("[RHAH] IrisMenus does not expose the drawn scroll window. Page content is drawn without culling.");
-            return null;
-        }
-
-        static Viewport activeViewport;
-
-        internal sealed class Viewport
-        {
-            readonly MenuScrollView scroll = new MenuScrollView();
-            readonly Action<Listing_Standard> draw;
-            readonly Action<Listing_Standard> drawVisible;
-            readonly Dictionary<string, float> labelHeights = new Dictionary<string, float>();
-            internal Rect VisibleRect { get; private set; }
-            float measuredWidth = -1f;
-            object measuredLanguage;
-            GameFont measuredFont;
-
-            internal Viewport(Action<Listing_Standard> draw)
-            {
-                this.draw = draw;
-                drawVisible = DrawVisible;
-            }
-
-            internal void Focus(string id)
-            {
-                scroll.Focus(id);
-            }
-
-            internal void Draw(Rect rect)
-            {
-                scroll.Draw(rect, drawVisible);
-            }
-
-            void DrawVisible(Listing_Standard list)
-            {
-                if (cullToHostVisibleRect)
-                {
-                    VisibleRect = hostVisibleRect(scroll);
-                }
-
-                Viewport previous = activeViewport;
-                activeViewport = this;
-                try
-                {
-                    draw(list);
-                }
-                finally
-                {
-                    activeViewport = previous;
-                }
-            }
-
-            internal float LabelHeight(Listing_Standard list, string label)
-            {
-                if (measuredWidth != list.ColumnWidth ||
-                    !ReferenceEquals(measuredLanguage, LanguageDatabase.activeLanguage) || measuredFont != Text.Font)
-                {
-                    labelHeights.Clear();
-                    measuredWidth = list.ColumnWidth;
-                    measuredLanguage = LanguageDatabase.activeLanguage;
-                    measuredFont = Text.Font;
-                }
-
-                if (!labelHeights.TryGetValue(label, out float height))
-                {
-                    height = Text.CalcHeight(label, list.ColumnWidth);
-                    labelHeights.Add(label, height);
-                }
-
-                return height;
-            }
-        }
+        internal static RHAH_IrisMenusNativePage Native { get; set; }
 
         internal static bool IsVisible(Rect rect)
         {
-            return activeViewport == null || !cullToHostVisibleRect || rect.Overlaps(activeViewport.VisibleRect);
+            return Native == null || (rect.Overlaps(Native.VisibleRect) && Native.Context.IsRectVisible(rect));
         }
+
         internal static void Label(Listing_Standard list, string label)
         {
-            float height = activeViewport == null ? Text.CalcHeight(label, list.ColumnWidth) : activeViewport.LabelHeight(list, label);
+            float height = Native == null ? Text.CalcHeight(label, list.ColumnWidth) : Native.LabelHeight(label, list.ColumnWidth);
             Rect row = list.GetRect(height);
             list.Gap(list.verticalSpacing);
-            if (IsVisible(row))
-            {
-                Widgets.Label(row, label);
-            }
+            Label(row, label);
+        }
+
+        internal static void Label(Rect row, string label)
+        {
+            if (!IsVisible(row)) return;
+            if (Native == null) Widgets.Label(row, label);
+            else Native.Context.Label(row, label, Native.Context.Palette.Ink, TextAnchor.UpperLeft, true);
         }
 
         internal static void Section(Listing_Standard list, string title)
         {
-            float height = activeViewport == null ? Text.CalcHeight(title, list.ColumnWidth) : activeViewport.LabelHeight(list, title);
-            if (IsVisible(new Rect(0f, list.CurHeight, list.ColumnWidth, height + list.verticalSpacing + 6f)))
+            if (Native == null)
             {
                 MenuControls.Section(list, title);
+                return;
             }
+            var context = Native.Context;
+            float oldSize = context.FontSize;
+            FontStyle oldStyle = context.FontStyle;
+            float textHeight;
+            try
+            {
+                context.FontSize = 12f * Native.Scale;
+                context.FontStyle = FontStyle.Bold;
+                textHeight = Native.LabelHeight(title, Mathf.Max(1f, list.ColumnWidth - 12f * Native.Scale));
+            }
+            finally { context.FontSize = oldSize; context.FontStyle = oldStyle; }
+            float height = Mathf.Max(Native.SectionTitle.Measure(Native.Scale), textHeight + 16f * Native.Scale);
+            Rect row = list.GetRect(height);
+            list.Gap(list.verticalSpacing);
+            if (!IsVisible(row)) return;
+            if (textHeight <= 32f * Native.Scale) Native.SectionTitle.Draw(row, title, Native.Scale);
             else
             {
-                list.Gap(height + list.verticalSpacing + 6f);
+                Native.SectionTitle.Draw(row, string.Empty, Native.Scale);
+                try
+                {
+                    context.FontSize = 12f * Native.Scale;
+                    context.FontStyle = FontStyle.Bold;
+                    context.Label(new Rect(row.x + 12f * Native.Scale, row.y + 8f * Native.Scale,
+                        Mathf.Max(0f, row.width - 12f * Native.Scale), textHeight), title,
+                        context.Palette.Muted, TextAnchor.UpperLeft, true);
+                }
+                finally { context.FontSize = oldSize; context.FontStyle = oldStyle; }
             }
         }
-
 
         internal static bool Checkbox(Listing_Standard list, string label, ref bool value, string tooltip = null)
         {
@@ -148,27 +80,72 @@ namespace HungerAndHavoc.Pawn.Compat
 
         internal static bool Checkbox(Listing_Standard list, string anchor, string label, ref bool value, string tooltip = null)
         {
-            float height = activeViewport == null ? Text.CalcHeight(label, list.ColumnWidth) : activeViewport.LabelHeight(list, label);
-            if (anchor != null)
-            {
-                MenuControls.Anchor(list, anchor, height);
-            }
+            string id = anchor ?? label;
+            float height = Native == null ? Mathf.Max(24f, Text.CalcHeight(label, list.ColumnWidth)) : Native.SwitchHeight(id, label, list.ColumnWidth);
+            if (anchor != null) MenuControls.Anchor(list, anchor, height);
             Rect row = list.GetRect(height);
             list.Gap(list.verticalSpacing);
-            if (!IsVisible(row))
-            {
-                return false;
-            }
-
-            if (!string.IsNullOrEmpty(tooltip))
-            {
-                Widgets.DrawHighlightIfMouseover(row);
-                TooltipHandler.TipRegion(row, tooltip);
-            }
-
-            Widgets.CheckboxLabeled(row, label, ref value);
+            if (!IsVisible(row)) return false;
+            value = Switch(row, id, label, value, tooltip);
             return true;
         }
+
+        internal static bool Switch(Rect row, string stableId, string label, bool value, string tip = null)
+        {
+            if (!IsVisible(row)) return value;
+            if (Native != null) return Native.Switch(row, stableId, label, value, tip);
+            if (!string.IsNullOrEmpty(tip))
+            {
+                Widgets.DrawHighlightIfMouseover(row);
+                TooltipHandler.TipRegion(row, tip);
+            }
+            Widgets.CheckboxLabeled(row, label, ref value);
+            return value;
+        }
+
+        internal static bool Button(Listing_Standard list, string id, string label)
+        {
+            Rect row = list.GetRect(Native == null ? 30f : 36f * Native.Scale);
+            list.Gap(CardGap);
+            return Button(row, id, label);
+        }
+
+        internal static bool Button(Rect row, string id, string label)
+        {
+            if (!IsVisible(row)) return false;
+            return Native == null ? Widgets.ButtonText(row, label) : Native.Button(row, id, label);
+        }
+
+        internal static string TextField(Rect row, string id, string value, string placeholder = null)
+        {
+            if (!IsVisible(row)) return value;
+            return Native == null ? Widgets.TextField(row, value) : Native.TextField(row, id, value, placeholder);
+        }
+
+        internal static int Choice(Rect row, string id, string label, int selected, string[] options)
+        {
+            if (!IsVisible(row)) return selected;
+            if (Native != null) return Native.Choice(row, id, label, selected, options);
+            string choice = selected >= 0 && selected < options.Length ? options[selected] : label;
+            if (Widgets.ButtonText(row, choice))
+            {
+                var entries = new List<FloatMenuOption>(options.Length);
+                for (int i = 0; i < options.Length; i++)
+                {
+                    int option = i;
+                    entries.Add(new FloatMenuOption(options[i], () => pendingChoices[id] = option));
+                }
+                Find.WindowStack.Add(new FloatMenu(entries));
+            }
+            if (pendingChoices.TryGetValue(id, out int pending))
+            {
+                pendingChoices.Remove(id);
+                return pending;
+            }
+            return selected;
+        }
+
+        private static readonly Dictionary<string, int> pendingChoices = new Dictionary<string, int>(StringComparer.Ordinal);
 
         internal static bool Card(Listing_Standard list, string anchor, float height, out Rect inner)
         {
@@ -176,92 +153,68 @@ namespace HungerAndHavoc.Pawn.Compat
             Rect card = list.GetRect(height);
             list.Gap(CardGap);
             inner = card.ContractedBy(CardPad);
-            if (!IsVisible(card))
-            {
-                return false;
-            }
-
-            Widgets.DrawBox(card);
+            if (!IsVisible(card)) return false;
+            if (Native == null) Widgets.DrawBox(card);
+            else Native.DrawCard(card);
             return true;
         }
+
         internal static void Quote(Listing_Standard list, string anchor, string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return;
-            }
-
+            if (string.IsNullOrEmpty(text)) return;
             float width = Mathf.Max(1f, list.ColumnWidth - 14f);
-            float height = Text.CalcHeight(text, width);
+            float height = Native == null ? Text.CalcHeight(text, width) : Native.LabelHeight(text, width);
             MenuControls.Anchor(list, anchor, height + CardGap);
             Rect row = list.GetRect(height);
             list.Gap(CardGap);
-            if (IsVisible(row))
+            if (!IsVisible(row)) return;
+            if (Native == null)
             {
                 Widgets.DrawBoxSolid(new Rect(row.x, row.y, 3f, row.height), new Color(0.62f, 0.58f, 0.42f));
                 Widgets.Label(new Rect(row.x + 10f, row.y, width, height), text);
             }
+            else
+            {
+                Native.Context.Fill(new Rect(row.x, row.y, 3f, row.height), Native.Context.Palette.Marker);
+                Native.Context.Label(new Rect(row.x + 10f, row.y, width, height), text,
+                    Native.Context.Palette.Muted, TextAnchor.UpperLeft, true);
+            }
         }
 
-
-        internal static float TunedValue(
-            Listing_Standard list,
-            string label,
-            float value,
-            ref string buffer,
-            float min,
-            float max,
-            string format,
-            string tooltip)
+        internal static float TunedValue(Listing_Standard list, string label, float value, ref string buffer,
+            float min, float max, string format, string tooltip, string id = null)
         {
-            float height = 30f;
+            float height = Native == null ? Mathf.Max(30f, Text.CalcHeight(label, list.ColumnWidth * 0.34f)) :
+                Native.NumberHeight(id, label, list.ColumnWidth);
             Rect row = list.GetRect(height);
             list.Gap(CardGap);
-            return IsVisible(row) ? TunedValue(row, label, value, ref buffer, min, max, format, tooltip) : value;
+            return TunedValue(row, label, value, ref buffer, min, max, format, tooltip, id);
         }
 
-        internal static float TunedValue(
-            Rect row,
-            string label,
-            float value,
-            ref string buffer,
-            float min,
-            float max,
-            string format,
-            string tooltip)
+        internal static float TunedValue(Rect row, string label, float value, ref string buffer,
+            float min, float max, string format, string tooltip, string id = null)
         {
-            if (!IsVisible(row))
-            {
-                return value;
-            }
-
+            if (!IsVisible(row)) return value;
+            if (Native != null) return Native.Number(row, id, label, value, ref buffer, min, max, format, tooltip);
             Rect labelRect = new Rect(row.x, row.y, row.width * 0.34f, row.height);
             Widgets.Label(labelRect, label);
-            if (!string.IsNullOrEmpty(tooltip))
-            {
-                TooltipHandler.TipRegion(labelRect, tooltip);
-            }
-
+            if (!string.IsNullOrEmpty(tooltip)) TooltipHandler.TipRegion(labelRect, tooltip);
             float fieldWidth = 72f;
             Rect field = new Rect(row.xMax - fieldWidth, row.y, fieldWidth, row.height);
             Rect slider = new Rect(labelRect.xMax + 8f, row.y, Mathf.Max(1f, field.x - labelRect.xMax - 16f), row.height);
-            float slid = Widgets.HorizontalSlider(slider, value, min, max);
+            float slid = max > min ? Widgets.HorizontalSlider(slider, value, min, max) : min;
             bool sliderMoved = Mathf.Abs(slid - value) > 0.001f;
             if (sliderMoved)
             {
                 value = slid;
                 buffer = value.ToString(format);
             }
-
             string typed = buffer;
             Widgets.TextFieldNumeric(field, ref value, ref buffer, min, max);
-            if (!sliderMoved && SameNumber(typed, buffer))
-            {
-                buffer = typed;
-            }
-
+            if (!sliderMoved && SameNumber(typed, buffer)) buffer = typed;
             return value;
         }
+
 
         internal static bool SameNumber(string typed, string parsed)
         {
@@ -407,7 +360,7 @@ namespace HungerAndHavoc.Pawn.Compat
         internal static int TuneInt(Listing_Standard list, Dictionary<string, string> buffers, string id, string label, int value, float min, float max, string tip)
         {
             string buffer = buffers.TryGetValue(id, out string stored) ? stored : value.ToString();
-            int next = (int)TunedValue(list, label, value, ref buffer, min, max, "0", tip);
+            int next = (int)TunedValue(list, label, value, ref buffer, min, max, "0", tip, id);
             buffers[id] = buffer;
             return next;
         }
@@ -415,7 +368,7 @@ namespace HungerAndHavoc.Pawn.Compat
         internal static float TuneFloat(Listing_Standard list, Dictionary<string, string> buffers, string id, string label, float value, float min, float max, string format, string tip)
         {
             string buffer = buffers.TryGetValue(id, out string stored) ? stored : value.ToString(format);
-            float next = TunedValue(list, label, value, ref buffer, min, max, format, tip);
+            float next = TunedValue(list, label, value, ref buffer, min, max, format, tip, id);
             buffers[id] = buffer;
             return next;
         }

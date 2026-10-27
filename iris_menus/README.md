@@ -235,6 +235,19 @@ still apply.
 
 ## Release notes
 
+### Unreleased — chapter navigation (1.7)
+
+- Preserve adjacent TOC pointer events when disabled scroll content temporarily
+  suppresses input; capture the event type before entering its hit clip.
+- Publish the final native scroll offset through `MenuScrollView.VisibleRect` after
+  drawing, including scrollbar movement in the same pass.
+- Verification: provider/API consumer and affected RHAH consumer build with zero
+  warnings/errors; 247 engine-double runtime assertions pass. Installed-assembly
+  probes cover forward/reverse jumps, rapid retargeting, wheel interruption and
+  recovery, adjacent TOC clicks, and final-chapter selection at the scroll limit.
+  No new in-game visual acceptance or deployment: the installed companion launcher
+  still targets the missing `RimWorldWin64.exe`.
+
 ### 2.0.0 — full-screen-only cutover (1.7)
 
 - Keep the accepted full-screen interface as the only host; remove the old window,

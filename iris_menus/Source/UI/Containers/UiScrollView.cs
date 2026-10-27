@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace IrisMenus.UI
 {
-    public sealed class UiScrollView
+    public sealed class UiScrollView : IDisposable
     {
         private readonly UiContext context;
         private readonly UiId[] anchorIds;
@@ -143,21 +143,23 @@ namespace IrisMenus.UI
             pass++;
             Rect content = new Rect(0f, 0f, Mathf.Max(1f, rect.width - 20f), contentHeight);
             bool resolved = false;
+            Event inputEvent = context.Event;
+            EventType previousEventType = inputEvent != null ? inputEvent.type : EventType.Ignore;
             using (context.Input(enabled))
             using (context.Clip(rect))
             {
                 bool previousEnabled = GUI.enabled;
                 bool blocked = !context.IsInputAllowed || !previousEnabled;
-                Event inputEvent = context.Event;
-                EventType previousEventType = inputEvent != null ? inputEvent.type : EventType.Ignore;
+                bool suppressEvent = blocked && inputEvent != null && previousEventType != EventType.Ignore
+                    && previousEventType != EventType.Used && previousEventType != EventType.Layout && previousEventType != EventType.Repaint;
                 GUI.enabled = previousEnabled && !blocked;
-                if (blocked && inputEvent != null && previousEventType != EventType.Layout && previousEventType != EventType.Repaint)
+                if (suppressEvent)
                     inputEvent.type = EventType.Ignore;
                 try { position = GUI.BeginScrollView(viewport, position, content, GUIStyle.none, GUIStyle.none); }
                 finally
                 {
                     GUI.enabled = previousEnabled;
-                    if (blocked && inputEvent != null) inputEvent.type = previousEventType;
+                    if (suppressEvent) inputEvent.type = previousEventType;
                 }
                 if (position.y != expected)
                 {
@@ -178,12 +180,9 @@ namespace IrisMenus.UI
                 }
                 finally
                 {
-                    EventType endEventType = inputEvent != null ? inputEvent.type : EventType.Ignore;
-                    if (blocked && inputEvent != null && endEventType != EventType.Layout && endEventType != EventType.Repaint)
-                        inputEvent.type = EventType.Ignore;
+                    if (suppressEvent) inputEvent.type = EventType.Ignore;
                     try { GUI.EndScrollView(); }
-                    // Event.type can report Ignore only while the pointer is outside this scroll's hit clip.
-                    finally { if (blocked && inputEvent != null) inputEvent.type = previousEventType; }
+                    finally { if (suppressEvent) inputEvent.type = previousEventType; }
                 }
                 DrawScrollbar(viewport, maximum, enabled);
                 UiInteraction interaction = context.Interact(Id, viewport, enabled);
@@ -262,6 +261,21 @@ namespace IrisMenus.UI
             Color ink = Color.Lerp(Color.black, Color.white, context.ThemeAmount);
             context.Fill(new Rect(track.xMax - 3f, track.y + position.y / maximum * travel, 3f, height), ink);
             if (interaction.Focused && context.FocusVisible) context.Border(track, context.Palette.Ink);
+        }
+
+        public void Dispose()
+        {
+            drawing = animating = scrollbarDragging = false;
+            pendingAnchor = highlightedAnchor = focusAfterScroll = -1;
+            Release(Id);
+            Release(scrollbarId);
+            for (int i = 0; i < anchorIds.Length; i++) Release(anchorIds[i]);
+        }
+
+        private void Release(UiId id)
+        {
+            context.Release(id);
+            if (context.IsFocused(id)) context.Focus(default(UiId));
         }
 
         private bool IsInsideVisible(Rect rect)

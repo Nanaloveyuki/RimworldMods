@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using IrisMenus.UI;
 using UnityEngine;
 using Verse;
 
 namespace IrisMenus
 {
-    public sealed class MenuScrollView
+    public sealed class MenuScrollView : IDisposable
     {
         private Vector2 position;
         private float contentHeight;
@@ -14,15 +15,34 @@ namespace IrisMenus
         private float highlightUntil;
         private float? restoredPosition;
         private readonly Dictionary<string, Rect> anchors = new Dictionary<string, Rect>();
+        private readonly Listing_Standard listing = new Listing_Standard { maxOneColumn = true };
+        private readonly UiScrollView nativeScroll;
+        private readonly Action<Rect> drawNativeContent;
+        private Action<Listing_Standard> nativeDrawer;
         internal static MenuScrollView Active { get; private set; }
-        // 本帧实际绘制的内容窗口（含滚动偏移），只在 Draw 期间有效。
-        // 消费方据此裁剪，不再经 GUIUtility 换算。
+        // Valid while Draw is executing; coordinates match Listing_Standard content.
         public Rect VisibleRect { get; private set; }
 
-        public void Reset() { position = Vector2.zero; restoredPosition = null; }
+        public MenuScrollView() { }
+
+        // The caller owns the prepared context and its frame/overlay lifetime.
+        public MenuScrollView(UiContext context)
+        {
+            nativeScroll = new UiScrollView(context ?? throw new ArgumentNullException(nameof(context)), 1);
+            drawNativeContent = DrawNativeContent;
+        }
+
+        public void Reset()
+        {
+            position = Vector2.zero;
+            restoredPosition = null;
+            pendingFocus = highlighted = null;
+            nativeScroll?.Reset();
+        }
+
         internal float PositionY
         {
-            get => restoredPosition ?? position.y;
+            get => restoredPosition ?? (nativeScroll == null ? position.y : nativeScroll.Position.y);
             set => restoredPosition = Mathf.Max(0f, MenuSettings.Finite(value, 0f));
         }
 
@@ -38,12 +58,21 @@ namespace IrisMenus
             if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("An anchor ID is required.", nameof(id));
             if (anchors.ContainsKey(id)) throw new ArgumentException("Duplicate anchor ID in this page: " + id);
             anchors.Add(id, rect);
-            if (id == highlighted && Time.realtimeSinceStartup <= highlightUntil) Widgets.DrawHighlight(rect);
+            if (nativeScroll != null)
+            {
+                if (id == highlighted) nativeScroll.Anchor(0, rect);
+            }
+            else if (id == highlighted && Time.realtimeSinceStartup <= highlightUntil) Widgets.DrawHighlight(rect);
         }
 
         public void Draw(Rect viewport, Action<Listing_Standard> draw)
         {
             if (draw == null) throw new ArgumentNullException(nameof(draw));
+            if (nativeScroll != null)
+            {
+                DrawNative(viewport, draw);
+                return;
+            }
             float height = Mathf.Max(viewport.height, contentHeight);
             Rect content = new Rect(0f, 0f, Mathf.Max(1f, viewport.width - 20f), height);
             position.y = Mathf.Clamp(position.y, 0f, Mathf.Max(0f, height - viewport.height));
@@ -54,18 +83,11 @@ namespace IrisMenus
             anchors.Clear();
             try
             {
-                var listing = new Listing_Standard { maxOneColumn = true };
-                listing.Begin(content);
-                try { draw(listing); }
-                finally
+                DrawListing(content, draw);
+                if (restoredPosition.HasValue)
                 {
-                    contentHeight = listing.CurHeight + 4f;
-                    listing.End();
-                    if (restoredPosition.HasValue)
-                    {
-                        position.y = Mathf.Clamp(restoredPosition.Value, 0f, Mathf.Max(0f, contentHeight - viewport.height));
-                        restoredPosition = null;
-                    }
+                    position.y = Mathf.Clamp(restoredPosition.Value, 0f, Mathf.Max(0f, contentHeight - viewport.height));
+                    restoredPosition = null;
                 }
                 if (pendingFocus != null)
                 {
@@ -76,6 +98,58 @@ namespace IrisMenus
                 }
             }
             finally { Active = previous; Widgets.EndScrollView(); }
+        }
+
+        private void DrawNative(Rect viewport, Action<Listing_Standard> draw)
+        {
+            if (viewport.width <= 0f || viewport.height <= 0f) return;
+            if (restoredPosition.HasValue)
+            {
+                nativeScroll.SetPosition(restoredPosition.Value);
+                restoredPosition = null;
+            }
+            if (pendingFocus != null) nativeScroll.FocusAnchor(0);
+            float naturalHeight = Mathf.Max(viewport.height, contentHeight);
+            nativeDrawer = draw;
+            try
+            {
+                bool resolved = nativeScroll.Draw(viewport, naturalHeight, drawNativeContent);
+                VisibleRect = new Rect(0f, nativeScroll.Position.y, nativeScroll.VisibleRect.width, viewport.height);
+                if (pendingFocus != null && contentHeight <= naturalHeight)
+                {
+                    if (!resolved) Log.Warning("[IrisMenus] Anchor is not currently visible in page content: " + pendingFocus);
+                    pendingFocus = null;
+                }
+            }
+            finally { nativeDrawer = null; }
+        }
+
+        private void DrawNativeContent(Rect content)
+        {
+            VisibleRect = nativeScroll.VisibleRect;
+            MenuScrollView previous = Active;
+            Active = this;
+            anchors.Clear();
+            try { DrawListing(content, nativeDrawer); }
+            finally { Active = previous; }
+        }
+
+        private void DrawListing(Rect content, Action<Listing_Standard> draw)
+        {
+            listing.Begin(content);
+            try { draw(listing); }
+            finally
+            {
+                contentHeight = listing.CurHeight + 4f;
+                listing.End();
+            }
+        }
+
+        public void Dispose()
+        {
+            nativeScroll?.Dispose();
+            anchors.Clear();
+            pendingFocus = highlighted = null;
         }
     }
 }
