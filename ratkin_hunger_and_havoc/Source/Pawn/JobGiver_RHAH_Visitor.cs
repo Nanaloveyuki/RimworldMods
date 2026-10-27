@@ -88,6 +88,9 @@ namespace HungerAndHavoc.Pawn
             Job swarm = RHAH_MouseSwarm.TryCreateJob(pawn);
             if (swarm != null) return swarm;
 
+            Job carryChild = JobGiver_RHAH_CarryToSafety.TryCreate(pawn);
+            if (carryChild != null) return carryChild;
+
 
             Job feedChild = JobGiver_RHAH_MotherFeed.TryCreate(pawn);
             if (feedChild != null)

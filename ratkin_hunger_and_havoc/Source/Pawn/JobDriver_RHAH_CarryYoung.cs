@@ -12,6 +12,8 @@ namespace HungerAndHavoc.Pawn
         Lord startedLord;
         bool lordCaptured;
 
+        bool ToSafety => job.def == Core.RHAH_DefOf.RHAH_CarryToSafety;
+
         Verse.Pawn Takee
         {
             get
@@ -34,7 +36,7 @@ namespace HungerAndHavoc.Pawn
                 return base.GetReport();
             }
 
-            return "RHAH_Job_CarryYoung_Report".Translate(child.LabelShort);
+            return (ToSafety ? "RHAH_Job_CarryToSafety_Report" : "RHAH_Job_CarryYoung_Report").Translate(child.LabelShort);
         }
 
         protected override IEnumerable<Toil> MakeNewToils()
@@ -44,10 +46,13 @@ namespace HungerAndHavoc.Pawn
             this.FailOn(CarryReleased);
             this.FailOn(() => !RHAH_BatchAttitude.CanOrderLeave(pawn) ||
                 pawn.GetLord() != startedLord || !RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Carry) ||
-                !RHAH_Api.Allows(pawn, RHAH_BehaviorGate.ExitMap) ||
-                !RHAH_BatchAttitude.CanOrderLeave(Takee) ||
-                RHAH_Api.Get(Takee).Lifecycle != RHAH_Lifecycle.Leaving ||
-                !RHAH_Api.Allows(Takee, RHAH_BehaviorGate.ExitMap));
+                (ToSafety
+                    ? RHAH_Api.Get(pawn).Lifecycle == RHAH_Lifecycle.Leaving ||
+                        !JobGiver_RHAH_CarryToSafety.Eligible(pawn, Takee, startedLord)
+                    : !RHAH_Api.Allows(pawn, RHAH_BehaviorGate.ExitMap) ||
+                        !RHAH_BatchAttitude.CanOrderLeave(Takee) ||
+                        RHAH_Api.Get(Takee).Lifecycle != RHAH_Lifecycle.Leaving ||
+                        !RHAH_Api.Allows(Takee, RHAH_BehaviorGate.ExitMap)));
             if (Takee?.CarriedBy != pawn)
             {
                 Toil approach = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch)
@@ -57,11 +62,19 @@ namespace HungerAndHavoc.Pawn
             }
             Toil walk = Toils_Goto.GotoCell(TargetIndex.B, PathEndMode.OnCell);
             walk.AddFailCondition(CarryReleased);
-            walk.tickIntervalAction = (delta) => LeaveIfExit(pawn);
+            if (!ToSafety) walk.tickIntervalAction = (delta) => LeaveIfExit(pawn);
             yield return walk;
             Toil leave = ToilMaker.MakeToil("CarryYoungExit");
             leave.AddFailCondition(CarryReleased);
-            leave.initAction = () => LeaveIfExit(pawn);
+            leave.initAction = () =>
+            {
+                if (ToSafety)
+                {
+                    if (pawn.carryTracker?.CarriedThing == Takee)
+                        pawn.carryTracker.TryDropCarriedThing(pawn.Position, ThingPlaceMode.Near, out Thing dropped);
+                }
+                else LeaveIfExit(pawn);
+            };
             leave.defaultCompleteMode = ToilCompleteMode.Instant;
             yield return leave;
         }

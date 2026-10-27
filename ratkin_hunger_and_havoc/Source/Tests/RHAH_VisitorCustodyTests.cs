@@ -231,17 +231,19 @@ namespace HungerAndHavoc.Tests
             try
             {
                 RHAH_Mod.Settings = new RHAH_Settings { foodPerChild = 10, childExchangeFoodSubstitution = true };
-                Verse.Pawn[] pawns = new Verse.Pawn[visitorCount];
-                for (int i = 0; i < pawns.Length; i++)
+                Verse.Pawn[] pawns = new Verse.Pawn[visitorCount + 1];
+                pawns[0] = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+                RHAH_Api.SetGate(pawns[0], RHAH_BehaviorGate.JoinColony, false);
+                for (int i = 1; i < pawns.Length; i++)
                 {
-                    pawns[i] = Visitor(map);
-                    pawns[i].def.race = new RaceProperties { intelligence = Intelligence.Humanlike };
-                    pawns[i].ageTracker = new Pawn_AgeTracker(pawns[i]);
+                    pawns[i] = ExchangeVisitor(6f, RHAH_PawnRole.RatkinYoung);
                 }
                 RHAH_ChoiceRecord record = Open(pawns);
                 record.DisplayId = displayId;
                 record.Kind = RHAH_RequestKind.Baby;
                 record.Choice = displayId == "I-013" ? RHAH_ChoiceKind.ChildExchange : RHAH_ChoiceKind.Aid;
+                Assert.Equal(visitorCount, RHAH_ChildExchange.IncomingCount(record));
+                Assert.Equal(required, RHAH_ChildExchange.FoodCost(record));
                 map.listerThings = new ListerThings(ListerThingsUse.Global, null);
                 Thing stock = new Thing { def = meal, stackCount = required - 1 };
                 Field(typeof(Thing), "mapIndexOrState").SetValue(stock, (sbyte)Find.Maps.IndexOf(map));
@@ -270,6 +272,102 @@ namespace HungerAndHavoc.Tests
                 {
                     DefDatabase<ThingDef>.Clear();
                     for (int i = 0; i < previousDefs.Count; i++) DefDatabase<ThingDef>.Add(previousDefs[i]);
+                }
+            }
+        }
+
+        [Theory]
+        [InlineData(RHAH_PawnRole.Refugee, 6f, false)]
+        [InlineData(RHAH_PawnRole.Refugee, 30f, false)]
+        [InlineData(RHAH_PawnRole.RatkinYoung, 13.9f, true)]
+        [InlineData(RHAH_PawnRole.RatkinYoung, 14f, false)]
+        public void ExchangeOffersRequireChildRoleAndActualChildAge(RHAH_PawnRole role, float age, bool offered)
+        {
+            Verse.Pawn pawn = ExchangeVisitor(age, role);
+            RHAH_ChoiceRecord record = Open(pawn);
+            record.DisplayId = "I-013";
+            record.Kind = RHAH_RequestKind.Baby;
+            record.Choice = RHAH_ChoiceKind.ChildExchange;
+
+            Assert.Equal(offered, RHAH_ChildExchange.IsOfferedChild(pawn));
+            Assert.Equal(offered ? 1 : 0, RHAH_ChildExchange.IncomingCount(record));
+            if (!offered)
+            {
+                Assert.Equal("RHAH_ChildExchange_NoIncoming", RHAH_ChildExchange.UnavailableReason(record, null, true));
+                Assert.False(RHAH_ChildExchange.TryExchange(record, null, true));
+                Assert.True(RHAH_Api.IsVisitor(pawn));
+                Assert.Same(visitors, pawn.Faction);
+                Assert.True(record.Open);
+            }
+        }
+
+        [Theory]
+        [InlineData("released")]
+        [InlineData("otherMap")]
+        [InlineData("otherBatch")]
+        [InlineData("agedUp")]
+        public void MissingOfferNeverSubstitutesAccompanyingAdult(string change)
+        {
+            Verse.Pawn adult = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+            Verse.Pawn child = ExchangeVisitor(6f, RHAH_PawnRole.RatkinYoung);
+            RHAH_ChoiceRecord record = Open(adult, child);
+            record.DisplayId = "I-013";
+            record.Kind = RHAH_RequestKind.Baby;
+            record.Choice = RHAH_ChoiceKind.ChildExchange;
+            Assert.Equal(1, RHAH_ChildExchange.IncomingCount(record));
+
+            if (change == "released") RHAH_Api.SetLifecycle(child, RHAH_Lifecycle.Released);
+            else if (change == "otherMap")
+                Field(typeof(Thing), "mapIndexOrState").SetValue(child, (sbyte)Find.Maps.IndexOf(NewMap(42)));
+            else if (change == "otherBatch") CompRHAH_Pawn.TryGet(child).State.spawnBatchId++;
+            else Field(typeof(Pawn_AgeTracker), "ageBiologicalTicksInt").SetValue(child.ageTracker, 14L * 3600000L);
+
+            Assert.Equal(0, RHAH_ChildExchange.IncomingCount(record));
+            Assert.Equal("RHAH_ChildExchange_NoIncoming", RHAH_ChildExchange.UnavailableReason(record, null, true));
+            Assert.False(RHAH_ChildExchange.TryExchange(record, null, true));
+            Assert.Same(visitors, adult.Faction);
+            Assert.True(RHAH_Api.IsVisitor(adult));
+            Assert.True(record.Open);
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void UnjoinableOfferBlocksExchangeWithoutReleasingAccompanyingAdult(bool plague)
+        {
+            Verse.Pawn adult = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+            Verse.Pawn child = ExchangeVisitor(6f, RHAH_PawnRole.RatkinYoung);
+            RHAH_ChoiceRecord record = Open(adult, child);
+            record.DisplayId = "I-013";
+            record.Kind = RHAH_RequestKind.Baby;
+            record.Choice = RHAH_ChoiceKind.ChildExchange;
+            HediffDef previous = RHAH_Plague.Def;
+            List<HediffDef> previousDefs = new List<HediffDef>(DefDatabase<HediffDef>.AllDefsListForReading);
+            if (plague)
+            {
+                Hediff hediff = Plague(child, 0.4f);
+                if (previous == null) DefDatabase<HediffDef>.Add(hediff.def);
+                else hediff.def = previous;
+            }
+            else RHAH_Api.SetGate(child, RHAH_BehaviorGate.JoinColony, false);
+
+            try
+            {
+                Assert.Equal(1, RHAH_ChildExchange.IncomingCount(record));
+                Assert.Equal("RHAH_ChildExchange_NoIncoming", RHAH_ChildExchange.UnavailableReason(record, null, true));
+                Assert.False(RHAH_ChildExchange.TryExchange(record, null, true));
+                Assert.Same(visitors, adult.Faction);
+                Assert.Same(visitors, child.Faction);
+                Assert.True(RHAH_Api.IsVisitor(adult));
+                Assert.True(RHAH_Api.IsVisitor(child));
+                Assert.True(record.Open);
+            }
+            finally
+            {
+                if (plague && previous == null)
+                {
+                    DefDatabase<HediffDef>.Clear();
+                    foreach (HediffDef def in previousDefs) DefDatabase<HediffDef>.Add(def);
                 }
             }
         }
@@ -492,6 +590,16 @@ namespace HungerAndHavoc.Tests
                 record.PawnLoadIds.Add(pawns[i].thingIDNumber);
             }
             return RHAH_ChoiceRuntime.Open(choices, record);
+        }
+
+        Verse.Pawn ExchangeVisitor(float age, RHAH_PawnRole role)
+        {
+            Verse.Pawn pawn = Visitor(map);
+            pawn.def.race = new RaceProperties { intelligence = Intelligence.Humanlike };
+            pawn.ageTracker = new Pawn_AgeTracker(pawn);
+            Field(typeof(Pawn_AgeTracker), "ageBiologicalTicksInt").SetValue(pawn.ageTracker, (long)(age * 3600000f));
+            CompRHAH_Pawn.TryGet(pawn).State.role = role;
+            return pawn;
         }
 
         Verse.Pawn Visitor(Map target)

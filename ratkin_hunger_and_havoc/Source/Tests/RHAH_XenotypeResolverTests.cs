@@ -24,16 +24,14 @@ namespace HungerAndHavoc.Tests
                 new XenotypeChance(second, 0.15f),
                 new XenotypeChance(zero, 0f)
             };
-            XenotypeSet set = new XenotypeSet();
-            typeof(XenotypeSet).GetField("xenotypeChances", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(set, pool);
-            Assert.Same(first, RHAH_XenotypeResolver.ChooseAllowed(set, null, 0f, (x, r) => x != restricted));
-            Assert.Same(first, RHAH_XenotypeResolver.ChooseAllowed(set, null, 0.69f, (x, r) => x != restricted));
-            Assert.Same(second, RHAH_XenotypeResolver.ChooseAllowed(set, null, 0.7f, (x, r) => x != restricted));
-            Assert.Same(second, RHAH_XenotypeResolver.ChooseAllowed(set, null, 1f, (x, r) => x != restricted));
-            Assert.Null(RHAH_XenotypeResolver.ChooseAllowed(set, null, 0f, (x, r) => false));
+            Assert.Same(first, RHAH_XenotypeResolver.ChooseAllowed(pool, null, 0f, (x, r) => x != restricted));
+            Assert.Same(first, RHAH_XenotypeResolver.ChooseAllowed(pool, null, 0.69f, (x, r) => x != restricted));
+            Assert.Same(second, RHAH_XenotypeResolver.ChooseAllowed(pool, null, 0.7f, (x, r) => x != restricted));
+            Assert.Same(second, RHAH_XenotypeResolver.ChooseAllowed(pool, null, 1f, (x, r) => x != restricted));
+            Assert.Null(RHAH_XenotypeResolver.ChooseAllowed(pool, null, 0f, (x, r) => false));
             pool[1].chance = 0f;
             pool[2].chance = 0f;
-            Assert.Null(RHAH_XenotypeResolver.ChooseAllowed(set, null, 0.5f, (x, r) => x != restricted));
+            Assert.Null(RHAH_XenotypeResolver.ChooseAllowed(pool, null, 0.5f, (x, r) => x != restricted));
         }
 
         [Theory]

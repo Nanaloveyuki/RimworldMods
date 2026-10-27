@@ -29,75 +29,87 @@ namespace HungerAndHavoc.Generation
                 return RHAH_HarXenotypeBridge.Allows(xenotype, race);
             }
 
+            xenotype = ChooseAllowed(GenerationPool(kind), race, Rand.Value, RHAH_HarXenotypeBridge.Allows);
+            return xenotype != null;
+        }
+
+        internal static List<XenotypeChance> GenerationPool(PawnKindDef kind)
+        {
+            List<XenotypeChance> pool = new List<XenotypeChance>();
+            if (!ModsConfig.BiotechActive)
+            {
+                return pool;
+            }
+
+            ThingDef race = kind?.race;
             if (RHAH_GenerationOptimizer.Enabled)
             {
                 Core.RHAH_Settings settings = Core.RHAH_Mod.Settings;
                 List<XenotypeDef> candidates = LoadedCandidates(settings, race);
-                float total = 0f;
-                for (int i = 0; i < candidates.Count; i++)
-                {
-                    total += settings.XenotypeWeight(candidates[i].defName);
-                }
-
-                float cursor = Rand.Value * total;
                 for (int i = 0; i < candidates.Count; i++)
                 {
                     float weight = settings.XenotypeWeight(candidates[i].defName);
-                    if (weight <= 0f)
+                    if (weight > 0f)
                     {
-                        continue;
-                    }
-
-                    xenotype = candidates[i];
-                    cursor -= weight;
-                    if (cursor < 0f)
-                    {
-                        break;
+                        pool.Add(new XenotypeChance(candidates[i], weight));
                     }
                 }
-                if (xenotype != null)
+                if (pool.Count > 0)
                 {
-                    return true;
+                    return pool;
                 }
             }
 
             XenotypeDef primary = Load(RHAH_GeneCatalog.DefaultXenotypeDefName);
             if (RHAH_GenerationOptimizer.Enabled && RHAH_HarXenotypeBridge.Allows(primary, race))
             {
-                xenotype = primary;
-                return true;
+                pool.Add(new XenotypeChance(primary, 1f));
+                return pool;
             }
 
-            // 读取上游已打补丁的基础鼠族池 不继承其装备和年龄限制
-            XenotypeSet pool = kind?.xenotypeSet;
-            if (pool == null && race?.defName == "Ratkin")
+            // 自有 kind 的声明池不是上游池 关闭优化时仍读取鼠族扩展的实际权重
+            XenotypeSet native = RHAH_XenotypeGeneration.Owns(kind) ? null : kind?.xenotypeSet;
+            if (native == null && race?.defName == "Ratkin")
             {
                 PawnKindDef colonist = DefDatabase<PawnKindDef>.GetNamedSilentFail("RatkinColonist");
                 if (colonist?.race == race)
                 {
-                    pool = colonist.xenotypeSet;
+                    native = colonist.xenotypeSet;
                 }
             }
-
-            xenotype = ChooseAllowed(pool, race, Rand.Value, RHAH_HarXenotypeBridge.Allows);
-            if (xenotype == null && RHAH_HarXenotypeBridge.Allows(primary, race))
+            if (native != null)
             {
-                xenotype = primary;
+                for (int i = 0; i < native.Count; i++)
+                {
+                    XenotypeChance candidate = native[i];
+                    if (candidate != null && candidate.chance > 0f && !float.IsInfinity(candidate.chance) &&
+                        RHAH_HarXenotypeBridge.Allows(candidate.xenotype, race))
+                    {
+                        pool.Add(candidate);
+                    }
+                }
+            }
+            if (pool.Count > 0)
+            {
+                return pool;
             }
 
-            if (xenotype == null)
+            if (RHAH_HarXenotypeBridge.Allows(primary, race))
+            {
+                pool.Add(new XenotypeChance(primary, 1f));
+            }
+            else
             {
                 XenotypeDef fallback = Load(RHAH_GeneCatalog.FallbackXenotypeDefName);
                 if (RHAH_HarXenotypeBridge.Allows(fallback, race))
                 {
-                    xenotype = fallback;
+                    pool.Add(new XenotypeChance(fallback, 1f));
                 }
             }
-
-            return xenotype != null;
+            return pool;
         }
 
-        internal static XenotypeDef ChooseAllowed(XenotypeSet candidates, ThingDef race,
+        internal static XenotypeDef ChooseAllowed(List<XenotypeChance> candidates, ThingDef race,
             float roll, Func<XenotypeDef, ThingDef, bool> allows)
         {
             if (candidates == null)

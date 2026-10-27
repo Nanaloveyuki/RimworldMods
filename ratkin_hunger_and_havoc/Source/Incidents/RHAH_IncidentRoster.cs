@@ -25,6 +25,7 @@ namespace HungerAndHavoc.Incidents
                 case "I-041":
                     return RHAH_PawnRole.WildChild;
                 case "I-013":
+                    return index == 0 ? RHAH_PawnRole.Refugee : RHAH_PawnRole.RatkinYoung;
                 case "I-032":
                 case "I-033":
                 case "I-046":

@@ -25,7 +25,12 @@
     <hostileToFactionlessHumanlikes>false</hostileToFactionlessHumanlikes>
     <techLevel>Neolithic</techLevel>
     <factionIconPath>Icon/RK_icon</factionIconPath>
-    <basicMemberKind>Colonist</basicMemberKind>
+    <basicMemberKind>RHAH_PawnKind_Ratkin</basicMemberKind>
+    <xenotypeSet MayRequire="Ludeon.RimWorld.Biotech">
+      <xenotypeChances>
+        <RK_XenoType_Ratkin>1</RK_XenoType_Ratkin>
+      </xenotypeChances>
+    </xenotypeSet>
     <raidLootValueFromPointsCurve>
       <points>
         <li>(0, 0)</li>

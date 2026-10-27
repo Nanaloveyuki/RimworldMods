@@ -644,7 +644,7 @@ namespace HungerAndHavoc.Pawn
                     ? RHAH_VisitorRules.CreateLeaveDuty()
                     : HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.HasEdgeHold(pawn)
                         ? new PawnDuty(RHAH_DefOf.RHAH_VisitorSeek, pawn.Position, 0f)
-                        : new PawnDuty(RimWorld.DutyDefOf.TravelOrWait, Data.dest, -1f);
+                        : new PawnDuty(RHAH_DefOf.RHAH_VisitorTravel, Data.dest, -1f);
                 pawn.mindState.duty = duty;
             }
         }

@@ -7,6 +7,7 @@
   <RHAH_Job_Expel_Report>{0} だけを追放する</RHAH_Job_Expel_Report>
   <RHAH_Job_ExpelAll_Report>{0} とその一行を追放する</RHAH_Job_ExpelAll_Report>
   <RHAH_Job_CarryYoung_Report>{0} を運び出す。</RHAH_Job_CarryYoung_Report>
+  <RHAH_Job_CarryToSafety_Report>{0}を待機場所へ運ぶ。</RHAH_Job_CarryToSafety_Report>
   <RHAH_Beg_Text_Success_1>食べ物、もらえたぁ…</RHAH_Beg_Text_Success_1>
   <RHAH_Beg_Text_Success_2>ありがと…食べ物くれて、ありがと…</RHAH_Beg_Text_Success_2>
   <RHAH_Beg_Text_Success_3>今日も、もう少し生きられる…</RHAH_Beg_Text_Success_3>

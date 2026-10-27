@@ -25,11 +25,13 @@ namespace HungerAndHavoc.Core
         public static JobDef RHAH_ExpelSingle;
         public static JobDef RHAH_BroadcastHope;
         public static JobDef RHAH_CarryYoung;
+        public static JobDef RHAH_CarryToSafety;
         public static ThoughtDef RHAH_Thought_ScavengedFilth;
         public static ThoughtDef RHAH_Thought_TailBitten;
         public static ThoughtDef RHAH_Thought_BitATail;
         public static DutyDef RHAH_VisitorSeek;
         public static DutyDef RHAH_VisitorLeave;
+        public static DutyDef RHAH_VisitorTravel;
         public static ThinkTreeDef RHAH_VisitorFallback;
         public static FactionDef RHAH_Faction_Hostile;
         public static FactionDef RHAH_Faction_LeaningHostile;

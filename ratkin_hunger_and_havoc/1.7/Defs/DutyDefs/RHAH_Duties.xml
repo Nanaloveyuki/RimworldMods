@@ -20,4 +20,17 @@
       </subNodes>
     </thinkNode>
   </DutyDef>
+  <DutyDef>
+    <defName>RHAH_VisitorTravel</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="HungerAndHavoc.Pawn.JobGiver_RHAH_CarryToSafety" />
+        <li Class="JobGiver_GotoTravelDestination" />
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li>
+        <li Class="JobGiver_WanderAnywhere" />
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
 </Defs>

@@ -36,6 +36,16 @@ namespace HungerAndHavoc.Incidents
                 pawn.ageTracker.AgeBiologicalYearsFloat < 14f;
         }
 
+        internal static bool IsOfferedChild(Verse.Pawn pawn)
+        {
+            return IsYoung(pawn) && CompRHAH_Pawn.TryGet(pawn)?.State.role == RHAH_PawnRole.RatkinYoung;
+        }
+
+        internal static float? GenerationAge(RHAH_PawnRole role, float? age)
+        {
+            return role == RHAH_PawnRole.RatkinYoung ? age : System.Math.Max(14f, age ?? 14f);
+        }
+
         internal static bool Eligible(Verse.Pawn pawn, Map map)
         {
             return IsYoung(pawn) && pawn.Spawned && pawn.Map == map && !pawn.Dead && !RHAH_VisitorStay.PausesStay(pawn) &&
@@ -63,7 +73,7 @@ namespace HungerAndHavoc.Incidents
         {
             List<Verse.Pawn> visitors = RHAH_ChoiceRuntime.Present(record);
             int count = 0;
-            for (int i = 0; i < visitors.Count; i++) if (IsYoung(visitors[i])) count++;
+            for (int i = 0; i < visitors.Count; i++) if (IsOfferedChild(visitors[i])) count++;
             return count;
         }
 
@@ -96,7 +106,7 @@ namespace HungerAndHavoc.Incidents
             List<Verse.Pawn> visitors = RHAH_ChoiceRuntime.Present(record);
             if (visitors.Count == 0 || visitors[0].Faction == null || visitors[0].Faction == Faction.OfPlayer)
                 return "RHAH_Choice_NoPresent";
-            if (record.DisplayId == "I-013" && !Joinable(visitors.FindAll(IsYoung)))
+            if (record.DisplayId == "I-013" && !Joinable(visitors.FindAll(IsOfferedChild)))
                 return "RHAH_ChildExchange_NoIncoming";
             if (foodAlternative)
             {
@@ -114,7 +124,7 @@ namespace HungerAndHavoc.Incidents
             if (!CanDeliver(record, outgoing, foodAlternative)) return false;
             Map map = RHAH_EventMap(record);
             List<Verse.Pawn> visitors = RHAH_ChoiceRuntime.Present(record);
-            List<Verse.Pawn> incoming = record.DisplayId == "I-013" ? visitors.FindAll(IsYoung) : new List<Verse.Pawn>();
+            List<Verse.Pawn> incoming = record.DisplayId == "I-013" ? visitors.FindAll(IsOfferedChild) : new List<Verse.Pawn>();
             Faction counterpart = visitors[0].Faction;
             Verse.Pawn responsible = Responsible(map, outgoing);
             // All join and payment gates are checked before changing custody.

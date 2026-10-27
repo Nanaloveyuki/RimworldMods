@@ -247,6 +247,58 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(50, RHAH_IncidentScale.Count("I-001", 10000f));
         }
 
+        [Theory]
+        [InlineData(1f, 1)]
+        [InlineData(200f, 2)]
+        [InlineData(10000f, 30)]
+        public void ChildExchangeKeepsAdultAndSingleChildRegardlessOfPointsOrCap(float points, int cap)
+        {
+            Assert.Equal(2, RHAH_IncidentScale.Count("I-013", points));
+            Assert.Equal(2, RHAH_IncidentScale.Count("I-013", points, cap, false));
+            Assert.Equal(2, RHAH_IncidentScale.MultiplyCount("I-013", 2, true, 4f));
+            Assert.Equal(RHAH_PawnRole.Refugee, RHAH_IncidentRoster.RoleAt("I-013", RHAH_PawnRole.Refugee, 0));
+            Assert.Equal(RHAH_PawnRole.RatkinYoung, RHAH_IncidentRoster.RoleAt("I-013", RHAH_PawnRole.Refugee, 1));
+        }
+
+        [Theory]
+        [InlineData(0f, 14f)]
+        [InlineData(13.9f, 14f)]
+        [InlineData(14f, 14f)]
+        [InlineData(50f, 50f)]
+        public void ChildExchangeAccompanimentCannotBecomeAnOfferedChild(float configuredAge, float adultAge)
+        {
+            Assert.Equal(adultAge, RHAH_ChildExchange.GenerationAge(RHAH_PawnRole.Refugee, configuredAge));
+            Assert.Equal(configuredAge, RHAH_ChildExchange.GenerationAge(RHAH_PawnRole.RatkinYoung, configuredAge));
+        }
+
+        [Theory]
+        [InlineData(0f, 10f, false)]
+        [InlineData(0f, 10f, true)]
+        [InlineData(20f, 40f, false)]
+        [InlineData(20f, 40f, true)]
+        public void ChildExchangeGenerationKeepsAnAdultUnderConfiguredAgeRanges(float min, float max, bool youngFollowsRange)
+        {
+            RHAH_Settings previousSettings = RHAH_Mod.Settings;
+            Rand.PushState(713);
+            try
+            {
+                RHAH_Mod.Settings = new RHAH_Settings
+                {
+                    minGeneratedAge = min,
+                    maxGeneratedAge = max,
+                    youngAgeFollowsRange = youngFollowsRange
+                };
+                Assert.True(RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.Refugee, "I-013") >= 14f);
+                float? child = RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.RatkinYoung, "I-013");
+                Assert.True(youngFollowsRange ? child >= min && child <= max : child < 14f);
+            }
+            finally
+            {
+                RHAH_Mod.Settings = previousSettings;
+                Rand.PopState();
+            }
+        }
+
         [Fact]
         public void EggEventsStayYoungAndLaboringMothersStartLabor()
         {

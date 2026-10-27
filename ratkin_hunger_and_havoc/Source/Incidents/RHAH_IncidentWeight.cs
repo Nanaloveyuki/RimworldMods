@@ -138,7 +138,6 @@ namespace HungerAndHavoc.Incidents
                 case "I-009":
                 case "I-008-01":
                 case "I-009-01":
-                case "I-013":
                 case "I-019":
                 case "I-033":
                 case "I-037":
@@ -165,6 +164,7 @@ namespace HungerAndHavoc.Incidents
                 case "I-026":
                 case "I-027":
                 case "I-028": return 1;
+                case "I-013": return 2;
                 case "I-029":
                 case "I-044": return 2;
                 case "I-030":
@@ -245,7 +245,7 @@ namespace HungerAndHavoc.Incidents
 
         internal static bool FixedGroup(string displayId)
         {
-            return displayId == "I-003" || displayId == "I-004" || displayId == "I-029" || displayId == "I-044";
+            return displayId == "I-003" || displayId == "I-004" || displayId == "I-013" || displayId == "I-029" || displayId == "I-044";
         }
 
         internal static int Minimum(string displayId)
@@ -265,6 +265,7 @@ namespace HungerAndHavoc.Incidents
                 case "I-007":
                 case "I-010":
                 case "I-010-01":
+                case "I-013":
                 case "I-014":
                 case "I-029":
                 case "I-035":

@@ -214,7 +214,8 @@ namespace HungerAndHavoc.Incidents
                     role, null, min, max, Rand.Value, youngFollows));
             }
             float motherMin = settings == null ? HungerAndHavoc.Pawn.RHAH_VisitorRules.DefaultMotherMinAge : settings.minMotherAge;
-            return HungerAndHavoc.Pawn.RHAH_VisitorRules.GenerationAge(role, null, min, max, Rand.Value, youngFollows, motherMin);
+            float? age = HungerAndHavoc.Pawn.RHAH_VisitorRules.GenerationAge(role, null, min, max, Rand.Value, youngFollows, motherMin);
+            return displayId == "I-013" ? RHAH_ChildExchange.GenerationAge(role, age) : age;
         }
 
 
@@ -393,7 +394,12 @@ namespace HungerAndHavoc.Incidents
             bool hasYoungText = choiceKey == "RHAH_Choice_Abandoned" || choiceKey == "RHAH_Choice_ChildExchange" ||
                 choiceKey == "RHAH_Choice_BeggarFamily" || choiceKey == "RHAH_Choice_Kinship" ||
                 choiceKey == "RHAH_Choice_Airdrop" || choiceKey == "RHAH_Choice_YoungThieves" || choiceKey == "RHAH_Choice_WildYoung";
-            bool young = !hasYoungText || YoungArrivals(arrived, family ? 1 : 0);
+            bool exchange = choiceKey == "RHAH_Choice_ChildExchange";
+            int exchangeChildren = 0;
+            if (exchange && arrived != null)
+                for (int i = 0; i < arrived.Count; i++)
+                    if (RHAH_ChildExchange.IsOfferedChild(arrived[i])) exchangeChildren++;
+            bool young = exchange ? exchangeChildren > 0 : !hasYoungText || YoungArrivals(arrived, family ? 1 : 0);
             if (!young)
             {
                 switch (choiceKey)
@@ -425,7 +431,7 @@ namespace HungerAndHavoc.Incidents
             string text;
             if (record.Kind == RHAH_RequestKind.None || record.Kind == RHAH_RequestKind.Baby)
             {
-                text = key.Translate(incident, family ? count - 1 : count);
+                text = key.Translate(incident, exchange ? exchangeChildren : family ? count - 1 : count);
             }
             else
             {

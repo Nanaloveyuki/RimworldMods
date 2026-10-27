@@ -171,7 +171,7 @@ namespace HungerAndHavoc.Incidents
     internal sealed class IncidentWorker_ChildExchange : IncidentWorker_RHAH_OriginalGroup
     {
         protected override string DisplayId => "I-013";
-        protected override RHAH_PawnRole Role => RHAH_PawnRole.RatkinYoung;
+        protected override RHAH_PawnRole Role => RHAH_PawnRole.Refugee;
     }
 
     internal sealed class IncidentWorker_BeggarSiege : IncidentWorker_RHAH_OriginalGroup

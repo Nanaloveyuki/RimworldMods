@@ -10,4 +10,5 @@
   <RHAH_ExpelSingle.reportString>TargetA だけを追い払う</RHAH_ExpelSingle.reportString>
   <RHAH_BroadcastHope.reportString>希望を放送する</RHAH_BroadcastHope.reportString>
   <RHAH_CarryYoung.reportString>TargetAを運び出す。</RHAH_CarryYoung.reportString>
+  <RHAH_CarryToSafety.reportString>TargetAを待機場所へ運ぶ。</RHAH_CarryToSafety.reportString>
 </LanguageData>

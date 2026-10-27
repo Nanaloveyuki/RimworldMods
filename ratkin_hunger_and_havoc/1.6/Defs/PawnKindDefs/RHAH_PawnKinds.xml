@@ -5,6 +5,11 @@
     <label>饥荒鼠族</label>
     <race>Ratkin</race>
     <defaultFactionType>RHAH_Faction_Neutral</defaultFactionType>
+    <xenotypeSet MayRequire="Ludeon.RimWorld.Biotech">
+      <xenotypeChances>
+        <RK_XenoType_Ratkin>1</RK_XenoType_Ratkin>
+      </xenotypeChances>
+    </xenotypeSet>
     <combatPower>30</combatPower>
     <initialWillRange>0~0</initialWillRange>
     <initialResistanceRange>0~0</initialResistanceRange>

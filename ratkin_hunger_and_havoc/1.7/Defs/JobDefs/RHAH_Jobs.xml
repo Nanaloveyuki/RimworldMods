@@ -46,6 +46,15 @@
     <defName>RHAH_CarryYoung</defName>
     <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung</driverClass>
     <reportString>抬走TargetA。</reportString>
+    <dropThingBeforeJob>false</dropThingBeforeJob>
+    <casualInterruptible>false</casualInterruptible>
+    <checkOverrideOnDamage>Never</checkOverrideOnDamage>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_CarryToSafety</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung</driverClass>
+    <reportString>抬走TargetA。</reportString>
+    <dropThingBeforeJob>false</dropThingBeforeJob>
     <casualInterruptible>false</casualInterruptible>
     <checkOverrideOnDamage>Never</checkOverrideOnDamage>
   </JobDef>

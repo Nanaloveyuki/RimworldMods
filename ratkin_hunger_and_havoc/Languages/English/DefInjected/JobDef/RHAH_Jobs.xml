@@ -10,4 +10,5 @@
   <RHAH_ExpelSingle.reportString>expelling only TargetA</RHAH_ExpelSingle.reportString>
   <RHAH_BroadcastHope.reportString>broadcasting hope</RHAH_BroadcastHope.reportString>
   <RHAH_CarryYoung.reportString>carrying TargetA.</RHAH_CarryYoung.reportString>
+  <RHAH_CarryToSafety.reportString>carrying TargetA to the waiting spot.</RHAH_CarryToSafety.reportString>
 </LanguageData>
