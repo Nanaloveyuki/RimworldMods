@@ -1340,6 +1340,11 @@ namespace HungerAndHavoc.Pawn.Compat
                 return;
             }
 
+            bool openDoors = settings.allowVisitorDoors;
+            RHAH_IrisMenusWidgets.Checkbox(list, "visitor-doors", "RHAH_Settings_VisitorDoors".Translate(),
+                ref openDoors, "RHAH_Settings_VisitorDoors_Tooltip".Translate());
+            settings.SetAllowVisitorDoors(openDoors);
+
             MenuControls.Anchor(list, "famine-year");
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.famineYearEnabled), "RHAH_Settings_FamineYear".Translate(), ref settings.famineYearEnabled, "RHAH_Settings_FamineYear_Tooltip".Translate());
             settings.famineYearChancePercent = RHAH_IrisMenusWidgets.TuneFloat(list, weightBuffers, "famine-year-chance", "RHAH_Settings_FamineYearChance".Translate(settings.famineYearChancePercent.ToString("0.0")), GameComponent_RHAH_FamineYear.ClampPercent(settings.famineYearChancePercent, 40f), 0f, 100f, "0.0", "RHAH_Settings_FamineYearChance_Tooltip".Translate());
@@ -1396,6 +1401,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
         IEnumerable<MenuSearchEntry> SearchVisitors()
         {
+            yield return Entry("visitor-doors", "RHAH_Settings_VisitorDoors");
             yield return Entry("visitors-beg", "RHAH_Settings_Begging");
             yield return Entry("visitors-beg-give", "RHAH_Settings_BegAutoGive");
             yield return Entry("visitors-broadcast", "RHAH_Settings_Broadcast");

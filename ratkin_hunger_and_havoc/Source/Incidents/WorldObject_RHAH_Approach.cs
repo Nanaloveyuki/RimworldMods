@@ -107,6 +107,33 @@ namespace HungerAndHavoc.Incidents
                 canGenerate ? () => Intercept(caravan) : (Action)null);
         }
 
+        public override IEnumerable<Gizmo> GetCaravanGizmos(RimWorld.Planet.Caravan caravan)
+        {
+            foreach (Gizmo gizmo in base.GetCaravanGizmos(caravan))
+            {
+                yield return gizmo;
+            }
+
+            if (!CanIntercept(caravan))
+            {
+                yield break;
+            }
+
+            Command_Action command = new Command_Action
+            {
+                defaultLabel = "RHAH_Approach_Intercept".Translate(),
+                defaultDesc = "RHAH_Approach_Inspect".Translate(IncidentLabel()),
+                icon = TexCommand.Attack,
+                action = () => Intercept(caravan)
+            };
+            if (!CanGenerateInterceptionMap())
+            {
+                command.Disable("RHAH_Approach_InterceptBlocked".Translate());
+            }
+
+            yield return command;
+        }
+
         internal bool CanIntercept(RimWorld.Planet.Caravan caravan)
         {
             return RHAH_Runtime.AllowsNewContent && !arriving && Spawned && !Destroyed &&
@@ -130,7 +157,8 @@ namespace HungerAndHavoc.Incidents
 
             foreach (WorldObject candidate in Find.WorldObjects.ObjectsAt(Tile))
             {
-                if (candidate != this && candidate != existing && candidate.def != null && !candidate.def.allowCaravanIncidentsWhichGenerateMap)
+                if (!(candidate is WorldObject_RHAH_Approach) && candidate != existing &&
+                    candidate.def != null && !candidate.def.allowCaravanIncidentsWhichGenerateMap)
                 {
                     return false;
                 }
@@ -251,6 +279,14 @@ namespace HungerAndHavoc.Incidents
                 {
                     Arrive();
                 }
+                return;
+            }
+
+            if (OnDestination())
+            {
+                nextTileId = -1;
+                costLeft = 0;
+                Arrive();
                 return;
             }
 

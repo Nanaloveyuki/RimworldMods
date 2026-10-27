@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_VisitorDoors>Allow famine ratkin visitors to open doors</RHAH_Settings_VisitorDoors>
+  <RHAH_Settings_VisitorDoors_Tooltip>Off by default: visitors only open doors when leaving. On, famine ratkin from this mod's visitor factions may also open doors during their visit. Hostile threats on the map still block them from opening doors. Doors they could not otherwise open remain inaccessible.</RHAH_Settings_VisitorDoors_Tooltip>
+</LanguageData>

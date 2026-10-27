@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using HungerAndHavoc.Core;
@@ -97,6 +98,19 @@ namespace HungerAndHavoc.Tests
             Assert.Equal("Thing_1", document.Descendants("lockedApparel").Single().Elements("li").Single().Value);
             Assert.Empty(document.Descendants("shortStayLockedApparel"));
         }
+        [Fact]
+        public void ExportKeepsForeignShortStayLockFieldsAndTheirApparelLocks()
+        {
+            XDocument document = XDocument.Parse("<savegame><game><pawn><apparel><lockedApparel><li>Thing_1</li><li>Thing_2</li></lockedApparel></apparel><healthTracker><hediffSet><hediffs><li><def>ForeignHediff</def><shortStayLockedApparel><li>Thing_1</li></shortStayLockedApparel></li><li><def>RHAH_HungerMark</def><shortStayLockedApparel><li>Thing_2</li></shortStayLockedApparel></li></hediffs></hediffSet></healthTracker></pawn></game></savegame>");
+            XElement foreignHediff = document.Descendants("hediffs").Single().Elements("li").First();
+            string foreignXml = foreignHediff.ToString();
+
+            new RHAH_SaveCleanup(Plan()).Clean(document);
+
+            Assert.Equal("Thing_1", document.Descendants("lockedApparel").Single().Elements("li").Single().Value);
+            Assert.Equal(foreignXml, foreignHediff.ToString());
+        }
+
         [Fact]
         public void RemovesOwnedNodesAndKeepsForeignIdentity()
         {
@@ -309,6 +323,166 @@ namespace HungerAndHavoc.Tests
             Assert.Null(FindBareId(document, "201"));
         }
 
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void CarryToSafetyExportClearsJobsDutiesAndReservationsButKeepsCarriedChild(bool queued)
+        {
+            XDocument document = XDocument.Parse(@"<savegame><game><maps><li>
+<things><li Class=""Verse.Pawn""><def>Ratkin</def><id>101</id><kindDef>RHAH_PawnKind_Ratkin</kindDef>
+<carryTracker><innerContainer><innerList><li Class=""Verse.Pawn""><def>Ratkin</def><id>102</id><kindDef>RatkinColonist</kindDef>
+<name><first>Child</first></name><faction>Faction_1</faction></li></innerList></innerContainer></carryTracker>
+<mindState><duty><def>RHAH_VisitorTravel</def><focus>(50, 0, 50)</focus></duty></mindState>
+<jobs><curJob><def>RHAH_CarryToSafety</def><loadID>7</loadID><targetA>Thing_102</targetA></curJob>
+<curDriver Class=""HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung"" />
+<jobQueue><jobs><li><job><def>Wait</def><loadID>8</loadID></job></li></jobs></jobQueue></jobs></li>
+<li Class=""Verse.Pawn""><def>Human</def><id>103</id><kindDef>Colonist</kindDef><faction>Faction_1</faction>
+<jobs><curJob><def>Wait</def><loadID>9</loadID></curJob><curDriver Class=""Verse.AI.JobDriver_Wait"" /></jobs></li></things>
+<reservationManager><reservations><li><claimant>Thing_101</claimant><job>Job_7</job><target>Thing_102</target></li>
+<li><claimant>Thing_103</claimant><job>Job_9</job><target>Thing_104</target></li></reservations></reservationManager>
+<pawnDestinationReservationManager><list><li><claimant>Thing_101</claimant><job>Job_7</job></li>
+<li><claimant>Thing_103</claimant><job>Job_9</job></li></list></pawnDestinationReservationManager>
+</li></maps></game></savegame>");
+            XElement carrier = Pawn(document, "101");
+            XElement child = Pawn(document, "102");
+            XElement colonist = Pawn(document, "103");
+            string childXml = child.ToString();
+            string colonistXml = colonist.ToString();
+            XElement tracker = carrier.Element("jobs");
+            XElement queue = tracker.Element("jobQueue").Element("jobs");
+            if (queued)
+            {
+                XElement current = tracker.Element("curJob");
+                queue.AddFirst(new XElement("li", new XElement("job", current.Elements())));
+                current.SetElementValue("def", "Wait");
+                current.SetElementValue("loadID", "10");
+                tracker.Element("curDriver").SetAttributeValue("Class", "Verse.AI.JobDriver_Wait");
+            }
+
+            new RHAH_SaveCleanup(Plan()).Clean(document);
+
+            Assert.Equal("RatkinColonist", (string)carrier.Element("kindDef"));
+            Assert.Equal(childXml, child.ToString());
+            Assert.Same(carrier.Element("carryTracker").Element("innerContainer").Element("innerList"), child.Parent);
+            Assert.Equal(colonistXml, colonist.ToString());
+            Assert.Null(carrier.Element("mindState").Element("duty"));
+            Assert.Equal("8", (string)queue.Elements("li").Single().Element("job").Element("loadID"));
+            if (queued)
+            {
+                Assert.Equal("10", (string)tracker.Element("curJob").Element("loadID"));
+                Assert.Equal("Verse.AI.JobDriver_Wait", (string)tracker.Element("curDriver").Attribute("Class"));
+            }
+            else
+            {
+                Assert.Null(tracker.Element("curJob"));
+                Assert.Null(tracker.Element("curDriver"));
+            }
+            Assert.Equal("Job_9", (string)document.Descendants("reservations").Single().Elements("li").Single().Element("job"));
+            Assert.Equal("Job_9", (string)document.Descendants("pawnDestinationReservationManager").Single()
+                .Element("list").Elements("li").Single().Element("job"));
+        }
+
+        [Theory]
+        [InlineData("Baseliner", "RHAH_XenotypeIcon_Ratkin")]
+        [InlineData("ForeignXenotype", "ForeignIcon")]
+        [InlineData("RHAH_Xenotype_Ratkin", "RHAH_XenotypeIcon_Ratkin")]
+        public void ExportPreservesCustomXenotypeIdentityAndForeignGenes(string xenotype, string icon)
+        {
+            XDocument document = XDocument.Parse(@"<savegame><game><world><worldPawns><pawnsAlive>
+<li Class=""Verse.Pawn""><def>Ratkin</def><id>101</id><kindDef>RHAH_PawnKind_Ratkin</kindDef><faction>Faction_1</faction>
+<genes><xenotype /><xenotypeName>Custom ratkin</xenotypeName><hybrid>True</hybrid><iconDef />
+<xenogenes><li><def>ForeignXenogene</def><loadID>11</loadID></li><li><def>RHAH_Gene_ThinRations</def><loadID>12</loadID></li></xenogenes>
+<endogenes><li><def>ForeignEndogene</def><loadID>13</loadID></li><li><def>RHAH_Gene_ThinRations</def><loadID>14</loadID></li></endogenes></genes></li>
+</pawnsAlive></worldPawns></world><external><kept>Gene_11</kept><removed>Gene_12</removed></external></game></savegame>");
+            XElement pawn = Pawn(document, "101");
+            XElement genes = pawn.Element("genes");
+            genes.Element("xenotype").Value = xenotype;
+            genes.Element("iconDef").Value = icon;
+            string foreignXenogene = genes.Element("xenogenes").Elements("li").First().ToString();
+            string foreignEndogene = genes.Element("endogenes").Elements("li").First().ToString();
+
+            new RHAH_SaveCleanup(Plan()).Clean(document);
+
+            Assert.Equal("101", (string)pawn.Element("id"));
+            Assert.Equal("Ratkin", (string)pawn.Element("def"));
+            Assert.Equal("Faction_1", (string)pawn.Element("faction"));
+            Assert.Equal(xenotype == "RHAH_Xenotype_Ratkin" ? "Baseliner" : xenotype, (string)genes.Element("xenotype"));
+            Assert.Equal("Custom ratkin", (string)genes.Element("xenotypeName"));
+            Assert.Equal("True", (string)genes.Element("hybrid"));
+            Assert.Equal(icon == "RHAH_XenotypeIcon_Ratkin" ? null : icon, (string)genes.Element("iconDef"));
+            Assert.Equal(foreignXenogene, genes.Element("xenogenes").Elements("li").Single().ToString());
+            Assert.Equal(foreignEndogene, genes.Element("endogenes").Elements("li").Single().ToString());
+            Assert.Equal("Gene_11", (string)document.Descendants("kept").Single());
+            Assert.Equal("null", (string)document.Descendants("removed").Single());
+        }
+
+        [Fact]
+        public void WriteCleanPublishesOnlyCompletedDocument()
+        {
+            string directory = Path.Combine(Path.GetTempPath(), "rhah-export-" + Guid.NewGuid());
+            Directory.CreateDirectory(directory);
+            string path = Path.Combine(directory, "clean.rws");
+            try
+            {
+                XDocument document = XDocument.Parse("<savegame><game><retained>player pawn</retained></game></savegame>");
+
+                RHAH_SaveExport.WriteClean(document, path);
+
+                Assert.True(XNode.DeepEquals(document, XDocument.Load(path)));
+                Assert.False(File.Exists(path + ".tmp"));
+            }
+            finally
+            {
+                Directory.Delete(directory, true);
+            }
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void WriteCleanNeverOverwritesExistingDestinationOrDeletesForeignTemporary(bool temporaryExists)
+        {
+            string directory = Path.Combine(Path.GetTempPath(), "rhah-export-" + Guid.NewGuid());
+            Directory.CreateDirectory(directory);
+            string path = Path.Combine(directory, "clean.rws");
+            string existing = temporaryExists ? path + ".tmp" : path;
+            try
+            {
+                File.WriteAllText(existing, "previous export");
+                XDocument document = XDocument.Parse("<savegame><game /></savegame>");
+
+                Assert.Throws<IOException>(() => RHAH_SaveExport.WriteClean(document, path));
+
+                Assert.Equal("previous export", File.ReadAllText(existing));
+                Assert.False(File.Exists(temporaryExists ? path : path + ".tmp"));
+            }
+            finally
+            {
+                Directory.Delete(directory, true);
+            }
+        }
+
+        [Fact]
+        public void WriteCleanRemovesItsPartialTemporaryWhenSerializationFails()
+        {
+            string directory = Path.Combine(Path.GetTempPath(), "rhah-export-" + Guid.NewGuid());
+            Directory.CreateDirectory(directory);
+            string path = Path.Combine(directory, "clean.rws");
+            try
+            {
+                XDocument document = new XDocument(new XElement("savegame", new XElement("game", "\0")));
+
+                Assert.Throws<ArgumentException>(() => RHAH_SaveExport.WriteClean(document, path));
+
+                Assert.False(File.Exists(path));
+                Assert.False(File.Exists(path + ".tmp"));
+            }
+            finally
+            {
+                Directory.Delete(directory, true);
+            }
+        }
+
         [Fact]
         public void SecondPassDoesNotChangeTheDocument()
         {
@@ -393,7 +567,7 @@ namespace HungerAndHavoc.Tests
                 "RHAH_Xenotype_Ratkin", "RHAH_Suiyin", "RHAH_HungerMark", "RHAH_Trait_HardyLabor",
                 "RHAH_Gene_ThinRations", "RHAH_GuanyinTu", "RHAH_Beg", "RHAH_RefugeeMassacre",
                 "RHAH_RefugeeCamp", "RHAH_RecordSite", "RHAH_Approach", "RHAH_Interception", "RHAH_ChoiceRequest",
-                "RHAH_KingdomSite", "RHAH_KingdomMaterial"
+                "RHAH_KingdomSite", "RHAH_KingdomMaterial", "RHAH_CarryToSafety", "RHAH_VisitorTravel", "RHAH_XenotypeIcon_Ratkin"
             };
             for (int i = 0; i < defs.Length; i++)
             {
@@ -409,6 +583,7 @@ namespace HungerAndHavoc.Tests
             plan.OwnedClasses.Add("HungerAndHavoc.Pawn.LordJob_RHAH_Visitor");
             plan.OwnedClasses.Add("HungerAndHavoc.Pawn.LordJob_RHAH_Intercept");
             plan.OwnedClasses.Add("HungerAndHavoc.Pawn.JobDriver_RHAH_Beg");
+            plan.OwnedClasses.Add("HungerAndHavoc.Pawn.JobDriver_RHAH_CarryYoung");
             plan.OwnedClasses.Add("HungerAndHavoc.Pawn.Area_RHAH_Relief");
             plan.OwnedClasses.Add("HungerAndHavoc.Incidents.WorldObject_RHAH_RefugeeCamp");
             plan.OwnedClasses.Add("HungerAndHavoc.Incidents.WorldObject_RHAH_Approach");
@@ -421,6 +596,7 @@ namespace HungerAndHavoc.Tests
             plan.Replacements.Add("RHAH_Xenotype_Ratkin", "Baseliner");
             plan.Replacements.Add("RHAH_Suiyin", "Randy");
             plan.GeneDefs.Add("RHAH_Gene_ThinRations");
+            plan.XenotypeIconDefs.Add("RHAH_XenotypeIcon_Ratkin");
             plan.CampObjectDefs.Add("RHAH_RefugeeCamp");
             plan.CampObjectDefs.Add("RHAH_RecordSite");
             plan.CampObjectDefs.Add("RHAH_Interception");

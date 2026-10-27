@@ -46,6 +46,7 @@ namespace HungerAndHavoc.Core
         public bool aidRequestsEnabled = true;
         public bool intelTradesEnabled = true;
         public bool visitorChoicesEnabled = true;
+        public bool allowVisitorDoors;
         public bool foodGiveHintDismissed;
         public bool traderIgnoresHarshEnvironment = true;
         public bool traderIgnoresEnclosedSpace = true;
@@ -228,6 +229,7 @@ namespace HungerAndHavoc.Core
 
         internal void ResetToDefaults()
         {
+            bool doorsChanged = allowVisitorDoors;
             RHAH_Settings defaults = new RHAH_Settings();
             // 原地恢复全部配置 保留 Verse 持有的设置实例和 Mod 归属
             System.Reflection.FieldInfo[] fields = typeof(RHAH_Settings).GetFields(
@@ -239,6 +241,10 @@ namespace HungerAndHavoc.Core
             }
 
             InvalidateReliefSearch();
+            if (doorsChanged)
+            {
+                Pawn.RHAH_DoorPatch.InvalidateVisitorReachability();
+            }
         }
 
         public override void ExposeData()
@@ -289,6 +295,8 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref aidRequestsEnabled, "aidRequestsEnabled", true);
             Scribe_Values.Look(ref intelTradesEnabled, "intelTradesEnabled", true);
             Scribe_Values.Look(ref visitorChoicesEnabled, "visitorChoicesEnabled", true);
+            // 保留旧设置键 让已有开门许可继续生效
+            Scribe_Values.Look(ref allowVisitorDoors, "famineVisitorsOpenDoors", false);
             Scribe_Values.Look(ref foodGiveHintDismissed, "foodGiveHintDismissed", false);
             Scribe_Values.Look(ref traderIgnoresHarshEnvironment, "traderIgnoresHarshEnvironment", true);
             Scribe_Values.Look(ref traderIgnoresEnclosedSpace, "traderIgnoresEnclosedSpace", true);
@@ -841,6 +849,18 @@ namespace HungerAndHavoc.Core
                     }
                 }
             }
+        }
+
+        public void SetAllowVisitorDoors(bool enabled)
+        {
+            if (allowVisitorDoors == enabled)
+            {
+                return;
+            }
+
+            allowVisitorDoors = enabled;
+            Pawn.RHAH_DoorPatch.InvalidateVisitorReachability();
+            InvalidateReliefSearch();
         }
 
         public void InvalidateReliefSearch()

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_VisitorDoors>飢えたラットキンの訪問者がドアを開けることを許可</RHAH_Settings_VisitorDoors>
+  <RHAH_Settings_VisitorDoors_Tooltip>初期設定はオフで、訪問者は立ち去る時だけドアを開けます。オンにすると、このModの訪問者派閥に属する飢えたラットキンは滞在中もドアを開けられます。マップに敵対する脅威がいる間は開けられず、もともと開けられないドアもそのままです。</RHAH_Settings_VisitorDoors_Tooltip>
+</LanguageData>

@@ -55,13 +55,15 @@ namespace HungerAndHavoc.Core
             }
         }
 
-        static void WriteClean(XDocument document, string cleanPath)
+        internal static void WriteClean(XDocument document, string cleanPath)
         {
             string temporary = cleanPath + ".tmp";
+            bool temporaryCreated = false;
             try
             {
                 using (FileStream stream = new FileStream(temporary, FileMode.CreateNew))
                 {
+                    temporaryCreated = true;
                     document.Save(stream);
                 }
 
@@ -69,7 +71,7 @@ namespace HungerAndHavoc.Core
             }
             finally
             {
-                if (File.Exists(temporary))
+                if (temporaryCreated && File.Exists(temporary))
                 {
                     try
                     {
@@ -118,6 +120,11 @@ namespace HungerAndHavoc.Core
             foreach (GeneDef def in content.AllDefs.OfType<GeneDef>())
             {
                 plan.GeneDefs.Add(def.defName);
+            }
+
+            foreach (XenotypeIconDef def in content.AllDefs.OfType<XenotypeIconDef>())
+            {
+                plan.XenotypeIconDefs.Add(def.defName);
             }
 
             foreach (ThoughtDef def in content.AllDefs.OfType<ThoughtDef>())

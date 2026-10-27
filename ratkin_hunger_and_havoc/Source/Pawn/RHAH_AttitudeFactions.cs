@@ -58,10 +58,6 @@ namespace HungerAndHavoc.Pawn
             {
                 Ensure(attitude);
                 faction = Resolve(attitude);
-                if (faction != null && !faction.IsPlayer)
-                {
-                    LockOutside(Faction.OfPlayer);
-                }
             }
 
             return faction != null && !faction.IsPlayer ? faction : null;
@@ -86,6 +82,14 @@ namespace HungerAndHavoc.Pawn
             if (index >= 0 && index < Resolved.Length)
             {
                 Resolved[index] = null;
+            }
+
+            Faction faction = Resolve(attitude);
+            if (faction != null && !faction.IsPlayer)
+            {
+                Faction player = Faction.OfPlayer;
+                Pin(player, faction, RHAH_VisitorRules.LockedGoodwill(attitude));
+                LockOutside(faction, player, Find.FactionManager.AllFactionsListForReading);
             }
         }
 
@@ -177,26 +181,31 @@ namespace HungerAndHavoc.Pawn
                     continue;
                 }
 
-                bool ownerHostile = owner.def == HungerAndHavoc.Core.RHAH_DefOf.RHAH_Faction_Hostile;
-                bool ownerFriendly = owner.def == HungerAndHavoc.Core.RHAH_DefOf.RHAH_Faction_Friendly;
-                for (int j = 0; j < factions.Count; j++)
-                {
-                    Faction other = factions[j];
-                    if (other == null || other == owner || other == player || other.IsPlayer)
-                    {
-                        continue;
-                    }
+                LockOutside(owner, player, factions);
+            }
+        }
 
-                    bool playerHostile = player != null && Hostile(player, other);
-                    RHAH_VisitorRules.OutsideRelation(
-                        ownerHostile,
-                        ownerFriendly,
-                        IsAttitudeFaction(other),
-                        playerHostile,
-                        out FactionRelationKind kind,
-                        out int goodwill);
-                    PinPair(owner, other, kind, goodwill);
+        static void LockOutside(Faction owner, Faction player, List<Faction> factions)
+        {
+            bool ownerHostile = owner.def == HungerAndHavoc.Core.RHAH_DefOf.RHAH_Faction_Hostile;
+            bool ownerFriendly = owner.def == HungerAndHavoc.Core.RHAH_DefOf.RHAH_Faction_Friendly;
+            for (int i = 0; i < factions.Count; i++)
+            {
+                Faction other = factions[i];
+                if (other == null || other == owner || other == player || other.IsPlayer)
+                {
+                    continue;
                 }
+
+                bool playerHostile = player != null && Hostile(player, other);
+                RHAH_VisitorRules.OutsideRelation(
+                    ownerHostile,
+                    ownerFriendly,
+                    IsAttitudeFaction(other),
+                    playerHostile,
+                    out FactionRelationKind kind,
+                    out int goodwill);
+                PinPair(owner, other, kind, goodwill);
             }
         }
 
@@ -252,7 +261,7 @@ namespace HungerAndHavoc.Pawn
 
         static void Pin(Faction player, Faction faction, int goodwill)
         {
-            if (faction == null || faction == player)
+            if (player == null || faction == null || faction == player)
             {
                 return;
             }

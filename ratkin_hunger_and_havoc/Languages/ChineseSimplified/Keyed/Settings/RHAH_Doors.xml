@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Settings_VisitorDoors>允许饥荒鼠族来客开门</RHAH_Settings_VisitorDoors>
+  <RHAH_Settings_VisitorDoors_Tooltip>默认关闭，来客仅在离开时开门。开启后，本模组来客派系的饥荒鼠族在停留期间也可以开门。地图上有敌对威胁时仍会限制开门，原本无法打开的门仍然无法打开。</RHAH_Settings_VisitorDoors_Tooltip>
+</LanguageData>

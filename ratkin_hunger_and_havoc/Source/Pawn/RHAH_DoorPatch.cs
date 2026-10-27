@@ -1,4 +1,5 @@
 using HarmonyLib;
+using System.Collections.Generic;
 using HungerAndHavoc.Api;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.Identity;
@@ -7,25 +8,60 @@ using Verse;
 
 namespace HungerAndHavoc.Pawn
 {
-    // 来客只在离场时开门 地图上有敌人时离场也不开
+    // 开门设置与离场共用安全限制 原版拒绝始终保留
     [HarmonyPatch(typeof(Building_Door), nameof(Building_Door.PawnCanOpen))]
     internal static class RHAH_DoorPatch
     {
         static void Postfix(Building_Door __instance, Verse.Pawn p, ref bool __result)
         {
-            if (!__result || p?.Faction == null || p.Faction.IsPlayer ||
-                !RHAH_AttitudeFactions.IsAttitudeFaction(p.Faction))
+            if (!__result)
             {
                 return;
             }
 
-            CompRHAH_Pawn visitorComp = CompRHAH_Pawn.TryGet(p);
-            if (visitorComp == null || !visitorComp.State.IsActiveVisitor)
+            CompRHAH_Pawn visitorComp = RestrictedVisitor(p);
+            if (visitorComp == null)
             {
                 return;
             }
 
-            __result = visitorComp.State.lifecycle == RHAH_Lifecycle.Leaving && !HostileThreat(p.Map);
+            __result = (RHAH_Mod.Settings?.allowVisitorDoors == true ||
+                visitorComp.State.lifecycle == RHAH_Lifecycle.Leaving) && !HostileThreat(p.Map);
+        }
+
+        static CompRHAH_Pawn RestrictedVisitor(Verse.Pawn pawn)
+        {
+            if (pawn?.Faction == null || pawn.Faction.IsPlayer ||
+                !RHAH_AttitudeFactions.IsAttitudeFaction(pawn.Faction))
+            {
+                return null;
+            }
+
+            CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
+            return comp != null && comp.State.IsActiveVisitor ? comp : null;
+        }
+
+        internal static void InvalidateVisitorReachability()
+        {
+            List<Map> maps = Current.Game?.Maps;
+            for (int mapIndex = 0; maps != null && mapIndex < maps.Count; mapIndex++)
+            {
+                Map map = maps[mapIndex];
+                IReadOnlyList<Verse.Pawn> pawns = map?.mapPawns?.AllPawnsSpawned;
+                if (map?.reachability == null || pawns == null)
+                {
+                    continue;
+                }
+
+                for (int pawnIndex = 0; pawnIndex < pawns.Count; pawnIndex++)
+                {
+                    Verse.Pawn pawn = pawns[pawnIndex];
+                    if (RestrictedVisitor(pawn) != null)
+                    {
+                        map.reachability.ClearCacheFor(pawn);
+                    }
+                }
+            }
         }
 
         static bool HostileThreat(Map map)

@@ -205,7 +205,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | costLeft | costLeft | 0 | 否 | 行进时为原始速度下的剩余移动消耗，由当前速度倍率扣除；到达等待时为真实游戏 tick，暂时失败仍等待一游戏小时，读档不重置 |
 | travelRemainder | travelRemainder | 0 | 否 | 倍速扣除不足一 tick 的余数，保存后继续累计；旧档缺键为 0，卸载随远行队 Remove |
 | crossing | crossing | false | 否 | 岛上出发时为 true，允许走进海洋格。旧档缺键时按陆地走 |
-| arrivalPending | arrivalPending | false | 否 | 已进入到达事务，等待时不再寻路；旧档缺键继续原行走，到达后设为 true |
+| arrivalPending | arrivalPending | false | 否 | 已进入到达事务，等待时不再寻路；旧档缺键为 false。实际 Tile 已等于目标时，先清除遗留下一格与移动消耗并交接到达，不再等旧行程结束；已进入等待的重试倒计时不重置 |
 
 ### WorldObject_RHAH_Interception
 
@@ -462,6 +462,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_TailBite | JobDef | Remove |
 | RHAH_Expel | JobDef | Remove |
 | RHAH_CarryYoung | JobDef | Remove，连同当前驱动和相关预约清理 |
+| RHAH_CarryToSafety | JobDef | Remove，使用同一 CarryYoung 驱动；清除当前及排队 Job、驱动与相关预约，保留 carryTracker 中的孩子 |
 | RHAH_RefugeeMassacre | QuestScriptDef | Remove |
 | RHAH_RefugeeCamp | WorldObjectDef | 没有地图、也没有居民：Remove，删整个世界物体。已有地图或居民：Replace。保留世界物体 ID、地图和居民，类名与 Def 改成已加载的原版 `Site`，去掉本模组部件和生成步骤。`Site` 不能接住已生成地图就中止，不删地图 |
 | RHAH_RefugeeCamp | SitePartDef | Remove。同名地点部件单独删除，不把它当成世界物体，也不改成原版部件 |
@@ -477,6 +478,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_RecordLetter | LetterDef | Remove。不替换成原版信 |
 | RHAH_VisitorSeek | DutyDef | Remove |
 | RHAH_VisitorLeave | DutyDef | Remove |
+| RHAH_VisitorTravel | DutyDef | Remove，随来客 Lord 和个人 duty 清理 |
 | RHAH_VisitorFallback | ThinkTreeDef | Remove |
 | RHAH_BroadcastHope | JobDef | Remove，清除当前和排队广播 Job，保留原版通讯台 |
 | RHAH_Gene_ThinRations | GeneDef | Remove。不替换成原版基因 |
@@ -486,7 +488,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Gene_RoomFertility | GeneDef | Remove。不替换成原版基因 |
 | RHAH_Gene_FastBirth | GeneDef | Remove。不替换成原版基因 |
 | RHAH_Xenotype_Ratkin | XenotypeDef | Replace。异种引用改成已加载的 `Baseliner`。本模组基因从基因列表删除，其它模组基因留下。`Baseliner` 未加载就中止 |
-| RHAH_XenotypeIcon_Ratkin | XenotypeIconDef | Remove |
+| RHAH_XenotypeIcon_Ratkin | XenotypeIconDef | Remove，删除自有 iconDef 引用；保留自定义异种名、其它模组图标和基因 |
 | RHAH_Faction_Hostile, RHAH_Faction_LeaningHostile, RHAH_Faction_Neutral, RHAH_Faction_LeaningFriendly, RHAH_Faction_Friendly | FactionDef | Replace。派系 loadID 保留，Def 改成已加载且不属于本模组的原版 `Ancients`。目标缺失就中止。玩家派系和其它模组派系不改 |
 | RHAH_History_* | BackstoryDef | Replace。童年或成年槽换成已加载、不属于本模组、同槽的 Backstory。按 defName 序选第一个，不按技能挑。背景带来的技能变化不保留。没有同槽背景就中止 |
 | RHAH_Trait_* | TraitDef | Remove。不替换成原版特质 |
@@ -551,6 +553,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | --- | --- |
 | nanaloveyuki.ratkin.hungerandhavoc | packageId。清理副本的 meta 里应去掉本包，但不在运行时存档字段中 |
 | RHAH_Settings.enableNewContent | 全局 ModSettings，默认 true |
+| RHAH_Settings.allowVisitorDoors | 全局 ModSettings，保存键 `famineVisitorsOpenDoors`，默认 false；恢复已发布旧键的读写。开启允许在场来客通过原版允许的门，关闭仍允许离场；敌情阻拦保留。更改与重置时清除受影响来客的寻路缓存和救济搜索缓存 |
 | RHAH_Settings.optimizeGeneration | 全局 ModSettings，默认 true。关闭后不套权重异种，事件 Profile 仍生效 |
 | RHAH_Settings.positiveIncidentDays | 全局 ModSettings，默认 15。正池平均天数，式子里的 averageDays，0 关闭，上限 60 |
 | RHAH_Settings.negativeIncidentDays | 全局 ModSettings，默认 15。负池平均天数，式子里的 averageDays，0 关闭，上限 60 |

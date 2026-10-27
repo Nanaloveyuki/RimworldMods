@@ -119,6 +119,10 @@ namespace HungerAndHavoc.Core
                 "RHAH_Settings_IntelTrades_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_VisitorChoices".Translate(), ref Settings.visitorChoicesEnabled,
                 "RHAH_Settings_VisitorChoices_Tooltip".Translate());
+            bool doors = Settings.allowVisitorDoors;
+            listing.CheckboxLabeled("RHAH_Settings_VisitorDoors".Translate(), ref doors,
+                "RHAH_Settings_VisitorDoors_Tooltip".Translate());
+            Settings.SetAllowVisitorDoors(doors);
             listing.CheckboxLabeled("RHAH_Settings_FoodGiveHint".Translate(), ref Settings.foodGiveHintDismissed,
                 "RHAH_Settings_FoodGiveHint_Tooltip".Translate());
             listing.CheckboxLabeled("RHAH_Settings_TraderIgnoreEnvironment".Translate(), ref Settings.traderIgnoresHarshEnvironment,

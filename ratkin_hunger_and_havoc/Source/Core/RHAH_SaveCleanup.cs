@@ -13,6 +13,7 @@ namespace HungerAndHavoc.Core
         internal readonly HashSet<string> OwnedClasses = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> ThingDefs = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> GeneDefs = new HashSet<string>(StringComparer.Ordinal);
+        internal readonly HashSet<string> XenotypeIconDefs = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> ThoughtStageKeys = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> CampObjectDefs = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> CampObjectClasses = new HashSet<string>(StringComparer.Ordinal);
@@ -52,7 +53,10 @@ namespace HungerAndHavoc.Core
             RequireKnownTypes(game);
             RemovedEntries += OxygenEventChainHost.RemoveProviderState(document, RHAH_EventChainProvider.ProviderKey);
             // 先撤销短工加的原版锁 再移除身份 Hediff
-            foreach (XElement ownedLocks in ContentNodes(game).Where(item => item.Name == "shortStayLockedApparel").ToList())
+            foreach (XElement ownedLocks in ContentNodes(game).Where(item => item.Name == "shortStayLockedApparel" &&
+                item.Parent?.Parent?.Name == "hediffs" &&
+                (string)item.Parent.Element("def") == "RHAH_HungerMark" &&
+                plan.OwnedDefs.Contains("RHAH_HungerMark")).ToList())
             {
                 XElement pawn = ownedLocks.Ancestors().FirstOrDefault(item => item.Element("apparel") != null);
                 XElement locked = pawn?.Element("apparel")?.Element("lockedApparel");
@@ -474,6 +478,12 @@ namespace HungerAndHavoc.Core
                     Remove(gene);
                     return;
                 }
+            }
+
+            if (node.Name == "iconDef" && plan.XenotypeIconDefs.Contains(node.Value))
+            {
+                Remove(node);
+                return;
             }
 
             if (node.Name == "def" && plan.CampObjectDefs.Contains(node.Value) && owner?.Element("ID") != null)
