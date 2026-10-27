@@ -18,6 +18,7 @@ namespace HungerAndHavoc.Tests
             "stayKind",
             "stayRemainingTicks",
             "foodWaitUntilTick",
+            "foodNutritionDelivered",
             "carriesPlague",
             "attitudeAtArrival",
             "attitude",
@@ -54,6 +55,7 @@ namespace HungerAndHavoc.Tests
             string source = File.ReadAllText(CompPath());
             Assert.Contains("Scribe_Values.Look(ref state.begSlapCount, \"begSlapCount\", 0)", source);
             Assert.Contains("Scribe_Values.Look(ref state.gnawSearchUntilTick, \"gnawSearchUntilTick\", -1)", source);
+            Assert.Contains("Scribe_Values.Look(ref state.foodNutritionDelivered, \"foodNutritionDelivered\", 0d)", source);
             Assert.Contains("Scribe_Collections.Look(ref shortStayLockedApparel, \"shortStayLockedApparel\", LookMode.Reference)", source);
             Assert.Contains("shortStayLockedApparel = new System.Collections.Generic.List<RimWorld.Apparel>()", source);
         }

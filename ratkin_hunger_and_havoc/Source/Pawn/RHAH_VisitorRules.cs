@@ -752,6 +752,20 @@ namespace HungerAndHavoc.Pawn
             return waiting && !hasBeenFed && deadline >= 0 && now >= deadline;
         }
 
+        // 与旅行 toil 的到达半径同量级 也与 Seek 职责的半径一致
+        internal const float FoodWaitArriveRadius = 10f;
+
+        internal static bool FoodWaitArrived(IntVec3 spot, IntVec3 position, bool reachable)
+        {
+            // 没有可用等待点时就地等 与 JobGiver_RHAH_WaitFood 取点的退化一致
+            if (!spot.IsValid)
+            {
+                return true;
+            }
+
+            return position.InHorDistOf(spot, FoodWaitArriveRadius) || !reachable;
+        }
+
         internal static bool FedLeaveDue(bool leaveEnabled, bool hasBeenFed, int now, int leaveTick, bool downed)
         {
             return leaveEnabled && hasBeenFed && !downed && leaveTick >= 0 && now >= leaveTick;

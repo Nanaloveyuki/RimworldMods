@@ -100,6 +100,7 @@
   <RHAH_Choice_FeedBlocked>{0} cannot take food right now.</RHAH_Choice_FeedBlocked>
   <RHAH_Choice_FeedNoVisitor>{0} is not one of the visitors you can feed.</RHAH_Choice_FeedNoVisitor>
   <RHAH_Choice_FeedNotHungry>{0} needs no food right now.</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_FeedBabyOnly>{0} cannot eat on their own yet. Right-click to feed them by hand.</RHAH_Choice_FeedBabyOnly>
   <RHAH_Choice_GiveFood>Give {0} to {1}</RHAH_Choice_GiveFood>
   <RHAH_Choice_NoFood>No food to give {1}</RHAH_Choice_NoFood>
   <RHAH_Choice_Short>Storage is short. They still need {0}.</RHAH_Choice_Short>

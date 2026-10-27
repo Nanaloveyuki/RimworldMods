@@ -100,6 +100,7 @@
   <RHAH_Choice_FeedBlocked>{0}现在不能接受投喂。</RHAH_Choice_FeedBlocked>
   <RHAH_Choice_FeedNoVisitor>{0}当前不属于可以投喂的来客。</RHAH_Choice_FeedNoVisitor>
   <RHAH_Choice_FeedNotHungry>{0}现在不需要食物。</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_FeedBabyOnly>{0}还不能自己吃，请右键单独喂。</RHAH_Choice_FeedBabyOnly>
   <RHAH_Choice_GiveFood>交给{1} {0}</RHAH_Choice_GiveFood>
   <RHAH_Choice_NoFood>没有能交给{1}的食物</RHAH_Choice_NoFood>
   <RHAH_Choice_Short>库存不足，还缺 {0}。</RHAH_Choice_Short>

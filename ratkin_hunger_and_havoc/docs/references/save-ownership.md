@@ -83,6 +83,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | stayKind | stayKind | 0 | 否 | 0 无，1 收留，2 雇佣，3 临时征募。到期、Released 或 Dead 清为 0；Released 终态优先于旧期限 |
 | stayRemainingTicks | stayRemainingTicks | 0 | 否 | 医疗倒地时冻结的剩余 tick，暂停期间滚动原离场期限；年龄不能行走不暂停。到期或终态清为 0 |
 | foodWaitUntilTick | foodWaitUntilTick | -1 | 否 | 断粮或交接等待截止。未收齐交接者按本人截止离场；本人收齐清为 -1，真实进食才写 Fed |
+| foodNutritionDelivered | foodNutritionDelivered | 0 | 否 | 本人已收到的投喂营养累计，与「每人请求量 = 份数 × 0.9」同量纲。只认殖民者亲手交进本人背包的量：背包原有食物不计、未完成搬运不计、同批其它人收的不算给他。结束等饭时清零；旧档缺键按 0 重算 |
 | carriesPlague | carriesPlague | false | 否 | |
 | attitudeAtArrival | attitudeAtArrival | Neutral | 否 | `RHAH_Attitude` |
 | attitude | attitude | Neutral | 否 | 当前 `RHAH_Attitude`，forceSave 保留明确 Neutral 停战。仅旧档缺键时回退到 `attitudeAtArrival`；键、类型和默认值不变 |
@@ -109,8 +110,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | waitSpot | waitSpot | IntVec3.Invalid | 否 | 寻食集合点 |
 | familyRole | familyRole | Unspecified | 否 | `RHAH_PawnRole` |
 | foodReceivers | foodReceivers | 空集合 | 是 | 等待玩家亲手交食物的来客引用列表。PostLoadInit 补空列表；1.0.4 在字段读取前自动迁移 1.0.3 的 foodReceiver，已有新键时优先保留新键，每人份数由 foodCount 保存 |
-| foodDef | foodDef | null | 否 | 第一次交货后锁定的食物 |
-| foodCount | foodCount | 0 | 否 | 需要的份数。0 表示没有在等 |
+| foodDef | foodDef | null | 否 | 最近一次给出的食物，只作标注，不参与过滤。结束等待时清空 |
+| foodCount | foodCount | 0 | 否 | 需要的份数（设置里的每位来客 N 顿）。0 表示没有在等；每人请求营养 = foodCount × 0.9，已给量记在接收者本人的身份标记里 |
 | passerbyExitCell | passerbyExitCell | IntVec3.Invalid | 否 | I-031/I-039 对边可达出口。旧 Lord 首次按原来源识别后选择，保存重读保持；卸载随 Lord Remove |
 | armedChoiceId | armedChoiceId | 0 | 否 | 对应本批 I-014/I-030/I-045 的既有 RHAH_ChoiceRecord；0 无索粮政策。旧 Lord 缺键继续原行为，不自动启动倒计时 |
 | armedAssault | armedAssault | false | 否 | 本请求真实拒绝/逾期后进入索粮进攻；足额交付或关闭索粮设置清除并中立离场。旧图索引 0..3 保持，进攻 toil 追加为 4；卸载随 Lord Remove |
