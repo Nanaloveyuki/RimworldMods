@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <IM_Open>開啟 IrisMenus</IM_Open>
+  <IM_Manage>新增 Mod 設定</IM_Manage>
+  <IM_OpenOriginalSettings>開啟原始設定視窗</IM_OpenOriginalSettings>
+  <IM_ExternalSettings>此 Mod 使用獨立設定視窗。請點擊下方按鈕開啟，並在該視窗中儲存修改。</IM_ExternalSettings>
+  <IM_Registered>專屬設定</IM_Registered>
+  <IM_Added>已新增</IM_Added>
+  <IM_Pages>設定頁面</IM_Pages>
+  <IM_RememberState>記住上次頁面</IM_RememberState>
+  <IM_RememberStateTip>重新開啟時恢復上次頁面、搜尋和捲動位置。</IM_RememberStateTip>
+  <IM_ShowMainButton>顯示底部 IrisMenus 按鈕</IM_ShowMainButton>
+  <IM_ShowMainButtonTip>立即生效。隱藏後仍可透過「選項 → Mod 設定 → IrisMenus → 開啟 IrisMenus」進入。</IM_ShowMainButtonTip>
+  <IM_MainButtonsTitle>底欄按鈕</IM_MainButtonsTitle>
+  <IM_MainButtonsHint>選擇要顯示的底欄按鈕。修改立即儲存，不影響快捷鍵。隱藏後仍可透過「選項 → Mod 設定 → IrisMenus」在此恢復。</IM_MainButtonsHint>
+  <IM_MainButtonsRestoreAll>全部恢復</IM_MainButtonsRestoreAll>
+  <IM_MainButtonsShow>顯示</IM_MainButtonsShow>
+  <IM_MainButtonsMissing>{0}（Mod 未載入）</IM_MainButtonsMissing>
+  <IM_MainButtonsMissingHint>這個已儲存的按鈕目前未載入。選擇「顯示」即可清除它的隱藏設定。</IM_MainButtonsMissingHint>
+  <IM_Empty>沒有符合的 Mod 設定。</IM_Empty>
+  <IM_Global>全域選項</IM_Global>
+  <IM_SearchGlobal>搜尋全部設定</IM_SearchGlobal>
+  <IM_SearchMod>搜尋 {0} 的設定</IM_SearchMod>
+  <IM_Indexing>正在建立索引...</IM_Indexing>
+  <IM_NoResults>沒有符合的設定。</IM_NoResults>
+  <IM_BackResults>返回搜尋結果</IM_BackResults>
+  <IM_ClearSearch>清空搜尋</IM_ClearSearch>
+  <IM_Previous>上一頁</IM_Previous>
+  <IM_Next>下一頁</IM_Next>
+  <IM_ResultPage>{0} / {1}（{2} 項結果）</IM_ResultPage>
+  <IM_PageFailed>無法顯示此設定頁面。</IM_PageFailed>
+  <IM_Retry>重試</IM_Retry>
+  <IM_OperationFailed>IrisMenus 未能完成操作，詳情請查看日誌。</IM_OperationFailed>
+  <IM_OwnerActions>Mod 操作</IM_OwnerActions>
+  <IM_ActionUnavailable>此操作目前無法使用。</IM_ActionUnavailable>
+  <IM_ActionFailed>操作未能完成，詳情請查看日誌。</IM_ActionFailed>
+  <IM_NativeAppearance>外觀</IM_NativeAppearance>
+  <IM_NativeBehavior>瀏覽與操作</IM_NativeBehavior>
+  <IM_NativeDisplay>顯示</IM_NativeDisplay>
+  <IM_NativeBackground>背景</IM_NativeBackground>
+  <IM_NativeNavigation>導覽</IM_NativeNavigation>
+  <IM_NativeInteraction>操作</IM_NativeInteraction>
+  <IM_NativeTheme>主題</IM_NativeTheme>
+  <IM_NativeLight>淺色</IM_NativeLight>
+  <IM_NativeDark>深色</IM_NativeDark>
+  <IM_NativeDensity>介面密度</IM_NativeDensity>
+  <IM_NativeCompact>緊湊</IM_NativeCompact>
+  <IM_NativeStandard>標準</IM_NativeStandard>
+  <IM_NativeRelaxed>寬鬆</IM_NativeRelaxed>
+  <IM_NativeScale>介面縮放</IM_NativeScale>
+  <IM_NativeMotion>動態效果</IM_NativeMotion>
+  <IM_NativeMotionHint>關閉後，展開面板和調整控制項時直接顯示最終狀態。</IM_NativeMotionHint>
+  <IM_NativeOpacity>面板不透明度</IM_NativeOpacity>
+  <IM_NativeOpacityHint>調整設定面板在漸層背景上的不透明度。100% 時面板完全不透明。</IM_NativeOpacityHint>
+  <IM_NativeRemember>記住上次頁面</IM_NativeRemember>
+  <IM_NativeRememberHint>重新開啟時恢復上次頁面和記住的瀏覽位置。關閉後會清除已儲存的瀏覽位置。</IM_NativeRememberHint>
+  <IM_NativeMainButton>顯示底部 IrisMenus 按鈕</IM_NativeMainButton>
+  <IM_NativeMainButtonHint>立即生效。隱藏後仍可透過「選項 → Mod 設定 → IrisMenus」進入。</IM_NativeMainButtonHint>
+  <IM_NativeSearchScope>預設搜尋範圍</IM_NativeSearchScope>
+  <IM_NativeAllMods>全部 Mod</IM_NativeAllMods>
+  <IM_NativeCurrentMod>目前 Mod</IM_NativeCurrentMod>
+  <IM_NativeTips>顯示懸停提示</IM_NativeTips>
+  <IM_NativeTipDelay>提示延遲</IM_NativeTipDelay>
+  <IM_NativeTipDelayHint>滑鼠停留後，IrisMenus 顯示提示前等待的時間，單位為毫秒。</IM_NativeTipDelayHint>
+  <IM_NativeCurrentAppearance>目前外觀</IM_NativeCurrentAppearance>
+  <IM_NativeOn>開啟</IM_NativeOn>
+  <IM_NativeOff>關閉</IM_NativeOff>
+  <IM_NativeDisplayNoteTitle>縮放與間距</IM_NativeDisplayNoteTitle>
+  <IM_NativeDisplayNote>介面縮放調整全螢幕介面的大小，介面密度調整設定列的間距。動態效果用於全螢幕面板和控制項的切換。</IM_NativeDisplayNote>
+  <IM_NativeBackgroundNoteTitle>背景與不透明度</IM_NativeBackgroundNoteTitle>
+  <IM_NativeBackgroundNote>調整面板不透明度，改變背景的透出程度。</IM_NativeBackgroundNote>
+  <IM_NativeNavigationNoteTitle>頁面與搜尋</IM_NativeNavigationNoteTitle>
+  <IM_NativeNavigationNote>記住上次頁面用於重新開啟 IrisMenus 時返回之前的瀏覽位置。預設搜尋範圍決定從頁面開始搜尋時，尋找全部 Mod 還是目前 Mod。</IM_NativeNavigationNote>
+  <IM_NativeInteractionNoteTitle>懸停提示</IM_NativeInteractionNoteTitle>
+  <IM_NativeInteractionNote>懸停提示用於說明 IrisMenus 全螢幕介面的控制項。調整提示延遲可以改變顯示時機，也可以關閉提示。</IM_NativeInteractionNote>
+  <IM_LinkUnavailable>無法開啟此設定連結：{0}</IM_LinkUnavailable>
+  <IM_NativeModSettings>Mod 設定</IM_NativeModSettings>
+  <IM_NativeSwitchLight>切換至淺色主題</IM_NativeSwitchLight>
+  <IM_NativeSwitchDark>切換至深色主題</IM_NativeSwitchDark>
+  <IM_NativeSearchPlaceholder>搜尋設定或 Mod</IM_NativeSearchPlaceholder>
+  <IM_NativeClose>關閉設定</IM_NativeClose>
+  <IM_NativeSearchResults>搜尋結果</IM_NativeSearchResults>
+  <IM_NativeChoosePage>從設定庫選擇 Mod，開啟它的設定。</IM_NativeChoosePage>
+  <IM_NativeThisPage>本頁</IM_NativeThisPage>
+  <IM_NativeNotes>使用說明</IM_NativeNotes>
+  <IM_NativeReset>恢復預設值</IM_NativeReset>
+  <IM_NativeLibrary>設定庫</IM_NativeLibrary>
+  <IM_NativeRegistered>專屬設定</IM_NativeRegistered>
+  <IM_NativeHosted>其他設定</IM_NativeHosted>
+  <IM_NativePinned>已置頂</IM_NativePinned>
+  <IM_NativePin>置頂</IM_NativePin>
+  <IM_NativeUnpin>取消置頂</IM_NativeUnpin>
+  <IM_NativeAlias>修改側欄名稱…</IM_NativeAlias>
+  <IM_NativeMoveUp>上移</IM_NativeMoveUp>
+  <IM_NativeMoveDown>下移</IM_NativeMoveDown>
+  <IM_NativeRemove>從側欄移除</IM_NativeRemove>
+  <IM_NativeAliasTitle>側欄名稱</IM_NativeAliasTitle>
+  <IM_NativeAliasDescription>為這個 Mod 設定名稱。留空即可恢復預設名稱。</IM_NativeAliasDescription>
+  <IM_NativeAliasPlaceholder>Mod 名稱</IM_NativeAliasPlaceholder>
+  <IM_NativeSave>儲存</IM_NativeSave>
+  <IM_NativeOpenResult>開啟</IM_NativeOpenResult>
+  <IM_NativeResetTitle>恢復本頁預設設定？</IM_NativeResetTitle>
+  <IM_NativeResetDescription>恢復本頁的預設設定。其他頁面的設定不變。</IM_NativeResetDescription>
+  <IM_NativeDone>完成</IM_NativeDone>
+  <IM_NativeHelpDescription>在側欄選擇 Mod 以開啟設定，也可以按名稱搜尋選項。右鍵點擊 Mod 可置頂、改名或調整順序。在設定庫中可以新增更多 Mod。部分頁面還提供目錄、使用說明和恢復預設值按鈕。</IM_NativeHelpDescription>
+  <IM_NativeManagementTitle>新增 Mod 至設定庫</IM_NativeManagementTitle>
+  <IM_NativeManagementHint>選擇要在 IrisMenus 中顯示的 Mod 設定。這不會啟用或停用遊戲 Mod。</IM_NativeManagementHint>
+  <IM_NativeManagementShown>已顯示在設定庫</IM_NativeManagementShown>
+  <IM_NativeManagementHidden>未顯示在設定庫</IM_NativeManagementHidden>
+  <IM_NativeManagementAlwaysShown>一律顯示</IM_NativeManagementAlwaysShown>
+  <IM_NativeManagementNoPreview>暫無預覽圖</IM_NativeManagementNoPreview>
+  <IM_NativeManagementEmpty>沒有可用的設定頁面。</IM_NativeManagementEmpty>
+  <IM_ValueColors>物品價值配色</IM_ValueColors>
+  <IM_ValueColorsHint>按單件物品的市場價值配色，不計算整組價值。每級包含起始值，不包含下一級起始值；最後一級沒有上限，首級固定從 0 開始。點擊色塊可調整顏色，套用後立即生效。</IM_ValueColorsHint>
+  <IM_ValueAddBand>新增價值級距</IM_ValueAddBand>
+  <IM_ValueRemoveBand>移除</IM_ValueRemoveBand>
+  <IM_ValueThreshold>起始價值</IM_ValueThreshold>
+  <IM_ValueThresholdInvalid>請輸入大於上一級、小於下一級起始值的有限數值。</IM_ValueThresholdInvalid>
+  <IM_ValueChooseColor>選擇顏色</IM_ValueChooseColor>
+  <IM_ValueApply>套用</IM_ValueApply>
+  <IM_ValueOriginal>原色</IM_ValueOriginal>
+  <IM_ValuePreview>預覽</IM_ValuePreview>
+  <IM_ValueRestoreDefaults>恢復預設值</IM_ValueRestoreDefaults>
+  <IM_ValueResetConfirm>恢復預設物品價值級距及配色？不會改動其他設定。</IM_ValueResetConfirm>
+  <IM_ThingRegistry>物品登錄表</IM_ThingRegistry>
+  <IM_RegistryProgress>已索引 {0} / {1} 個物品</IM_RegistryProgress>
+  <IM_RegistryCategories>原版分類</IM_RegistryCategories>
+  <IM_RegistryUncategorized>未分類</IM_RegistryUncategorized>
+  <IM_RegistryAll>所有物品</IM_RegistryAll>
+  <IM_RegistrySearch>搜尋名稱、DefName 或來源 Mod</IM_RegistrySearch>
+  <IM_RegistryErrors>索引診斷</IM_RegistryErrors>
+  <IM_RegistryNoErrors>沒有索引錯誤</IM_RegistryNoErrors>
+  <IM_RegistryDump>輸出登錄表至日誌</IM_RegistryDump>
+  <IM_RegistrySource>來源</IM_RegistrySource>
+  <IrisMenus_ItemValue_Label>價值：{0}</IrisMenus_ItemValue_Label>
+  <IrisMenus_ItemValue_Tooltip>{0}\n單件市場價值：{1}\n價值級距：{2}</IrisMenus_ItemValue_Tooltip>
+  <IrisMenus_Items_Uncategorized>未分類</IrisMenus_Items_Uncategorized>
+  <IM_MarqueeText>背景跑馬燈文字</IM_MarqueeText>
+  <IM_ToastDuration>通知顯示時間</IM_ToastDuration>
+  <IM_SaveHint>設定修改即時生效，離開頁面時自動儲存。</IM_SaveHint>
+  <IM_SettingsSaved>設定已儲存</IM_SettingsSaved>
+  <IM_ModAuthor>作者：{0}</IM_ModAuthor>
+  <IM_ShowToasts>顯示通知</IM_ShowToasts>
+  <IM_NativeSidebarActions>側欄</IM_NativeSidebarActions>
+  <IM_LinkInvalid>連結無效。</IM_LinkInvalid>
+  <IM_LinkModDisabled>所需 Mod 未啟用：{0}</IM_LinkModDisabled>
+  <IM_LinkNoPages>{0} 沒有可用的設定頁面。</IM_LinkNoPages>
+  <IM_LinkPageMissing>找不到此設定頁面：{0}</IM_LinkPageMissing>
+  <IM_LinkDocumentMissing>找不到此文件：{0}</IM_LinkDocumentMissing>
+  <IM_LinkLineMissing>文件中沒有第 {0} 行。</IM_LinkLineMissing>
+</LanguageData>

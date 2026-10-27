@@ -1,8 +1,8 @@
 # 原生 UI 组件与动效
 
-`IrisMenus.UI` 是独立于旧设置 UI 的 C#／IMGUI 可复用组件。本文记录 `Source/UI/` 当前源码接口及调用约束；注册页面与保存仍见[接入指南](guide.md)。使用这些组件不会自动替换 `MenuWindow`，也不会注册设置页或写入消费者设置。
+`IrisMenus.UI` 是独立于设置宿主的 C#／IMGUI 可复用组件。本文记录 `Source/UI/` 当前源码接口及调用约束；注册页面与保存仍见[接入指南](guide.md)。使用这些组件不会自动替换 `MenuWindow`，也不会注册设置页或写入消费者设置。
 
-当前 1.7 已接入显式全屏宿主和 `MenuPresentation`，旧窗口仍为默认入口；消费者接入与生命周期见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)。保留的 1.6 二进制未更新，不能因共享源码推定其具有新 API 或已验收。
+当前 1.7 只保留全屏宿主，不再提供旧默认窗口或新旧切换；`RegisterListing`、原 drawer 和适配页仍可在同一宿主内使用，`MenuPresentation` 仅是可选页面呈现。消费者接入、生命周期与设置迁移见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)。保留的 1.6 二进制和资源未更新，新功能只面向 1.7，不能据当前源码推定归档版本具有新 API 或已验收。
 
 ## 目录职责
 
@@ -145,6 +145,7 @@ sealed class NativePanel : IDisposable
 |类型|调用与返回约定|
 |---|---|
 |`UiButton`|`Draw` 返回激活；`Id` 可用于焦点和 tooltip。`primary` 默认选择 Control；显式 `variant` 可选 Control／Light／Action／Text／Ghost，并可传 `icon`、图标角度及 `scale`。不隐含提交行为|
+|`UiToolbar`|保留实例及不可变的 `UiToolbarItem(key, label, icon)` 列表；key 唯一，label 同时作为 tooltip。`MeasureWidth(scale)` 提供自然宽度；`Draw(rect, scale, enabled)` 返回激活项索引，无激活返回 -1。整条一个 Tab 停靠点，左右键循环、Home／End 定位、Enter／Space 激活；根层调用 `DrawOverlay(viewport, scale)`。当前支持横向图标动作，不含开关、分隔符或溢出菜单；调用方应提供自然宽度，窄 Rect 仅裁切，不自动折行|
 |`UiSwitch`／`UiCheckbox`|`Draw(rect, value, label, enabled)` 返回调用方的新布尔值；初次绘制直接匹配已有值|
 |`UiSlider`|构造时配置有限的 min／max 和非负 step，max 必须大于 min；`Draw` 返回限制并量化后的值。`IsDragging` 暴露拖动状态。抓住 thumb 保持偏移，点轨道跳到相应值；拖动用屏幕坐标增量，布局移动不会被当成手指移动|
 |`UiSegments`|构造或 `SetOptions(labels)` 配置；`Draw(rect, selected, enabled)` 返回索引，越界输入会限制到有效项；`GetItemId` 提供稳定项目身份|
@@ -182,11 +183,11 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 ### 物品列表、价值配色与注册表
 
-- `IrisMenus.MenuThingsList` 为已有 `Listing_Standard` 页面提供分组、搜索、折叠、逐项选择和稳定 anchor。使用 `SetGroups` 提供快照，或 `SetRegistry(include)` 使用注册表的直接分类与分类路径；数据和保存仍归消费者。全屏宿主自动进入 `MenuItemControls` scope，旧窗口保留 Widgets 展示；自行组合宿主时使用 `MenuItemControls.Enter(context)`。
-- `MenuItemControls.ChoiceSort` 保留相同的选项及赋值回调：全屏使用 UiChoiceSort，旧窗口使用原版下拉。RHAH 的救济、普通投喂、乞讨、索粮及衣物名单已接入；按模组、名称、原版分类、批量选择与搜索定位语义不变。
+- `IrisMenus.MenuThingsList` 为已有 `Listing_Standard` 页面提供分组、搜索、折叠、逐项选择和稳定 anchor。使用 `SetGroups` 提供快照，或 `SetRegistry(include)` 使用注册表的直接分类与分类路径；数据和保存仍归消费者。全屏宿主自动进入 `MenuItemControls` scope；自行组合宿主时使用 `MenuItemControls.Enter(context)`，未进入该 scope 的独立界面仍使用 Widgets 展示。
+- `MenuItemControls.ChoiceSort` 保留相同的选项及赋值回调：全屏 scope 使用 UiChoiceSort，scope 外的独立调用使用原版下拉。RHAH 的救济、普通投喂、乞讨、索粮及衣物名单已接入；按模组、名称、原版分类、批量选择与搜索定位语义不变。
 - 默认单件市场价值分档为 `[0,50)` 灰、`[50,200)` 绿、`[200,500)` 蓝、`[500,1500)` 紫、`[1500,+∞)` 金；边界属于右侧档位。设置页支持阈值滑块／数值、颜色、增删条目和恢复默认。零起点不可移动或删除，相邻阈值必须严格递增；删除中间条目后前档自然延伸，没有区间空洞。
 - `ThingRegistry` 在游戏加载结束后读取所有已注册 ThingDef 与 ThingCategoryDef，每次更新处理至多 256 个定义，不生成 Thing 实例。`ProcessedCount`／`TotalCount`／`Progress`／`IsReady` 公开真实加载状态；`Revision` 随索引推进变化。`TryGet` 按 defName 查询；`InCategory` 只返回直接成员，父级关系使用游戏的 `category.parent`，保留多分类归属；无有效分类的定义进入 `Uncategorized`。
-- IrisMenus「物品注册表」可按分类路径浏览，搜索显示名、defName、Mod 名或 package ID，查看诊断并输出完整成员表到日志。全屏页使用主题色控件与只读虚拟行；旧窗口继续使用列表布局。注册表仅索引当前启动的已加载定义，不承诺运行期热重载。
+- IrisMenus「物品注册表」可按分类路径浏览，搜索显示名、defName、Mod 名或 package ID，查看诊断并输出完整成员表到日志。页面使用主题色控件与只读虚拟行。注册表仅索引当前启动的已加载定义，不承诺运行期热重载。
 
 ## 动效清单
 
@@ -214,9 +215,9 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 `UiToast` 每个 surface 保留一个实例，提供 `Show(message, tone, durationSeconds)`、`Dismiss()` 和 `DefaultDurationSeconds`。时长限制为 1–10 秒，默认 3 秒，从首次 Repaint 开始计时；相同的有效消息刷新计时，其他消息替换当前内容。样式为底部居中的非模态深色提示、状态图标、关闭按钮和剩余时间底线，不抢焦点。每个 pass 在根坐标调用 `Draw(viewport, scale)`：非 Repaint 在正文前处理命中，Repaint 在正文后绘制，均位于 BeginFrame／EndFrame 之间。
 
-消费者可在游戏线程调用 `MenuRegistry.ShowToast(message, tone)`；它仅向当前打开且未关闭中的全屏宿主投递，旧版、空消息或无窗口返回 false。宿主遵循玩家的提示开关；停用时丢弃消息。显式消息在打开动画结束后显示，替换当前消息。自动编辑说明只在正文实际修改后等待 3 秒，连续修改重置计时；普通导航、方向键或鼠标移动不触发说明。关闭或新旧模式切换不保留待显示消息；不改变原有保存时机。
+消费者可在游戏线程调用 `MenuRegistry.ShowToast(message, tone)`；它仅向当前打开且未关闭中的全屏宿主投递，空消息或无可接收窗口返回 false。宿主遵循玩家的提示开关；停用时丢弃消息。显式消息在打开动画结束后显示，替换当前消息。自动编辑说明只在正文实际修改后等待 3 秒，连续修改重置计时；普通导航、方向键或鼠标移动不触发说明。关闭时不保留待显示消息；不改变原有保存时机。
 
-保留的 Drawer／Dialog 从打开时记录焦点，最上层退出完成后尝试恢复原焦点。调用方仍需保证目的控件有效，并让组件继续参与 IMGUI pass。组件动效不包括宿主的主窗口开关、保存失败门控、暂停／Frost 资源持有或第三方 drawer 的内部动画。
+保留的 Drawer／Dialog 从打开时记录焦点，最上层退出完成后尝试恢复原焦点。调用方仍需保证目的控件有效，并让组件继续参与 IMGUI pass。组件动效不包括宿主的主窗口开关、保存失败门控、暂停与资源生命周期或第三方 drawer 的内部动画。
 
 ## 键盘与鼠标
 
@@ -233,6 +234,8 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 ## 开发者入口与验证状态
 
+> 本节及下方截至“右键菜单与三语言文案 — 2026-10-27”的验收条目，均为全屏唯一宿主切换前的历史快照。旧窗口、新旧往返、模式持久化、旧 Frost 源码和当时键数只描述记录发生时的版本，不是当前接口或使用指南；用户随后验收新版并要求退役旧宿主。当前切换不据此宣称已完成新的构建、迁移检查或游戏验收。现行接口以上文和接入契约为准，后续未实施规划仍明确标注。
+
 开发模式调试动作中使用 **IrisMenus > Native UI components**。源码允许在主菜单与游戏内打开；独立 `UiShowcaseWindow` 展示主题、减少动态效果、各类控件、导航、accordion、滚动定位、tooltip、drawer／dialog 和页转场。展示值不写入 Mod 设置，窗口不是当前设置入口的替代品。
 
 已执行的验证：1.7 provider／API consumer 构建成功，0 warnings／0 errors；`RuntimeChecks` 通过 205 项断言（engine doubles，不验证渲染）；隔离输出的 1.6 源码构建成功，未修改保留的 1.6 发布产物。早期真实 `UnityStubs` 临时运行器通过 90 项组件断言；本轮另通过 37 项焦点／几何／悬停断言，覆盖鼠标激活后无黄色框、键盘激活与 Tab／Shift+Tab 焦点、方向键操作、直角与必要圆形，以及 Light／Dark 下 Select 和 TextField 的渐变中间态、持续停留 5 秒、移出恢复和底色 alpha 保持。运行器使用生产组件和安装目录程序集，绘制采集后端的字体度量近似，不代表游戏栅格化或真实桌面输入。
@@ -241,12 +244,13 @@ scroll.Anchor(1, chapterRect, available: chapterExpanded, focusTarget: firstFiel
 
 最终组件构建已通过标准部署脚本同步至本地 `Mods/IrisMenus`，22 个暂存／部署文件经 SHA-256 校验；保留安装目录中的 1.6 文件与 PublishedFileId。隔离测试实例已正常退出，未加载生存存档。上述悬停 5 秒为可控时钟推进的组件场景，不冒充实际鼠标停留录像。
 
-以上为组件阶段的历史记录。当前全屏宿主、页面呈现注解、开关动效和设置持久化已实现；当前验收记录见下节。操作系统无障碍语义桥接仍未提供。
+以上为组件阶段的历史记录；后续各节继续按日期保留当时实现和验收边界。当前 1.7 全屏唯一宿主及迁移契约见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)。操作系统无障碍语义桥接仍未提供。
 
 ## Full-screen host status — 2026-10-24
 
-Development and testing paused at the user's request on 2026-10-24; work resumed
-for prototype fidelity alignment on 2026-10-25. Full acceptance remains deferred, not passed.
+At that stage, development and testing paused at the user's request on 2026-10-24;
+work resumed for prototype fidelity alignment on 2026-10-25. Full acceptance had not
+passed at the time of this historical record; this is not the later cutover's status.
 The 1.7 provider/API consumer build succeeded with no warnings or errors; the existing
 engine-double suite passed 205 assertions. Limited isolated-game checks exercised
 factory/draw retry, save-failure navigation/close gates, keyboard focus and dynamic
@@ -348,4 +352,91 @@ The isolated instance was stopped normally. No release version was assigned.
 - 按用户要求停止自动验收；侧栏完整交互、代码块与章节定位、跨重启持久化及多缩放交由手动检查，不宣称全部通过。隔离测试实例保持运行，当前未安装输入注入补丁；未将本轮版本部署到正常游戏目录。
 - 修复 ThingsList 分组标题悬浮后不可见：标题与加减号使用 Ghost 按钮当帧返回的前景色，和底色共享 hover／press 进度，不另建颜色计时器。1.7 provider／API consumer 构建为 0 warnings／0 errors；临时绘制边界探针验证 Light／Dark 中间色、反向、按下及减少动态效果，不代替修复后的游戏视觉验收。
 - 用户随后确认其余项目基本正常，并允许关闭测试实例；已发出正常退出请求。本次颜色修复尚未部署到正式游戏目录。
+
+## Toolbar 与底栏按钮 — 2026-10-26
+
+- 新版 header 在搜索框左侧放置 Sunken 图标 Toolbar，当前动作打开独立全屏底栏按钮管理页，不再弹出单独的管理窗口。返回／Esc 恢复原页面；从旧版临时进入不修改已保存的界面模式。`UiToolbar` 的悬浮、按下、禁用和键盘焦点沿用共享计时与减少动态效果约束；不把按钮管理逻辑放进通用组件。
+- 管理页仅提供列表显示开关与全部恢复，修改立即保存；已移除屏幕选取及其输入补丁、遮挡和窗口暂停分支。
+- 按 `MainButtonDef.defName` 保存；只在底栏绘制作用域过滤，保留原始列表、快捷键和虚调用。隐藏项不占布局宽度，全部隐藏跳过绘制；第三方 Worker 抛错时也恢复原列表。缺失 Mod 的记录可单独恢复或全部清除。普通 Mod 设置保留管理入口，不依赖 IrisMenus 底栏按钮自身可见。
+- 列表管理使用原生全屏控件与窄屏换行布局，保留名称和悬浮说明；只有尚未加载的记录显示 Def 标识以便辨认。完整游戏交互、页面返回、跨重启持久化、多 UI 缩放及多 Mod 共存仍由用户手动验收；保留的 1.6 二进制不变。
+- 移除后验证：provider／API consumer 构建 0 warnings／0 errors，RuntimeChecks 261 条断言通过。临时程序调用实际程序集，验证列表隐藏仅过滤选定 Def、异常时恢复原列表、全部隐藏跳过绘制，以及全部恢复清除缺失 Mod 记录并恢复原布局输入；不等同于游戏交互或磁盘持久化验收。
+
+## 右键菜单与三语言文案 — 2026-10-27
+
+- Sidebar 右键菜单使用独立的 Menu 语义色，不改其他控件的主题。浅／深底为 `#fafafa`／`#1f1f1f`；普通悬浮背景、键盘内描边、移除分隔线与危险色分别处理，操作项不再借用选中项竖条。顶部半宽黄色线与下三角按 300ms ease-out 展开，面板 200ms 淡入并沿触发方向移动 4px，退出只淡出；减少动态效果直接到终态。
+- 固定／取消固定、别名、上移、下移和移除使用离线栅格化 Lucide 图标。新增图标的来源、原始哈希与许可只记录在根 `NOTICE`；部署清单要求六个新纹理存在。菜单翻译和宽度仅在语言、缩放、视口宽度或固定状态变化时重新计算。
+- Common 简中／繁中／英文各 154 个键；保留的 1.6 语言范围各 57 个键。清理普通说明中的托管、保存所有权等实现文本；文档链接失败原因和颜色选择器默认文案改用语言键。注册表诊断与开发示例仍保留必要标识。
+- Provider／API consumer 编译 0 warnings／0 errors；既有 RuntimeChecks 261 条断言通过（engine doubles，不覆盖游戏渲染）。两套语言范围的 XML、三语言键集与占位符一致，23 项必需发布文件存在，六张新纹理均为有效 96×96 RGBA。
+- 用户负责本轮菜单视觉和玩家文案验收；未新增游戏内自动点击或截图验证，未部署到正常游戏目录。性能与独立 UI 接入仍为规划，不因本轮编译通过而视为已实现。
+
+## 可见区域性能规划（未实施）
+
+以下是后续实施顺序，不是本轮性能测量结果；未承诺具体帧率或耗时收益。已有裁切、可见项绘制剔除、直接计算可见行区间三种路径，不能统称为虚拟化。
+
+### 当前基线
+
+- `UiThingsList`、物品注册表和 Select popup 已按可见区间处理行；管理列表先遍历，再只绘制相交项。`UiScrollView` 负责裁切与滚动，但仍调用完整内容回调，不会自动虚拟化该回调内部代码。
+- `UiDocument` 缓存全文布局，但正常文档页传入全文自然尺寸，正文仍遍历所有行与 span；代码背景和 span 宽度计算也需要减少重复工作。Sidebar、说明与部分内置设置行仍存在离屏处理。
+- `MenuSectionView` 已缓存章节测量并只调用相交章节的 Draw；超长单个章节内部仍需消费者自行优化。`RegisterListing` 的 `MenuScrollView` 仍逐 pass 执行完整 Listing 回调，生成布局与锚点。
+
+依据：[`UiThingsList`](../../Source/UI/Controls/UiThingsList.cs)、[`UiScrollView`](../../Source/UI/Containers/UiScrollView.cs)、[`UiDocument`](../../Source/UI/Containers/UiDocument.cs)、[`原生文档宿主`](../../Source/MenuRegistry.Documents.cs)、[`MenuSectionView`](../../Source/MenuSectionView.cs)、[`MenuScrollView`](../../Source/MenuScrollView.cs)。
+
+### 实施顺序与验收
+
+|阶段|范围|可观测结果|
+|---|---|---|
+|基线|分别记录 Layout／输入／Repaint 的回调、测量、扫描、绘制、锚点与分配成本；不改变调度|能区分裁切、全量扫描后剔除和可见区间处理，不以截图或总 FPS 代替|
+|自有路径|先做长文档的真实视口区间与 span 宽度缓存，再做 Sidebar、管理列表、说明及内置设置行|固定视口增加总条目时，可见行绘制量保持有界；稳定滚动不反复重建全文布局|
+|共享契约|复用 `VisibleRect`、稳定 key、章节和唯一滚动所有者；只补真实缺口，不另造设置 DSL|宿主与外部消费者走同一路径，离屏锚点仍能定位，语言／宽度／字体／缩放／内容变化正确失效|
+|第三方接入|普通 adapter 保持完整回调；合作 Mod 显式提供章节、固定行高列表或原生呈现|分别报告普通 DoSettings、Listing、GUILayout 与主动接入页的结果，不推广为所有 Mod 自动虚拟化|
+
+### 正确性约束
+
+- 不将第三方 `DoSettingsWindowContents` 改为仅 Repaint 执行，不重复执行回调探测布局，也不根据屏幕外位置任意跳过 GUILayout 控件；必须保留原回调顺序、Begin／End 平衡、原生控件身份及消费者保存归属。
+- 自然高度、动画可见高度与视口是不同信息。锚点来自同一布局，在绘制剔除之前登记；重测后限制滚动位置。动态长列表必要时以首个可见稳定 key 加行内偏移保持位置，不维护第二套像素坐标。
+- 第一阶段保持当前离屏失焦／取消捕获语义，保留编辑草稿；文本框需释放自身原生焦点，不能只跳过 Draw 留下编辑器状态。删除、过滤和换页同时处理所属 popup。离屏继续拖拽或 Tab 跨未绘制项目属于另行设计，不随优化暗中改变。
+- 对比相同视口与数据规模的冷／热布局、滚轮、拖动、深处定位、长翻译、字号／密度变化，以及文本草稿和弹层打开时的滚动。扫描数和锚点数若仍随总量增长，应明确报告剩余全量成本。
+- 仅针对 1.7 新路径实施；共享源码修改不能被当作保留的 1.6 发布内容已经获得新行为或通过验收。
+
+## 独立 UI 消费者开放规划（未实施）
+
+本节规划其他 UI Mod 在自己的窗口中使用现有控件，不新增设置注册体系。当前公开的 `UiContext`、控件、滚动、弹层和文档绘制已允许独立组合；无需继承 `MenuNativePage`、注册 `MenuRegistry` 或打开设置宿主。它们仍依赖加载 IrisMenus provider、游戏程序集、Common 纹理及初始化补丁，并非引擎无关或仅复制 DLL 即可使用的纯 UI 库。
+
+### 两条接入路径
+
+|使用场景|Context 与状态归属|不得混淆|
+|---|---|---|
+|IrisMenus 设置页|宿主提供 context，消费者通过 `MenuPresentation`／`MenuNativePage` 接入|页面不自行 Begin／End 或释放借用的 context；原有注册、保存和定位保持唯一归属|
+|消费者自己的 `Verse.Window`／IMGUI 页面|消费者保留一个 context、控件实例与业务值，每 pass Begin／End，关闭时释放文本字段后释放 context|不要求菜单注册，不自动存储设置；Toast 自己实例化，文档链接通过自己的回调处理|
+
+基础接口继续以现有 `UiContext` 为组合入口，不另增通用 surface manager、全局弹层注册中心或设置 DSL。主题、减少动态效果、缩放与存储由独立宿主明确提供；图标纹理属于 provider，不由消费者窗口销毁。
+
+### 发布前的实际缺口
+
+- **整个 pass 的输入资格。** 当前 `BeginFrame` 重置输入，`EndFrame` 还会处理 Tab 和模态事件；正文 `Input(false)` scope 退出后不足以约束 EndFrame。扩展现有帧入口表达宿主输入所有权，覆盖正文、popup、模态和收尾；失去资格时释放自身捕获及原生编辑焦点，但仍绘制退出动画。
+- **文档链接一致性。** `UiDocument` 链接目前使用局部 Rect 判断，开放契约前需统一经过 context 的输入许可与有效裁切命中，防止被遮挡或裁掉的链接响应。
+- **列表提示的根层路径。** `UiThingsList.Draw` 当前在列表内部绘制并清空 tooltip 目标；应拆开观察与根层绘制，沿用既有 tooltip 组合方式，不让滚动裁切吞掉提示。动态数据替换还需明确移除 key 的缓存清理，不能承诺现有缓存长期有界。
+- **发行版本与外部示例。** 现有 API consumer 使用 ProjectReference，不证明独立发行引用完整。需另用暂存 DLL 和资源构建真实消费者，`Private=false`，不附带 provider DLL 副本。最低支持版本在这些契约实际交付后确定，不将历史 `1.1.2` 或保留的 1.6 DLL 宣称为已支持。
+
+依据：[`UiContext`](../../Source/UI/Core/UiContext.cs)、[`UiDocument`](../../Source/UI/Containers/UiDocument.cs)、[`UiThingsList`](../../Source/UI/Controls/UiThingsList.cs)、[`呈现契约`](../../Source/MenuRegistry.Presentation.cs)、[`API consumer`](../../tests/ApiConsumer/ApiConsumer.csproj)。
+
+### 最小落地顺序
+
+1. 在现有 API consumer 中加入独立 `Verse.Window` 示例，组合按钮、文本、滚动、Select、Dialog、Toast 和文档；不调用 `MenuRegistry`，不继承 `MenuNativePage`。
+2. 以该消费者落实整 pass 输入资格、文档命中和根层 tooltip，保持既有每 pass／稳定身份／资源释放约定；不顺带公开设置宿主内部类型。
+3. 完成实际暂存发行 DLL 的外部编译与游戏验收，明确加载资源、初始化补丁和缩放责任，再确定最低发行版本、源码及二进制兼容规则。
+4. 验收窗口被遮挡时不编辑、不抢 Tab／Esc／滚轮；滚动内 popup 和 tooltip 在根层可见；关闭文本编辑或调色器时不遗留焦点／捕获；嵌套 group、非零原点和不同 UI scale 下命中、拖动与定位一致。
+
+本需求下暂不拆程序集。只有后续明确要求“不安装设置路由／主按钮补丁”或“UI 独立发布升级”时，再分离光标补丁、物品配色和内部文档宿主等具体依赖；直接搬出 `Source/UI` 不能获得无宿主依赖的 DLL。
+
+## 唯一全屏宿主与设置迁移验收 — 2026-10-27
+
+- 当前 1.7 删除旧窗口、新旧切换和 Frost 路径；原 drawer、Listing、SubItem、DocumentItem、原生呈现与手动适配继续共用一个宿主。1.6 发布二进制和资源归档不变。
+- Provider／API consumer 构建成功，0 warnings／0 errors；RuntimeChecks 247 条断言通过，覆盖旧外观键迁移、新键优先、浏览记忆、配色、托管选择及路由。它们使用 engine doubles，不代表游戏渲染。
+- 隔离 RimWorld 1.7.4985、1280×720、游戏 UI scale 0.9375 实际显示全屏宿主；旧模式标志不再选择旧窗口，Dark、110% 宿主缩放和 82% 面板不透明度正确恢复。`navigationScroll=37`、`adapterScroll=29` 分别迁移为 `railScroll`、`managementScroll`。
+- 游戏内临时调用探针验证 `MenuRegistry.Open()`、已注册 Mod 原设置入口、手动适配原设置入口和底栏 Activate 复用同一个窗口，不遗留被重定向的原对话框。IrisMenus 自身原设置入口作为底栏隐藏后的后备入口保留，自定义设置对话框子类不被重定向。
+- 游戏内验证关闭只执行一次消费者保存回调，退出动画结束后移除窗口，再打开恢复消费者页面。实际保存 XML 使用 `theme/scale/density/panelOpacity`，不再写旧模式、几何、Frost 或旧外观键。四个自身设置页、传统控件页、Listing、DocumentItem 和手动适配页均实际切换绘制，未进入页面失败状态。
+- 发布清单移除残留 `1.6` 暂存项，并增加验证守卫；新暂存包 39 个文件经 SHA-256 校验，只包含 1.7 DLL、共享资源、元数据与文档。5 个当前 XML、简中／英文各 148 个唯一且一致的语言键及源码翻译引用通过检查。原 1.6 归档未复制或修改，未部署到正常游戏安装目录。
+- Windows PowerShell 验证入口因该环境没有 Windows .NET SDK 而未完整运行；已分别在 WSL 执行等价构建、运行时断言、XML／语言／加载目录／暂存隔离检查。游戏验证使用反射调用及实际绘制，不等同于 OS 鼠标、IME、地图／世界、多 Mod 压力或性能验收；未完成全日志审查，不声明日志无错误。
+- 隔离实例正常停止，未强制终止。截图保留在 `C:/RimCarbon14/iris-polish-20261026/RimCarbon14/artifacts/e256d3b0b8a248e48ff61b618dcce505/`；本轮验收截图为 `23a9bfd2ea2049eab36140c3b17c7a90.png` 和 `0be79ed6993d4971bcee5007d395d00d.png`。临时验证工程用后删除。
 

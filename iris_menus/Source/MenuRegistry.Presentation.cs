@@ -10,6 +10,24 @@ namespace IrisMenus
         private static readonly Dictionary<string, MenuPresentation> presentations =
             new Dictionary<string, MenuPresentation>(StringComparer.Ordinal);
 
+        internal static void RegisterNativeSubItem(Mod owner, string pageId, Func<string> title,
+            MenuPresentation presentation, Action save = null)
+        {
+            if (owner == null) throw new ArgumentNullException(nameof(owner));
+            if (string.IsNullOrWhiteSpace(pageId)) throw new ArgumentException("A page ID is required.", nameof(pageId));
+            if (title == null) throw new ArgumentNullException(nameof(title));
+            if (presentation == null) throw new ArgumentNullException(nameof(presentation));
+            string id = OwnerId(owner) + ":" + pageId;
+            foreach (MenuPage existing in registered)
+                if (existing.Id == id)
+                    throw new ArgumentException("Page already registered: " + id, nameof(pageId));
+            var page = new MenuPage(id, owner, title, null, save ?? owner.WriteSettings, false) { IsSubItem = true };
+            // Publish the presentation before exposing a page without an IMGUI drawer.
+            presentations[id] = presentation;
+            registered.Add(page);
+            Revision++;
+        }
+
         // Register the ordinary page first. This annotation changes only its full-screen presentation.
         public static void RegisterPresentation(Mod owner, string pageId, MenuPresentation presentation)
         {

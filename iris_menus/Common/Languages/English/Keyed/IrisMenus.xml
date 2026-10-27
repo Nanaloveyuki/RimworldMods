@@ -4,17 +4,19 @@
   <IM_Manage>Add mod settings</IM_Manage>
   <IM_OpenOriginalSettings>Open original settings window</IM_OpenOriginalSettings>
   <IM_ExternalSettings>This mod uses a separate settings window. Open it with the button below and save changes in that window.</IM_ExternalSettings>
-  <IM_Registered>Registered</IM_Registered>
+  <IM_Registered>Dedicated settings</IM_Registered>
   <IM_Added>Added</IM_Added>
   <IM_Pages>Settings pages</IM_Pages>
-  <IM_ResetWindow>Reset window position</IM_ResetWindow>
-  <IM_Frost>Frosted background</IM_Frost>
-  <IM_Blur>Blur: {0}%</IM_Blur>
-  <IM_Transparency>Transparency: {0}%</IM_Transparency>
   <IM_RememberState>Remember last page</IM_RememberState>
-  <IM_RememberStateTip>Restore the last page, search, and scroll position. Mod settings themselves stay owned by each mod.</IM_RememberStateTip>
+  <IM_RememberStateTip>Restore the last page, search, and scroll position when IrisMenus opens.</IM_RememberStateTip>
   <IM_ShowMainButton>Show IrisMenus button in the bottom bar</IM_ShowMainButton>
   <IM_ShowMainButtonTip>Takes effect immediately. When hidden, open IrisMenus from Options → Mod settings → IrisMenus → Open IrisMenus.</IM_ShowMainButtonTip>
+  <IM_MainButtonsTitle>Bottom bar buttons</IM_MainButtonsTitle>
+  <IM_MainButtonsHint>Choose which bottom bar buttons to show. Changes save immediately; keyboard shortcuts remain available. Hidden buttons can always be restored here through Options → Mod settings → IrisMenus.</IM_MainButtonsHint>
+  <IM_MainButtonsRestoreAll>Restore all</IM_MainButtonsRestoreAll>
+  <IM_MainButtonsShow>Show</IM_MainButtonsShow>
+  <IM_MainButtonsMissing>{0} (mod not loaded)</IM_MainButtonsMissing>
+  <IM_MainButtonsMissingHint>This saved button is not currently loaded. Select Show to forget its hidden state.</IM_MainButtonsMissingHint>
   <IM_Empty>No matching mod settings.</IM_Empty>
   <IM_Global>All settings</IM_Global>
   <IM_SearchGlobal>Search all settings</IM_SearchGlobal>
@@ -66,13 +68,11 @@
   <IM_NativeDisplayNoteTitle>Scale and spacing</IM_NativeDisplayNoteTitle>
   <IM_NativeDisplayNote>Scale changes the full-screen interface size. Density changes row spacing. Motion effects apply to full-screen panels and controls.</IM_NativeDisplayNote>
   <IM_NativeBackgroundNoteTitle>Background and opacity</IM_NativeBackgroundNoteTitle>
-  <IM_NativeBackgroundNote>The full-screen interface uses a three-stop gray gradient, with a separate dark palette. Panel opacity defaults to 94% and does not affect the old interface's frost or blur settings.</IM_NativeBackgroundNote>
+  <IM_NativeBackgroundNote>Adjust panel opacity to show more or less of the background.</IM_NativeBackgroundNote>
   <IM_NativeNavigationNoteTitle>Pages and search</IM_NativeNavigationNoteTitle>
   <IM_NativeNavigationNote>Remember last page restores your browsing position when IrisMenus opens. The default search scope chooses all mods or the current mod when starting a search from a page.</IM_NativeNavigationNote>
   <IM_NativeInteractionNoteTitle>Hover tips</IM_NativeInteractionNoteTitle>
   <IM_NativeInteractionNote>Hover tips explain full-screen IrisMenus controls. Adjust the delay to change how soon they appear, or turn tips off.</IM_NativeInteractionNote>
-  <IM_NativeMode>New interface</IM_NativeMode>
-  <IM_NativeModeTip>Switch between the original window and the full-screen interface. Current settings must save successfully before switching.</IM_NativeModeTip>
   <IM_LinkUnavailable>Cannot open this settings link: {0}</IM_LinkUnavailable>
   <IM_NativeModSettings>Mod settings</IM_NativeModSettings>
   <IM_NativeSwitchLight>Switch to light theme</IM_NativeSwitchLight>
@@ -85,8 +85,8 @@
   <IM_NativeNotes>Usage notes</IM_NativeNotes>
   <IM_NativeReset>Restore defaults</IM_NativeReset>
   <IM_NativeLibrary>Settings library</IM_NativeLibrary>
-  <IM_NativeRegistered>Registered</IM_NativeRegistered>
-  <IM_NativeHosted>Hosted</IM_NativeHosted>
+  <IM_NativeRegistered>Dedicated settings</IM_NativeRegistered>
+  <IM_NativeHosted>Other settings</IM_NativeHosted>
   <IM_NativePinned>Pinned</IM_NativePinned>
   <IM_NativePin>Pin to top</IM_NativePin>
   <IM_NativeUnpin>Unpin</IM_NativeUnpin>
@@ -100,14 +100,14 @@
   <IM_NativeSave>Save</IM_NativeSave>
   <IM_NativeOpenResult>Open</IM_NativeOpenResult>
   <IM_NativeResetTitle>Restore this page's defaults?</IM_NativeResetTitle>
-  <IM_NativeResetDescription>Restore the settings declared by this page. Other pages, mods and window geometry are not changed.</IM_NativeResetDescription>
+  <IM_NativeResetDescription>Restore this page's default settings. Settings on other pages are not changed.</IM_NativeResetDescription>
   <IM_NativeDone>Done</IM_NativeDone>
-  <IM_NativeHelpDescription>Full-screen IrisMenus uses the same settings pages and save owners as the original interface. Hosted pages retain their controls and layout while ordinary backgrounds and text follow the current theme. Chapters, notes, previews and reset are shown only when a page explicitly provides them. The interface switch preserves the current page and browsing position.</IM_NativeHelpDescription>
+  <IM_NativeHelpDescription>Choose a mod in the sidebar to open its settings, or search for an option by name. Right-click a mod to pin, rename or move it. Add more mods from the settings library. When available, use the page's contents, notes and restore defaults button.</IM_NativeHelpDescription>
   <IM_NativeManagementTitle>Add mods to the settings library</IM_NativeManagementTitle>
-  <IM_NativeManagementHint>Choose which hosted settings appear in IrisMenus. This does not enable or disable game mods.</IM_NativeManagementHint>
+  <IM_NativeManagementHint>Choose which mod settings appear in IrisMenus. This does not enable or disable game mods.</IM_NativeManagementHint>
   <IM_NativeManagementShown>Shown in library</IM_NativeManagementShown>
   <IM_NativeManagementHidden>Hidden from library</IM_NativeManagementHidden>
-  <IM_NativeManagementAlwaysShown>Registered · always shown</IM_NativeManagementAlwaysShown>
+  <IM_NativeManagementAlwaysShown>Always shown</IM_NativeManagementAlwaysShown>
   <IM_NativeManagementNoPreview>No preview image</IM_NativeManagementNoPreview>
   <IM_NativeManagementEmpty>No settings pages are available.</IM_NativeManagementEmpty>
   <IM_ValueColors>Item value colors</IM_ValueColors>
@@ -141,4 +141,11 @@
   <IM_SettingsSaved>Settings saved</IM_SettingsSaved>
   <IM_ModAuthor>Author: {0}</IM_ModAuthor>
   <IM_ShowToasts>Show notifications</IM_ShowToasts>
+  <IM_NativeSidebarActions>Sidebar</IM_NativeSidebarActions>
+  <IM_LinkInvalid>The link is invalid.</IM_LinkInvalid>
+  <IM_LinkModDisabled>The required mod is not enabled: {0}</IM_LinkModDisabled>
+  <IM_LinkNoPages>No settings pages are available for {0}.</IM_LinkNoPages>
+  <IM_LinkPageMissing>The settings page could not be found: {0}</IM_LinkPageMissing>
+  <IM_LinkDocumentMissing>The document could not be found: {0}</IM_LinkDocumentMissing>
+  <IM_LinkLineMissing>The document has no line {0}.</IM_LinkLineMissing>
 </LanguageData>

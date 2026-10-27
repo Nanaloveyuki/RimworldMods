@@ -47,6 +47,15 @@ namespace IrisMenus.UI
         public Color MiniMark { get; }
         public Color MiniTrack { get; }
         public Color Shadow { get; }
+        public Color MenuSurface { get; }
+        public Color MenuInk { get; }
+        public Color MenuMuted { get; }
+        public Color MenuDisabled { get; }
+        public Color MenuLine { get; }
+        public Color MenuDanger { get; }
+        public Color MenuHover { get; }
+        public Color MenuAction { get; }
+        public Color MenuFocus { get; }
 
         public static readonly UiPalette Light = new UiPalette(0f);
         public static readonly UiPalette Dark = new UiPalette(1f);
@@ -95,6 +104,15 @@ namespace IrisMenus.UI
             MiniMark = Mix(0x9c9c9c, 0x879099, dark);
             MiniTrack = Mix(0xb4b4b4, 0x5c646b, dark);
             Shadow = Mix(0x000000, 0x000000, dark, 20f / 255f, 96f / 255f);
+            MenuSurface = Mix(0xfafafa, 0x1f1f1f, dark);
+            MenuInk = Mix(0x191919, 0xfafafa, dark);
+            MenuMuted = Rgb(0x8a8a8a);
+            MenuDisabled = Mix(0xb3b3b3, 0x626262, dark);
+            MenuLine = Mix(0xd9d9d9, 0x383838, dark);
+            MenuDanger = Mix(0xde0909, 0xf74040, dark);
+            MenuHover = Mix(0x191919, 0xfafafa, dark, 0.05f, 0.05f);
+            MenuAction = Rgb(0xfffa00);
+            MenuFocus = Mix(0x191919, 0xfffa00, dark);
         }
 
         public static UiPalette Blend(float dark) => new UiPalette(Mathf.Clamp01(dark));

@@ -2,8 +2,8 @@
 
 ## Scope and ownership
 
-- Target RimWorld 1.6 (`net48`) and 1.7 (`net10.0`), namespace `IrisMenus`. Require Harmony and package `Nanaloveyuki.IrisMenus`; no RimIris dependency.
-- Reference the matching `1.6/Assemblies/IrisMenus.dll` or `1.7/Assemblies/IrisMenus.dll` with `Private=false`. Never ship a duplicate provider DLL. The preserved 1.6 binary does not contain the new native presentation API; the current 1.7 build does.
+- Current development and full-screen-only hosting target RimWorld 1.7 (`net10.0`), namespace `IrisMenus`. Require Harmony and package `Nanaloveyuki.IrisMenus`; no RimIris dependency. Existing 1.6 (`net48`) release binaries and resources are archived unchanged, not rebuilt for new features.
+- Reference the matching `1.7/Assemblies/IrisMenus.dll` with `Private=false`; legacy consumers use the preserved `1.6/Assemblies/IrisMenus.dll` and only its existing APIs. Never ship a duplicate provider DLL. New native presentation APIs are provided by the current 1.7 build, not the preserved 1.6 binary.
 - Register pages, metadata, actions and presentations on the game thread, normally after `GetSettings<T>()` in the Mod constructor. Never register during rendering.
 - Consumer owns settings, persistence, defaults and internal scrolling. The host neither serializes consumer values nor supports rollback. Preserve existing settings keys and save semantics.
 - Do not patch other mods, scan private fields, or invoke drawing to discover settings. Manual adapter opt-in remains a user decision.
@@ -30,7 +30,7 @@ MenuRegistry.Open();
 ```
 
 - Owner identity is `Content.PackageIdPlayerFacing + ":" + GetType().FullName`; page identity appends `":" + pageId`. Keep IDs and owner types stable. Null callbacks/owners and blank IDs are rejected; duplicate page IDs throw.
-- Save defaults to `owner.WriteSettings`. Leaving a different page, returning from a search hit, and normal close save; errors block navigation/close. Same-page selection and switching presentation do not save. Forced removal can attempt saving but cannot veto removal.
+- Save defaults to `owner.WriteSettings`. Leaving a different page, returning from a search hit, and normal close save; errors block navigation/close. Same-page selection does not save. Forced removal can attempt saving but cannot veto removal.
 - `RegisterListing` and `RegisterSubItemListing` own a persistent `MenuScrollView`. A custom `Action<Rect>` owns its scrolling. There is no extra host scroll wrapper.
 - Dynamic replacement validates the complete set before mutation. Same-ID pages keep identity and Listing scrolling; removed pages rebind to a nearby category or catalog without running removed callbacks for a transition. Empty listings remove only that registration.
 - Existing `RegisterListing` single pages open directly. Explicit SubItems retain an owner heading. All categories of the selected owner share search scope; native library groups by content pack.
@@ -46,14 +46,14 @@ Metadata ID is the anchor supplied to focus. Matching uses all whitespace-separa
 
 ## Native full-screen presentation (current 1.7)
 
-The old footer's **Open full-screen interface** enters the native host. `MenuRegistry.Open()`, the main button and original settings routing still default to the old host. One `MenuWindow`, session, catalog and browse state own both presentations. Returning restores old geometry, not full-screen bounds. Theme/scale/density/tips/panel opacity persist separately from old frost/blur settings.
+The full-screen host is the only presentation in current 1.7 source. `MenuRegistry.Open()`, the bottom-bar button and opted-in original settings routing all use it; there is no old/new switch, separate old window or legacy geometry. One `MenuWindow`, session, catalog and browse state own the lifecycle. Existing `Register`, `RegisterListing`, SubItem and adapter drawers remain supported: retiring the old host does not remove traditional controls or consumer callbacks.
 
 ```csharp
 MenuRegistry.RegisterPresentation(this, "general",
     new MenuPresentation(context => new ExampleNativePage(context, settings, WriteSettings, help)));
 ```
 
-Register the ordinary page first, then annotate the same owner/page ID. The ordinary drawer remains necessary for the old host. `MenuPresentation.Create` receives the host-owned `IrisMenus.UI.UiContext` and must return a fresh retained `MenuNativePage`. The host owns its lifetime. See `tests/ApiConsumer/ExampleMod.cs` for a compile-checked consumer and [native components](../references/native-ui-components.md) for controls.
+Register the ordinary page first, then optionally annotate the same owner/page ID. The registration supplies stable identity, search and saving; without a presentation, its drawer runs directly in the full-screen host. `MenuPresentation.Create` receives the host-owned `IrisMenus.UI.UiContext` and must return a fresh retained `MenuNativePage`. The host owns its lifetime. See `tests/ApiConsumer/ExampleMod.cs` for a compile-checked consumer and [native components](../references/native-ui-components.md) for controls.
 
 ```csharp
 public abstract class MenuNativePage : IDisposable
@@ -83,17 +83,33 @@ These are signature summaries, not a compilable class definition.
 - Chapter and metadata IDs feed `Focus`; retain pending anchors until layout exists. `ActiveChapterId` identifies the chapter currently visible in the page's scroll view; return null when unavailable. The host uses it for TOC emphasis without inferring scroll positions. `Notes` are localized text with a single-open session-local accordion (first initially open). `HasPreview` enables a bounded explicit preview region; it is not a game-scene capture.
 - `CanReset` is false by default. Opt in only when `Reset` implements real defaults. Confirmation is tied to the originating page; do not reset another page after registry changes. Save remains the ordinary page's save callback.
 - Factory, prepare, draw and overlay exceptions enter a retry view; do not silently replace a failed native page with its legacy drawer. Disposal is attempted once, reported on error, and cannot trap the window. Balance all GUI groups; the host cannot repair arbitrary consumer imbalance.
-- Without a presentation, the original drawer keeps its layout, values, save callback and scrolling owner. In the 1.7 full-screen host, common backgrounds, buttons, sliders, default checkboxes/toggles and native text-field chrome follow Light/Dark. `Widgets.CheckboxLabeled` and standard `GUI.Toggle` use switch visuals; custom checkbox textures and custom style backgrounds remain native. Text fields retain their native editor, names and text indices. Adaptation ends with the selected callback; the old window and unrelated windows retain their original appearance.
+- Without a presentation, the original drawer keeps its layout, values, save callback and scrolling owner. In the 1.7 full-screen host, common backgrounds, buttons, sliders, default checkboxes/toggles and native text-field chrome follow Light/Dark. `Widgets.CheckboxLabeled` and standard `GUI.Toggle` use switch visuals; custom checkbox textures and custom style backgrounds remain native. Text fields retain their native editor, names and text indices. Adaptation ends with the selected callback; unrelated windows retain their original appearance.
 - Hosted plain/rich text is adjusted at final text-piece drawing for 4.5:1 RGB contrast against the common theme surfaces, retaining hue where adjustment is required and multiplying caller/rich-text opacity once. Text, rich tags and editor buffers are not rewritten; intentional transparency is preserved rather than forced opaque. Custom images/shaders and arbitrary consumer background colors are not covered.
 - The native background is an opaque three-stop gradient with Light/Dark colors matching the reference. Panel opacity defaults to 94%. No scene capture or blur is used in this presentation. Closing fades the host only after both save gates succeed, blocks content input through exit, and releases retained resources after removal. Reduced motion snaps transitions.
-- Underlying HUD/window drawing is gated while full-screen coverage is active. Windows above the host still render and receive input. Returning/closing restores normal drawing without replacing or deleting underlying windows.
+- Underlying HUD/window drawing is gated while full-screen coverage is active. Windows above the host still render and receive input. Closing restores normal drawing without replacing or deleting underlying windows.
 
 ## Navigation and memory
 
 - The global catalog is a directory, not a combined editor. Opening hits saves/selects first, retains query/scope/page/scroll, then focuses an available anchor. Back saves before returning. Navigation clears search; editing search does not become a page-selection operation.
 - `RememberState`, `LastPage`, `LastSubItems` and `HostView` retain navigation, searches, host scrolling and registered Listing scrolling. Native self-settings retain their own scroll offsets there. Custom pages/adapters own internal state. Drawers, notes and confirmations are session-local.
-- Disabling memory clears remembered navigation, not consumer values, appearance, geometry or adapter choices. Explicit Mod routing takes precedence over remembered browsing.
+- Disabling memory clears remembered navigation, not consumer values, appearance, sidebar configuration or adapter choices. Explicit Mod routing takes precedence over remembered browsing.
 - Save failures keep the selected page/window open; draw failures preserve save paths and offer retry. `ExitGUIException` propagates. Title failures log once and fall back to owner name.
+
+### Host settings migration (1.7 full-screen-only cutover)
+
+| Legacy persisted key | Current persisted key |
+|---|---|
+| `nativeTheme` | `theme` |
+| `nativeScale` | `scale` |
+| `nativeDensity` | `density` |
+| `nativePanelOpacity` | `panelOpacity` |
+
+Read a legacy appearance key only during `LoadingVars`, only if its new key is absent. A present new key always wins; saving writes only current keys. Internal fields `NativeScale` and `NativePanelOpacity` become `Scale` and `PanelOpacity`; `Theme` and `Density` keep their names.
+
+Retire `NativeMode`, `Width`, `Height`, `X`, `Y`, `FrostEnabled`, `Blur` and `Transparency`, and their persisted keys `nativeMode`, `width`, `height`, `x`, `y`, `frostEnabled`, `blur` and `transparency`. The current host neither restores nor writes them. In the `HostView` dictionary, migrate `navigationScroll` to `railScroll` and `adapterScroll` to `managementScroll`; existing destination entries win, and only destination names are saved. A browse-state `mode` in `HostView` remains navigation state, not a UI presentation switch.
+
+Keep `LastPage`, `LastSubItems`, `HostView`, adapter choices, sidebar preferences, bottom-bar controls and item-value colors. Appearance and behavior configuration remain functional. Consumer-owned settings keys and original drawer/Listing save callbacks are unaffected. The archived 1.6 release and its language/resources are outside this migration.
+
 
 ## Names and owner actions
 
@@ -136,17 +152,17 @@ Manual adapters require a loaded Mod with nonempty `SettingsCategory()` and expl
 
 Character Editor (`CharacterEditor.CharacterEditorMod`, Workshop 1874644848) is an explicit launcher adapter. Invoke its original configuration dialog only on a click; focus an existing dialog instead of opening duplicates. Closing it does not reopen it; use its own Save. Never patch or reflect its private settings/draw methods.
 
-`ShowMainButton` defaults true. Both self-settings and old footer control the same value. `MainButtonWorker_IrisMenus.Visible` still includes `base.Visible`; hiding it preserves other entry points.
+`ShowMainButton` defaults true. IrisMenus self-settings control the shared value; the bottom-bar management page also remains reachable from ordinary Mod settings. `MainButtonWorker_IrisMenus.Visible` still includes `base.Visible`; hiding it preserves other entry points.
 
 ## Build, packaging and verification
 
 Use .NET 10 SDK, .NET 9 runtime for engine-double checks, installed RimWorld 1.7 DLLs and the Harmony mod's .NET 10-compatible Harmony 3 runtime. Default references are the local game root; `RimWorldManagedDir` overrides it. Decompiled source is not a binary reference.
 
 - Build `Source/IrisMenus.csproj` or `tests/ApiConsumer/ApiConsumer.csproj` for 1.7. Preserve existing 1.6 DLL/bundle unchanged; no upgrade/deploy step rebuilds or copies them.
-- `scripts/validate.ps1 -SkipGpu` builds, runs engine-double contracts, validates localization/XML/load folders and stages a hash-verified package. These checks do not execute `MenuWindow` or prove GPU/input behavior.
+- `scripts/validate.ps1` builds, runs engine-double contracts, validates localization/XML/load folders and stages a hash-verified 1.7-only package. These checks do not execute `MenuWindow` or prove GPU/input behavior.
 - Shared deployment: `bash scripts/deploy.sh iris_menus [--build-only]`; `--skip-build` stages existing output. Deployment requires a stopped game, rejects redirecting targets and verifies copied hashes. Preserve ModsConfig, Workshop ID and installed 1.6 content.
-- `LoadFolders.xml` selects `[1.6]` or `[1.7, Common]`, not subdirectories such as `Common/Defs`. Ship only the provider DLL, native shader source, shared resources, metadata and documentation; never game/Harmony assemblies.
+- `LoadFolders.xml` selects `[1.6]` or `[1.7, Common]`, not subdirectories such as `Common/Defs`. Ship only current 1.7 provider output, shared resources, metadata and documentation; never game/Harmony assemblies. The full-screen host does not require the retired Frost shader.
 
-Old-window renderer: 1.7 borrows scene color inside `ImGuiMaterialRenderer.TryRecord(frameSlot)` and finalizer-clears it. JIT-inlined forwarding hooks are not proof of execution. Draw rounded fill once; the material uses ClearTex as ordinary fallback, overlaying border or blurred scene. Entry frost samples main-menu artwork directly and maps physical bounds; no per-frame GUI bake. The full-screen gradient bypasses this path.
+The current host uses a Light/Dark gradient and panel opacity; the old 1.7 scene-binding/Frost renderer is retired. Historical renderer and roundtrip evidence remains in dated component records, not the current hosting contract.
 
-Real-game acceptance must distinguish compiled contracts from rendered behavior. Exercise supported game versions, map/world/menu, native/legacy/mixed/adapter pages, search/back, save/draw/factory failure, dynamic registrations, keyboard/pointer input, translations, scaling, reopen/restart and resource restoration before making corresponding claims.
+Real-game acceptance must distinguish compiled contracts from rendered behavior. Exercise RimWorld 1.7 map/world/menu, native/traditional/mixed/adapter pages, search/back, save/draw/factory failure, dynamic registrations, keyboard/pointer input, translations, scaling, reopen/restart, settings migration and resource restoration before making corresponding claims. Historical checks do not establish new cutover results.

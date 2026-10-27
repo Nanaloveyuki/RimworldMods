@@ -1,7 +1,7 @@
 # IrisMenus 接入指南
 
-IrisMenus 是 RimWorld 1.6/1.7 的共享 Mod 设置窗口，需要 Harmony，不依赖 RimIris。
-设置值仍由你的 Mod 持有、修改和保存；IrisMenus 负责页面、导航和搜索。
+IrisMenus 当前源码面向 RimWorld 1.7，使用唯一的全屏 Mod 设置宿主，需要 Harmony，不依赖 RimIris。
+设置值仍由你的 Mod 持有、修改和保存；IrisMenus 负责页面、导航和搜索。既有 1.6 发布二进制和资源归档保留，不重建，也不承诺包含本轮新功能。
 Markdown 动态内容和外部只读文件的接入方式见
 [docs/markdown.md](markdown.md)。
 
@@ -9,7 +9,7 @@ Markdown 动态内容和外部只读文件的接入方式见
 
 按游戏版本引用 `1.6/Assemblies/IrisMenus.dll`（`net48`）或 `1.7/Assemblies/IrisMenus.dll`（`net10.0`），设置 `Private=false`，不要重复打包。既有页面 API 保持兼容；新的 `MenuPresentation` 只在当前 1.7 构建中提供，保留的 1.6 二进制未更新。
 
-旧版页面底部的入口会按当前状态显示“打开全屏新版界面”或“返回旧版界面”。两种界面共用设置页面、保存责任和窗口设置；切换只改变呈现宿主，不会重置 Mod 设置。
+`MenuRegistry.Open()`、底部 IrisMenus 按钮和已接入 Mod 的原版设置路由都进入同一个全屏宿主，不再提供新旧界面切换。已有 `RegisterListing`、`Register` 和适配页的原 drawer 继续受支持，不要求把所有传统控件改写成原生组件。
 在你的 `About/About.xml` 的 `modDependencies` 中加入：
 
 ```xml
@@ -79,11 +79,12 @@ private void DrawGeneral(Listing_Standard list)
 `settings` 是你自己的设置对象。可用控件还有 `Slider`、整数/浮点 `Number` 和下拉 `Select`。
 `Number` 的编辑字符串必须保存在实例字段里，不能每帧重新创建。
 
-### 可选全屏原生呈现（1.7）
+### 可选原生页面呈现（1.7 全屏宿主）
 
-旧版底栏提供“打开全屏新版界面”，默认入口不变。普通 drawer 仍是旧版呈现；如需原生双主题控件，在原页面注册后调用 `MenuRegistry.RegisterPresentation(this, "general", new MenuPresentation(context => new MyNativePage(context)))`，页面继承 `MenuNativePage`。宿主提供并持有 `UiContext`，消费者持有控件和设置；正文自行滚动，overlay 在根坐标绘制。章节、说明、预览和重置都需显式声明，不会从旧 drawer 自动推导。
+全屏宿主可以直接运行普通 drawer。需要原生双主题控件时，在原页面注册后调用 `MenuRegistry.RegisterPresentation(this, "general", new MenuPresentation(context => new MyNativePage(context)))`，页面继承 `MenuNativePage`。原页面注册继续提供身份、搜索与保存责任；宿主提供并持有 `UiContext`，消费者持有控件和设置。正文自行滚动，overlay 在根坐标绘制。章节、说明、预览和重置都需显式声明，不会从原 drawer 自动推导。
 
-完整生命周期与签名见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)，可编译示例见 `tests/ApiConsumer/ExampleMod.cs`。未迁移页面继续执行原 drawer；1.7 新版宿主会在回调范围内适配常见背景、按钮、滑块、默认勾选／开关和输入框外观，`Widgets.CheckboxLabeled`／标准 `GUI.Toggle` 显示为开关。普通与富文本在最终绘制时修正主题对比度，不改写字符串、原生编辑器、保存或滚动所有权；自绘图片／着色器、自定义控件背景及任意底色仍需消费者处理。旧版窗口保持原版外观。
+完整生命周期与签名见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)，可编译示例见 `tests/ApiConsumer/ExampleMod.cs`。未声明原生呈现的页面继续执行原 drawer；宿主会在回调范围内适配常见背景、按钮、滑块、默认勾选／开关和输入框外观，`Widgets.CheckboxLabeled`／标准 `GUI.Toggle` 显示为开关。普通与富文本在最终绘制时修正主题对比度，不改写字符串、原生编辑器、保存或滚动所有权；自绘图片／着色器、自定义控件背景及任意底色仍需消费者处理。无关游戏窗口保持原样。
+
 ## 3. 搜索并跳转到控件
 
 在注册页面后声明搜索元数据：
@@ -134,7 +135,7 @@ MenuRegistry.RegisterSearchProvider(this, "details", () => new[]
 
 用户可以在添加设置页面中手动选择原版 Mod；普通适配页直接调用它的 `DoSettingsWindowContents(Rect)`，不再套一层滚动。
 没有额外元数据时只能按 Mod/页面名称搜索并打开整页，无法自动识别控件。
-添加列表同时显示内容包的 ModIcon（32×32 等比缩放），没有自定义图标时使用游戏提供的默认图标。长名称按扣除图标与勾选框后的宽度换行。
+管理页面使用 `About/Preview.png` 缩略图和当前语言名称，控制的是设置页是否托管，不是启用／停用游戏 Mod。
 `RegisterAdapterSearch(owner, provider, focus)` 可以补充元数据和自定义定位，但不会自动启用托管，也不会自动拆分分类。
 需要独立分类时，应显式注册多个页面。
 
@@ -145,9 +146,11 @@ Character Editor（创意工坊 1874644848）的该方法实际是独立窗口�
 各注册接口最后一个可选参数是保存回调，默认 `owner.WriteSettings`。
 切换页面或关闭窗口时保存，失败会保留当前页/窗口供重试。设置是即时修改的，关闭不是取消。
 同一页面重复点击不触发离页保存；搜索结果返回时会保存。
-窗口底栏和原版 IrisMenus 设置页新增“记住上次页面”，默认开启：重开或重启后恢复页面、搜索范围与关键词、结果分页、添加页面的筛选、宿主滚动和注册 Listing 页的滚动位置。显式打开某个 Mod 时优先进入该 Mod；页面移除后退回同 Mod 的可用分类或全局目录。
-关闭记忆会清除宿主浏览记录，不影响 Mod 设置、托管勾选、窗口位置和大小。自定义页与适配页内部的折叠、输入和滚动仍由接入方维护。窗口背景、底色与边框同步上游 12 单位圆角，关闭毛玻璃或透明度归零时也保留圆角。
-原版 IrisMenus 设置页提供“显示底部 IrisMenus 按钮”，默认开启，切换立即生效并保存。隐藏后仍可通过“选项 → Mod 设置 → IrisMenus → 打开 IrisMenus”进入，也不影响已接入 Mod 的原版设置入口。
+“记住上次页面”默认开启：重开或重启后恢复页面、搜索范围与关键词、结果分页、管理页面筛选、宿主滚动和注册 Listing 页的滚动位置。显式打开某个 Mod 时优先进入该 Mod；页面移除后退回同 Mod 的可用分类或全局目录。
+关闭记忆会清除宿主浏览记录，不影响 Mod 设置、托管勾选、侧栏或外观配置。自定义页与适配页内部的折叠、输入和滚动仍由接入方维护。当前背景为双主题渐变和独立面板不透明度，不再提供旧窗口位置、大小、毛玻璃、模糊或透明度选项。
+IrisMenus 设置提供“显示底部 IrisMenus 按钮”，默认开启，修改立即生效并保存。隐藏后仍可通过“选项 → Mod 设置 → IrisMenus → 打开 IrisMenus”进入，也不影响已接入 Mod 的原版设置入口。
+
+设置迁移遵循[宿主迁移契约](../agents/integration.md#host-settings-migration-17-full-screen-only-cutover)：`nativeTheme/nativeScale/nativeDensity/nativePanelOpacity` 仅在加载且缺少对应新键时迁移至 `theme/scale/density/panelOpacity`，新键优先，保存只写新键。`HostView` 的 `navigationScroll/adapterScroll` 迁移至 `railScroll/managementScroll`；保留页面与浏览记忆、侧栏、托管选择及其他配置，淘汰新旧模式、旧窗口几何与 Frost 设置。1.6 归档不受影响。
 
 ## 6. 所属 Mod 操作
 
@@ -163,7 +166,7 @@ MenuRegistry.RegisterOwnerAction(content, "export", () => "导出", Export);
 
 仅操作页直接持有 `ModContentPack`，不会创建额外的 `Mod` 子类或加入游戏的 Mod 句柄列表；该内容包之后出现真实 Mod 句柄时仍会接管并保持同组。
 
-IrisMenus 窗口底栏和原版 IrisMenus 设置页都提供“显示底部 IrisMenus 按钮”开关，使用同一份设置，切换后立即生效并保存。隐藏后仍可从“选项 → Mod 设置 → IrisMenus → 打开 IrisMenus”进入。
+底栏按钮显示设置与普通 IrisMenus Mod 设置入口使用同一份配置，修改后立即生效并保存。隐藏后仍可从“选项 → Mod 设置 → IrisMenus → 打开 IrisMenus”进入。
 
 `visible`、`enabled` 和 `confirmation` 都可省略。点击时重新检查可见和可用；确认文本非空时先用 `Dialog_MessageBox` 确认。回调异常只记录并提示，不关闭窗口，也不结束调用方自己的会话。同一所有者和操作 ID 再次注册会替换旧回调，不要每帧注册。
 
@@ -187,11 +190,11 @@ bash scripts/deploy.sh iris_menus --rimworld-dir /path/to/RimWorld --configurati
 
 默认 Release，1.7 DLL 目录是 `/mnt/e/Apps/Steam/steamapps/common/RimWorld`；Windows 下为 `E:\Apps\Steam\steamapps\common\RimWorld`。
 1.7 的 DLL 位于游戏根目录，已不在 `RimWorldWin64_Data/Managed`。`-p:RimWorldManagedDir=...` 可覆盖 DLL 目录；反编译源码目录（如 `D:\References\Rimworld\Vanilla\1.7\Game`）不能用于编译引用。
-保留 `-p:RimWorldVersion=1.6` 编译配置，仅供明确安排的旧版维护使用；它会覆盖 `1.6/Assemblies` 的现有输出，本次升级不要调用。该配置可从 `Krafs.Rimworld.Ref` 1.6.4633 获取引用，或用 `-p:RimWorldManagedDir=<1.6游戏>/RimWorldWin64_Data/Managed` 指向独立的 1.6 游戏，不能使用 1.7 DLL。
+1.6 作为既有发布归档保留，不是当前源码切换的构建目标；不要从本次源码重建或覆盖 `1.6/Assemblies`、Shader bundle 和语言资源。新版唯一宿主及设置迁移只面向 1.7。
 
 统一脚本默认 Release，使用 `--configuration Debug` 切换；`--rimworld-dir` 指定游戏目录，`--property RimWorldManagedDir=PATH` 可单独覆盖引用目录。
 不启动 Unity，不触碰目标中的整个 `1.6/` 目录。部署前需退出游戏；脚本检查进程、目标包标识、完整文件清单及符号链接，复制后校验 SHA-256。
-部署内容为 1.7 DLL、原生 shader、共享资源和说明，不复制 Harmony/游戏程序集，不删除目标文件，也不修改 ModsConfig。全新暂存包不含 1.6 DLL/bundle，旧版继续使用原有产物。
+部署内容为当前 1.7 DLL、共享资源和说明，不复制 Harmony/游戏程序集，不删除目标文件，也不修改 ModsConfig。全新暂存包不含 1.6 DLL/bundle，旧版继续使用原有归档产物。
 
 Windows PowerShell 从 monorepo 根目录使用同一 Python 实现：
 
@@ -200,11 +203,9 @@ python scripts/python/deploy.py iris_menus --build-only
 python scripts/python/deploy.py iris_menus --rimworld-dir 'E:\Apps\Steam\steamapps\common\RimWorld'
 ```
 
-`--target` 指定 Mod 目标；`--skip-build` 仅暂存和复制已有产物。正式暂存位于根 `artifacts/iris_menus/release`。独立验证入口仍为模块内的 `scripts/validate.ps1 -SkipGpu`，检查结果不能替代 1.7 游戏中的毛玻璃方向、圆角裁切与界面交互验收。
+`--target` 指定 Mod 目标；`--skip-build` 仅暂存和复制已有产物。正式暂存位于根 `artifacts/iris_menus/release`。独立验证入口仍为模块内的 `scripts/validate.ps1`，检查结果不能替代 1.7 游戏中的全屏绘制、输入、缩放、保存和迁移验收；历史验证不代表本次切换已执行新的构建或游戏检查。
 
-1.6 的原有 Def 和语言文件保持在 `1.6/`；1.7 使用 `Common/Defs`、`Common/Languages`。`LoadFolders.xml` 分别加载 `[1.6]` 和 `[1.7, Common]`，1.7 不会加载 1.6 DLL 或 Unity bundle。部署包包含 `1.7/Rendering/Frost17.frag.glsl`，游戏 shader 缓存直接读取源码路径。1.7 需要 Harmony Mod 中支持 .NET 10 的 Harmony 3。
+1.6 的原有 Def 和语言文件保持在 `1.6/`；1.7 使用 `Common/Defs`、`Common/Languages`。`LoadFolders.xml` 分别加载 `[1.6]` 和 `[1.7, Common]`，1.7 不会加载 1.6 DLL 或 Unity bundle。1.7 需要 Harmony Mod 中支持 .NET 10 的 Harmony 3。
 
-1.6 毛玻璃使用 Unity 相机和 bundle；1.7 在 `ImGuiMaterialRenderer.TryRecord` 内，按该次绘制的提交槽 `frameSlot` 借用场景颜色，并在 finalizer 中清除引用。渲染功能的接口实现及宿主转发方法可能在 Mod 加载前被 JIT 内联，补丁虽已注册却不会执行。背景先绘制原生圆角底色，再叠加模糊与边框；原生材质绑定失败时保留普通半透明背景，不再回退成白底。毛玻璃、模糊强度与透明度设置保留，不改已有偏好。
-
-1.7 主菜单背景由 IMGUI 绘制，不在场景颜色中；毛玻璃直接采样当前 `UI_BackgroundMain` 的背景图，沿用原版居中铺满的裁切与 UI 缩放，无需截屏读回或逐帧离屏提交。此路径只模糊基础背景图，不捕获其他窗口、资料片悬停淡入层或自定义背景渲染器。1.6 和不支持的背景仍使用原有半透明底色。
+当前 1.7 宿主只使用双主题渐变，不再借用场景颜色或加载旧 Frost shader。原 1.6 Unity 毛玻璃及退役前 1.7 场景／主菜单模糊路径只属于历史实现；既有验收记录保留在[组件参考的历史记录](native-ui-components.md#开发者入口与验证状态)，不能作为当前接口契约。
 

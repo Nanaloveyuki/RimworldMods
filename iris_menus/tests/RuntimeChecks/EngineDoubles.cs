@@ -31,7 +31,6 @@ namespace Verse
         public string PackageIdPlayerFacing = "test.mod";
         public string Name = "Test Mod";
         public string RootDir = "test-root";
-        public ModAssetBundlesHandler assetBundles = new ModAssetBundlesHandler();
     }
     public class Mod
     {
@@ -62,8 +61,6 @@ namespace Verse
     public static class Find
     {
         public static WindowStack WindowStack = new WindowStack();
-        public static UnityEngine.Camera Camera;
-        public static UnityEngine.Camera WorldCamera;
     }
     public class WindowStack
     {
@@ -163,4 +160,66 @@ namespace IrisMenus
         internal bool AcceptPage = true;
         internal bool OpenPage(MenuPage page) { if (!AcceptPage) return false; Page = page; return true; }
     }
+}
+namespace UnityEngine
+{
+    public struct Color
+    {
+        public float r, g, b, a;
+        public Color(float r, float g, float b) : this(r, g, b, 1f) { }
+        public Color(float r, float g, float b, float a) { this.r = r; this.g = g; this.b = b; this.a = a; }
+        public static Color white => new Color(1, 1, 1, 1);
+    }
+    public enum TextAnchor { UpperLeft }
+    public sealed class GUIContent { public string text; }
+    public class GUIStyle
+    {
+        public TextAnchor alignment;
+        public bool wordWrap;
+        public float lineHeight => 2f;
+        public Vector2 CalcSize(GUIContent content) => new Vector2 { x = 1f, y = 2f };
+        public Vector2 GetCursorPixelPosition(Rect rect, GUIContent content, int index)
+        {
+            float x = 0f, y = 0f;
+            for (int i = 0; i < index; i++)
+            {
+                if (content.text[i] == '<')
+                {
+                    int close = content.text.IndexOf('>', i + 1);
+                    if (close >= 0) { i = close; continue; }
+                }
+                if (content.text[i] == '\n') { x = 0f; y += 2f; continue; }
+                if (x >= rect.width) { x = 0f; y += 2f; }
+                x++;
+            }
+            return new Vector2 { x = rect.x + x, y = rect.y + y };
+        }
+    }
+    public enum EventType { Repaint, MouseUp, Used }
+    public class Event
+    {
+        public static Event current = new Event();
+        public EventType type;
+        public int button;
+        public Vector2 mousePosition;
+        public void Use() { type = EventType.Used; }
+    }
+    public static class Time { public static float realtimeSinceStartup; }
+    public static class GUI
+    {
+        public static bool enabled = true;
+        public static Color color;
+        public static void BeginGroup(Rect rect) { Verse.Widgets.Groups++; }
+        public static void EndGroup() { Verse.Widgets.Groups--; }
+    }
+}
+
+namespace Verse
+{
+    public class Window { }
+}
+
+namespace IrisMenus.UI
+{
+    public enum UiTheme { Light, Dark }
 }

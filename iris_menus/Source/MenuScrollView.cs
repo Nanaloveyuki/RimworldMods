@@ -23,7 +23,7 @@ namespace IrisMenus
         internal float PositionY
         {
             get => restoredPosition ?? position.y;
-            set => restoredPosition = Mathf.Max(0f, MenuLayout.Finite(value, 0f));
+            set => restoredPosition = Mathf.Max(0f, MenuSettings.Finite(value, 0f));
         }
 
         public void Focus(string anchorId)

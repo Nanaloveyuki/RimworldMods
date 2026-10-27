@@ -8,44 +8,21 @@ namespace IrisMenus
 {
     public sealed partial class MenuWindow
     {
-        private bool RequestMode(bool native)
+#if RIMWORLD_1_7
+        internal static void OpenMainButtons()
         {
-            if (native == NativeFullscreen) return true;
-            if (NativeFullscreen && nativeSurface.Closing) return false;
-            if (!session.Save()) return false;
-            bool previousMode = Settings.NativeMode;
-            Settings.NativeMode = native;
-            if (!SaveWindowSettings())
-            {
-                Settings.NativeMode = previousMode;
-                return false;
-            }
-            if (native) EnterNative();
-            else nativeSurface.BeginReturn();
-            return true;
+            WindowStack stack = Find.WindowStack;
+            MenuWindow window = stack.WindowOfType<MenuWindow>();
+            if (window != null && window.nativeSurface.Closing) return;
+            bool created = window == null;
+            if (created) window = new MenuWindow();
+            if (!window.session.Save()) return;
+            if (created) stack.Add(window);
+            window.nativeSurface.OpenMainButtons();
+            stack.Notify_ManuallySetFocus(window);
         }
+#endif
 
-        private void EnterNative()
-        {
-            legacyRect = windowRect;
-            if (nativeSurface == null) nativeSurface = new NativeSurface(this);
-            nativeActive = true;
-            nativeSurface.Resume();
-            doCloseX = draggable = resizeable = false;
-            ClampGeometry();
-            GUI.FocusControl(null);
-        }
-
-        private void LeaveNative()
-        {
-            nativeSurface.Suspend();
-            nativeActive = false;
-            background.NativeFullscreen = false;
-            doCloseX = draggable = resizeable = true;
-            windowRect = legacyRect;
-            ClampGeometry();
-            GUI.FocusControl(null);
-        }
 
         private sealed partial class NativeSurface : IDisposable
         {
@@ -67,7 +44,8 @@ namespace IrisMenus
             private UiToastTone pendingTone;
             private readonly UiButton scope, theme, help, manage, back, contextButton, reset, retry;
             private readonly UiLoader searchLoader;
-            private readonly UiSwitch modeSwitch;
+            private UiToolbar toolbar;
+            private object toolbarLanguage;
             private readonly HostedGuiTheme hostedTheme = new HostedGuiTheme();
             private readonly UiId closeId;
             private readonly UiTooltip closeTip, themeTip;
@@ -77,9 +55,21 @@ namespace IrisMenus
             private readonly UiScrollView railScroll, resultsScroll, managementScroll, contextScroll;
             private readonly Action<Rect> drawRail, drawResults, drawPage, drawContext, drawReset, drawHelp;
             private UiTween closeHover, footerHelpHover;
-            private bool closing, returning, navigationOpen, contextOpen, managementOpen, resetOpen, helpOpen;
+            private bool closing, navigationOpen, contextOpen, managementOpen, resetOpen, helpOpen;
             private PageState resetTarget;
             private Rect viewport;
+#if RIMWORLD_1_7
+            private MainButtonsPage mainButtonsPage;
+            private object mainButtonsLanguage;
+            private bool mainButtonsOpen;
+            private string mainButtonsTitle, mainButtonsBack;
+            private readonly UiId mainButtonsId;
+            private readonly UiButton mainButtonsBackButton;
+            private readonly Action<Rect> drawMainButtons;
+            private bool MainButtonsOpen => mainButtonsOpen;
+#else
+            private bool MainButtonsOpen => false;
+#endif
             private float scale, rowHeight;
             private bool narrow;
             private bool pageChanged;
@@ -98,9 +88,8 @@ namespace IrisMenus
             private Vector2 breadcrumbTipSize;
             private MenuSettings Settings => host.Settings;
             internal float Opacity => windowTransition.Value;
-            internal bool Closing => closing || returning;
+            internal bool Closing => closing;
             internal bool ReadyToClose => closing && SamplePresence() <= 0f;
-            internal bool ReadyToReturn => returning && SamplePresence() <= 0f;
 
             internal NativeSurface(MenuWindow host)
             {
@@ -110,7 +99,7 @@ namespace IrisMenus
                 searchLoader = new UiLoader(ui);
                 toast = new UiToast(ui);
                 scope = new UiButton(ui); theme = new UiButton(ui);
-                help = new UiButton(ui); modeSwitch = new UiSwitch(ui); manage = new UiButton(ui);
+                help = new UiButton(ui); manage = new UiButton(ui);
                 back = new UiButton(ui); contextButton = new UiButton(ui); reset = new UiButton(ui); retry = new UiButton(ui);
                 previous = new UiButton(ui); next = new UiButton(ui); done = new UiButton(ui);
                 cancelReset = new UiButton(ui); confirmReset = new UiButton(ui); closeHelp = new UiButton(ui);
@@ -123,11 +112,21 @@ namespace IrisMenus
                 railScroll = new UiScrollView(ui); resultsScroll = new UiScrollView(ui);
                 managementScroll = new UiScrollView(ui); contextScroll = new UiScrollView(ui);
                 resultsScroll.SetPosition(host.resultScroll.y);
+                if (Settings.RememberState)
+                {
+                    railScroll.SetPosition(RememberedScroll("railScroll"));
+                    managementScroll.SetPosition(RememberedScroll("managementScroll"));
+                }
                 navigationDrawer = new UiDrawer(ui); contextDrawer = new UiDrawer(ui);
                 resetDialog = new UiDialog(ui); helpDialog = new UiDialog(ui);
                 drawRail = DrawRail; drawResults = DrawResults; drawPage = DrawPage;
                 drawContext = DrawContext; drawReset = DrawReset; drawHelp = DrawHelp;
                 InitializeManagement();
+#if RIMWORLD_1_7
+                mainButtonsId = ui.CreateId();
+                mainButtonsBackButton = new UiButton(ui);
+                drawMainButtons = DrawMainButtons;
+#endif
                 InitializeSidebarContext();
                 for (int i = 0; i < resultButtons.Length; i++) resultButtons[i] = new UiButton(ui);
                 SyncCatalog();
@@ -138,14 +137,13 @@ namespace IrisMenus
             internal void PrepareWindow()
             {
                 viewport = new Rect(0f, 0f, host.windowRect.width, host.windowRect.height);
-                scale = Settings.NativeScale;
+                scale = Settings.Scale;
                 rowHeight = (Settings.Density == 0 ? 43f : Settings.Density == 2 ? 63f : 53f) * scale;
                 narrow = viewport.width < 880f * scale;
                 SamplePresence();
             }
 
             internal void BeginClose() { closing = true; SamplePresence(); }
-            internal void BeginReturn() { returning = true; SamplePresence(); }
 
             internal void ShowToast(string message, UiToastTone tone)
             {
@@ -182,30 +180,38 @@ namespace IrisMenus
 
             internal HostedGuiTheme.Scope AdaptHostedCallback() => hostedTheme.Enter(ui, host.session.Selected.Id);
 
-            internal void Suspend()
-            {
-                ui.Focus(default);
-                ui.Release(ui.Captured);
-            }
 
-            internal void Resume()
+            internal void Open()
             {
-                closing = returning = false;
+                closing = false;
                 windowTransition.Open();
                 editPending = false;
                 lastEdit = Time.realtimeSinceStartup;
                 pendingToast = null;
                 toast.Dismiss();
-                if (host.pendingNativeUriPage == host.session.Selected && host.pendingNativeUriPage != null)
-                    Navigated(host.pendingNativeUriPage, host.pendingNativeUriAnchor);
-                host.pendingNativeUriPage = null;
                 resultsScroll.SetPosition(host.resultScroll.y);
                 managementOpen = host.browse.Managing;
+            }
+
+            private float RememberedScroll(string key)
+            {
+                return float.TryParse(host.View(key), System.Globalization.NumberStyles.Float,
+                    System.Globalization.CultureInfo.InvariantCulture, out float value) && !float.IsNaN(value) && !float.IsInfinity(value)
+                    ? Mathf.Max(0f, value) : 0f;
+            }
+
+            internal void CaptureScroll(Dictionary<string, string> view)
+            {
+                view["railScroll"] = railScroll.Position.y.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                view["managementScroll"] = managementScroll.Position.y.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
             internal void Navigated(MenuPage page, string anchor)
             {
                 SyncCatalog();
+#if RIMWORLD_1_7
+                mainButtonsOpen = false;
+#endif
                 managementOpen = navigationOpen = contextOpen = resetOpen = helpOpen = false;
                 resetTarget = null;
                 pageChanged = true;
@@ -228,10 +234,13 @@ namespace IrisMenus
                     ui.BeginFrame(viewport, Settings.Theme, Settings.ReducedMotion || windowTransition.Active);
                     ui.FontSize = 16f * scale;
                     SyncCatalog();
+#if RIMWORLD_1_7
+                    if (mainButtonsOpen) SyncMainButtonsPage();
+#endif
                     pageChanged = false;
                     selected = GetPage(host.session.Selected);
                     if (resetOpen && !ReferenceEquals(resetTarget, selected)) { resetOpen = false; resetTarget = null; }
-                    if (!managementOpen && !host.browse.ShowResults)
+                    if (!MainButtonsOpen && !managementOpen && !host.browse.ShowResults)
                     {
                         if (selected?.Native != null && !selected.Failed)
                         {
@@ -258,18 +267,22 @@ namespace IrisMenus
                         DrawHeader();
                         DrawWorkspace();
                         DrawFooter();
-                        if (!managementOpen && !pageChanged && !host.browse.ShowResults && selected?.Native != null && !selected.Failed)
+                        if (!MainButtonsOpen && !managementOpen && !pageChanged && !host.browse.ShowResults && selected?.Native != null && !selected.Failed)
                         {
                             try { DrawNativeOverlay(); }
                             catch (ExitGUIException) { throw; }
                             catch (Exception exception) { selected.Failed = true; ReportFailure("overlay native " + selected.Page.Id, exception); }
                         }
-                        if (!managementOpen && !pageChanged && !host.browse.ShowResults && selected?.Native == null)
+                        if (!MainButtonsOpen && !managementOpen && !pageChanged && !host.browse.ShowResults && selected?.Native == null)
                             hostedTheme.DrawHoverCards(viewport);
                         DrawOverlays();
                         HandleKeys();
                         closeTip.DrawOverlay(viewport, new Vector2(180f * scale, 44f * scale), scale);
                         themeTip.DrawOverlay(viewport, new Vector2(220f * scale, 44f * scale), scale);
+                        toolbar?.DrawOverlay(viewport, scale);
+#if RIMWORLD_1_7
+                        if (mainButtonsOpen && !pageChanged) mainButtonsPage.DrawOverlay(viewport);
+#endif
                         float tooltipFont = ui.FontSize;
                         ui.FontSize = 12f * scale;
                         breadcrumbTip.DrawOverlay(viewport, breadcrumbTipSize, scale);
@@ -320,10 +333,24 @@ namespace IrisMenus
                     Settings.Theme = Settings.Theme == UiTheme.Dark ? UiTheme.Light : UiTheme.Dark;
                 themeTip.Delay = Settings.TipDelay;
                 themeTip.Observe(themeRect, T(Settings.Theme == UiTheme.Dark ? "IM_NativeSwitchLight" : "IM_NativeSwitchDark"), theme.Id, Settings.ShowTips);
+#if RIMWORLD_1_7
+                if (toolbar == null || !ReferenceEquals(toolbarLanguage, host.catalogLanguage))
+                {
+                    toolbarLanguage = host.catalogLanguage;
+                    toolbar = new UiToolbar(ui, new[] { new UiToolbarItem("main-buttons", T("IM_MainButtonsTitle"), UiGlyphKind.Grid) });
+                }
+                float toolbarWidth = toolbar.MeasureWidth(scale);
+#else
+                float toolbarWidth = 0f;
+#endif
                 float width = Mathf.Min(380f * scale, viewport.width * 0.23f);
-                width = Mathf.Clamp(width, Mathf.Min(220f * scale, Mathf.Max(120f * scale, themeRect.x - x - 188f * scale)),
-                    Mathf.Max(120f * scale, themeRect.x - x - 188f * scale));
+                width = Mathf.Clamp(width, Mathf.Min(220f * scale, Mathf.Max(80f * scale, themeRect.x - x - 188f * scale - toolbarWidth - 14f * scale)),
+                    Mathf.Max(80f * scale, themeRect.x - x - 188f * scale - toolbarWidth - 14f * scale));
                 Rect field = new Rect(themeRect.x - width - 14f * scale, close.y, width, close.height);
+#if RIMWORLD_1_7
+                Rect tools = new Rect(field.x - toolbarWidth - 14f * scale, close.y, toolbarWidth, close.height);
+                if (toolbar.Draw(tools, scale, !Closing) == 0) MenuWindow.OpenMainButtons();
+#endif
                 string query = search.Draw(field, host.browse.Query, T("IM_NativeSearchPlaceholder"),
                     icon: UiGlyphKind.Search, shortcut: "Ctrl K", showClear: true, scale: scale);
                 if (query != host.browse.Query) ChangeQuery(query);
@@ -359,6 +386,13 @@ namespace IrisMenus
                 Rect main = new Rect(left, top, Mathf.Max(1f, viewport.width - left - 36f * scale), Mathf.Max(1f, bottom - top));
                 DrawBreadcrumb(main);
                 main.yMin += 64f * scale;
+#if RIMWORLD_1_7
+                if (mainButtonsOpen)
+                {
+                    DrawMainButtonsArea(main);
+                    return;
+                }
+#endif
                 if (managementOpen)
                 {
                     DrawManagementPage(main);
@@ -371,7 +405,7 @@ namespace IrisMenus
                 }
                 if (host.browse.ViewingTarget && back.Draw(new Rect(main.x, main.y, Mathf.Min(200f * scale, main.width), 34f * scale),
                     T("IM_BackResults"), variant: UiButtonVariant.Text, scale: scale) && host.session.Save())
-                { host.browse.Back(); host.RebuildNavigation(); }
+                { host.browse.Back(); }
                 if (host.browse.ViewingTarget) main.yMin += 42f * scale;
                 if (selected == null)
                 {
@@ -406,7 +440,7 @@ namespace IrisMenus
                 }
                 else
                 {
-                    ui.Fill(page, WithAlpha(ui.Palette.Sheet, Settings.NativePanelOpacity));
+                    ui.Fill(page, WithAlpha(ui.Palette.Sheet, Settings.PanelOpacity));
                     float inset = Mathf.Min(28f * scale, page.width * 0.06f);
                     Rect content = new Rect(page.x + inset, page.y, Mathf.Max(1f, page.width - inset * 2f), page.height);
                     float footer = selected.Native.CanReset ? 64f * scale : 0f;
@@ -433,10 +467,14 @@ namespace IrisMenus
                 float oldSize = ui.FontSize;
                 FontStyle oldStyle = ui.FontStyle;
                 ui.Fill(new Rect(rect.x, rect.y + 17f * scale, 6f * scale, 6f * scale), p.Marker);
-                string title = managementOpen ? T("IM_Manage") : host.browse.ShowResults ? T("IM_NativeSearchResults") : host.session.Selected?.DisplayModName ?? T("IM_Global");
+                string title = MainButtonsOpen ? "IrisMenus" : managementOpen ? T("IM_Manage") : host.browse.ShowResults ? T("IM_NativeSearchResults") : host.session.Selected?.DisplayModName ?? T("IM_Global");
+#if RIMWORLD_1_7
+                string location = mainButtonsOpen ? mainButtonsTitle : managementOpen ? T("IM_NativeLibrary") : host.browse.ShowResults ? host.catalog.Results.Count.ToString() : T("IM_NativeModSettings");
+#else
                 string location = managementOpen ? T("IM_NativeLibrary") : host.browse.ShowResults ? host.catalog.Results.Count.ToString() : T("IM_NativeModSettings");
+#endif
                 float breadcrumbWidth = rect.width;
-                UiTabs tabs = !managementOpen && !host.browse.ShowResults ? selected?.Group?.Tabs : null;
+                UiTabs tabs = !MainButtonsOpen && !managementOpen && !host.browse.ShowResults ? selected?.Group?.Tabs : null;
                 if (tabs != null)
                 {
                     ui.FontSize = 13f * scale;
@@ -557,15 +595,8 @@ namespace IrisMenus
                     ui.Label(key, "Esc", p.FooterMuted, TextAnchor.MiddleCenter);
                     ui.Label(new Rect(key.xMax + 8f * scale, footer.y, 60f * scale, h), T("Back"), p.FooterMuted);
                 }
-                Rect originalRect = new Rect(helpX - (viewport.width > 900f * scale ? 324f : 212f) * scale,
-                    footer.y + 4f * scale, 190f * scale, h - 8f * scale);
-                float modeWidth = Mathf.Min(42f * scale, originalRect.width);
-                Rect modeRect = new Rect(originalRect.xMax - modeWidth, originalRect.y, modeWidth, originalRect.height);
-                ui.Label(new Rect(originalRect.x, originalRect.y, Mathf.Max(0f, originalRect.width - modeWidth - 10f * scale), originalRect.height),
-                    T("IM_NativeMode"), p.FooterInk, TextAnchor.MiddleRight);
-                bool nativeMode = modeSwitch.Draw(modeRect, true, enabled: !Closing, scale: scale * 0.8f);
-                if (!nativeMode) host.RequestMode(false);
-                DrawFooterMetadata(new Rect(36f * scale, footer.y, Mathf.Max(0f, originalRect.x - 60f * scale), h));
+                float metadataRight = viewport.width > 900f * scale ? helpX - 140f * scale : helpX - 24f * scale;
+                DrawFooterMetadata(new Rect(36f * scale, footer.y, Mathf.Max(0f, metadataRight - 36f * scale), h));
                 Rect helpRect = new Rect(helpX, footer.y + 4f * scale, 32f * scale, h - 8f * scale);
                 UiInteraction helpHit = ui.Interact(help.Id, helpRect);
                 float helpHover = footerHelpHover.Step(helpHit.Hovered || helpHit.Pressed ? 1f : 0f, ui.Time, UiMotion.Fast, ui.ReducedMotion);
@@ -606,6 +637,7 @@ namespace IrisMenus
             private void HandleSearchKeys()
             {
                 if (!ui.IsInputAllowed || Closing) return;
+                if (MainButtonsOpen) return;
                 Event current = ui.Event;
                 if (current != null && current.type == EventType.KeyDown && (current.control || current.command) && current.keyCode == KeyCode.K)
                 { ui.Focus(search.Id); current.Use(); }
@@ -620,12 +652,60 @@ namespace IrisMenus
             private void HandleKeys()
             {
                 if (!ui.IsInputAllowed || Closing) return;
+#if RIMWORLD_1_7
+                if (mainButtonsOpen && ui.ConsumeKey(KeyCode.Escape)) { CloseMainButtons(); return; }
+#endif
                 if (managementOpen && ui.ConsumeKey(KeyCode.Escape)) { CloseManagement(); return; }
                 if (!ui.ConsumeKey(KeyCode.Escape)) return;
                 if (host.browse.Query.Length > 0) { ChangeQuery(""); ui.Focus(default(UiId)); GUI.FocusControl(null); }
                 else if (navigationOpen) navigationOpen = false;
                 else host.Close();
             }
+
+#if RIMWORLD_1_7
+            internal void OpenMainButtons()
+            {
+                if (!mainButtonsOpen) mainButtonsPage = null;
+                SyncMainButtonsPage();
+                mainButtonsOpen = true;
+                navigationOpen = contextOpen = resetOpen = helpOpen = false;
+                resetTarget = null;
+                pageChanged = true;
+                ui.Focus(mainButtonsBackButton.Id);
+                GUI.FocusControl(null);
+            }
+
+            private void SyncMainButtonsPage()
+            {
+                if (mainButtonsPage != null && ReferenceEquals(mainButtonsLanguage, host.catalogLanguage)) return;
+                mainButtonsLanguage = host.catalogLanguage;
+                mainButtonsPage = new MainButtonsPage(ui);
+                mainButtonsTitle = T("IM_MainButtonsTitle");
+                mainButtonsBack = T("Back");
+            }
+
+            private void CloseMainButtons()
+            {
+                mainButtonsOpen = false;
+                pageChanged = true;
+                ui.Focus(default);
+                GUI.FocusControl(null);
+            }
+
+            private void DrawMainButtonsArea(Rect rect)
+            {
+                if (mainButtonsBackButton.Draw(new Rect(rect.x, rect.y, Mathf.Min(rect.width, 160f * scale), 36f * scale),
+                    mainButtonsBack, variant: UiButtonVariant.Text, scale: scale))
+                {
+                    CloseMainButtons();
+                    return;
+                }
+                rect.yMin += 48f * scale;
+                transition.Draw(rect, mainButtonsId, drawMainButtons);
+            }
+
+            private void DrawMainButtons(Rect rect) => mainButtonsPage.Draw(rect, scale, rowHeight);
+#endif
 
             public void Dispose()
             {

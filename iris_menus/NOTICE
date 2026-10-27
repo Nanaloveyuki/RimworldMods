@@ -14,7 +14,7 @@ Pinned commit: f12b0de177fbc2a6795e99be065887e72b237123
 Source directory:
 https://github.com/lucide-icons/lucide/tree/f12b0de177fbc2a6795e99be065887e72b237123/icons
 
-Only the 14 glyphs mapped below are included, not the complete icon library.
+Only the 20 glyphs mapped below are included, not the complete icon library.
 The corresponding official icons/<name>.svg files were downloaded directly from
 that commit. Their path geometry, 24x24 viewBox, round caps/joins and 2-unit stroke
 were preserved. currentColor was resolved to white and each SVG rasterized by
@@ -41,6 +41,12 @@ UiGlyphKind -> official source SVG -> distributed PNG:
   Grid: icons/grip.svg -> grip.png
   Check: icons/check.svg -> check.png
   Reset: icons/rotate-ccw.svg -> rotate-ccw.png
+  Pin: icons/pin.svg -> pin.png
+  Unpin: icons/pin-off.svg -> pin-off.png
+  Edit: icons/pencil.svg -> pencil.png
+  ArrowUp: icons/arrow-up.svg -> arrow-up.png
+  ArrowDown: icons/arrow-down.svg -> arrow-down.png
+  Trash: icons/trash-2.svg -> trash-2.png
 
 Original SVG SHA-256 (before resolving currentColor):
   search.svg  9322d964b61cf729b3a81210568d5a97eaf4a1f3239f25a056fda3013bf35611
@@ -57,6 +63,12 @@ Original SVG SHA-256 (before resolving currentColor):
   grip.svg  8d6b255a3c545696ba446fd51709e49c3116b1329b95170745da39fb07824aec
   check.svg  7f33acc9a77a61659531044525fc008edebe215bf4dcf1c789c8674ad3277db0
   rotate-ccw.svg  622685386ab4017eabfde01cd74550a20b1924df233b353f73b6b155371f2afd
+  pin.svg  55e8e5e04bcb671179fc1dd589abf09cf6a1e71301ff14eb739419cfab6011e7
+  pin-off.svg  149a4fb01201562c05dd7eb53573090cd3a0ba5b111686c45e2df8c6cd04a3be
+  pencil.svg  7e1ca7a6f5c1eb949671df762f2baadd32f5bd841d43153c3a15279af7d78d0c
+  arrow-up.svg  8c22c25874c80bb062bef985d207d8f1d4a4d7847237d0a8cf720a3235968518
+  arrow-down.svg  2b641c7a59d39450edfed72067fcc9940a1a316a737346af23b4b9103c0689f2
+  trash-2.svg  e63698acf757d3043fcb4a9ea6ffceff9dd84708707eafc879c86b34a6ff2786
 
 Lucide license source: https://raw.githubusercontent.com/lucide-icons/lucide/f12b0de177fbc2a6795e99be065887e72b237123/LICENSE
 

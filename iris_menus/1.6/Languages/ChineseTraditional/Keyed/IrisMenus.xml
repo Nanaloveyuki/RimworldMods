@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <IM_Open>開啟 IrisMenus</IM_Open>
+  <IM_Manage>新增 Mod 設定</IM_Manage>
+  <IM_OpenOriginalSettings>開啟原始設定視窗</IM_OpenOriginalSettings>
+  <IM_ExternalSettings>此 Mod 使用獨立設定視窗。請點擊下方按鈕開啟，並在該視窗中儲存修改。</IM_ExternalSettings>
+  <IM_Registered>專屬設定</IM_Registered>
+  <IM_Added>已新增</IM_Added>
+  <IM_Pages>設定頁面</IM_Pages>
+  <IM_ResetWindow>重設視窗位置</IM_ResetWindow>
+  <IM_Frost>毛玻璃背景</IM_Frost>
+  <IM_Blur>模糊：{0}%</IM_Blur>
+  <IM_Transparency>透明度：{0}%</IM_Transparency>
+  <IM_RememberState>記住上次頁面</IM_RememberState>
+  <IM_RememberStateTip>重新開啟時恢復上次頁面、搜尋和捲動位置。</IM_RememberStateTip>
+  <IM_ShowMainButton>顯示底部 IrisMenus 按鈕</IM_ShowMainButton>
+  <IM_ShowMainButtonTip>立即生效。隱藏後仍可透過「選項 → Mod 設定 → IrisMenus → 開啟 IrisMenus」進入。</IM_ShowMainButtonTip>
+  <IM_Empty>沒有符合的 Mod 設定。</IM_Empty>
+  <IM_Global>全域選項</IM_Global>
+  <IM_SearchGlobal>搜尋全部設定</IM_SearchGlobal>
+  <IM_SearchMod>搜尋 {0} 的設定</IM_SearchMod>
+  <IM_Indexing>正在建立索引...</IM_Indexing>
+  <IM_NoResults>沒有符合的設定。</IM_NoResults>
+  <IM_BackResults>返回搜尋結果</IM_BackResults>
+  <IM_ClearSearch>清空搜尋</IM_ClearSearch>
+  <IM_Previous>上一頁</IM_Previous>
+  <IM_Next>下一頁</IM_Next>
+  <IM_ResultPage>{0} / {1}（{2} 項結果）</IM_ResultPage>
+  <IM_PageFailed>無法顯示此設定頁面。</IM_PageFailed>
+  <IM_Retry>重試</IM_Retry>
+  <IM_OperationFailed>IrisMenus 未能完成操作，詳情請查看日誌。</IM_OperationFailed>
+  <IM_OwnerActions>Mod 操作</IM_OwnerActions>
+  <IM_ActionUnavailable>此操作目前無法使用。</IM_ActionUnavailable>
+  <IM_ActionFailed>操作未能完成，詳情請查看日誌。</IM_ActionFailed>
+  <IM_ValueColors>物品價值配色</IM_ValueColors>
+  <IM_ValueColorsHint>按單件物品的市場價值配色，不計算整組價值。每級包含起始值，不包含下一級起始值；最後一級沒有上限，首級固定從 0 開始。點擊色塊可調整顏色，套用後立即生效。</IM_ValueColorsHint>
+  <IM_ValueAddBand>新增價值級距</IM_ValueAddBand>
+  <IM_ValueRemoveBand>移除</IM_ValueRemoveBand>
+  <IM_ValueThreshold>起始價值</IM_ValueThreshold>
+  <IM_ValueThresholdInvalid>請輸入大於上一級、小於下一級起始值的有限數值。</IM_ValueThresholdInvalid>
+  <IM_ValueChooseColor>選擇顏色</IM_ValueChooseColor>
+  <IM_ValueApply>套用</IM_ValueApply>
+  <IM_ValueOriginal>原色</IM_ValueOriginal>
+  <IM_ValuePreview>預覽</IM_ValuePreview>
+  <IM_ValueRestoreDefaults>恢復預設值</IM_ValueRestoreDefaults>
+  <IM_ValueResetConfirm>恢復預設物品價值級距及配色？不會改動其他設定。</IM_ValueResetConfirm>
+  <IM_ThingRegistry>物品登錄表</IM_ThingRegistry>
+  <IM_RegistryProgress>已索引 {0} / {1} 個物品</IM_RegistryProgress>
+  <IM_RegistryCategories>原版分類</IM_RegistryCategories>
+  <IM_RegistryUncategorized>未分類</IM_RegistryUncategorized>
+  <IM_RegistryAll>所有物品</IM_RegistryAll>
+  <IM_RegistrySearch>搜尋名稱、DefName 或來源 Mod</IM_RegistrySearch>
+  <IM_RegistryErrors>索引診斷</IM_RegistryErrors>
+  <IM_RegistryNoErrors>沒有索引錯誤</IM_RegistryNoErrors>
+  <IM_RegistryDump>輸出登錄表至日誌</IM_RegistryDump>
+  <IM_RegistrySource>來源</IM_RegistrySource>
+  <IrisMenus_ItemValue_Label>價值：{0}</IrisMenus_ItemValue_Label>
+  <IrisMenus_ItemValue_Tooltip>{0}\n單件市場價值：{1}\n價值級距：{2}</IrisMenus_ItemValue_Tooltip>
+  <IrisMenus_Items_Uncategorized>未分類</IrisMenus_Items_Uncategorized>
+</LanguageData>

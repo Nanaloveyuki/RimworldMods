@@ -10,10 +10,7 @@ namespace IrisMenus
     {
         private static bool registered;
         private readonly List<UI.UiThingEntry> matched = new List<UI.UiThingEntry>();
-        private readonly MenuThingsList items = new MenuThingsList("registry-thing-", "registry-category-");
         private readonly List<CategoryOption> options = new List<CategoryOption>();
-        private readonly UI.UiContext loading = new UI.UiContext();
-        private readonly UI.UiLoader loader;
         private string query = string.Empty;
         private string cachedQuery;
         private CategoryOption selected;
@@ -22,50 +19,15 @@ namespace IrisMenus
         private object language;
         private bool diagnostics;
 
-        private ThingRegistryPage() { loader = new UI.UiLoader(loading); }
-
         internal static void Register(IrisMenusMod owner)
         {
             if (registered) return;
-            var page = new ThingRegistryPage();
-            MenuRegistry.RegisterSubItemListing(owner, "thing-registry", () => T("IM_ThingRegistry"), page.Draw);
-            MenuRegistry.RegisterPresentation(owner, "thing-registry", new MenuPresentation(context => new NativePage(context)));
+            MenuRegistry.RegisterNativeSubItem(owner, "thing-registry", () => T("IM_ThingRegistry"),
+                new MenuPresentation(context => new NativePage(context)));
             registered = true;
         }
 
         private static string T(string key) => key.Translate().ToString();
-
-        private void Draw(Listing_Standard list)
-        {
-            MenuControls.Section(list, T("IM_ThingRegistry"));
-            string status = "IM_RegistryProgress".Translate(ThingRegistry.ProcessedCount, ThingRegistry.TotalCount);
-            Rect progress = list.GetRect(44f);
-            if (Event.current.type == EventType.Repaint)
-            {
-                loading.BeginFrame(new Rect(0f, 0f, list.ColumnWidth, Mathf.Max(1f, list.CurHeight)),
-                    IrisMenusMod.Instance.Settings.Theme, IrisMenusMod.Instance.Settings.ReducedMotion);
-                try { loader.Draw(progress, status, ThingRegistry.Progress); }
-                finally { loading.EndFrame(); }
-            }
-            list.Gap(8f);
-            RefreshOptions();
-            MenuControls.Select(list, T("IM_RegistryCategories"), selected, options, option => option.Label, option => { selected = option; revision = -1; });
-            query = Widgets.TextField(list.GetRect(30f), query);
-            TooltipHandler.TipRegion(new Rect(0f, list.CurHeight - 30f, list.ColumnWidth, 30f), T("IM_RegistrySearch"));
-            list.Gap(4f);
-            if (!ThingRegistry.IsReady) return;
-            RefreshMatches();
-            list.Label(matched.Count + " / " + ThingRegistry.Things.Count);
-            for (int i = 0; i < matched.Count; i++) items.DrawItem(list, matched[i], false, enabled: false);
-            list.Gap(8f);
-            if (list.ButtonText(T("IM_RegistryErrors") + " (" + ThingRegistry.Errors.Count + ")")) diagnostics = !diagnostics;
-            if (diagnostics)
-            {
-                if (ThingRegistry.Errors.Count == 0) list.Label(T("IM_RegistryNoErrors"));
-                else foreach (string error in ThingRegistry.Errors) list.Label(error);
-            }
-            if (list.ButtonText(T("IM_RegistryDump"))) Dump();
-        }
 
         private void RefreshMatches()
         {
@@ -180,7 +142,7 @@ namespace IrisMenus
 
             public override void Draw(Rect rect)
             {
-                scale = IrisMenusMod.Instance.Settings.NativeScale;
+                scale = IrisMenusMod.Instance.Settings.Scale;
                 float oldFont = context.FontSize;
                 try
                 {
@@ -249,7 +211,6 @@ namespace IrisMenus
                 context.Release(diagnostic.Id);
                 context.Release(dump.Id);
                 context.Release(scroll.Id);
-                model.loading.Dispose();
             }
         }
 

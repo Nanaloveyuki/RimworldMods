@@ -72,7 +72,7 @@ namespace IrisMenus
                 entry.Content = content;
                 entry.Adapter = adapter;
                 entry.Name = MenuRegistry.GetModDisplayName(content);
-                entry.Metadata = T(adapter == null ? "IM_NativeRegistered" : "IM_NativeHosted") + "  ·  " + content.PackageIdPlayerFacing;
+                entry.Metadata = T(adapter == null ? "IM_NativeRegistered" : "IM_NativeHosted");
                 managementEntries.Add(entry);
             }
 

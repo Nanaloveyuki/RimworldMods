@@ -4,17 +4,19 @@
   <IM_Manage>添加 Mod 设置</IM_Manage>
   <IM_OpenOriginalSettings>打开原生设置窗口</IM_OpenOriginalSettings>
   <IM_ExternalSettings>此 Mod 使用独立设置窗口。请点击下方按钮打开，并在该窗口中保存修改。</IM_ExternalSettings>
-  <IM_Registered>已注册</IM_Registered>
+  <IM_Registered>专属设置</IM_Registered>
   <IM_Added>已添加</IM_Added>
   <IM_Pages>设置页面</IM_Pages>
-  <IM_ResetWindow>重置窗口位置</IM_ResetWindow>
-  <IM_Frost>毛玻璃背景</IM_Frost>
-  <IM_Blur>模糊：{0}%</IM_Blur>
-  <IM_Transparency>透明度：{0}%</IM_Transparency>
   <IM_RememberState>记住上次页面</IM_RememberState>
-  <IM_RememberStateTip>重新打开时恢复上次页面、搜索和滚动位置。各 Mod 自己的设置仍由该 Mod 保存。</IM_RememberStateTip>
+  <IM_RememberStateTip>重新打开时恢复上次页面、搜索和滚动位置。</IM_RememberStateTip>
   <IM_ShowMainButton>显示底部 IrisMenus 按钮</IM_ShowMainButton>
   <IM_ShowMainButtonTip>立即生效。隐藏后仍可通过“选项 → Mod 设置 → IrisMenus → 打开 IrisMenus”进入。</IM_ShowMainButtonTip>
+  <IM_MainButtonsTitle>底栏按钮</IM_MainButtonsTitle>
+  <IM_MainButtonsHint>选择要显示的底栏按钮。修改立即保存，不影响快捷键。隐藏后仍可通过“选项 → Mod 设置 → IrisMenus”在此恢复。</IM_MainButtonsHint>
+  <IM_MainButtonsRestoreAll>全部恢复</IM_MainButtonsRestoreAll>
+  <IM_MainButtonsShow>显示</IM_MainButtonsShow>
+  <IM_MainButtonsMissing>{0}（未加载对应 Mod）</IM_MainButtonsMissing>
+  <IM_MainButtonsMissingHint>此按钮当前未加载。勾选“显示”即可清除它的隐藏记录。</IM_MainButtonsMissingHint>
   <IM_Empty>没有匹配的 Mod 设置。</IM_Empty>
   <IM_Global>全局选项</IM_Global>
   <IM_SearchGlobal>搜索全部设置</IM_SearchGlobal>
@@ -66,13 +68,11 @@
   <IM_NativeDisplayNoteTitle>缩放与间距</IM_NativeDisplayNoteTitle>
   <IM_NativeDisplayNote>界面缩放调整全屏界面的大小，界面密度调整设置行的间距。动态效果用于全屏面板和控件的切换。</IM_NativeDisplayNote>
   <IM_NativeBackgroundNoteTitle>背景与不透明度</IM_NativeBackgroundNoteTitle>
-  <IM_NativeBackgroundNote>全屏界面使用三段灰色渐变背景，深色主题采用独立配色。面板不透明度默认为 94%，不影响旧版界面的毛玻璃与模糊设置。</IM_NativeBackgroundNote>
+  <IM_NativeBackgroundNote>调整面板不透明度，改变背景的透出程度。</IM_NativeBackgroundNote>
   <IM_NativeNavigationNoteTitle>页面与搜索</IM_NativeNavigationNoteTitle>
   <IM_NativeNavigationNote>记住上次页面用于重新打开 IrisMenus 时返回之前的浏览位置。默认搜索范围决定从页面开始搜索时，查找全部 Mod 还是当前 Mod。</IM_NativeNavigationNote>
   <IM_NativeInteractionNoteTitle>悬停提示</IM_NativeInteractionNoteTitle>
   <IM_NativeInteractionNote>悬停提示用于说明 IrisMenus 全屏界面的控件。调整提示延迟可以改变显示时机，也可以关闭提示。</IM_NativeInteractionNote>
-  <IM_NativeMode>新版界面</IM_NativeMode>
-  <IM_NativeModeTip>在旧版窗口与全屏新版之间切换。当前设置保存成功后才会切换。</IM_NativeModeTip>
   <IM_LinkUnavailable>无法打开此设置链接：{0}</IM_LinkUnavailable>
   <IM_NativeModSettings>Mod 设置</IM_NativeModSettings>
   <IM_NativeSwitchLight>切换到浅色主题</IM_NativeSwitchLight>
@@ -85,8 +85,8 @@
   <IM_NativeNotes>使用说明</IM_NativeNotes>
   <IM_NativeReset>恢复默认</IM_NativeReset>
   <IM_NativeLibrary>设置库</IM_NativeLibrary>
-  <IM_NativeRegistered>已接入</IM_NativeRegistered>
-  <IM_NativeHosted>已托管</IM_NativeHosted>
+  <IM_NativeRegistered>专属设置</IM_NativeRegistered>
+  <IM_NativeHosted>其他设置</IM_NativeHosted>
   <IM_NativePinned>已置顶</IM_NativePinned>
   <IM_NativePin>置顶</IM_NativePin>
   <IM_NativeUnpin>取消置顶</IM_NativeUnpin>
@@ -100,14 +100,14 @@
   <IM_NativeSave>保存</IM_NativeSave>
   <IM_NativeOpenResult>打开</IM_NativeOpenResult>
   <IM_NativeResetTitle>恢复本页默认设置？</IM_NativeResetTitle>
-  <IM_NativeResetDescription>仅恢复本页声明的设置，不改动其他页面、Mod 或窗口位置。</IM_NativeResetDescription>
+  <IM_NativeResetDescription>恢复本页的默认设置。其他页面的设置不变。</IM_NativeResetDescription>
   <IM_NativeDone>完成</IM_NativeDone>
-  <IM_NativeHelpDescription>全屏 IrisMenus 与旧版共用设置页面和保存归属。托管页面保留原有控件与布局，常规背景和文字随当前主题变化。章节、说明、预览和恢复默认仅在页面明确提供时显示。切换界面会保留当前页面与浏览位置。</IM_NativeHelpDescription>
+  <IM_NativeHelpDescription>在侧栏选择 Mod 以打开设置，也可以按名称搜索选项。右键点击 Mod 可置顶、改名或调整顺序。在设置库中可以添加更多 Mod。部分页面还提供目录、使用说明和恢复默认按钮。</IM_NativeHelpDescription>
   <IM_NativeManagementTitle>添加 Mod 到设置库</IM_NativeManagementTitle>
-  <IM_NativeManagementHint>选择要在 IrisMenus 中显示的托管设置；不会启用或停用游戏 Mod。</IM_NativeManagementHint>
+  <IM_NativeManagementHint>选择要在 IrisMenus 中显示的 Mod 设置。这不会启用或停用游戏 Mod。</IM_NativeManagementHint>
   <IM_NativeManagementShown>已显示在设置库</IM_NativeManagementShown>
   <IM_NativeManagementHidden>未显示在设置库</IM_NativeManagementHidden>
-  <IM_NativeManagementAlwaysShown>已接入 · 始终显示</IM_NativeManagementAlwaysShown>
+  <IM_NativeManagementAlwaysShown>始终显示</IM_NativeManagementAlwaysShown>
   <IM_NativeManagementNoPreview>暂无预览图</IM_NativeManagementNoPreview>
   <IM_NativeManagementEmpty>没有可用的设置页面。</IM_NativeManagementEmpty>
   <IM_ValueColors>物品价值配色</IM_ValueColors>
@@ -141,4 +141,11 @@
   <IM_SettingsSaved>设置已保存</IM_SettingsSaved>
   <IM_ModAuthor>作者：{0}</IM_ModAuthor>
   <IM_ShowToasts>显示轻提示</IM_ShowToasts>
+  <IM_NativeSidebarActions>侧栏</IM_NativeSidebarActions>
+  <IM_LinkInvalid>链接无效。</IM_LinkInvalid>
+  <IM_LinkModDisabled>所需 Mod 未启用：{0}</IM_LinkModDisabled>
+  <IM_LinkNoPages>{0} 没有可用的设置页面。</IM_LinkNoPages>
+  <IM_LinkPageMissing>找不到此设置页面：{0}</IM_LinkPageMissing>
+  <IM_LinkDocumentMissing>找不到此文档：{0}</IM_LinkDocumentMissing>
+  <IM_LinkLineMissing>文档中没有第 {0} 行。</IM_LinkLineMissing>
 </LanguageData>

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using IrisMenus;
 using Verse;
@@ -36,11 +35,7 @@ internal static class ModNameChecks
             check(adapter.DisplayTitle == "Hunger and Havoc" && namedPage.DisplayTitle == "Hunger and Havoc" &&
                 fallback.DisplayTitle == "Hunger and Havoc" && broken.DisplayTitle == "Hunger and Havoc",
                 "Aliases reach adapters, name-based pages and fallback titles");
-            var rows = MenuNavigation.Build(new[] { category }, pack, new Dictionary<string, string>());
-            check(rows[0].Title == "Hunger and Havoc" && rows[1].Title == "Overview" && category.DisplayTitle == "Overview",
-                "Parent name is localized without replacing explicit category titles");
-            check(MenuNavigation.Build(new[] { namedPage }, null, new Dictionary<string, string>()).Single().Title == "Hunger and Havoc",
-                "Single-page Mod navigation uses its alias");
+            check(category.DisplayTitle == "Overview", "Mod aliases do not replace explicit category titles");
             CheckSearch(category, "Hunger Havoc", "Hunger and Havoc / Overview", check);
             CheckSearch(category, "原始名称", "Hunger and Havoc / Overview", check);
 
@@ -49,7 +44,8 @@ internal static class ModNameChecks
                 "Last registration replaces the language alias without changing persistent identity");
             CheckSearch(category, "Translated replacement", "Translated replacement / Overview", check);
             LanguageDatabase.activeLanguage = new LoadedLanguage("ChineseSimplified");
-            check(rows[0].Title == "饥与祸" && adapter.DisplayTitle == "饥与祸", "Existing navigation and adapters follow language changes");
+            check(MenuRegistry.GetModDisplayName(pack) == "饥与祸" && adapter.DisplayTitle == "饥与祸",
+                "Existing adapters follow language changes");
 
             var actionPack = new ModContentPack { PackageIdPlayerFacing = "names.actions", Name = "Actions" };
             MenuRegistry.RegisterModNameAlias(actionPack, "ChineseSimplified", "操作 Mod");

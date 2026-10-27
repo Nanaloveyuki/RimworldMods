@@ -1,6 +1,6 @@
-# IrisMenus 完整原生宿主实现准备
+# IrisMenus 完整原生宿主实现准备（已退役的历史资料）
 
-本文保留实现前的约束分析，现已由[原生呈现 ADR](../adr/0001-native-settings-presentation.md)和[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)中的当前实现取代。下文“尚未实现”“待确认”描述的是准备阶段，不作为当前状态；后续接口和验收记录请维护接入契约与组件参考，不继续向本文追加。
+状态：退役。本文完整保留 2026-10-24 实现前的约束分析，不再作为当前契约。其后[原生呈现 ADR](../adr/0001-native-settings-presentation.md)记录的双呈现方案也已退役；当前 1.7 只保留全屏宿主，入口不再切换新旧窗口，1.6 归档二进制和资源保持不变。下文“旧版默认”“尚未实现”“待确认”、旧入口几何和共享 Frost 所有权均只描述当时阶段。当前接口、传统 drawer／Listing 支持及设置迁移统一见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)；后续验收维护组件参考，不继续向本文追加，也不据此宣称新的构建或游戏结果。
 
 ## 本轮范围与决定状态
 

@@ -16,13 +16,19 @@ namespace IrisMenus
             private Action<Rect> drawSidebarAliasContent;
             private UiId sidebarMenuId, sidebarPreviousFocus;
             private UiId[] sidebarMenuItems;
-            private UiTween sidebarMenuOpacity;
+            private UiTween sidebarMenuOpacity, sidebarMenuEntrance;
             private bool sidebarContextOpen, sidebarAliasOpen, sidebarMenuVisible, sidebarAliasFocus;
             private bool sidebarPreviousFocusVisible;
             private string sidebarContextKey, sidebarAliasTarget;
             private string sidebarAliasValue = string.Empty;
             private Vector2 sidebarMenuScreenAnchor;
             private int sidebarMenuFocused;
+            private readonly string[] sidebarActionLabels = new string[5];
+            private readonly string[] sidebarActionDisplay = new string[5];
+            private object sidebarMenuLanguage;
+            private string sidebarMenuHeading;
+            private float sidebarMenuScale = -1f, sidebarMenuViewport = -1f, sidebarMenuWidth;
+            private bool sidebarMenuPinned;
 
             private void InitializeSidebarContext()
             {
@@ -38,7 +44,8 @@ namespace IrisMenus
             internal void PrepareSidebarContext()
             {
                 float opacity = sidebarMenuOpacity.Step(sidebarContextOpen ? 1f : 0f, ui.Time,
-                    sidebarContextOpen ? UiMotion.Enter : UiMotion.Exit, ui.ReducedMotion);
+                    UiMotion.Fast, ui.ReducedMotion);
+                if (sidebarContextOpen) sidebarMenuEntrance.Step(1f, ui.Time, UiMotion.Enter, ui.ReducedMotion, UiEase.Exit);
                 sidebarMenuVisible = sidebarContextOpen || opacity > 0f;
                 if (sidebarMenuVisible) ui.SetModal(sidebarMenuId);
                 sidebarAliasDialog.Prepare(sidebarAliasOpen);
@@ -58,6 +65,10 @@ namespace IrisMenus
                 sidebarPreviousFocusVisible = ui.FocusVisible;
                 sidebarContextKey = sidebarKeys[index];
                 sidebarMenuScreenAnchor = UiCoordinates.ToScreen(input.mousePosition);
+                sidebarMenuOpacity.Snap(0f);
+                sidebarMenuEntrance.Snap(0f);
+                sidebarMenuOpacity.Step(1f, ui.Time, UiMotion.Fast, ui.ReducedMotion);
+                sidebarMenuEntrance.Step(1f, ui.Time, UiMotion.Enter, ui.ReducedMotion, UiEase.Exit);
                 sidebarContextOpen = sidebarMenuVisible = true;
                 sidebarMenuFocused = 0;
                 ui.SetModal(sidebarMenuId);
@@ -91,13 +102,26 @@ namespace IrisMenus
             {
                 int index = SidebarContextIndex();
                 if (index < 0) { CloseSidebarMenu(); return; }
+                float oldSize = ui.FontSize;
+                FontStyle oldStyle = ui.FontStyle;
+                ui.FontSize = 14f * scale;
+                ui.FontStyle = FontStyle.Normal;
+                bool pinned = index < pinnedCount;
+                SyncSidebarMenuLabels(pinned);
                 float inset = Mathf.Min(8f * scale, viewport.width * 0.5f);
-                float width = Mathf.Min(250f * scale, Mathf.Max(1f, viewport.width - 2f * inset));
-                float row = Mathf.Min(32f * scale, Mathf.Max(1f, (viewport.height - 16f * scale) / 5f));
-                float height = row * 5f + 8f * scale;
+                float width = sidebarMenuWidth;
+                float unit = Mathf.Min(scale, Mathf.Max(0.1f, (viewport.height - 2f * inset) / 230f));
+                float row = 36f * unit;
+                float heading = 32f * unit;
+                float height = heading + row * 5f + 18f * unit;
                 Vector2 anchor = UiCoordinates.FromScreen(sidebarMenuScreenAnchor);
+                bool above = anchor.y + height > viewport.height - inset;
+                float y = above ? anchor.y - height : anchor.y;
+                float shift = sidebarContextOpen ? (1f - sidebarMenuEntrance.Value) * 4f * unit * (above ? 1f : -1f) : 0f;
                 Rect panel = new Rect(Mathf.Clamp(anchor.x, inset, Mathf.Max(inset, viewport.width - width - inset)),
-                    Mathf.Clamp(anchor.y, 0f, Mathf.Max(0f, viewport.height - height)), width, height);
+                    Mathf.Clamp(y, inset, Mathf.Max(inset, viewport.height - height - inset)) + shift, width, height);
+                try
+                {
                 using (ui.Layer(sidebarMenuId))
                 using (ui.Input(sidebarContextOpen))
                 {
@@ -124,31 +148,72 @@ namespace IrisMenus
                     }
                     using (ui.Opacity(sidebarMenuOpacity.Value))
                     {
-                        Rect shadow = panel; shadow.position += new Vector2(0f, 4f * scale);
-                        ui.Fill(shadow, ui.Palette.Shadow);
-                        ui.Fill(panel, ui.Palette.Overlay);
-                        ui.Border(panel, ui.Palette.Line);
-                        bool pinned = index < pinnedCount;
+                        UiPalette palette = ui.Palette;
+                        for (int edge = 8; edge > 0; edge--)
+                        {
+                            Rect shadow = panel;
+                            shadow.xMin -= edge * unit; shadow.xMax += edge * unit;
+                            shadow.yMin -= edge * unit; shadow.yMax += edge * unit;
+                            ui.Border(shadow, new Color(0f, 0f, 0f, 0.032f * (1f - edge / 9f)), unit);
+                        }
+                        ui.Fill(panel, palette.MenuSurface);
+                        ui.Border(panel, palette.MenuLine);
+                        ui.FontSize = 12f * unit;
+                        ui.Label(new Rect(panel.x + 12f * unit, panel.y + 4f * unit, Mathf.Max(0f, panel.width - 24f * unit), heading),
+                            sidebarMenuHeading, palette.MenuMuted);
+                        ui.FontSize = 14f * unit;
                         for (int action = 0; action < 5; action++)
                         {
-                            string label = T(action == 0 ? pinned ? "IM_NativeUnpin" : "IM_NativePin" : action == 1 ? "IM_NativeAlias" :
-                                action == 2 ? "IM_NativeMoveUp" : action == 3 ? "IM_NativeMoveDown" : "IM_NativeRemove");
-                            Rect item = new Rect(panel.x + scale, panel.y + 4f * scale + action * row, panel.width - 2f * scale, row);
+                            string label = sidebarActionDisplay[action];
+                            Rect item = new Rect(panel.x + unit, panel.y + heading + 4f * unit + action * row + (action == 4 ? 9f * unit : 0f),
+                                panel.width - 2f * unit, row);
                             bool enabled = SidebarMenuEnabled(action, index);
                             UiInteraction interaction = ui.Interact(sidebarMenuItems[action], item, enabled);
                             bool focused = ui.IsFocused(sidebarMenuItems[action]);
-                            if (interaction.Hovered || focused)
-                            {
-                                ui.Fill(item, ui.Palette.Hover);
-                                ui.Fill(new Rect(item.x, item.y, 3f * scale, item.height), ui.Palette.Ink);
-                            }
-                            if (action == 4) ui.Fill(new Rect(item.x + 8f * scale, item.y, Mathf.Max(0f, item.width - 16f * scale), scale), ui.Palette.Line);
-                            using (ui.Opacity(enabled ? 1f : 0.42f))
-                                ui.Label(new Rect(item.x + 12f * scale, item.y, Mathf.Max(0f, item.width - 24f * scale), item.height), label, ui.Palette.Ink);
+                            if (enabled && (interaction.Hovered || focused)) ui.Fill(item, palette.MenuHover);
+                            if (enabled && focused && ui.FocusVisible) ui.Border(item.ContractedBy(2f * unit), palette.MenuFocus);
+                            if (action == 4) ui.Fill(new Rect(panel.x + unit, item.y - 5f * unit, panel.width - 2f * unit, unit), palette.MenuLine);
+                            Color ink = !enabled ? palette.MenuDisabled : action == 4 ? palette.MenuDanger : palette.MenuInk;
+                            UiGlyphKind glyph = action == 0 ? pinned ? UiGlyphKind.Unpin : UiGlyphKind.Pin :
+                                action == 1 ? UiGlyphKind.Edit : action == 2 ? UiGlyphKind.ArrowUp : action == 3 ? UiGlyphKind.ArrowDown : UiGlyphKind.Trash;
+                            UiGlyph.Draw(ui, new Rect(item.x + 12f * unit, item.center.y - 8f * unit, 16f * unit, 16f * unit), glyph, ink);
+                            Rect text = new Rect(item.x + 36f * unit, item.y, Mathf.Max(0f, item.width - 48f * unit), item.height);
+                            ui.Label(text, label, ink);
                             if (interaction.Clicked) { ApplySidebarAction(action, index); break; }
                         }
+                        float entry = sidebarMenuEntrance.Value;
+                        ui.Fill(new Rect(panel.x, panel.y, panel.width * 0.5f * entry, 3f * unit), palette.MenuAction);
+                        ui.Triangle(new Vector2(panel.x + 28f * unit * entry, panel.y + 3f * unit),
+                            new Vector2(panel.x + 36f * unit * entry, panel.y + 3f * unit),
+                            new Vector2(panel.x + 32f * unit * entry, panel.y + 7f * unit), palette.MenuAction);
                     }
                 }
+                }
+                finally { ui.FontSize = oldSize; ui.FontStyle = oldStyle; }
+            }
+
+            private static string SidebarActionLabel(int action, bool pinned) =>
+                T(action == 0 ? pinned ? "IM_NativeUnpin" : "IM_NativePin" : action == 1 ? "IM_NativeAlias" :
+                    action == 2 ? "IM_NativeMoveUp" : action == 3 ? "IM_NativeMoveDown" : "IM_NativeRemove");
+
+            private void SyncSidebarMenuLabels(bool pinned)
+            {
+                if (ReferenceEquals(sidebarMenuLanguage, host.catalogLanguage) && sidebarMenuScale == scale &&
+                    sidebarMenuViewport == viewport.width && sidebarMenuPinned == pinned) return;
+                sidebarMenuLanguage = host.catalogLanguage;
+                sidebarMenuScale = scale;
+                sidebarMenuViewport = viewport.width;
+                sidebarMenuPinned = pinned;
+                sidebarMenuHeading = T("IM_NativeSidebarActions");
+                float width = 200f * scale;
+                for (int i = 0; i < sidebarActionLabels.Length; i++)
+                {
+                    sidebarActionLabels[i] = SidebarActionLabel(i, pinned);
+                    width = Mathf.Max(width, UiTextMetrics.Width(ui, sidebarActionLabels[i]) + 64f * scale);
+                }
+                sidebarMenuWidth = Mathf.Min(width, Mathf.Max(1f, viewport.width - Mathf.Min(16f * scale, viewport.width)));
+                for (int i = 0; i < sidebarActionLabels.Length; i++)
+                    sidebarActionDisplay[i] = UiTextMetrics.Ellipsize(ui, sidebarActionLabels[i], Mathf.Max(0f, sidebarMenuWidth - 50f * scale));
             }
 
             private void ApplySidebarAction(int action, int index)
@@ -194,7 +259,7 @@ namespace IrisMenus
                     bool selectedOwner = ReferenceEquals(host.session.Selected?.Content, group.Content);
                     if (selectedOwner && !host.session.Select(null)) return;
                     foreach (MenuPage page in group.Pages) Settings.EnabledAdapters.RemoveAll(id => id == page.Id);
-                    if (selectedOwner) { host.browse.Navigate(null); host.RebuildNavigation(); }
+                    if (selectedOwner) host.browse.Navigate(null);
                 }
                 SidebarSettingsChanged();
             }

@@ -15,6 +15,9 @@ namespace IrisMenus
             Instance = this;
             Settings = GetSettings<MenuSettings>();
             SettingsEntryRouter.Install();
+#if RIMWORLD_1_7
+            MainButtonVisibility.Install();
+#endif
         }
 
         public override string SettingsCategory() => "IrisMenus";
@@ -23,14 +26,8 @@ namespace IrisMenus
         {
             if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, Mathf.Min(inRect.width, 240f), 32f), "IM_Open".Translate()))
                 MenuRegistry.Open();
-            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y + 44f, Mathf.Min(inRect.width, 240f), 32f), "IM_ResetWindow".Translate()))
-            {
-                Settings.Width = Settings.Height = 0f;
-                Settings.X = Settings.Y = -1f;
-                WriteSettings();
-            }
             bool remember = Settings.RememberState;
-            Rect rememberRect = new Rect(inRect.x, inRect.y + 88f, Mathf.Min(inRect.width, 320f), 28f);
+            Rect rememberRect = new Rect(inRect.x, inRect.y + 44f, Mathf.Min(inRect.width, 320f), 28f);
             Widgets.CheckboxLabeled(rememberRect, "IM_RememberState".Translate(), ref remember);
             TooltipHandler.TipRegion(rememberRect, "IM_RememberStateTip".Translate());
             bool changed = remember != Settings.RememberState;
@@ -40,7 +37,7 @@ namespace IrisMenus
                 if (!remember) Settings.ClearRememberedView();
             }
             bool showButton = Settings.ShowMainButton;
-            Rect buttonRect = new Rect(inRect.x, inRect.y + 124f, Mathf.Min(inRect.width, 420f), 28f);
+            Rect buttonRect = new Rect(inRect.x, inRect.y + 80f, Mathf.Min(inRect.width, 420f), 28f);
             Widgets.CheckboxLabeled(buttonRect, "IM_ShowMainButton".Translate(), ref showButton);
             TooltipHandler.TipRegion(buttonRect, "IM_ShowMainButtonTip".Translate());
             if (showButton != Settings.ShowMainButton)
@@ -49,6 +46,10 @@ namespace IrisMenus
                 changed = true;
             }
             if (changed) WriteSettings();
+#if RIMWORLD_1_7
+            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y + 124f, Mathf.Min(inRect.width, 320f), 32f), "IM_MainButtonsTitle".Translate()))
+                MenuWindow.OpenMainButtons();
+#endif
         }
     }
 
@@ -58,21 +59,14 @@ namespace IrisMenus
         internal List<string> SidebarPins = new List<string>();
         internal List<string> SidebarOrder = new List<string>();
         internal Dictionary<string, string> SidebarAliases = new Dictionary<string, string>();
-        internal float Width;
-        internal float Height;
-        internal float X = -1f;
-        internal float Y = -1f;
-        internal bool FrostEnabled = true;
-        internal float Blur = 0.5f;
-        internal float Transparency = 0.65f;
         internal bool RememberState = true;
         internal bool ShowMainButton = true;
-        internal bool NativeMode;
+        internal List<string> HiddenMainButtons = new List<string>();
         internal IrisMenus.UI.UiTheme Theme = IrisMenus.UI.UiTheme.Light;
         internal bool ReducedMotion;
-        internal float NativeScale = 1f;
+        internal float Scale = 1f;
         internal int Density = 1;
-        internal float NativePanelOpacity = 0.94f;
+        internal float PanelOpacity = 0.94f;
         internal bool ShowTips = true;
         internal float TipDelay = 0.3f;
         internal bool SearchCurrentMod;
@@ -87,22 +81,16 @@ namespace IrisMenus
         public override void ExposeData()
         {
             Scribe_Collections.Look(ref EnabledAdapters, "enabledAdapters", LookMode.Value);
-            Scribe_Values.Look(ref Width, "width");
-            Scribe_Values.Look(ref Height, "height");
-            Scribe_Values.Look(ref X, "x", -1f);
-            Scribe_Values.Look(ref Y, "y", -1f);
-            Scribe_Values.Look(ref FrostEnabled, "frostEnabled", true);
-            Scribe_Values.Look(ref Blur, "blur", 0.5f);
-            Scribe_Values.Look(ref Transparency, "transparency", 0.65f);
             Scribe_Values.Look(ref LastPage, "lastPage");
             Scribe_Values.Look(ref RememberState, "rememberState", true);
             Scribe_Values.Look(ref ShowMainButton, "showMainButton", true);
-            Scribe_Values.Look(ref NativeMode, "nativeMode", false);
-            Scribe_Values.Look(ref Theme, "nativeTheme", IrisMenus.UI.UiTheme.Light);
+            Scribe_Collections.Look(ref HiddenMainButtons, "hiddenMainButtons", LookMode.Value);
+            if (HiddenMainButtons == null) HiddenMainButtons = new List<string>();
+            LookMigrated(ref Theme, "theme", "nativeTheme", IrisMenus.UI.UiTheme.Light);
             Scribe_Values.Look(ref ReducedMotion, "reducedMotion", false);
-            Scribe_Values.Look(ref NativeScale, "nativeScale", 1f);
-            Scribe_Values.Look(ref Density, "nativeDensity", 1);
-            Scribe_Values.Look(ref NativePanelOpacity, "nativePanelOpacity", 0.94f);
+            LookMigrated(ref Scale, "scale", "nativeScale", 1f);
+            LookMigrated(ref Density, "density", "nativeDensity", 1);
+            LookMigrated(ref PanelOpacity, "panelOpacity", "nativePanelOpacity", 0.94f);
             Scribe_Values.Look(ref ShowTips, "showTips", true);
             Scribe_Values.Look(ref TipDelay, "tipDelay", 0.3f);
             Scribe_Values.Look(ref SearchCurrentMod, "searchCurrentMod", false);
@@ -121,16 +109,37 @@ namespace IrisMenus
             if (EnabledAdapters == null) EnabledAdapters = new List<string>();
             if (LastSubItems == null) LastSubItems = new Dictionary<string, string>();
             if (HostView == null) HostView = new Dictionary<string, string>();
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
+                MigrateHostScroll("navigationScroll", "railScroll");
+                MigrateHostScroll("adapterScroll", "managementScroll");
+                HostView.Remove("showNavigation");
+            }
             if (Scribe.mode == LoadSaveMode.PostLoadInit) ItemValueColors.Normalize(ref ItemValueBands);
-            Blur = Mathf.Clamp01(MenuLayout.Finite(Blur, 0.5f));
-            Transparency = Mathf.Clamp01(MenuLayout.Finite(Transparency, 0.65f));
-            NativeScale = Mathf.Clamp(MenuLayout.Finite(NativeScale, 1f), 0.8f, 1.3f);
+            Scale = Mathf.Clamp(Finite(Scale, 1f), 0.8f, 1.3f);
             Density = System.Math.Max(0, System.Math.Min(2, Density));
-            NativePanelOpacity = Mathf.Clamp01(MenuLayout.Finite(NativePanelOpacity, 0.94f));
-            TipDelay = Mathf.Clamp(MenuLayout.Finite(TipDelay, 0.3f), 0.1f, 0.8f);
+            PanelOpacity = Mathf.Clamp01(Finite(PanelOpacity, 0.94f));
+            TipDelay = Mathf.Clamp(Finite(TipDelay, 0.3f), 0.1f, 0.8f);
             MarqueeText = MarqueeText ?? "IRIS MENUS";
-            ToastDuration = Mathf.Clamp(MenuLayout.Finite(ToastDuration, 3f), 1f, 10f);
+            ToastDuration = Mathf.Clamp(Finite(ToastDuration, 3f), 1f, 10f);
         }
+
+        private static void LookMigrated<T>(ref T value, string key, string legacyKey, T defaultValue)
+        {
+            T fallback = defaultValue;
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
+                Scribe_Values.Look(ref fallback, legacyKey, defaultValue);
+            Scribe_Values.Look(ref value, key, fallback);
+        }
+
+        private void MigrateHostScroll(string legacyKey, string key)
+        {
+            if (!HostView.ContainsKey(key) && HostView.TryGetValue(legacyKey, out string value))
+                HostView[key] = value;
+            HostView.Remove(legacyKey);
+        }
+
+        internal static float Finite(float value, float fallback) => float.IsNaN(value) || float.IsInfinity(value) ? fallback : value;
 
         internal void ClearRememberedView()
         {

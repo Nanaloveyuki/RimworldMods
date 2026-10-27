@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using UnityEngine;
+using Verse;
 
 namespace IrisMenus.UI
 {
@@ -48,11 +49,11 @@ namespace IrisMenus.UI
             drawContent = DrawContent;
         }
 
-        public string Title { get; set; } = "Choose color";
-        public string ApplyLabel { get; set; } = "Apply";
-        public string CancelLabel { get; set; } = "Cancel";
-        public string OriginalLabel { get; set; } = "Original";
-        public string PreviewLabel { get; set; } = "Preview";
+        public string Title { get; set; } = "IM_ValueChooseColor".Translate();
+        public string ApplyLabel { get; set; } = "IM_ValueApply".Translate();
+        public string CancelLabel { get; set; } = "CancelButton".Translate();
+        public string OriginalLabel { get; set; } = "IM_ValueOriginal".Translate();
+        public string PreviewLabel { get; set; } = "IM_ValuePreview".Translate();
         public bool IsOpen => open;
         public bool IsVisible => dialog.IsVisible;
         public Color Preview => draft;

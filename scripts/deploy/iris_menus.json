@@ -20,17 +20,11 @@
     "Common/Defs",
     "Common/Languages",
     "Common/Textures",
-    "1.7/Rendering",
     "1.7/Assemblies/IrisMenus.dll",
-    "docs",
-    {
-      "source": "1.6",
-      "optional": true
-    }
+    "docs"
   ],
   "required": [
     "1.7/Assemblies/IrisMenus.dll",
-    "1.7/Rendering/Frost17.frag.glsl",
     "NOTICE",
     "Common/Textures/IrisMenus/UI/Glyphs/search.png",
     "Common/Textures/IrisMenus/UI/Glyphs/x.png",
@@ -45,6 +39,12 @@
     "Common/Textures/IrisMenus/UI/Glyphs/layers-2.png",
     "Common/Textures/IrisMenus/UI/Glyphs/grip.png",
     "Common/Textures/IrisMenus/UI/Glyphs/check.png",
-    "Common/Textures/IrisMenus/UI/Glyphs/rotate-ccw.png"
+    "Common/Textures/IrisMenus/UI/Glyphs/rotate-ccw.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/pin.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/pin-off.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/pencil.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/arrow-up.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/arrow-down.png",
+    "Common/Textures/IrisMenus/UI/Glyphs/trash-2.png"
   ]
 }

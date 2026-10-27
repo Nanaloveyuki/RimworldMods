@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using IrisMenus;
 using UnityEngine;
@@ -13,7 +14,6 @@ internal static class Program
         LoaderConstruction();
         Session();
         Scrolling();
-        BackgroundLifecycle();
         SettingsRoundTrip();
         MainButtonVisibility();
         Routing();
@@ -129,108 +129,226 @@ internal static class Program
         Check(Widgets.LastPosition.y == 0, "Reset clears scroll");
     }
 
-    private static void BackgroundLifecycle()
+    private static void SettingsRoundTrip()
     {
-        Current.ProgramState = ProgramState.Playing;
-        IrisMenusMod.Instance.Content.assetBundles.loadedAssetBundles.Add(new AssetBundle());
-        Find.Camera = new Camera();
-        Find.WorldCamera = new Camera();
-        var owner = new MenuWindow();
-        Find.WindowStack.Windows.Clear();
-        Find.WindowStack.Add(owner);
-        var background = new FrostBackground { Owner = owner };
-        background.Start(); background.Start();
-        Check(Camera.Subscribers == 2, "Background subscribes once");
-        new Camera().Render();
-        Check(FrostPipeline.Created == 0, "Preview camera ignored");
-        Find.Camera.Render();
-        Check(FrostPipeline.Created == 1 && FrostPipeline.Binds == 1, "Map camera binds");
-        background.DoWindowBackground(default);
-        Check(GUI.TextureDraws == 1, "Fresh frame uses frost");
-        Time.frameCount += 3;
-        int native = DefaultWindowDrawing.Backgrounds;
-        background.DoWindowBackground(default);
-        Check(DefaultWindowDrawing.Backgrounds == native && GUI.TextureDraws == 1, "Stale frame does not draw stale texture");
-        IrisMenusMod.Instance.Settings.FrostEnabled = false;
-        Find.Camera.Render();
-        background.DoWindowBackground(default);
-        Check(DefaultWindowDrawing.Backgrounds == native && Math.Abs(GUI.OverlayAlpha - 0.35f) < 0.001f, "Transparency still works with frost disabled");
-        IrisMenusMod.Instance.Settings.FrostEnabled = true;
-        RimWorld.Planet.WorldRendererUtility.WorldSelected = true;
-        int binds = FrostPipeline.Binds;
-        Find.Camera.Render();
-        Check(FrostPipeline.Binds == binds, "Map camera ignored in world view");
-        Find.WorldCamera.Render();
-        Check(FrostPipeline.Binds == binds + 1, "World camera binds");
-        Find.WindowStack.Windows.Clear();
-        Find.WindowStack.Add(new MenuWindow());
-        Find.WorldCamera.Render();
-        Check(Camera.Subscribers == 0 && FrostPipeline.Disposed == 1, "Replaced window releases its own callbacks");
-        background.Dispose();
-        Check(FrostPipeline.Disposed == 1, "Dispose is idempotent");
-        var second = new FrostBackground { Owner = (Window)Find.WindowStack.Windows[0] };
-        AssetBundle.FailLoad = true;
-        second.Start();
-        int errors = Log.Errors.Count;
-        Find.WorldCamera.Render(); Find.WorldCamera.Render();
-        Check(Log.Errors.Count == errors + 1, "Missing borrowed shader is reported once");
-        AssetBundle.FailLoad = false;
-        second.Retry(); Find.WorldCamera.Render();
-        Check(FrostPipeline.Created == 2, "Explicit retry recovers bundle load");
-        Current.ProgramState = ProgramState.Entry;
-        Find.WorldCamera.Render();
-        native = DefaultWindowDrawing.Backgrounds;
-        second.DoWindowBackground(default);
-        Check(DefaultWindowDrawing.Backgrounds == native && GUI.TextureDraws == 1, "Main menu does not reuse a game frame");
-        second.Dispose();
-        Check(Camera.Subscribers == 0 && AssetBundle.Unloads == 0 && AssetBundle.Loads == 0, "Game-owned bundle is neither reloaded nor unloaded");
+        SettingsLegacyMigration();
+        SettingsNewKeyPrecedence();
+        SettingsSerializationPhases();
+        SettingsNormalization();
     }
 
-    private static void SettingsRoundTrip()
+    private static void SettingsLegacyMigration()
     {
         var original = new MenuSettings
         {
-            Width = 920, Height = 640, X = 55, Y = 75, Blur = 0.8f,
-            Transparency = 0.4f, FrostEnabled = false, LastPage = "test:page", ShowMainButton = false
+            Theme = IrisMenus.UI.UiTheme.Dark, Scale = 1.2f, Density = 2, PanelOpacity = 0.72f,
+            ReducedMotion = true, RememberState = false, ShowMainButton = false,
+            ShowTips = false, TipDelay = 0.6f, SearchCurrentMod = true,
+            MarqueeText = "CUSTOM MARQUEE", ToastDuration = 6f, ShowToasts = false,
+            LastPage = "test:page"
         };
         original.EnabledAdapters.Add("unloaded.mod:Settings");
-        original.ExposeData();
-        Scribe_Values.Data.Remove("rememberState");
-        Scribe_Values.Loading = true;
-        var restored = new MenuSettings();
-        restored.ExposeData();
-        Check(restored.Width == 920 && restored.Height == 640 && restored.X == 55 && restored.Y == 75, "Geometry serialization contract");
-        Check(restored.Blur == 0.8f && restored.Transparency == 0.4f && !restored.FrostEnabled, "Appearance serialization contract");
-        Check(restored.LastPage == "test:page", "Last-page serialization contract");
-        Check(restored.RememberState, "Remember-state defaults on for legacy saves");
-        Check(!restored.ShowMainButton, "Hidden main button survives settings reload");
-        Scribe_Values.Data.Remove("showMainButton");
-        restored.ExposeData();
-        Check(restored.ShowMainButton, "Legacy settings retain a visible main button");
-        Scribe_Values.Loading = false;
-        original.RememberState = false;
-        original.LastSubItems["owner"] = "owner:page";
+        original.HiddenMainButtons.Add("World");
+        original.SidebarPins.Add("test.owner");
+        original.SidebarOrder.Add("unloaded.mod:Settings");
+        original.SidebarOrder.Add("test.owner");
+        original.SidebarAliases["test.owner"] = "My settings";
+        original.LastSubItems["test.owner"] = "test:page";
         original.HostView["mode"] = "search";
+        original.HostView["query"] = "custom query";
+        original.HostView["scope"] = "test.owner";
+        original.HostView["resultPage"] = "3";
+        original.HostView["resultScroll"] = "140";
+        original.HostView["navigationScroll"] = "80";
+        original.HostView["adapterScroll"] = "260";
+        original.HostView["showNavigation"] = "1";
         original.HostView["listing:owner:page=a;b"] = "240";
-        original.ExposeData();
-        Scribe_Values.Loading = true;
-        restored = new MenuSettings();
-        restored.ExposeData();
-        Check(!restored.RememberState && restored.LastSubItems["owner"] == "owner:page", "Legacy navigation survives remember-state migration");
-        Check(restored.HostView["listing:owner:page=a;b"] == "240" && restored.HostView["mode"] == "search", "Host view preserves page ids with separators");
-        Check(restored.Width == 920 && restored.FrostEnabled == false, "Host view persistence leaves geometry and appearance alone");
-        restored.ClearRememberedView();
-        Check(restored.LastPage == null && restored.LastSubItems.Count == 0 && restored.HostView.Count == 0, "Disabling memory clears host navigation only");
-        Check(restored.EnabledAdapters.Single() == "unloaded.mod:Settings", "Disabling memory does not clear adapter selections");
+        original.ItemValueBands = new List<ItemValueBand>
+        {
+            new ItemValueBand(0f, new Color(0.1f, 0.2f, 0.3f)),
+            new ItemValueBand(123f, new Color(0.4f, 0.5f, 0.6f))
+        };
+        Dictionary<string, object> legacy = SaveSettings(original);
+        foreach (string key in new[] { "theme", "scale", "density", "panelOpacity" })
+        {
+            legacy["native" + char.ToUpperInvariant(key[0]) + key.Substring(1)] = legacy[key];
+            legacy.Remove(key);
+        }
+        legacy["nativeMode"] = false;
+        legacy["width"] = 920f;
+        legacy["height"] = 640f;
+        legacy["x"] = 55f;
+        legacy["y"] = 75f;
+        legacy["frostEnabled"] = false;
+        legacy["blur"] = 0.8f;
+        legacy["transparency"] = 0.4f;
+        original.ItemValueBands[1].Minimum = 999f;
+
+        MenuSettings restored = LoadSettings(legacy);
+        Check(restored.Theme == IrisMenus.UI.UiTheme.Dark && restored.Scale == 1.2f && restored.Density == 2
+            && restored.PanelOpacity == 0.72f, "Legacy appearance values migrate even when legacy mode was disabled");
+        Check(restored.ReducedMotion && !restored.ShowTips && restored.TipDelay == 0.6f && restored.SearchCurrentMod
+            && restored.MarqueeText == "CUSTOM MARQUEE" && restored.ToastDuration == 6f && !restored.ShowToasts,
+            "Migration preserves motion, tips, search, marquee and toast preferences");
+        Check(!restored.RememberState && !restored.ShowMainButton && restored.HiddenMainButtons.Single() == "World",
+            "Migration preserves memory and main-button preferences");
+        Check(restored.LastPage == "test:page" && restored.LastSubItems["test.owner"] == "test:page",
+            "Migration preserves selected pages and subitems");
+        Check(restored.HostView["railScroll"] == "80" && restored.HostView["managementScroll"] == "260"
+            && !restored.HostView.ContainsKey("navigationScroll") && !restored.HostView.ContainsKey("adapterScroll")
+            && !restored.HostView.ContainsKey("showNavigation"), "Legacy host offsets move to new rails and management without obsolete visibility");
+        Check(restored.HostView["resultScroll"] == "140" && restored.HostView["listing:owner:page=a;b"] == "240",
+            "Migration preserves result offsets and listing IDs containing separators");
+        var browse = new MenuBrowseState();
+        browse.Restore(restored.HostView, null, true);
+        Check(browse.Scope == "test.owner" && browse.Query == "custom query" && browse.ResultPage == 3 && browse.ShowResults,
+            "Migrated host state still restores the current-mod search and results page");
+        Check(restored.EnabledAdapters.Single() == "unloaded.mod:Settings" && restored.SidebarPins.Single() == "test.owner"
+            && restored.SidebarOrder.SequenceEqual(new[] { "unloaded.mod:Settings", "test.owner" })
+            && restored.SidebarAliases["test.owner"] == "My settings", "Migration preserves adapters and sidebar customization");
+        Check(restored.ItemValueBands.Count == 2 && restored.ItemValueBands[1].Minimum == 123f
+            && restored.ItemValueBands[1].Color.r == 0.4f && restored.ItemValueBands[1].Color.g == 0.5f
+            && restored.ItemValueBands[1].Color.b == 0.6f, "Deep-scribed item value thresholds and colors survive migration independently");
+        string[] retiredKeys = { "nativeMode", "width", "height", "x", "y", "frostEnabled", "blur", "transparency" };
+        Check(!Scribe_Values.LookCalls.Any(call => retiredKeys.Contains(call.Key)), "Retired mode, geometry and frost fields are ignored during loading");
+        legacy["nativeMode"] = true;
+        MenuSettings enabledLegacyMode = LoadSettings(legacy);
+        Check(enabledLegacyMode.Theme == restored.Theme && enabledLegacyMode.Scale == restored.Scale
+            && enabledLegacyMode.Density == restored.Density && enabledLegacyMode.PanelOpacity == restored.PanelOpacity
+            && enabledLegacyMode.HostView.OrderBy(pair => pair.Key).SequenceEqual(restored.HostView.OrderBy(pair => pair.Key)),
+            "Either obsolete mode flag produces the same settings and navigation");
+
+        Dictionary<string, object> saved = SaveSettings(restored);
+        Check(new[] { "theme", "scale", "density", "panelOpacity" }.All(saved.ContainsKey)
+            && !saved.Keys.Any(key => key.StartsWith("native", StringComparison.Ordinal) || retiredKeys.Contains(key)),
+            "Resaving migrated settings writes only current appearance keys and no retired fields");
+        var host = (Dictionary<string, string>)saved["hostView"];
+        Check(!host.ContainsKey("navigationScroll") && !host.ContainsKey("adapterScroll") && !host.ContainsKey("showNavigation")
+            && host["railScroll"] == "80" && host["managementScroll"] == "260" && host["listing:owner:page=a;b"] == "240",
+            "Resaving host state emits only current offsets while retaining listing positions");
+        MenuSettings reloaded = LoadSettings(saved);
+        Check(reloaded.Theme == restored.Theme && reloaded.Scale == restored.Scale && reloaded.Density == restored.Density
+            && reloaded.PanelOpacity == restored.PanelOpacity && reloaded.LastSubItems["test.owner"] == "test:page"
+            && reloaded.SidebarAliases["test.owner"] == "My settings" && reloaded.ItemValueBands[1].Minimum == 123f,
+            "Migrated settings survive a second save and load through the current schema");
+        reloaded.ClearRememberedView();
+        Check(reloaded.LastPage == null && reloaded.LastSubItems.Count == 0 && reloaded.HostView.Count == 0,
+            "Disabling memory clears all remembered host navigation");
+        Check(reloaded.EnabledAdapters.Single() == "unloaded.mod:Settings" && reloaded.SidebarPins.Single() == "test.owner"
+            && reloaded.ItemValueBands[1].Minimum == 123f && reloaded.PanelOpacity == 0.72f,
+            "Disabling memory leaves adapters, sidebar, colors and appearance intact");
+    }
+
+    private static void SettingsNewKeyPrecedence()
+    {
+        var current = new MenuSettings();
+        Dictionary<string, object> mixed = SaveSettings(current);
+        mixed["theme"] = current.Theme;
+        mixed["scale"] = current.Scale;
+        mixed["density"] = current.Density;
+        mixed["panelOpacity"] = current.PanelOpacity;
+        mixed["nativeTheme"] = current.Theme == IrisMenus.UI.UiTheme.Light ? IrisMenus.UI.UiTheme.Dark : IrisMenus.UI.UiTheme.Light;
+        mixed["nativeScale"] = current.Scale <= 1.15f ? 1.2f : 1f;
+        mixed["nativeDensity"] = (current.Density + 1) % 3;
+        mixed["nativePanelOpacity"] = current.PanelOpacity > 0.8f ? 0.72f : 0.94f;
+        var host = (Dictionary<string, string>)mixed["hostView"];
+        host["railScroll"] = "0";
+        host["managementScroll"] = "0";
+        host["navigationScroll"] = "80";
+        host["adapterScroll"] = "260";
+        host["showNavigation"] = "1";
+        MenuSettings restored = LoadSettings(mixed);
+        Check(restored.Theme == current.Theme && restored.Scale == current.Scale && restored.Density == current.Density
+            && restored.PanelOpacity == current.PanelOpacity, "Present current keys override legacy values even when equal to current defaults");
+        Check(restored.HostView["railScroll"] == "0" && restored.HostView["managementScroll"] == "0"
+            && !restored.HostView.ContainsKey("navigationScroll") && !restored.HostView.ContainsKey("adapterScroll")
+            && !restored.HostView.ContainsKey("showNavigation"), "Present zero host offsets win over nonzero legacy positions");
+    }
+
+    private static void SettingsSerializationPhases()
+    {
+        var settings = new MenuSettings { Scale = 1.1f, PanelOpacity = 0.8f };
+        Dictionary<string, object> data = SaveSettings(settings);
+        data["scale"] = 1.2f;
+        data["nativeScale"] = 1.3f;
         Scribe_Values.Data.Clear();
-        restored.ExposeData();
-        Check(restored.EnabledAdapters != null && restored.EnabledAdapters.Count == 0, "Missing collection initialized");
-        Check(restored.FrostEnabled && restored.Blur == 0.5f && restored.Transparency == 0.65f, "Missing appearance uses defaults");
-        Scribe_Values.Data["blur"] = float.NaN;
-        Scribe_Values.Data["transparency"] = 5f;
-        restored.ExposeData();
-        Check(restored.Blur == 0.5f && restored.Transparency == 1f, "Invalid appearance values normalized");
-        Scribe_Values.Loading = false;
+        foreach (var pair in data) Scribe_Values.Data[pair.Key] = pair.Value;
+        Scribe_Values.LookCalls.Clear();
+        foreach (LoadSaveMode mode in new[] { LoadSaveMode.Inactive, LoadSaveMode.ResolvingCrossRefs, LoadSaveMode.PostLoadInit })
+        {
+            Scribe.mode = mode;
+            settings.ExposeData();
+        }
+        Scribe.mode = LoadSaveMode.Inactive;
+        Check(settings.Scale == 1.1f && settings.PanelOpacity == 0.8f && (float)Scribe_Values.Data["scale"] == 1.2f,
+            "Inactive and post-load scribing neither reload nor overwrite persisted values");
+        Check(!Scribe_Values.LookCalls.Any(call => call.Key.StartsWith("native", StringComparison.Ordinal)),
+            "Legacy keys are not read outside LoadingVars");
+        LoadSettings(data);
+        string[] legacyKeys = { "nativeTheme", "nativeScale", "nativeDensity", "nativePanelOpacity" };
+        Check(legacyKeys.All(key => Scribe_Values.LookCalls.Count(call => call.Key == key && call.Mode == LoadSaveMode.LoadingVars) == 1)
+            && Scribe_Values.LookCalls.Where(call => legacyKeys.Contains(call.Key)).All(call => call.Mode == LoadSaveMode.LoadingVars),
+            "Each legacy key is read once and only in LoadingVars");
+    }
+
+    private static void SettingsNormalization()
+    {
+        Dictionary<string, object> data = SaveSettings(new MenuSettings());
+        data["scale"] = float.NaN;
+        data["density"] = 8;
+        data["panelOpacity"] = float.PositiveInfinity;
+        data["tipDelay"] = float.NegativeInfinity;
+        data["toastDuration"] = float.NaN;
+        MenuSettings restored = LoadSettings(data);
+        Check(!float.IsNaN(restored.Scale) && !float.IsInfinity(restored.Scale) && restored.Scale >= 0.8f && restored.Scale <= 1.3f
+            && restored.Density == 2 && !float.IsNaN(restored.PanelOpacity) && !float.IsInfinity(restored.PanelOpacity)
+            && restored.PanelOpacity >= 0f && restored.PanelOpacity <= 1f && restored.TipDelay >= 0.1f
+            && restored.TipDelay <= 0.8f && restored.ToastDuration >= 1f && restored.ToastDuration <= 10f,
+            "Settings replace nonfinite values and normalize density into supported ranges");
+        data["scale"] = 8f;
+        data["density"] = -8;
+        data["panelOpacity"] = -2f;
+        data["tipDelay"] = 8f;
+        data["toastDuration"] = -8f;
+        restored = LoadSettings(data);
+        Check(restored.Scale == 1.3f && restored.Density == 0 && restored.PanelOpacity == 0f
+            && restored.TipDelay == 0.8f && restored.ToastDuration == 1f, "Finite out-of-range settings clamp at supported limits");
+        restored = LoadSettings(new Dictionary<string, object>());
+        Check(restored.EnabledAdapters != null && restored.HiddenMainButtons != null && restored.SidebarPins != null
+            && restored.SidebarOrder != null && restored.SidebarAliases != null && restored.LastSubItems != null
+            && restored.HostView != null && restored.ItemValueBands != null && restored.ItemValueBands.Count > 0,
+            "Missing persisted collections leave settings and color lookup ready for use");
+    }
+
+    private static Dictionary<string, object> SaveSettings(MenuSettings settings)
+    {
+        Scribe_Values.Data.Clear();
+        Scribe_Values.LookCalls.Clear();
+        Scribe.mode = LoadSaveMode.Saving;
+        try
+        {
+            settings.ExposeData();
+            return new Dictionary<string, object>(Scribe_Values.Data);
+        }
+        finally { Scribe.mode = LoadSaveMode.Inactive; }
+    }
+
+    private static MenuSettings LoadSettings(Dictionary<string, object> data)
+    {
+        Scribe_Values.Data.Clear();
+        Scribe_Values.LookCalls.Clear();
+        foreach (var pair in data) Scribe_Values.Data[pair.Key] = pair.Value;
+        var settings = new MenuSettings();
+        try
+        {
+            foreach (LoadSaveMode mode in new[] { LoadSaveMode.LoadingVars, LoadSaveMode.ResolvingCrossRefs, LoadSaveMode.PostLoadInit })
+            {
+                Scribe.mode = mode;
+                settings.ExposeData();
+            }
+            return settings;
+        }
+        finally { Scribe.mode = LoadSaveMode.Inactive; }
     }
 
     private static void MainButtonVisibility()

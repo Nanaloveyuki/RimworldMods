@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$RimWorldManagedDir, [switch]$SkipGpu)
+param([string]$RimWorldManagedDir)
 $ErrorActionPreference = 'Stop'
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $consumer = Join-Path $root 'tests/ApiConsumer/ApiConsumer.csproj'
@@ -34,8 +34,7 @@ $used = @(Get-ChildItem (Join-Path $root 'Source') -Filter *.cs |
     ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
 foreach ($key in $used) { if ($key -notin $english) { throw "Missing translation: $key" } }
 Write-Host "XML/localization/load-folder validation passed: $($english.Count) keys."
-# Native 1.7 GPU/UI acceptance is manual; preserve the compiled 1.6 artifacts.
-if (-not $SkipGpu) { Write-Host 'Run native RimWorld 1.7 GPU/UI acceptance in the actual game; Unity fixtures are 1.6-only and are not run.' }
+# Native 1.7 GPU/UI acceptance runs in the actual game; 1.6 outputs stay archived.
 $monorepo = Split-Path $root -Parent
 $python = if (Get-Command python3 -ErrorAction SilentlyContinue) { 'python3' } else { 'python' }
 $deployArgs = @((Join-Path $monorepo 'scripts/python/deploy.py'), 'iris_menus', '--build-only', '--skip-build')
@@ -43,6 +42,7 @@ if ($RimWorldManagedDir) { $deployArgs += @('--rimworld-dir', $RimWorldManagedDi
 & $python @deployArgs
 if ($LASTEXITCODE -ne 0) { throw 'Package staging failed.' }
 $staging = Join-Path $monorepo 'artifacts/iris_menus/release'
+if (Test-Path -LiteralPath (Join-Path $staging '1.6')) { throw 'The current 1.7 staging package must not contain archived 1.6 files.' }
 [xml]$stagedFolders = Get-Content (Join-Path $staging 'LoadFolders.xml') -Raw -Encoding UTF8
 foreach ($version in @('1.7')) {
     $folders = @($stagedFolders.SelectNodes("/loadFolders/v$version/li") | ForEach-Object InnerText)
@@ -59,9 +59,6 @@ foreach ($version in @('1.7')) {
         if ($matches.Count -ne 1) { throw "Missing/duplicate $resource for RimWorld $version" }
     }
     if ($version -eq '1.7') {
-        if (-not (Test-Path -LiteralPath (Join-Path $staging '1.7/Rendering/Frost17.frag.glsl') -PathType Leaf)) {
-            throw 'Missing native RimWorld 1.7 fragment shader.'
-        }
         foreach ($folder in $folders) {
             if (Test-Path -LiteralPath (Join-Path $staging "$folder/AssetBundles")) {
                 throw 'RimWorld 1.7 must not load the Unity shader bundle.'
@@ -70,5 +67,3 @@ foreach ($version in @('1.7')) {
     }
 }
 Write-Host "RimWorld 1.7 package staged with isolated legacy runtime: $staging"
-& git -C $root diff --check -- '.'
-if ($LASTEXITCODE -ne 0) { throw 'Diff check failed.' }

@@ -54,7 +54,7 @@ namespace IrisMenus
             SetPickerLabels(picker);
         }
 
-        internal static void SetPickerLabels(UiColorPicker picker)
+        private static void SetPickerLabels(UiColorPicker picker)
         {
             picker.Title = T("IM_ValueChooseColor");
             picker.ApplyLabel = T("IM_ValueApply");
@@ -90,7 +90,7 @@ namespace IrisMenus
 
         public override void Draw(Rect rect)
         {
-            scale = settings.NativeScale;
+            scale = settings.Scale;
             rowHeight = 166f * scale;
             scroll.Draw(rect, (208f + rows.Count * 166f) * scale, drawContent);
         }
@@ -172,13 +172,11 @@ namespace IrisMenus
             return false;
         }
 
-        public override void DrawOverlay(Rect viewport) => picker.DrawOverlay(viewport, settings.NativeScale);
+        public override void DrawOverlay(Rect viewport) => picker.DrawOverlay(viewport, settings.Scale);
         public override void Focus(string anchor) { if (anchor == "bands") scroll.FocusAnchor(0); }
         public override void Reset()
         {
             picker.Cancel();
-            legacyBuffers.Clear();
-            legacySliderMaximum.Clear();
             settings.ItemValueBands = ItemValueColors.CreateDefaults();
         }
         public override void Dispose()
@@ -237,117 +235,6 @@ namespace IrisMenus
                 return range;
             }
             public void Dispose() { Field.Dispose(); context.Release(Swatch); context.Release(Slider.Id); context.Release(Remove.Id); }
-        }
-
-        private static readonly Dictionary<ItemValueBand, string> legacyBuffers = new Dictionary<ItemValueBand, string>();
-        private static readonly Dictionary<ItemValueBand, double> legacySliderMaximum = new Dictionary<ItemValueBand, double>();
-        private static List<ItemValueBand> legacySource;
-        internal static void DrawLegacy(Listing_Standard list)
-        {
-            MenuSettings settings = IrisMenusMod.Instance.Settings;
-            if (legacySource != settings.ItemValueBands)
-            {
-                legacySource = settings.ItemValueBands;
-                legacyBuffers.Clear();
-                legacySliderMaximum.Clear();
-            }
-            MenuControls.Anchor(list, "bands");
-            MenuControls.Section(list, T("IM_ValueColors"));
-            list.Label(T("IM_ValueColorsHint"));
-            for (int i = 0; i < settings.ItemValueBands.Count; i++)
-            {
-                ItemValueBand band = settings.ItemValueBands[i];
-                Rect row = list.GetRect(36f);
-                bool chooseColor = Widgets.ButtonText(new Rect(row.x, row.y, 100f, row.height), T("IM_ValueChooseColor"));
-                Rect swatch = new Rect(row.x + 108f, row.y + 4f, 28f, 28f);
-                Widgets.DrawBoxSolid(swatch, band.Color);
-                chooseColor |= Widgets.ButtonInvisible(swatch);
-                if (chooseColor) Find.WindowStack.Add(new LegacyPickerWindow(band));
-                string maximum = i + 1 < settings.ItemValueBands.Count ? settings.ItemValueBands[i + 1].Minimum.ToString("G6", CultureInfo.InvariantCulture) : "∞";
-                Widgets.Label(new Rect(row.x + 146f, row.y, Mathf.Max(0f, row.width - 234f), row.height), "[" + band.Minimum.ToString("G6", CultureInfo.InvariantCulture) + ", " + maximum + ")");
-                if (i > 0 && Widgets.ButtonText(new Rect(row.xMax - 80f, row.y, 80f, row.height), T("IM_ValueRemoveBand")))
-                {
-                    settings.ItemValueBands.RemoveAt(i);
-                    legacyBuffers.Remove(band);
-                    legacySliderMaximum.Remove(band);
-                    return;
-                }
-                if (i == 0) { list.Gap(12f); continue; }
-                float minimum = settings.ItemValueBands[i - 1].Minimum;
-                if (!legacySliderMaximum.TryGetValue(band, out double sliderMaximum))
-                    legacySliderMaximum[band] = sliderMaximum = Math.Min(float.MaxValue, Math.Max((double)band.Minimum * 2d, (double)band.Minimum + 100d));
-                double upper = i + 1 < settings.ItemValueBands.Count ? settings.ItemValueBands[i + 1].Minimum : sliderMaximum;
-                if (i + 1 == settings.ItemValueBands.Count && band.Minimum >= upper && GUIUtility.hotControl == 0)
-                {
-                    upper = Math.Min(float.MaxValue, Math.Max((double)band.Minimum * 2d, (double)band.Minimum + 100d));
-                    legacySliderMaximum[band] = upper;
-                }
-                float normalized = (float)(((double)band.Minimum - minimum) / (upper - minimum));
-                Rect sliderRect = list.GetRect(30f);
-                float after = Widgets.HorizontalSlider(sliderRect, normalized, 0f, 1f);
-                if (after != normalized && ItemValueColors.SetMinimum(settings.ItemValueBands, i, (float)(minimum + ((double)upper - minimum) * after)))
-                    legacyBuffers[band] = band.Minimum.ToString("G9", CultureInfo.InvariantCulture);
-                if (!legacyBuffers.TryGetValue(band, out string buffer)) buffer = band.Minimum.ToString("G9", CultureInfo.InvariantCulture);
-                Rect numeric = list.GetRect(32f);
-                Widgets.Label(new Rect(numeric.x, numeric.y, numeric.width * 0.5f, numeric.height), T("IM_ValueThreshold"));
-                string edited = Widgets.TextField(new Rect(numeric.x + numeric.width * 0.5f, numeric.y, numeric.width * 0.5f, numeric.height), buffer);
-                bool valid = float.TryParse(edited, NumberStyles.Float, CultureInfo.InvariantCulture, out float value)
-                    && ItemValueColors.SetMinimum(settings.ItemValueBands, i, value);
-                legacyBuffers[band] = edited;
-                if (valid && edited != buffer)
-                    legacySliderMaximum[band] = Math.Min(float.MaxValue, Math.Max((double)band.Minimum * 2d, (double)band.Minimum + 100d));
-                if (!valid) list.Label(T("IM_ValueThresholdInvalid"));
-                list.GapLine(12f);
-            }
-            if (list.ButtonText(T("IM_ValueAddBand"))) ItemValueColors.Add(settings.ItemValueBands);
-            if (list.ButtonText(T("IM_ValueRestoreDefaults")))
-                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(T("IM_ValueResetConfirm"), () =>
-                {
-                    legacyBuffers.Clear();
-                    legacySliderMaximum.Clear();
-                    settings.ItemValueBands = ItemValueColors.CreateDefaults();
-                    IrisMenusMod.Instance.WriteSettings();
-                }));
-        }
-
-        private sealed class LegacyPickerWindow : Window
-        {
-            private readonly UiContext context = new UiContext();
-            private readonly UiColorPicker picker;
-            private readonly ItemValueBand band;
-            private bool initialized;
-            protected override float Margin => 0f;
-            public override Vector2 InitialSize => new Vector2(Verse.UI.screenWidth, Verse.UI.screenHeight);
-
-            internal LegacyPickerWindow(ItemValueBand band)
-            {
-                this.band = band;
-                picker = new UiColorPicker(context);
-                SetPickerLabels(picker);
-                doWindowBackground = drawShadow = false;
-                closeOnAccept = closeOnCancel = false;
-                forcePause = absorbInputAroundWindow = true;
-            }
-
-            public override void DoWindowContents(Rect inRect)
-            {
-                MenuSettings settings = IrisMenusMod.Instance.Settings;
-                context.BeginFrame(inRect, settings.Theme, settings.ReducedMotion);
-                try
-                {
-                    if (!initialized)
-                    {
-                        initialized = true;
-                        picker.Open(band.Color, color => { band.Color = color; IrisMenusMod.Instance.WriteSettings(); });
-                    }
-                    picker.Prepare();
-                    picker.DrawOverlay(inRect, settings.NativeScale);
-                }
-                finally { context.EndFrame(); }
-                if (!picker.IsOpen && !picker.IsVisible) Close();
-            }
-
-            public override void PostClose() { picker.Dispose(); context.Dispose(); base.PostClose(); }
         }
     }
 }

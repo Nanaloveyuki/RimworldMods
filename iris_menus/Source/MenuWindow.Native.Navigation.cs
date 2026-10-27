@@ -277,6 +277,9 @@ namespace IrisMenus
             {
                 host.Select(page);
                 if (!ReferenceEquals(host.session.Selected, page)) return;
+#if RIMWORLD_1_7
+                mainButtonsOpen = false;
+#endif
                 managementOpen = false;
                 navigationOpen = contextOpen = false;
                 pageChanged = true;
@@ -305,6 +308,9 @@ namespace IrisMenus
                 if (manage.Draw(new Rect(rect.x + 18f * scale, rect.yMax - 52f * scale, rect.width - 36f * scale, 38f * scale),
                     T("IM_Manage"), variant: UiButtonVariant.Light, icon: UiGlyphKind.Plus, scale: scale))
                 {
+#if RIMWORLD_1_7
+                    mainButtonsOpen = false;
+#endif
                     managementOpen = true;
                     navigationOpen = contextOpen = false;
                     ui.Focus(default(UiId));
@@ -334,7 +340,7 @@ namespace IrisMenus
                     }
                 }
                 int active = -1;
-                if (!host.browse.ShowResults)
+                if (!MainButtonsOpen && !host.browse.ShowResults)
                     for (int i = 0; i < sidebarOwners.Count; i++)
                         if (ReferenceEquals(sidebarOwners[i].Content, host.session.Selected?.Content)) { active = i; break; }
                 ui.FontSize = 13f * scale;
@@ -346,12 +352,15 @@ namespace IrisMenus
 
             private void ChangeQuery(string query)
             {
+#if RIMWORLD_1_7
+                mainButtonsOpen = false;
+#endif
                 if (host.browse.Query.Length == 0 || host.browse.Managing)
                     host.browse.SetSearchScope(Settings.SearchCurrentMod ? host.session.Selected?.OwnerId : null);
                 managementOpen = navigationOpen = contextOpen = false;
                 host.browse.Search(query);
-                host.resultScroll = host.adapterScroll = Vector2.zero;
-                resultsScroll.Reset(); host.catalog.Query(query, host.browse.Scope); host.RebuildNavigation();
+                host.resultScroll = Vector2.zero;
+                resultsScroll.Reset(); host.catalog.Query(query, host.browse.Scope);
             }
 
             private int resultStart, resultEnd;

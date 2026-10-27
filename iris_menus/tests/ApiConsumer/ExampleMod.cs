@@ -93,6 +93,7 @@ namespace IrisMenusApiConsumer
         private readonly UiSwitch enabled;
         private readonly UiSlider strength, samples, threshold;
         private readonly UiSelect mode;
+        private readonly UiToolbar tools;
         private readonly Action<Rect> drawContent;
         private readonly MenuChapter[] chapters =
         {
@@ -118,6 +119,11 @@ namespace IrisMenusApiConsumer
             samples = new UiSlider(context, 1f, 16f, 1f);
             threshold = new UiSlider(context, 0f, 1f, 0.01f);
             mode = new UiSelect(context, new[] { "Default", "Custom" });
+            tools = new UiToolbar(context, new[]
+            {
+                new UiToolbarItem("save", "Save settings", UiGlyphKind.Check),
+                new UiToolbarItem("reset", "Restore defaults", UiGlyphKind.Reset)
+            });
             drawContent = DrawContent;
         }
 
@@ -128,7 +134,12 @@ namespace IrisMenusApiConsumer
 
         public override void Draw(Rect rect)
         {
-            scroll.Draw(rect, 452f + help.Measure(Mathf.Max(1f, rect.width - 44f)), drawContent);
+            float toolsWidth = tools.MeasureWidth();
+            int action = tools.Draw(new Rect(rect.xMax - toolsWidth, rect.y, toolsWidth, 40f));
+            if (action == 0) save();
+            else if (action == 1) Reset();
+            scroll.Draw(new Rect(rect.x, rect.y + 48f, rect.width, Mathf.Max(0f, rect.height - 48f)),
+                452f + help.Measure(Mathf.Max(1f, rect.width - 44f)), drawContent);
         }
 
         private void DrawContent(Rect rect)
@@ -169,6 +180,7 @@ namespace IrisMenusApiConsumer
 
         public override void DrawOverlay(Rect viewport)
         {
+            tools.DrawOverlay(viewport);
             int before = settings.Mode == "Custom" ? 1 : 0;
             int after = mode.DrawPopup(viewport, before);
             if (before == after) return;
@@ -204,6 +216,7 @@ namespace IrisMenusApiConsumer
         public override void Dispose()
         {
             mode.Close();
+            context.Release(tools.Id);
             context.Release(enabled.Id);
             context.Release(strength.Id);
             context.Release(samples.Id);

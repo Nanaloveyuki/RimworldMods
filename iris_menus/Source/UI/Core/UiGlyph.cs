@@ -3,7 +3,7 @@ using Verse;
 
 namespace IrisMenus.UI
 {
-    public enum UiGlyphKind { None, Search, Close, Sun, Moon, Plus, ArrowRight, ChevronRight, Help, Menu, Settings, Layers, Grid, Check, Reset }
+    public enum UiGlyphKind { None, Search, Close, Sun, Moon, Plus, ArrowRight, ChevronRight, Help, Menu, Settings, Layers, Grid, Check, Reset, Pin, Unpin, Edit, ArrowUp, ArrowDown, Trash }
 
     [StaticConstructorOnStartup]
     public static class UiGlyph
@@ -28,7 +28,13 @@ namespace IrisMenus.UI
                 ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/layers-2"),
                 ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/grip"),
                 ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/check"),
-                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/rotate-ccw")
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/rotate-ccw"),
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/pin"),
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/pin-off"),
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/pencil"),
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/arrow-up"),
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/arrow-down"),
+                ContentFinder<Texture2D>.Get("IrisMenus/UI/Glyphs/trash-2")
             };
         }
 

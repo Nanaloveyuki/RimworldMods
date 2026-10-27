@@ -1,8 +1,9 @@
 # IrisMenus
 
-Opt-in RimWorld 1.6/1.7 settings UI library. Requires Harmony; no dependency on RimIris.
-Original settings entries for opted-in owners open IrisMenus. Unselected mods
-and unrelated game settings remain untouched.
+Opt-in RimWorld settings UI library. The current 1.7 source uses a single full-screen
+host; the existing 1.6 release binary and resources remain archived and unchanged.
+Requires Harmony; no dependency on RimIris. Original settings entries for opted-in
+owners open IrisMenus. Unselected mods and unrelated game settings remain untouched.
 
 ## Integration
 
@@ -11,14 +12,14 @@ See [integration guide](docs/references/guide.md) for the Chinese integration wa
 Markdown help and documentation content is covered in
 [docs/references/markdown.md](docs/references/markdown.md).
 Reusable native controls, containers, overlays and their IMGUI/animation contracts are documented in
-[Native UI components](docs/references/native-ui-components.md). The explicit full-screen host uses them;
-the original window remains the first-use default. The selected presentation is
-saved independently of page-history memory and restored when opening again.
-Both presentations expose a **New interface** switch reflecting the current mode.
-Switching saves the selected page and host settings once, and stays in the current
-mode if either save fails. The same window/session keeps selection, query, result
-position and legacy window geometry. Native page instances remain alive across
-roundtrips, retaining their scroll positions and edit buffers until final disposal.
+[Native UI components](docs/references/native-ui-components.md). The full-screen host
+is the only settings presentation in the current 1.7 source: `MenuRegistry.Open()`,
+the bottom-bar button and opted-in settings-entry routing all open that host.
+There is no old/new interface switch or resizable legacy window. Existing
+`RegisterListing`, `Register` and adapter drawing callbacks remain supported inside
+the same host; using it does not require replacing every traditional control.
+Retained native page instances keep their scroll positions and edit buffers until
+the page is replaced or the window is disposed.
 The current 1.7 source follows the local Endfield-like prototype's component styling
 and timing; see the component guide's 2026-10-25 fidelity notes for screenshot evidence
 and remaining acceptance limits. It retains game fonts rather than bundling web fonts.
@@ -68,8 +69,7 @@ instances with a nonempty `SettingsCategory()` are listed. Selection persists
 by package ID and full Mod type name; unloaded selections remain stored.
 Explicitly registered owners take precedence over adapters.
 
-The original interface's list uses aspect-fit ModIcons and wraps long names.
-The full-screen interface uses a dedicated desktop library page with
+The full-screen host uses a dedicated desktop library page with
 `About/Preview.png` thumbnails, current-language aliases (or the About name),
 and hosted-page visibility controls. These controls do not enable or disable game mods.
 
@@ -108,10 +108,8 @@ Standard labeled checkboxes/toggles use switch visuals; custom checkbox textures
 and custom style backgrounds remain native. Plain/rich text receives final-draw
 contrast adjustment without rewriting strings, tags or native editor buffers.
 Caller and rich-text opacity are preserved, not forced opaque. Adaptation is scoped
-to the selected callback; the old presentation and unrelated windows remain native.
+to the selected callback; unrelated windows retain their original appearance.
 Custom images/shaders and arbitrary consumer background colors are not covered.
-The [mode/theme smoke recipe](docs/adr/0001-native-settings-presentation.md#新旧切换与托管主题冒烟步骤)
-covers roundtrips, save failures, reduced motion and exception isolation.
 
 Character Editor (`CharacterEditor.CharacterEditorMod`, Workshop 1874644848)
 uses its drawing callback to open a separate configuration window and close
@@ -139,7 +137,7 @@ bash scripts/deploy.sh iris_menus --build-only
 bash scripts/deploy.sh iris_menus --rimworld-dir /path/to/RimWorld
 ```
 
-Windows uses `python scripts/python/deploy.py iris_menus` with the same options. `--property RimWorldManagedDir=PATH` overrides the 1.7 DLL directory; decompiled source cannot be used as binary references. The module's separate verification entry remains `iris_menus/scripts/validate.ps1 -SkipGpu`.
+Windows uses `python scripts/python/deploy.py iris_menus` with the same options. `--property RimWorldManagedDir=PATH` overrides the 1.7 DLL directory; decompiled source cannot be used as binary references. The module's separate verification entry remains `iris_menus/scripts/validate.ps1`.
 
 For DLL-only iteration:
 
@@ -155,90 +153,133 @@ Consumers must reference the DLL matching their game version and target
 `RimWorldVersion` and `RimWorldManagedDir` properties. The preserved 1.6 binary retains
 its existing APIs; native presentation annotations are available in the current 1.7 build.
 
-The `RimWorldVersion=1.6` compile configuration remains available only for
-explicit legacy maintenance (`net48`, `Krafs.Rimworld.Ref` 1.6.4633, or a
-`RimWorldManagedDir` override pointing to a separate 1.6 Managed directory).
-Do not invoke it during the 1.7 upgrade: it would replace the preserved output.
+The 1.6 release is an archive, not a target of this source cutover. Retain its
+existing DLL and resources rather than rebuilding them from the current source;
+new full-screen-only behavior and settings migration are promised only for 1.7.
 
 The shared deployment CLI accepts `--configuration Debug|Release`, `--rimworld-dir`, `--target`, and repeated `--property NAME=VALUE` overrides. Build-only stages `artifacts/iris_menus/release` without modifying the game. Deployment refuses a running game, validates package identity, rejects symlink redirects, and verifies copied hashes.
 
 `LoadFolders.xml` selects `[1.6]` or `[1.7, Common]`. The unchanged legacy
 resources remain in `1.6`; 1.7 uses `Common` and loads neither the 1.6 DLL nor its Unity
-AssetBundle. The native 1.7 shader source lives in `1.7/Rendering/Frost17.frag.glsl`.
-Deployment copies only the 1.7 DLL, `1.7/Rendering/`, shared resources, metadata,
+AssetBundle. The current 1.7 host uses a gradient, not a Frost shader or scene capture.
+Deployment copies only current 1.7 output, shared resources, metadata,
 README and `docs/`, never Harmony or game dependencies. It leaves
 the destination's entire existing `1.6/` directory untouched and does not
 remove files or edit ModsConfig. A fresh 1.7 staging package intentionally has
 no 1.6 DLL/bundle; retain the existing 1.6 artifacts separately for legacy use.
 `--skip-build` stages existing 1.7 output without rebuilding it.
 
-`validate.ps1 -SkipGpu` builds the 1.7 API consumer and provider, runs
+`validate.ps1` builds the 1.7 API consumer and provider, runs
 engine-double checks, validates XML/translations and load-folder isolation,
 and stages a hash-verified 1.7 package without deploying to the game. Staging
 explicitly rejects 1.6 files. The verification script and shared deployment do not
-invoke Unity or modify the preserved 1.6 bundle. Native GPU/UI acceptance remains manual. The historical
-Unity 2022.3.35/D3D11 fixtures cover only the 1.6 renderer and are not run by
-this workflow. Native 1.7 blur orientation, rounded clipping and UI interactions
-require verification in the actual 1.7 game.
+invoke Unity or modify the preserved 1.6 bundle. GPU/UI acceptance remains manual.
+The retired Unity 2022.3.35/D3D11 fixtures covered only the historical 1.6 renderer.
+Full-screen rendering and UI interactions require verification in the actual 1.7 game.
 
-## Background
+## Background and memory
 
-On RimWorld 1.6, the private `IWindowDrawing` implementation affects only
-IrisMenus. A command buffer on the active map/world camera captures its output after rendering;
-top-origin backbuffer captures are normalized before blurring. Two half-resolution
-targets and a separable Gaussian shader generate the background. The blur scratch
-target is reused for the window crop; the background, tint and border share the
-upstream's 12-unit rounded corners, including when frost is disabled. Strength
-changes reuse textures; resizing or changing cameras rebinds them. The footer
-provides live on/off, blur, transparency and remember-state controls.
-Closing detaches the command buffer, unsubscribes camera callbacks,
-and releases textures and material. The shader is borrowed from this mod's
-`Content.assetBundles.loadedAssetBundles`; RimWorld owns its loading/unloading.
-There is no duplicate bundle load and no CPU pixel readback in
-the runtime path.
-
-RimWorld 1.7 uses the game's native renderer instead of Unity camera commands.
-A narrow hook on `ImGuiMaterialRenderer.TryRecord` borrows scene color for that
-draw's submission slot and clears the borrowed reference in a finalizer.
-The render-feature/interface and host forwarding calls can be JIT-inlined before
-mods load; their patches can exist without ever running in a modded profile.
-The native fragment shader applies blur and the rounded border over a separately
-drawn native rounded fill.
-The game shader cache loads `1.7/Rendering/Frost17.frag.glsl` directly from its
-absolute source path. This path does not load the 1.6 Unity bundle or extract
-shader files from the DLL.
-The native path uses a 25-sample Gaussian footprint rather than the legacy
-half-resolution separable filter; blur strength is retained, not pixel-identical.
+The current 1.7 full-screen host uses the reference's opaque Light/Dark three-stop
+gradient with independently configurable panel opacity (94% by default). It does
+not capture the scene or expose frost, blur, transparency or legacy window geometry.
+The preserved 1.6 binary retains its original Unity camera/AssetBundle background
+implementation and settings; this source cutover does not rebuild or alter it.
 RimWorld 1.7 requires the Harmony mod's .NET 10-compatible Harmony 3 runtime.
 
-On 1.7, the main menu samples its selected `UI_BackgroundMain` artwork directly,
-using the same centered cover rectangle and UI scale as the game. This avoids
-screen readback and per-frame offscreen submissions. It blurs the base artwork,
-not other windows, transient expansion-hover fades, or custom background renderers.
-On 1.6 and unsupported backgrounds, the window retains an unblurred translucent fill.
-Transparency works independently of frost; zero transparency uses an opaque rounded
-background. On 1.7, shader-load failures
-are logged and leave the ordinary rounded translucent fill intact. Native material
-binding can also fail silently on the render thread; its transparent base image
-preserves that same fill instead of producing an opaque white rectangle.
-Turning the background off and on retries loading without restarting the game.
-**Remember last page** is enabled by default in the window footer and the original
-IrisMenus settings dialog. It restores the page, global/owner search, result page,
+**Remember last page** restores the page, global/owner search, result page,
 management filter, host scroll positions and registered Listing-page scrolling
 across reopen/restart. Explicitly opening a Mod's settings takes precedence over
 the saved view. Missing pages fall back to an available category of the same Mod,
 or the global catalog. Disabling memory clears host navigation state, not Mod
-settings, adapter selections or window geometry. Custom pages/adapters remain
-responsible for their own internal UI state. The original IrisMenus settings
-dialog can reset window geometry.
+settings, adapter selections, sidebar configuration or appearance preferences.
+Custom pages/adapters remain responsible for their own internal UI state.
 
-The original IrisMenus settings dialog includes **Show IrisMenus button in the
-bottom bar**, enabled by default. Toggling it immediately hides/restores the
-bottom button and persists across restarts. When hidden, use **Options → Mod
-settings → IrisMenus → Open IrisMenus**; registered/hosted Mod entry routing is
-unaffected.
+### Settings migration (current 1.7)
+
+The host keeps `LastPage`, `LastSubItems`, `HostView`, adapter choices, sidebar
+configuration, bottom-bar visibility and item-value colors. Appearance and behavior
+preferences remain configurable; consumer settings and save callbacks are unchanged.
+
+| Previous persisted key | Current persisted key |
+|---|---|
+| `nativeTheme` | `theme` |
+| `nativeScale` | `scale` |
+| `nativeDensity` | `density` |
+| `nativePanelOpacity` | `panelOpacity` |
+
+Legacy appearance keys are read only during `LoadingVars`, and only when the
+corresponding new key is absent. New keys take precedence, and saving writes only
+the new keys. Internal settings fields `NativeScale` and `NativePanelOpacity`
+become `Scale` and `PanelOpacity`; `Theme` and `Density` retain their names.
+Within `HostView`, `navigationScroll` migrates to `railScroll` and `adapterScroll`
+to `managementScroll`, with existing destination keys taking precedence.
+The retired `nativeMode`, `width`, `height`, `x`, `y`, `frostEnabled`, `blur` and
+`transparency` settings are no longer used or written. The browse-state `HostView`
+mode remains navigation state; it is not the removed old/new presentation mode.
+
+**Show IrisMenus button in the bottom bar** is enabled by default. Toggling it
+immediately hides/restores the button and persists across restarts. When hidden,
+use **Options → Mod settings → IrisMenus → Open IrisMenus**; registered/hosted Mod
+entry routing is unaffected.
+
+In 1.7, the toolbar immediately left of the header search opens **Bottom-bar
+buttons**, a dedicated full-screen IrisMenus page rather than a separate dialog.
+The same page is available from ordinary IrisMenus mod settings, including when its
+own bottom-bar entry is hidden. Back/Escape returns to the previous settings page.
+Toggle entries in the list; changes save immediately. **Restore all** also clears
+entries belonging to currently unloaded mods.
+Filtering runs before the standard bottom-bar layout; remaining buttons fill the
+space. It does not modify Defs or keyboard shortcuts. Only `MainButtonDef` entries
+are covered, not independent mod-drawn bars. A worker's own visibility conditions
+still apply.
 
 ## Release notes
+
+### 2.0.0 — full-screen-only cutover (1.7)
+
+- Keep the accepted full-screen interface as the only host; remove the old window,
+  old/new switch, geometry and Frost controls without removing third-party drawers,
+  Listing pages, adapters or their save ownership.
+- Migrate host appearance and scroll keys as documented above; retain browse memory,
+  sidebar choices, configuration and bottom-bar controls.
+- Preserve existing 1.6 release binaries, language files and resources unchanged.
+- Verification: provider/API consumer build with no warnings or errors; 247 runtime
+  assertions pass with engine doubles. Isolated RimWorld 1.7.4985 checks cover entry
+  reuse, migration, close/save and remembered-page reopening; see the
+  [cutover acceptance record](docs/references/native-ui-components.md#唯一全屏宿主与设置迁移验收--2026-10-27).
+
+The entries below are historical records from before the full-screen-only cutover.
+Their old-window controls, presentation switching and renderer behavior do not
+describe the current 1.7 interface or add capabilities to the archived 1.6 binary.
+
+### Unreleased — sidebar menu and localization (1.7)
+
+- Align the sidebar context menu with EndfieldUI's plain Light/Dark menu:
+  scoped colors, icon actions, inset keyboard focus, separated removal action,
+  top yellow marker, 200ms fade and 300ms entrance motion.
+- Replace implementation-oriented player copy with usage descriptions; remove
+  ordinary bottom-bar Def names and management package IDs from player labels.
+- Complete Simplified Chinese, Traditional Chinese and English keyed strings,
+  including document-link failures and color-picker labels. Icon provenance and
+  licenses remain in `NOTICE`.
+- Record the [visible-region performance plan](docs/references/native-ui-components.md#可见区域性能规划未实施)
+  and [independent UI consumer plan](docs/references/native-ui-components.md#独立-ui-消费者开放规划未实施).
+  Both are proposals, not implemented capabilities or measured improvements.
+- Verification: provider/API consumer build with no warnings or errors; 261
+  existing runtime assertions pass with engine doubles. Language XML, key sets,
+  placeholders and required assets checked. Menu visuals and player copy remain
+  assigned to user acceptance; no new game rendering verification or deployment.
+
+### Unreleased — toolbar and bottom-bar visibility (1.7)
+
+- Add reusable horizontal icon-action `UiToolbar`, following upstream EndfieldUI's
+  sunken styling, hover/press transitions, tooltips and single-Tab-stop navigation.
+- Add a dedicated bottom-bar visibility page with persistent Def-name choices,
+  recovery from missing mods and Restore all. Screen picking has been removed;
+  visibility is managed exclusively through the list.
+- Verification: 1.7 provider/API consumer builds and runtime checks are described
+  in the component guide. Full game visual/input and restart-persistence acceptance
+  remain manual.
 
 ### Unreleased — item controls and inspectable registry (1.7)
 
@@ -258,10 +299,10 @@ unaffected.
   whitelist settings or bulk-selection behavior. Legacy settings remain available.
 - Verification and limitations: see the [component guide's 2026-10-26 notes](docs/references/native-ui-components.md#物品组件与注册表验收--2026-10-26).
 
-### Unreleased — native full-screen interface (1.7, in progress)
+### Unreleased — native full-screen interface (historical pre-cutover, 1.7)
 
-The implementation is in progress. The entries below describe current code,
-not a verified release; remaining interactive acceptance is being performed manually.
+The following records the implementation and acceptance limits at that stage,
+before the old presentation was retired; it is not current entry-point guidance.
 
 - Add an explicit full-screen entry in the old footer without increasing footer height;
   keep the old main-button/settings routing and restore old geometry when returning.
@@ -335,21 +376,13 @@ not a verified release; remaining interactive acceptance is being performed manu
 
 ## Current Verification Boundary
 
-The implementation provides the two-column window (single-pane navigation on
-narrow windows), registered pages, manual adapters, resizing, geometry/page
-persistence, frosted background, and English/Chinese labels.
+The current 1.7 contract is a single full-screen host with registered/native pages,
+traditional drawers, opt-in adapters, search, browse memory, theme and configuration.
+The dated component and release-note evidence above predates this cutover; it does
+not establish a new build, migration regression result or game acceptance for it.
 
-`tests/RuntimeChecks` links unchanged registry/session/scroll/settings/background
-production files against engine doubles, including persistence contracts and
-camera callback lifetime and ownership of game-preloaded bundles. The entry
-router is exercised with real Harmony against a doubled window stack.
-RimWorld 1.6 Unity fixtures compile the actual GPU/layout files,
-reload the built bundle, check pixel variance/orientation, render a camera,
-verify texture reuse/resize/release, and check layout containment. PNG outputs
-and the GPU result are written under ignored `tmp/`.
-
-Compile checks are not in-game acceptance. Before release, verify native and
-adapted pages, original settings entry points, save/reopen/restart, draw/save
-failure paths, long translated labels, scrolling, and UI scale/resolution
-changes in RimWorld. Check the manual-hosting path with both ordinary and
-self-scrolling mod settings pages.
+Compile and engine-double checks are not in-game acceptance. Before release,
+verify registered/native/adapted pages, original opted-in settings entry points,
+save/reopen/restart and migrated settings, draw/save failure paths, long translated
+labels, scrolling, and UI scale/resolution changes in RimWorld 1.7. Include both
+ordinary and self-scrolling adapter pages. Existing 1.6 outputs remain unchanged.

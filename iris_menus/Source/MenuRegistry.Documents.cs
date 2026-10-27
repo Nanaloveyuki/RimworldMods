@@ -39,7 +39,7 @@ namespace IrisMenus
         public static bool OpenUri(string value)
         {
             if (DocumentUri.TryParse(value, out DocumentUri uri)) return OpenUri(uri);
-            Messages.Message("IM_LinkUnavailable".Translate("Invalid URI"), MessageTypeDefOf.RejectInput, false);
+            Messages.Message("IM_LinkUnavailable".Translate("IM_LinkInvalid".Translate()), MessageTypeDefOf.RejectInput, false);
             return false;
         }
 
@@ -64,25 +64,25 @@ namespace IrisMenus
             page = null;
             focus = null;
             error = null;
-            if (!uri.IsValid) { error = "Invalid URI"; return false; }
+            if (!uri.IsValid) { error = "IM_LinkInvalid".Translate(); return false; }
             var owners = LoadedModManager.ModHandles.Where(mod => string.Equals(mod.Content.PackageIdPlayerFacing, uri.PackageId, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (owners.Count == 0) { error = "Mod is not enabled: " + uri.PackageId; return false; }
-            if (!owners.Any(HasPages)) { error = "Mod has not registered IrisMenus pages: " + uri.PackageId; return false; }
+            if (owners.Count == 0) { error = "IM_LinkModDisabled".Translate(uri.PackageId); return false; }
+            if (!owners.Any(HasPages)) { error = "IM_LinkNoPages".Translate(GetModDisplayName(owners[0].Content)); return false; }
             if (uri.Kind == DocumentTargetKind.SubItem)
             {
                 var matches = registered.Where(candidate => owners.Contains(candidate.Owner) && candidate.IsSubItem &&
                     !documents.Any(entry => ReferenceEquals(entry.Page, candidate)) && PageLocalId(candidate.Id, candidate.OwnerId) == uri.PageId).ToList();
-                if (matches.Count != 1) { error = "Unknown or ambiguous SubItem: " + uri.PageId; return false; }
+                if (matches.Count != 1) { error = "IM_LinkPageMissing".Translate(uri.PageId); return false; }
                 page = matches[0];
                 return true;
             }
             var targets = documents.Where(entry => owners.Contains(entry.Owner) &&
                 (uri.ChildId == null ? entry.ParentId == null && entry.Item.Id == uri.PageId : entry.ParentId == uri.PageId && entry.Item.Id == uri.ChildId)).ToList();
-            if (targets.Count != 1) { error = "Unknown or ambiguous document: " + uri.LocalId; return false; }
+            if (targets.Count != 1) { error = "IM_LinkDocumentMissing".Translate(uri.LocalId); return false; }
             DocumentRegistration target = targets[0];
             if (uri.Line > 0 && !target.Item.TryGetLinePosition(600f, uri.Line, out _))
             {
-                error = "Unknown document line: " + uri.Line.ToString(CultureInfo.InvariantCulture);
+                error = "IM_LinkLineMissing".Translate(uri.Line);
                 return false;
             }
             page = target.Page;

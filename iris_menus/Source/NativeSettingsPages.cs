@@ -15,78 +15,18 @@ namespace IrisMenus
         {
             IrisMenusMod mod = IrisMenusMod.Instance;
             if (registered || mod == null) return;
-            MenuRegistry.RegisterSubItemListing(mod, "appearance", () => T("IM_NativeAppearance"), DrawLegacyAppearance, mod.WriteSettings);
-            MenuRegistry.RegisterPresentation(mod, "appearance", new MenuPresentation(context => new SettingsPage(context, mod, true)));
+            MenuRegistry.RegisterNativeSubItem(mod, "appearance", () => T("IM_NativeAppearance"),
+                new MenuPresentation(context => new SettingsPage(context, mod, true)), mod.WriteSettings);
             MenuRegistry.RegisterSearchProvider(mod, "appearance", AppearanceSearch);
-            MenuRegistry.RegisterSubItemListing(mod, "behavior", () => T("IM_NativeBehavior"), DrawLegacyBehavior, mod.WriteSettings);
-            MenuRegistry.RegisterPresentation(mod, "behavior", new MenuPresentation(context => new SettingsPage(context, mod, false)));
+            MenuRegistry.RegisterNativeSubItem(mod, "behavior", () => T("IM_NativeBehavior"),
+                new MenuPresentation(context => new SettingsPage(context, mod, false)), mod.WriteSettings);
             MenuRegistry.RegisterSearchProvider(mod, "behavior", BehaviorSearch);
-            MenuRegistry.RegisterSubItemListing(mod, "value-colors", () => T("IM_ValueColors"), ItemValuePalettePage.DrawLegacy, mod.WriteSettings);
-            MenuRegistry.RegisterPresentation(mod, "value-colors", new MenuPresentation(context => new ItemValuePalettePage(context, mod)));
+            MenuRegistry.RegisterNativeSubItem(mod, "value-colors", () => T("IM_ValueColors"),
+                new MenuPresentation(context => new ItemValuePalettePage(context, mod)), mod.WriteSettings);
             MenuRegistry.RegisterSearchProvider(mod, "value-colors", () => new[] { Search("bands", "IM_ValueColors", "IM_ValueColors", "IM_ValueColorsHint") });
             ThingRegistryPage.Register(mod);
             registered = true;
         }
-
-        private static void DrawLegacyAppearance(Listing_Standard list)
-        {
-            MenuSettings settings = IrisMenusMod.Instance.Settings;
-            MenuControls.Section(list, T("IM_NativeDisplay"));
-            MenuControls.Anchor(list, "theme");
-            MenuControls.Select(list, T("IM_NativeTheme"), settings.Theme, legacyThemes,
-                value => T(value == UiTheme.Dark ? "IM_NativeDark" : "IM_NativeLight"), value => settings.Theme = value);
-            MenuControls.Anchor(list, "density");
-            MenuControls.Select(list, T("IM_NativeDensity"), settings.Density, legacyDensities,
-                value => T(value == 0 ? "IM_NativeCompact" : value == 2 ? "IM_NativeRelaxed" : "IM_NativeStandard"), value => settings.Density = value);
-            MenuControls.Anchor(list, "scale");
-            settings.NativeScale = MenuControls.Slider(list, T("IM_NativeScale"), settings.NativeScale, 0.8f, 1.3f, "P0");
-            MenuControls.Anchor(list, "motion");
-            bool motion = !settings.ReducedMotion;
-            MenuControls.Checkbox(list, T("IM_NativeMotion"), ref motion, T("IM_NativeMotionHint"));
-            settings.ReducedMotion = !motion;
-            MenuControls.Section(list, T("IM_NativeBackground"));
-            MenuControls.Anchor(list, "opacity");
-            settings.NativePanelOpacity = MenuControls.Slider(list, T("IM_NativeOpacity"), settings.NativePanelOpacity, 0f, 1f, "P0", T("IM_NativeOpacityHint"));
-            MenuControls.Anchor(list, "marquee");
-            list.Label(T("IM_MarqueeText"));
-            settings.MarqueeText = Widgets.TextField(list.GetRect(32f), settings.MarqueeText);
-        }
-
-        private static void DrawLegacyBehavior(Listing_Standard list)
-        {
-            MenuSettings settings = IrisMenusMod.Instance.Settings;
-            MenuControls.Section(list, T("IM_NativeNavigation"));
-            MenuControls.Anchor(list, "remember");
-            bool remember = settings.RememberState;
-            MenuControls.Checkbox(list, T("IM_NativeRemember"), ref remember, T("IM_NativeRememberHint"));
-            if (remember != settings.RememberState)
-            {
-                settings.RememberState = remember;
-                if (!remember) settings.ClearRememberedView();
-            }
-            MenuControls.Anchor(list, "main-button");
-            MenuControls.Checkbox(list, T("IM_NativeMainButton"), ref settings.ShowMainButton, T("IM_NativeMainButtonHint"));
-            MenuControls.Anchor(list, "search-scope");
-            MenuControls.Checkbox(list, T("IM_NativeSearchScope") + ": " + T("IM_NativeCurrentMod"), ref settings.SearchCurrentMod);
-            MenuControls.Section(list, T("IM_NativeInteraction"));
-            MenuControls.Anchor(list, "tips");
-            MenuControls.Checkbox(list, T("IM_NativeTips"), ref settings.ShowTips);
-            MenuControls.Anchor(list, "tip-delay");
-            bool enabled = GUI.enabled;
-            try
-            {
-                GUI.enabled &= settings.ShowTips;
-                settings.TipDelay = MenuControls.Slider(list, T("IM_NativeTipDelay"), settings.TipDelay * 1000f, 100f, 800f, "F0", T("IM_NativeTipDelayHint")) / 1000f;
-            }
-            finally { GUI.enabled = enabled; }
-            MenuControls.Anchor(list, "toasts");
-            MenuControls.Checkbox(list, T("IM_ShowToasts"), ref settings.ShowToasts);
-            MenuControls.Anchor(list, "toast-duration");
-            settings.ToastDuration = MenuControls.Slider(list, T("IM_ToastDuration"), settings.ToastDuration, 1f, 10f, "F0");
-        }
-
-        private static readonly UiTheme[] legacyThemes = { UiTheme.Light, UiTheme.Dark };
-        private static readonly int[] legacyDensities = { 0, 1, 2 };
 
         private static string T(string key) => key.Translate().ToString();
         private static Func<string> Text(string key) => () => T(key);
@@ -318,11 +258,11 @@ namespace IrisMenus
                             () => settings.Density, value => settings.Density = Mathf.RoundToInt(value),
                             optionKeys: new[] { "IM_NativeCompact", "IM_NativeStandard", "IM_NativeRelaxed" }),
                         new SettingRow(context, "scale", "IM_NativeScale", RowKind.Slider,
-                            () => settings.NativeScale, value => settings.NativeScale = value, min: 0.8f, max: 1.3f),
+                            () => settings.Scale, value => settings.Scale = value, min: 0.8f, max: 1.3f),
                         new SettingRow(context, "motion", "IM_NativeMotion", RowKind.Switch,
                             () => settings.ReducedMotion ? 0f : 1f, value => settings.ReducedMotion = value == 0f, "IM_NativeMotionHint"),
                         new SettingRow(context, "opacity", "IM_NativeOpacity", RowKind.Slider,
-                            () => settings.NativePanelOpacity, value => settings.NativePanelOpacity = value, "IM_NativeOpacityHint"),
+                            () => settings.PanelOpacity, value => settings.PanelOpacity = value, "IM_NativeOpacityHint"),
                         new SettingRow(context, "marquee", "IM_MarqueeText", () => settings.MarqueeText, value => settings.MarqueeText = value)
                     };
                     firstSectionCount = 4;
@@ -415,7 +355,7 @@ namespace IrisMenus
 
             public override void Draw(Rect rect)
             {
-                scale = settings.NativeScale;
+                scale = settings.Scale;
                 float contentWidth = Mathf.Max(0f, rect.width - 20f);
                 stacked = contentWidth < 450f * scale;
                 rowHeight = (stacked ? settings.Density == 0 ? 88f : settings.Density == 2 ? 112f : 100f :
@@ -467,7 +407,7 @@ namespace IrisMenus
             public override void DrawOverlay(Rect viewport)
             {
                 for (int i = 0; i < rows.Length; i++) rows[i].DrawOverlay(viewport, true);
-                for (int i = 0; i < rows.Length; i++) rows[i].DrawTooltip(viewport, settings.NativeScale, settings);
+                for (int i = 0; i < rows.Length; i++) rows[i].DrawTooltip(viewport, settings.Scale, settings);
             }
 
             public override void Focus(string anchor)
@@ -484,9 +424,9 @@ namespace IrisMenus
                 {
                     settings.Theme = UiTheme.Light;
                     settings.Density = 1;
-                    settings.NativeScale = 1f;
+                    settings.Scale = 1f;
                     settings.ReducedMotion = false;
-                    settings.NativePanelOpacity = 0.94f;
+                    settings.PanelOpacity = 0.94f;
                     settings.MarqueeText = "IRIS MENUS";
                 }
                 else
@@ -505,7 +445,7 @@ namespace IrisMenus
             {
                 if (!appearance || rect.width <= 0f || rect.height <= 0f) return;
                 UiPalette palette = context.Palette;
-                float s = settings.NativeScale;
+                float s = settings.Scale;
                 float oldSize = context.FontSize;
                 context.FontSize = 11f * s;
                 float labelHeight = 22f * s;
@@ -519,7 +459,7 @@ namespace IrisMenus
                 float miniHeight = Mathf.Min(sample.height - 36f * s, 142f * s);
                 Rect window = new Rect(sample.center.x - miniWidth * 0.5f, sample.center.y - miniHeight * 0.5f, miniWidth, miniHeight);
                 Color fill = palette.Mini;
-                fill.a *= settings.NativePanelOpacity;
+                fill.a *= settings.PanelOpacity;
                 context.Fill(new Rect(window.x + 3f * s, window.y + 8f * s, window.width, window.height), palette.Shadow);
                 context.Fill(window, fill);
                 context.Border(window, palette.PreviewEdge);
@@ -541,7 +481,7 @@ namespace IrisMenus
                 DrawMiniRow(content, gap + 12f * unit, !settings.ReducedMotion, palette, unit);
                 float sliderY = Mathf.Min(content.yMax - 4f * unit, content.y + 2f * (gap + 12f * unit));
                 context.Fill(new Rect(content.x, sliderY, content.width, 2f * unit), palette.MiniTrack);
-                float amount = Mathf.InverseLerp(0.8f, 1.3f, settings.NativeScale);
+                float amount = Mathf.InverseLerp(0.8f, 1.3f, settings.Scale);
                 context.Fill(new Rect(content.x, sliderY, content.width * amount, 2f * unit), palette.Selected);
                 context.Fill(new Rect(content.x + content.width * amount - 2f * unit, sliderY - 3f * unit, 4f * unit, 8f * unit), palette.Selected);
                 UpdatePreviewValues();
@@ -604,16 +544,16 @@ namespace IrisMenus
 
             private void UpdatePreviewValues()
             {
-                int value = Mathf.RoundToInt(settings.NativeScale * 100f);
+                int value = Mathf.RoundToInt(settings.Scale * 100f);
                 if (value != previewScaleValue) { previewScaleValue = value; previewScale = value.ToString() + "%"; }
-                value = Mathf.RoundToInt(settings.NativePanelOpacity * 100f);
+                value = Mathf.RoundToInt(settings.PanelOpacity * 100f);
                 if (value != previewOpacityValue) { previewOpacityValue = value; previewOpacity = value.ToString() + "%"; }
             }
 
             private void DrawFact(float x, float y, float width, string label, string value)
             {
-                context.Label(new Rect(x, y, width * 0.64f, 28f * settings.NativeScale), label, context.Palette.Muted);
-                context.Label(new Rect(x + width * 0.64f, y, width * 0.36f, 28f * settings.NativeScale), value, context.Palette.Ink, TextAnchor.MiddleRight);
+                context.Label(new Rect(x, y, width * 0.64f, 28f * settings.Scale), label, context.Palette.Muted);
+                context.Label(new Rect(x + width * 0.64f, y, width * 0.36f, 28f * settings.Scale), value, context.Palette.Ink, TextAnchor.MiddleRight);
             }
 
             public override void Dispose()

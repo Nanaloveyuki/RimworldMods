@@ -1,11 +1,16 @@
 ---
-status: accepted
+status: superseded
 date: 2026-10-24
+superseded: 2026-10-27
 ---
 
 # 游戏内原生呈现、显式页面能力与统一动效
 
-全屏新宿主沿用游戏端 C#／IMGUI，不嵌入网页。一个 `MenuWindow` 管理新旧两种呈现，共享注册、选择、搜索与保存；消费者通过可选 `MenuPresentation` 为已有页面声明原生绘制、章节、说明及重置能力。本文记录已实施的架构边界；公开接口以[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)为准，游戏证据见[组件与宿主验收](../references/native-ui-components.md#开发者入口与验证状态)。
+本 ADR 已退役，保留 2026-10-24 至全屏唯一宿主切换前的设计与冒烟记录。其“旧版默认”“新旧切换”“旧几何恢复”和 Frost 生命周期不再是当前契约。当前 1.7 只保留全屏宿主，`MenuRegistry.Open()`、底部按钮及已接入设置路由统一进入该宿主；`RegisterListing`、原 drawer、适配与消费者保存责任继续保留。1.6 发布二进制和资源归档不变，新功能只面向 1.7。
+
+当前接口及设置迁移以[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)和[宿主迁移说明](../agents/integration.md#host-settings-migration-17-full-screen-only-cutover)为准；组件与分日期历史证据见[组件参考](../references/native-ui-components.md#开发者入口与验证状态)。本次退役标记不代表已执行新的构建或游戏检查。
+
+> 以下正文按当时版本保留，包括标题中的“当前”、实施门槛和切换冒烟步骤；仅供追溯，不作为当前接入、实现或验收指令。
 
 ## 当前实施范围
 
