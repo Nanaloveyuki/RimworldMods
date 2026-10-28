@@ -102,6 +102,12 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 
 验证：232 项 .NET 10 回归通过。真实游戏程序集和已安装 Harmony 3 下，全生产 `PatchAll`、旧类名解析、旧枚举解析、其他命名空间同名边界、Scribe 旧数据读取→新名称保存→重新读取、52 个 `DefOf` 字段绑定，以及 `SetSpecialSource(2)` 到新状态的调用通过。验证使用隔离合成数据，未读取或修改玩家存档，未启动游戏画面、重建 1.6 或部署；未验证可选 `MouseDisaster.dll` 的运行时联动。
 
+## 1.9.1 — Achtung 交互菜单修复
+
+修复通过 Achtung 点击互动入口时的 `Created FloatMenu with no options. Closing.`。目标睡眠、倒地或处于其他禁止身体互动的状态时，不再提供没有可显示选项的二级菜单入口；点击后重新检查当前状态，选项已全部失效时不创建窗口。可用互动、缺少身体部位的灰色原因和不可达提示保留，不修改 Achtung 或增加硬依赖。
+
+验证：232 项 .NET 10 回归通过。隔离 smoke 使用本机 Achtung `1.6/Assemblies/Achtung.dll` 的真实 `MultiAction.GetAction()`，修复前到达空 `FloatMenu` 构造边界，修复后 11 项检查通过，覆盖睡眠／倒地入口、延迟点击、醒来恢复、有效互动、缺失部位原因、不可达和空来源。使用真实未修改的 1.7 游戏 DLL；仅在验证进程中拦截菜单布局、窗口创建／入栈及可达性。1.7 主程序集及模组元数据更新为 `1.9.1`，主程序集与 Guard 的 Release 构建均为零警告、零错误；已部署到 `Mods/LeadYourPetsContinued` 并通过 SHA-256 校验，保留原有 1.6 文件和 `PublishedFileId.txt`，未修改启用列表或存档。未运行游戏菜单画面，不代表 Achtung 整体的 1.7 实机兼容验收。
+
 ## 开发
 
 需要 .NET 10 SDK 和实际游戏安装。默认 `RimWorldVersion=1.7`，输出到 `1.7/Assemblies`、`1.7/Guard/Assemblies`；`RimWorldDir` / `RIMWORLD_DIR` 指向游戏根目录，不能指向反编译源码。默认路径为 Windows 的 `E:/Apps/Steam/steamapps/common/RimWorld` 或 WSL 的对应挂载路径。

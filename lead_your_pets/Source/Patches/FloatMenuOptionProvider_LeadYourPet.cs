@@ -117,7 +117,11 @@ namespace LeadYourPet
                 bool bidirectionalBlocked = LeadYourPetUtility.ShouldBlockColonistBidirectionalInteraction(actor, pet, LeadYourPetUtility.BidirectionalInteractions.First());
                 if (LeadYourPetRules.ShouldOfferManualYoungRatkinInteractionMenu(ownedByActor, true, bidirectionalBlocked))
                 {
-                    yield return BuildInteractionMenu("LeadYourPet_MouseEggTwoWay", actor, pet, component, LeadYourPetUtility.BidirectionalInteractions);
+                    FloatMenuOption interactionMenu = BuildInteractionMenu("LeadYourPet_MouseEggTwoWay", actor, pet, component, LeadYourPetUtility.BidirectionalInteractions);
+                    if (interactionMenu != null)
+                    {
+                        yield return interactionMenu;
+                    }
                 }
                 yield break;
             }
@@ -148,6 +152,11 @@ namespace LeadYourPet
 
         private FloatMenuOption BuildInteractionMenu(string labelKey, Pawn actor, Pawn pet, LeadYourPetGameComponent component, IEnumerable<LeadYourPetInteractionKind> kinds)
         {
+            if (!kinds.Any(kind => LeadYourPetUtility.CanTriggerInteraction(actor, pet, kind, out string reasonKey) || !reasonKey.NullOrEmpty()))
+            {
+                return null;
+            }
+
             if (!actor.CanReach(pet, PathEndMode.Touch, Danger.Deadly))
             {
                 return DisabledOption(labelKey, "LeadYourPet_Reason_Unreachable");
@@ -175,7 +184,10 @@ namespace LeadYourPet
                     }, MenuOptionPriority.Low));
                 }
 
-                Find.WindowStack.Add(new FloatMenu(options));
+                if (options.Count > 0)
+                {
+                    Find.WindowStack.Add(new FloatMenu(options));
+                }
             }, MenuOptionPriority.Low);
         }
 
