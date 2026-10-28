@@ -556,7 +556,8 @@ namespace HungerAndHavoc.Incidents
         internal int ExpireTick = -1;
         internal RHAH_ChoiceAction Settled;
         internal List<int> PawnLoadIds = new List<int>();
-        internal int AllyFactionId;
+        internal const int NoAllyFaction = -1;
+        internal int AllyFactionId = NoAllyFaction;
         internal List<int> AllyPawnIds = new List<int>();
         internal float AllyTransferredValue;
         internal int AllyGoodwillGranted;
@@ -604,7 +605,7 @@ namespace HungerAndHavoc.Incidents
                 Scribe_Values.Look(ref Settled, "settled", RHAH_ChoiceAction.None);
             }
             Scribe_Collections.Look(ref PawnLoadIds, "pawnLoadIds", LookMode.Value);
-            Scribe_Values.Look(ref AllyFactionId, "allyFactionId", 0);
+            Scribe_Values.Look(ref AllyFactionId, "allyFactionId", NoAllyFaction);
             Scribe_Collections.Look(ref AllyPawnIds, "allyPawnIds", LookMode.Value);
             Scribe_Values.Look(ref AllyTransferredValue, "allyTransferredValue", 0f);
             Scribe_Values.Look(ref AllyGoodwillGranted, "allyGoodwillGranted", 0);

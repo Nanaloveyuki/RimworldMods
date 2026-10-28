@@ -96,7 +96,7 @@ namespace HungerAndHavoc.Incidents
             DiaOption option = new DiaOption("RHAH_Choice_ChooseAlly".Translate());
             if (!HasAllowed(present, RHAH_BehaviorGate.Transfer))
             {
-                option.Disable("RHAH_Choice_NoTransfer".Translate());
+                option.Disable("RHAH_Choice_NoLeave".Translate());
             }
             else
             {
@@ -158,7 +158,7 @@ namespace HungerAndHavoc.Incidents
             return option;
         }
 
-        void Bind(DiaOption option, RHAH_ChoiceAction action, int allyFactionId = 0)
+        void Bind(DiaOption option, RHAH_ChoiceAction action, int allyFactionId = RHAH_ChoiceRecord.NoAllyFaction)
         {
             option.resolveTree = false;
             option.action = () =>
@@ -183,7 +183,7 @@ namespace HungerAndHavoc.Incidents
             return Gated(key, action, true);
         }
 
-        bool Settle(RHAH_ChoiceAction action, int allyFactionId = 0)
+        bool Settle(RHAH_ChoiceAction action, int allyFactionId = RHAH_ChoiceRecord.NoAllyFaction)
         {
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
             RHAH_Settings settings = RHAH_Mod.Settings;
@@ -195,6 +195,7 @@ namespace HungerAndHavoc.Incidents
                 return false;
             }
 
+            RHAH_AllyRefusal allyRefusal;
             RHAH_ChoiceAction settled = RHAH_ChoiceRuntime.TrySettle(
                 game,
                 choiceId,
@@ -202,13 +203,19 @@ namespace HungerAndHavoc.Incidents
                 Find.TickManager.TicksGame,
                 enabled,
                 true,
-                allyFactionId);
+                allyFactionId,
+                out allyRefusal);
             if (settled == RHAH_ChoiceAction.None)
             {
                 RHAH_ChoiceRecord current = FindRecord();
-                string key = current != null && current.Open && enabled &&
-                    (RHAH_RequestRules.Captures(action) || RHAH_RequestRules.Enslaves(action))
-                    ? "RHAH_Choice_CustodyFailed" : "RHAH_Choice_Stale";
+                string key = AllyRefusalKey(action, allyRefusal);
+                if (key == null)
+                {
+                    key = current != null && current.Open && enabled &&
+                        (RHAH_RequestRules.Captures(action) || RHAH_RequestRules.Enslaves(action))
+                        ? "RHAH_Choice_CustodyFailed" : "RHAH_Choice_Stale";
+                }
+
                 Messages.Message(key.Translate(), MessageTypeDefOf.RejectInput);
                 return false;
             }
@@ -263,6 +270,22 @@ namespace HungerAndHavoc.Incidents
             return true;
         }
 
+        // 转送失败只有这两种原因玩家能补救，其余仍按 Stale 报
+        static string AllyRefusalKey(RHAH_ChoiceAction action, RHAH_AllyRefusal refusal)
+        {
+            if (action != RHAH_ChoiceAction.Ally)
+            {
+                return null;
+            }
+
+            if (refusal == RHAH_AllyRefusal.NoAcceptingFaction)
+            {
+                return "RHAH_Choice_AllyRefused";
+            }
+
+            return refusal == RHAH_AllyRefusal.NoLeavingPawn ? "RHAH_Choice_NoLeave" : null;
+        }
+
         string UnavailableReason(RHAH_ChoiceAction action)
         {
             RHAH_ChoiceRecord record = FindRecord();
@@ -302,7 +325,7 @@ namespace HungerAndHavoc.Incidents
                     : action == RHAH_ChoiceAction.Ally ? RHAH_BehaviorGate.Transfer : RHAH_BehaviorGate.Hire;
                 if (!HasAllowed(present, gate))
                 {
-                    return action == RHAH_ChoiceAction.Ally ? "RHAH_Choice_NoTransfer" : "RHAH_Choice_NoRecruit";
+                    return action == RHAH_ChoiceAction.Ally ? "RHAH_Choice_NoLeave" : "RHAH_Choice_NoRecruit";
                 }
 
                 if (action == RHAH_ChoiceAction.Ally && !RHAH_ChoiceRuntime.HasAllyDestination())
