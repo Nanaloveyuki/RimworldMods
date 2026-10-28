@@ -228,8 +228,16 @@ namespace HungerAndHavoc.Pawn.Compat
                 return;
             }
 
+            // 开关同时管三种索粮围攻 它们同属一组 所以贴在该组组头而非整页顶部
+            int siegeFuryGroup = RHAH_IncidentGroups.GroupOf("I-014");
             for (int i = 0; i < RHAH_IncidentGroups.Count; i++)
             {
+                if (i == siegeFuryGroup)
+                {
+                    MenuControls.Anchor(list, "siege-fury");
+                    RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_SiegeFuryEnabled".Translate(), ref settings.siegeFuryEnabled, "RHAH_Settings_SiegeFuryEnabled_Tooltip".Translate());
+                }
+
                 DrawIncident(list, RHAH_IncidentGroups.Scenarios(i)[0], false, settings);
             }
         }
@@ -500,7 +508,11 @@ namespace HungerAndHavoc.Pawn.Compat
 
         static IEnumerable<MenuSearchEntry> SearchCatalogEvents()
         {
-            return SearchIncidentEntries("event-", string.Empty);
+            yield return Entry("siege-fury", "RHAH_Settings_SiegeFuryEnabled");
+            foreach (MenuSearchEntry entry in SearchIncidentEntries("event-", string.Empty))
+            {
+                yield return entry;
+            }
         }
 
         static IEnumerable<MenuSearchEntry> SearchDevEvents()

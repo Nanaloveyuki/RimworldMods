@@ -11,9 +11,9 @@ namespace HungerAndHavoc.Generation
     {
         static readonly string[] Weapons = { "MeleeWeapon_Club", "MeleeWeapon_Knife", "MeleeWeapon_Ikwa", "Gun_Revolver", "Gun_Autopistol", "Gun_BoltActionRifle" };
 
-        internal static bool CanEquip(bool enabled, bool marked, bool player, string source, bool adult, bool violent)
+        internal static bool CanEquip(bool enabled, bool hasVisitorSnapshot, bool isPlayerFaction, string incidentDisplayId, bool adult, bool violent)
         {
-            return enabled && marked && !player && RHAH_ArmedDemand.IsSiege(source) && adult && violent;
+            return enabled && hasVisitorSnapshot && !isPlayerFaction && RHAH_ArmedDemand.IsSiege(incidentDisplayId) && adult && violent;
         }
 
         internal static QualityCategory Quality(int roll)

@@ -56,6 +56,7 @@ namespace HungerAndHavoc.Generation
             // 只在新角色登记来源后初始化 不挂入场或读档钩子
             RHAH_FamineArrival.Initialize(pawn);
             RHAH_FamineWeapons.Apply(pawn);
+            RHAH_SiegeFuryGrant.Apply(pawn);
 
             if (!TryApplyRelationships(pawn, request))
             {

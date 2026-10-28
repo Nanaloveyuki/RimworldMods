@@ -121,6 +121,8 @@
   <RHAH_Settings_ArmedDemand_Tooltip>默认开启。乞食围攻、强势围攻和鼠疫强势围攻的来客会等待要求的食物，期限使用“请求期限”设置。食物按简单餐的营养折算，可混合交付下方勾选的食物。拒绝或逾期后进攻；给足食物可让他们停止进攻并离开。关闭后，新的围攻来客按通常的来客选择处理，已有索粮队伍转为中立并离开。</RHAH_Settings_ArmedDemand_Tooltip>
   <RHAH_Settings_ArmedWeapons>给索粮来客配备简陋武器</RHAH_Settings_ArmedWeapons>
   <RHAH_Settings_ArmedWeapons_Tooltip>默认开启。新到来的乞食围攻、强势围攻和鼠疫强势围攻队伍中，允许反击且能够使用武器的成年来客会配备木棒或低级枪械等原版简陋武器，品质最高为普通。关闭后，新索粮来客保持徒手。</RHAH_Settings_ArmedWeapons_Tooltip>
+  <RHAH_Settings_SiegeFuryEnabled>索粮围攻者越饿越凶</RHAH_Settings_SiegeFuryEnabled>
+  <RHAH_Settings_SiegeFuryEnabled_Tooltip>默认开启。乞食围攻、强势围攻和鼠疫强势围攻的来客到场后会随营养不良加重而更耐饿、更凶：意识与近战上升，受到的伤害减少。增益按营养不良严重度分三档，固定两日后消退。关闭后，围攻来客不再获得这份增益。</RHAH_Settings_SiegeFuryEnabled_Tooltip>
   <RHAH_Settings_DemandFoods>索粮可交付食物</RHAH_Settings_DemandFoods>
   <RHAH_Settings_DemandFoods_Quote>武装索粮按营养交付：1 份简单餐相当于 0.9 营养，可混合交付已勾选的食物。默认允许原版、官方 DLC 和 NewRatkinPlus 的食物；其他模组食物需自行勾选。名单包含可供人食用且有营养的正餐及耐储存成品，如肉饼、包装生存食品和硬饼干，药物除外。此名单仅用于武装索粮，投喂和乞讨使用各自的名单。</RHAH_Settings_DemandFoods_Quote>
   <RHAH_Settings_DemandFoods_All>全部允许</RHAH_Settings_DemandFoods_All>
