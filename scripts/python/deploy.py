@@ -274,8 +274,6 @@ def stage_release(config, source, context, output):
     with tempfile.TemporaryDirectory(prefix=".release-", dir=output.parent) as temporary:
         staging = Path(temporary) / "release"
         staging.mkdir()
-        if pipeline:
-            pipeline.compress_kingdom_textures(files, Path(temporary) / "compressed")
         copy_verified(files, staging)
         identity(staging, config["package_id"])
         if output.exists():
