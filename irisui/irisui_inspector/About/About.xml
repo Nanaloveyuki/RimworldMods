@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>IrisUI Inspector</name>
+  <author>Nanaloveyuki</author>
+  <packageId>Nanaloveyuki.IrisUI.Inspector</packageId>
+  <modVersion>0.1.0</modVersion>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Nanaloveyuki.IrisMenus</packageId>
+      <displayName>IrisMenus</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3798502474</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Nanaloveyuki.IrisUI.Framework</packageId>
+      <displayName>IrisUI Framework</displayName>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Nanaloveyuki.IrisMenus</li>
+    <li>Nanaloveyuki.IrisUI.Framework</li>
+  </loadAfter>
+  <description>A new inspector for individual colonists and other selected pawns. Switch between a compact identity view, a detailed summary and a fullscreen portrait view. Browse the pawn's available inspection tabs, including tabs added by other mods, with scrolling for larger pages.</description>
+</ModMetaData>

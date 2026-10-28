@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="irisui_framework/Source/IrisUI.Framework.csproj" />
+  <Project Path="irisui_inspector/Source/IrisUI.Inspector.csproj" />
+</Solution>

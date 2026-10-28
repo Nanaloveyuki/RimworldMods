@@ -149,7 +149,9 @@ namespace IrisMenus.UI
             using (context.Clip(rect))
             {
                 bool previousEnabled = GUI.enabled;
-                bool blocked = !context.IsInputAllowed || !previousEnabled;
+                bool blocked = !context.IsInputAllowed || !previousEnabled ||
+                    (inputEvent != null && previousEventType != EventType.Layout && previousEventType != EventType.Repaint
+                    && !context.IsEventInputAllowed(previousEventType));
                 bool suppressEvent = blocked && inputEvent != null && previousEventType != EventType.Ignore
                     && previousEventType != EventType.Used && previousEventType != EventType.Layout && previousEventType != EventType.Repaint;
                 GUI.enabled = previousEnabled && !blocked;

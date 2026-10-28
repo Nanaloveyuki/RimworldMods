@@ -64,13 +64,13 @@ namespace IrisMenus.UI
             float unit = Mathf.Max(0f, scale);
             bool clearVisible = showClear && value.Length > 0;
             Rect endRect = new Rect(rect.xMax - 32f * unit, rect.y, 28f * unit, rect.height);
-            if (enabled && context.IsInputAllowed && context.IsFocused(Id) && current != null
+            if (enabled && context.IsPointerInputAllowed && context.IsFocused(Id) && current != null
                 && original == EventType.MouseDown && !rect.Contains(current.mousePosition))
             {
                 context.Focus(default);
                 context.Release(Id);
                 editorHotControl = 0;
-                if (GUI.GetNameOfFocusedControl() == controlName) GUI.FocusControl(null);
+                context.ReleaseNativeTextFocus(this);
             }
             UiInteraction clearInteraction = context.Interact(clearId, clearVisible ? endRect : default(Rect), enabled && clearVisible);
             clearVisual.Step(context, clearInteraction, enabled);
@@ -79,7 +79,7 @@ namespace IrisMenus.UI
             float startWidth = icon == UiGlyphKind.None ? 0f : 28f * unit;
             Rect editorRect = new Rect(rect.x + startWidth, rect.y, Mathf.Max(0f, rect.width - startWidth - endWidth), rect.height);
             UiInteraction interaction = context.Interact(Id, rect, enabled, false);
-            bool active = enabled && context.IsInputAllowed && context.IsFocused(Id);
+            bool active = enabled && context.IsKeyboardInputAllowed && context.IsFocused(Id);
             Submitted = active && (context.ConsumeKey(KeyCode.Return) || context.ConsumeKey(KeyCode.KeypadEnter));
             visual.Step(context, interaction, enabled);
             float invalidAmount = error.Step(invalid ? 1f : 0f, context.Time, UiMotion.Standard, context.ReducedMotion);
@@ -111,19 +111,20 @@ namespace IrisMenus.UI
                 string focusedName = GUI.GetNameOfFocusedControl();
                 if (active)
                 {
+                    context.RetainNativeTextFocus(this);
                     if (focusedName != controlName) GUI.FocusControl(controlName);
                 }
                 else if (focusedName == controlName)
                 {
-                    GUI.FocusControl(null);
-                    editorHotControl = 0;
+                    context.ReleaseNativeTextFocus(this);
+                    ReleaseNativeFocus();
                 }
-                bool mouseDown = original == EventType.MouseDown && context.IsCaptured(Id);
-                bool mouseDrag = original == EventType.MouseDrag && context.IsCaptured(Id);
-                bool mouseUp = original == EventType.MouseUp && wasCaptured;
+                bool mouseDown = context.IsPointerInputAllowed && original == EventType.MouseDown && context.IsCaptured(Id);
+                bool mouseDrag = context.IsPointerInputAllowed && original == EventType.MouseDrag && context.IsCaptured(Id);
+                bool mouseUp = context.IsPointerInputAllowed && original == EventType.MouseUp && wasCaptured;
                 bool replay = active && (mouseDown || mouseUp);
                 bool nativeMouse = active && (mouseDown || mouseDrag || mouseUp);
-                bool inputEvent = original == EventType.MouseDown || original == EventType.MouseDrag || original == EventType.MouseUp || original == EventType.KeyDown || original == EventType.KeyUp || original == EventType.ScrollWheel;
+                bool inputEvent = original != EventType.Layout && original != EventType.Repaint && original != EventType.Ignore && original != EventType.Used;
                 EventType consumed = current != null ? current.type : EventType.Ignore;
                 int outerHot = GUIUtility.hotControl;
                 Color outerColor = GUI.color;
@@ -141,13 +142,14 @@ namespace IrisMenus.UI
                     if (current != null)
                     {
                         if (replay) current.type = original;
-                        else if (inputEvent && (!active ||
+                        else if (inputEvent && (!active || !context.IsEventInputAllowed(original) ||
                             (original == EventType.KeyDown && current.keyCode == KeyCode.Tab) ||
-                            (!nativeMouse && original != EventType.KeyDown && original != EventType.KeyUp))) current.type = EventType.Ignore;
+                            (!nativeMouse && (original == EventType.MouseDown || original == EventType.MouseDrag || original == EventType.MouseUp)))) current.type = EventType.Ignore;
                     }
                     GUIUtility.hotControl = active ? editorHotControl : 0;
                     GUI.SetNextControlName(controlName);
-                    value = GUI.TextField(editorRect, value, maxLength, style);
+                    string edited = GUI.TextField(editorRect, value, maxLength, style);
+                    if (active && (!inputEvent || context.IsEventInputAllowed(original))) value = edited;
                     if (active) editorHotControl = GUIUtility.hotControl;
                 }
                 finally
@@ -174,9 +176,17 @@ namespace IrisMenus.UI
             context.Release(Id);
             context.Release(clearId);
             if (context.IsFocused(Id)) context.Focus(default(UiId));
+            context.ReleaseNativeTextFocus(this);
+            ReleaseNativeFocus();
+        }
+
+        internal void ReleaseNativeFocus()
+        {
             if (GUI.GetNameOfFocusedControl() == controlName) GUI.FocusControl(null);
             editorHotControl = 0;
         }
+
+        internal void ReleaseNativePointerCapture() => editorHotControl = 0;
 
         private void SetTextColor(Color color)
         {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>IrisUI Framework</name>
+  <author>Nanaloveyuki</author>
+  <packageId>Nanaloveyuki.IrisUI.Framework</packageId>
+  <modVersion>0.1.0</modVersion>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Nanaloveyuki.IrisMenus</packageId>
+      <displayName>IrisMenus</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3798502474</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Nanaloveyuki.IrisMenus</li>
+  </loadAfter>
+  <description>Shared appearance settings for IrisUI modules: choose a light or dark theme, adjust interface scale and reduce motion. Enable only the IrisUI modules you want to use.</description>
+</ModMetaData>

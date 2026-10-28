@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <IUI_InspectorName>IrisUI · Inspector</IUI_InspectorName>
+  <IUI_InspectorMode>Inspector display</IUI_InspectorMode>
+  <IUI_InspectorMinimum>Minimum</IUI_InspectorMinimum>
+  <IUI_InspectorNormal>Normal</IUI_InspectorNormal>
+  <IUI_InspectorFullscreen>Fullscreen</IUI_InspectorFullscreen>
+  <IUI_InspectorOverview>Overview</IUI_InspectorOverview>
+  <IUI_InspectorClose>Close inspector</IUI_InspectorClose>
+  <IUI_InspectorReturn>Return to compact view</IUI_InspectorReturn>
+</LanguageData>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <IUI_InspectorName>IrisUI · 檢查器</IUI_InspectorName>
+  <IUI_InspectorMode>檢查器顯示方式</IUI_InspectorMode>
+  <IUI_InspectorMinimum>最小</IUI_InspectorMinimum>
+  <IUI_InspectorNormal>一般</IUI_InspectorNormal>
+  <IUI_InspectorFullscreen>全螢幕</IUI_InspectorFullscreen>
+  <IUI_InspectorOverview>概覽</IUI_InspectorOverview>
+  <IUI_InspectorClose>關閉檢查器</IUI_InspectorClose>
+  <IUI_InspectorReturn>返回精簡檢視</IUI_InspectorReturn>
+</LanguageData>

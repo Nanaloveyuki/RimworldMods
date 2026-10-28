@@ -5,6 +5,15 @@ using Verse;
 
 namespace IrisMenus.UI
 {
+    [Flags]
+    public enum UiInputEligibility
+    {
+        None = 0,
+        Pointer = 1,
+        Keyboard = 2,
+        All = Pointer | Keyboard
+    }
+
     /// <summary>One context per UI surface; begin/end every IMGUI pass, prepare modals before content.</summary>
     public sealed class UiContext : IDisposable
     {
@@ -23,6 +32,7 @@ namespace IrisMenus.UI
         private int capturedFrame = -1;
         private int focusedFrame = -1;
         private int scopeDepth;
+        private UiTextField nativeTextField;
         private readonly GUIStyle labelStyle = new GUIStyle { fontSize = 16, richText = false };
 
         public UiPalette Palette { get; private set; }
@@ -36,7 +46,10 @@ namespace IrisMenus.UI
         public UiId Captured { get; private set; }
         public Event Event => Event.current;
         public bool IsRepaint => Event != null && Event.type == EventType.Repaint;
-        public bool IsInputAllowed => input && Alpha > 0f && (modal == default || modal == layer);
+        public UiInputEligibility InputEligibility { get; private set; } = UiInputEligibility.All;
+        public bool IsInputAllowed => input && Alpha > 0f && InputEligibility != UiInputEligibility.None && (modal == default || modal == layer);
+        public bool IsPointerInputAllowed => IsInputAllowed && (InputEligibility & UiInputEligibility.Pointer) != 0;
+        public bool IsKeyboardInputAllowed => IsInputAllowed && (InputEligibility & UiInputEligibility.Keyboard) != 0;
         public float Alpha { get; private set; } = 1f;
         public float Scale { get; internal set; } = 1f;
         public float FontSize { get; set; } = 16f;
@@ -49,26 +62,42 @@ namespace IrisMenus.UI
         }
 
         public void BeginFrame(Rect viewport, UiTheme theme, bool reducedMotion) =>
-            BeginFrame(UnityEngine.Time.frameCount, UnityEngine.Time.realtimeSinceStartup, viewport, theme, reducedMotion);
+            BeginFrame(UnityEngine.Time.frameCount, UnityEngine.Time.realtimeSinceStartup, viewport, theme, reducedMotion, UiInputEligibility.All, Scale);
 
-        public void BeginFrame(int frame, double time, Rect viewport, UiTheme theme, bool reducedMotion)
+        public void BeginFrame(int frame, double time, Rect viewport, UiTheme theme, bool reducedMotion) =>
+            BeginFrame(frame, time, viewport, theme, reducedMotion, UiInputEligibility.All, Scale);
+
+        public void BeginFrame(Rect viewport, UiTheme theme, bool reducedMotion, UiInputEligibility eligibility, float scale = 1f) =>
+            BeginFrame(UnityEngine.Time.frameCount, UnityEngine.Time.realtimeSinceStartup, viewport, theme, reducedMotion, eligibility, scale);
+
+        public void BeginFrame(int frame, double time, Rect viewport, UiTheme theme, bool reducedMotion,
+            UiInputEligibility eligibility, float scale = 1f)
         {
             if (disposed) throw new ObjectDisposedException(nameof(UiContext));
             if (scopeDepth != 0) throw new InvalidOperationException("Unbalanced UI scopes from previous pass.");
+            if (float.IsNaN(scale) || float.IsInfinity(scale) || scale <= 0f) throw new ArgumentOutOfRangeException(nameof(scale));
+            InputEligibility = eligibility;
+            Scale = scale;
+            if ((eligibility & UiInputEligibility.Pointer) == 0)
+            {
+                Release(Captured);
+                nativeTextField?.ReleaseNativePointerCapture();
+            }
+            if ((eligibility & UiInputEligibility.Keyboard) == 0) Focus(default);
             if (frame != Frame)
             {
                 if (Captured != default && capturedFrame < Frame) Release(Captured);
-                if (Focused != default && focusedFrame < Frame) Focused = default;
+                if (Focused != default && focusedFrame < Frame) Focus(default);
                 Time = initialized ? Math.Max(Time, time) : time;
                 Frame = frame;
             }
             Viewport = viewport;
             if (Event != null)
             {
-                if (Event.type == EventType.KeyDown && (Event.keyCode == KeyCode.Tab || Event.keyCode == KeyCode.UpArrow
+                if ((eligibility & UiInputEligibility.Keyboard) != 0 && Event.type == EventType.KeyDown && (Event.keyCode == KeyCode.Tab || Event.keyCode == KeyCode.UpArrow
                     || Event.keyCode == KeyCode.DownArrow || Event.keyCode == KeyCode.LeftArrow || Event.keyCode == KeyCode.RightArrow
                     || Event.keyCode == KeyCode.Home || Event.keyCode == KeyCode.End)) FocusVisible = true;
-                else if (Event.type == EventType.MouseDown) FocusVisible = false;
+                else if ((eligibility & UiInputEligibility.Pointer) != 0 && Event.type == EventType.MouseDown) FocusVisible = false;
             }
             ReducedMotion = reducedMotion;
             float dark = theme == UiTheme.Dark ? 1f : 0f;
@@ -87,17 +116,22 @@ namespace IrisMenus.UI
         {
             if (scopeDepth != 0) throw new InvalidOperationException("Unbalanced UI scopes.");
             // Blank surfaces do not take part in Interact, but still dismiss text/keyboard focus.
-            if (Event != null && Event.type == EventType.MouseDown && input && modal == default)
+            if (Event != null && Event.type == EventType.MouseDown && IsPointerInputAllowed && modal == default)
                 Focus(default);
-            if (Event != null && Event.type == EventType.KeyDown && Event.keyCode == KeyCode.Tab && input)
+            if (Event != null && Event.type == EventType.KeyDown && Event.keyCode == KeyCode.Tab && input && Alpha > 0f
+                && (InputEligibility & UiInputEligibility.Keyboard) != 0)
             {
-                MoveFocus(Event.shift ? -1 : 1);
-                Consume();
+                using (Layer(modal))
+                {
+                    MoveFocus(Event.shift ? -1 : 1);
+                    Consume();
+                }
             }
             if (Captured != default && (!currentIds.Contains(Captured) || (Event != null && Event.type == EventType.MouseUp))) Release(Captured);
             if (modal != default && Event != null && (Event.type == EventType.MouseDown || Event.type == EventType.MouseUp
                 || Event.type == EventType.MouseDrag || Event.type == EventType.ScrollWheel
-                || Event.type == EventType.KeyDown || Event.type == EventType.KeyUp)) Consume();
+                || Event.type == EventType.KeyDown || Event.type == EventType.KeyUp))
+                using (Layer(modal)) Consume();
         }
 
         public void SetModal(UiId id)
@@ -112,38 +146,38 @@ namespace IrisMenus.UI
             if (!allowed)
             {
                 Release(id);
-                if (Focused == id) Focused = default;
+                if (Focused == id) Focus(default);
                 return default;
             }
             owners[id] = layer;
             if (currentIds.Add(id)) currentOrder.Add(id);
             if (Focused == id) focusedFrame = Frame;
             if (Captured == id) capturedFrame = Frame;
-            bool hovered = Hit(rect);
+            bool hovered = IsPointerInputAllowed && Hit(rect);
             bool clicked = false;
             Event evt = Event;
             if (evt != null)
             {
-                if (evt.type == EventType.MouseDown && evt.button == 0 && hovered && Captured == default)
+                if (IsPointerInputAllowed && evt.type == EventType.MouseDown && evt.button == 0 && hovered && Captured == default)
                 {
                     Captured = id;
                     capturedFrame = Frame;
                     Focus(id);
                     Consume();
                 }
-                else if (evt.type == EventType.MouseUp && evt.button == 0 && Captured == id)
+                else if (IsPointerInputAllowed && evt.type == EventType.MouseUp && evt.button == 0 && Captured == id)
                 {
                     clicked = hovered;
                     Release(id);
                     Consume();
                 }
-                else if (evt.type == EventType.KeyDown && Focused == id)
+                else if (IsKeyboardInputAllowed && evt.type == EventType.KeyDown && Focused == id)
                 {
                     if (evt.keyCode == KeyCode.Escape && (Captured == id || keyboardPressed == id)) { Release(id); Consume(); }
                     else if (activateWithKeyboard && (evt.keyCode == KeyCode.Space || evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter))
                     { keyboardPressed = id; Consume(); }
                 }
-                else if (evt.type == EventType.KeyUp && Focused == id && activateWithKeyboard && keyboardPressed == id &&
+                else if (IsKeyboardInputAllowed && evt.type == EventType.KeyUp && Focused == id && activateWithKeyboard && keyboardPressed == id &&
                     (evt.keyCode == KeyCode.Space || evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter))
                 { keyboardPressed = default; clicked = true; Consume(); }
             }
@@ -152,7 +186,24 @@ namespace IrisMenus.UI
 
         public bool IsCaptured(UiId id) => Captured == id;
         public bool IsFocused(UiId id) => Focused == id;
-        public void Focus(UiId id) { Focused = id; focusedFrame = Frame; keyboardPressed = default; }
+        public void Focus(UiId id)
+        {
+            if (id != default && InputEligibility == UiInputEligibility.None) return;
+            if (nativeTextField != null && nativeTextField.Id != id) ReleaseNativeTextFocus();
+            Focused = id; focusedFrame = Frame; keyboardPressed = default;
+        }
+        internal void RetainNativeTextFocus(UiTextField field)
+        {
+            if (nativeTextField == field) return;
+            ReleaseNativeTextFocus();
+            nativeTextField = field;
+        }
+        internal void ReleaseNativeTextFocus(UiTextField field = null)
+        {
+            if (nativeTextField == null || (field != null && nativeTextField != field)) return;
+            nativeTextField.ReleaseNativeFocus();
+            nativeTextField = null;
+        }
         internal void RestoreFocus(UiId id, bool visible) { Focus(id); FocusVisible = visible; }
         public bool IsRectVisible(Rect rect) => rect.width > 0f && rect.height > 0f && Intersects(ToScreen(rect), screenClip);
         public void Release(UiId id)
@@ -163,7 +214,7 @@ namespace IrisMenus.UI
 
         public bool Hit(Rect rect)
         {
-            if (!IsInputAllowed || Event == null || !rect.Contains(Event.mousePosition)) return false;
+            if (!IsPointerInputAllowed || Event == null || !rect.Contains(Event.mousePosition)) return false;
             if (!screenClip.Contains(UiCoordinates.ToScreen(Event.mousePosition))) return false;
 #if RIMWORLD_1_7
             if (UnityStubs.Gui.GuiBackend.Current?.MouseOutsideHitClip == true) return false;
@@ -173,12 +224,33 @@ namespace IrisMenus.UI
 
         public bool ConsumeKey(KeyCode key)
         {
-            if (!IsInputAllowed || Event == null || Event.type != EventType.KeyDown || Event.keyCode != key) return false;
+            if (!IsKeyboardInputAllowed || Event == null || Event.type != EventType.KeyDown || Event.keyCode != key) return false;
             Consume();
             return true;
         }
 
-        public void Consume() { if (Event != null && Event.type != EventType.Layout && Event.type != EventType.Repaint && Event.type != EventType.Used) Event.Use(); }
+        internal bool IsEventInputAllowed(EventType type)
+        {
+            switch (type)
+            {
+                case EventType.MouseDown:
+                case EventType.MouseUp:
+                case EventType.MouseMove:
+                case EventType.MouseDrag:
+                case EventType.ScrollWheel:
+                case EventType.ContextClick:
+                    return IsPointerInputAllowed;
+                case EventType.KeyDown:
+                case EventType.KeyUp:
+                case EventType.ValidateCommand:
+                case EventType.ExecuteCommand:
+                    return IsKeyboardInputAllowed;
+                default:
+                    return false;
+            }
+        }
+
+        public void Consume() { if (Event != null && IsEventInputAllowed(Event.type)) Event.Use(); }
         public UiScope Layer(UiId id) => new UiScope(this, 0, id, default, 1f, true);
         public UiScope Clip(Rect rect) => new UiScope(this, 1, default, rect, 1f, true);
         public UiScope Opacity(float multiplier) => new UiScope(this, 2, default, default, multiplier, true);
@@ -290,7 +362,7 @@ namespace IrisMenus.UI
         private void MoveFocus(int direction)
         {
             int count = currentOrder.Count;
-            if (count == 0) { Focused = default; return; }
+            if (count == 0) { Focus(default); return; }
             int index = currentOrder.IndexOf(Focused);
             if (index < 0) index = direction > 0 ? -1 : 0;
             for (int step = 1; step <= count; step++)
@@ -298,7 +370,7 @@ namespace IrisMenus.UI
                 UiId candidate = currentOrder[(index + direction * step + count) % count];
                 if (modal == default || owners[candidate] == modal) { Focus(candidate); return; }
             }
-            Focused = default;
+            Focus(default);
         }
 
         private static Rect ToScreen(Rect rect) => UiCoordinates.ToScreen(rect);
@@ -312,6 +384,7 @@ namespace IrisMenus.UI
         public void Dispose()
         {
             if (scopeDepth != 0) throw new InvalidOperationException("Cannot dispose UI context inside a scope.");
+            ReleaseNativeTextFocus();
             disposed = true;
             Captured = Focused = keyboardPressed = default;
             owners.Clear(); currentOrder.Clear(); currentIds.Clear();

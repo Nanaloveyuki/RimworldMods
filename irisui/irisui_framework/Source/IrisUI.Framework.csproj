@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>IrisUI.Framework</RootNamespace>
+    <AssemblyName>IrisUI.Framework</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../iris_menus/Source/IrisMenus.csproj" Private="false" />
+  </ItemGroup>
+</Project>

@@ -51,7 +51,7 @@ namespace IrisMenus.UI
         public void Observe(Rect anchor, string content, UiId targetId = default(UiId), bool enabled = true)
         {
             observedFrame = context.Frame;
-            bool keyboard = enabled && context.FocusVisible && !targetId.Equals(default(UiId)) && context.IsFocused(targetId);
+            bool keyboard = enabled && context.IsKeyboardInputAllowed && context.FocusVisible && !targetId.Equals(default(UiId)) && context.IsFocused(targetId);
             bool over = enabled && !string.IsNullOrEmpty(content) && context.IsInputAllowed && (context.Hit(anchor) || keyboard);
             if (!over)
             {
@@ -69,8 +69,8 @@ namespace IrisMenus.UI
             anchorScreen = UiCoordinates.ToScreen(anchor);
             text = content;
             Event current = context.Event;
-            if (current != null && (current.rawType == EventType.MouseDown ||
-                (current.rawType == EventType.KeyDown && current.keyCode == KeyCode.Escape))) suppressed = true;
+            if (current != null && ((context.IsPointerInputAllowed && current.rawType == EventType.MouseDown) ||
+                (context.IsKeyboardInputAllowed && current.rawType == EventType.KeyDown && current.keyCode == KeyCode.Escape))) suppressed = true;
             bool instant = keyboard || context.Time <= provider.WarmUntil;
             bool next = !suppressed && (instant || visibility.Value > 0f || context.Time - enteredAt >= delay);
             if (next && !requested && visibility.Value <= 0f)

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>IrisUI.Inspector</RootNamespace>
+    <AssemblyName>IrisUI.Inspector</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../irisui_framework/Source/IrisUI.Framework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

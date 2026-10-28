@@ -23,7 +23,7 @@
 
 - 每个窗口或独立 UI surface 保留一个 `UiContext`；在初始化时创建组件、页面 `UiId`、标签数组和 `Action<Rect>` 回调，不在每次 `Draw` 内重建。组件持有身份、动画和临时交互状态；身份不取自显示标题、Rect、当前帧 control ID 或列表位置的临时 hash。
 - 开关、勾选、数值、字符串、选择索引、展开和模态打开状态由调用方持有。把 `Draw` 的返回值写回自己的字段。按钮返回本次激活，抽屉／对话框返回关闭请求；是否保存、拒绝关闭或确认变更由调用方决定。
-- `UiSideRail`／`UiTabs` 保留调用方的标签数组。可原位更新翻译文字；公开构造的目的地顺序必须稳定。宿主内部通过 page ID 重新绑定 Tabs，增删重排仍保留未删除目的地的身份及动画；同一 Mod 不为每个 SubItem 分别创建 Tabs。它们不生成 Mod 数量或 badge；Tabs 溢出分页仅显示当前页／总页数。
+- `UiSideRail`／`UiTabs` 保留调用方的标签数组，可原位更新翻译文字。动态 Tabs 使用公开的 `SetItems(string[] nextLabels, string[] keys)`；keys 必须与 labels 等长、非 null 且唯一，同 key 在增删重排后保留目的地身份和动画。仅构造时默认按索引建立身份，首次绑定语义 key 应在输入前完成；选择索引仍由调用方按业务目的地维护。Tabs 溢出分页仅显示当前页／总页数，根层通过 `DrawTooltip(Rect bounds, float scale)` 绘制被截断标题的提示。
 - `UiSegments.SetOptions`／`UiSelect.SetOptions` 用于配置变化，不能逐帧调用。它们保留传入的标签数组；数量变化会重建项目身份。Segments 至少一项；Select 允许空数组，此时不可打开。标签不能为 `null`。Select 配置变化会重置搜索和滚动。
 - 页面回调中的 Rect 通常是组件建立 GUI group 后的**局部自然尺寸**。不要再加宿主 Rect 的 x／y。布局高度和 tooltip 尺寸由调用方提供；没有自动布局树、反射字段发现或文本高度测量承诺。
 - `UiTextField` 使用原生 `GUI.TextField` 编辑器。字段从 surface 永久移除时调用它的 `Dispose()`，只释放该字段的原生焦点／捕获；surface 关闭时先释放文本字段，再 `UiContext.Dispose()`。不要在未退出的 scope 内释放 context。
@@ -36,7 +36,7 @@
 
 同一个游戏帧仍可能有 Layout、输入和 Repaint 多个 pass。每个 pass 都执行完整流程；不能用 `frameCount` 缓存来跳过 Draw、输入或 Begin／End。
 
-1. `context.BeginFrame(viewport, theme, reducedMotion)`。需要可控时钟时使用 `BeginFrame(int frame, double time, Rect viewport, UiTheme theme, bool reducedMotion)`；同一帧应传相同真实时间。Context 仅在帧号变化时采样时间，并保证时间不倒退。
+1. 独立 surface 使用 `context.BeginFrame(viewport, theme, reducedMotion, eligibility, scale: 1f)`；可控时钟入口为 `BeginFrame(int frame, double time, Rect viewport, UiTheme theme, bool reducedMotion, UiInputEligibility eligibility, float scale = 1f)`。`Scale` 在该入口设置，必须正且有限；同帧各 pass 仍应传相同真实时间。原有不带 eligibility 的两个入口保留 `All` 和当前 Scale，不要求设置宿主修改调用。
 2. 在任何背景控件之前，为保留的抽屉／对话框调用 `Prepare(open)`，**从后到前**排列。最后准备的可见模态拥有输入；退出动画尚未结束的模态也必须准备。
 3. 若 Select 的 popup 是最前层，在这些模态之后调用 `select.Prepare()`。有多个模态／Select 时，调用方要明确实际叠放顺序，使 Prepare 顺序与绘制顺序一致；必要时先关闭已失去所属页面的 Select，不能让旧 popup 遮挡新的页面。
 4. 绘制正文、导航、滚动内容和底栏；在所属位置调用 `select.Draw(...)` 更新触发器的屏幕坐标。绘制后调用 `tooltip.Observe(rect, text, targetId)`，不要为 tooltip 再调用一次 `Interact`。
@@ -47,6 +47,14 @@
 `Prepare` 不能延迟到 Repaint。它在背景控件响应输入之前建立所有权，避免打开 overlay 时点击／键盘穿透。`EndFrame` 处理 Tab 顺序与失效捕获；不平衡的 scope 会抛出异常。
 
 `context.Clip(rect)` 同时缩小绘制和命中范围，并建立以 rect 左上角为原点的 GUI group。`Input(false)` 同时约束组件输入与 `GUI.enabled`；`Opacity` 乘算透明度；`Layer(id)` 只切换输入层身份，不自动建立模态。使用 `using` 保证所有 scope 按嵌套顺序退出。完全裁切、禁用或非当前模态层的控件不参与可用交互顺序。第三方绘制仍需自行平衡 GUI group；这些 scope 不能修复任意旧 drawer 的失衡。
+
+### 独立消费者输入与全屏遮挡
+
+`UiInputEligibility` 是 `[Flags]`：`None=0`、`Pointer=1`、`Keyboard=2`、`All=Pointer|Keyboard`。宿主逐 pass 根据窗口栈和自己的键盘所有权提供资格；没有资格仍可绘制和推进动画，但相应的点击、拖动、滚轮、键盘编辑和事件消费均被禁用，包含原生 `GUI.TextField`、弹层和 `EndFrame`。`Input(false)`、裁切、透明度和模态限制继续叠加，不能用 eligibility 绕过。Context 的 `IsPointerInputAllowed`／`IsKeyboardInputAllowed` 用于自行处理输入；自行调用原版 GUI 的消费者仍需约束自己的事件处理。
+
+失去指针资格会释放本 Context 的捕获和原生编辑器拖动状态；失去键盘资格会释放其逻辑焦点、键盘按压和原生文本焦点，不清除其他 Context 的原生焦点。指针移出区域不应单独撤销一个仍有窗口输入权的 surface 的指针资格，否则会中断已捕获的拖动；新命中由 viewport／Clip 限定。`None` 不处理 Tab 或吞掉模态事件。
+
+全屏 Window 可实现 `IrisMenus.IFullscreenUiSurface` 并返回 `CoversScreen=true`，复用 IrisMenus 现有窗口栈遮挡路径；无需改写原版 Window 或再安装窗口栈补丁。遮挡仍要求 `windowRect` 实际覆盖整个屏幕，且满足截图模式和 `onlyDrawInDevMode` 的绘制规则。`MenuWindow` 继续按自身不透明度判断；接口只声明遮挡，不负责建立窗口、同步尺寸、暂停或窗口输入所有权。
 
 ### 最小组合示例
 

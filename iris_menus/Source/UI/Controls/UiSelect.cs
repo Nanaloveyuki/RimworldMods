@@ -183,7 +183,7 @@ namespace IrisMenus.UI
                 if (open && enabled && input && current != null)
                 {
                     if (context.ConsumeKey(KeyCode.Escape)) Close();
-                    else if (current.type == EventType.MouseDown && !popup.Contains(current.mousePosition) && !anchor.Contains(current.mousePosition))
+                    else if (context.IsPointerInputAllowed && current.type == EventType.MouseDown && !popup.Contains(current.mousePosition) && !anchor.Contains(current.mousePosition))
                     {
                         Close();
                         context.Consume();
@@ -204,7 +204,7 @@ namespace IrisMenus.UI
                             selected = highlighted;
                             Close();
                         }
-                        else if (current.type == EventType.KeyDown && current.character != 0 && !char.IsControl(current.character) && !current.control && !current.alt)
+                        else if (context.IsKeyboardInputAllowed && current.type == EventType.KeyDown && current.character != 0 && !char.IsControl(current.character) && !current.control && !current.alt)
                         {
                             if (context.Time - lastTypeTime > 0.75) search = string.Empty;
                             search += current.character;

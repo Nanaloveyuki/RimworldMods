@@ -62,7 +62,7 @@ namespace IrisMenus.UI
                     context.FontSize = oldSize;
                     context.FontStyle = oldStyle;
                     if (span.LinkIndex >= 0 && openLink != null && context.Event != null &&
-                        context.Event.type == EventType.MouseUp && context.Event.button == 0 && spanRect.Contains(context.Event.mousePosition))
+                        context.Event.type == EventType.MouseUp && context.Event.button == 0 && GUI.enabled && context.Hit(spanRect))
                     {
                         context.Consume();
                         openLink(span.Uri);

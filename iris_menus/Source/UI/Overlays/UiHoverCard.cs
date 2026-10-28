@@ -36,9 +36,9 @@ namespace IrisMenus.UI
         public void Observe(Rect anchor, string content, UiId targetId = default(UiId), bool enabled = true)
         {
             observedFrame = context.Frame;
-            bool keyboard = context.FocusVisible && targetId != default(UiId) && context.IsFocused(targetId);
+            bool keyboard = context.IsKeyboardInputAllowed && context.FocusVisible && targetId != default(UiId) && context.IsFocused(targetId);
             bool overTrigger = enabled && context.IsInputAllowed && !string.IsNullOrEmpty(content) && (context.Hit(anchor) || keyboard);
-            bool overPanel = enabled && context.IsInputAllowed && requested && context.Event != null &&
+            bool overPanel = enabled && context.IsPointerInputAllowed && requested && context.Event != null &&
                 panelScreen.Contains(UiCoordinates.ToScreen(context.Event.mousePosition));
             bool changed = !string.Equals(text, content, StringComparison.Ordinal);
             if (overTrigger)
@@ -66,8 +66,8 @@ namespace IrisMenus.UI
                 if (!enabled || !context.IsInputAllowed || context.Time - leftAt >= 0.3) requested = false;
             }
             Event current = context.Event;
-            if (current != null && (current.rawType == EventType.MouseDown ||
-                current.rawType == EventType.KeyDown && current.keyCode == KeyCode.Escape)) Dismiss();
+            if (current != null && ((context.IsPointerInputAllowed && current.rawType == EventType.MouseDown) ||
+                (context.IsKeyboardInputAllowed && current.rawType == EventType.KeyDown && current.keyCode == KeyCode.Escape))) Dismiss();
         }
 
         public void Dismiss()

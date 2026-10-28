@@ -14,7 +14,9 @@ namespace IrisMenus
     {
         private static bool CoversScreen(Window window)
         {
-            if (!(window is MenuWindow menu) || menu.Opacity <= 0f) return false;
+            bool covers = window is MenuWindow menu ? menu.Opacity > 0f :
+                window is IFullscreenUiSurface surface && surface.CoversScreen;
+            if (!covers) return false;
             if ((!window.drawInScreenshotMode && Find.UIRoot.screenshotMode.Active) ||
                 (window.onlyDrawInDevMode && !Prefs.DevMode)) return false;
             Rect bounds = window.windowRect;

@@ -43,7 +43,7 @@ namespace IrisMenus.UI
         public UiId ItemId(int index) => navigation.ItemId(index);
 
         // Catalog refreshes reuse destination identities and their in-flight animation curves.
-        internal void SetItems(string[] nextLabels, string[] keys)
+        public void SetItems(string[] nextLabels, string[] keys)
         {
             navigation.SetItems(nextLabels, keys);
             labels = nextLabels;
@@ -132,7 +132,7 @@ namespace IrisMenus.UI
             return result;
         }
 
-        internal void DrawTooltip(Rect bounds, float scale)
+        public void DrawTooltip(Rect bounds, float scale)
         {
             float width = Mathf.Min(420f * scale, bounds.width);
             if (tooltipWidth != width || tooltipScale != scale || !string.Equals(measuredTooltip, tooltipText, StringComparison.Ordinal))
