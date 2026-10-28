@@ -25,6 +25,7 @@ namespace HungerAndHavoc.Generation
         {
             IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
             bool enabled = RHAH_Mod.Settings == null || RHAH_Mod.Settings.armedWeaponsEnabled;
+            // 武器只发成人 参战与否不看年龄 儿童徒手 两个判据不同是刻意的
             if (!CanEquip(enabled, snapshot != null, pawn.Faction?.IsPlayer == true, snapshot?.SourceIncidentDisplayId,
                 pawn.DevelopmentalStage.Adult(), !pawn.WorkTagIsDisabled(WorkTags.Violent)) ||
                 pawn.equipment == null || !RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Fight)) return;
