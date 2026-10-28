@@ -169,8 +169,8 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
-            // 要人喂的来客由殖民者当场直喂 不产生搬运 不登记等饭
-            if (Compat.RHAH_ChildMovement.NeedsHandFeed(receiver))
+            // 索粮只交物资，不把交付量当作这一口饭消耗。
+            if (demand == null && Compat.RHAH_ChildMovement.NeedsHandFeed(receiver))
             {
                 RHAH_FoodHandoff.FeedDirectly(receiver, food);
                 return;

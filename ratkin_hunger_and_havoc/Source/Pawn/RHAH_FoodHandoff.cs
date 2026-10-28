@@ -40,8 +40,8 @@ namespace HungerAndHavoc.Pawn
                 return false;
             }
 
-            // 要人喂的来客只走直喂 登记进等饭名单永远收不齐
-            if (Compat.RHAH_ChildMovement.NeedsHandFeed(receiver))
+            // 索粮交入背包，只有普通亲喂不登记等饭。
+            if (RHAH_ArmedDemand.FoodRequest(receiver) == null && Compat.RHAH_ChildMovement.NeedsHandFeed(receiver))
             {
                 return false;
             }
@@ -284,7 +284,7 @@ namespace HungerAndHavoc.Pawn
                 (demand ? RHAH_DemandFood.Allowed(thing.def) : EdibleBy(receiver, thing.def));
         }
 
-        // 婴儿走原版适口判定（自动含 babiesCanIngest） 成人按投喂菜单的原有底线
+        // 婴儿额外检查原版适口性，仍遵循普通投喂名单与食物等级。
         static bool EdibleBy(Verse.Pawn receiver, ThingDef def)
         {
             if (receiver == null || def == null || !receiver.RaceProps.CanEverEat(def))
@@ -292,13 +292,9 @@ namespace HungerAndHavoc.Pawn
                 return false;
             }
 
-            if (Compat.RHAH_ChildMovement.IsFeedingBaby(receiver))
-            {
-                return receiver.FoodIsSuitable(def);
-            }
-
             return RHAH_ReliefFood.GiveFoodAllowed(def) &&
-                def.ingestible.preferability >= FoodPreferability.MealAwful;
+                def.ingestible.preferability >= FoodPreferability.MealAwful &&
+                (!Compat.RHAH_ChildMovement.IsFeedingBaby(receiver) || receiver.FoodIsSuitable(def));
         }
     }
 }

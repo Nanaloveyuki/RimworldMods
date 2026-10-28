@@ -158,7 +158,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | Choice | choice | None | 否 | `RHAH_ChoiceKind` |
 | Amount | amount | 0 | 否 | |
 | ArmedFoodDelivered | armedFoodDelivered | 0 | 否 | 保留旧档武装索粮已经交付的简单餐份数，每份折算 0.9 营养；新交付不再累加此字段。不按背包库存反推；卸载随 openChoices Remove |
-| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。剩余需求为 (Amount - ArmedFoodDelivered) × 0.9 - 本值；旧档缺键按 0。卸载随 openChoices Remove |
+| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。包括向婴儿交付的索粮物资，不作为直喂消耗；普通直喂不写此账本。剩余需求为 (Amount - ArmedFoodDelivered) × 0.9 - 本值；旧档缺键按 0。卸载随 openChoices Remove |
 | ExpireTick | expireTick | -1 | 否 | |
 | Settled | settled | None | 否 | `RHAH_ChoiceAction`。旧文本 `Prison` 和旧数值 `12` 读取为 `Capture`（关闭状态）；再存档写 `Capture`。其它名称和编号保持原有枚举存读，缺键仍为 `None` |
 | PawnLoadIds | pawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同 |

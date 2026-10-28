@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Reflection;
 using System.Runtime.Serialization;
 using HarmonyLib;
@@ -10,6 +12,7 @@ using HungerAndHavoc.Pawn;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 using Xunit;
 
 namespace HungerAndHavoc.Tests
@@ -24,6 +27,40 @@ namespace HungerAndHavoc.Tests
         readonly HashSet<int> unreachable = new HashSet<int>();
         readonly Dictionary<Thing, IHaulDestination> storage = new Dictionary<Thing, IHaulDestination>();
         static RHAH_ArmedFoodPaymentTests active;
+
+        static RHAH_ArmedFoodPaymentTests()
+        {
+            string temporary = Path.Combine(Path.GetTempPath(), "rhah-food-" + Guid.NewGuid());
+            object previousSave = Field(typeof(GenFilePaths), "saveDataPath").GetValue(null);
+            object previousMods = Field(typeof(GenFilePaths), "modsFolderPath").GetValue(null);
+            object previousOfficial = Field(typeof(GenFilePaths), "officialModsFolderPath").GetValue(null);
+            object previousPrefs = Field(typeof(Prefs), "data").GetValue(null);
+            bool previousProfiler = DeepProfiler.enabled;
+            try
+            {
+                Directory.CreateDirectory(Path.Combine(temporary, "Config"));
+                Directory.CreateDirectory(Path.Combine(temporary, "Mods", "Core", "About"));
+                File.WriteAllText(Path.Combine(temporary, "Mods", "Core", "About", "About.xml"),
+                    "<ModMetaData><name>Core</name><packageId>ludeon.rimworld</packageId><author>Ludeon</author><supportedVersions><li>1.7</li></supportedVersions></ModMetaData>");
+                File.WriteAllText(Path.Combine(temporary, "Config", "ModsConfig.xml"),
+                    "<ModsConfigData><activeMods /><knownExpansions /></ModsConfigData>");
+                Field(typeof(GenFilePaths), "saveDataPath").SetValue(null, temporary);
+                Field(typeof(GenFilePaths), "modsFolderPath").SetValue(null, Path.Combine(temporary, "Mods"));
+                Field(typeof(GenFilePaths), "officialModsFolderPath").SetValue(null, Path.Combine(temporary, "Mods"));
+                Field(typeof(Prefs), "data").SetValue(null, new PrefsData());
+                DeepProfiler.enabled = false;
+                RuntimeHelpers.RunClassConstructor(typeof(ModsConfig).TypeHandle);
+            }
+            finally
+            {
+                Field(typeof(GenFilePaths), "saveDataPath").SetValue(null, previousSave);
+                Field(typeof(GenFilePaths), "modsFolderPath").SetValue(null, previousMods);
+                Field(typeof(GenFilePaths), "officialModsFolderPath").SetValue(null, previousOfficial);
+                Field(typeof(Prefs), "data").SetValue(null, previousPrefs);
+                DeepProfiler.enabled = previousProfiler;
+                Directory.Delete(temporary, true);
+            }
+        }
 
         public RHAH_ArmedFoodPaymentTests()
         {
@@ -243,6 +280,136 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(8.4, RHAH_DemandFood.Remaining(record), 5);
             Assert.True(record.Open);
         }
+
+        [Fact]
+        public void SiegeInfantFoodDeliveryGoesToInventoryAndCreditsTheDemand()
+        {
+            Verse.Pawn receiver = Infant(901);
+            RHAH_ChoiceRecord record = Request(receiver);
+            HungerAndHavoc.Identity.CompRHAH_Pawn.TryGet(receiver).State.lifecycle = RHAH_Lifecycle.Fed;
+            Verse.AI.Group.Lord lord = receiver.GetLord();
+            LordJob_RHAH_Visitor visitor = (LordJob_RHAH_Visitor)lord.LordJob;
+            Field(typeof(Verse.AI.Group.Lord), "curLordToil").SetValue(lord, new LordToil_RHAH_VisitorSeek(visitor));
+            PaymentFood food = Food(10);
+            food.def.label = "simple meal";
+            food.def.ingestible.babiesCanIngest = false;
+            Verse.Pawn giver = colonists[0];
+            giver.SetFactionDirect(Faction.OfPlayer);
+            giver.jobs = new Pawn_JobTracker(giver);
+            Current.Game.uniqueIDsManager = new UniqueIDsManager();
+            giver.carryTracker = new Pawn_CarryTracker(giver);
+            JobDef previousGive = JobDefOf.GiveToPawn;
+            JobDefOf.GiveToPawn = new JobDef { defName = "GiveToPawn" };
+            Patch(AccessTools.Method(typeof(ReservationUtility), nameof(ReservationUtility.CanReserve)), nameof(Reservable));
+            Patch(AccessTools.Method(typeof(Pawn_JobTracker), nameof(Pawn_JobTracker.TryTakeOrderedJob)), nameof(QueueDelivery));
+            harmony.CreateClassProcessor(typeof(RHAH_FoodDeliveryPatch)).Patch();
+            try
+            {
+                List<Thing> foods = new List<Thing>();
+                RHAH_FoodHandoff.CollectFood(giver, foods, receiver, true);
+                Assert.Contains(food, foods);
+
+                Method(typeof(RHAH_VisitorExpelMenu), "GiveFood").Invoke(null, new object[] { giver, receiver, food, 1 });
+
+                Assert.Equal(10, food.stackCount);
+                Assert.Equal(0.3f, receiver.needs.food.CurLevel);
+                Assert.Equal(9d, RHAH_DemandFood.Remaining(record), 5);
+                Assert.True(visitor.ListedForFood(receiver));
+                Assert.Same(JobDefOf.GiveToPawn, giver.CurJob.def);
+                Assert.Equal(10, giver.CurJob.count);
+                giver.carryTracker.innerContainer.TryAdd(food, false);
+                int transferred = giver.carryTracker.innerContainer.TryTransferToContainer(food, receiver.inventory.innerContainer, 3, false);
+
+                Assert.Equal(3, transferred);
+                Assert.Equal(3, receiver.inventory.innerContainer.TotalStackCountOfDef(food.def));
+                Assert.Equal(6.3, RHAH_DemandFood.Remaining(record), 5);
+                Assert.Equal(0.3f, receiver.needs.food.CurLevel);
+                Assert.True(record.Open);
+            }
+            finally
+            {
+                JobDefOf.GiveToPawn = previousGive;
+            }
+        }
+
+        [Theory]
+        [InlineData(true, false, FoodPreferability.MealFine, true)]
+        [InlineData(false, false, FoodPreferability.MealSimple, false)]
+        [InlineData(true, true, FoodPreferability.MealFine, false)]
+        [InlineData(true, false, FoodPreferability.DesperateOnly, false)]
+        public void OrdinaryInfantFoodRespectsSuitabilityAndMenuRestrictions(
+            bool babiesCanIngest, bool disabled, FoodPreferability preferability, bool offered)
+        {
+            Verse.Pawn receiver = Infant(901);
+            PaymentFood food = Food(10);
+            food.def.ingestible.babiesCanIngest = babiesCanIngest;
+            food.def.ingestible.preferability = preferability;
+            RHAH_Mod.Settings.SetGiveFoodEnabled(food.def.defName, !disabled);
+            Patch(AccessTools.Method(typeof(ReservationUtility), nameof(ReservationUtility.CanReserve)), nameof(Reservable));
+            colonists[0].SetFactionDirect(Faction.OfPlayer);
+            map.lordManager = new LordManager(map);
+            List<Thing> foods = new List<Thing>();
+
+            RHAH_FoodHandoff.CollectFood(colonists[0], foods, receiver);
+
+            Assert.Equal(offered, foods.Contains(food));
+        }
+
+        [Fact]
+        public void OrdinaryInfantConsumesFoodWithoutStartingInventoryDelivery()
+        {
+            Verse.Pawn receiver = Infant(901);
+            Verse.Pawn giver = colonists[0];
+            giver.jobs = new Pawn_JobTracker(giver);
+            PaymentFood food = Food(10);
+            food.def.ingestible.babiesCanIngest = true;
+
+            Method(typeof(RHAH_VisitorExpelMenu), "GiveFood").Invoke(null, new object[] { giver, receiver, food, 1 });
+
+            Assert.Equal(9, food.stackCount);
+            Assert.Equal(1f, receiver.needs.food.CurLevel);
+            Assert.Equal(0, receiver.inventory.innerContainer.TotalStackCountOfDef(food.def));
+            Assert.Null(giver.CurJob);
+        }
+
+        Verse.Pawn Infant(int id)
+        {
+            Verse.Pawn receiver = Visitor(id);
+            receiver.Name = new NameSingle("Infant");
+            receiver.kindDef = new PawnKindDef();
+            receiver.def.race.lifeStageAges = new List<LifeStageAge>
+            {
+                new LifeStageAge { def = new LifeStageDef { developmentalStage = DevelopmentalStage.Baby } }
+            };
+            receiver.ageTracker = new Pawn_AgeTracker(receiver);
+            Field(typeof(Pawn_AgeTracker), "cachedLifeStageIndex").SetValue(receiver.ageTracker, 0);
+            receiver.needs = new Pawn_NeedsTracker();
+            receiver.needs.food = Uninitialized<InfantFoodNeed>();
+            Field(typeof(Need), "pawn").SetValue(receiver.needs.food, receiver);
+            Field(typeof(Need), "curLevelInt").SetValue(receiver.needs.food, 0.3f);
+            HungerAndHavoc.Identity.CompRHAH_Pawn.TryGet(receiver).State.lifecycle = RHAH_Lifecycle.Fed;
+            return receiver;
+        }
+
+        sealed class InfantFoodNeed : Need_Food
+        {
+            public InfantFoodNeed(Verse.Pawn pawn) : base(pawn) { }
+            public override float MaxLevel => 1f;
+        }
+
+        static bool Reservable(ref bool __result)
+        {
+            __result = true;
+            return false;
+        }
+
+        static bool QueueDelivery(Pawn_JobTracker __instance, Job job, ref bool __result)
+        {
+            __instance.curJob = job;
+            __result = true;
+            return false;
+        }
+
 
         void GiveJob(Verse.Pawn giver, Verse.Pawn receiver, Thing food)
         {
