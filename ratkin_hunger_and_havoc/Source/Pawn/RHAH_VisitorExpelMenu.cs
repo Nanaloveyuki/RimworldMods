@@ -98,37 +98,61 @@ namespace HungerAndHavoc.Pawn
                         : clickedPawn.GetLord().LordJob as LordJob_RHAH_Visitor;
                     List<Thing> foods = new List<Thing>();
                     RHAH_ChoiceRecord demand = RHAH_ArmedDemand.FoodRequest(clickedPawn);
-                    RHAH_FoodHandoff.CollectFood(actor, foods, demand != null);
-                    ThingDef requested = job == null ? null : job.RequestedFood;
-                    List<Thing> offered = new List<Thing>();
-                    for (int i = 0; i < foods.Count; i++)
-                    {
-                        Thing food = foods[i];
-                        if (food != null && food.def != null && (demand != null
-                            ? RHAH_DemandFood.Allowed(food.def) : requested == null || food.def == requested))
-                        {
-                            offered.Add(food);
-                        }
-                    }
-
-                    if (offered.Count == 0)
+                    RHAH_FoodHandoff.CollectFood(actor, foods, clickedPawn, demand != null);
+                    if (foods.Count == 0)
                     {
                         yield return new FloatMenuOption(
                             "RHAH_Choice_NoFood".Translate(each, clickedPawn.LabelShort),
                             null);
                     }
 
-                    for (int i = 0; i < offered.Count; i++)
+                    int listed = 0;
+                    for (int i = 0; i < foods.Count; i++)
                     {
-                        Thing food = offered[i];
-                        int amount = demand == null ? each : RHAH_DemandFood.Units(
-                            RHAH_DemandFood.Remaining(demand), RHAH_DemandFood.Nutrition(food));
+                        Thing food = foods[i];
+                        int amount = UnitsOffered(job, demand, clickedPawn, food, each);
+                        if (amount <= 0)
+                        {
+                            continue;
+                        }
+
+                        listed++;
                         yield return new FloatMenuOption(
                             "RHAH_Choice_GiveFood".Translate(amount + " " + food.def.label, clickedPawn.LabelShort),
                             () => GiveFood(actor, clickedPawn, food, each));
                     }
+
+                    if (foods.Count > 0 && listed == 0)
+                    {
+                        yield return new FloatMenuOption("RHAH_Choice_Feed".Translate(), null)
+                        {
+                            Disabled = true,
+                            tooltip = new TipSignal("RHAH_Choice_FeedNotHungry".Translate(clickedPawn.LabelShort))
+                        };
+                    }
                 }
             }
+        }
+
+        // 件数按营养折算 要人喂的按这一口能吃几件 未登记的来客按设置里的份数预演
+        // 最后按这堆实有量截断 免得标签承诺得比堆里还多
+        static int UnitsOffered(LordJob_RHAH_Visitor job, RHAH_ChoiceRecord demand, Verse.Pawn receiver, Thing food, int each)
+        {
+            int units;
+            if (demand != null)
+            {
+                units = RHAH_DemandFood.Units(RHAH_DemandFood.Remaining(demand), RHAH_DemandFood.Nutrition(food));
+            }
+            else if (Compat.RHAH_ChildMovement.NeedsHandFeed(receiver))
+            {
+                units = RHAH_FoodHandoff.DirectFeedUnits(receiver, food);
+            }
+            else
+            {
+                units = job == null ? each : job.FoodUnitsFor(receiver, food.def, each);
+            }
+
+            return System.Math.Min(units, food.stackCount);
         }
 
         static void GiveFood(Verse.Pawn actor, Verse.Pawn receiver, Thing food, int count)
@@ -138,18 +162,25 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
+            RHAH_ChoiceRecord demand = RHAH_ArmedDemand.FoodRequest(receiver);
+            if (demand != null && !RHAH_DemandFood.Allowed(food.def))
+            {
+                Messages.Message("RHAH_Choice_FeedBlocked".Translate(receiver.LabelShort), MessageTypeDefOf.RejectInput);
+                return;
+            }
+
+            // 索粮只交物资，不把交付量当作这一口饭消耗。
+            if (demand == null && Compat.RHAH_ChildMovement.NeedsHandFeed(receiver))
+            {
+                RHAH_FoodHandoff.FeedDirectly(receiver, food);
+                return;
+            }
+
             if (JobDefOf.GiveToPawn == null)
             {
                 Messages.Message(
                     "RHAH_Choice_FeedBlocked".Translate(receiver.LabelShort),
                     MessageTypeDefOf.RejectInput);
-                return;
-            }
-
-            RHAH_ChoiceRecord demand = RHAH_ArmedDemand.FoodRequest(receiver);
-            if (demand != null && !RHAH_DemandFood.Allowed(food.def))
-            {
-                Messages.Message("RHAH_Choice_FeedBlocked".Translate(receiver.LabelShort), MessageTypeDefOf.RejectInput);
                 return;
             }
 
@@ -164,17 +195,9 @@ namespace HungerAndHavoc.Pawn
             LordJob_RHAH_Visitor job = receiver.GetLord() == null
                 ? null
                 : receiver.GetLord().LordJob as LordJob_RHAH_Visitor;
-            if (job != null && job.RequestedFood != null && job.RequestedFood != food.def)
-            {
-                Messages.Message(
-                    "RHAH_Choice_FeedBlocked".Translate(receiver.LabelShort),
-                    MessageTypeDefOf.RejectInput);
-                return;
-            }
-
             int needed = demand != null ? RHAH_DemandFood.Units(
                 RHAH_DemandFood.Remaining(demand) - RHAH_DemandFood.BeingHauledTo(receiver), RHAH_DemandFood.Nutrition(food))
-                : job == null ? count : job.FoodStillNeeded(receiver);
+                : job == null ? count : job.FoodStillNeeded(receiver, food.def);
             if (needed <= 0)
             {
                 Messages.Message(
@@ -224,6 +247,7 @@ namespace HungerAndHavoc.Pawn
     }
 
     // 原版按整个 Lord 扣正在搬运的数量 同批第二人会被第一人的搬运清成 0
+    // 现在只回答「还要不要再搬一趟」 件数见下面按实际食物重算的那条
     [HarmonyLib.HarmonyPatch(typeof(GiveItemsToPawnUtility), nameof(GiveItemsToPawnUtility.ItemCountLeftToCollect))]
     internal static class RHAH_GiveToPawnCountPatch
     {
@@ -235,6 +259,111 @@ namespace HungerAndHavoc.Pawn
             }
 
             __result = left;
+            return false;
+        }
+    }
+
+    // 原版把 ItemCountLeftToCollect 直接写进 job.count 换食物时会按上一次的类型折件数
+    // 按这趟手上真正要搬的食物重算 且必须排在原版 initAction 之后 否则会被它覆盖
+    [HarmonyLib.HarmonyPatch(typeof(JobDriver_GiveToPawn), "DetermineNumToHaul")]
+    internal static class RHAH_GiveToPawnHaulCountPatch
+    {
+        static void Postfix(JobDriver_GiveToPawn __instance, ref Toil __result)
+        {
+            if (__result == null || __result.initAction == null)
+            {
+                return;
+            }
+
+            System.Action vanilla = __result.initAction;
+            __result.initAction = () =>
+            {
+                vanilla();
+                Haul(__instance);
+            };
+        }
+
+        static void Haul(JobDriver_GiveToPawn driver)
+        {
+            // 手上有货时结束 job 会把货丢在脚下 这一趟交给外层 JumpIf 再走
+            if (!RHAH_FoodHandoff.IsOurFeed(driver.pawn) || driver.CountBeingHauled > 0)
+            {
+                return;
+            }
+
+            Job job = driver.job;
+            Verse.Pawn receiver = job.GetTarget(TargetIndex.B).Pawn;
+            Thing food = job.GetTarget(TargetIndex.A).Thing;
+            if (food == null || receiver.GetLord() == null)
+            {
+                return;
+            }
+
+            LordJob_RHAH_Visitor visitor = receiver.GetLord().LordJob as LordJob_RHAH_Visitor;
+            int units = visitor.HaulUnitsFor(receiver, food, driver);
+            if (units <= 0)
+            {
+                driver.pawn.jobs.EndCurrentJob(JobCondition.Succeeded);
+                return;
+            }
+
+            job.count = units;
+        }
+    }
+
+    // 原版搬上第一趟后还会在 8 格内找同类的可叠堆 找到就换目标整段重来
+    // 普通投喂只搬菜单承诺的那几件 不够交给外层 JumpIf 再走一趟 所以这里整段跳过
+    [HarmonyLib.HarmonyPatch(typeof(Toils_Haul), nameof(Toils_Haul.CheckForGetOpportunityDuplicate))]
+    internal static class RHAH_GiveToPawnDuplicatePatch
+    {
+        static void Postfix(Toil __result)
+        {
+            if (__result == null || __result.initAction == null)
+            {
+                return;
+            }
+
+            System.Action vanilla = __result.initAction;
+            __result.initAction = () =>
+            {
+                if (IsOurHaul(__result.actor))
+                {
+                    return;
+                }
+
+                vanilla();
+            };
+        }
+
+        // duplicate 这一步只在手上有货时才跑
+        static bool IsOurHaul(Verse.Pawn actor)
+        {
+            return actor != null && actor.carryTracker != null && actor.carryTracker.CarriedThing != null &&
+                RHAH_FoodHandoff.IsOurFeed(actor);
+        }
+    }
+
+    // 已登记等饭的来客在走到等待点之前也必须能收下食物 否则原版投喂 job 会当条件失败立刻中止
+    // 与上面那条补丁同一判据 逐件计数不会走到原版的 toil 强转
+    [HarmonyLib.HarmonyPatch(typeof(GiveItemsToPawnUtility), nameof(GiveItemsToPawnUtility.IsWaitingForItems))]
+    internal static class RHAH_GiveToPawnWaitPatch
+    {
+        static bool Prefix(Verse.Pawn pawn, ref bool __result)
+        {
+            if (__result || pawn == null)
+            {
+                return true;
+            }
+
+            LordJob_RHAH_Visitor job = pawn.GetLord() == null
+                ? null
+                : pawn.GetLord().LordJob as LordJob_RHAH_Visitor;
+            if (job == null || !job.ListedForFood(pawn))
+            {
+                return true;
+            }
+
+            __result = true;
             return false;
         }
     }

@@ -68,6 +68,7 @@ namespace HungerAndHavoc.Identity
         public override void CompExposeData()
         {
             Scribe_Values.Look(ref state.foodWaitUntilTick, "foodWaitUntilTick", -1);
+            Scribe_Values.Look(ref state.foodNutritionDelivered, "foodNutritionDelivered", 0d);
             Scribe_Values.Look(ref state.sourceIncidentDisplayId, "sourceIncidentDisplayId");
             Scribe_Values.Look(ref state.spawnBatchId, "spawnBatchId", 0);
             Scribe_Values.Look(ref state.relationshipGroupId, "relationshipGroupId", 0);

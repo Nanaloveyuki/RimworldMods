@@ -10,8 +10,9 @@
   <RHAH_Settings_MotherAge>Minimum mother age: {0}</RHAH_Settings_MotherAge>
   <RHAH_Settings_MotherAge_Tooltip>A newly arriving mother or begging mother is at least this old. 1 to 14, default 14. If the ordinary arrival age is higher, that age wins. Ratkin young keep their own ages.</RHAH_Settings_MotherAge_Tooltip>
   <RHAH_Settings_ImmobileBabies>Allow babies who cannot walk</RHAH_Settings_ImmobileBabies>
-  <RHAH_Settings_ImmobileBabies_Tooltip>Without a toddler mod, ratkin under 4 stay down, and an adult has to carry them out. Off, ratkin young arrive at least 4 years old.</RHAH_Settings_ImmobileBabies_Tooltip>
+  <RHAH_Settings_ImmobileBabies_Tooltip>Without Toddlers, or when it fails to load, ratkin under 4 stay down and an adult has to carry them out. Off, visitors no longer arrive as babies; their age is raised past 4.</RHAH_Settings_ImmobileBabies_Tooltip>
   <RHAH_Settings_ImmobileBabies_Toddlers>Toddlers is active. Children under 3 can move on their own. This switch no longer raises their age.</RHAH_Settings_ImmobileBabies_Toddlers>
+  <RHAH_Settings_ImmobileBabies_NoCarry>Toddlers is active, but the carry expansion (RimTalk - Expand Toddlers) is missing. Without it visitors leave babies behind, so babies are still aged up past 4.</RHAH_Settings_ImmobileBabies_NoCarry>
   <RHAH_Settings_Gender>Gender</RHAH_Settings_Gender>
   <RHAH_Settings_Gender_0>Random</RHAH_Settings_Gender_0>
   <RHAH_Settings_Gender_1>By share</RHAH_Settings_Gender_1>

@@ -84,14 +84,15 @@
   <RHAH_Choice_AllyNext>下一页</RHAH_Choice_AllyNext>
   <RHAH_Choice_AllyBack>返回</RHAH_Choice_AllyBack>
   <RHAH_Choice_NoAlly>没有盟友派系能接收他们。</RHAH_Choice_NoAlly>
-  <RHAH_Choice_AllySent>{0}人已开始前往{1}，成功离开这张地图后才会成为该派系的成员，并按离场者的市场价值增加盟友好感。本次转送合计最高+10好感。对方据点里无法直接找到他们。</RHAH_Choice_AllySent>
+  <RHAH_Choice_AllyRefused>你选中的这个派系现在无法接收这批来客（它可能已被击溃、失去据点，或不再与你同盟）。</RHAH_Choice_AllyRefused>
+  <RHAH_Choice_AllySent>{0}人已收到离场命令，正在前往{1}。他们走出这张地图后才会成为该派系的成员；好感与回礼都在此之后结算，本次转送合计最高+10好感。对方据点里无法直接找到他们。</RHAH_Choice_AllySent>
   <RHAH_Choice_AllyGiftLabel>盟友的回礼</RHAH_Choice_AllyGiftLabel>
   <RHAH_Choice_AllyGiftText>{0}已经空投了一些物资，答谢我们将这批来客送给他们接纳。</RHAH_Choice_AllyGiftText>
   <RHAH_Choice_AllyGoodwillReason>接纳来客</RHAH_Choice_AllyGoodwillReason>
   <RHAH_Choice_NoCustodyTarget>当前没有可以俘虏或奴役的来客。他们可能正在精神崩溃、已经离开，或受到囚禁限制。</RHAH_Choice_NoCustodyTarget>
   <RHAH_Choice_NoPresent>来客已经离开，现场无人可以接受这项安排。</RHAH_Choice_NoPresent>
   <RHAH_Choice_NoRecruit>这些来客都不能被收留、雇佣或加入殖民地。</RHAH_Choice_NoRecruit>
-  <RHAH_Choice_NoTransfer>当前没有可以送往盟友、且能够离开地图的来客。</RHAH_Choice_NoTransfer>
+  <RHAH_Choice_NoLeave>本批来客现在都无法离开这张地图（剧情留驻、鼠潮，或有第三方拦住了离场）。</RHAH_Choice_NoLeave>
   <RHAH_Choice_NoIdeology>奴役需要开启文化扩展。</RHAH_Choice_NoIdeology>
   <RHAH_Choice_CustodyFailed>这次俘虏或奴役未能成功，你可以在信中重新选择。</RHAH_Choice_CustodyFailed>
   <RHAH_Choice_FeedHint>来客会在原地等你安排送餐。先选中一名殖民者，再右键正在等待的来客，选择要交给他们的食物。</RHAH_Choice_FeedHint>
@@ -100,6 +101,7 @@
   <RHAH_Choice_FeedBlocked>{0}现在不能接受投喂。</RHAH_Choice_FeedBlocked>
   <RHAH_Choice_FeedNoVisitor>{0}当前不属于可以投喂的来客。</RHAH_Choice_FeedNoVisitor>
   <RHAH_Choice_FeedNotHungry>{0}现在不需要食物。</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_FeedBabyOnly>{0}还不能自己吃，请右键单独喂。</RHAH_Choice_FeedBabyOnly>
   <RHAH_Choice_GiveFood>交给{1} {0}</RHAH_Choice_GiveFood>
   <RHAH_Choice_NoFood>没有能交给{1}的食物</RHAH_Choice_NoFood>
   <RHAH_Choice_Short>库存不足，还缺 {0}。</RHAH_Choice_Short>

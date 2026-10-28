@@ -505,9 +505,12 @@ namespace HungerAndHavoc.Incidents
             return !dismissed && firstClick;
         }
 
-        internal static bool FoodWaiting(bool open, bool alive, bool spawned, int received, int requested)
+        // 营养账本是 double 留浮点余量 否则差一点点就再要一整件
+        const double FoodWaitingTolerance = 0.000001;
+
+        internal static bool FoodWaiting(bool open, bool alive, bool spawned, double received, double requested)
         {
-            return open && alive && spawned && requested > 0 && received < requested;
+            return open && alive && spawned && requested > 0 && received + FoodWaitingTolerance < requested;
         }
 
         static int Round(float value)
@@ -556,7 +559,8 @@ namespace HungerAndHavoc.Incidents
         internal int ExpireTick = -1;
         internal RHAH_ChoiceAction Settled;
         internal List<int> PawnLoadIds = new List<int>();
-        internal int AllyFactionId;
+        internal const int NoAllyFaction = -1;
+        internal int AllyFactionId = NoAllyFaction;
         internal List<int> AllyPawnIds = new List<int>();
         internal float AllyTransferredValue;
         internal int AllyGoodwillGranted;
@@ -604,7 +608,7 @@ namespace HungerAndHavoc.Incidents
                 Scribe_Values.Look(ref Settled, "settled", RHAH_ChoiceAction.None);
             }
             Scribe_Collections.Look(ref PawnLoadIds, "pawnLoadIds", LookMode.Value);
-            Scribe_Values.Look(ref AllyFactionId, "allyFactionId", 0);
+            Scribe_Values.Look(ref AllyFactionId, "allyFactionId", NoAllyFaction);
             Scribe_Collections.Look(ref AllyPawnIds, "allyPawnIds", LookMode.Value);
             Scribe_Values.Look(ref AllyTransferredValue, "allyTransferredValue", 0f);
             Scribe_Values.Look(ref AllyGoodwillGranted, "allyGoodwillGranted", 0);

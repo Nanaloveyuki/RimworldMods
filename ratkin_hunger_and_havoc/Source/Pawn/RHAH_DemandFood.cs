@@ -49,6 +49,13 @@ namespace HungerAndHavoc.Pawn
             return ValidNutrition(value) ? value : 0;
         }
 
+        // 任意可吃食物的营养 不套索粮白名单 供普通投喂折算件数
+        internal static double EdibleNutrition(ThingDef def)
+        {
+            double value = def?.ingestible == null ? 0 : def.ingestible.CachedNutrition;
+            return ValidNutrition(value) ? value : 0;
+        }
+
         static bool ValidNutrition(double value)
         {
             return value > 0 && !double.IsNaN(value) && !double.IsInfinity(value);

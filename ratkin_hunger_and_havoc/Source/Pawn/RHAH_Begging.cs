@@ -180,11 +180,6 @@ namespace HungerAndHavoc.Pawn
                 RHAH_VisitorRules.RollsSlap(SlapChancePercent(), roll);
         }
 
-        internal static bool ToddlersActive()
-        {
-            return ModsConfig.IsActive("cyanobot.toddlers");
-        }
-
         internal static bool Sleeping(Verse.Pawn pawn)
         {
             return pawn != null && !pawn.Awake();
@@ -224,7 +219,7 @@ namespace HungerAndHavoc.Pawn
                 reachable,
                 reservable,
                 Age(colonist),
-                ToddlersActive());
+                Compat.RHAH_ToddlerPresence.Active);
         }
 
         internal static void NoteFailure(Verse.Pawn beggar, Verse.Pawn target)

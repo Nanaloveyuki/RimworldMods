@@ -28,7 +28,7 @@ namespace HungerAndHavoc.Pawn.Compat
 
         internal static bool LiftsAgeImmobility(Verse.Pawn pawn)
         {
-            bool toddlers = ModsConfig.IsActive("cyanobot.toddlers");
+            bool toddlers = RHAH_ToddlerPresence.Active;
             bool eventBaby = HungerAndHavoc.Api.RHAH_Api.IsOrigin(pawn) && pawn.DevelopmentalStage == DevelopmentalStage.Baby;
             bool injured = pawn.health != null && pawn.health.Downed && !AgeOnlyDown(pawn);
             LifeStageDef stage = pawn.ageTracker != null ? pawn.ageTracker.CurLifeStage : null;
@@ -73,6 +73,19 @@ namespace HungerAndHavoc.Pawn.Compat
         internal static bool CanFeedSelf(Verse.Pawn pawn)
         {
             return ManipulationStage(pawn) >= 1;
+        }
+
+        // 婴儿只看生命阶段 装 Toddlers 后能爬能拿也不算会自己吃
+        // 与 CanFeedSelf 分工不同 那条管「能不能自己去拿饭吃」 这条管「菜单要不要亲手喂」
+        internal static bool IsFeedingBaby(Verse.Pawn pawn)
+        {
+            return pawn != null && pawn.DevelopmentalStage == DevelopmentalStage.Baby;
+        }
+
+        // 菜单要亲手喂的人 婴儿 或 不是婴儿但手法阶段还不许自己吃
+        internal static bool NeedsHandFeed(Verse.Pawn pawn)
+        {
+            return pawn == null || IsFeedingBaby(pawn) || !CanFeedSelf(pawn);
         }
 
         internal static bool EatsOnFloor(Verse.Pawn pawn)

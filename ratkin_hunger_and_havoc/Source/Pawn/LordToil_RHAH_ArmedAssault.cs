@@ -16,8 +16,9 @@ namespace HungerAndHavoc.Pawn
             {
                 Verse.Pawn pawn = lord.ownedPawns[i];
                 bool swarm = RHAH_MouseSwarm.IsProvoked(pawn);
-                bool fights = (swarm || RHAH_ArmedDemand.Enabled) && JobGiver_RHAH_Visitor.CanFight(pawn);
-                pawn.mindState.duty = fights && !swarm ? new PawnDuty(DutyDefOf.AssaultColony) :
+                bool assaults = !swarm && RHAH_ArmedDemand.Enabled && JobGiver_RHAH_Visitor.CanFight(pawn);
+                // 不参战的人沿用 VisitorSeek 只为复用它的 think tree 站位就是原地
+                pawn.mindState.duty = assaults ? new PawnDuty(DutyDefOf.AssaultColony) :
                     new PawnDuty(RHAH_DefOf.RHAH_VisitorSeek, pawn.Position, 3f);
             }
         }

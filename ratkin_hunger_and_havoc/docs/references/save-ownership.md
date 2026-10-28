@@ -83,6 +83,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | stayKind | stayKind | 0 | 否 | 0 无，1 收留，2 雇佣，3 临时征募。到期、Released 或 Dead 清为 0；Released 终态优先于旧期限 |
 | stayRemainingTicks | stayRemainingTicks | 0 | 否 | 医疗倒地时冻结的剩余 tick，暂停期间滚动原离场期限；年龄不能行走不暂停。到期或终态清为 0 |
 | foodWaitUntilTick | foodWaitUntilTick | -1 | 否 | 断粮或交接等待截止。未收齐交接者按本人截止离场；本人收齐清为 -1，真实进食才写 Fed |
+| foodNutritionDelivered | foodNutritionDelivered | 0 | 否 | 本人已收到的投喂营养累计，与「每人请求量 = 份数 × 0.9」同量纲。只认殖民者亲手交进本人背包的量：背包原有食物不计、未完成搬运不计、同批其它人收的不算给他。结束等饭时清零；旧档缺键按 0 重算 |
 | carriesPlague | carriesPlague | false | 否 | |
 | attitudeAtArrival | attitudeAtArrival | Neutral | 否 | `RHAH_Attitude` |
 | attitude | attitude | Neutral | 否 | 当前 `RHAH_Attitude`，forceSave 保留明确 Neutral 停战。仅旧档缺键时回退到 `attitudeAtArrival`；键、类型和默认值不变 |
@@ -109,8 +110,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | waitSpot | waitSpot | IntVec3.Invalid | 否 | 寻食集合点 |
 | familyRole | familyRole | Unspecified | 否 | `RHAH_PawnRole` |
 | foodReceivers | foodReceivers | 空集合 | 是 | 等待玩家亲手交食物的来客引用列表。PostLoadInit 补空列表；1.0.4 在字段读取前自动迁移 1.0.3 的 foodReceiver，已有新键时优先保留新键，每人份数由 foodCount 保存 |
-| foodDef | foodDef | null | 否 | 第一次交货后锁定的食物 |
-| foodCount | foodCount | 0 | 否 | 需要的份数。0 表示没有在等 |
+| foodDef | foodDef | null | 否 | 最近一次给出的食物，只作标注，不参与过滤。结束等待时清空 |
+| foodCount | foodCount | 0 | 否 | 需要的份数（设置里的每位来客 N 顿）。0 表示没有在等；每人请求营养 = foodCount × 0.9，已给量记在接收者本人的身份标记里 |
 | passerbyExitCell | passerbyExitCell | IntVec3.Invalid | 否 | I-031/I-039 对边可达出口。旧 Lord 首次按原来源识别后选择，保存重读保持；卸载随 Lord Remove |
 | armedChoiceId | armedChoiceId | 0 | 否 | 对应本批 I-014/I-030/I-045 的既有 RHAH_ChoiceRecord；0 无索粮政策。旧 Lord 缺键继续原行为，不自动启动倒计时 |
 | armedAssault | armedAssault | false | 否 | 本请求真实拒绝/逾期后进入索粮进攻；足额交付或关闭索粮设置清除并中立离场。旧图索引 0..3 保持，进攻 toil 追加为 4；卸载随 Lord Remove |
@@ -157,11 +158,11 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | Choice | choice | None | 否 | `RHAH_ChoiceKind` |
 | Amount | amount | 0 | 否 | |
 | ArmedFoodDelivered | armedFoodDelivered | 0 | 否 | 保留旧档武装索粮已经交付的简单餐份数，每份折算 0.9 营养；新交付不再累加此字段。不按背包库存反推；卸载随 openChoices Remove |
-| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。剩余需求为 (Amount - ArmedFoodDelivered) × 0.9 - 本值；旧档缺键按 0。卸载随 openChoices Remove |
+| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。包括向婴儿交付的索粮物资，不作为直喂消耗；普通直喂不写此账本。剩余需求为 (Amount - ArmedFoodDelivered) × 0.9 - 本值；旧档缺键按 0。卸载随 openChoices Remove |
 | ExpireTick | expireTick | -1 | 否 | |
 | Settled | settled | None | 否 | `RHAH_ChoiceAction`。旧文本 `Prison` 和旧数值 `12` 读取为 `Capture`（关闭状态）；再存档写 `Capture`。其它名称和编号保持原有枚举存读，缺键仍为 `None` |
 | PawnLoadIds | pawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同 |
-| AllyFactionId | allyFactionId | 0 | 否 | 转送目标派系 loadID，0 表示没有记录目标。转送完成后仍保留，作为回礼来源；待入籍成员以 AllyPawnIds 判断。旧档缺键为 0 |
+| AllyFactionId | allyFactionId | -1 | 否 | 转送目标派系 loadID，-1 表示没有记录目标；0 是合法 loadID（每个世界的第一家派系就是 0），不能当未设置。转送完成后仍保留，作为回礼来源；待入籍成员以 AllyPawnIds 判断。旧档缺键为 -1；旧档里的 0 只可能来自从未成功送出的记录，读回后等同未设置（AllyPawnIds 为空，不会触发入籍） |
 | AllyPawnIds | allyPawnIds | 空集合 | 是 | 已下令离场、离图后才改入盟友的 pawn thingID。`PostLoadInit` 补空列表；null 与空集合语义相同。人离图或死亡后移除 |
 | AllyTransferredValue | allyTransferredValue | 0 | 否 | 本批成功离场来客的累计市场价值；仅成功转送时累加，旧档缺键为 0 |
 | AllyGoodwillGranted | allyGoodwillGranted | 0 | 否 | 本批已发放的转送好感；每次按累计目标 `min(10, ceil(AllyTransferredValue / 500))` 减去此值补发，非正价值目标为 0。旧档缺键为 0 |
@@ -236,6 +237,9 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Identity.Hediff_RHAH_Mark | Hediff `Class` / `hediffClass` | Remove，随身份 Hediff 删除 |
 | HungerAndHavoc.Identity.CompRHAH_Pawn | HediffComp `Class` | Remove，随身份 Hediff 删除 |
 | HungerAndHavoc.Identity.CompProperties_RHAH_Pawn | Def XML `Class` | 不单独出现在 `.rws` |
+| HungerAndHavoc.Pawn.HediffComp_RHAH_SiegeFuryStage | HediffComp `Class` | Remove，随该 Hediff 删除 |
+| HungerAndHavoc.Pawn.HediffCompProperties_RHAH_SiegeFuryStage | Def XML `Class` | 不单独出现在 `.rws` |
+| HungerAndHavoc.Pawn.Thought_Memory_RHAH_NoExpiry | ThoughtDef `thoughtClass`，沿用原版记忆字段；无新增存档键，`ShouldDiscard=false` 保证读档后仍不过期 | Remove，随该记忆删除 |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Visitor | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Intercept | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree。`exitCell` 随 Lord 删除，不改地图上的玩家 |
 | HungerAndHavoc.Incidents.WorldObject_RHAH_Interception | WorldObjectDef `worldObjectClass` | 已有地图或居民：Replace，类名改成 `RimWorld.Planet.Site`。没有地图也没有居民：Remove |
@@ -420,6 +424,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_GnawedWall | HediffDef | Remove。不替换成原版 Hediff |
 | RHAH_OvergnawedWall | HediffDef | Remove。不替换成原版 Hediff |
 | RHAH_ClaySatiety | HediffDef | Remove。不替换成原版 Hediff |
+| RHAH_SiegeFury | HediffDef | Remove。不替换成原版 Hediff |
 | RHAH_GuanyinTu | ThingDef | Remove。不替换成原版食物 |
 | RHAH_Heat_WetCloth, RHAH_Heat_MudCoat, RHAH_Heat_ReedWrap, RHAH_Heat_BarkWrap, RHAH_Heat_MudMantle, RHAH_Heat_MudShell | ThingDef | Remove。不替换成原版衣物 |
 | RHAH_Cold_ThinHemp, RHAH_Cold_LayeredHemp, RHAH_Cold_StrawQuilt, RHAH_Cold_FurCloak, RHAH_Cold_SmokedBlanket, RHAH_Cold_HideWrap | ThingDef | Remove。不替换成原版衣物 |
@@ -531,6 +536,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Thought_LeftAlone, RHAH_Thought_CaptiveYear, RHAH_Thought_FamilyHere, RHAH_Thought_Regret | ThoughtDef | Remove |
 | RHAH_Thought_ClaySatiety, RHAH_Thought_FamineHunger, RHAH_Thought_FamineFed | ThoughtDef | Remove。前两项 situational，后一项真实吃饱记忆 |
 | RHAH_Thought_Sheltered, RHAH_Thought_Captured, RHAH_Thought_EnslavedFed, RHAH_Thought_EnslavedServing, RHAH_Thought_Expelled, RHAH_Thought_AteFood | ThoughtDef，行为记忆 | Remove。奴役两种记忆互斥；永久负面分支没有期限，进食及驱赶同 Def 的两档互相替换 |
+| RHAH_Thought_SiegeFuryFoodInSight, RHAH_Thought_SiegeFuryMealSoon, RHAH_Thought_SiegeFuryStarving | ThoughtDef，越饿越凶三档记忆 | Remove。三档互斥，随越饿越凶 Hediff 的档位替换与移除一起清 |
 | RHAH_Trader_Famine | TraderKindDef | Replace。改成已加载原版 `Visitor_Outlander_Standard`，保留 trader Tracker 和真实原版库存 |
 | RHAH_PawnKind_Ratkin | PawnKindDef | Replace。保留 pawn 的 thingID。`kindDef` 改成仍会随 NewRatkinPlus 加载、种族同为 `Ratkin`、不属于本模组的 PawnKind。按 defName 序选第一个。没有这种种类就中止，不换成人类 |
 
@@ -608,6 +614,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Settings.famineYearDisasterChancePercent | 全局 ModSettings，默认 20，范围 0..100；每日尝试、本年最多成功一次 |
 | RHAH_Settings.armedDemandEnabled | 全局 ModSettings，默认 true。仅 Siege 三场景建立带数量期限的请求，不受援助/访客信开关；关闭已有请求停止该 Lord 的索粮进攻并离场，不改其它袭击 |
 | RHAH_Settings.armedWeaponsEnabled | 全局 ModSettings，默认 true。只装备新 Siege 成年且可战者；原版低级武器品质普通及以下 |
+| RHAH_Settings.siegeFuryEnabled | 全局 ModSettings，默认 true。关闭后到场的 Siege 来客不再携带越饿越凶、不再按档位挂心情，已存在的 Buff 按两日期限自行消退 |
 | RHAH_Settings.spaceApproachEnabled | 全局 ModSettings，默认 false。关闭时太空层家园不生成远行队。缺键保持关闭 |
 | RHAH_Settings.skylandIncidentsEnabled | 全局 ModSettings，默认 false。仅启用 RimSkyBlock_Skyland 时显示；关闭时空岛不刷新地图事件、不派新远行队，已排队及在途事件等待重新允许；与太空设置独立，缺键保持关闭 |
 | RHAH_Settings.approachSpeedMultiplier | 全局 ModSettings，默认 2，范围 0.5..4；1 为原始速度。在途鼠族远行队按当前倍率扣除行进消耗，抵达重试仍用真实一小时。缺键或非有限值用默认 |

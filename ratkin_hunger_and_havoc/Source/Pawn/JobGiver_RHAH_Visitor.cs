@@ -48,13 +48,15 @@ namespace HungerAndHavoc.Pawn
             {
                 return false;
             }
+            // 不按年龄或身体阶段设限：本模组只负责给出同一个身份行为 能不能打由原版与其它模组的能力线决定
             return RHAH_BatchAttitude.CanOrderLeave(pawn) && pawn.Spawned && !pawn.Downed &&
-                !(pawn.stances?.stunner?.Stunned ?? false) && pawn.DevelopmentalStage.Adult() &&
+                !(pawn.stances?.stunner?.Stunned ?? false) &&
                 RHAH_Api.Get(pawn).Attitude == RHAH_Attitude.Hostile &&
                 pawn.Faction != null && pawn.Faction.HostileTo(Faction.OfPlayer) &&
                 RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Fight) &&
                 !pawn.WorkTagIsDisabled(WorkTags.Violent);
         }
+
         protected override Job TryGiveJob(Verse.Pawn pawn)
         {
             if (!RHAH_BatchAttitude.CanOrderLeave(pawn))

@@ -11,9 +11,9 @@ namespace HungerAndHavoc.Generation
     {
         static readonly string[] Weapons = { "MeleeWeapon_Club", "MeleeWeapon_Knife", "MeleeWeapon_Ikwa", "Gun_Revolver", "Gun_Autopistol", "Gun_BoltActionRifle" };
 
-        internal static bool CanEquip(bool enabled, bool marked, bool player, string source, bool adult, bool violent)
+        internal static bool CanEquip(bool enabled, bool hasVisitorSnapshot, bool isPlayerFaction, string incidentDisplayId, bool adult, bool violent)
         {
-            return enabled && marked && !player && RHAH_ArmedDemand.IsSiege(source) && adult && violent;
+            return enabled && hasVisitorSnapshot && !isPlayerFaction && RHAH_ArmedDemand.IsSiege(incidentDisplayId) && adult && violent;
         }
 
         internal static QualityCategory Quality(int roll)
@@ -25,6 +25,7 @@ namespace HungerAndHavoc.Generation
         {
             IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
             bool enabled = RHAH_Mod.Settings == null || RHAH_Mod.Settings.armedWeaponsEnabled;
+            // 武器只发成人 参战与否不看年龄 儿童徒手 两个判据不同是刻意的
             if (!CanEquip(enabled, snapshot != null, pawn.Faction?.IsPlayer == true, snapshot?.SourceIncidentDisplayId,
                 pawn.DevelopmentalStage.Adult(), !pawn.WorkTagIsDisabled(WorkTags.Violent)) ||
                 pawn.equipment == null || !RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Fight)) return;

@@ -14,6 +14,7 @@ namespace HungerAndHavoc.Core
         public static HediffDef RHAH_GnawedWall;
         public static HediffDef RHAH_OvergnawedWall;
         public static HediffDef RHAH_ClaySatiety;
+        public static HediffDef RHAH_SiegeFury;
         public static ThingDef RHAH_GuanyinTu;
         public static JobDef RHAH_Beg;
         public static JobDef RHAH_Gnaw;
@@ -29,6 +30,9 @@ namespace HungerAndHavoc.Core
         public static ThoughtDef RHAH_Thought_ScavengedFilth;
         public static ThoughtDef RHAH_Thought_TailBitten;
         public static ThoughtDef RHAH_Thought_BitATail;
+        public static ThoughtDef RHAH_Thought_SiegeFuryFoodInSight;
+        public static ThoughtDef RHAH_Thought_SiegeFuryMealSoon;
+        public static ThoughtDef RHAH_Thought_SiegeFuryStarving;
         public static DutyDef RHAH_VisitorSeek;
         public static DutyDef RHAH_VisitorLeave;
         public static DutyDef RHAH_VisitorTravel;

@@ -7,9 +7,9 @@ namespace HungerAndHavoc.Generation
 {
     internal static class RHAH_FamineArrival
     {
-        internal static bool Applies(bool enabled, bool marked, bool player, bool fresh)
+        internal static bool Applies(bool enabled, bool hasVisitorSnapshot, bool isPlayerFaction, bool fresh)
         {
-            return enabled && marked && !player && fresh;
+            return enabled && hasVisitorSnapshot && !isPlayerFaction && fresh;
         }
 
         internal static void Initialize(Verse.Pawn pawn)

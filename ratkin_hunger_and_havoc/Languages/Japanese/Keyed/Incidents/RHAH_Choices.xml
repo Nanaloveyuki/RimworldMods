@@ -84,14 +84,15 @@
   <RHAH_Choice_AllyNext>次のページ</RHAH_Choice_AllyNext>
   <RHAH_Choice_AllyBack>戻る</RHAH_Choice_AllyBack>
   <RHAH_Choice_NoAlly>受け入れられる同盟派閥がありません。</RHAH_Choice_NoAlly>
-  <RHAH_Choice_AllySent>{0}人が{1}へ向かっています。無事にこのマップを離れてから、その派閥の一員となり、立ち去った人々の市場価値に応じて友好度が上がります。今回送る一行全体で最大+10です。相手の拠点で直接見つけることはできません。</RHAH_Choice_AllySent>
+  <RHAH_Choice_AllyRefused>選んだ派閥は今この訪問者たちを受け入れられません（撃退された、拠点を失った、あるいは同盟が解消された可能性があります）。</RHAH_Choice_AllyRefused>
+  <RHAH_Choice_AllySent>{0}人は離脱命令を受け、{1}へ向かっています。このマップを歩いて離れてから初めてその派閥の一員となり、友好度とお礼はそれ以降に精算されます。今回送る一行全体で最大+10です。相手の拠点で直接見つけることはできません。</RHAH_Choice_AllySent>
   <RHAH_Choice_AllyGiftLabel>同盟派閥からのお礼</RHAH_Choice_AllyGiftLabel>
   <RHAH_Choice_AllyGiftText>{0}が、訪問者を新たな仲間として送り出してくれたお礼に、物資をドロップポッドで届けてくれました。</RHAH_Choice_AllyGiftText>
   <RHAH_Choice_AllyGoodwillReason>訪問者の受け入れ</RHAH_Choice_AllyGoodwillReason>
   <RHAH_Choice_NoCustodyTarget>今、捕らえたり奴隷にしたりできる訪問者はいません。精神崩壊中か、すでに立ち去ったか、拘禁から守られているのかもしれません。</RHAH_Choice_NoCustodyTarget>
   <RHAH_Choice_NoPresent>訪問者はすでに立ち去っています。この手配を受ける人はいません。</RHAH_Choice_NoPresent>
   <RHAH_Choice_NoRecruit>この訪問者たちは、受け入れたり、雇ったり、コロニーに加えたりできません。</RHAH_Choice_NoRecruit>
-  <RHAH_Choice_NoTransfer>今、同盟へ送れて、かつマップを離れられる訪問者はいません。</RHAH_Choice_NoTransfer>
+  <RHAH_Choice_NoLeave>今回の訪問者は今このマップを離れられません（物語上の滞留、鼠の群れ、第三者の阻止など）。</RHAH_Choice_NoLeave>
   <RHAH_Choice_NoIdeology>奴隷にするには、Ideology拡張が必要です。</RHAH_Choice_NoIdeology>
   <RHAH_Choice_CustodyFailed>訪問者を捕らえたり奴隷にしたりできませんでした。手紙でもう一度選べます。</RHAH_Choice_CustodyFailed>
   <RHAH_Choice_FeedHint>訪問者は、食べ物を渡す手配を待っています。入植者を1人選び、待っている訪問者を右クリックして、渡す食べ物を選んでください。</RHAH_Choice_FeedHint>
@@ -100,6 +101,7 @@
   <RHAH_Choice_FeedBlocked>{0}は今、食べ物を受け取れません。</RHAH_Choice_FeedBlocked>
   <RHAH_Choice_FeedNoVisitor>{0}は、食べ物を渡せる訪問者ではありません。</RHAH_Choice_FeedNoVisitor>
   <RHAH_Choice_FeedNotHungry>{0}は今、食べ物を必要としていません。</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_FeedBabyOnly>{0}はまだ自分で食べられません。右クリックで個別に食べさせてください。</RHAH_Choice_FeedBabyOnly>
   <RHAH_Choice_GiveFood>{1}に{0}を渡す</RHAH_Choice_GiveFood>
   <RHAH_Choice_NoFood>{1}に渡せる食べ物がありません</RHAH_Choice_NoFood>
   <RHAH_Choice_Short>在庫が足りません。まだ{0}必要です。</RHAH_Choice_Short>

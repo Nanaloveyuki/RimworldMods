@@ -269,8 +269,16 @@ namespace HungerAndHavoc.Pawn.Compat
                 return;
             }
 
+            // 开关同时管三种索粮围攻 它们同属一组 所以贴在该组组头而非整页顶部
+            int siegeFuryGroup = RHAH_IncidentGroups.GroupOf("I-014");
             for (int i = 0; i < RHAH_IncidentGroups.Count; i++)
             {
+                if (i == siegeFuryGroup)
+                {
+                    MenuControls.Anchor(list, "siege-fury");
+                    RHAH_IrisMenusWidgets.Checkbox(list, "RHAH_Settings_SiegeFuryEnabled".Translate(), ref settings.siegeFuryEnabled, "RHAH_Settings_SiegeFuryEnabled_Tooltip".Translate());
+                }
+
                 DrawIncident(list, RHAH_IncidentGroups.Scenarios(i)[0], false, settings);
             }
         }
@@ -509,7 +517,11 @@ namespace HungerAndHavoc.Pawn.Compat
 
         static IEnumerable<MenuSearchEntry> SearchCatalogEvents()
         {
-            return SearchIncidentEntries("event-", string.Empty);
+            yield return Entry("siege-fury", "RHAH_Settings_SiegeFuryEnabled");
+            foreach (MenuSearchEntry entry in SearchIncidentEntries("event-", string.Empty))
+            {
+                yield return entry;
+            }
         }
 
         static IEnumerable<MenuSearchEntry> SearchDevEvents()
@@ -1949,7 +1961,7 @@ namespace HungerAndHavoc.Pawn.Compat
             MenuControls.Anchor(list, "young-age");
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.youngAgeFollowsRange), "RHAH_Settings_YoungAge".Translate(), ref settings.youngAgeFollowsRange, "RHAH_Settings_YoungAge_Tooltip".Translate());
             MenuControls.Anchor(list, "immobile-babies");
-            RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.allowImmobileBabies), "RHAH_Settings_ImmobileBabies".Translate(), ref settings.allowImmobileBabies, ToddlersActive() ? "RHAH_Settings_ImmobileBabies_Toddlers".Translate() : "RHAH_Settings_ImmobileBabies_Tooltip".Translate());
+            RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.allowImmobileBabies), "RHAH_Settings_ImmobileBabies".Translate(), ref settings.allowImmobileBabies, ImmobileBabiesTip());
             DrawModeSelect(list, "gender-mode", "RHAH_Settings_Gender", settings.genderMode, 4, mode => settings.genderMode = mode);
             if (settings.genderMode == 1)
             {
@@ -2006,9 +2018,17 @@ namespace HungerAndHavoc.Pawn.Compat
             contentQuery = RHAH_IrisMenusWidgets.TextField(search, "content-search", contentQuery ?? string.Empty, "RHAH_Settings_ContentSearch".Translate());
         }
 
-        static bool ToddlersActive()
+        // 抬龄的真实闸门是"婴儿能被抱走" 光有 Toddlers 不够
+        static string ImmobileBabiesTip()
         {
-            return ModsConfig.IsActive("cyanobot.toddlers");
+            if (RHAH_ToddlerPresence.BabiesCarriable)
+            {
+                return "RHAH_Settings_ImmobileBabies_Toddlers".Translate();
+            }
+
+            return RHAH_ToddlerPresence.Active
+                ? "RHAH_Settings_ImmobileBabies_NoCarry".Translate()
+                : "RHAH_Settings_ImmobileBabies_Tooltip".Translate();
         }
 
         void DrawContentToggles(Listing_Standard list, RHAH_Settings settings)

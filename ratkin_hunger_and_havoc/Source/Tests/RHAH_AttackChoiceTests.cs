@@ -530,10 +530,8 @@ namespace HungerAndHavoc.Tests
         [Theory]
         [InlineData("gate")]
         [InlineData("downed")]
-        [InlineData("child")]
-        [InlineData("baby")]
         [InlineData("neutral")]
-        public void VisitorCombatRejectsGateHealthDevelopmentAndAttitudeBoundaries(string blocked)
+        public void VisitorCombatRejectsGateHealthAndAttitudeBoundaries(string blocked)
         {
             Verse.Pawn pawn = Visitor(1);
             pawn.kindDef = new PawnKindDef();
@@ -546,21 +544,36 @@ namespace HungerAndHavoc.Tests
             {
                 Field(typeof(Pawn_HealthTracker), "healthState").SetValue(pawn.health, PawnHealthState.Down);
             }
-            else if (blocked == "child" || blocked == "baby")
-            {
-                LifeStageAge age = Uninitialized<LifeStageAge>();
-                age.def = new LifeStageDef { developmentalStage = blocked == "child" ? DevelopmentalStage.Child : DevelopmentalStage.Baby };
-                pawn.def.race.lifeStageAges = new List<LifeStageAge> { age };
-                pawn.ageTracker = new Pawn_AgeTracker(pawn);
-                Field(typeof(Pawn_AgeTracker), "cachedLifeStageIndex").SetValue(pawn.ageTracker, 0);
-                RHAH_Api.SetGate(pawn, RHAH_BehaviorGate.Fight, true);
-            }
             else
             {
                 CompRHAH_Pawn.TryGet(pawn).State.SetAttitude(RHAH_Attitude.Neutral);
                 RHAH_Api.SetGate(pawn, RHAH_BehaviorGate.Fight, true);
             }
             Assert.False(JobGiver_RHAH_Visitor.CanFight(pawn));
+        }
+
+        [Theory]
+        [InlineData(DevelopmentalStage.Child)]
+        [InlineData(DevelopmentalStage.Baby)]
+        public void VisitorCombatLeavesAgeToVanillaLimits(DevelopmentalStage stage)
+        {
+            Verse.Pawn pawn = Visitor(1);
+            pawn.kindDef = new PawnKindDef();
+            CompRHAH_Pawn.TryGet(pawn).State.SetAttitude(RHAH_Attitude.Hostile);
+            SetLifeStage(pawn, stage);
+            RHAH_Api.SetGate(pawn, RHAH_BehaviorGate.Fight, true);
+
+            Assert.True(JobGiver_RHAH_Visitor.CanFight(pawn));
+        }
+
+        // 替换整张寿命表 只用于本文件自建的 def
+        static void SetLifeStage(Verse.Pawn pawn, DevelopmentalStage stage)
+        {
+            LifeStageAge age = Uninitialized<LifeStageAge>();
+            age.def = new LifeStageDef { developmentalStage = stage };
+            pawn.def.race.lifeStageAges = new List<LifeStageAge> { age };
+            pawn.ageTracker = new Pawn_AgeTracker(pawn);
+            Field(typeof(Pawn_AgeTracker), "cachedLifeStageIndex").SetValue(pawn.ageTracker, 0);
         }
 
 

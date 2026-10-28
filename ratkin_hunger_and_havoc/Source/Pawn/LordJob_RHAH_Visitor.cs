@@ -233,6 +233,7 @@ namespace HungerAndHavoc.Pawn
             Transition toFood = new Transition(seek, waitFood, false, true);
             toFood.AddSource(travel);
             toFood.AddTrigger(new Trigger_Memo("RHAH_WaitFood"));
+            toFood.AddTrigger(new Trigger_Custom(_ => FoodWaitReady()));
             toFood.AddPostAction(new TransitionAction_EndAllJobs());
 
             Transition arrived;
@@ -281,6 +282,7 @@ namespace HungerAndHavoc.Pawn
                     Compat.RHAH_LeashBridge.ClearDeparture(lord.ownedPawns[i]);
                 }
             })));
+            toLeave.AddPostAction(new TransitionAction_Custom((System.Action)(() => EndFoodWait())));
             toLeave.AddPostAction(new TransitionAction_EndAllJobs());
             graph.AddTransition(toLeave, false);
             Transition foodDone = new Transition(waitFood, seek, false, true);
@@ -295,6 +297,7 @@ namespace HungerAndHavoc.Pawn
             toAssault.AddSource(travel);
             toAssault.AddSource(waitFood);
             toAssault.AddTrigger(new Trigger_Memo("RHAH_ArmedAssault"));
+            toAssault.AddPostAction(new TransitionAction_Custom((System.Action)(() => EndFoodWait())));
             toAssault.AddPostAction(new TransitionAction_EndAllJobs());
             graph.AddTransition(toAssault, false);
             Transition assaultLeave = new Transition(assault, leave, false, true);
@@ -381,6 +384,28 @@ namespace HungerAndHavoc.Pawn
             return added;
         }
 
+        // 请求量按默认餐营养折算 与交付账本同量纲
+        double FoodRequestedNutrition
+        {
+            get
+            {
+                return foodCount * RHAH_DemandFood.MealNutrition;
+            }
+        }
+
+        // 交付账记在接收者本人身上 同批其它人收的食物不算给他
+        static double DeliveredNutrition(Verse.Pawn pawn)
+        {
+            CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
+            return comp == null ? 0 : comp.State.foodNutritionDelivered;
+        }
+
+        double MissingNutrition(Verse.Pawn pawn)
+        {
+            double left = FoodRequestedNutrition - DeliveredNutrition(pawn);
+            return left <= RHAH_DemandFood.Tolerance ? 0 : left;
+        }
+
         internal bool WaitingForFood(Verse.Pawn pawn)
         {
             RHAH_ChoiceRecord request = RHAH_ArmedDemand.FoodRequest(pawn);
@@ -389,11 +414,12 @@ namespace HungerAndHavoc.Pawn
                 ListedForFood(pawn),
                 pawn != null && !pawn.Dead,
                 pawn != null && pawn.Spawned,
-                foodDef == null ? 0 : RHAH_FoodHandoff.Received(pawn, foodDef),
-                foodCount);
+                DeliveredNutrition(pawn),
+                FoodRequestedNutrition);
         }
 
-        internal int FoodStillNeeded(Verse.Pawn pawn)
+        // 对外仍是件数 按这次要给的食物的营养折算
+        internal int FoodStillNeeded(Verse.Pawn pawn, ThingDef food)
         {
             RHAH_ChoiceRecord request = RHAH_ArmedDemand.FoodRequest(pawn);
             if (request != null) return RHAH_ArmedDemand.Remaining(request);
@@ -402,28 +428,38 @@ namespace HungerAndHavoc.Pawn
                 return 0;
             }
 
-            int received = foodDef == null ? 0 : RHAH_FoodHandoff.Received(pawn, foodDef);
-            return foodCount - received;
+            return RHAH_DemandFood.Units(MissingNutrition(pawn), RHAH_DemandFood.EdibleNutrition(food));
         }
 
-        internal int FoodLeftToCollect(Verse.Pawn pawn)
+        // 这一轮还差多少件 未登记时按设置里的份数预演 供菜单显示
+        internal int FoodUnitsFor(Verse.Pawn pawn, ThingDef food, int mealsIfNotListed)
         {
-            RHAH_ChoiceRecord request = RHAH_ArmedDemand.FoodRequest(pawn);
-            if (request != null)
-                return RHAH_DemandFood.Units(RHAH_DemandFood.Remaining(request) - RHAH_DemandFood.BeingHauledTo(pawn), RHAH_DemandFood.MealNutrition);
-            int needed = FoodStillNeeded(pawn);
-            if (needed <= 0)
+            double requested = ListedForFood(pawn)
+                ? FoodRequestedNutrition
+                : mealsIfNotListed * RHAH_DemandFood.MealNutrition;
+            return RHAH_DemandFood.Units(requested - DeliveredNutrition(pawn), RHAH_DemandFood.EdibleNutrition(food));
+        }
+
+        // 这一趟该搬几件 按这趟手上的食物折件 只扣别人正在搬的 0 表示已经够了
+        internal int HaulUnitsFor(Verse.Pawn receiver, Thing food, JobDriver excluding)
+        {
+            double nutrition = RHAH_DemandFood.EdibleNutrition(food == null ? null : food.def);
+            if (nutrition <= 0)
             {
                 return 0;
             }
 
-#if RIMWORLD_1_7
-            return System.Math.Max(0, needed - RHAH_FoodHandoff.BeingHauledTo(pawn));
-#else
-            return needed - RHAH_FoodHandoff.BeingHauledTo(pawn);
-#endif
+            double left = FoodRequestedNutrition - DeliveredNutrition(receiver) - RHAH_FoodHandoff.BeingHauledTo(receiver, excluding);
+            return RHAH_DemandFood.Units(left, nutrition);
         }
 
+        // 原版只拿它当「还要不要再搬一趟」的信号 件数由搬货那一刻按实际食物重算
+        internal int FoodLeftToCollect(Verse.Pawn pawn)
+        {
+            return WaitingForFood(pawn) ? 1 : 0;
+        }
+
+        // 只表示最近一次给的是哪种 不参与过滤
         internal ThingDef RequestedFood
         {
             get
@@ -435,15 +471,24 @@ namespace HungerAndHavoc.Pawn
         internal void NoteFood(ThingDef def)
         {
             if (armedChoiceId > 0 && RHAH_ArmedDemand.Find(armedChoiceId)?.Open == true) return;
-            if (foodDef == null)
+            foodDef = def;
+        }
+
+        // 普通投喂只认殖民者实际入包的量 索粮走 RHAH_ChoiceRecord 自己的账
+        internal void NoteFoodDelivered(Verse.Pawn receiver, Thing item, int count)
+        {
+            CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(receiver);
+            if (comp == null || item == null || count <= 0)
             {
-                foodDef = def;
+                return;
             }
+
+            comp.State.foodNutritionDelivered += RHAH_DemandFood.EdibleNutrition(item.def) * count;
         }
 
         internal bool FoodFilled()
         {
-            if (foodReceivers == null || foodReceivers.Count == 0 || foodDef == null)
+            if (foodReceivers == null || foodReceivers.Count == 0)
             {
                 return false;
             }
@@ -470,15 +515,68 @@ namespace HungerAndHavoc.Pawn
                 for (int i = 0; i < foodReceivers.Count; i++)
                 {
                     Verse.Pawn receiver = foodReceivers[i];
-                    if (receiver != null && !WaitingForFood(receiver))
+                    if (receiver == null)
                     {
-                        CompRHAH_Pawn.TryGet(receiver)?.SetFoodWait(-1);
+                        continue;
+                    }
+
+                    // 先判是否还在等他 再清本人的交付账
+                    bool waiting = WaitingForFood(receiver);
+                    CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(receiver);
+                    if (comp == null)
+                    {
+                        continue;
+                    }
+
+                    comp.State.foodNutritionDelivered = 0;
+                    if (!waiting)
+                    {
+                        comp.SetFoodWait(-1);
                     }
                 }
             }
             foodReceivers?.Clear();
             foodDef = null;
             foodCount = 0;
+        }
+
+
+        const int FoodWaitPathCheckInterval = 120;
+
+        // 已登记等饭的来客是否该真的停下来等 到点 走不到 超期任一成立
+        bool FoodWaitReady()
+        {
+            if (foodReceivers == null || foodReceivers.Count == 0)
+            {
+                return false;
+            }
+
+            IntVec3 spot = WaitSpot;
+            int now = Find.TickManager == null ? 0 : Find.TickManager.TicksGame;
+            bool checkPath = now % FoodWaitPathCheckInterval == 0;
+            for (int i = 0; i < foodReceivers.Count; i++)
+            {
+                Verse.Pawn pawn = foodReceivers[i];
+                if (pawn == null || pawn.Dead || !pawn.Spawned)
+                {
+                    continue;
+                }
+
+                // 寻路是 A* 按 tick 节流 纯几何判据每 tick 可跑
+                bool reachable = !checkPath ||
+                    (spot.IsValid && pawn.CanReach(spot, PathEndMode.ClosestTouch, Danger.Deadly));
+                if (RHAH_VisitorRules.FoodWaitArrived(spot, pawn.Position, reachable))
+                {
+                    return true;
+                }
+
+                if (FoodWaitExpired(pawn, RHAH_Api.Get(pawn)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 
@@ -693,6 +791,8 @@ namespace HungerAndHavoc.Pawn
                     LordToil_RHAH_VisitorLeave leave = lord.Graph.lordToils[i] as LordToil_RHAH_VisitorLeave;
                     if (leave != null)
                     {
+                        // 这里直接换 toil 不走 arrived 过渡 名单与账本要当场清
+                        job.EndFoodWait();
                         lord.GotoToil(leave);
                         return;
                     }

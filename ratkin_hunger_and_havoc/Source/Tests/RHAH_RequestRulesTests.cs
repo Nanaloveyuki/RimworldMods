@@ -313,6 +313,10 @@ namespace HungerAndHavoc.Tests
             Assert.True(RHAH_RequestRules.FoodWaiting(true, true, true, 0, 2));
             Assert.False(RHAH_RequestRules.FoodWaiting(true, true, true, 2, 2));
             Assert.False(RHAH_RequestRules.FoodWaiting(false, true, true, 0, 2));
+            Assert.True(RHAH_RequestRules.FoodWaiting(true, true, true, 0.5, 1.8));
+            Assert.False(RHAH_RequestRules.FoodWaiting(true, true, true, 1.8, 1.8));
+            Assert.False(RHAH_RequestRules.FoodWaiting(true, true, true, 1.8000000001, 1.8));
+            Assert.False(RHAH_RequestRules.FoodWaiting(true, true, true, 0, 0));
         }
         [Fact]
         public void TraderCaravansStayAndFoodReplacesChildren()

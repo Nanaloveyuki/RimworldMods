@@ -9,6 +9,14 @@ using Verse;
 
 namespace HungerAndHavoc.Incidents
 {
+    // 信里要说出转送被拒的原因，否则只能退回 Stale
+    internal enum RHAH_AllyRefusal
+    {
+        None,
+        NoAcceptingFaction,
+        NoLeavingPawn
+    }
+
     internal static class RHAH_ChoiceRuntime
     {
         internal static RHAH_ChoiceRecord Open(GameComponent_RHAH_Game game, RHAH_ChoiceRecord record)
@@ -40,8 +48,23 @@ namespace HungerAndHavoc.Incidents
             int tick,
             bool enabled,
             bool canDeliver,
-            int allyFactionId = 0)
+            int allyFactionId = RHAH_ChoiceRecord.NoAllyFaction)
         {
+            RHAH_AllyRefusal refusal;
+            return TrySettle(game, choiceId, requested, tick, enabled, canDeliver, allyFactionId, out refusal);
+        }
+
+        internal static RHAH_ChoiceAction TrySettle(
+            GameComponent_RHAH_Game game,
+            int choiceId,
+            RHAH_ChoiceAction requested,
+            int tick,
+            bool enabled,
+            bool canDeliver,
+            int allyFactionId,
+            out RHAH_AllyRefusal allyRefusal)
+        {
+            allyRefusal = RHAH_AllyRefusal.None;
             RHAH_ChoiceRecord record = FindRecord(game, choiceId);
             if (record == null)
             {
@@ -96,7 +119,7 @@ namespace HungerAndHavoc.Incidents
                 (RHAH_RequestRules.Hires(settled) && !Stay(record, RHAH_StayKind.Hire)) ||
                 (RHAH_RequestRules.Recruits(settled) && !Stay(record, RHAH_StayKind.Recruit)) ||
                 (RHAH_RequestRules.Attacks(settled) && !RHAH_BatchAttitude.Attack(Present(record))) ||
-                (RHAH_RequestRules.SendsToAlly(settled) && !SendToAlly(record, Present(record), allyFactionId)))
+                (RHAH_RequestRules.SendsToAlly(settled) && !SendToAlly(record, Present(record), allyFactionId, out allyRefusal)))
             {
                 return RHAH_ChoiceAction.None;
             }
@@ -460,11 +483,19 @@ namespace HungerAndHavoc.Incidents
             return false;
         }
 
-        static bool SendToAlly(RHAH_ChoiceRecord record, List<Verse.Pawn> pawns, int allyFactionId)
+        static bool SendToAlly(RHAH_ChoiceRecord record, List<Verse.Pawn> pawns, int allyFactionId, out RHAH_AllyRefusal refusal)
         {
-            Faction faction = FindFaction(allyFactionId);
-            if (record == null || Find.WorldObjects == null || !AcceptsAlly(faction))
+            refusal = RHAH_AllyRefusal.None;
+            if (record == null || Find.WorldObjects == null)
             {
+                return false;
+            }
+
+            // 只有「这家派系现在收不了」才归到派系头上，记录或世界失效走 Stale
+            Faction faction = FindFaction(allyFactionId);
+            if (!AcceptsAlly(faction))
+            {
+                refusal = RHAH_AllyRefusal.NoAcceptingFaction;
                 return false;
             }
 
@@ -485,11 +516,13 @@ namespace HungerAndHavoc.Incidents
 
             if (leaving.Count == 0)
             {
-                record.AllyFactionId = 0;
+                record.AllyFactionId = RHAH_ChoiceRecord.NoAllyFaction;
+                refusal = RHAH_AllyRefusal.NoLeavingPawn;
                 return false;
             }
 
             RHAH_BatchAttitude.OrderVisitorLeave(leaving);
+            refusal = RHAH_AllyRefusal.None;
             return true;
         }
 
@@ -510,7 +543,7 @@ namespace HungerAndHavoc.Incidents
             for (int i = 0; i < records.Count; i++)
             {
                 RHAH_ChoiceRecord record = records[i];
-                if (record.AllyFactionId <= 0 || record.AllyPawnIds == null || !record.AllyPawnIds.Contains(pawn.thingIDNumber))
+                if (record.AllyFactionId == RHAH_ChoiceRecord.NoAllyFaction || record.AllyPawnIds == null || !record.AllyPawnIds.Contains(pawn.thingIDNumber))
                 {
                     continue;
                 }
@@ -530,9 +563,10 @@ namespace HungerAndHavoc.Incidents
             return false;
         }
 
+        // 派系 loadID 从 0 起，0 是合法派系；同一世界内 loadID 互不相同（存档 allFactions 实测），所以按 id 回查与按对象判定的结果一致
         internal static Faction FindFaction(int loadId)
         {
-            if (Find.FactionManager == null || loadId <= 0)
+            if (Find.FactionManager == null || loadId < 0)
             {
                 return null;
             }

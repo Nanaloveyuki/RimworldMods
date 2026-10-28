@@ -63,6 +63,7 @@ namespace HungerAndHavoc.Core
         public float famineGoodsBuyFactor = 0.75f;
         public bool armedDemandEnabled = true;
         public bool armedWeaponsEnabled = true;
+        public bool siegeFuryEnabled = true;
         public bool spaceApproachEnabled;
         public bool skylandIncidentsEnabled;
         public float approachSpeedMultiplier = HungerAndHavoc.Incidents.RHAH_ApproachRules.DefaultSpeedMultiplier;
@@ -313,6 +314,7 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref famineGoodsBuyFactor, "famineGoodsBuyFactor", 0.75f);
             Scribe_Values.Look(ref armedDemandEnabled, "armedDemandEnabled", true);
             Scribe_Values.Look(ref armedWeaponsEnabled, "armedWeaponsEnabled", true);
+            Scribe_Values.Look(ref siegeFuryEnabled, "siegeFuryEnabled", true);
             Scribe_Values.Look(ref spaceApproachEnabled, "spaceApproachEnabled", false);
             Scribe_Values.Look(ref skylandIncidentsEnabled, "skylandIncidentsEnabled", false);
             Scribe_Values.Look(ref approachSpeedMultiplier, "approachSpeedMultiplier", HungerAndHavoc.Incidents.RHAH_ApproachRules.DefaultSpeedMultiplier);
