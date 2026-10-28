@@ -3,6 +3,7 @@ using HungerAndHavoc.Identity;
 using HungerAndHavoc.Incidents;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.Pawn;
+using Verse;
 using Xunit;
 
 namespace HungerAndHavoc.Tests
@@ -156,6 +157,19 @@ namespace HungerAndHavoc.Tests
         }
 
 
+
+        [Fact]
+        public void FoodWaitArrivesOnTheRadiusOrWhenTheSpotIsUnreachable()
+        {
+            IntVec3 spot = new IntVec3(100, 0, 100);
+            Assert.True(RHAH_VisitorRules.FoodWaitArrived(IntVec3.Invalid, new IntVec3(0, 0, 0), true));
+            Assert.True(RHAH_VisitorRules.FoodWaitArrived(spot, spot, true));
+            Assert.True(RHAH_VisitorRules.FoodWaitArrived(spot, new IntVec3(109, 0, 100), true));
+            Assert.True(RHAH_VisitorRules.FoodWaitArrived(spot, new IntVec3(110, 0, 100), true));
+            Assert.False(RHAH_VisitorRules.FoodWaitArrived(spot, new IntVec3(111, 0, 100), true));
+            Assert.True(RHAH_VisitorRules.FoodWaitArrived(spot, new IntVec3(111, 0, 100), false));
+            Assert.Equal(10f, RHAH_VisitorRules.FoodWaitArriveRadius);
+        }
 
         [Fact]
         public void BegTargetSkipsSleepMedicalBedAndYoungChildren()

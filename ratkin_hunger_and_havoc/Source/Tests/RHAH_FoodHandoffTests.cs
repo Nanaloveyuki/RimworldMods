@@ -48,46 +48,75 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void TwoVisitorsKeepSeparateFoodWaits()
+        public void DeliveredNutritionFoldsIntoWholeMeals()
         {
             ThingDef meal = Meal();
-            Verse.Pawn first = Visitor(11);
-            Verse.Pawn second = Visitor(12);
-            MapFor(first, second);
+            ThingDef biscuit = Biscuit();
+            Verse.Pawn visitor = Visitor(11);
+            MapFor(visitor);
             LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor();
 
             Assert.False(job.BeginFoodWait(null, 2));
-            Assert.False(job.BeginFoodWait(first, 0));
+            Assert.False(job.BeginFoodWait(visitor, 0));
+            Assert.True(job.BeginFoodWait(visitor, 2));
+            Assert.False(job.BeginFoodWait(visitor, 2));
+
+            Assert.True(job.WaitingForFood(visitor));
+            Assert.Equal(2, job.FoodStillNeeded(visitor, meal));
+            Assert.False(job.FoodFilled());
+
+            // 先给别的食物 按营养折算 不锁食物类型
+            Deliver(job, visitor, biscuit, 10);
+            Assert.True(job.WaitingForFood(visitor));
+            Assert.Equal(2, job.FoodStillNeeded(visitor, meal));
+            Assert.Equal(26, job.FoodStillNeeded(visitor, biscuit));
+
+            Deliver(job, visitor, meal, 1);
+            Assert.True(job.WaitingForFood(visitor));
+            Assert.Equal(1, job.FoodStillNeeded(visitor, meal));
+            Assert.False(job.FoodFilled());
+
+            Deliver(job, visitor, meal, 1);
+            Assert.False(job.WaitingForFood(visitor));
+            Assert.Equal(0, job.FoodStillNeeded(visitor, meal));
+            Assert.True(job.FoodFilled());
+        }
+
+        [Fact]
+        public void LatestFoodIsOnlyALabelAndEachReceiverKeepsItsOwnLedger()
+        {
+            ThingDef meal = Meal();
+            ThingDef biscuit = Biscuit();
+            Verse.Pawn first = Visitor(21);
+            Verse.Pawn second = Visitor(22);
+            MapFor(first, second);
+            LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor();
             Assert.True(job.BeginFoodWait(first, 2));
-            Assert.False(job.BeginFoodWait(first, 2));
             Assert.True(job.BeginFoodWait(second, 2));
-            Assert.False(job.BeginFoodWait(second, 2));
 
-            Assert.True(job.WaitingForFood(first));
-            Assert.True(job.WaitingForFood(second));
-            Assert.Equal(2, job.FoodStillNeeded(first));
-            Assert.Equal(2, job.FoodStillNeeded(second));
-            Assert.False(job.FoodFilled());
-
-            Hold(first, meal, 2);
+            job.NoteFood(biscuit);
+            Assert.Same(biscuit, job.RequestedFood);
             job.NoteFood(meal);
+            Assert.Same(meal, job.RequestedFood);
+
+            // 交付账记在收到的那个来客身上 给谁算谁
+            Deliver(job, first, meal, 2);
             Assert.False(job.WaitingForFood(first));
-            Assert.Equal(0, job.FoodStillNeeded(first));
             Assert.True(job.WaitingForFood(second));
-            Assert.Equal(2, job.FoodStillNeeded(second));
+            Assert.Equal(2, job.FoodStillNeeded(second, meal));
             Assert.False(job.FoodFilled());
 
-            Hold(second, meal, 2);
+            Deliver(job, second, meal, 2);
             Assert.False(job.WaitingForFood(second));
-            Assert.Equal(0, job.FoodStillNeeded(second));
             Assert.True(job.FoodFilled());
         }
 
         [Fact]
         public void RepeatedWaitDoesNotResetDeadlineAndSaveKeepsReceivers()
         {
-            Verse.Pawn first = Visitor(21);
-            Verse.Pawn second = Visitor(22);
+            ThingDef meal = Meal();
+            Verse.Pawn first = Visitor(31);
+            Verse.Pawn second = Visitor(32);
             MapFor(first, second);
             CompRHAH_Pawn firstComp = CompRHAH_Pawn.TryGet(first);
             firstComp.SetFoodWait(9000);
@@ -108,9 +137,10 @@ namespace HungerAndHavoc.Tests
 
                 XmlDocument written = new XmlDocument();
                 written.Load(path);
-                Assert.Equal("Thing_Visitor21", written.SelectSingleNode("/record/foodReceivers/li[1]")?.InnerText);
-                Assert.Equal("Thing_Visitor22", written.SelectSingleNode("/record/foodReceivers/li[2]")?.InnerText);
+                Assert.Equal("Thing_Visitor31", written.SelectSingleNode("/record/foodReceivers/li[1]")?.InnerText);
+                Assert.Equal("Thing_Visitor32", written.SelectSingleNode("/record/foodReceivers/li[2]")?.InnerText);
                 Assert.Equal("1", written.SelectSingleNode("/record/foodCount")?.InnerText);
+                Assert.Null(written.SelectSingleNode("/record/foodReceivers/li[3]"));
                 Assert.Null(written.SelectSingleNode("/record/foodReceiver"));
 
                 Scribe.loader.InitLoading(path);
@@ -124,8 +154,8 @@ namespace HungerAndHavoc.Tests
                 Scribe.loader.FinalizeLoading();
                 Assert.True(loaded.WaitingForFood(first));
                 Assert.True(loaded.WaitingForFood(second));
-                Assert.Equal(1, loaded.FoodStillNeeded(first));
-                Assert.Equal(1, loaded.FoodStillNeeded(second));
+                Assert.Equal(1, loaded.FoodStillNeeded(first, meal));
+                Assert.Equal(1, loaded.FoodStillNeeded(second, meal));
                 Assert.False(loaded.BeginFoodWait(first, 1));
                 Assert.Equal(9000, firstComp.State.foodWaitUntilTick);
             }
@@ -215,6 +245,7 @@ namespace HungerAndHavoc.Tests
         public void LegacyFoodWaitMigratesBeforeReferenceLoadingAndSavesOnlyNewKey(
             string receiverXml, bool firstWaiting, bool secondWaiting)
         {
+            ThingDef meal = Meal();
             Verse.Pawn first = Visitor(41);
             Verse.Pawn second = Visitor(42);
             MapFor(first, second);
@@ -229,8 +260,8 @@ namespace HungerAndHavoc.Tests
                 LordJob_RHAH_Visitor loaded = LoadWait(path, first, second);
                 Assert.Equal(firstWaiting, loaded.WaitingForFood(first));
                 Assert.Equal(secondWaiting, loaded.WaitingForFood(second));
-                Assert.Equal(firstWaiting ? 6 : 0, loaded.FoodStillNeeded(first));
-                Assert.Equal(secondWaiting ? 6 : 0, loaded.FoodStillNeeded(second));
+                Assert.Equal(firstWaiting ? 6 : 0, loaded.FoodStillNeeded(first, meal));
+                Assert.Equal(secondWaiting ? 6 : 0, loaded.FoodStillNeeded(second, meal));
                 Assert.Equal(9000, CompRHAH_Pawn.TryGet(first).State.foodWaitUntilTick);
                 Assert.Equal(originalBytes, File.ReadAllText(path));
 
@@ -245,8 +276,44 @@ namespace HungerAndHavoc.Tests
                 LordJob_RHAH_Visitor reloaded = LoadWait(path, first, second);
                 Assert.Equal(firstWaiting, reloaded.WaitingForFood(first));
                 Assert.Equal(secondWaiting, reloaded.WaitingForFood(second));
-                Assert.Equal(firstWaiting ? 6 : 0, reloaded.FoodStillNeeded(first));
-                Assert.Equal(secondWaiting ? 6 : 0, reloaded.FoodStillNeeded(second));
+                Assert.Equal(firstWaiting ? 6 : 0, reloaded.FoodStillNeeded(first, meal));
+                Assert.Equal(secondWaiting ? 6 : 0, reloaded.FoodStillNeeded(second, meal));
+            }
+            finally
+            {
+                File.Delete(path);
+            }
+        }
+
+        [Fact]
+        public void DeliveredNutritionRoundTripsThroughSave()
+        {
+            ThingDef meal = Meal();
+            Verse.Pawn visitor = Visitor(51);
+            MapFor(visitor);
+            CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(visitor);
+            LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor();
+            Assert.True(job.BeginFoodWait(visitor, 2));
+            Deliver(job, visitor, meal, 1);
+            Assert.Equal(0.9, comp.State.foodNutritionDelivered, 5);
+            Assert.True(job.WaitingForFood(visitor));
+            Assert.Equal(1, job.FoodStillNeeded(visitor, meal));
+
+            string path = Path.GetTempFileName();
+            try
+            {
+                Scribe.saver.InitSaving(path, "record");
+                comp.CompExposeData();
+                Scribe.saver.FinalizeSaving();
+                XmlDocument written = new XmlDocument();
+                written.Load(path);
+                Assert.NotNull(written.SelectSingleNode("/record/foodNutritionDelivered"));
+
+                CompRHAH_Pawn loaded = LoadComp(path);
+                Assert.Equal(0.9, loaded.State.foodNutritionDelivered, 5);
+                Deliver(job, visitor, meal, 1);
+                Assert.False(job.WaitingForFood(visitor));
+                Assert.True(job.FoodFilled());
             }
             finally
             {
@@ -273,29 +340,58 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void SecondVisitorStillCollectsWhileFirstIsBeingHauled()
+        public void MenuUnitsArePreviewedBeforeRegistrationAndTheLoopSignalStaysBinary()
         {
             ThingDef meal = Meal();
-            Verse.Pawn first = Visitor(31);
-            Verse.Pawn second = Visitor(32);
-            Verse.Pawn hauler = Visitor(33);
+            Verse.Pawn visitor = Visitor(61);
+            MapFor(visitor);
+            LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor();
+
+            // 未登记时菜单按设置里的份数预演 不能是 0
+            Assert.Equal(0, job.FoodStillNeeded(visitor, meal));
+            Assert.Equal(2, job.FoodUnitsFor(visitor, meal, 2));
+
+            Assert.True(job.BeginFoodWait(visitor, 2));
+            Assert.True(job.WaitingForFood(visitor));
+            Assert.Equal(2, job.FoodUnitsFor(visitor, meal, 2));
+            Assert.Equal(1, job.FoodLeftToCollect(visitor));
+
+            Deliver(job, visitor, meal, 1);
+            Assert.Equal(1, job.FoodUnitsFor(visitor, meal, 2));
+            Assert.Equal(1, job.FoodLeftToCollect(visitor));
+
+            Deliver(job, visitor, meal, 1);
+            Assert.Equal(0, job.FoodUnitsFor(visitor, meal, 2));
+            Assert.Equal(0, job.FoodLeftToCollect(visitor));
+            Assert.True(job.FoodFilled());
+        }
+
+        [Fact]
+        public void HaulUnitsFollowTheFoodInHandAndSkipOwnTrip()
+        {
+            ThingDef meal = Meal();
+            ThingDef biscuit = Biscuit();
+            Verse.Pawn first = Visitor(71);
+            Verse.Pawn second = Visitor(72);
+            Verse.Pawn hauler = Visitor(73);
             MapFor(first, second, hauler);
             LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor();
             Assert.True(job.BeginFoodWait(first, 2));
             Assert.True(job.BeginFoodWait(second, 2));
-            job.NoteFood(meal);
+            job.NoteFood(biscuit);
 
-            Delivery(hauler, first, meal, 2);
-            Assert.Equal(0, job.FoodLeftToCollect(first));
-            Assert.Equal(2, job.FoodLeftToCollect(second));
+            Thing mealStack = new Thing { def = meal };
+            Thing biscuitStack = new Thing { def = biscuit };
 
-            Hold(first, meal, 2);
-            Assert.False(job.WaitingForFood(first));
-            Assert.True(job.WaitingForFood(second));
-            Assert.Equal(2, job.FoodStillNeeded(second));
-            Assert.Equal(2, job.FoodLeftToCollect(second));
-            Assert.False(job.FoodFilled());
-            Assert.False(new LordToil_RHAH_WaitFood(job).HasAllRequestedItems);
+            // 这趟搬什么就按什么折件 不看上一次给过什么
+            Assert.Equal(2, job.HaulUnitsFor(second, mealStack, null));
+            Assert.Equal(36, job.HaulUnitsFor(second, biscuitStack, null));
+
+            // 别人在途的那一趟要扣 自己这一趟不扣 扣完为 0 就是这一趟不用搬
+            JobDriver_GiveToPawn driver = Delivery(hauler, second, meal, 2);
+            Assert.Equal(0, job.HaulUnitsFor(second, mealStack, null));
+            Assert.Equal(2, job.HaulUnitsFor(second, mealStack, driver));
+            Assert.Equal(2, job.HaulUnitsFor(first, mealStack, driver));
         }
 
 
@@ -313,11 +409,6 @@ namespace HungerAndHavoc.Tests
             }
 
             return driver;
-        }
-
-        static void Hold(Verse.Pawn receiver, ThingDef meal, int count)
-        {
-            Hold(receiver.inventory.innerContainer, meal, count);
         }
 
         static void Hold(ThingOwner<Thing> container, ThingDef meal, int count)
@@ -363,10 +454,17 @@ namespace HungerAndHavoc.Tests
 
         static ThingDef Meal()
         {
-            ThingDef meal = Uninitialized<ThingDef>();
-            meal.defName = "MealSimple";
-            meal.category = ThingCategory.Item;
-            return meal;
+            return RHAH_ArmedFoodPaymentTests.Meal("MealSimple", 0.9f, "ludeon.rimworld");
+        }
+
+        static ThingDef Biscuit()
+        {
+            return RHAH_ArmedFoodPaymentTests.Meal("Pemmican", 0.05f, "ludeon.rimworld");
+        }
+
+        static void Deliver(LordJob_RHAH_Visitor job, Verse.Pawn receiver, ThingDef food, int count)
+        {
+            job.NoteFoodDelivered(receiver, new Thing { def = food, stackCount = count }, count);
         }
 
         static T Uninitialized<T>() where T : class

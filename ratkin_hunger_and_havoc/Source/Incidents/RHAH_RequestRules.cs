@@ -505,9 +505,12 @@ namespace HungerAndHavoc.Incidents
             return !dismissed && firstClick;
         }
 
-        internal static bool FoodWaiting(bool open, bool alive, bool spawned, int received, int requested)
+        // 营养账本是 double 留浮点余量 否则差一点点就再要一整件
+        const double FoodWaitingTolerance = 0.000001;
+
+        internal static bool FoodWaiting(bool open, bool alive, bool spawned, double received, double requested)
         {
-            return open && alive && spawned && requested > 0 && received < requested;
+            return open && alive && spawned && requested > 0 && received + FoodWaitingTolerance < requested;
         }
 
         static int Round(float value)

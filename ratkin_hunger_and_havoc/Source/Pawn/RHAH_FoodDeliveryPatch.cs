@@ -2,6 +2,7 @@ using HarmonyLib;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 
 namespace HungerAndHavoc.Pawn
 {
@@ -18,7 +19,14 @@ namespace HungerAndHavoc.Pawn
             Job job = giver?.CurJob;
             if (giver?.Faction != Faction.OfPlayer || job?.def != JobDefOf.GiveToPawn ||
                 job.GetTarget(TargetIndex.B).Pawn != inventory.pawn) return;
-            RHAH_ArmedDemand.NoteFood(inventory.pawn, item, __result);
+            if (RHAH_ArmedDemand.FoodRequest(inventory.pawn) != null)
+            {
+                RHAH_ArmedDemand.NoteFood(inventory.pawn, item, __result);
+                return;
+            }
+
+            LordJob_RHAH_Visitor visitor = inventory.pawn.GetLord()?.LordJob as LordJob_RHAH_Visitor;
+            visitor?.NoteFoodDelivered(inventory.pawn, item, __result);
         }
     }
 }

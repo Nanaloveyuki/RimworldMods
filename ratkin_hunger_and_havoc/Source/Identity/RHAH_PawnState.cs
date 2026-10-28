@@ -16,6 +16,7 @@ namespace HungerAndHavoc.Identity
         internal int stayKind;
         internal int stayRemainingTicks;
         internal int foodWaitUntilTick = -1;
+        internal double foodNutritionDelivered;
         internal int begSlapCount;
         internal int gnawSearchUntilTick = -1;
 

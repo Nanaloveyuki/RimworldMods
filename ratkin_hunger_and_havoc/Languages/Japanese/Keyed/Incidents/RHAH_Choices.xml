@@ -101,6 +101,7 @@
   <RHAH_Choice_FeedBlocked>{0}は今、食べ物を受け取れません。</RHAH_Choice_FeedBlocked>
   <RHAH_Choice_FeedNoVisitor>{0}は、食べ物を渡せる訪問者ではありません。</RHAH_Choice_FeedNoVisitor>
   <RHAH_Choice_FeedNotHungry>{0}は今、食べ物を必要としていません。</RHAH_Choice_FeedNotHungry>
+  <RHAH_Choice_FeedBabyOnly>{0}はまだ自分で食べられません。右クリックで個別に食べさせてください。</RHAH_Choice_FeedBabyOnly>
   <RHAH_Choice_GiveFood>{1}に{0}を渡す</RHAH_Choice_GiveFood>
   <RHAH_Choice_NoFood>{1}に渡せる食べ物がありません</RHAH_Choice_NoFood>
   <RHAH_Choice_Short>在庫が足りません。まだ{0}必要です。</RHAH_Choice_Short>

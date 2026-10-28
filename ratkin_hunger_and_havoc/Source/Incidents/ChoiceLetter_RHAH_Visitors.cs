@@ -237,20 +237,33 @@ namespace HungerAndHavoc.Incidents
                     string name = "-";
                     if (present != null)
                     {
+                        // 要人喂的来客不进等饭名单 先说清要亲手喂 别让不饿的人挡住
+                        bool handFeed = false;
                         for (int i = 0; i < present.Count; i++)
                         {
                             Verse.Pawn pawn = present[i];
-                            if (pawn == null)
+                            if (pawn != null && RHAH_FoodHandoff.Refusal(pawn) == null &&
+                                HungerAndHavoc.Pawn.Compat.RHAH_ChildMovement.NeedsHandFeed(pawn))
                             {
-                                continue;
-                            }
-
-                            string refusal = RHAH_FoodHandoff.Refusal(pawn);
-                            if (refusal != null)
-                            {
-                                key = refusal;
+                                key = "RHAH_Choice_FeedBabyOnly";
                                 name = pawn.LabelShort;
+                                handFeed = true;
                                 break;
+                            }
+                        }
+
+                        if (!handFeed)
+                        {
+                            for (int i = 0; i < present.Count; i++)
+                            {
+                                Verse.Pawn pawn = present[i];
+                                string refusal = pawn == null ? null : RHAH_FoodHandoff.Refusal(pawn);
+                                if (refusal != null)
+                                {
+                                    key = refusal;
+                                    name = pawn.LabelShort;
+                                    break;
+                                }
                             }
                         }
                     }
