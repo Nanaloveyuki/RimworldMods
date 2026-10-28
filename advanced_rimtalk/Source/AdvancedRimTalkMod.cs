@@ -94,11 +94,11 @@ namespace AdvancedRimTalk
         {
             if (_initializationError != null)
             {
-                listing.Label("AdvancedRimTalk.Settings.Incompatible".Translate(_initializationError));
+                ArtiUi.ListingLabel(listing, "AdvancedRimTalk.Settings.Incompatible".Translate(_initializationError));
                 return;
             }
-            listing.Label("AdvancedRimTalk.Settings.PromptIntegrationMode".Translate());
-            if (listing.RadioButton(
+            ArtiUi.ListingLabel(listing, "AdvancedRimTalk.Settings.PromptIntegrationMode".Translate());
+            if (ArtiUi.ListingRadio(listing,
                 "AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPrompt".Translate(),
                 !Settings.ReplaceRimTalkPromptMechanism,
                 12f,
@@ -108,7 +108,7 @@ namespace AdvancedRimTalk
                 Settings.ReplaceRimTalkPromptMechanism = false;
             }
 
-            if (listing.RadioButton(
+            if (ArtiUi.ListingRadio(listing,
                 "AdvancedRimTalk.Settings.TakeoverRimTalkPrompt".Translate(),
                 Settings.ReplaceRimTalkPromptMechanism,
                 12f,
@@ -119,7 +119,7 @@ namespace AdvancedRimTalk
             }
 
             listing.Gap();
-            listing.CheckboxLabeled(
+            ArtiUi.ListingCheckbox(listing,
                 "AdvancedRimTalk.Settings.EnablePlaceholderLayer".Translate(),
                 ref Settings.EnablePlaceholderLayer,
                 "AdvancedRimTalk.Settings.EnablePlaceholderLayerTooltip".Translate());
@@ -151,7 +151,7 @@ namespace AdvancedRimTalk
             DrawIntegerSetting(listing, "AdvancedRimTalk.Settings.CharacterBudget".Translate(), ref Settings.TakeoverPromptCharacterBudget, ref _takeoverBudgetBuffer, 4000, 200000);
 
             listing.Gap();
-            if (listing.ButtonText("AdvancedRimTalk.Once.Open".Translate()))
+            if (ArtiUi.ListingButton(listing, "AdvancedRimTalk.Once.Open".Translate()))
             {
                 Find.WindowStack.Add(new ArtiOnceWindow());
             }
@@ -169,11 +169,11 @@ namespace AdvancedRimTalk
             float labelWidth = listing.ColumnWidth * 0.4f;
             float height = Mathf.Max(30f, Text.CalcHeight(label, labelWidth));
             Rect row = listing.GetRect(height);
-            Widgets.Label(
+            ArtiUi.Label(
                 new Rect(row.x, row.y, labelWidth, row.height),
                 label);
             listing.Gap(4f);
-            Widgets.TextFieldNumeric(
+            ArtiUi.TextFieldNumeric(
                 new Rect(
                     row.x + labelWidth + 8f,
                     row.y,

@@ -25,6 +25,31 @@ namespace AdvancedRimTalk.UI
         private static readonly Color PunctuationColor = new Color(0.62f, 0.69f, 0.76f);
         private static readonly Color InvalidColor = new Color(1f, 0.35f, 0.35f);
 
+        internal static Color DefaultTextColor => ArtiUi.IsNative ? ArtiUi.Ink : IdentifierColor;
+
+        internal static void RefreshStyleColors(GUIStyle inputStyle, GUIStyle syntaxStyle)
+        {
+            Color inputColor = ArtiUi.IsNative ? ArtiUi.Ink : Color.white;
+            inputColor.a = 0.01f;
+            SetTextColors(inputStyle, inputColor);
+            SetTextColors(syntaxStyle, ArtiUi.IsNative ? ArtiUi.Ink : Color.white);
+        }
+
+        internal static void DrawLabel(Rect rect, string text, GUIStyle style, Color color)
+        {
+            Color previous = GUI.color;
+            try
+            {
+                GUI.color = color;
+                GUI.Label(rect, text, style);
+            }
+            finally
+            {
+                SetTextColors(style, ArtiUi.IsNative ? ArtiUi.Ink : Color.white);
+                GUI.color = previous;
+            }
+        }
+
         public static GUIStyle CreateInputStyle()
         {
             GUIStyle style = new GUIStyle(Text.CurTextAreaStyle);
@@ -34,7 +59,9 @@ namespace AdvancedRimTalk.UI
             style.wordWrap = false;
             style.richText = false;
             RemoveBackgrounds(style);
-            SetTextColors(style, new Color(1f, 1f, 1f, 0.01f));
+            Color inputColor = ArtiUi.IsNative ? ArtiUi.Ink : Color.white;
+            inputColor.a = 0.01f;
+            SetTextColors(style, inputColor);
             return style;
         }
 
@@ -44,7 +71,7 @@ namespace AdvancedRimTalk.UI
             style.padding = new RectOffset(0, 0, 0, 0);
             style.contentOffset = Vector2.zero;
             style.richText = false;
-            SetTextColors(style, Color.white);
+            SetTextColors(style, ArtiUi.IsNative ? ArtiUi.Ink : Color.white);
             return style;
         }
 
@@ -181,13 +208,13 @@ namespace AdvancedRimTalk.UI
                         continue;
                     }
 
-                    x += DrawRun(x, y, source, position, start, IdentifierColor, style, lineAdvance, xMin, xMax);
+                    x += DrawRun(x, y, source, position, start, DefaultTextColor, style, lineAdvance, xMin, xMax);
                     x += DrawRun(x, y, source, start, end, GetSyntaxColor(highlight.Role), style, lineAdvance, xMin, xMax);
                     position = end;
                 }
             }
 
-            DrawRun(x, y, source, position, lineEnd, IdentifierColor, style, lineAdvance, xMin, xMax);
+            DrawRun(x, y, source, position, lineEnd, DefaultTextColor, style, lineAdvance, xMin, xMax);
             return AdvanceHighlightIndex(highlights, highlightIndex, highlightCount, lineEnd);
         }
 
@@ -206,16 +233,7 @@ namespace AdvancedRimTalk.UI
                 return width;
             }
 
-            Color previous = GUI.color;
-            try
-            {
-                GUI.color = color;
-                GUI.Label(new Rect(x, y, Mathf.Max(1f, width + 2f), lineAdvance), value, style);
-            }
-            finally
-            {
-                GUI.color = previous;
-            }
+            DrawLabel(new Rect(x, y, Mathf.Max(1f, width + 2f), lineAdvance), value, style, color);
 
             return width;
         }
@@ -296,7 +314,7 @@ namespace AdvancedRimTalk.UI
                         AppendColored(
                             builder,
                             source.Substring(cursor, start - cursor),
-                            IdentifierColor);
+                            DefaultTextColor);
                     }
 
                     int visibleStart = Math.Max(cursor, start);
@@ -313,7 +331,7 @@ namespace AdvancedRimTalk.UI
                 AppendColored(
                     builder,
                     source.Substring(cursor),
-                    IdentifierColor);
+                    DefaultTextColor);
             }
 
             return builder.ToString();
@@ -334,6 +352,35 @@ namespace AdvancedRimTalk.UI
 
         public static Color GetSyntaxColor(ArtiSyntaxRole role)
         {
+            if (ArtiUi.IsLight)
+            {
+                switch (role)
+                {
+                    case ArtiSyntaxRole.Marker:
+                        return new Color(0.53f, 0.30f, 0.02f);
+                    case ArtiSyntaxRole.Comment:
+                        return new Color(0.28f, 0.40f, 0.30f);
+                    case ArtiSyntaxRole.Keyword:
+                        return new Color(0.46f, 0.22f, 0.64f);
+                    case ArtiSyntaxRole.String:
+                        return new Color(0.55f, 0.32f, 0.05f);
+                    case ArtiSyntaxRole.Number:
+                        return new Color(0.05f, 0.37f, 0.53f);
+                    case ArtiSyntaxRole.Boolean:
+                        return new Color(0.47f, 0.22f, 0.61f);
+                    case ArtiSyntaxRole.Builtin:
+                        return new Color(0.04f, 0.38f, 0.42f);
+                    case ArtiSyntaxRole.Operator:
+                        return new Color(0.26f, 0.30f, 0.37f);
+                    case ArtiSyntaxRole.Punctuation:
+                        return new Color(0.35f, 0.39f, 0.44f);
+                    case ArtiSyntaxRole.Invalid:
+                        return ArtiUi.Danger;
+                    default:
+                        return ArtiUi.Ink;
+                }
+            }
+
             switch (role)
             {
                 case ArtiSyntaxRole.Marker:
@@ -357,7 +404,7 @@ namespace AdvancedRimTalk.UI
                 case ArtiSyntaxRole.Invalid:
                     return InvalidColor;
                 default:
-                    return IdentifierColor;
+                    return DefaultTextColor;
             }
         }
 

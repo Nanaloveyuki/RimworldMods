@@ -11,6 +11,10 @@
     <OutputPath>tmp\build\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <IrisMenusDll Condition="'$(IrisMenusDll)' == ''">$(MSBuildThisFileDirectory)../iris_menus/1.7/Assemblies/IrisMenus.dll</IrisMenusDll>
+    <DefineConstants Condition="Exists('$(IrisMenusDll)')">$(DefineConstants);ART_IRISMENUS</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Tests\**;tmp\**;obj\**" />
@@ -36,6 +40,11 @@
     </Reference>
     <Reference Include="0Harmony">
       <HintPath>$(HarmonyAssemblyPath)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="IrisMenus" Condition="Exists('$(IrisMenusDll)')">
+      <HintPath>$(IrisMenusDll)</HintPath>
+      <Aliases>iris</Aliases>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

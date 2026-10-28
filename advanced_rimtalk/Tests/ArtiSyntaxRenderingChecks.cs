@@ -94,7 +94,8 @@ namespace UnityEngine
 {
     internal struct Color
     {
-        public Color(float r, float g, float b, float a = 1) { }
+        public float a;
+        public Color(float r, float g, float b, float a = 1) { this.a = a; }
         public static Color white => new Color(1, 1, 1);
     }
     internal enum TextAnchor { UpperLeft }
@@ -137,6 +138,14 @@ namespace Verse
 }
 namespace AdvancedRimTalk.UI
 {
+    internal static class ArtiUi
+    {
+        internal static bool IsNative => false;
+        internal static bool IsLight => false;
+        internal static Color Ink => Color.white;
+        internal static Color Danger => new Color(1f, 0.35f, 0.35f);
+    }
+
     internal enum ArtiSyntaxRole { Plain, Marker, Comment, Keyword, String, Number, Boolean, Builtin, Identifier, Operator, Punctuation, Invalid }
     internal sealed class ArtiHighlightSpan
     {

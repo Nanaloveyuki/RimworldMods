@@ -22,6 +22,7 @@ namespace AdvancedRimTalk.UI
         private bool initialized;
         private Game generatedGame;
         private GUIStyle outputStyle;
+        private GUIStyle nativeOutputStyle;
         private bool takeover;
         private bool json;
         private Vector2 scroll;
@@ -70,13 +71,13 @@ namespace AdvancedRimTalk.UI
             }
             float half = rect.width / 2f;
             bool previousMode = takeover;
-            if (Widgets.RadioButtonLabeled(new Rect(rect.x, rect.y, half, 28f),
+            if (ArtiUi.RadioButtonLabeled(new Rect(rect.x, rect.y, half, 28f),
                 "AdvancedRimTalk.Settings.EmbedArtiIntoRimTalkPrompt".Translate(), !takeover))
             {
                 takeover = false;
                 scroll = Vector2.zero;
             }
-            if (Widgets.RadioButtonLabeled(new Rect(rect.x + half, rect.y, half, 28f),
+            if (ArtiUi.RadioButtonLabeled(new Rect(rect.x + half, rect.y, half, 28f),
                 "AdvancedRimTalk.Settings.TakeoverRimTalkPrompt".Translate(), takeover))
             {
                 takeover = true;
@@ -97,10 +98,10 @@ namespace AdvancedRimTalk.UI
             string activeName = AdvancedRimTalkMod.ShouldReplaceRimTalkPromptMechanism ? activeTakeover.Name : activeRimTalk?.Name ?? "-";
             string activeMode = (AdvancedRimTalkMod.ShouldReplaceRimTalkPromptMechanism
                 ? "AdvancedRimTalk.Preview.Takeover" : "AdvancedRimTalk.Preview.Embed").Translate();
-            Widgets.Label(new Rect(rect.x, rect.y + 32f, rect.width, 26f),
+            ArtiUi.Label(new Rect(rect.x, rect.y + 32f, rect.width, 26f),
                 "AdvancedRimTalk.Preview.Active".Translate(activeMode, activeName));
-            Widgets.Label(new Rect(rect.x, rect.y + 62f, 130f, 28f), "AdvancedRimTalk.Preview.Preset".Translate());
-            if (Widgets.ButtonText(new Rect(rect.x + 134f, rect.y + 62f, Mathf.Max(1f, rect.width - 134f), 28f), selectedName))
+            ArtiUi.Label(new Rect(rect.x, rect.y + 62f, 130f, 28f), "AdvancedRimTalk.Preview.Preset".Translate());
+            if (ArtiUi.ButtonText(new Rect(rect.x + 134f, rect.y + 62f, Mathf.Max(1f, rect.width - 134f), 28f), selectedName))
             {
                 var options = new List<FloatMenuOption>();
                 Action<string> select = id =>
@@ -122,21 +123,21 @@ namespace AdvancedRimTalk.UI
                     }
                 Find.WindowStack.Add(new FloatMenu(options));
             }
-            if (Widgets.RadioButtonLabeled(new Rect(rect.x, rect.y + 94f, half, 26f),
+            if (ArtiUi.RadioButtonLabeled(new Rect(rect.x, rect.y + 94f, half, 26f),
                 "AdvancedRimTalk.Preview.CapturedResult".Translate(), showCaptured)) showCaptured = true;
-            if (Widgets.RadioButtonLabeled(new Rect(rect.x + half, rect.y + 94f, half, 26f),
+            if (ArtiUi.RadioButtonLabeled(new Rect(rect.x + half, rect.y + 94f, half, 26f),
                 "AdvancedRimTalk.Preview.ContextResult".Translate(), !showCaptured)) showCaptured = false;
             rect = new Rect(rect.x, rect.y + 94f, rect.width, Mathf.Max(1f, rect.height - 94f));
-            if (Widgets.RadioButtonLabeled(new Rect(rect.x, rect.y + 32f, half, 28f),
+            if (ArtiUi.RadioButtonLabeled(new Rect(rect.x, rect.y + 32f, half, 28f),
                 "AdvancedRimTalk.Preview.Text".Translate(), !json)) json = false;
-            if (Widgets.RadioButtonLabeled(new Rect(rect.x + half, rect.y + 32f, half, 28f),
+            if (ArtiUi.RadioButtonLabeled(new Rect(rect.x + half, rect.y + 32f, half, 28f),
                 "AdvancedRimTalk.Preview.Json".Translate(), json)) json = true;
 
-            Widgets.CheckboxLabeled(new Rect(rect.x, rect.y + 64f, half, 28f),
+            ArtiUi.CheckboxLabeled(new Rect(rect.x, rect.y + 64f, half, 28f),
                 "AdvancedRimTalk.Preview.Experimental".Translate(), ref experimentalContext);
             bool previousEnabled = GUI.enabled;
             GUI.enabled = previousEnabled && experimentalContext && Current.ProgramState == ProgramState.Playing;
-            if (Widgets.ButtonText(new Rect(rect.x + half, rect.y + 64f, half, 28f), "AdvancedRimTalk.Preview.Generate".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + half, rect.y + 64f, half, 28f), "AdvancedRimTalk.Preview.Generate".Translate()))
             {
                 try
                 {
@@ -156,9 +157,9 @@ namespace AdvancedRimTalk.UI
             }
             GUI.enabled = previousEnabled;
             float requestLabelWidth = Mathf.Min(160f, rect.width * 0.35f);
-            Widgets.Label(new Rect(rect.x, rect.y + 96f, requestLabelWidth, 28f), "AdvancedRimTalk.Preview.Request".Translate());
+            ArtiUi.Label(new Rect(rect.x, rect.y + 96f, requestLabelWidth, 28f), "AdvancedRimTalk.Preview.Request".Translate());
             string previousRequest = request;
-            request = Widgets.TextField(new Rect(rect.x + requestLabelWidth, rect.y + 96f,
+            request = ArtiUi.TextField(new Rect(rect.x + requestLabelWidth, rect.y + 96f,
                 Mathf.Max(1f, rect.width - requestLabelWidth), 28f), request);
             if (previousRequest != request) { generated = null; generatedDiagnostics = null; }
 
@@ -170,17 +171,39 @@ namespace AdvancedRimTalk.UI
                 (showCaptured ? "AdvancedRimTalk.Preview.CapturedResult" : "AdvancedRimTalk.Preview.ContextResult").Translate(),
                 preview == null ? "-" : showCaptured ? captureSources[takeover ? 1 : 0] : generatedSource).ToString();
             float headingHeight = Mathf.Max(24f, Text.CalcHeight(heading, rect.width));
-            Widgets.Label(new Rect(rect.x, rect.y + 128f, rect.width, headingHeight), heading);
+            ArtiUi.Label(new Rect(rect.x, rect.y + 128f, rect.width, headingHeight), heading);
             if (!showCaptured && !string.IsNullOrEmpty(generatedDiagnostics)) content += "\n\n" + generatedDiagnostics;
             Rect viewport = new Rect(rect.x, rect.y + 134f + headingHeight, rect.width, Mathf.Max(1f, rect.height - 134f - headingHeight));
-            Widgets.DrawBoxSolid(viewport, new Color(0.055f, 0.06f, 0.065f, 0.98f));
+            if (ArtiUi.IsNative) ArtiUi.DrawMenuSection(viewport);
+            else Widgets.DrawBoxSolid(viewport, new Color(0.055f, 0.06f, 0.065f, 0.98f));
             viewport = viewport.ContractedBy(8f);
             if (outputStyle == null) outputStyle = new GUIStyle(Text.CurTextAreaReadOnlyStyle) { richText = false };
+            GUIStyle style = outputStyle;
+            if (ArtiUi.IsNative)
+            {
+                if (nativeOutputStyle == null) nativeOutputStyle = new GUIStyle(outputStyle);
+                Color ink = ArtiUi.Ink;
+                SetReadOnlyState(nativeOutputStyle.normal, ink);
+                SetReadOnlyState(nativeOutputStyle.hover, ink);
+                SetReadOnlyState(nativeOutputStyle.active, ink);
+                SetReadOnlyState(nativeOutputStyle.focused, ink);
+                SetReadOnlyState(nativeOutputStyle.onNormal, ink);
+                SetReadOnlyState(nativeOutputStyle.onHover, ink);
+                SetReadOnlyState(nativeOutputStyle.onActive, ink);
+                SetReadOnlyState(nativeOutputStyle.onFocused, ink);
+                style = nativeOutputStyle;
+            }
             float width = Mathf.Max(1f, viewport.width - 20f);
-            Rect view = new Rect(0f, 0f, width, Mathf.Max(viewport.height, outputStyle.CalcHeight(new GUIContent(content), width) + 12f));
-            Widgets.BeginScrollView(viewport, ref scroll, view);
-            try { GUI.TextArea(view, content, outputStyle); }
-            finally { Widgets.EndScrollView(); }
+            Rect view = new Rect(0f, 0f, width, Mathf.Max(viewport.height, style.CalcHeight(new GUIContent(content), width) + 12f));
+            ArtiUi.BeginScrollView(viewport, ref scroll, view);
+            try { GUI.TextArea(view, content, style); }
+            finally { ArtiUi.EndScrollView(); }
+        }
+
+        private static void SetReadOnlyState(GUIStyleState state, Color color)
+        {
+            state.textColor = color;
+            state.background = null;
         }
     }
 }

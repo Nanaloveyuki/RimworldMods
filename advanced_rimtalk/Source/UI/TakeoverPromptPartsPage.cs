@@ -45,7 +45,7 @@ namespace AdvancedRimTalk.UI
             AdvancedRimTalkSettings settings = AdvancedRimTalkMod.Settings;
             if (settings == null)
             {
-                Widgets.Label(inRect, "AdvancedRimTalk.Settings.Unavailable".Translate());
+                ArtiUi.Label(inRect, "AdvancedRimTalk.Settings.Unavailable".Translate());
                 return;
             }
 
@@ -70,13 +70,14 @@ namespace AdvancedRimTalk.UI
 
         private static void DrawInitSummary(Rect rect, ArtiPromptPreset preset)
         {
-            Widgets.DrawBoxSolid(rect, new Color(.08f, .08f, .08f, .8f));
+            if (ArtiUi.IsNative) ArtiUi.DrawMenuSection(rect);
+            else Widgets.DrawBoxSolid(rect, new Color(.08f, .08f, .08f, .8f));
             ArtiPromptInit init = preset.Init ?? new ArtiPromptInit();
             bool enabled = init.EnabledByPlayer;
-            Widgets.CheckboxLabeled(new Rect(rect.x + 6f, rect.y + 4f, rect.width - 12f, 24f), "AdvancedRimTalk.Init.Enable".Translate(), ref enabled);
+            ArtiUi.CheckboxLabeled(new Rect(rect.x + 6f, rect.y + 4f, rect.width - 12f, 24f), "AdvancedRimTalk.Init.Enable".Translate(), ref enabled);
             init.EnabledByPlayer = enabled;
             string text = string.IsNullOrWhiteSpace(init.Title) ? "AdvancedRimTalk.Init.None".Translate().ToString() : init.Title + "\n" + init.Description;
-            Widgets.Label(new Rect(rect.x + 6f, rect.y + 32f, rect.width - 12f, rect.height - 36f), text);
+            ArtiUi.Label(new Rect(rect.x + 6f, rect.y + 32f, rect.width - 12f, rect.height - 36f), text);
         }
 
         private ArtiPromptPreset SelectedPreset(AdvancedRimTalkSettings settings)
@@ -95,11 +96,12 @@ namespace AdvancedRimTalk.UI
 
         private void DrawPresets(Rect rect, AdvancedRimTalkSettings settings)
         {
-            Widgets.DrawBoxSolid(rect, LeftPanelBackground);
+            if (ArtiUi.IsNative) ArtiUi.DrawMenuSection(rect);
+            else Widgets.DrawBoxSolid(rect, LeftPanelBackground);
             var selected = SelectedPreset(settings);
-            Widgets.Label(new Rect(rect.x + 5f, rect.y, rect.width - 36f, 24f),
+            ArtiUi.Label(new Rect(rect.x + 5f, rect.y, rect.width - 36f, 24f),
                 "AdvancedRimTalk.Presets.Title".Translate());
-            if (Widgets.ButtonText(new Rect(rect.xMax - 27f, rect.y + 2f, 22f, 22f), "+"))
+            if (ArtiUi.ButtonText(new Rect(rect.xMax - 27f, rect.y + 2f, 22f, 22f), "+"))
             {
                 var created = new ArtiPromptPreset { Name = "AdvancedRimTalk.Presets.New".Translate(),
                     Parts = ArtiPromptPart.CreateDefaultParts(AdvancedRimTalkSettings.DefaultTakeoverArtiPromptDocument) };
@@ -109,26 +111,25 @@ namespace AdvancedRimTalk.UI
             }
             Rect list = new Rect(rect.x + 4f, rect.y + 26f, rect.width - 8f, 82f);
             Rect view = new Rect(0f, 0f, list.width - 16f, Mathf.Max(82f, settings.TakeoverPresets.Count * 26f));
-            Widgets.BeginScrollView(list, ref presetScroll, view);
+            ArtiUi.BeginScrollView(list, ref presetScroll, view);
             try
             {
                 float y = 0f;
                 foreach (var preset in settings.TakeoverPresets)
                 {
                     Rect row = new Rect(0f, y, view.width, 24f);
-                    if (preset == selected) Widgets.DrawHighlight(row);
                     string label = (preset.Id == settings.ActiveTakeoverPresetId ? "▶ " : string.Empty) + preset.Name;
-                    if (Widgets.ButtonText(row, label, false)) SelectPreset(preset);
+                    if (ArtiUi.Navigation(row, label, preset == selected)) SelectPreset(preset);
                     y += 26f;
                 }
             }
-            finally { Widgets.EndScrollView(); }
+            finally { ArtiUi.EndScrollView(); }
             selected = SelectedPreset(settings);
-            selected.Name = Widgets.TextField(new Rect(rect.x + 5f, rect.y + 112f, rect.width - 10f, 24f), selected.Name);
+            selected.Name = ArtiUi.TextField(new Rect(rect.x + 5f, rect.y + 112f, rect.width - 10f, 24f), selected.Name);
             float half = (rect.width - 15f) / 2f;
-            if (Widgets.ButtonText(new Rect(rect.x + 5f, rect.y + 140f, half, 24f), "AdvancedRimTalk.Presets.Activate".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 5f, rect.y + 140f, half, 24f), "AdvancedRimTalk.Presets.Activate".Translate()))
                 settings.ActivateTakeoverPreset(selected.Id);
-            if (Widgets.ButtonText(new Rect(rect.x + 10f + half, rect.y + 140f, half, 24f), "AdvancedRimTalk.Presets.Copy".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 10f + half, rect.y + 140f, half, 24f), "AdvancedRimTalk.Presets.Copy".Translate()))
             {
                 var copy = selected.Copy(selected.Name);
                 settings.AddTakeoverPreset(copy);
@@ -136,7 +137,7 @@ namespace AdvancedRimTalk.UI
             }
             bool enabled = GUI.enabled;
             GUI.enabled = enabled && settings.TakeoverPresets.Count > 1;
-            if (Widgets.ButtonText(new Rect(rect.x + 5f, rect.y + 168f, rect.width - 10f, 24f), "AdvancedRimTalk.Presets.Delete".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 5f, rect.y + 168f, rect.width - 10f, 24f), "AdvancedRimTalk.Presets.Delete".Translate()))
             {
                 var removed = selected;
                 Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("AdvancedRimTalk.Presets.DeleteConfirm".Translate(removed.Name), () =>
@@ -167,14 +168,15 @@ namespace AdvancedRimTalk.UI
 
         private void DrawPartList(Rect rect, AdvancedRimTalkSettings settings, List<ArtiPromptPart> parts)
         {
-            Widgets.DrawBoxSolid(rect, LeftPanelBackground);
+            if (ArtiUi.IsNative) ArtiUi.DrawMenuSection(rect);
+            else Widgets.DrawBoxSolid(rect, LeftPanelBackground);
             float y = rect.y + 5f;
             Text.Font = GameFont.Small;
-            GUI.color = Color.gray;
-            Widgets.Label(new Rect(rect.x + 5f, y, rect.width - 35f, 20f), "AdvancedRimTalk.PromptParts.Parts".Translate());
-            GUI.color = AddGreen;
+            ArtiUi.Label(new Rect(rect.x + 5f, y, rect.width - 35f, 20f),
+                "AdvancedRimTalk.PromptParts.Parts".Translate(), ArtiUi.IsNative ? ArtiUi.Muted : Color.gray);
+            GUI.color = ArtiUi.IsNative ? Color.white : AddGreen;
             Rect addRect = new Rect(rect.xMax - ButtonSize - 7f, y, ButtonSize, ButtonSize);
-            if (Widgets.ButtonText(addRect, "+"))
+            if (ArtiUi.ButtonText(addRect, "+"))
             {
                 ArtiPromptPart part = new ArtiPromptPart(
                     UniqueName(parts, "AdvancedRimTalk.PromptParts.NewPart".Translate().ToString()),
@@ -193,37 +195,44 @@ namespace AdvancedRimTalk.UI
             float listBottom = rect.yMax - ActionAreaHeight;
             Rect listRect = new Rect(rect.x + 2f, y, rect.width - 4f, Mathf.Max(1f, listBottom - y));
             Rect viewRect = new Rect(0f, 0f, listRect.width - 16f, Mathf.Max(listRect.height, parts.Count * 25f));
-            Widgets.BeginScrollView(listRect, ref partListScrollPosition, viewRect);
+            ArtiUi.BeginScrollView(listRect, ref partListScrollPosition, viewRect);
             float rowY = 0f;
             for (int index = 0; index < parts.Count; index++)
             {
                 ArtiPromptPart part = parts[index];
                 part.Normalize();
                 Rect row = new Rect(0f, rowY, viewRect.width, 24f);
-                if (part.Id == selectedPartId)
+                if (!ArtiUi.IsNative && part.Id == selectedPartId)
                 {
                     Widgets.DrawHighlight(row);
                 }
 
                 bool enabled = part.Enabled;
-                Widgets.Checkbox(new Vector2(4f, rowY + 4f), ref enabled, 16f);
+                if (ArtiUi.IsNative)
+                    ArtiUi.CheckboxLabeled(new Rect(0f, rowY, 24f, 24f), string.Empty, ref enabled);
+                else
+                    Widgets.Checkbox(new Vector2(4f, rowY + 4f), ref enabled, 16f);
                 part.Enabled = enabled;
 
-                GUI.color = part.Enabled ? Color.white : Color.gray;
-                if (Widgets.ButtonText(new Rect(24f, rowY, viewRect.width - 50f, 24f), part.Name, false))
+                GUI.color = ArtiUi.IsNative || part.Enabled ? Color.white : Color.gray;
+                Rect nameRect = new Rect(24f, rowY, viewRect.width - 50f, 24f);
+                bool clicked = ArtiUi.IsNative
+                    ? ArtiUi.Navigation(nameRect, part.Name, part.Id == selectedPartId)
+                    : ArtiUi.ButtonText(nameRect, part.Name, false);
+                if (clicked)
                 {
                     selectedPartId = part.Id;
                     contentScrollPosition = Vector2.zero;
                 }
 
-                GUI.color = DeleteRed;
+                GUI.color = ArtiUi.IsNative ? Color.white : DeleteRed;
                 Rect deleteRect = new Rect(viewRect.width - ButtonSize - 2f, rowY + 2f, ButtonSize, ButtonSize);
-                if (Widgets.ButtonText(deleteRect, "×"))
+                if (ArtiUi.ButtonText(deleteRect, "×"))
                 {
                     parts.RemoveAt(index);
                     EnsureSelection(parts);
                     GUI.color = Color.white;
-                    Widgets.EndScrollView();
+                    ArtiUi.EndScrollView();
                     return;
                 }
 
@@ -231,28 +240,28 @@ namespace AdvancedRimTalk.UI
                 rowY += 25f;
             }
 
-            Widgets.EndScrollView();
+            ArtiUi.EndScrollView();
 
             float buttonWidth = (rect.width - 15f) / 2f;
             float buttonY = listBottom + 4f;
-            if (Widgets.ButtonText(new Rect(rect.x + 5f, buttonY, rect.width - 10f, ActionButtonHeight), "AdvancedRimTalk.PromptParts.Export".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 5f, buttonY, rect.width - 10f, ActionButtonHeight), "AdvancedRimTalk.PromptParts.Export".Translate()))
             {
                 ExportPreset(SelectedPreset(settings));
             }
 
             buttonY += ActionButtonPitch;
-            if (Widgets.ButtonText(new Rect(rect.x + 5f, buttonY, buttonWidth, ActionButtonHeight), "AdvancedRimTalk.PromptParts.ImportLocal".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 5f, buttonY, buttonWidth, ActionButtonHeight), "AdvancedRimTalk.PromptParts.ImportLocal".Translate()))
             {
                 ShowLocalImportMenu(settings);
             }
 
-            if (Widgets.ButtonText(new Rect(rect.x + 10f + buttonWidth, buttonY, buttonWidth, ActionButtonHeight), "AdvancedRimTalk.PromptParts.ImportShared".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 10f + buttonWidth, buttonY, buttonWidth, ActionButtonHeight), "AdvancedRimTalk.PromptParts.ImportShared".Translate()))
             {
                 ShowSharedImportMenu(settings);
             }
 
             buttonY += ActionButtonPitch;
-            if (Widgets.ButtonText(new Rect(rect.x + 5f, buttonY, rect.width - 10f, ActionButtonHeight), "AdvancedRimTalk.PromptParts.ResetDefaults".Translate()))
+            if (ArtiUi.ButtonText(new Rect(rect.x + 5f, buttonY, rect.width - 10f, ActionButtonHeight), "AdvancedRimTalk.PromptParts.ResetDefaults".Translate()))
             {
                 Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
                     "AdvancedRimTalk.PromptParts.ResetDefaultsConfirm".Translate(),
@@ -279,7 +288,7 @@ namespace AdvancedRimTalk.UI
                 && selectedIndex + direction >= 0
                 && selectedIndex + direction < parts.Count;
             GUI.enabled = canMove;
-            if (Widgets.ButtonText(rect, label) && canMove)
+            if (ArtiUi.ButtonText(rect, label) && canMove)
             {
                 ArtiPromptPart part = parts[selectedIndex];
                 parts.RemoveAt(selectedIndex);
@@ -294,9 +303,8 @@ namespace AdvancedRimTalk.UI
             if (part == null)
             {
                 Text.Anchor = TextAnchor.MiddleCenter;
-                GUI.color = Color.gray;
-                Widgets.Label(rect, "AdvancedRimTalk.PromptParts.SelectPart".Translate());
-                GUI.color = Color.white;
+                ArtiUi.Label(rect, "AdvancedRimTalk.PromptParts.SelectPart".Translate(),
+                    ArtiUi.IsNative ? ArtiUi.Muted : Color.gray);
                 Text.Anchor = TextAnchor.UpperLeft;
                 return;
             }
@@ -308,24 +316,24 @@ namespace AdvancedRimTalk.UI
             float inputWidth = 240f;
             float dropdownWidth = 120f;
 
-            Widgets.Label(new Rect(labelX, y, inputX - labelX - 10f, 24f), "AdvancedRimTalk.PromptParts.Name".Translate());
-            part.Name = Widgets.TextField(new Rect(inputX, y, inputWidth, 24f), part.Name);
+            ArtiUi.Label(new Rect(labelX, y, inputX - labelX - 10f, 24f), "AdvancedRimTalk.PromptParts.Name".Translate());
+            part.Name = ArtiUi.TextField(new Rect(inputX, y, inputWidth, 24f), part.Name);
             bool enabled = part.Enabled;
-            Widgets.CheckboxLabeled(new Rect(rect.xMax - 180f, y, 170f, 24f), "AdvancedRimTalk.PromptParts.Enabled".Translate(), ref enabled);
+            ArtiUi.CheckboxLabeled(new Rect(rect.xMax - 180f, y, 170f, 24f), "AdvancedRimTalk.PromptParts.Enabled".Translate(), ref enabled);
             part.Enabled = enabled;
             y += 28f;
 
-            Widgets.Label(new Rect(labelX, y, inputX - labelX - 10f, 24f), "AdvancedRimTalk.PromptParts.Role".Translate());
-            if (Widgets.ButtonText(new Rect(inputX, y, dropdownWidth, 24f), part.Role.ToString()))
+            ArtiUi.Label(new Rect(labelX, y, inputX - labelX - 10f, 24f), "AdvancedRimTalk.PromptParts.Role".Translate());
+            if (ArtiUi.ButtonText(new Rect(inputX, y, dropdownWidth, 24f), part.Role.ToString()))
             {
                 ShowRoleMenu(part);
             }
 
-            Widgets.Label(new Rect(inputX + dropdownWidth + 12f, y, 85f, 24f), "AdvancedRimTalk.PromptParts.CustomRole".Translate());
-            part.CustomRole = Widgets.TextField(new Rect(inputX + dropdownWidth + 100f, y, inputWidth, 24f), part.CustomRole ?? string.Empty);
+            ArtiUi.Label(new Rect(inputX + dropdownWidth + 12f, y, 85f, 24f), "AdvancedRimTalk.PromptParts.CustomRole".Translate());
+            part.CustomRole = ArtiUi.TextField(new Rect(inputX + dropdownWidth + 100f, y, inputWidth, 24f), part.CustomRole ?? string.Empty);
             y += 30f;
 
-            if (Widgets.ButtonText(new Rect(labelX, y, Mathf.Min(240f, rect.width - 20f), 28f),
+            if (ArtiUi.ButtonText(new Rect(labelX, y, Mathf.Min(240f, rect.width - 20f), 28f),
                 "AdvancedRimTalk.ArtiEditor.Title".Translate()))
             {
                 ArtiEditorWindowManager.Shared.Open(preset, part);
@@ -343,6 +351,7 @@ namespace AdvancedRimTalk.UI
             {
                 Text.WordWrap = false;
                 EnsureContentEditorStyles();
+                if (ArtiUi.IsNative) ArtiUi.DrawMenuSection(editorRect);
 
                 string content = ArtiEditorText.NormalizeLineEndings(part.Content);
                 if (!string.Equals(part.Content, content, StringComparison.Ordinal))
@@ -365,7 +374,7 @@ namespace AdvancedRimTalk.UI
                         + contentInputStyle.padding.bottom
                         + 8f));
                 Rect viewRect = new Rect(0f, 0f, contentWidth, contentHeight);
-                Widgets.BeginScrollView(editorRect, ref contentScrollPosition, viewRect);
+                ArtiUi.BeginScrollView(editorRect, ref contentScrollPosition, viewRect);
                 try
                 {
                     Rect syntaxRect = new Rect(
@@ -407,7 +416,7 @@ namespace AdvancedRimTalk.UI
                 }
                 finally
                 {
-                    Widgets.EndScrollView();
+                    ArtiUi.EndScrollView();
                 }
             }
             finally
@@ -432,6 +441,7 @@ namespace AdvancedRimTalk.UI
         {
             if (contentStylesInitialized)
             {
+                ArtiSyntaxRendering.RefreshStyleColors(contentInputStyle, contentSyntaxStyle);
                 return;
             }
 

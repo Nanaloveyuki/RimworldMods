@@ -102,6 +102,9 @@ namespace AdvancedRimTalk.Integration
                             registryType.Assembly.GetType("IrisMenus.MenuSearchEntry", true))
                         .Invoke(null, new object[] { registryType, owner });
                 }
+#if ART_IRISMENUS
+                IrisMenusNativeIntegration.Register(owner);
+#endif
             }
             catch (Exception exception)
             {

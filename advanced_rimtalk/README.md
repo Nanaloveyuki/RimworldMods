@@ -4,6 +4,12 @@ This is the prompt-focused first slice of Advanced RimTalk. It does not replace 
 
 This branch builds **RimWorld 1.7** (Waylith / .NET 10) with Harmony for 1.7 and RimTalk 1.4.1+. The new assembly is not compatible with RimWorld 1.6. Deployment preserves the existing 1.6 build and resources; `LoadFolders.xml` selects the legacy root for 1.6 and only `1.7/` for 1.7. Optional HAR, IrisMenus, and ExpandMemory integrations also depend on those mods working on 1.7.
 
+## 1.1.6 — 2026-10-28
+
+- Adapt all IrisMenus pages to its native full-screen controls and Light/Dark styling.
+- Refresh documentation navigation, syntax contrast, native scrollbars, and compact editor actions.
+- Preserve ordinary settings and floating-window rendering when IrisMenus is absent.
+
 ## Current behavior
 
 In embed mode RimTalk still owns prompt entry order, `system`/`user`/`assistant` roles, chat history placement, and third-party prompt entries. When RimTalk renders an entry, Advanced RimTalk executes formal `{{% ... %}}` Arti blocks first, then preserves the existing Scriban pipeline. The older `art.*` expressions remain available as a compatibility layer.
@@ -84,7 +90,7 @@ ExpandMemory write helpers are experimental, compatibility-sensitive APIs. They 
 
 ## Settings UI
 
-When `Nanaloveyuki.IrisMenus` is active, Advanced RimTalk registers its settings page plus separate `Arti Editor`, `Arti REPL`, and `Arti Documentation` SubItems through IrisMenus' public API. The Editor edits and analyzes the takeover document without executing it; the REPL keeps its own history and executes Arti against the current selection/map without creating a RimTalk talk request. The Documentation page embeds the Arti Markdown library, builds its navigation from the maintained documentation indexes, and presents categories and pages in a two-column layout. Enter runs in the REPL and Shift+Enter inserts a newline. The integration is optional and reflection-based: no `IrisMenus.dll` is shipped with this mod, and the original RimWorld settings dialog remains the fallback when IrisMenus is absent or incompatible.
+When `Nanaloveyuki.IrisMenus` is active, Advanced RimTalk registers its settings and eight SubItems through IrisMenus' public API. The full-screen host uses native presentations for settings, REPL, logs, one-time runs, editor, prompt parts, preview, response rules, and documentation. Buttons, inputs, navigation states, panels, and scrollbars follow Light/Dark; documentation and code retain colored syntax with a contrasting Light palette. The Editor analyzes without executing; the REPL executes against the current selection/map without creating a RimTalk request. Enter runs in the REPL and Shift+Enter inserts a newline. The integration remains optional: no `IrisMenus.dll` is shipped, and ordinary settings/floating windows retain their game UI outside the native host.
 
 `Arti Editor` is a multi-document workspace: **Open prompt** selects parts from any takeover preset, including inactive presets, without activating or executing them. Tabs show `preset / part`; each document keeps its own cursor, selection, scroll, undo/redo history, and preceding-declaration analysis context. The editor page initially opens the active preset's first System part, then keeps its explicit document bindings even when the active preset changes.
 
@@ -104,7 +110,7 @@ Documentation lookup checks cover qualified routes, declaration visibility, cros
 
 Takeover presets are stored separately from RimTalk presets. Existing takeover parts become the first preset without losing their content. The preset list supports creating, duplicating, renaming, deleting, and activating presets. Selecting a preset edits it; only Activate changes the runtime preset. Local/shared imports create a separate takeover preset instead of appending to the current parts. The redundant System document field has been removed from the main settings page.
 
-Prompt Preview identifies the active mode/preset separately from the preview selection. Context previews can render another preset without activating it. Captured messages and generated context previews are separate results, labeled with their source preset and capture/generation time. Output uses a dark, selectable plain-text surface; rich-text-looking prompt content remains literal.
+Prompt Preview identifies the active mode/preset separately from the preview selection. Context previews can render another preset without activating it. Captured messages and generated context previews are separate results, labeled with their source preset and capture/generation time. Output uses a selectable plain-text surface matching the native theme; rich-text-looking prompt content remains literal.
 
 The documentation reader lays out Markdown tables and opens local Markdown links, with a Back action. HTTP(S) links open in the browser. IrisMenus search indexes document titles and paths and opens the selected document directly. Source mode and Copy all retain the Markdown text for copying.
 
@@ -130,16 +136,26 @@ For detailed Pawn data, use the read-only `pawn.info` object (or `core.pawn.info
 
 ### IrisMenus documentation themes
 
-Documentation panels and table cells use standard game surfaces, allowing IrisMenus'
-native hosted theme to adapt Light/Dark backgrounds alongside the existing text-color
-contrast path. Arti token color tags, document links, source mode and clipboard content
-remain unchanged; no blanket monochrome tint is applied to syntax highlighting.
+Native documentation uses themed directory selection, a roomier navigation rhythm,
+and native scrollbars. Body text and table surfaces follow the current palette;
+Arti syntax retains its token colors with darker Light-theme variants. Switching
+themes invalidates cached rich-text colors without changing Markdown or clipboard text.
+
+The 2026-10-28 isolated RimWorld 1.7.4990 smoke opened all nine native pages,
+inspected Light documentation/prompt editing and Dark documentation/editor/settings,
+and verified native and no-IrisMenus builds plus `PromptChecks`. OS keyboard/IME,
+floating-window interaction, and every editing operation remain outside that visual smoke.
 
 ## Build
 
 Install the **.NET 10 SDK**. `Directory.Build.props` shares reference paths between the mod and checks, with Windows and WSL defaults. `Assembly-CSharp.dll` and `UnityStubs.dll` come from the RimWorld 1.7 installation root (`E:\Apps\Steam\steamapps\common\RimWorld`), not the former Unity `RimWorldWin64_Data/Managed` directory. Harmony defaults to the installed `Mods/2009463077/1.7/Assemblies/0Harmony.dll` (Harmony 3). Override `RimWorldDir` to select the installation, or `RimWorldAssemblyDir`, `RimTalkModDir`, `RimTalkAssemblyDir`, and `HarmonyAssemblyPath` for individual references.
 
 RimTalk references default to the installed `Mods/3551203752/1.6/Assemblies`. RimTalk 1.4.1 declares support for both 1.6 and 1.7 while retaining that assembly directory. RimWorld 1.7's WaylithCLR redirects legacy Unity assembly references to `UnityStubs` and relaxes legacy assembly binding; the directory name does not imply that Advanced RimTalk's new assembly supports 1.6.
+
+`IrisMenusDll` defaults to the sibling `iris_menus/1.7/Assemblies/IrisMenus.dll`.
+When present, it supplies an aliased, non-copying compile reference for the native UI;
+override it for another installation. Builds without that DLL omit the native
+presentation layer and retain reflection-based ordinary page registration.
 
 ```powershell
 dotnet build AdvancedRimTalk.csproj -c Release

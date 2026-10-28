@@ -22,6 +22,8 @@ namespace AdvancedRimTalk.Integration
         private readonly List<Rect> tableHeaders = new List<Rect>();
         private float layoutWidth = -1f;
         private float layoutHeight;
+        private bool layoutLight;
+        private bool layoutNative;
         private GUIStyle plainStyle;
         public Action<string> OpenLink;
 
@@ -128,17 +130,27 @@ namespace AdvancedRimTalk.Integration
             {
                 Refresh();
                 Layout(Mathf.Max(1f, rect.width));
-                foreach (Rect row in tableRows) Widgets.DrawMenuSection(Offset(row, rect));
-                foreach (Rect header in tableHeaders) Widgets.DrawWindowBackground(Offset(header, rect));
+                foreach (Rect row in tableRows) ArtiUi.DrawMenuSection(Offset(row, rect));
+                foreach (Rect header in tableHeaders)
+                {
+                    if (ArtiUi.IsNative) Widgets.DrawBoxSolid(Offset(header, rect), ArtiUi.Surface);
+                    else Widgets.DrawWindowBackground(Offset(header, rect));
+                }
                 string clicked = null;
                 foreach (var item in layout)
                 {
                     Rect target = Offset(item.Rect, rect);
-                    if (item.Rich) Widgets.Label(target, item.Text);
+                    if (item.Rich)
+                    {
+                        if (ArtiUi.IsNative)
+                            UnityStubs.Gui.GuiBackend.Current?.DrawText(target, item.Text, 1, 0f,
+                                FontStyle.Normal, TextAnchor.UpperLeft, true, ArtiUi.Ink, default, true);
+                        else Widgets.Label(target, item.Text);
+                    }
                     else
                     {
                         Color previous = GUI.color;
-                        if (item.Link != null) GUI.color = new Color(0.45f, 0.75f, 1f);
+                        GUI.color = item.Link != null ? ArtiUi.Accent : ArtiUi.Ink;
                         GUI.Label(target, item.Text, plainStyle);
                         GUI.color = previous;
                         if (item.Link != null)
@@ -178,7 +190,7 @@ namespace AdvancedRimTalk.Integration
 
         private void Layout(float width)
         {
-            if (layoutWidth == width) return;
+            if (layoutWidth == width && layoutLight == ArtiUi.IsLight && layoutNative == ArtiUi.IsNative) return;
             if (plainStyle == null) plainStyle = new GUIStyle(Text.CurFontStyle) { richText = false, wordWrap = false };
             layout.Clear(); tableRows.Clear(); tableHeaders.Clear();
             float y = 0f;
@@ -200,6 +212,8 @@ namespace AdvancedRimTalk.Integration
             }
             layoutHeight = y;
             layoutWidth = width;
+            layoutLight = ArtiUi.IsLight;
+            layoutNative = ArtiUi.IsNative;
         }
 
         private float AddText(string source, float left, float top, float width, bool code)

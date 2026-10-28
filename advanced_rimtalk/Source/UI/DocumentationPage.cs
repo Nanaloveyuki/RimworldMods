@@ -12,6 +12,7 @@ namespace AdvancedRimTalk.UI
         private const float LeftPanelWidth = 255f;
         private const float PanelGap = 8f;
         private const float RowHeight = 24f;
+        private const float NativeRowHeight = 32f;
         private static readonly Color SectionColor =
             new Color(1f, 0.85f, 0.55f);
 
@@ -22,6 +23,7 @@ namespace AdvancedRimTalk.UI
         private DocumentationEntry selectedEntry;
         private bool sourceMode;
         private GUIStyle sourceStyle;
+        private GUIStyle nativeSourceStyle;
         private string pendingPath;
         private bool pendingBack;
         private bool focusNavigation;
@@ -81,7 +83,7 @@ namespace AdvancedRimTalk.UI
             }
             if (!catalog.IsAvailable)
             {
-                Widgets.Label(
+                ArtiUi.Label(
                     inRect,
                     "AdvancedRimTalk.Documentation.Unavailable".Translate());
                 return;
@@ -100,7 +102,7 @@ namespace AdvancedRimTalk.UI
                 Rect leftRect = new Rect(
                     inRect.x,
                     inRect.y,
-                    Mathf.Min(LeftPanelWidth, Mathf.Max(180f, inRect.width * 0.32f)),
+                    Mathf.Min(ArtiUi.IsNative ? 280f : LeftPanelWidth, Mathf.Max(180f, inRect.width * 0.32f)),
                     inRect.height);
                 Rect rightRect = new Rect(
                     leftRect.xMax + PanelGap,
@@ -121,78 +123,96 @@ namespace AdvancedRimTalk.UI
 
         private void DrawNavigation(Rect rect)
         {
-            Widgets.DrawMenuSection(rect);
+            ArtiUi.DrawMenuSection(rect);
+            bool native = ArtiUi.IsNative;
+            float rowHeight = native ? NativeRowHeight : RowHeight;
+            float rowGap = native ? 4f : 2f;
+            float sectionGap = native ? 8f : 4f;
+            float firstRowY = native ? 40f : 30f;
             float contentWidth = Mathf.Max(1f, rect.width - 18f);
-            float contentHeight = 64f + catalog.Categories.Count * 30f;
+            float selectedY = selectedEntry == catalog.Overview ? firstRowY : -1f;
+            float contentHeight = firstRowY + rowHeight + rowGap + (native ? 8f : 6f);
             foreach (DocumentationCategory category in catalog.Categories)
             {
-                contentHeight += Mathf.Max(0, category.Documents.Count - 1)
-                    * (RowHeight + 2f);
+                foreach (DocumentationEntry entry in category.Documents)
+                {
+                    if (entry == selectedEntry) selectedY = contentHeight;
+                    contentHeight += rowHeight + rowGap;
+                }
+                contentHeight += sectionGap;
             }
+            contentHeight += native ? 8f : 2f;
 
             Rect viewRect = new Rect(
                 0f,
                 0f,
                 contentWidth,
                 Mathf.Max(rect.height, contentHeight));
-            Widgets.BeginScrollView(rect, ref navigationScrollPosition, viewRect);
+            if (focusNavigation && selectedY >= 0f)
+            {
+                navigationScrollPosition.y = Mathf.Clamp(
+                    selectedY - firstRowY,
+                    0f,
+                    Mathf.Max(0f, viewRect.height - rect.height));
+                focusNavigation = false;
+            }
+            ArtiUi.BeginScrollView(rect, ref navigationScrollPosition, viewRect);
             try
             {
-                GUI.color = SectionColor;
-                Widgets.Label(
-                    new Rect(6f, 4f, viewRect.width - 12f, 22f),
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.UpperLeft;
+                GUI.color = native ? ArtiUi.Muted : SectionColor;
+                ArtiUi.Label(
+                    new Rect(native ? 12f : 6f, native ? 8f : 4f, viewRect.width - (native ? 24f : 12f), 24f),
                     "AdvancedRimTalk.Documentation.Index".Translate());
-                GUI.color = Color.white;
-                float y = 30f;
-                y = DrawNavigationEntry(
+                GUI.color = native ? ArtiUi.Ink : Color.white;
+                float y = DrawNavigationEntry(
                     viewRect,
-                    y,
-                    4f,
+                    firstRowY,
+                    native ? 8f : 4f,
                     "AdvancedRimTalk.Documentation.Overview".Translate().ToString(),
                     catalog.Overview);
-                y += 6f;
+                y += native ? 8f : 6f;
 
                 foreach (DocumentationCategory category in catalog.Categories)
                 {
                     DocumentationEntry categoryIndex = category.Documents[0];
                     Rect header = new Rect(
-                        4f,
+                        native ? 8f : 4f,
                         y,
-                        Mathf.Max(1f, viewRect.width - 8f),
-                        RowHeight);
-                    if (categoryIndex == selectedEntry)
+                        Mathf.Max(1f, viewRect.width - (native ? 16f : 8f)),
+                        rowHeight);
+                    if (native)
                     {
-                        Widgets.DrawHighlight(header);
-                        FocusNavigationRow(header.y);
+                        if (ArtiUi.Navigation(header, category.TitleKey.Translate().ToString(), categoryIndex == selectedEntry))
+                            Select(categoryIndex);
+                    }
+                    else
+                    {
+                        if (categoryIndex == selectedEntry) Widgets.DrawHighlight(header);
+                        GUI.color = SectionColor;
+                        if (ArtiUi.ButtonText(header, category.TitleKey.Translate().ToString(), false))
+                            Select(categoryIndex);
                     }
 
-                    GUI.color = SectionColor;
-                    if (Widgets.ButtonText(
-                        header,
-                        category.TitleKey.Translate().ToString(),
-                        false))
-                    {
-                        Select(categoryIndex);
-                    }
-
-                    GUI.color = Color.white;
-                    y += RowHeight + 2f;
+                    GUI.color = native ? ArtiUi.Ink : Color.white;
+                    y += rowHeight + rowGap;
                     for (int index = 1; index < category.Documents.Count; index++)
                     {
                         y = DrawNavigationEntry(
                             viewRect,
                             y,
-                            16f,
+                            native ? 20f : 16f,
                             category.Documents[index].Title,
                             category.Documents[index]);
                     }
 
-                    y += 4f;
+                    y += sectionGap;
                 }
             }
             finally
             {
-                Widgets.EndScrollView();
+                ArtiUi.EndScrollView();
             }
         }
 
@@ -203,95 +223,114 @@ namespace AdvancedRimTalk.UI
             string label,
             DocumentationEntry entry)
         {
+            bool native = ArtiUi.IsNative;
             Rect row = new Rect(
                 indent,
                 y,
-                Mathf.Max(1f, viewRect.width - indent - 4f),
-                RowHeight);
-            if (entry == selectedEntry)
+                Mathf.Max(1f, viewRect.width - indent - (native ? 8f : 4f)),
+                native ? NativeRowHeight : RowHeight);
+            if (native)
             {
-                Widgets.DrawHighlight(row);
-                FocusNavigationRow(row.y);
+                if (ArtiUi.Navigation(row, label, entry == selectedEntry)) Select(entry);
+            }
+            else
+            {
+                if (entry == selectedEntry) Widgets.DrawHighlight(row);
+                if (ArtiUi.ButtonText(row, label, false)) Select(entry);
             }
 
-            if (Widgets.ButtonText(row, label, false))
-            {
-                Select(entry);
-            }
-
-            return y + RowHeight + 2f;
+            return y + row.height + (native ? 4f : 2f);
         }
 
         private void DrawDocument(Rect rect)
         {
-            Widgets.DrawMenuSection(rect);
+            bool native = ArtiUi.IsNative;
+            ArtiUi.DrawMenuSection(rect);
             if (selectedEntry == null)
             {
                 Text.Anchor = TextAnchor.MiddleCenter;
-                GUI.color = Color.gray;
-                Widgets.Label(
+                ArtiUi.Label(
                     rect,
-                    "AdvancedRimTalk.Documentation.SelectDocument".Translate());
+                    "AdvancedRimTalk.Documentation.SelectDocument".Translate(),
+                    native ? ArtiUi.Muted : Color.gray);
                 Text.Anchor = TextAnchor.UpperLeft;
-                GUI.color = Color.white;
+                GUI.color = native ? ArtiUi.Ink : Color.white;
                 return;
             }
 
+            GUI.color = native ? ArtiUi.Ink : Color.white;
             Text.Font = GameFont.Medium;
             float titleWidth = Mathf.Max(1f, rect.width - 24f);
             float titleHeight = Mathf.Max(
                 30f,
                 Text.CalcHeight(selectedEntry.Title, titleWidth));
-            Widgets.Label(
+            ArtiUi.Label(
                 new Rect(rect.x + 12f, rect.y + 8f, titleWidth, titleHeight),
                 selectedEntry.Title);
 
-            Text.Font = GameFont.Tiny;
-            GUI.color = Color.gray;
-            Widgets.Label(
+            Text.Font = native ? GameFont.Small : GameFont.Tiny;
+            ArtiUi.Label(
                 new Rect(
                     rect.x + 12f,
                     rect.y + 8f + titleHeight,
                     titleWidth,
-                    18f),
-                selectedEntry.RelativePath);
-            GUI.color = Color.white;
+                    native ? 24f : 18f),
+                selectedEntry.RelativePath,
+                native ? ArtiUi.Muted : Color.gray);
             Text.Font = GameFont.Small;
-            float toolbarY = rect.y + 34f + titleHeight;
+            float toolbarY = rect.y + (native ? 40f : 34f) + titleHeight;
+            float toolbarHeight = native ? NativeRowHeight : RowHeight;
+            Rect backButton = new Rect(rect.x + 12f, toolbarY, native ? 32f : 28f, toolbarHeight);
             bool enabled = GUI.enabled;
             GUI.enabled = enabled && back.Count > 0;
-            if (Widgets.ButtonText(new Rect(rect.x + 12f, toolbarY, 28f, 24f), "◀"))
+            if (ArtiUi.ButtonText(backButton, "◀"))
             {
                 pendingBack = true;
             }
             GUI.enabled = enabled;
-            TooltipHandler.TipRegion(new Rect(rect.x + 12f, toolbarY, 28f, 24f), "AdvancedRimTalk.Documentation.Back".Translate());
-            Rect sourceToggle = new Rect(rect.x + 48f, toolbarY,
-                Mathf.Max(1f, rect.width - 156f), 24f);
+            TooltipHandler.TipRegion(backButton, "AdvancedRimTalk.Documentation.Back".Translate());
+            Rect sourceToggle = new Rect(rect.x + (native ? 52f : 48f), toolbarY,
+                Mathf.Max(1f, rect.width - (native ? 160f : 156f)), toolbarHeight);
             bool previousSourceMode = sourceMode;
-            Widgets.CheckboxLabeled(sourceToggle,
+            ArtiUi.CheckboxLabeled(sourceToggle,
                 "AdvancedRimTalk.Documentation.Source".Translate().ToString(), ref sourceMode);
             if (sourceMode != previousSourceMode)
             {
                 documentScrollPosition = Vector2.zero;
                 GUI.FocusControl(null);
             }
-            Rect copyButton = new Rect(rect.xMax - 102f, toolbarY, 90f, 24f);
-            if (Widgets.ButtonText(copyButton, "AdvancedRimTalk.Documentation.Copy".Translate().ToString()))
+            Rect copyButton = new Rect(rect.xMax - 102f, toolbarY, 90f, toolbarHeight);
+            if (ArtiUi.ButtonText(copyButton, "AdvancedRimTalk.Documentation.Copy".Translate().ToString()))
             {
                 GUIUtility.systemCopyBuffer = selectedEntry.Markdown ?? string.Empty;
             }
             Text.Font = GameFont.Small;
 
+            float contentY = toolbarY + toolbarHeight + (native ? 8f : 6f);
             Rect viewport = new Rect(
                 rect.x + 8f,
-                rect.y + 64f + titleHeight,
+                contentY,
                 Mathf.Max(1f, rect.width - 16f),
-                Mathf.Max(1f, rect.height - 72f - titleHeight));
+                Mathf.Max(1f, rect.yMax - contentY - 8f));
             float contentWidth = Mathf.Max(1f, viewport.width - 20f);
             if (sourceStyle == null)
             {
                 sourceStyle = new GUIStyle(Text.CurTextAreaReadOnlyStyle) { richText = false };
+            }
+            GUIStyle currentSourceStyle = sourceStyle;
+            if (native)
+            {
+                if (nativeSourceStyle == null) nativeSourceStyle = new GUIStyle(sourceStyle);
+                Color ink = ArtiUi.Ink;
+                SetSourceStyleState(nativeSourceStyle.normal, ink);
+                SetSourceStyleState(nativeSourceStyle.hover, ink);
+                SetSourceStyleState(nativeSourceStyle.active, ink);
+                SetSourceStyleState(nativeSourceStyle.focused, ink);
+                SetSourceStyleState(nativeSourceStyle.onNormal, ink);
+                SetSourceStyleState(nativeSourceStyle.onHover, ink);
+                SetSourceStyleState(nativeSourceStyle.onActive, ink);
+                SetSourceStyleState(nativeSourceStyle.onFocused, ink);
+                currentSourceStyle = nativeSourceStyle;
             }
 
             bool showSource = sourceMode || markdown == null || markdown.Failed;
@@ -299,7 +338,7 @@ namespace AdvancedRimTalk.UI
             showSource = showSource || markdown.Failed;
             if (showSource)
             {
-                measuredHeight = sourceStyle.CalcHeight(
+                measuredHeight = currentSourceStyle.CalcHeight(
                     new GUIContent(selectedEntry.Markdown ?? string.Empty), contentWidth);
             }
             float contentHeight = Mathf.Max(
@@ -307,7 +346,7 @@ namespace AdvancedRimTalk.UI
                 measuredHeight + 12f);
             Rect viewRect = new Rect(0f, 0f, contentWidth, contentHeight);
 
-            Widgets.BeginScrollView(viewport, ref documentScrollPosition, viewRect);
+            ArtiUi.BeginScrollView(viewport, ref documentScrollPosition, viewRect);
             try
             {
                 Rect contentRect = new Rect(
@@ -318,7 +357,9 @@ namespace AdvancedRimTalk.UI
                 if (showSource)
                 {
                     // Ignore edits: this is a selectable snapshot, never a document editor.
-                    GUI.TextArea(contentRect, selectedEntry.Markdown ?? string.Empty, sourceStyle);
+                    GUI.color = Color.white;
+                    GUI.TextArea(contentRect, selectedEntry.Markdown ?? string.Empty, currentSourceStyle);
+                    GUI.color = native ? ArtiUi.Ink : Color.white;
                 }
                 else
                 {
@@ -327,8 +368,14 @@ namespace AdvancedRimTalk.UI
             }
             finally
             {
-                Widgets.EndScrollView();
+                ArtiUi.EndScrollView();
             }
+        }
+
+        private static void SetSourceStyleState(GUIStyleState state, Color ink)
+        {
+            state.background = null;
+            state.textColor = ink;
         }
 
         private void Select(DocumentationEntry entry)
@@ -345,11 +392,5 @@ namespace AdvancedRimTalk.UI
             GUI.FocusControl(null);
         }
 
-        private void FocusNavigationRow(float y)
-        {
-            if (!focusNavigation) return;
-            navigationScrollPosition.y = Mathf.Max(0f, y - 30f);
-            focusNavigation = false;
-        }
     }
 }

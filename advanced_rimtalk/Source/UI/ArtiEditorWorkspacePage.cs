@@ -40,7 +40,7 @@ namespace AdvancedRimTalk.UI
                 Text.Font = GameFont.Small;
                 Text.WordWrap = false;
                 GUI.enabled = previousEnabled && host != null && Find.WindowStack.GetsInput(host);
-                Widgets.Label(new Rect(rect.x, rect.y, Mathf.Max(1f, rect.width - 36f), 28f),
+                ArtiUi.Label(new Rect(rect.x, rect.y, Mathf.Max(1f, rect.width - 36f), 28f),
                     workspace.Active?.Title ?? "AdvancedRimTalk.ArtiEditor.Title".Translate().ToString());
                 float toolbarY = rect.y + 32f;
                 bool compact = rect.width < 620f;
@@ -72,7 +72,7 @@ namespace AdvancedRimTalk.UI
                 if (workspace.Active == null)
                 {
                     Text.WordWrap = true;
-                    Widgets.Label(editorRect, "AdvancedRimTalk.ArtiEditor.Empty".Translate());
+                    ArtiUi.Label(editorRect, "AdvancedRimTalk.ArtiEditor.Empty".Translate());
                 }
                 else
                     workspace.Active.Editor.Draw(editorRect, manager.CanFocus(host));
@@ -87,7 +87,7 @@ namespace AdvancedRimTalk.UI
 
         private static bool Button(float x, float y, float width, string key)
         {
-            return Widgets.ButtonText(new Rect(x, y, width, 28f), ("AdvancedRimTalk.ArtiEditor." + key).Translate());
+            return ArtiUi.ButtonText(new Rect(x, y, width, 28f), ("AdvancedRimTalk.ArtiEditor." + key).Translate());
         }
 
         private void DrawTabs(Rect rect)
@@ -106,7 +106,7 @@ namespace AdvancedRimTalk.UI
                     break;
                 }
             }
-            Widgets.BeginScrollView(rect, ref tabScroll, new Rect(0f, 0f, contentWidth, 32f));
+            ArtiUi.BeginScrollView(rect, ref tabScroll, new Rect(0f, 0f, contentWidth, 32f));
             ArtiEditorSession selected = null;
             ArtiEditorSession closed = null;
             try
@@ -115,17 +115,17 @@ namespace AdvancedRimTalk.UI
                 {
                     var session = workspace.Sessions[i];
                     Rect tab = new Rect(i * (TabWidth + Gap), 0f, TabWidth, 30f);
-                    if (session == workspace.Active) Widgets.DrawHighlightSelected(tab);
-                    if (Widgets.ButtonText(new Rect(tab.x, tab.y, tab.width - 30f, tab.height), session.Title, false))
+                    if (ArtiUi.Navigation(new Rect(tab.x, tab.y, tab.width - 30f, tab.height),
+                        session.Title, session == workspace.Active))
                         selected = session;
-                    if (Widgets.ButtonText(new Rect(tab.xMax - 28f, tab.y + 2f, 26f, 26f), "×", false))
+                    if (ArtiUi.ButtonText(new Rect(tab.xMax - 28f, tab.y + 2f, 26f, 26f), "×", false))
                         closed = session;
                     TooltipHandler.TipRegion(new Rect(tab.x, tab.y, tab.width - 30f, tab.height), session.Title);
                     TooltipHandler.TipRegion(new Rect(tab.xMax - 28f, tab.y, 28f, tab.height),
                         "AdvancedRimTalk.ArtiEditor.CloseTab".Translate());
                 }
             }
-            finally { Widgets.EndScrollView(); }
+            finally { ArtiUi.EndScrollView(); }
             if (closed != null) manager.CloseTab(workspace, closed);
             else if (selected != null) workspace.Select(selected);
         }

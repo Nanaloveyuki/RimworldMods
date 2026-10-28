@@ -17,20 +17,19 @@ namespace AdvancedRimTalk.UI
             IArtiOnceStore store = ArtiOnceStores.Current;
             if (store == null)
             {
-                Widgets.Label(rect, "AdvancedRimTalk.Settings.Unavailable".Translate());
+                ArtiUi.Label(rect, "AdvancedRimTalk.Settings.Unavailable".Translate());
                 return;
             }
 
             float y = rect.y;
             Rect helpRect = new Rect(rect.x, y, rect.width, 44f);
-            Widgets.Label(helpRect, "AdvancedRimTalk.Once.Help".Translate());
+            ArtiUi.Label(helpRect, "AdvancedRimTalk.Once.Help".Translate());
             y += 48f;
 
-            Widgets.CheckboxLabeled(
-                new Rect(rect.x, y, Mathf.Max(1f, rect.width - 120f), 28f),
-                "AdvancedRimTalk.Once.CurrentWorldOnly".Translate(),
-                ref currentWorldOnly);
-            if (Widgets.ButtonText(new Rect(rect.xMax - 110f, y, 110f, 28f), "AdvancedRimTalk.Once.Clear".Translate()))
+            ArtiUi.CheckboxLabeled(new Rect(rect.x, y, Mathf.Max(1f, rect.width - 120f), 28f),
+            "AdvancedRimTalk.Once.CurrentWorldOnly".Translate(),
+            ref currentWorldOnly);
+            if (ArtiUi.ButtonText(new Rect(rect.xMax - 110f, y, 110f, 28f), "AdvancedRimTalk.Once.Clear".Translate()))
             {
                 Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
                     "AdvancedRimTalk.Once.ClearConfirm".Translate(),
@@ -42,7 +41,7 @@ namespace AdvancedRimTalk.UI
             List<ArtiOnceRecord> records = VisibleRecords(store.Snapshot(), currentWorldOnly);
             if (records.Count == 0)
             {
-                Widgets.Label(listRect, "AdvancedRimTalk.Once.Empty".Translate());
+                ArtiUi.Label(listRect, "AdvancedRimTalk.Once.Empty".Translate());
                 return;
             }
 
@@ -55,7 +54,7 @@ namespace AdvancedRimTalk.UI
                 height += Mathf.Max(52f, Text.CalcHeight(lines[index], width - 88f) + 12f);
             }
 
-            Widgets.BeginScrollView(listRect, ref scroll, new Rect(0f, 0f, width, height));
+            ArtiUi.BeginScrollView(listRect, ref scroll, new Rect(0f, 0f, width, height));
             float rowY = 0f;
             for (int index = 0; index < records.Count; index++)
             {
@@ -64,11 +63,11 @@ namespace AdvancedRimTalk.UI
                 Rect row = new Rect(0f, rowY, width, rowHeight);
                 if (index % 2 == 0)
                 {
-                    Widgets.DrawHighlight(row);
+                    ArtiUi.DrawHighlight(row);
                 }
 
-                Widgets.Label(new Rect(row.x + 6f, row.y + 4f, row.width - 92f, row.height - 8f), lines[index]);
-                if (Widgets.ButtonText(new Rect(row.xMax - 80f, row.y + 8f, 74f, 28f), "AdvancedRimTalk.Once.Delete".Translate()))
+                ArtiUi.Label(new Rect(row.x + 6f, row.y + 4f, row.width - 92f, row.height - 8f), lines[index]);
+                if (ArtiUi.ButtonText(new Rect(row.xMax - 80f, row.y + 8f, 74f, 28f), "AdvancedRimTalk.Once.Delete".Translate()))
                 {
                     ArtiOnceRecord toRemove = record;
                     Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
@@ -79,7 +78,7 @@ namespace AdvancedRimTalk.UI
                 rowY += rowHeight;
             }
 
-            Widgets.EndScrollView();
+            ArtiUi.EndScrollView();
         }
 
         private static List<ArtiOnceRecord> VisibleRecords(IList<ArtiOnceRecord> records, bool currentWorldOnly)
@@ -179,7 +178,7 @@ namespace AdvancedRimTalk.UI
 
         public override void DoWindowContents(Rect inRect)
         {
-            Widgets.Label(new Rect(inRect.x, inRect.y, inRect.width - 40f, 28f), "AdvancedRimTalk.Once.Title".Translate());
+            ArtiUi.Label(new Rect(inRect.x, inRect.y, inRect.width - 40f, 28f), "AdvancedRimTalk.Once.Title".Translate());
             page.Draw(new Rect(inRect.x, inRect.y + 32f, inRect.width, Mathf.Max(1f, inRect.height - 32f)));
         }
     }

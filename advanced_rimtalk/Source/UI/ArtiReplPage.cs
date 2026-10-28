@@ -16,18 +16,10 @@ namespace AdvancedRimTalk.UI
     {
         private const string EditorControlName = "AdvancedRimTalk.ArtiRepl.Editor";
         private const int MaxHistory = 100;
-        private static readonly Color PanelColor = new Color(0f, 0f, 0f, 0.16f);
-        private static readonly Color AccentColor = new Color(1f, 0.85f, 0.55f);
-        private static readonly Color CommentColor = new Color(0.42f, 0.55f, 0.47f);
-        private static readonly Color KeywordColor = new Color(0.83f, 0.62f, 0.96f);
-        private static readonly Color StringColor = new Color(0.9f, 0.73f, 0.43f);
-        private static readonly Color NumberColor = new Color(0.48f, 0.78f, 0.91f);
-        private static readonly Color BooleanColor = new Color(0.82f, 0.58f, 0.94f);
-        private static readonly Color BuiltinColor = new Color(0.38f, 0.77f, 0.84f);
-        private static readonly Color IdentifierColor = new Color(0.84f, 0.87f, 0.92f);
-        private static readonly Color OperatorColor = new Color(0.78f, 0.81f, 0.86f);
-        private static readonly Color PunctuationColor = new Color(0.62f, 0.69f, 0.76f);
-        private static readonly Color InvalidColor = new Color(1f, 0.35f, 0.35f);
+        private static Color PanelColor => ArtiUi.IsNative ? ArtiUi.Surface : new Color(0f, 0f, 0f, 0.16f);
+        private static Color AccentColor => ArtiUi.IsNative ? ArtiUi.Warning : new Color(1f, 0.85f, 0.55f);
+        private static Color IdentifierColor => ArtiSyntaxRendering.DefaultTextColor;
+        private static Color InvalidColor => ArtiUi.IsNative ? ArtiUi.Danger : new Color(1f, 0.35f, 0.35f);
 
         private readonly List<ReplEntry> history = new List<ReplEntry>();
         private readonly ArtiReplSession session = new ArtiReplSession();
@@ -70,9 +62,7 @@ namespace AdvancedRimTalk.UI
                 float editorY = outputRect.yMax + 8f;
                 Rect editorPanel = new Rect(inRect.x, editorY, inRect.width, editorHeight);
                 Widgets.DrawBoxSolid(editorPanel, PanelColor);
-                GUI.color = AccentColor;
-                Widgets.Label(new Rect(editorPanel.x + 6f, editorPanel.y + 6f, 24f, 24f), ">>>");
-                GUI.color = Color.white;
+                ArtiUi.Label(new Rect(editorPanel.x + 6f, editorPanel.y + 6f, 24f, 24f), ">>>", AccentColor);
 
                 Rect editorRect = new Rect(
                     editorPanel.x + 32f,
@@ -83,15 +73,32 @@ namespace AdvancedRimTalk.UI
                 RefreshInputAnalysis();
                 DrawInputSyntax(editorRect);
                 GUI.SetNextControlName(EditorControlName);
-                input = NormalizeLineEndings(GUI.TextArea(editorRect, input, inputStyle));
+                Color previousCursor = GUI.skin.settings.cursorColor;
+                Color previousSelection = GUI.skin.settings.selectionColor;
+                try
+                {
+                    if (ArtiUi.IsNative)
+                    {
+                        GUI.skin.settings.cursorColor = ArtiUi.Ink;
+                        Color selection = ArtiUi.Accent;
+                        selection.a = 0.28f;
+                        GUI.skin.settings.selectionColor = selection;
+                    }
+                    input = NormalizeLineEndings(GUI.TextArea(editorRect, input, inputStyle));
+                }
+                finally
+                {
+                    GUI.skin.settings.cursorColor = previousCursor;
+                    GUI.skin.settings.selectionColor = previousSelection;
+                }
 
                 Rect toolbar = new Rect(inRect.x, editorPanel.yMax + 6f, inRect.width, toolbarHeight);
-                if (Widgets.ButtonText(new Rect(toolbar.x, toolbar.y, 82f, 26f), "AdvancedRimTalk.ArtiRepl.Run".Translate()))
+                if (ArtiUi.ButtonText(new Rect(toolbar.x, toolbar.y, 82f, 26f), "AdvancedRimTalk.ArtiRepl.Run".Translate()))
                 {
                     RunInput();
                 }
 
-                if (Widgets.ButtonText(new Rect(toolbar.x + 90f, toolbar.y, 82f, 26f), "AdvancedRimTalk.ArtiRepl.Clear".Translate()))
+                if (ArtiUi.ButtonText(new Rect(toolbar.x + 90f, toolbar.y, 82f, 26f), "AdvancedRimTalk.ArtiRepl.Clear".Translate()))
                 {
                     ClearTranscript();
                 }
@@ -123,7 +130,7 @@ namespace AdvancedRimTalk.UI
                 scrollToBottom = false;
             }
 
-            Widgets.BeginScrollView(
+            ArtiUi.BeginScrollView(
                 viewport,
                 ref outputScroll,
                 new Rect(0f, 0f, contentWidth, contentHeight));
@@ -138,7 +145,7 @@ namespace AdvancedRimTalk.UI
             }
             finally
             {
-                Widgets.EndScrollView();
+                ArtiUi.EndScrollView();
             }
         }
 
@@ -218,6 +225,7 @@ namespace AdvancedRimTalk.UI
         {
             if (stylesInitialized)
             {
+                ArtiSyntaxRendering.RefreshStyleColors(inputStyle, syntaxStyle);
                 return;
             }
 
@@ -226,7 +234,7 @@ namespace AdvancedRimTalk.UI
             syntaxStyle = new GUIStyle(inputStyle);
             syntaxStyle.padding = new RectOffset(0, 0, 0, 0);
             syntaxStyle.contentOffset = Vector2.zero;
-            SetTextColors(syntaxStyle, Color.white);
+            SetTextColors(syntaxStyle, ArtiUi.IsNative ? ArtiUi.Ink : Color.white);
 
             lineAdvance = Mathf.Max(16f, inputStyle.lineHeight);
             stylesInitialized = true;
@@ -326,13 +334,8 @@ namespace AdvancedRimTalk.UI
             }
 
             Vector2 size = syntaxStyle.CalcSize(new GUIContent(text));
-            Color previous = GUI.color;
-            GUI.color = color;
-            GUI.Label(
-                new Rect(x, y, Mathf.Max(1f, size.x + 2f), lineAdvance),
-                text,
-                syntaxStyle);
-            GUI.color = previous;
+            ArtiSyntaxRendering.DrawLabel(
+                new Rect(x, y, Mathf.Max(1f, size.x + 2f), lineAdvance), text, syntaxStyle, color);
             return size.x;
         }
 
@@ -839,29 +842,9 @@ namespace AdvancedRimTalk.UI
 
         private static Color GetSyntaxColor(ArtiSyntaxRole role)
         {
-            switch (role)
-            {
-                case ArtiSyntaxRole.Comment:
-                    return CommentColor;
-                case ArtiSyntaxRole.Keyword:
-                    return KeywordColor;
-                case ArtiSyntaxRole.String:
-                    return StringColor;
-                case ArtiSyntaxRole.Number:
-                    return NumberColor;
-                case ArtiSyntaxRole.Boolean:
-                    return BooleanColor;
-                case ArtiSyntaxRole.Builtin:
-                    return BuiltinColor;
-                case ArtiSyntaxRole.Operator:
-                    return OperatorColor;
-                case ArtiSyntaxRole.Punctuation:
-                    return PunctuationColor;
-                case ArtiSyntaxRole.Invalid:
-                    return InvalidColor;
-                default:
-                    return IdentifierColor;
-            }
+            return role == ArtiSyntaxRole.Marker
+                ? IdentifierColor
+                : ArtiSyntaxRendering.GetSyntaxColor(role);
         }
 
         private static void SetTextColors(GUIStyle style, Color color)
