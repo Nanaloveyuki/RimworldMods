@@ -10,8 +10,9 @@
   <RHAH_Settings_MotherAge>母親の最低年齢：{0}</RHAH_Settings_MotherAge>
   <RHAH_Settings_MotherAge_Tooltip>新しく来る母親と物乞いの母親は、少なくともこの年齢です。範囲は1～14歳、初期値は14歳。通常の到来年齢のほうが高い場合は、そちらを使います。ラットキンの子供は、子供用の年齢のままです。</RHAH_Settings_MotherAge_Tooltip>
   <RHAH_Settings_ImmobileBabies>歩けない乳幼児の訪問を許可</RHAH_Settings_ImmobileBabies>
-  <RHAH_Settings_ImmobileBabies_Tooltip>Toddlersなどの幼児Modがない場合、4歳未満のラットキンの乳幼児は寝たままで、退去時は大人が抱えて連れ出す必要があります。オフにすると、ラットキンの子供は4歳以上になります。</RHAH_Settings_ImmobileBabies_Tooltip>
+  <RHAH_Settings_ImmobileBabies_Tooltip>Toddlers がない、または正しく読み込まれない場合、4歳未満のラットキンの乳幼児は寝たままで、退去時は大人が抱えて連れ出す必要があります。オフにすると、訪問者に乳幼児は現れず、年齢は4歳以上になります。</RHAH_Settings_ImmobileBabies_Tooltip>
   <RHAH_Settings_ImmobileBabies_Toddlers>Toddlersが有効です。3歳未満でも自力で移動できます。このスイッチによる最低年齢の引き上げは行われません。</RHAH_Settings_ImmobileBabies_Toddlers>
+  <RHAH_Settings_ImmobileBabies_NoCarry>Toddlers は有効ですが、乳児を抱える拡張（RimTalk - Expand Toddlers）がありません。これがないと訪問者は乳児を連れて行かず置き去りにするため、乳児は4歳以上に引き上げられます。</RHAH_Settings_ImmobileBabies_NoCarry>
   <RHAH_Settings_Gender>性別</RHAH_Settings_Gender>
   <RHAH_Settings_Gender_0>ランダム</RHAH_Settings_Gender_0>
   <RHAH_Settings_Gender_1>割合で指定</RHAH_Settings_Gender_1>

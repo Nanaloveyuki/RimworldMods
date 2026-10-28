@@ -81,10 +81,16 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(0, neutralGoodwill);
             Assert.Equal(RimWorld.FactionRelationKind.Neutral, siblingKind);
             Assert.Equal(0, siblingGoodwill);
-            Assert.Equal(4f, RHAH_VisitorRules.WalkingAgeFloor(0.1f, false, false));
-            Assert.Equal(8f, RHAH_VisitorRules.WalkingAgeFloor(8f, false, false));
-            Assert.Equal(0.1f, RHAH_VisitorRules.WalkingAgeFloor(0.1f, true, false));
-            Assert.Equal(0.1f, RHAH_VisitorRules.WalkingAgeFloor(0.1f, false, true));
+            Assert.True(System.Math.Abs(RHAH_VisitorRules.LiftBabyToChildAge(0.1f, false, false).Value - 4f) < 0.001f);
+            Assert.True(System.Math.Abs(RHAH_VisitorRules.LiftBabyToChildAge(2.9f, false, false).Value - 5.9f) < 0.001f);
+            Assert.Equal(3.5f, RHAH_VisitorRules.LiftBabyToChildAge(3.5f, false, false).Value);
+            Assert.Equal(8f, RHAH_VisitorRules.LiftBabyToChildAge(8f, false, false).Value);
+            Assert.Equal(0.1f, RHAH_VisitorRules.LiftBabyToChildAge(0.1f, true, false));
+            Assert.Equal(0.1f, RHAH_VisitorRules.LiftBabyToChildAge(0.1f, false, true));
+            Assert.Equal(Verse.DevelopmentalStage.Child,
+                Generation.RHAH_GenerationOptimizer.StageFor(RHAH_VisitorRules.LiftBabyToChildAge(0.1f, false, false)));
+            Assert.Equal(Verse.DevelopmentalStage.Child,
+                Generation.RHAH_GenerationOptimizer.StageFor(RHAH_VisitorRules.LiftBabyToChildAge(2.9f, false, false)));
             Assert.True(RHAH_VisitorRules.ClearsApparel(3, false));
             Assert.False(RHAH_VisitorRules.ClearsApparel(3, true));
             Assert.False(RHAH_VisitorRules.AddsColdClothes(3, true, false, -20f, 10f));

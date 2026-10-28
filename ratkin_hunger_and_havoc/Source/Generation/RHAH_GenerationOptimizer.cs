@@ -14,7 +14,7 @@ namespace HungerAndHavoc.Generation
             RHAH_PawnProfile resolved = profile ?? new RHAH_PawnProfile();
             bool explicitBackstory = resolved.UseExplicitBackstory;
             bool explicitApparel = resolved.UseExplicitApparel;
-            float? age = WalkingAge(request);
+            float? age = ResolveGenerationAge(request);
             Gender? gender = request.Gender ?? ResolveGender();
             PawnGenerationRequest generation = new PawnGenerationRequest(
                 request.PawnKind,
@@ -54,7 +54,7 @@ namespace HungerAndHavoc.Generation
                 return DevelopmentalStage.Adult;
             }
 
-            if (age.Value < 4f)
+            if (age.Value < HungerAndHavoc.Pawn.RHAH_VisitorRules.ChildStageAge)
             {
                 return DevelopmentalStage.Baby;
             }
@@ -62,17 +62,27 @@ namespace HungerAndHavoc.Generation
             return age.Value < 12f ? DevelopmentalStage.Child : DevelopmentalStage.Adult;
         }
 
-        static float? WalkingAge(RHAH_PawnRequest request)
+        internal static float? ResolveGenerationAge(RHAH_PawnRequest request)
         {
-            if (!Identity.RHAH_PawnDefaults.IsYoungRole(request.Role))
+            bool carriable = HungerAndHavoc.Pawn.Compat.RHAH_ToddlerPresence.BabiesCarriable;
+            bool immobileAllowed = Core.RHAH_Mod.Settings != null && Core.RHAH_Mod.Settings.allowImmobileBabies;
+            // 角色不再决定抬龄 婴儿在来客体系里没人带着走 所以对全部角色生效
+            float? age = HungerAndHavoc.Pawn.RHAH_VisitorRules.LiftBabyToChildAge(request.BiologicalAge, carriable, immobileAllowed);
+            if (age.HasValue && request.BiologicalAge.HasValue && age.Value > request.BiologicalAge.Value)
             {
-                return request.BiologicalAge;
+                LogRaisedAge(request, request.BiologicalAge.Value, age.Value, carriable);
             }
 
-            return HungerAndHavoc.Pawn.RHAH_VisitorRules.WalkingAgeFloor(
-                request.BiologicalAge,
-                ModsConfig.IsActive("cyanobot.toddlers"),
-                Core.RHAH_Mod.Settings != null && Core.RHAH_Mod.Settings.allowImmobileBabies);
+            return age;
+        }
+
+        // 玩家看日志就能确认"本该是婴儿 因为缺抱婴能力被抬成了儿童"
+        static void LogRaisedAge(RHAH_PawnRequest request, float from, float to, bool carriable)
+        {
+            Log.Message("[RHAH] 缺少婴儿支持（Toddlers可用=" + HungerAndHavoc.Pawn.Compat.RHAH_ToddlerPresence.Active +
+                "，抱婴扩展可用=" + carriable + "），自动把刷新的婴儿抬龄到儿童：" +
+                request.SourceIncidentDisplayId + " " + request.Role + " " +
+                from.ToString("0.00") + " → " + to.ToString("0.00") + " 岁");
         }
 
         static bool ClearsGeneratedApparel()

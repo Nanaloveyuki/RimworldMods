@@ -10,8 +10,9 @@
   <RHAH_Settings_MotherAge>母亲最低年龄：{0}</RHAH_Settings_MotherAge>
   <RHAH_Settings_MotherAge_Tooltip>母亲来客的最低年龄，范围 1 到 14 岁，默认 14 岁。普通来客的年龄下限更高时，使用较高的下限；幼年鼠族仍使用各自的年龄范围。</RHAH_Settings_MotherAge_Tooltip>
   <RHAH_Settings_ImmobileBabies>允许不能走路的婴幼到来</RHAH_Settings_ImmobileBabies>
-  <RHAH_Settings_ImmobileBabies_Tooltip>未启用 Toddler 模组时，4 岁以下的鼠族婴幼儿只能躺着，离场时需要大人抱走。关闭本项后，新来的幼年鼠族至少 4 岁。</RHAH_Settings_ImmobileBabies_Tooltip>
+  <RHAH_Settings_ImmobileBabies_Tooltip>未启用 Toddlers（或它没有真正加载）时，4 岁以下的鼠族婴幼儿只能躺着，离场时需要大人抱走。关闭本项后，新来的来客不再出现婴儿，年龄抬到 4 岁以上。</RHAH_Settings_ImmobileBabies_Tooltip>
   <RHAH_Settings_ImmobileBabies_Toddlers>Toddler 模组已启用，3 岁以下的幼儿也能自行移动。此开关对幼年鼠族最低年龄的限制已解除。</RHAH_Settings_ImmobileBabies_Toddlers>
+  <RHAH_Settings_ImmobileBabies_NoCarry>Toddlers 已启用，但缺少能抱起婴儿的扩展（RimTalk - Expand Toddlers）。没有它，来客不会把婴儿抱走，婴儿会被丢在路边，所以仍会把婴儿抬龄到 4 岁以上。</RHAH_Settings_ImmobileBabies_NoCarry>
   <RHAH_Settings_Gender>性别</RHAH_Settings_Gender>
   <RHAH_Settings_Gender_0>随机</RHAH_Settings_Gender_0>
   <RHAH_Settings_Gender_1>按比例</RHAH_Settings_Gender_1>

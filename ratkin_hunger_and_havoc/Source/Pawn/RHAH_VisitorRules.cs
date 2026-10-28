@@ -262,14 +262,21 @@ namespace HungerAndHavoc.Pawn
             return years > MaxMotherAge ? MaxMotherAge : years;
         }
 
-        internal static float? WalkingAgeFloor(float? age, bool toddlersActive, bool allowImmobileBabies)
+        // 抬龄到"生成阶段一定是儿童"的年龄 3 岁是鼠族婴儿线 4 岁是 StageFor 的分档线 两者都要过
+        internal static float? LiftBabyToChildAge(float? age, bool babiesCarriable, bool allowImmobileBabies)
         {
-            if (toddlersActive || allowImmobileBabies || !age.HasValue || float.IsNaN(age.Value) || float.IsInfinity(age.Value))
+            if (babiesCarriable || allowImmobileBabies || !age.HasValue || float.IsNaN(age.Value) || float.IsInfinity(age.Value))
             {
                 return age;
             }
 
-            return age.Value < WalkingAge ? WalkingAge : age.Value;
+            if (age.Value >= ChildMinAge)
+            {
+                return age.Value;
+            }
+
+            float lifted = age.Value + BabyAgeLift;
+            return lifted < ChildStageAge ? ChildStageAge : lifted;
         }
 
         internal static int ClampOwnedTraits(int count)
@@ -488,6 +495,8 @@ namespace HungerAndHavoc.Pawn
         internal const int HostileGoodwill = -100;
         internal const int NeutralGoodwill = 0;
         internal const float WalkingAge = 4f;
+        internal const float ChildStageAge = 4f;
+        internal const float BabyAgeLift = 3f;
         internal const float RatEggMinAge = 1f / 60f;
         internal const float RatEggMaxAge = 2.9f;
         internal const float ChildMinAge = 3f;
