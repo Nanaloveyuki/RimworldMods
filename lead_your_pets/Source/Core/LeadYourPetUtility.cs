@@ -1392,9 +1392,9 @@ namespace LeadYourPet
             }
         }
 
-        public static bool CanTriggerInteraction(Pawn master, Pawn pet, LeadYourPetInteractionKind kind, out string reasonKey)
+        public static bool CanTriggerInteraction(Pawn master, Pawn pet, LeadYourPetInteractionKind kind, out string reasonKey, bool manual = false)
         {
-            if (!CanPerformInteraction(pet, kind, out reasonKey))
+            if (!CanPerformInteraction(pet, kind, out reasonKey, manual))
             {
                 return false;
             }
@@ -1408,7 +1408,7 @@ namespace LeadYourPet
             return true;
         }
 
-        public static bool CanPerformInteraction(Pawn pet, LeadYourPetInteractionKind kind, out string reasonKey)
+        public static bool CanPerformInteraction(Pawn pet, LeadYourPetInteractionKind kind, out string reasonKey, bool manual = false)
         {
             reasonKey = null;
             if (pet == null || !pet.Spawned || pet.Dead)
@@ -1417,7 +1417,7 @@ namespace LeadYourPet
                 return false;
             }
 
-            if (kind != LeadYourPetInteractionKind.Fed && kind != LeadYourPetInteractionKind.Snack
+            if (!manual && kind != LeadYourPetInteractionKind.Fed && kind != LeadYourPetInteractionKind.Snack
                 && kind != LeadYourPetInteractionKind.Drag
                 && (pet.Downed || !pet.Awake() || HasLeashCareJob(Component?.GetLinkForPet(pet))))
             {

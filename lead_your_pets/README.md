@@ -108,6 +108,14 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 
 验证：232 项 .NET 10 回归通过。隔离 smoke 使用本机 Achtung `1.6/Assemblies/Achtung.dll` 的真实 `MultiAction.GetAction()`，修复前到达空 `FloatMenu` 构造边界，修复后 11 项检查通过，覆盖睡眠／倒地入口、延迟点击、醒来恢复、有效互动、缺失部位原因、不可达和空来源。使用真实未修改的 1.7 游戏 DLL；仅在验证进程中拦截菜单布局、窗口创建／入栈及可达性。1.7 主程序集及模组元数据更新为 `1.9.1`，主程序集与 Guard 的 Release 构建均为零警告、零错误；已部署到 `Mods/LeadYourPetsContinued` 并通过 SHA-256 校验，保留原有 1.6 文件和 `PublishedFileId.txt`，未修改启用列表或存档。未运行游戏菜单画面，不代表 Achtung 整体的 1.7 实机兼容验收。
 
+## 1.9.2 — 手动互动状态修复
+
+修正 1.9.1 隐藏空菜单后暴露的互动入口问题：之前身体互动的状态过滤同时用于手动和自动互动，麻醉倒地、睡眠、休息与进食会过滤全部双向互动，随后被 Achtung 兼容修复隐藏整个入口。手动菜单与实际执行现在使用独立的手动判定，不再受这些状态限制；自动互动仍保留原限制。手动互动保留心情、娱乐及原有身体效果，但在上述状态下不施加停止寻路、眩晕或位移动画，避免打断照料任务。死亡、缺少身体部位、娱乐已满和不可达的原有判定保留，点击时仍复查且不创建空菜单；无需修改 Achtung。
+
+验证：243 项 .NET 10 回归通过，其中新增 11 项覆盖婴儿／儿童的倒地失能、睡眠、两类休息、进食、实际娱乐增量、照料任务保留，以及死亡和缺失部位。生产 DLL 的隔离菜单 smoke 通过 71 项检查，实际执行 `GetOptionsFor`、二级菜单回调与互动，覆盖延迟点击、失效选项和空来源。使用真实未修改的 1.7 游戏 DLL；仅在 smoke 进程中拦截可达性和 UI 文本／布局／窗口边界。麻醉场景按游戏倒地失能状态构造，未加载真实麻醉病症或玩家存档。1.7 主程序集与模组元数据更新为 `1.9.2`，保留原有 1.6 运行时；未运行游戏画面及 Achtung 实机组合验收。
+
+发布：1.9.2 主程序集与 Guard 的 Release 构建均为零警告、零错误。已部署到 `Mods/LeadYourPetsContinued` 并通过 SHA-256 校验，保留原有 1.6 文件和 `PublishedFileId.txt`，未修改启用列表或玩家存档。
+
 ## 开发
 
 需要 .NET 10 SDK 和实际游戏安装。默认 `RimWorldVersion=1.7`，输出到 `1.7/Assemblies`、`1.7/Guard/Assemblies`；`RimWorldDir` / `RIMWORLD_DIR` 指向游戏根目录，不能指向反编译源码。默认路径为 Windows 的 `E:/Apps/Steam/steamapps/common/RimWorld` 或 WSL 的对应挂载路径。

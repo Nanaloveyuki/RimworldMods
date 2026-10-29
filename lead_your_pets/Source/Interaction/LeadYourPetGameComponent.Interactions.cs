@@ -12,7 +12,7 @@ namespace LeadYourPet
                 return;
             }
 
-            if (!LeadYourPetUtility.CanTriggerInteraction(master, pet, kind, out _))
+            if (!LeadYourPetUtility.CanTriggerInteraction(master, pet, kind, out _, manual: true))
             {
                 return;
             }
@@ -33,7 +33,7 @@ namespace LeadYourPet
         private void ApplyInteraction(Pawn master, Pawn pet, LeadYourPetInteractionKind kind, bool applyPhysicalEffects, bool automatic)
         {
             if (GodHandsCompat.IsGrabbed(master) || GodHandsCompat.IsGrabbed(pet)
-                || !LeadYourPetUtility.CanPerformInteraction(pet, kind, out _))
+                || !LeadYourPetUtility.CanPerformInteraction(pet, kind, out _, manual: !automatic))
             {
                 return;
             }
@@ -53,7 +53,10 @@ namespace LeadYourPet
 
             LeadYourPetUtility.ApplyInteractionMemories(master, pet, kind);
             LeadYourPetUtility.ApplyInteractionJoy(master, pet, kind);
-            ApplyImmediateInteractionEffects(master, pet, kind);
+            if (automatic || LeadYourPetUtility.CanPerformInteraction(pet, kind, out _))
+            {
+                ApplyImmediateInteractionEffects(master, pet, kind);
+            }
             ShowInteractionText(pet, kind);
             StartInteractionAnimation(master, pet, kind);
         }

@@ -152,7 +152,7 @@ namespace LeadYourPet
 
         private FloatMenuOption BuildInteractionMenu(string labelKey, Pawn actor, Pawn pet, LeadYourPetGameComponent component, IEnumerable<LeadYourPetInteractionKind> kinds)
         {
-            if (!kinds.Any(kind => LeadYourPetUtility.CanTriggerInteraction(actor, pet, kind, out string reasonKey) || !reasonKey.NullOrEmpty()))
+            if (!kinds.Any(kind => LeadYourPetUtility.CanTriggerInteraction(actor, pet, kind, out string reasonKey, manual: true) || !reasonKey.NullOrEmpty()))
             {
                 return null;
             }
@@ -168,7 +168,7 @@ namespace LeadYourPet
                 foreach (LeadYourPetInteractionKind kind in kinds)
                 {
                     LeadYourPetInteractionKind localKind = kind;
-                    if (!LeadYourPetUtility.CanTriggerInteraction(actor, pet, localKind, out string partReasonKey))
+                    if (!LeadYourPetUtility.CanTriggerInteraction(actor, pet, localKind, out string partReasonKey, manual: true))
                     {
                         if (!partReasonKey.NullOrEmpty())
                         {
