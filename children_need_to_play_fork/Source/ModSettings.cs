@@ -214,6 +214,8 @@ namespace ToddlersPlayExpanded
 
         public bool enableOlderChildCrying = false;
         public float parentIgnoreCryChance = 0.8f;
+        public bool prisonerCryAffectsColonists = true;
+        public bool prisonerCryAffectsOthers = true;
 
         /// <summary>
         /// When true, suppresses the crying sound effect for children of all enabled ages
@@ -417,6 +419,8 @@ namespace ToddlersPlayExpanded
             Scribe_Values.Look(ref enableChildCrying, "enableChildCrying", true);
             Scribe_Values.Look(ref enableOlderChildCrying, "enableOlderChildCrying", false);
             Scribe_Values.Look(ref parentIgnoreCryChance, "parentIgnoreCryChance", 0.8f);
+            Scribe_Values.Look(ref prisonerCryAffectsColonists, "prisonerCryAffectsColonists", true);
+            Scribe_Values.Look(ref prisonerCryAffectsOthers, "prisonerCryAffectsOthers", true);
             Scribe_Values.Look(ref muteChildCryingSound, "muteChildCryingSound", false);
 
             // Adults (13+)

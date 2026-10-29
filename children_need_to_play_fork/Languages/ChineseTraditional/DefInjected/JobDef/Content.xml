@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_ReturnToddlerToCrib.reportString>將TargetA抱回嬰兒床。</TPE_ReturnToddlerToCrib.reportString>
+  <TPE_GiveToyToLockedToddler.reportString>給TargetA送玩具。</TPE_GiveToyToLockedToddler.reportString>
+  <TPE_ToddlerSpinning.reportString>轉圈圈。</TPE_ToddlerSpinning.reportString>
+  <TPE_ToddlerWorkWatching.reportString>看別人工作。</TPE_ToddlerWorkWatching.reportString>
+  <TPE_ToddlerRunning.reportString>跑來跑去。</TPE_ToddlerRunning.reportString>
+  <TPE_ToddlerJumping.reportString>蹦蹦跳跳。</TPE_ToddlerJumping.reportString>
+  <TPE_ToddlerMonsterHunt.reportString>追獵怪獸。</TPE_ToddlerMonsterHunt.reportString>
+  <TPE_ToddlerDinosaur.reportString>扮恐龍。</TPE_ToddlerDinosaur.reportString>
+  <TPE_PlayWithToy.reportString>玩TargetA。</TPE_PlayWithToy.reportString>
+  <TPE_CarryToy.reportString>帶著TargetA到處走。</TPE_CarryToy.reportString>
+  <TPE_BugwatchingWithGlass.reportString>用放大鏡觀察蟲子。</TPE_BugwatchingWithGlass.reportString>
+  <TPE_SeekPlushToy.reportString>去拿睡覺時抱的玩偶。</TPE_SeekPlushToy.reportString>
+  <TPE_ToddlerLookThroughStorage.reportString>翻看TargetA。</TPE_ToddlerLookThroughStorage.reportString>
+  <TPE_ToddlerSelfSoothing.reportString>自我安撫。</TPE_ToddlerSelfSoothing.reportString>
+  <TPE_ToddlerCribJumping.reportString>在嬰兒床裡蹦跳。</TPE_ToddlerCribJumping.reportString>
+  <TPE_ToddlerCeilingWatching.reportString>望著天花板。</TPE_ToddlerCeilingWatching.reportString>
+  <TPE_ToddlerSpeechPractice.reportString>練習說話。</TPE_ToddlerSpeechPractice.reportString>
+  <TPE_ToddlerSpeechPracticeInCrib.reportString>在嬰兒床裡練習說話。</TPE_ToddlerSpeechPracticeInCrib.reportString>
+  <TPE_ToddlerHeaterSnuggling.reportString>依偎在電暖爐旁。</TPE_ToddlerHeaterSnuggling.reportString>
+  <TPE_ToddlerPoppingBubbles.reportString>戳泡泡。</TPE_ToddlerPoppingBubbles.reportString>
+  <TPE_ToddlerChasingBubbles.reportString>追泡泡。</TPE_ToddlerChasingBubbles.reportString>
+  <TPE_ChildPlayWithToy.reportString>玩TargetA。</TPE_ChildPlayWithToy.reportString>
+  <TPE_ChildReadBook.reportString>閱讀TargetA。</TPE_ChildReadBook.reportString>
+  <TPE_ChildFloorDrawing.reportString>在地板上畫畫。</TPE_ChildFloorDrawing.reportString>
+  <TPE_ChildWatchTelevision.reportString>看電視。</TPE_ChildWatchTelevision.reportString>
+  <TPE_ChildBuildDirtCastles.reportString>搭泥土城堡。</TPE_ChildBuildDirtCastles.reportString>
+  <TPE_ChildNatureRunning.reportString>探索大自然。</TPE_ChildNatureRunning.reportString>
+  <TPE_ChildSkydreaming.reportString>望著天空做白日夢。</TPE_ChildSkydreaming.reportString>
+  <TPE_ChildActivePlay.reportString>活力遊玩。</TPE_ChildActivePlay.reportString>
+  <TPE_ChildRadiotalking.reportString>用無線電聊天。</TPE_ChildRadiotalking.reportString>
+  <TPE_ChildBubblePopping.reportString>戳泡泡。</TPE_ChildBubblePopping.reportString>
+</LanguageData>

@@ -58,7 +58,7 @@
   <TPE_CribLockTooltip>Toggle whether this toddler is locked in their crib. When locked, colonists will not let them out and will return them to bed if they escape.</TPE_CribLockTooltip>
   <TPE_CribUnlockedMessage>{0} is no longer locked in their crib.</TPE_CribUnlockedMessage>
   <TPE_CribLockedMessage>{0} has been locked in their crib.</TPE_CribLockedMessage>
-  <TPE_ModSettingsCategory>The Children Need To Play</TPE_ModSettingsCategory>
+  <TPE_ModSettingsCategory>The Children Need To Play Fork</TPE_ModSettingsCategory>
   <TPE_DirtCastle_UnknownBuilder>Unknown</TPE_DirtCastle_UnknownBuilder>
   <TPE_CryReason_LowMood>Crying from prolonged low mood</TPE_CryReason_LowMood>
   <TPE_CryReason_SevereThought>Crying from a severe mood debuff</TPE_CryReason_SevereThought>

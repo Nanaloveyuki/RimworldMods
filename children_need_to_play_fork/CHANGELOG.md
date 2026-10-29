@@ -1,5 +1,14 @@
 # Changelog
 
+## Fork v1.3.1 — 2026-10-29
+
+- Renamed the displayed mod and settings category to The Children Need To Play Fork; retained Dratic95 and added Nanaloveyuki to the author metadata. Package ID and the no-publication restriction are unchanged.
+- Added two independently saved, default-on controls for prisoner baby/toddler/child crying mood effects on colonists and non-colonists, including parents. Prisoners, slaves and visitors use the non-colonist option.
+- Controls stop new crying mood memories and renewals; existing memories expire normally. Social opinion, waking and care behavior remain unchanged.
+- Added complete Traditional Chinese localization: 18 XML files and 658 keys, matching Simplified Chinese keys, placeholders and literal newlines.
+- Verified the installed Prison Security arc sentry already recognizes vanilla crying and all three fork crying states. Kept its master, crying and friendly-exclusion switches authoritative instead of adding a redundant patch; documented the required settings.
+- Release build: 0 errors, 307 warnings. Actual 1.7 engine memory/settings and sentry predicate smoke: 161 checks passed, using disposable Unity-reference-adapted assembly copies. In-game visual and firing checks remain unexercised.
+
 ## Fork v1.3.0 — 2026-10-29
 
 - Unified normal, urgent, idle and crib play scheduling. Work, Sleep, Learning, assigned labor and medical/sleep needs now take precedence; player-forced orders remain protected.

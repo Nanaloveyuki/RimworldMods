@@ -22,6 +22,10 @@
   <TPE_Settings_OlderChildCrying_Tooltip>大龄儿童也可能哭闹，持续时间和对附近人的心情惩罚均减半。仅适用于游戏中仍处于儿童阶段的角色。默认关闭。</TPE_Settings_OlderChildCrying_Tooltip>
   <TPE_Settings_ParentIgnoreCryChance>家长冷处理哭闹的概率：{0}</TPE_Settings_ParentIgnoreCryChance>
   <TPE_Settings_ParentIgnoreCryChance_Help>每次哭闹时，父母各自决定是否冷处理。冷处理时，家长会忽略哭声的干扰；孩子获得持续 12 小时的 −5 心情。设为 0% 时照常响应，设为 100% 时总是冷处理。</TPE_Settings_ParentIgnoreCryChance_Help>
+  <TPE_Settings_PrisonerCryAffectsColonists_Label>囚犯婴儿哭泣影响殖民者心情</TPE_Settings_PrisonerCryAffectsColonists_Label>
+  <TPE_Settings_PrisonerCryAffectsColonists_Tooltip>启用后，囚犯婴幼儿和儿童的哭声会使附近殖民者获得相应的心情惩罚，包括其父母。默认开启。</TPE_Settings_PrisonerCryAffectsColonists_Tooltip>
+  <TPE_Settings_PrisonerCryAffectsOthers_Label>囚犯婴儿哭泣影响其他人心情</TPE_Settings_PrisonerCryAffectsOthers_Label>
+  <TPE_Settings_PrisonerCryAffectsOthers_Tooltip>启用后，囚犯婴幼儿和儿童的哭声会使附近非殖民者（如囚犯、奴隶和访客）获得相应的心情惩罚，包括其父母。默认开启。</TPE_Settings_PrisonerCryAffectsOthers_Tooltip>
   <TPE_Settings_ChildrenPlayNeed_Label>启用儿童游玩需求</TPE_Settings_ChildrenPlayNeed_Label>
   <TPE_Settings_ChildrenPlayNeed_Tooltip>儿童会在学习之外拥有游玩需求，并产生想玩的活动。学习和游玩共同影响成长点数。</TPE_Settings_ChildrenPlayNeed_Tooltip>
   <TPE_Settings_AgeGatedDesires_Label>按年龄限制想玩的活动</TPE_Settings_AgeGatedDesires_Label>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_Mote_Bubble.label>泡泡</TPE_Mote_Bubble.label>
+  <TPE_DirtCastle.label>泥土城堡</TPE_DirtCastle.label>
+  <TPE_DirtCastle.description>用泥土堆成的小城堡，是孩子的傑作。會在雨中慢慢崩塌。</TPE_DirtCastle.description>
+  <TPE_BubbleMachine.label>泡泡機</TPE_BubbleMachine.label>
+  <TPE_BubbleMachine.description>製造泡泡的裝置。需要接通電源，並消耗少量化合燃料。漂浮的泡泡供幼兒和兒童追逐玩耍，也能作為裝飾。</TPE_BubbleMachine.description>
+  <TPE_ToyWorkbench.label>玩具工作台</TPE_ToyWorkbench.label>
+  <TPE_ToyWorkbench.description>用於為殖民地兒童製作玩具的小型工作台。</TPE_ToyWorkbench.description>
+  <TPE_PlushMuffalo.label>絨毛毛牛</TPE_PlushMuffalo.label>
+  <TPE_PlushMuffalo.description>蓬鬆的絨毛毛牛，有一對小角和鈕扣眼睛。很受殖民地兒童喜愛。</TPE_PlushMuffalo.description>
+  <TPE_PlushTeddy.label>泰迪熊</TPE_PlushTeddy.label>
+  <TPE_PlushTeddy.description>經典的泰迪熊，毛皮柔軟，臉上縫著微笑。每個孩子都想要一隻。</TPE_PlushTeddy.description>
+  <TPE_PlushSheep.label>絨毛綿羊</TPE_PlushSheep.label>
+  <TPE_PlushSheep.description>像雲朵一樣蓬鬆的絨毛綿羊，摸起來柔軟極了。</TPE_PlushSheep.description>
+  <TPE_PlushDino.label>絨毛恐龍</TPE_PlushDino.label>
+  <TPE_PlushDino.description>鮮綠色的絨毛恐龍，背上有一排紅色尖刺。嗷！</TPE_PlushDino.description>
+  <TPE_PlushMonster.label>絨毛小怪獸</TPE_PlushMonster.label>
+  <TPE_PlushMonster.description>凹凸不平的紫色小怪獸，長著一隻大眼睛、小角和傻呼呼的笑臉。一點也不可怕！</TPE_PlushMonster.description>
+  <TPE_PlushFox.label>絨毛狐狸</TPE_PlushFox.label>
+  <TPE_PlushFox.description>橘色的狐狸玩偶，有白色斑紋和蓬鬆的尾巴。給好奇的孩子作伴。</TPE_PlushFox.description>
+  <TPE_ToySword.label>玩具劍</TPE_ToySword.label>
+  <TPE_ToySword.description>供孩子玩扮演遊戲的小木劍，適合用來打倒想像中的怪獸。</TPE_ToySword.description>
+  <TPE_ToySword.comps.1.categoryLabel>想像遊戲玩具</TPE_ToySword.comps.1.categoryLabel>
+  <TPE_MagnifyingGlass.label>放大鏡</TPE_MagnifyingGlass.label>
+  <TPE_MagnifyingGlass.description>用於觀察細節的小放大鏡。探索時，可以用它仔細看看蟲子、種子和其他小東西。</TPE_MagnifyingGlass.description>
+  <TPE_MagnifyingGlass.comps.1.categoryLabel>想像遊戲玩具</TPE_MagnifyingGlass.comps.1.categoryLabel>
+  <TPE_PlushMuffalo.comps.1.categoryLabel>絨毛玩偶</TPE_PlushMuffalo.comps.1.categoryLabel>
+  <TPE_PlushTeddy.comps.1.categoryLabel>絨毛玩偶</TPE_PlushTeddy.comps.1.categoryLabel>
+  <TPE_PlushSheep.comps.1.categoryLabel>絨毛玩偶</TPE_PlushSheep.comps.1.categoryLabel>
+  <TPE_PlushDino.comps.1.categoryLabel>絨毛玩偶</TPE_PlushDino.comps.1.categoryLabel>
+  <TPE_PlushMonster.comps.1.categoryLabel>絨毛玩偶</TPE_PlushMonster.comps.1.categoryLabel>
+  <TPE_PlushFox.comps.1.categoryLabel>絨毛玩偶</TPE_PlushFox.comps.1.categoryLabel>
+</LanguageData>

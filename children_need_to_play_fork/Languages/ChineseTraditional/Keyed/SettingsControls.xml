@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_Settings_RandomMoods_Label>啟用幼兒隨機心情</TPE_Settings_RandomMoods_Label>
+  <TPE_Settings_RandomMoods_Tooltip>醒著的幼兒偶爾會因為日常小事產生好心情或壞心情。</TPE_Settings_RandomMoods_Tooltip>
+  <TPE_Settings_RandomMoodMax>同時保留的隨機心情上限：{0}</TPE_Settings_RandomMoodMax>
+  <TPE_Settings_RandomMoodMax_Help>每名幼兒同時擁有的隨機心情記憶數量。</TPE_Settings_RandomMoodMax_Help>
+  <TPE_Settings_RandomMoodFrequency>每小時產生隨機心情的機率：{0}</TPE_Settings_RandomMoodFrequency>
+  <TPE_Settings_RandomMoodFrequency_Help>每名醒著的幼兒每小時獲得一項隨機心情的機率。</TPE_Settings_RandomMoodFrequency_Help>
+  <TPE_Settings_EventMoods_Label>啟用幼兒對事件的心情反應</TPE_Settings_EventMoods_Label>
+  <TPE_Settings_EventMoods_Tooltip>幼兒會對襲擊、天氣、死亡、婚禮等殖民地事件產生心情反應。</TPE_Settings_EventMoods_Tooltip>
+  <TPE_Settings_SelfSoothing_Label>啟用幼兒自我安撫</TPE_Settings_SelfSoothing_Label>
+  <TPE_Settings_SelfSoothing_Tooltip>嬰兒床裡難過的幼兒會嘗試吮手指、抓毯子或想開心的事，讓自己平靜下來。</TPE_Settings_SelfSoothing_Tooltip>
+  <TPE_Settings_HeaterSnuggling_Label>允許幼兒依偎在電暖爐旁</TPE_Settings_HeaterSnuggling_Label>
+  <TPE_Settings_HeaterSnuggling_Tooltip>天氣寒冷時，幼兒會去室內電暖爐旁取暖，有時還會帶上絨毛玩具。</TPE_Settings_HeaterSnuggling_Tooltip>
+  <TPE_Settings_GeothermalSnuggling_Label>允許在地熱設施旁取暖</TPE_Settings_GeothermalSnuggling_Label>
+  <TPE_Settings_GeothermalSnuggling_Tooltip>也允許幼兒在地熱發電機和蒸汽噴泉旁取暖。預設關閉。</TPE_Settings_GeothermalSnuggling_Tooltip>
+  <TPE_Settings_ConfinementPriority_Label>關在嬰兒床越久，越想逃出去</TPE_Settings_ConfinementPriority_Label>
+  <TPE_Settings_ConfinementPriority_Tooltip>會爬的幼兒越是煩躁、沮喪、絕望，就越想逃出嬰兒床。哭鬧期間，逃離意願回到平常程度。</TPE_Settings_ConfinementPriority_Tooltip>
+  <TPE_Settings_ChildCrying_Label>啟用 3–6 歲兒童哭鬧</TPE_Settings_ChildCrying_Label>
+  <TPE_Settings_ChildCrying_Tooltip>不開心的年幼兒童可能哭鬧、尋找大人安慰，並影響附近人的心情。</TPE_Settings_ChildCrying_Tooltip>
+  <TPE_Settings_OlderChildCrying_Label>啟用 7–13 歲兒童哭鬧</TPE_Settings_OlderChildCrying_Label>
+  <TPE_Settings_OlderChildCrying_Tooltip>年長兒童也可能哭鬧，持續時間和對附近人的心情懲罰均減半。僅適用於遊戲中仍處於兒童階段的角色。預設關閉。</TPE_Settings_OlderChildCrying_Tooltip>
+  <TPE_Settings_ParentIgnoreCryChance>家長冷處理哭鬧的機率：{0}</TPE_Settings_ParentIgnoreCryChance>
+  <TPE_Settings_ParentIgnoreCryChance_Help>每次哭鬧時，父母各自決定是否冷處理。冷處理時，家長會忽略哭聲的干擾；孩子獲得持續 12 小時的 −5 心情。設為 0% 時照常回應，設為 100% 時總是冷處理。</TPE_Settings_ParentIgnoreCryChance_Help>
+  <TPE_Settings_PrisonerCryAffectsColonists_Label>囚犯嬰兒哭泣影響殖民者心情</TPE_Settings_PrisonerCryAffectsColonists_Label>
+  <TPE_Settings_PrisonerCryAffectsColonists_Tooltip>啟用後，身為囚犯的嬰幼兒和兒童，其哭聲會讓附近殖民者受到相應的心情懲罰，也包括孩子的父母。預設開啟。</TPE_Settings_PrisonerCryAffectsColonists_Tooltip>
+  <TPE_Settings_PrisonerCryAffectsOthers_Label>囚犯嬰兒哭泣影響其他人心情</TPE_Settings_PrisonerCryAffectsOthers_Label>
+  <TPE_Settings_PrisonerCryAffectsOthers_Tooltip>啟用後，身為囚犯的嬰幼兒和兒童，其哭聲會讓附近非殖民者（如囚犯、奴隸和訪客）受到相應的心情懲罰，也包括孩子的父母。預設開啟。</TPE_Settings_PrisonerCryAffectsOthers_Tooltip>
+  <TPE_Settings_ChildrenPlayNeed_Label>啟用兒童遊玩需求</TPE_Settings_ChildrenPlayNeed_Label>
+  <TPE_Settings_ChildrenPlayNeed_Tooltip>兒童除了學習，也會有遊玩需求，並產生想玩的活動。學習和遊玩會共同影響成長點數。</TPE_Settings_ChildrenPlayNeed_Tooltip>
+  <TPE_Settings_AgeGatedDesires_Label>按年齡限制想玩的活動</TPE_Settings_AgeGatedDesires_Label>
+  <TPE_Settings_AgeGatedDesires_Tooltip>兒童只會想玩適合其年齡的活動。關閉後，各年齡兒童都可能產生任意遊玩願望。</TPE_Settings_AgeGatedDesires_Tooltip>
+  <TPE_Settings_PlayDecayDays>遊玩需求耗盡時間：{0} 天</TPE_Settings_PlayDecayDays>
+  <TPE_Settings_PlayDecayDays_Help>兒童的遊玩需求從全滿降到空所需的時間。</TPE_Settings_PlayDecayDays_Help>
+  <TPE_Settings_PlayGrowthWeight>遊玩對成長的權重：{0}</TPE_Settings_PlayGrowthWeight>
+  <TPE_Settings_PlayGrowthWeight_Help>設為 0 時只看學習，設為 1 時只看遊玩；設為 0.5 時，兩者各佔一半。</TPE_Settings_PlayGrowthWeight_Help>
+  <TPE_Settings_ChildPlushSleep_Label>允許 3–6 歲兒童抱玩偶睡覺</TPE_Settings_ChildPlushSleep_Label>
+  <TPE_Settings_ChildPlushSleep_Tooltip>年幼兒童會在睡前尋找玩偶，抱著入睡時獲得相應的心情。</TPE_Settings_ChildPlushSleep_Tooltip>
+  <TPE_Settings_OlderChildPlushSleep_Label>允許 7–12 歲兒童抱玩偶睡覺</TPE_Settings_OlderChildPlushSleep_Label>
+  <TPE_Settings_OlderChildPlushSleep_Tooltip>年長兒童也會在睡前尋找玩偶，與年幼兒童的選項分別控制。</TPE_Settings_OlderChildPlushSleep_Tooltip>
+  <TPE_Settings_MuteBabyCrying_Label>靜音嬰兒和幼兒哭聲</TPE_Settings_MuteBabyCrying_Label>
+  <TPE_Settings_MuteBabyCrying_Tooltip>關閉哭聲音效，保留眼淚和心情影響。</TPE_Settings_MuteBabyCrying_Tooltip>
+  <TPE_Settings_MuteChildCrying_Label>靜音兒童哭聲</TPE_Settings_MuteChildCrying_Label>
+  <TPE_Settings_MuteChildCrying_Tooltip>關閉已啟用年齡層兒童的哭鬧音效，保留眼淚和心情影響。</TPE_Settings_MuteChildCrying_Tooltip>
+  <TPE_Settings_BubbleLimit>每張地圖最多顯示的泡泡數：{0}</TPE_Settings_BubbleLimit>
+  <TPE_Settings_BubbleLimit_Tooltip>整張地圖同時顯示的泡泡數量上限，可設為 1–100。</TPE_Settings_BubbleLimit_Tooltip>
+  <TPE_Settings_BubbleOpacity>泡泡不透明度：{0}</TPE_Settings_BubbleOpacity>
+  <TPE_Settings_BubbleOpacity_Tooltip>100% 使用貼圖原有的不透明度，也會影響已經出現的泡泡。</TPE_Settings_BubbleOpacity_Tooltip>
+  <TPE_Settings_DebugLogging_Label>詳細除錯紀錄</TPE_Settings_DebugLogging_Label>
+  <TPE_Settings_DebugLogging_Tooltip>記錄嬰兒床門、依偎電暖爐和玩樂活動的排錯資訊。預設關閉。</TPE_Settings_DebugLogging_Tooltip>
+</LanguageData>

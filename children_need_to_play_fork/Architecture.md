@@ -1,6 +1,6 @@
 # Architecture.md — Bird's-Eye View
 
-> **Living map of "The Children Need To Play"** (`drati.ToddlersPlayExpanded.fork`).
+> **Living map of "The Children Need To Play Fork"** (`drati.ToddlersPlayExpanded.fork`).
 > This file is the fast-orientation map: folder layout, design patterns, data
 > flows, and the "where do I touch this?" index. Update it whenever a system
 > is added/changed materially. It intentionally does NOT restate full XML —
@@ -336,7 +336,7 @@ the `PlayDesireGiver` base class (only givers need it).
 
 `ModSettings.cs` defines `TPE_SettingsTab`, `TPE_Settings` persistence and the `TPE_Mod` entry point. `SettingsPages.cs` owns seven category drawers: toddler moods, toddler activities, child moods, child play, plush sleep, presentation and debug. Every drawer edits the same `TPE_Mod.Settings` fields used by gameplay. Save keys, defaults and slider ranges are unchanged.
 
-The standalone window lays out category buttons in width-aware rows and draws the selected category in one measured `Listing_Standard` scroll view. Switching categories resets its scroll. `SettingsCategory()` matches the mod name, "The Children Need To Play".
+The standalone window lays out category buttons in width-aware rows and draws the selected category in one measured `Listing_Standard` scroll view. Switching categories resets its scroll. `SettingsCategory()` uses the localized mod name with the "Fork" suffix.
 
 `IrisMenusIntegration.Register` runs after mod construction and checks the running package list for `Nanaloveyuki.IrisMenus`. Only its public API is resolved by reflection; there is no assembly reference, shipped provider DLL or hard mod dependency. Each stable page ID is registered with `RegisterSubItemListing` and `owner.WriteSettings`. Where available, `MenuPresentation.Listing` supplies native scrolling, themed controls and help overlays. Older providers keep ordinary categorized listings. The full standalone window remains usable without the provider.
 

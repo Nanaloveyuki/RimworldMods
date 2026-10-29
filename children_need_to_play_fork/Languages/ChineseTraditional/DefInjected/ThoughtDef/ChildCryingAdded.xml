@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_OlderChildCrying.stages.0.label>大孩子在哭鬧</TPE_OlderChildCrying.stages.0.label>
+  <TPE_OlderChildCrying.stages.0.description>我聽見一個孩子在哭。真希望能安靜下來。</TPE_OlderChildCrying.stages.0.description>
+  <TPE_MyOlderChildCrying.stages.0.label>我的大孩子在哭鬧</TPE_MyOlderChildCrying.stages.0.label>
+  <TPE_MyOlderChildCrying.stages.0.description>我的孩子不開心。希望能早點好起來。</TPE_MyOlderChildCrying.stages.0.description>
+  <TPE_ChildCryingIgnored.stages.0.label>我要鬧了！沒有人理我！</TPE_ChildCryingIgnored.stages.0.label>
+  <TPE_ChildCryingIgnored.stages.0.description>我都哭了，爸爸媽媽還是不理我。太不公平了！</TPE_ChildCryingIgnored.stages.0.description>
+</LanguageData>

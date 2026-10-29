@@ -22,6 +22,10 @@
   <TPE_Settings_OlderChildCrying_Tooltip>Older children may also cry, for half as long and with half the mood penalty for nearby people. Applies only while the game still treats them as children. Off by default.</TPE_Settings_OlderChildCrying_Tooltip>
   <TPE_Settings_ParentIgnoreCryChance>Parent's chance to ignore crying: {0}</TPE_Settings_ParentIgnoreCryChance>
   <TPE_Settings_ParentIgnoreCryChance_Help>Each parent decides once per crying bout. Ignoring avoids the crying interruption; the child gets −5 mood for 12 hours. At 0%, parents always respond normally. At 100%, parents always ignore.</TPE_Settings_ParentIgnoreCryChance_Help>
+  <TPE_Settings_PrisonerCryAffectsColonists_Label>Prisoner baby crying affects colonist mood</TPE_Settings_PrisonerCryAffectsColonists_Label>
+  <TPE_Settings_PrisonerCryAffectsColonists_Tooltip>Prisoner babies, toddlers and children give nearby colonists the usual crying mood penalties, including their parents. On by default.</TPE_Settings_PrisonerCryAffectsColonists_Tooltip>
+  <TPE_Settings_PrisonerCryAffectsOthers_Label>Prisoner baby crying affects other people's mood</TPE_Settings_PrisonerCryAffectsOthers_Label>
+  <TPE_Settings_PrisonerCryAffectsOthers_Tooltip>Prisoner babies, toddlers and children give nearby non-colonists (such as prisoners, slaves and visitors) the usual crying mood penalties, including their parents. On by default.</TPE_Settings_PrisonerCryAffectsOthers_Tooltip>
   <TPE_Settings_ChildrenPlayNeed_Label>Enable children's play need</TPE_Settings_ChildrenPlayNeed_Label>
   <TPE_Settings_ChildrenPlayNeed_Tooltip>Children gain a Play need alongside Learning. Play desires guide activities, and growth points depend on both needs.</TPE_Settings_ChildrenPlayNeed_Tooltip>
   <TPE_Settings_AgeGatedDesires_Label>Restrict play desires by age</TPE_Settings_AgeGatedDesires_Label>

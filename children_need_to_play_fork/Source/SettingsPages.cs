@@ -57,6 +57,12 @@ namespace ToddlersPlayExpanded
             list.Label("TPE_Settings_ParentIgnoreCryChance".Translate(Settings.parentIgnoreCryChance.ToString("P0")));
             Settings.parentIgnoreCryChance = list.Slider(Settings.parentIgnoreCryChance, 0f, 1f);
             list.Label("TPE_Settings_ParentIgnoreCryChance_Help".Translate());
+            list.Gap(12f);
+            list.CheckboxLabeled("TPE_Settings_PrisonerCryAffectsColonists_Label".Translate(), ref Settings.prisonerCryAffectsColonists,
+                "TPE_Settings_PrisonerCryAffectsColonists_Tooltip".Translate());
+            list.Gap(12f);
+            list.CheckboxLabeled("TPE_Settings_PrisonerCryAffectsOthers_Label".Translate(), ref Settings.prisonerCryAffectsOthers,
+                "TPE_Settings_PrisonerCryAffectsOthers_Tooltip".Translate());
         }
 
         private static void DrawChildPlay(Listing_Standard list)

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_CraftPlushMuffalo.label>製作絨毛毛牛</TPE_CraftPlushMuffalo.label>
+  <TPE_CraftPlushMuffalo.description>縫製一隻蓬鬆的絨毛毛牛玩偶。</TPE_CraftPlushMuffalo.description>
+  <TPE_CraftPlushMuffalo.jobString>製作絨毛毛牛。</TPE_CraftPlushMuffalo.jobString>
+  <TPE_CraftPlushTeddy.label>製作泰迪熊</TPE_CraftPlushTeddy.label>
+  <TPE_CraftPlushTeddy.description>縫製一隻經典的泰迪熊。</TPE_CraftPlushTeddy.description>
+  <TPE_CraftPlushTeddy.jobString>製作泰迪熊。</TPE_CraftPlushTeddy.jobString>
+  <TPE_CraftPlushSheep.label>製作絨毛綿羊</TPE_CraftPlushSheep.label>
+  <TPE_CraftPlushSheep.description>縫製一隻雲朵般柔軟的絨毛綿羊。</TPE_CraftPlushSheep.description>
+  <TPE_CraftPlushSheep.jobString>製作絨毛綿羊。</TPE_CraftPlushSheep.jobString>
+  <TPE_CraftPlushDino.label>製作絨毛恐龍</TPE_CraftPlushDino.label>
+  <TPE_CraftPlushDino.description>縫製一隻背上帶紅刺的鮮綠色絨毛恐龍。</TPE_CraftPlushDino.description>
+  <TPE_CraftPlushDino.jobString>製作絨毛恐龍。</TPE_CraftPlushDino.jobString>
+  <TPE_CraftPlushMonster.label>製作絨毛小怪獸</TPE_CraftPlushMonster.label>
+  <TPE_CraftPlushMonster.description>縫製一隻凹凸不平、長著大眼睛的紫色小怪獸。</TPE_CraftPlushMonster.description>
+  <TPE_CraftPlushMonster.jobString>製作絨毛小怪獸。</TPE_CraftPlushMonster.jobString>
+  <TPE_CraftPlushFox.label>製作絨毛狐狸</TPE_CraftPlushFox.label>
+  <TPE_CraftPlushFox.description>縫製一隻有白色斑紋和蓬鬆尾巴的橘色狐狸。</TPE_CraftPlushFox.description>
+  <TPE_CraftPlushFox.jobString>製作絨毛狐狸。</TPE_CraftPlushFox.jobString>
+  <TPE_CraftToySword.label>製作玩具劍</TPE_CraftToySword.label>
+  <TPE_CraftToySword.description>雕刻一把供孩子玩扮演遊戲的小木劍。</TPE_CraftToySword.description>
+  <TPE_CraftToySword.jobString>製作玩具劍。</TPE_CraftToySword.jobString>
+  <TPE_CraftMagnifyingGlass.label>製作放大鏡</TPE_CraftMagnifyingGlass.label>
+  <TPE_CraftMagnifyingGlass.description>製作一個精巧的放大鏡，用來觀察細小物件和生物。</TPE_CraftMagnifyingGlass.description>
+  <TPE_CraftMagnifyingGlass.jobString>製作放大鏡。</TPE_CraftMagnifyingGlass.jobString>
+</LanguageData>

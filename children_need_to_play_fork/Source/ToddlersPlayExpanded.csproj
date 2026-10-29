@@ -3,7 +3,7 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>ToddlersPlayExpanded</AssemblyName>
     <RootNamespace>ToddlersPlayExpanded</RootNamespace>
-    <Version>1.3.0</Version>
+    <Version>1.3.1</Version>
     <OutputPath>..\Assemblies\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>

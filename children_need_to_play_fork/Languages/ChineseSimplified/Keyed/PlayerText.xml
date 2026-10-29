@@ -58,7 +58,7 @@
   <TPE_CribLockTooltip>将幼儿关在婴儿床里。启用后，殖民者不会将其抱出；如果幼儿逃出来，会将其抱回床上。</TPE_CribLockTooltip>
   <TPE_CribUnlockedMessage>{0}不再被关在婴儿床里了。</TPE_CribUnlockedMessage>
   <TPE_CribLockedMessage>{0}被关在婴儿床里了。</TPE_CribLockedMessage>
-  <TPE_ModSettingsCategory>孩子们需要玩耍</TPE_ModSettingsCategory>
+  <TPE_ModSettingsCategory>孩子们需要玩耍 Fork</TPE_ModSettingsCategory>
   <TPE_DirtCastle_UnknownBuilder>不知是谁</TPE_DirtCastle_UnknownBuilder>
   <TPE_CryReason_LowMood>因心情持续低落而哭闹</TPE_CryReason_LowMood>
   <TPE_CryReason_SevereThought>因严重的不快而哭闹</TPE_CryReason_SevereThought>

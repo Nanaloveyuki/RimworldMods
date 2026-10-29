@@ -53,19 +53,22 @@ namespace ToddlersPlayExpanded
                 new[] { typeof(Thought_Memory), typeof(Pawn) });
         }
 
-        public static void Prefix(Thought_Memory newThought, Pawn otherPawn, Pawn ___pawn, out bool __state)
+        public static bool Prefix(Thought_Memory newThought, Pawn otherPawn, Pawn ___pawn, out bool __state)
         {
             __state = false;
+            if (!PrisonerCryMood.AllowsMemory(___pawn, otherPawn ?? newThought.otherPawn, newThought.def))
+                return false;
             if (Scribe.mode != LoadSaveMode.Inactive || !ChildCryTracker.IsCryingEligibleChild(___pawn)
                 || !ThoughtUtility.CanGetThought(___pawn, newThought.def))
-                return;
+                return true;
             if (newThought is Thought_MemorySocial)
             {
                 Pawn target = otherPawn ?? newThought.otherPawn;
                 if (target == null || !newThought.def.socialTargetDevelopmentalStageFilter.Has(target.DevelopmentalStage))
-                    return;
+                    return true;
             }
             __state = true;
+            return true;
         }
 
         public static void Postfix(Thought_Memory newThought, Pawn ___pawn, MemoryThoughtHandler __instance, bool __state)
