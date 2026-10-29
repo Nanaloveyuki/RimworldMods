@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <TimeAssignmentDef>
+    <defName>TPE_Learning</defName>
+    <label>learning</label>
+    <color>(80, 160, 220)</color>
+    <allowRest>true</allowRest>
+    <allowJoy>true</allowJoy>
+  </TimeAssignmentDef>
+
+</Defs>

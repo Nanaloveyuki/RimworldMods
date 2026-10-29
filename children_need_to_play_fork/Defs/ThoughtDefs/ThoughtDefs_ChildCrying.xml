@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!--
+        Base for all "heard crying child" thoughts.
+        Mirrors the vanilla BaseHeardBaby abstract def exactly so values stay in sync.
+          - stackLimit 3:  up to 3 different crying children stack their debuff.
+          - stackedEffectMultiplier 0.8: each additional stack is slightly weaker.
+          - durationDays 0.25: memories last 6 in-game hours.
+          - showBubble: speech bubble appears above the hearer.
+    -->
+    <ThoughtDef Abstract="True" Name="TPE_BaseHeardCryingChild">
+        <durationDays>0.25</durationDays>
+        <stackLimit>3</stackLimit>
+        <stackedEffectMultiplier>0.8</stackedEffectMultiplier>
+        <showBubble>true</showBubble>
+    </ThoughtDef>
+
+
+    <!--
+        TPE_ChildCrying
+        ═══════════════
+        Mood debuff applied to non-parent adults within scream radius when a
+        child (aged 3–6) is in the TPE_ChildCrying mental state.
+        Matches CryingBaby in every numeric value (-8 mood, same stack/duration).
+    -->
+    <ThoughtDef ParentName="TPE_BaseHeardCryingChild">
+        <defName>TPE_ChildCrying</defName>
+        <stages>
+            <li>
+                <label>child crying</label>
+                <description>That constant crying and sobbing is really hard to ignore. I hope someone calms them down soon.</description>
+                <baseMoodEffect>-8</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+
+    <!--
+        TPE_MyChildCrying
+        ═════════════════
+        Softer mood debuff applied only to the crying child's biological parent.
+        Matches MyCryingBaby in every numeric value (-4 mood, same stack/duration).
+    -->
+    <ThoughtDef ParentName="TPE_BaseHeardCryingChild">
+        <defName>TPE_MyChildCrying</defName>
+        <stages>
+            <li>
+                <label>my child is crying</label>
+                <description>My little one is upset and sobbing. I hope I can help them feel better soon.</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

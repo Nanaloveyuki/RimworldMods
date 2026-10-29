@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+    A sloppy dirt castle left behind by a child after playing.
+    Fragile, unclaimable, and crumbles away after a few days.
+    Label is dynamic: "[Child Name]'s Castle!"
+  -->
+  <ThingDef>
+    <defName>TPE_DirtCastle</defName>
+    <label>dirt castle</label>
+    <description>A lumpy mound of dirt shaped into a castle. A child's masterpiece. It will slowly crumble away in the rain.</description>
+    <thingClass>ToddlersPlayExpanded.Building_DirtCastle</thingClass>
+    <category>Building</category>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <useHitPoints>true</useHitPoints>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <graphicData>
+      <texPath>Things/Misc/DirtCastle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1.5, 1.5)</drawSize>
+      <shadowData>
+        <volume>(0.3, 0.2, 0.3)</volume>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>30</MaxHitPoints>
+      <WorkToBuild>0</WorkToBuild>
+      <Beauty>2</Beauty>
+      <Mass>5</Mass>
+    </statBases>
+    <size>(1,1)</size>
+    <rotatable>false</rotatable>
+    <passability>PassThroughOnly</passability>
+    <pathCost>25</pathCost>
+    <canBeUsedUnderRoof>false</canBeUsedUnderRoof>
+    <tradeability>None</tradeability>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Lifespan">
+        <lifespanTicks>180000</lifespanTicks>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

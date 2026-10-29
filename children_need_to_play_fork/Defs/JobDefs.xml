@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<JobDef>
+		<defName>TPE_ToddlerSpinning</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerSpinning</driverClass>
+		<reportString>spinning around.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerWorkWatching</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerWorkWatching</driverClass>
+		<reportString>watching someone work.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerRunning</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerRunning</driverClass>
+		<reportString>running around.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerJumping</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerJumping</driverClass>
+		<reportString>jumping up and down.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerMonsterHunt</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerMonsterHunt</driverClass>
+		<reportString>hunting monsters.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerDinosaur</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerDinosaur</driverClass>
+		<reportString>being a dinosaur.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_PlayWithToy</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_TPE_PlayWithToy</driverClass>
+		<reportString>playing with TargetA.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_CarryToy</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_TPE_CarryToy</driverClass>
+		<reportString>carrying TargetA around.</reportString>
+	</JobDef>
+
+	<!-- Bug watching with magnifying glass: picks up glass, goes to outdoor spot, watches bugs -->
+	<JobDef>
+		<defName>TPE_BugwatchingWithGlass</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_TPE_BugwatchingWithMagnifyingGlass</driverClass>
+		<reportString>watching bugs with magnifying glass.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_SeekPlushToy</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_SeekPlushToy</driverClass>
+		<reportString>Getting a plush toy for bed.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerLookThroughStorage</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerLookThroughStorage</driverClass>
+		<reportString>looking through TargetA.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerSelfSoothing</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerSelfSoothing</driverClass>
+		<reportString>Self Soothing.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerCribJumping</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerCribJumping</driverClass>
+		<reportString>Jumping in crib.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerCeilingWatching</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerCeilingWatching</driverClass>
+		<reportString>gazing at the ceiling.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerSpeechPractice</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerSpeechPractice</driverClass>
+		<reportString>practicing talking.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerSpeechPracticeInCrib</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerSpeechPracticeInCrib</driverClass>
+		<reportString>practicing talking in crib.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerHeaterSnuggling</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerHeaterSnuggling</driverClass>
+		<reportString>snuggling by heater.</reportString>
+	</JobDef>
+
+	<!-- BUBBLE MACHINE PLAY ACTIVITIES -->
+	<JobDef>
+		<defName>TPE_ToddlerPoppingBubbles</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerPoppingBubbles</driverClass>
+		<reportString>popping bubbles.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>TPE_ToddlerChasingBubbles</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerChasingBubbles</driverClass>
+		<reportString>chasing bubbles.</reportString>
+	</JobDef>
+
+
+	<!-- PILLOW NESTING JOB — SHELVED FOR LATER -->
+	<!-- Due to animation caching issues, this job def is disabled. To restore: uncomment below. -->
+	<!--
+	<JobDef>
+		<defName>TPE_ToddlerPillowNesting</defName>
+		<driverClass>ToddlersPlayExpanded.JobDriver_ToddlerPillowNesting</driverClass>
+		<reportString>Pillow Nesting.</reportString>
+	</JobDef>
+	-->
+
+</Defs>

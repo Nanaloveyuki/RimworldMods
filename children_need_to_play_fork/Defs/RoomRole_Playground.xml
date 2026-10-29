@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RoomRoleDef>
+    <defName>TPE_Playground</defName>
+    <label>playground</label>
+    <workerClass>ToddlersPlayExpanded.RoomRoleWorker_Playground</workerClass>
+  </RoomRoleDef>
+
+</Defs>

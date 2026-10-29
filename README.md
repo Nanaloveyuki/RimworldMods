@@ -21,6 +21,7 @@ RimWorld 模组、框架与开发工具的统一源码仓库。原独立仓库�
 | [KeepYourIdentity](keep_your_identity/) | 仅 1.7：囚犯、奴隶新生儿身份继承与限时身份选择 |
 | [Lead-Your-Pets](lead_your_pets/) | 牵着你的宠物续作；原作者授权范围见项目 NOTICE |
 | [Prisoners Pay To Eat 2 fork](prisoner_pay_to_eat_fork/) | 囚犯饭票经济与劳工系统；主线 1.7，冻结完整 1.6 发布，保留上游 MIT 许可证 |
+| [The Children Need To Play fork](children_need_to_play_fork/) | Dratic95 授权 fork，保留 MIT；仅仓库维护，不发布、不上传 Steam 创意工坊 |
 | [鼠族回收行为 RatkinRecycle](ratkin_recycle/) | 原作者授权接手，保留 1.6 并独立适配 1.7；包名 `nanaloveyuki.ratkinrecycle`，MIT OR Apache-2.0 |
 | [ODF-Mods](odf_mods/) | Oxygen DSL 消费端内容，各自独立打包；[PrisonerNames](odf_mods/Mods/PrisonerNames/) |
 | [RimIrisShaders](rim_iris_shaders/) | RimIris 着色器与控制界面 |

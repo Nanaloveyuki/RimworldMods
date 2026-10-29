@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- ThingCategory for toys -->
+	<ThingCategoryDef>
+		<defName>Toys</defName>
+		<label>toys</label>
+		<parent>Manufactured</parent>
+		<iconPath>Things/Item/ToyPlush/ToyPlushTeddy</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ========================================== -->
+	<!-- TOY WORKBENCH -->
+	<!-- ========================================== -->
+	<ThingDef ParentName="BenchBase">
+		<defName>TPE_ToyWorkbench</defName>
+		<label>toy workbench</label>
+		<description>A small workbench for crafting toys and playthings for the colony's children.</description>
+		<thingClass>Building_WorkTable</thingClass>
+		<graphicData>
+			<texPath>Things/Building/ToyWorkbench/ToyWorkbench</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<fillPercent>0.5</fillPercent>
+		<useHitPoints>true</useHitPoints>
+		<statBases>
+			<WorkToBuild>800</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Cleanliness>-2</Cleanliness>
+			<WorkTableWorkSpeedFactor>0.9</WorkTableWorkSpeedFactor>
+			<Mass>10</Mass>
+		</statBases>
+		<costList>
+			<WoodLog>30</WoodLog>
+			<Steel>10</Steel>
+		</costList>
+		<size>(1,1)</size>
+		<designationCategory>Production</designationCategory>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<paintable>true</paintable>
+			<workTableRoomRole>Workshop</workTableRoomRole>
+			<workTableNotInRoomRoleFactor>0.8</workTableNotInRoomRoleFactor>
+		</building>
+		<!-- Explicit recipe list for this bench.  Vanilla uses this pattern
+		     (e.g. TableMachining lists ButcherCorpseMechanoid here) when a
+		     recipe should appear on exactly one workbench.  We do this for
+		     ALL toy recipes because standalone RecipeDefs with
+		     <recipeUsers> fail to show up for apparel-type products. -->
+		<recipes>
+			<li>TPE_CraftPlushMuffalo</li>
+			<li>TPE_CraftPlushTeddy</li>
+			<li>TPE_CraftPlushSheep</li>
+			<li>TPE_CraftPlushDino</li>
+			<li>TPE_CraftPlushMonster</li>
+			<li>TPE_CraftPlushFox</li>
+			<li>TPE_CraftToySword</li>
+			<li>TPE_CraftMagnifyingGlass</li>
+		</recipes>
+		<comps>
+			<!-- CompProperties_ReportWorkSpeed is inherited from BenchBase; do NOT duplicate it here. -->
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>ToolCabinet</li>
+				</linkableFacilities>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<!-- ========================================== -->
+	<!-- PLUSH TOYS -->
+	<!-- ========================================== -->
+	<ThingDef Abstract="True" Name="TPE_PlushToyBase" ParentName="ResourceBase">
+		<thingClass>Apparel</thingClass>
+		<label>plush toy</label>
+		<description>A soft stuffed toy for children to play with. Toddlers can wear them to bed for comfort.</description>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(0.6,0.6)</drawSize>
+		</graphicData>
+		<stackLimit>1</stackLimit>
+		<useHitPoints>true</useHitPoints>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>0.3</Mass>
+			<Flammability>1.2</Flammability>
+			<DeteriorationRate>0</DeteriorationRate>
+			<Beauty>2</Beauty>
+			<EquipDelay>0.5</EquipDelay>
+			<!-- USER-REQUESTED: every plush toy is worth 30 silver (deliberately
+			     below its cloth + work cost, about 38-51, to discourage crafting toys
+			     for profit). Set ONCE here on the abstract base; the individual
+			     plush defs no longer override it. An explicit MarketValue also means
+			     vanilla never has to derive the value by scanning every RecipeDef
+			     (StatWorker_MarketValue.CalculableRecipe). -->
+			<MarketValue>30</MarketValue>
+		</statBases>
+		<thingCategories>
+			<li>Toys</li>
+		</thingCategories>
+		<!-- Selling rules (user-requested): ONLY bulk goods traders buy toys. The
+		     "Toys" tag is what Patches/TraderKinds_BulkGoods_BuyToys.xml buys;
+		     genericMarketSellable=false keeps every other trader's catch-all
+		     "buy expensive items" generator from buying them. -->
+		<tradeTags>
+			<li>Toys</li>
+		</tradeTags>
+		<genericMarketSellable>false</genericMarketSellable>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+		</apparel>
+		<comps>
+			<li Class="CompProperties_Forbiddable"></li>
+			<li Class="ToddlersPlayExpanded.CompProperties_ToyCategory">
+				<categoryLabel>Plush toys</categoryLabel>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="TPE_PlushToyBase">
+		<defName>TPE_PlushMuffalo</defName>
+		<label>stuffed muffalo</label>
+		<description>A fluffy stuffed muffalo, complete with tiny horns and button eyes. A favorite among colony children.</description>
+		<graphicData>
+			<texPath>Things/Item/ToyPlush/ToyPlushMuffalo</texPath>
+		</graphicData>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<wornGraphicPath>Things/Item/ToyPlush/ToyPlushMuffalo</wornGraphicPath>
+			<drawData>
+				<scale>0.85</scale>
+				<childScale>0.85</childScale>
+				<defaultData>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</defaultData>
+				<dataNorth>
+					<offset>(0.25, 0, -0.05)</offset>
+				</dataNorth>
+				<dataSouth>
+					<offset>(-0.25, 0, -0.05)</offset>
+				</dataSouth>
+				<dataEast>
+					<offset>(0.2, 0, -0.05)</offset>
+				</dataEast>
+				<dataWest>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</dataWest>
+			</drawData>
+		</apparel>
+	</ThingDef>
+
+	<ThingDef ParentName="TPE_PlushToyBase">
+		<defName>TPE_PlushTeddy</defName>
+		<label>teddy bear</label>
+		<description>A classic teddy bear with soft fur and a stitched smile. Every child needs one.</description>
+		<graphicData>
+			<texPath>Things/Item/ToyPlush/ToyPlushTeddy</texPath>
+		</graphicData>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<wornGraphicPath>Things/Item/ToyPlush/ToyPlushTeddy</wornGraphicPath>
+			<drawData>
+				<scale>0.85</scale>
+				<childScale>0.85</childScale>
+				<defaultData>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</defaultData>
+				<dataNorth>
+					<offset>(0.25, 0, -0.05)</offset>
+				</dataNorth>
+				<dataSouth>
+					<offset>(-0.25, 0, -0.05)</offset>
+				</dataSouth>
+				<dataEast>
+					<offset>(0.2, 0, -0.05)</offset>
+				</dataEast>
+				<dataWest>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</dataWest>
+			</drawData>
+		</apparel>
+	</ThingDef>
+
+	<ThingDef ParentName="TPE_PlushToyBase">
+		<defName>TPE_PlushSheep</defName>
+		<label>stuffed sheep</label>
+		<description>A cloud-like stuffed sheep. Its wool is impossibly soft to the touch.</description>
+		<graphicData>
+			<texPath>Things/Item/ToyPlush/ToyPlushSheep</texPath>
+		</graphicData>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<wornGraphicPath>Things/Item/ToyPlush/ToyPlushSheep</wornGraphicPath>
+			<drawData>
+				<scale>0.85</scale>
+				<childScale>0.85</childScale>
+				<defaultData>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</defaultData>
+				<dataNorth>
+					<offset>(0.25, 0, -0.05)</offset>
+				</dataNorth>
+				<dataSouth>
+					<offset>(-0.25, 0, -0.05)</offset>
+				</dataSouth>
+				<dataEast>
+					<offset>(0.2, 0, -0.05)</offset>
+				</dataEast>
+				<dataWest>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</dataWest>
+			</drawData>
+		</apparel>
+	</ThingDef>
+
+	<ThingDef ParentName="TPE_PlushToyBase">
+		<defName>TPE_PlushDino</defName>
+		<label>stuffed dinosaur</label>
+		<description>A bright green stuffed dinosaur with red spikes along its back. Rawr!</description>
+		<graphicData>
+			<texPath>Things/Item/ToyPlush/ToyPlushDino</texPath>
+		</graphicData>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<wornGraphicPath>Things/Item/ToyPlush/ToyPlushDino</wornGraphicPath>
+			<drawData>
+				<scale>0.85</scale>
+				<childScale>0.85</childScale>
+				<defaultData>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</defaultData>
+				<dataNorth>
+					<offset>(0.25, 0, -0.05)</offset>
+				</dataNorth>
+				<dataSouth>
+					<offset>(-0.25, 0, -0.05)</offset>
+				</dataSouth>
+				<dataEast>
+					<offset>(0.2, 0, -0.05)</offset>
+				</dataEast>
+				<dataWest>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</dataWest>
+			</drawData>
+		</apparel>
+	</ThingDef>
+
+	<ThingDef ParentName="TPE_PlushToyBase">
+		<defName>TPE_PlushMonster</defName>
+		<label>stuffed monster</label>
+		<description>A lumpy purple monster with one big eye, tiny horns, and a goofy smile. Not scary at all!</description>
+		<graphicData>
+			<texPath>Things/Item/ToyPlush/ToyPlushMonster</texPath>
+		</graphicData>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<wornGraphicPath>Things/Item/ToyPlush/ToyPlushMonster</wornGraphicPath>
+			<drawData>
+				<scale>0.85</scale>
+				<childScale>0.85</childScale>
+				<defaultData>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</defaultData>
+				<dataNorth>
+					<offset>(0.25, 0, -0.05)</offset>
+				</dataNorth>
+				<dataSouth>
+					<offset>(-0.25, 0, -0.05)</offset>
+				</dataSouth>
+				<dataEast>
+					<offset>(0.2, 0, -0.05)</offset>
+				</dataEast>
+				<dataWest>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</dataWest>
+			</drawData>
+		</apparel>
+	</ThingDef>
+
+	<ThingDef ParentName="TPE_PlushToyBase">
+		<defName>TPE_PlushFox</defName>
+		<label>stuffed fox</label>
+		<description>A clever orange fox with white markings and a fluffy tail. A cunning companion for curious children.</description>
+		<graphicData>
+			<texPath>Things/Item/ToyPlush/ToyPlushFox</texPath>
+			<!-- Fox texture is intrinsically smaller in dimensions than muffalo.
+			     Increase drawSize from base 0.6 to 1.0 to match visual size of other plushes.
+			     This ensures the fox appears correctly scaled when lying on the ground as an item. -->
+			<drawSize>(1.0,1.0)</drawSize>
+		</graphicData>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+			<bodyPartGroups>
+				<li>Torso</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<wornGraphicPath>Things/Item/ToyPlush/ToyPlushFox</wornGraphicPath>
+			<drawData>
+				<!-- Toddler scale matches other plushes and looks correct at 0.85.
+				     Child scale increased by ~10% (0.85 * 1.1 = 0.935, rounded to 0.94)
+				     to make equipped fox slightly more prominent when worn by children. -->
+				<scale>0.85</scale>
+				<childScale>0.94</childScale>
+				<defaultData>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</defaultData>
+				<dataNorth>
+					<offset>(0.25, 0, -0.05)</offset>
+				</dataNorth>
+				<dataSouth>
+					<offset>(-0.25, 0, -0.05)</offset>
+				</dataSouth>
+				<dataEast>
+					<offset>(0.2, 0, -0.05)</offset>
+				</dataEast>
+				<dataWest>
+					<offset>(-0.2, 0, -0.05)</offset>
+				</dataWest>
+			</drawData>
+		</apparel>
+	</ThingDef>
+
+	<!-- ========================================== -->
+	<!-- TOY SWORD -->
+	<!-- ========================================== -->
+	<ThingDef ParentName="ResourceBase">
+		<defName>TPE_ToySword</defName>
+		<label>toy sword</label>
+		<description>A small wooden sword carved for imaginative play. Perfect for slaying imaginary monsters.</description>
+		<graphicData>
+			<texPath>Things/Item/ToySword/ToySword</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(0.7,0.7)</drawSize>
+		</graphicData>
+		<stackLimit>1</stackLimit>
+		<useHitPoints>true</useHitPoints>
+		<statBases>
+			<MaxHitPoints>40</MaxHitPoints>
+			<Mass>0.4</Mass>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>0</DeteriorationRate>
+			<Beauty>1</Beauty>
+			<!-- USER-REQUESTED: 10 silver (was 25 — 5 logs + work is only ~11, so
+			     25 made it a small wood-to-silver money loop). -->
+			<MarketValue>10</MarketValue>
+		</statBases>
+		<thingCategories>
+			<li>Toys</li>
+		</thingCategories>
+		<!-- Only bulk goods traders buy toys (see the plush base above). -->
+		<tradeTags>
+			<li>Toys</li>
+		</tradeTags>
+		<genericMarketSellable>false</genericMarketSellable>
+		<comps>
+			<li Class="CompProperties_Forbiddable"></li>
+			<li Class="ToddlersPlayExpanded.CompProperties_ToyCategory">
+				<categoryLabel>Imagination Toys</categoryLabel>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ========================================== -->
+	<!-- MAGNIFYING GLASS -->
+	<!-- ========================================== -->
+	<!-- Small telescope-like tool for examining things closely. Used during bug watching activities
+	     to make the observation more interactive. Crafted from steel and glass components. -->
+	<ThingDef ParentName="ResourceBase">
+		<defName>TPE_MagnifyingGlass</defName>
+		<label>magnifying glass</label>
+		<description>A small magnifying glass used for examining tiny details. Perfect for inspecting bugs, seeds, and small objects during exploration.</description>
+		<graphicData>
+			<texPath>Things/Item/MagnifyingGlass/MagnifyingGlass</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(0.7,0.7)</drawSize>
+		</graphicData>
+		<stackLimit>1</stackLimit>
+		<useHitPoints>true</useHitPoints>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>0.2</Mass>
+			<Flammability>0.5</Flammability>
+			<DeteriorationRate>0</DeteriorationRate>
+			<Beauty>2</Beauty>
+			<!-- USER-REQUESTED: 30 silver, same as the plush toys. -->
+			<MarketValue>30</MarketValue>
+		</statBases>
+		<thingCategories>
+			<li>Toys</li>
+		</thingCategories>
+		<!-- Only bulk goods traders buy toys (see the plush base above). Without
+		     genericMarketSellable=false, exotic traders' BuyExpensiveSimple
+		     generator would still buy the glass (30 silver per unit >= its 15 limit). -->
+		<tradeTags>
+			<li>Toys</li>
+		</tradeTags>
+		<genericMarketSellable>false</genericMarketSellable>
+		<comps>
+			<li Class="CompProperties_Forbiddable"></li>
+			<li Class="ToddlersPlayExpanded.CompProperties_ToyCategory">
+				<categoryLabel>Imagination Toys</categoryLabel>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Defs>

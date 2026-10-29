@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<RecipeDef Abstract="True" Name="TPE_CraftToyBase">
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<workSkill>Crafting</workSkill>
+	</RecipeDef>
+
+	<RecipeDef Abstract="True" Name="TPE_CraftPlushBase" ParentName="TPE_CraftToyBase">
+		<effectWorking>Tailor</effectWorking>
+		<soundWorking>Recipe_Tailor</soundWorking>
+		<unfinishedThingDef>UnfinishedApparel</unfinishedThingDef>
+	</RecipeDef>
+
+	<RecipeDef Abstract="True" Name="TPE_CraftWoodToyBase" ParentName="TPE_CraftToyBase">
+		<effectWorking>Sculpt</effectWorking>
+		<soundWorking>Recipe_Sculpt</soundWorking>
+	</RecipeDef>
+
+	<!-- Plush Toys -->
+	<RecipeDef ParentName="TPE_CraftPlushBase">
+		<defName>TPE_CraftPlushMuffalo</defName>
+		<label>make stuffed muffalo</label>
+		<description>Sew a fluffy stuffed muffalo toy.</description>
+		<jobString>Making stuffed muffalo.</jobString>
+		<workAmount>2500</workAmount>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<!-- We intentionally do NOT use <recipeUsers> here.  In RimWorld
+		     standalone RecipeDefs that produce Apparel items with an
+		     <unfinishedThingDef> sometimes fail to appear in the workbench
+		     bill menu when bound via <recipeUsers>.  The vanilla, rock-solid
+		     approach is to list the recipes in the bench ThingDef's
+		     <recipes> node instead (see TPE_ToyWorkbench in
+		     ThingDefs_Toys.xml).  This mirrors how TableMachining exposes
+		     ButcherCorpseMechanoid. -->
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>25</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_PlushMuffalo>1</TPE_PlushMuffalo>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="TPE_CraftPlushBase">
+		<defName>TPE_CraftPlushTeddy</defName>
+		<label>make teddy bear</label>
+		<description>Sew a classic teddy bear.</description>
+		<jobString>Making teddy bear.</jobString>
+		<workAmount>2200</workAmount>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_PlushTeddy>1</TPE_PlushTeddy>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="TPE_CraftPlushBase">
+		<defName>TPE_CraftPlushSheep</defName>
+		<label>make stuffed sheep</label>
+		<description>Sew a cloud-like stuffed sheep.</description>
+		<jobString>Making stuffed sheep.</jobString>
+		<workAmount>2400</workAmount>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_PlushSheep>1</TPE_PlushSheep>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="TPE_CraftPlushBase">
+		<defName>TPE_CraftPlushDino</defName>
+		<label>make stuffed dinosaur</label>
+		<description>Sew a bright green stuffed dinosaur with red spikes.</description>
+		<jobString>Making stuffed dinosaur.</jobString>
+		<workAmount>2600</workAmount>
+		<skillRequirements>
+			<Crafting>2</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>28</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_PlushDino>1</TPE_PlushDino>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="TPE_CraftPlushBase">
+		<defName>TPE_CraftPlushMonster</defName>
+		<label>make stuffed monster</label>
+		<description>Sew a lumpy purple monster with one big eye.</description>
+		<jobString>Making stuffed monster.</jobString>
+		<workAmount>2500</workAmount>
+		<skillRequirements>
+			<Crafting>2</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>26</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_PlushMonster>1</TPE_PlushMonster>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="TPE_CraftPlushBase">
+		<defName>TPE_CraftPlushFox</defName>
+		<label>make stuffed fox</label>
+		<description>Sew a clever orange fox with white markings and a fluffy tail.</description>
+		<jobString>Making stuffed fox.</jobString>
+		<workAmount>2400</workAmount>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>24</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_PlushFox>1</TPE_PlushFox>
+		</products>
+	</RecipeDef>
+
+	<!-- Toy Sword -->
+	<RecipeDef ParentName="TPE_CraftWoodToyBase">
+		<defName>TPE_CraftToySword</defName>
+		<label>make toy sword</label>
+		<description>Carve a small wooden sword for imaginative play.</description>
+		<jobString>Making toy sword.</jobString>
+		<workAmount>1500</workAmount>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>WoodLog</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_ToySword>1</TPE_ToySword>
+		</products>
+	</RecipeDef>
+
+	<!-- Magnifying Glass -->
+	<!-- Steel + crafting for a precision tool. Used during bug watching activities. -->
+	<RecipeDef ParentName="TPE_CraftToyBase">
+		<defName>TPE_CraftMagnifyingGlass</defName>
+		<label>make magnifying glass</label>
+		<description>Craft a precision magnifying glass for examining small objects and creatures.</description>
+		<jobString>Making magnifying glass.</jobString>
+		<workAmount>2000</workAmount>
+		<skillRequirements>
+			<Crafting>2</Crafting>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<TPE_MagnifyingGlass>1</TPE_MagnifyingGlass>
+		</products>
+	</RecipeDef>
+
+</Defs>

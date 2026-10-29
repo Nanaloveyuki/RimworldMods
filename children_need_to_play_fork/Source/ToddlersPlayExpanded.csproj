@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>ToddlersPlayExpanded</AssemblyName>
+    <RootNamespace>ToddlersPlayExpanded</RootNamespace>
+    <OutputPath>..\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <!-- Debug builds carry DisableOptimizations; build optimized unconditionally. -->
+    <Optimize>true</Optimize>
+    <!-- Stale-DLL guard: compiles the MSBuild-task half of SourceFingerprint.cs OUT of the
+         mod (that half is only for RoslynCodeTaskFactory below). Architecture.md §3a. -->
+    <DefineConstants>$(DefineConstants);TPE_MOD_BUILD</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.1" ExcludeAssets="runtime">
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <!-- RimWorld 1.7 ships .NET 10 assemblies (no Managed/ folder) that a net472
+         project can't reference. Compile against the RimWorld 1.6 reference
+         assemblies (Assembly-CSharp + every UnityEngine module); 1.7's
+         WaylithClr runtime redirects UnityEngine* to UnityStubs, so one DLL
+         runs on both 1.6 and 1.7. -->
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Toddlers">
+      <HintPath>C:\\Program Files (x86)\\Steam\\steamapps\\workshop\\content\\294100\\2903359152\\1.6\\Assemblies\\Toddlers.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+
+  <!-- ═══ Stale-DLL guard (Architecture.md §3a) ═══════════════════════════════════════
+       Every build fingerprints Source/**/*.cs and embeds the result in the DLL as
+       [assembly: AssemblyMetadata("TPE.SourceFingerprint", "<hex>")]. At startup, in
+       dev mode only, BuildFingerprintCheck recomputes it over the shipped Source/ and
+       logs an error if they differ (= the DLL wasn't rebuilt after a code change, the
+       cause of the v1.1.x "Failed to find ThoughtDef TPE_Event_SolarFlare" report).
+       The task's code IS Source/SourceFingerprint.cs, the same file the mod compiles,
+       so build and runtime can never use different algorithms. -->
+  <UsingTask TaskName="TpeComputeSourceFingerprint"
+             TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <SourceDir ParameterType="System.String" Required="true" />
+      <Fingerprint ParameterType="System.String" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Class" Language="cs" Source="$(MSBuildProjectDirectory)\SourceFingerprint.cs" />
+    </Task>
+  </UsingTask>
+
+  <!-- Runs AFTER GetAssemblyAttributes (the SDK's DependsOn of the target below) and BEFORE
+       CreateGeneratedAssemblyInfoInputsCacheFile hashes the AssemblyAttribute items
+       (including %(_Parameter2)). So a changed fingerprint always invalidates the cache and
+       regenerates AssemblyInfo.cs. Hooking any later (e.g. CoreCompile) would leave a STALE
+       fingerprint after an incremental build. No Inputs/Outputs on purpose: it must run every
+       build, and hashing ~1.3 MB takes milliseconds. -->
+  <Target Name="TpeEmbedSourceFingerprint" BeforeTargets="CreateGeneratedAssemblyInfoInputsCacheFile">
+    <TpeComputeSourceFingerprint SourceDir="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="Fingerprint" PropertyName="TpeSourceFingerprint" />
+    </TpeComputeSourceFingerprint>
+    <ItemGroup>
+      <!-- _Parameter1 MUST equal SourceFingerprint.MetadataKey. -->
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>TPE.SourceFingerprint</_Parameter1>
+        <_Parameter2>$(TpeSourceFingerprint)</_Parameter2>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
+
+</Project>

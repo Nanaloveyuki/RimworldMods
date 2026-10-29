@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <!--
+        TPE_ChildCryingSound
+        ═════════════════════
+        Sustainer-based sound definition for child crying. Each individual clip
+        plays once (sustainLoop=False) and the SubSustainer automatically schedules
+        the next random clip from the folder after a short breath-gap. This creates
+        a continuous chain of varied, non-overlapping crying for the entire duration
+        of the mental state.
+
+        Vanilla comparison:
+          - Vanilla BabyCrying uses SubEffecter_SoundTriggered + non-sustainer SoundDef.
+            This plays ONE cry sound when the baby enters the mental state and then
+            silence for the rest of the 20-second bout.
+          - We use SubEffecter_Sustainer + sustainer SoundDef with sustainLoop=False.
+            This is the same pattern RimWorld uses for construction/work sounds:
+            the sustainer lives for the whole activity, and the internal SubSustainer
+            chains random grains one after another.
+    -->
+    <SoundDef>
+        <defName>TPE_ChildCryingSound</defName>
+        <!-- MUST be True for SubEffecter_Sustainer to spawn this via TrySpawnSustainer. -->
+        <sustain>True</sustain>
+        <context>MapOnly</context>
+        <maxSimultaneous>3</maxSimultaneous>
+        <!-- Must be PrioritizeNearest for sustainers; PrioritizeNewest is unsupported. -->
+        <priorityMode>PrioritizeNearest</priorityMode>
+        <!-- Fade-out time when the mental state ends and maintenance stops. -->
+        <sustainFadeoutTime>0.25</sustainFadeoutTime>
+        <subSounds>
+            <li>
+                <muteWhenPaused>True</muteWhenPaused>
+                <volumeRange>15</volumeRange>
+                <distRange>5~30</distRange>
+                <!--
+                  sustainLoop=False  → each grain plays once for its full duration.
+                  sustainIntervalRange → gap between cries (seconds). 0.1~0.3s gives
+                  a natural breath pause so clips don't overlap or feel robotic.
+                -->
+                <sustainLoop>False</sustainLoop>
+                <sustainIntervalRange>0.1~0.3</sustainIntervalRange>
+                <grains>
+                    <li Class="AudioGrain_Folder">
+                        <clipFolderPath>Pawn/Humanlike/TPE_ChildCrying</clipFolderPath>
+                    </li>
+                </grains>
+            </li>
+        </subSounds>
+    </SoundDef>
+
+    <!--
+        TPE_ChildCryingEffecter
+        ══════════════════════════
+        Effecter attached to crying children. Uses SubEffecter_Sustainer so the
+        sound sustainer is spawned immediately and maintained every tick for the
+        entire mental-state duration. When the state ends, maintenance stops and
+        the sustainer fades out via sustainFadeoutTime.
+
+        ticksBeforeSustainerStart=0 ensures crying begins on the very first tick
+        (no artificial delay).
+    -->
+    <EffecterDef>
+        <defName>TPE_ChildCryingEffecter</defName>
+        <children>
+            <li>
+                <subEffecterClass>SubEffecter_Sustainer</subEffecterClass>
+                <soundDef>TPE_ChildCryingSound</soundDef>
+                <ticksBeforeSustainerStart>0</ticksBeforeSustainerStart>
+            </li>
+        </children>
+    </EffecterDef>
+</Defs>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  SET 4 — POSITIVE random toddler moods (+1 to +10)             -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_1_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.2</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I saw a pretty cloud!</label>
+                <description>I looked up and saw a cloud that looked like a bunny! Or maybe a ship! It was so fluffy and white! I waved at it!</description>
+                <baseMoodEffect>1</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_2_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.4</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I found a penny!</label>
+                <description>I found a shiny round penny on the ground! Its so small and smooth! Im rich now! I can buy all the candy! Im gonna keep it forever!</description>
+                <baseMoodEffect>2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_3_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.6</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I got to push buttons!</label>
+                <description>I got to press a button and it went beep! It was so satisfying! I wanted to press it again and again! Buttons are the best thing ever!</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_4_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.8</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I won the race!</label>
+                <description>I raced someone and I got to the finish first! I was the winner! They said I cheated but I didnt! I was just the fastest!</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_5_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Someone tickled me!</label>
+                <description>Someone tickled my tummy and I laughed so hard I couldnt breathe! It was the funniest feeling! I squirmed and giggled! Do it again!</description>
+                <baseMoodEffect>5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_6_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.2</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I made a funny noise!</label>
+                <description>I made a noise with my mouth that sounded like a motorboat! Brrrrrm! Everyone laughed! I kept doing it! Im so funny!</description>
+                <baseMoodEffect>6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_7_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.4</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I got a piggy kiss!</label>
+                <description>A little animal gave me a kiss with its wet nose! It was all slobbery but so cute! I giggled! I love animal kisses!</description>
+                <baseMoodEffect>7</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_8_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.6</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I built a fort!</label>
+                <description>I made a fort out of pillows and blankets! Its my castle and no grown ups allowed! I have snacks in here and everything! This is the best!</description>
+                <baseMoodEffect>8</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_9_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.8</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I saw falling stars!</label>
+                <description>I saw little lights shooting across the night sky! They went zoom! And disappeared! I made a wish on every single one! I hope they come true!</description>
+                <baseMoodEffect>9</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodPos_10_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>2.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Today was the best day ever!</label>
+                <description>Everything today was perfect! I played and laughed and got treats! Nothing bad happened at all! I wish every day could be like today! I love my life!</description>
+                <baseMoodEffect>10</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  SET 4 — NEGATIVE random toddler moods (-1 to -10)             -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_1_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.2</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>My blanket fell off...</label>
+                <description>My blanket fell on the floor and now Im all uncovered! Its cold and I want my blanket back! But I cant reach it from here! Help!</description>
+                <baseMoodEffect>-1</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_2_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.4</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I bit my tongue...</label>
+                <description>I bit my own tongue while eating! It hurt so bad! Now theres a little bump and it stings every time I move my mouth! I have to eat so carefully!</description>
+                <baseMoodEffect>-2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_3_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.6</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The medicine tastes bad...</label>
+                <description>They made me take medicine and it tastes all bitter and yucky! I tried to spit it out but they wouldnt let me! My mouth tastes horrible now!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_4_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.8</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I got a splinter...</label>
+                <description>I got a tiny wooden splinter in my finger! Its so small but it hurts so much! I can see it but I cant pull it out! Its stuck in there!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_5_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I dropped my food...</label>
+                <description>I was carrying my food and I dropped it on the ground! Now its all dirty and I cant eat it! I was so hungry too! Now I have nothing!</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_6_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.2</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>A bug bit me...</label>
+                <description>A mean bug bit me and now theres a itchy red bump! It wont stop being itchy! I scratched it but that made it worse! Stupid bug!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_7_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.4</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I got lost...</label>
+                <description>I wandered away and then I didnt know where I was! Everything looked the same! I couldnt find anyone I knew! I was so scared!</description>
+                <baseMoodEffect>-7</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_8_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.6</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Someone yelled at me...</label>
+                <description>Someone yelled really loud at me and I got so scared! My whole body shook! I didnt know what to do... I just stood there frozen... It was so scary...</description>
+                <baseMoodEffect>-8</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_9_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.8</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I saw blood...</label>
+                <description>I saw blood and it was so red and scary! It was coming out of someone! I didnt know bodies could do that! I feel dizzy and sick...</description>
+                <baseMoodEffect>-9</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_RandomMoodNeg_10_4</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>2.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I think monsters are real...</label>
+                <description>I keep thinking about monsters and now Im sure theyre real! Theyre hiding in the dark waiting to get me! I cant close my eyes! What if they come when Im asleep!</description>
+                <baseMoodEffect>-10</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- "Play when Idle" (opt-in mod setting, default OFF).
+
+       Targets vanilla's own "Idle colonist" branch of the Humanlike ThinkTreeDef —
+       the exact spot a pawn falls into when NOTHING else in the whole think tree gave
+       them a job (no food/rest/chemical need, no learning, no work, etc). Vanilla's
+       own fallback there is:
+
+         1. If Joy need is below 90%, try JobGiver_IdleJoy (a random joy activity).
+         2. Otherwise (or if IdleJoy found nothing), JobGiver_WanderColony.
+
+       Children never have a vanilla Joy need at all (NeedDefOf.Joy declares
+       developmentalStageFilter="Adult"), so step 1 always fails for them and they
+       ALWAYS fall straight to wandering when idle. This patch inserts our own
+       ToddlersPlayExpanded.JobGiver_ChildPlayWhenIdle as a new sibling directly
+       before JobGiver_WanderColony — it's a no-op unless the "Play when Idle"
+       setting is on, in which case an idle child plays instead of wandering,
+       ignoring the play need's normal fullness cap. See JobGiver_ChildPlayWhenIdle.cs
+       for the full eligibility rules (still respects TPE_Learning schedule time and
+       Work-hour idle suppression, exactly like every other play-vs-schedule check in
+       this mod). -->
+
+  <Operation Class="PatchOperationInsert">
+    <xpath>/Defs/ThinkTreeDef[defName="Humanlike"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[@Class="ThinkNode_Tagger"]/subNodes/li[@Class="JobGiver_WanderColony"]</xpath>
+    <order>Prepend</order>
+    <value>
+      <li Class="ToddlersPlayExpanded.JobGiver_ChildPlayWhenIdle" />
+    </value>
+  </Operation>
+
+</Patch>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Low play need mood debuffs -->
+
+  <ThoughtDef>
+    <defName>TPE_ChildPlayEmpty</defName>
+    <workerClass>ToddlersPlayExpanded.ThoughtWorker_NeedChildPlay</workerClass>
+    <!-- Mirrors vanilla's own convention for child/baby-facing mood thoughts
+         (see Biotech's MyChildHappy/MyChildSad/MyParentHappy/MyParentsHappy) —
+         Psychopath nullifies this thought's mood contribution by default.
+         Players can restore it via the "Keep play mood for psychopaths"
+         setting (Patch_ThoughtUtility_NullifyingTrait_PlayMood in
+         HarmonyPatches.cs suppresses nullification specifically for this def
+         when that setting is enabled). -->
+    <nullifyingTraits>
+      <li>Psychopath</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>I need to go play right now!</label>
+        <description>I haven't had any fun in forever and its making me feel miserable, this place is so boring and I have to play right now!</description>
+        <baseMoodEffect>-20</baseMoodEffect>
+      </li>
+      <li>
+        <label>I really wanna go play!</label>
+        <description>Its so boring here, absolutely no fun at all, how come all the grown ups are allowed to play but I'm not, this is so unfair!</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+      <li>
+        <label>i want to go play!</label>
+        <description>This place is getting kinda boring... There's no toys or anything!</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- High play need mood buff -->
+
+  <ThoughtDef>
+    <defName>TPE_ChildPlayHigh</defName>
+    <workerClass>ToddlersPlayExpanded.ThoughtWorker_ChildPlayHigh</workerClass>
+    <!-- See TPE_ChildPlayEmpty above — same Psychopath nullification convention,
+         same settings-gated exemption. -->
+    <nullifyingTraits>
+      <li>Psychopath</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>Im having so much fun!!</label>
+        <description>This place is so much fun, I have all my favorite toys and I cant stop giggling! I wonder what I want to play next?</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Playground room mood buff -->
+
+  <ThoughtDef>
+    <defName>TPE_PlayedInPlayground</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>0.5</durationDays>
+    <stackLimit>1</stackLimit>
+    <developmentalStageFilter>Child</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>I played in a nice playground!</label>
+        <description>I played in such a nice playground, it had everything I wanted to play with and more!</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Classroom room mood buff -->
+
+  <ThoughtDef>
+    <defName>TPE_LearnedInClassroom</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>0.5</durationDays>
+    <stackLimit>1</stackLimit>
+    <developmentalStageFilter>Child</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>I learnt in a nice classroom</label>
+        <description>I got to take my lesson today in such a great classroom, all the black boards had plenty of chalk so my teacher could explain everything so well!</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

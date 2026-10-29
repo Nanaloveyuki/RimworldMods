@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<AnimationDef>
+	<defName>TPE_ToddlerSpinning</defName>
+	<label>spinning around</label>
+	<durationTicks>60</durationTicks>
+	<startOnRandomTick>false</startOnRandomTick>
+	<playWhenDowned>false</playWhenDowned>
+	<keyframeParts>
+		<li>
+			<key>Root</key>
+			<value>
+				<workerType>ToddlersPlayExpanded.AnimationWorker_ToddlerSpinning</workerType>
+			</value>
+		</li>
+	</keyframeParts>
+</AnimationDef>
+
+</Defs>

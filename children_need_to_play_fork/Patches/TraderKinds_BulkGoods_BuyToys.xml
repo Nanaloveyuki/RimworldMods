@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!--
+		USER-REQUESTED: bulk goods traders are the ONLY traders that buy toys.
+
+		How: vanilla's buy-only stock generator (StockGenerator_BuyTradeTag
+		generates no stock; it only makes the trader willing to BUY things
+		carrying the tag, exactly like vanilla's Art / MusicalInstrument buyers).
+		Every toy ThingDef carries the "Toys" trade tag (ThingDefs_Toys.xml).
+
+		Which traders: every TraderKindDef whose defName contains "BulkGoods"
+		(vanilla: Caravan_Outlander_BulkGoods, Caravan_Neolithic_BulkGoods,
+		Orbital_BulkGoods; modded bulk traders that follow vanilla naming are
+		picked up automatically). PatchOperationAdd targets the stockGenerators
+		LIST node (patches lore) and applies to every match.
+
+		Why nobody else buys them (verified against vanilla trader defs): no
+		vanilla trader has a Category generator for "Toys" or any ancestor of it,
+		nor a tag generator for "Toys"; the only generic catch-all buyer,
+		StockGenerator_BuyExpensiveSimple (exotic traders), skips anything with
+		genericMarketSellable = false, which every toy now sets. Plush toys are
+		Apparel, which that buyer skips anyway.
+
+		success=Always: if a mod removes or renames every bulk goods trader, this
+		quietly does nothing instead of logging a patch failure.
+	-->
+	<Operation Class="PatchOperationAdd">
+		<success>Always</success>
+		<xpath>Defs/TraderKindDef[contains(defName, "BulkGoods")]/stockGenerators</xpath>
+		<value>
+			<li Class="StockGenerator_BuyTradeTag">
+				<tag>Toys</tag>
+			</li>
+		</value>
+	</Operation>
+</Patch>

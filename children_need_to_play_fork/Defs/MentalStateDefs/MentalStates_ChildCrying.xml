@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!--
+        TPE_ChildCryingFit
+        ══════════════════
+        Drives the probability of a child (ages 3–6) entering the TPE_ChildCrying mental state.
+        Uses the vanilla MentalFitGenerator system that runs every 150 ticks per pawn.
+
+        developmentalStageFilter = Child:
+            Only children (ages 3–13) pass the first filter. Our Harmony patch on
+            MentalFitDef.CalculateMTBDays then adds the additional age ≤ 6 check so
+            only growth-tier-1 children (ages 3–6) actually cry.
+
+        mtbDaysMoodCurve:
+            MTB falls steeply as mood drops toward 0. The curve is designed so that
+            below ~30% mood children cry fairly often, and above ~40% mood it is
+            essentially never (simulating the user-requested "30% threshold" feel).
+    -->
+    <MentalFitDef>
+        <defName>TPE_ChildCryingFit</defName>
+        <label>child crying</label>
+        <mentalState>TPE_ChildCrying</mentalState>
+        <developmentalStageFilter>Child</developmentalStageFilter>
+        <!--
+            MTB curve: episodic crying with faster triggers at very low mood.
+            At 0% mood: every ~4 hours. At 30%: every ~18 hours (near threshold).
+        -->
+        <mtbDaysMoodCurve>
+            <points>
+                <li>(0.00, 0.083)</li>   <!-- 0% mood:  every ~2 hours -->
+                <li>(0.15, 0.167)</li>   <!-- 15% mood: every ~4 hours -->
+                <li>(0.25, 0.292)</li>   <!-- 25% mood: every ~7 hours -->
+                <li>(0.30, 0.375)</li>   <!-- 30% mood: every ~9 hours (near threshold) -->
+                <li>(0.35, 7.5)</li>     <!-- 35% mood: essentially never -->
+                <li>(0.50, 50.0)</li>    <!-- 50% mood: never -->
+                <li>(1.00, 100.0)</li>   <!-- 100% mood: never -->
+            </points>
+        </mtbDaysMoodCurve>
+    </MentalFitDef>
+
+
+    <!--
+        TPE_ChildCrying
+        ═══════════════
+        The mental state children enter when crying.
+
+        Inherits all fields from BaseBabyMentalFit (vanilla abstract def):
+          - category Misc
+          - downedCanDo / inCaravanCanDo / unspawnedNotInCaravanCanDo = true
+          - requiredCapacities: Talking
+          - recoverFromCollapsingExhausted / recoverFromDowned / recoverFromSleep = false
+          - minTicksBeforeRecovery / maxTicksBeforeRecovery = 1200 (20 seconds)
+          - recoveryMtbDays = Infinity  (only recovers after the fixed tick window)
+          - stopsJobs = false
+
+        stateClass = MentalState_ChildCry:
+            Our custom class that handles visual effects (tears, motes) for WALKING
+            children (not just carried babies) and applies TPE_ChildCrying thoughts
+            instead of vanilla CryingBaby, plus immunity for hearers aged ≤ 6.
+
+        No stateEffecter: we replicate tear/dot visuals in C# directly so we can
+        use pawn.DrawPos (works for walking children) rather than pawn.DrawPosHeld
+        (only valid when a pawn is carried or in a container).
+    -->
+    <MentalStateDef ParentName="BaseBabyMentalFit">
+        <defName>TPE_ChildCrying</defName>
+        <stateClass>ToddlersPlayExpanded.MentalState_ChildCry</stateClass>
+        <baseInspectLine>Mental state: Crying</baseInspectLine>
+        <!-- Custom effecter plays looping child crying sounds with random clip selection. -->
+        <stateEffecter>TPE_ChildCryingEffecter</stateEffecter>
+        <!-- Explicitly set so the 20-second fixed bout length is guaranteed regardless
+             of how ParentName inheritance resolves these fields at runtime. -->
+        <minTicksBeforeRecovery>1200</minTicksBeforeRecovery>
+        <maxTicksBeforeRecovery>1200</maxTicksBeforeRecovery>
+        <recoveryMtbDays>Infinity</recoveryMtbDays>
+    </MentalStateDef>
+
+    <!--
+        TPE_ChildTantrum
+        ═════════════════
+        Short-duration crying bout triggered by severe mood debuffs (-12 or worse).
+        Uses the same stateClass as TPE_ChildCrying so visuals, aura effects,
+        and adult debuffs are identical. The only difference is the 10-second
+        recovery window (600 ticks) instead of 20 seconds.
+    -->
+    <MentalStateDef ParentName="BaseBabyMentalFit">
+        <defName>TPE_ChildTantrum</defName>
+        <stateClass>ToddlersPlayExpanded.MentalState_ChildCry</stateClass>
+        <baseInspectLine>Mental state: Tantrum</baseInspectLine>
+        <!-- Custom effecter plays looping child crying sounds with random clip selection. -->
+        <stateEffecter>TPE_ChildCryingEffecter</stateEffecter>
+        <minTicksBeforeRecovery>600</minTicksBeforeRecovery>
+        <maxTicksBeforeRecovery>600</maxTicksBeforeRecovery>
+        <recoveryMtbDays>Infinity</recoveryMtbDays>
+    </MentalStateDef>
+
+</Defs>

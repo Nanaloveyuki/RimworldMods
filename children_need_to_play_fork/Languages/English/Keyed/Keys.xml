@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Settings tab labels -->
+  <TPE_Settings_Tab_ToddlersNewborns>Toddlers / Newborns</TPE_Settings_Tab_ToddlersNewborns>
+  <TPE_Settings_Tab_Children>Children</TPE_Settings_Tab_Children>
+  <TPE_Settings_Tab_ChildrensPlayNeed>Children's Play Need</TPE_Settings_Tab_ChildrensPlayNeed>
+  <TPE_Settings_Tab_Adults>Adults</TPE_Settings_Tab_Adults>
+
+  <!-- Growth tier tooltip: mentions both learning and play when child play system is active -->
+  <TPE_StatsReport_GrowthTierDesc>Children progress through growth tiers over time. The higher the child's learning and play needs, the faster the progress. When a growth moment comes (at age 7, 10, and 13), the child's growth tier determines how many trait and passion options you can choose from. Growth tier resets after each growth moment.</TPE_StatsReport_GrowthTierDesc>
+
+  <!-- Settings: "keep play mood for psychopaths" toggle -->
+  <TPE_Settings_KeepPlayMoodForPsychopaths_Label>Psychopaths still feel play mood</TPE_Settings_KeepPlayMoodForPsychopaths_Label>
+  <TPE_Settings_KeepPlayMoodForPsychopaths_Tooltip>By default, the Psychopath trait nullifies mood from play-related thoughts, matching vanilla's own treatment of child/baby empathy thoughts (e.g. "my child is happy/unhappy"): the child "having so much fun" / "desperate to play" thoughts, the toddler "calmed myself down" / "couldn't calm down" Self Soothing thoughts, and the vanilla baby play-need mood ("entertained" / "wants to play", from Biotech) all still appear but contribute zero mood. Enable this to let psychopathic toddlers and children keep gaining and losing mood from these specific thoughts like everyone else. No other Psychopath-nullified thought is affected.</TPE_Settings_KeepPlayMoodForPsychopaths_Tooltip>
+
+  <!-- Settings: "play when idle" toggle -->
+  <TPE_Settings_PlayWhenIdle_Label>Play when idle</TPE_Settings_PlayWhenIdle_Label>
+  <TPE_Settings_PlayWhenIdle_Tooltip>When a child has genuinely nothing else to do (no food/rest/chemical need, no active learning desire, no eligible play desire job, no work) and would normally just wander aimlessly, they play instead — even if their play need is already full. They'll immediately drop the play session if something genuinely more important comes up (hunger, tiredness, a learning desire, work). Never overrides dedicated learning time or Work-scheduled hours. Default OFF.</TPE_Settings_PlayWhenIdle_Tooltip>
+
+  <!-- Settings: "guarantee Active Play desire" toggle -->
+  <TPE_Settings_GuaranteeActivePlay_Label>Always include Active Play</TPE_Settings_GuaranteeActivePlay_Label>
+  <TPE_Settings_GuaranteeActivePlay_Tooltip>When enabled, every child's play-desire refresh guarantees Active Play (running, spinning, jumping, chasing) as one of their 2 active desires, instead of it being just one more option in the random roll. The other desire slot still rolls normally from everything else. Default OFF — the original fully-random roll for both slots.</TPE_Settings_GuaranteeActivePlay_Tooltip>
+
+  <!-- Settings: show/hide the dirt castle left behind after the "building dirt castles" play desire -->
+  <TPE_Settings_ShowDirtCastles_Label>Show dirt castles after building</TPE_Settings_ShowDirtCastles_Label>
+  <TPE_Settings_ShowDirtCastles_Tooltip>When enabled, a child who finishes a dirt-castle play session leaves a small dirt castle behind (it crumbles away after about 3 days). The castle only appears when the session is completed — if the child is interrupted partway, nothing is left behind. A castle is never placed over a building or a crop (including growing-zone land), and children avoid choosing such spots for this activity; wild grass and the like don't count. When disabled, no castle appears; the child still plays for the full session and gains Play as normal. Only affects castles built after the change — castles already on the map are not removed. Default ON.</TPE_Settings_ShowDirtCastles_Tooltip>
+
+  <!-- Settings: adult (13+) plush-to-bed system -->
+  <TPE_Settings_EnableAdultPlushSleep_Label>Enable adult (13+) plush-to-bed system</TPE_Settings_EnableAdultPlushSleep_Label>
+  <TPE_Settings_EnableAdultPlushSleep_Tooltip>Adults (age 13 and up, which includes the Teenager life stage) will autonomously seek and equip a plush toy before sleeping, the same way toddlers and children do. Default OFF. When this is off, adults never seek plush toys and never gain mood from them, regardless of the mood setting below.</TPE_Settings_EnableAdultPlushSleep_Tooltip>
+
+  <TPE_Settings_AdultMoodMode_Label>Mood system for adult plushie sleep</TPE_Settings_AdultMoodMode_Label>
+
+  <TPE_Settings_AdultMoodMode_None>No moodlets</TPE_Settings_AdultMoodMode_None>
+  <TPE_Settings_AdultMoodMode_NegativeOnly>Only negative moodlet for not sleeping with plushie</TPE_Settings_AdultMoodMode_NegativeOnly>
+  <TPE_Settings_AdultMoodMode_PositiveOnly>Only positive moodlet for sleeping with plushie</TPE_Settings_AdultMoodMode_PositiveOnly>
+  <TPE_Settings_AdultMoodMode_Both>Moodlets for both options</TPE_Settings_AdultMoodMode_Both>
+
+  <TPE_Settings_AdultMoodMode_None_Desc>Adults sleep with or without a plush toy with no mood effect either way.</TPE_Settings_AdultMoodMode_None_Desc>
+  <TPE_Settings_AdultMoodMode_NegativeOnly_Desc>Adults get a mood penalty if they sleep without a plush toy, but no bonus for sleeping with one.</TPE_Settings_AdultMoodMode_NegativeOnly_Desc>
+  <TPE_Settings_AdultMoodMode_PositiveOnly_Desc>Adults get a mood bonus for sleeping with a plush toy, but no penalty for sleeping without one.</TPE_Settings_AdultMoodMode_PositiveOnly_Desc>
+  <TPE_Settings_AdultMoodMode_Both_Desc>Adults get a mood bonus for sleeping with a plush toy and a mood penalty for sleeping without one — matches how toddlers and children already work.</TPE_Settings_AdultMoodMode_Both_Desc>
+
+  <!-- Settings: sleeping-plush rendering toggle (applies to ALL age brackets) -->
+  <TPE_Settings_RenderPlushWhileSleeping_Label>Render plush toys while sleeping</TPE_Settings_RenderPlushWhileSleeping_Label>
+  <TPE_Settings_RenderPlushWhileSleeping_Tooltip>Applies to every age bracket (toddlers, children, and adults if enabled) — not just toddlers. When enabled, a sleeping pawn currently wearing a plush toy will show it resting beside their head/pillow. When disabled, the plush is simply not shown while the pawn is asleep. Purely visual — doesn't affect whether pawns seek/equip plush toys or the mood thoughts they grant.</TPE_Settings_RenderPlushWhileSleeping_Tooltip>
+
+  <!-- Settings: bypass the rest-threshold "give up" safety valve for plush-seeking (applies to ALL age brackets) -->
+  <TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Label>Always seek a plush toy before bed</TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Label>
+  <TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Tooltip>Applies to every age bracket (toddlers, children, and adults if enabled) — not just toddlers. Normally, if a pawn is already extremely tired by the time they go to bed, they skip fetching a plush toy so it doesn't delay their sleep any further. When enabled, pawns will ALWAYS attempt to fetch and equip a plush toy before sleeping, no matter how low their rest need already is. Default OFF.</TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Tooltip>
+
+  <!-- Settings: turn off toddler play animations (this mod's toddler activities only) -->
+  <TPE_Settings_DisableToddlerPlayAnimations_Label>Disable toddler play animations</TPE_Settings_DisableToddlerPlayAnimations_Label>
+  <TPE_Settings_DisableToddlerPlayAnimations_Tooltip>When enabled, toddlers doing this mod's play activities no longer animate: no spinning (Spinning Around — they just lie still on the spot), no hopping (Jumping Up and Down, Jumping in crib), no leaning in to look (Looking Through Storage, Bug Watching with a Magnifying Glass) and no wiggling (Self Soothing). The activities still happen and still fill the play need exactly as before — only the movement on screen stops. The base Toddlers mod's own animations (its regular bug watching, crib wiggling, crawling and toddling) are not affected. Takes effect immediately. Default OFF (animations play).</TPE_Settings_DisableToddlerPlayAnimations_Tooltip>
+
+  <!-- Settings: turn off child play animations (Active Play's spinning / jumping / snail crawling) -->
+  <TPE_Settings_DisableChildPlayAnimations_Label>Disable child play animations</TPE_Settings_DisableChildPlayAnimations_Label>
+  <TPE_Settings_DisableChildPlayAnimations_Tooltip>When enabled, children doing Active Play no longer animate while spinning (they stand still instead), jumping (they stand still instead) or snail crawling (they walk slowly upright instead). The activity still happens and still fills the play need exactly as before — only the movement on screen stops. No other child play activity has an animation. Takes effect immediately. Default OFF (animations play).</TPE_Settings_DisableChildPlayAnimations_Tooltip>
+
+  <!-- Crib Gate gizmo -->
+  <TPE_CribGateLabel>Open Crib Gate</TPE_CribGateLabel>
+  <TPE_CribGateTooltip>When open, crawling toddlers can freely escape like walking toddlers. Crib Lock always overrides this setting.</TPE_CribGateTooltip>
+  <TPE_CribGateOpened>Crib gate is now open. Crawling toddlers can escape.</TPE_CribGateOpened>
+  <TPE_CribGateClosed>Crib gate is now closed. Crawling toddlers cannot escape.</TPE_CribGateClosed>
+</LanguageData>

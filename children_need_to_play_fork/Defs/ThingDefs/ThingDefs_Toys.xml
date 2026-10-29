@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- 
+    Bubble Machine - A toy building that dispenses bubbles.
+    Decorative building with power consumption and beauty value.
+    Uses rotatable graphics via Graphic_Multi.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>TPE_BubbleMachine</defName>
+    <label>bubble machine</label>
+    <description>A whimsical contraption that produces bubbles. While non-functional for now, it provides a pleasant aesthetic boost. Requires both a power connection and a small supply of chemfuel to run — a delightful decoration for any colony.</description>
+    
+    <!-- Graphics and appearance: Graphic_Multi handles rotations via _north, _south, _east, _west suffixes.
+         If _west is missing, Graphic_Multi will automatically flip _east. -->
+    <graphicData>
+      <texPath>Things/Toys/BubbleMachine</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1, 1)</drawSize>
+      <!-- Define the damage-taking rect so visual damage feedback shows correctly -->
+      <damageData>
+        <rect>(0.15, 0.15, 0.7, 0.7)</rect>
+      </damageData>
+      <shadowData>
+        <volume>(0.3, 0.6, 0.3)</volume>
+        <offset>(0, 0, -0.1)</offset>
+      </shadowData>
+    </graphicData>
+    
+    <!-- Building properties (inherited from BuildingBase: category, thingClass, altitudeLayer) -->
+    <!-- Required for CompBubbleZone to tick and spawn bubbles -->
+    <tickerType>Normal</tickerType>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.3</fillPercent>
+    <pathCost>14</pathCost>
+    <size>(1, 1)</size>
+    <rotatable>true</rotatable>
+    
+    <!-- Minification and UI -->
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <uiOrder>2850</uiOrder>
+    <noRightClickDraftAttack>true</noRightClickDraftAttack>
+    <designationCategory>Furniture</designationCategory>
+    
+    <!-- Stats: WorkToBuild=1400 -->
+    <statBases>
+      <WorkToBuild>1400</WorkToBuild>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <Beauty>2</Beauty>
+      <Mass>15</Mass>
+    </statBases>
+    
+    <!-- Cost to build: 100 steel + 2 components -->
+    <costList>
+      <Steel>100</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    
+    <!-- Building components and functionality -->
+    <comps>
+      <!-- Power consumption: 20W -->
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>20</basePowerConsumption>
+      </li>
+      <!-- Allow flickable (on/off toggle) -->
+      <li Class="CompProperties_Flickable" />
+      <!--
+        Chemfuel requirement, in ADDITION to the power connection above — the
+        machine needs both to run. Rate is exactly half (2x slower than) the vanilla
+        ChemfuelPoweredGenerator's own fuelConsumptionRate of 4.5/day (see
+        Core/ThingDefs_Buildings/Buildings_Power.xml), i.e. 2.25/day. Tank capacity of
+        30 matches the generator's own tank size for a size players already have an
+        intuition for.
+
+        consumeFuelOnlyWhenPowered means fuel is only spent while the machine is
+        ALSO electrically powered and switched on — an unpowered-but-fueled machine
+        doesn't burn through its tank for nothing, matching how the power requirement
+        and the fuel requirement are meant to gate the SAME "is this thing actually
+        running" state (see CompBubbleZone.IsMachineActive, which now checks both).
+      -->
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>2.25</fuelConsumptionRate>
+        <fuelCapacity>30</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <consumeFuelOnlyWhenPowered>true</consumeFuelOnlyWhenPowered>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+        <canEjectFuel>true</canEjectFuel>
+      </li>
+      <!-- Bubble zone management -->
+      <li Class="ToddlersPlayExpanded.CompProperties_BubbleZone" />
+    </comps>
+    
+    <!-- This building requires electricity research (uses electrical power) -->
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    
+  </ThingDef>
+
+</Defs>

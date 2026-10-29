@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MentalStateDef>
+    <defName>TPE_WantsOutOfCrib</defName>
+    <stateClass>ToddlersPlayExpanded.MentalState_WantsOutOfCrib</stateClass>
+    <category>Misc</category>
+    <downedCanDo>true</downedCanDo>
+    <recoverFromSleep>false</recoverFromSleep>
+    <recoverFromDowned>false</recoverFromDowned>
+    <minTicksBeforeRecovery>60</minTicksBeforeRecovery>
+    <maxTicksBeforeRecovery>99999999</maxTicksBeforeRecovery>
+    <recoveryMtbDays>Infinity</recoveryMtbDays>
+    <stopsJobs>false</stopsJobs>
+    <baseInspectLine>Mental state: Wants to be let out the crib</baseInspectLine>
+    <stateEffecter>BabyCrying</stateEffecter>
+  </MentalStateDef>
+
+</Defs>

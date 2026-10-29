@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerSpinning</defName>
+		<jobDef>TPE_ToddlerSpinning</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_Spinning</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerWorkWatching</defName>
+		<jobDef>TPE_ToddlerWorkWatching</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_WorkWatching</workerClass>
+		<selectionWeight>1.5</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerRunning</defName>
+		<jobDef>TPE_ToddlerRunning</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_Running</workerClass>
+		<selectionWeight>1.2</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerJumping</defName>
+		<jobDef>TPE_ToddlerJumping</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_Jumping</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerMonsterHunt</defName>
+		<jobDef>TPE_ToddlerMonsterHunt</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_MonsterHunt</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerDinosaur</defName>
+		<jobDef>TPE_ToddlerDinosaur</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_Dinosaur</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerPlayWithRealToy</defName>
+		<jobDef>TPE_PlayWithToy</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_PlayWithRealToy</workerClass>
+		<selectionWeight>1.5</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerCarryToy</defName>
+		<jobDef>TPE_CarryToy</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_CarryToy</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerLookThroughStorage</defName>
+		<jobDef>TPE_ToddlerLookThroughStorage</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_LookThroughStorage</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerSelfSoothing</defName>
+		<jobDef>TPE_ToddlerSelfSoothing</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_SelfSoothing</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerCribJumping</defName>
+		<jobDef>TPE_ToddlerCribJumping</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_CribJumping</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerCeilingWatching</defName>
+		<jobDef>TPE_ToddlerCeilingWatching</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_CeilingWatching</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerSpeechPractice</defName>
+		<jobDef>TPE_ToddlerSpeechPractice</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_SpeechPractice</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerSpeechPracticeInCrib</defName>
+		<jobDef>TPE_ToddlerSpeechPracticeInCrib</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_SpeechPractice</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerHeaterSnuggling</defName>
+		<jobDef>TPE_ToddlerHeaterSnuggling</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_HeaterSnuggling</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<!-- BUBBLE MACHINE PLAY ACTIVITIES -->
+	<!-- Popping Bubbles: crawler-only, out of crib. Movement copied from the child
+	     "Bubble Popping" play desire. Requires an active Bubble Machine nearby. -->
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerPoppingBubbles</defName>
+		<jobDef>TPE_ToddlerPoppingBubbles</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_PoppingBubbles</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+	<!-- Chasing Bubbles: walker-only, out of crib. Movement copied from Running Around.
+	     Requires an active Bubble Machine nearby (walked to first, then runs around). -->
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerChasingBubbles</defName>
+		<jobDef>TPE_ToddlerChasingBubbles</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_ChasingBubbles</workerClass>
+		<selectionWeight>1.2</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+
+
+	<!-- PILLOW NESTING PLAY DEF — SHELVED FOR LATER -->
+	<!-- Due to animation caching issues, this play def is disabled. To restore: uncomment below. -->
+	<!--
+	<Toddlers.ToddlerPlayDef>
+		<defName>TPE_ToddlerPillowNesting</defName>
+		<jobDef>TPE_ToddlerPillowNesting</jobDef>
+		<workerClass>ToddlersPlayExpanded.ToddlerPlayGiver_PillowNesting</workerClass>
+		<selectionWeight>1.0</selectionWeight>
+	</Toddlers.ToddlerPlayDef>
+	-->
+
+</Defs>

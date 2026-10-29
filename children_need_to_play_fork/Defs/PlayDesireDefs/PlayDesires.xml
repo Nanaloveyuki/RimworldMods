@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Age Group 1 (3–6) only -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_PlayWithToy</defName>
+    <label>Playing With Plush Toys</label>
+    <description>Pick up a soft plush toy and play with it.</description>
+    <iconPath>UI/Icons/Play/PlushToys</iconPath>
+    <selectionWeight>1.0</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_PlayWithToy</workerClass>
+    <jobDef>TPE_ChildPlayWithToy</jobDef>
+    <minAge>3</minAge>
+    <maxAge>6</maxAge>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- Age Groups 1 & 2 (3–9) -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_FloorDrawing</defName>
+    <label>floor drawing</label>
+    <description>Draw designs on the ground using chalk. A cleaner will eventually remove the drawings.</description>
+    <iconPath>UI/Icons/Learning/FloorDrawing</iconPath>
+    <selectionWeight>0.8</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_FloorDrawing</workerClass>
+    <jobDef>TPE_ChildFloorDrawing</jobDef>
+    <minAge>3</minAge>
+    <maxAge>9</maxAge>
+    <!-- Mutually exclusive with vanilla's own "floor drawing" LEARNING desire
+         of the same activity — see PlayDesireDef.conflictingLearningDesire. -->
+    <conflictingLearningDesire MayRequire="Ludeon.RimWorld.Biotech">Floordrawing</conflictingLearningDesire>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- Age Groups 1 & 2 (3–9) -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_BuildDirtCastles</defName>
+    <label>building dirt castles</label>
+    <description>Wander outside and build dirt castles.</description>
+    <iconPath>UI/Icons/Play/DirtCastles</iconPath>
+    <selectionWeight>0.7</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_BuildDirtCastles</workerClass>
+    <jobDef>TPE_ChildBuildDirtCastles</jobDef>
+    <minAge>3</minAge>
+    <maxAge>9</maxAge>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- Age Groups 2 & 3 (7–13) -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_ReadBook</defName>
+    <label>reading</label>
+    <description>Find a book and practice reading.</description>
+    <iconPath>UI/Icons/Learning/Reading</iconPath>
+    <selectionWeight>0.9</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_ReadBook</workerClass>
+    <jobDef>TPE_ChildReadBook</jobDef>
+    <minAge>7</minAge>
+    <maxAge>13</maxAge>
+    <!-- Mutually exclusive with vanilla's own "reading" LEARNING desire — see
+         PlayDesireDef.conflictingLearningDesire. -->
+    <conflictingLearningDesire MayRequire="Ludeon.RimWorld.Biotech">Reading</conflictingLearningDesire>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- All ages (3–13). Desire SELECTION itself is gated on the colony having
+       built at least one TV of any tier anywhere (see
+       PlayDesireGiver_WatchTelevision.CanGiveDesire) — a colony with no TV
+       at all will never roll this desire in the first place, so it can't
+       waste one of a child's 2 desire slots on something impossible to do. -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_WatchTelevision</defName>
+    <label>watching television</label>
+    <description>Watch a powered television.</description>
+    <iconPath>UI/Icons/Play/Television</iconPath>
+    <selectionWeight>0.8</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_WatchTelevision</workerClass>
+    <jobDef>TPE_ChildWatchTelevision</jobDef>
+    <minAge>3</minAge>
+    <maxAge>13</maxAge>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- Age Groups 1 & 2 (3–9) -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_NatureRunning</defName>
+    <label>nature running</label>
+    <description>Explore the local outdoors.</description>
+    <iconPath>UI/Icons/Learning/NatureRunning</iconPath>
+    <selectionWeight>0.8</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_NatureRunning</workerClass>
+    <jobDef>TPE_ChildNatureRunning</jobDef>
+    <minAge>3</minAge>
+    <maxAge>9</maxAge>
+    <!-- Mutually exclusive with vanilla's own "nature running" LEARNING desire
+         of the same activity — see PlayDesireDef.conflictingLearningDesire. -->
+    <conflictingLearningDesire MayRequire="Ludeon.RimWorld.Biotech">NatureRunning</conflictingLearningDesire>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- All ages (3–13) -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_Skydreaming</defName>
+    <label>sky dreaming</label>
+    <description>Find a spot outside and watch the sky.</description>
+    <iconPath>UI/Icons/Learning/Skydreaming</iconPath>
+    <selectionWeight>0.7</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_Skydreaming</workerClass>
+    <jobDef>TPE_ChildSkydreaming</jobDef>
+    <minAge>3</minAge>
+    <maxAge>13</maxAge>
+    <!-- Mutually exclusive with vanilla's own "sky dreaming" LEARNING desire
+         of the same activity — see PlayDesireDef.conflictingLearningDesire. -->
+    <conflictingLearningDesire MayRequire="Ludeon.RimWorld.Biotech">Skydreaming</conflictingLearningDesire>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- All ages (3–13) -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_ActivePlay</defName>
+    <label>active play</label>
+    <description>Run around, spin, jump, crawl, and chase other children.</description>
+    <iconPath>UI/Icons/Play/ActivePlayIcon</iconPath>
+    <selectionWeight>1.0</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_ActivePlay</workerClass>
+    <jobDef>TPE_ChildActivePlay</jobDef>
+    <minAge>3</minAge>
+    <maxAge>13</maxAge>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- Age Groups 2 & 3 (7–13). Desire SELECTION is gated on BOTH Microelectronics
+       research being finished AND the colony having actually built a comms
+       console somewhere (see PlayDesireGiver_Radiotalking.CanGiveDesire) — a
+       colony that researched Microelectronics but hasn't built a console yet
+       will never roll this desire, avoiding a permanently-unsatisfiable slot. -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_Radiotalking</defName>
+    <label>radio talking</label>
+    <description>Chat with people over the radio. Requires a powered comms console.</description>
+    <iconPath>UI/Icons/Learning/Radiotalking</iconPath>
+    <selectionWeight>0.8</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_Radiotalking</workerClass>
+    <jobDef>TPE_ChildRadiotalking</jobDef>
+    <minAge>7</minAge>
+    <maxAge>13</maxAge>
+    <!-- Mutually exclusive with vanilla's own "radio talking" LEARNING desire
+         of the same activity — see PlayDesireDef.conflictingLearningDesire. -->
+    <conflictingLearningDesire MayRequire="Ludeon.RimWorld.Biotech">Radiotalking</conflictingLearningDesire>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+  <!-- Age Groups 1 & 2 (3–9). Requires a reachable, active Bubble Machine nearby;
+       see PlayDesireGiver_BubblePopping.CanDo. Desire SELECTION itself is
+       further gated on the colony having built at least one Bubble Machine
+       anywhere at all (see PlayDesireGiver_BubblePopping.CanGiveDesire) — a
+       colony with no machine yet will never roll this desire in the first
+       place. -->
+  <ToddlersPlayExpanded.PlayDesireDef>
+    <defName>TPE_BubblePopping</defName>
+    <label>bubble popping</label>
+    <description>Run around near a bubble machine, popping the floating bubbles. Requires a powered bubble machine.</description>
+    <iconPath>UI/Icons/Play/BubblePopping</iconPath>
+    <selectionWeight>1.0</selectionWeight>
+    <workerClass>ToddlersPlayExpanded.PlayDesireGiver_BubblePopping</workerClass>
+    <jobDef>TPE_ChildBubblePopping</jobDef>
+    <minAge>3</minAge>
+    <maxAge>9</maxAge>
+  </ToddlersPlayExpanded.PlayDesireDef>
+
+</Defs>

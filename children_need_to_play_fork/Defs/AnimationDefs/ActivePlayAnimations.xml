@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!--
+		AnimationDef for child "Spinning Around" active play sub-activity.
+		Rotates the Root render node continuously through 360 degrees.
+		Duration: 90 ticks (~1.5 sec) for one full rotation; loops automatically.
+		Triggered by JobDriver_ChildActivePlay via SetAnimation.
+	-->
+	<AnimationDef>
+		<defName>TPE_ChildSpinning</defName>
+		<label>child spinning</label>
+		<durationTicks>90</durationTicks>
+		<startOnRandomTick>false</startOnRandomTick>
+		<playWhenDowned>false</playWhenDowned>
+		<keyframeParts>
+			<li>
+				<key>Root</key>
+				<value>
+					<workerType>ToddlersPlayExpanded.AnimationWorker_ChildSpinning</workerType>
+				</value>
+			</li>
+		</keyframeParts>
+	</AnimationDef>
+
+	<!--
+		AnimationDef for child "Jumping Up and Down" active play sub-activity.
+		This def serves as a marker so the GetBodyPos Harmony patch knows the
+		pawn is jumping (CurAnimation check).  The vanilla AnimationDef offset
+		system cannot produce visible vertical movement for standing pawns, so
+		the actual bounce is injected in Patch_PawnRenderer_GetBodyPos by
+		adding to the Z component (screen-vertical axis in RimWorld).
+		Duration: 30 ticks (~0.5 sec) per hop cycle; loops automatically.
+		Triggered by JobDriver_ChildActivePlay via SetAnimation.
+-->
+	<AnimationDef>
+		<defName>TPE_ChildJumping</defName>
+		<label>child jumping</label>
+		<durationTicks>30</durationTicks>
+		<startOnRandomTick>false</startOnRandomTick>
+		<playWhenDowned>false</playWhenDowned>
+		<keyframeParts>
+			<li>
+				<key>Root</key>
+				<value>
+					<workerType>ToddlersPlayExpanded.AnimationWorker_ChildJumping</workerType>
+				</value>
+			</li>
+		</keyframeParts>
+	</AnimationDef>
+
+	<!--
+		AnimationDef for child "Snail Crawling" active play sub-activity.
+		Leans the Root node forward to mimic a crawling posture.
+		Lean angle is applied only when facing East or West (the isometric camera
+		makes Y-axis rotation appear as forward/back lean on horizontal sprites).
+		Duration: 60 ticks; value is static per frame so loop does not matter.
+		Triggered by JobDriver_ChildActivePlay via SetAnimation.
+	-->
+	<AnimationDef>
+		<defName>TPE_ChildSnailCrawling</defName>
+		<label>child snail crawling</label>
+		<durationTicks>60</durationTicks>
+		<startOnRandomTick>false</startOnRandomTick>
+		<playWhenDowned>false</playWhenDowned>
+		<keyframeParts>
+			<li>
+				<key>Root</key>
+				<value>
+					<workerType>ToddlersPlayExpanded.AnimationWorker_ChildSnailCrawling</workerType>
+				</value>
+			</li>
+		</keyframeParts>
+	</AnimationDef>
+
+	<!-- PILLOW NESTING ANIMATION DEF — SHELVED FOR LATER -->
+	<!-- Due to animation caching issues, this animation is disabled. To restore: uncomment below. -->
+	<!--
+	<comment>
+		AnimationDef for toddler "Pillow Nesting" crib activity.
+		Reads a discrete angle from the job driver so the toddler snaps to
+		a new body rotation (like Spinning Around) every 3–5 seconds and
+		holds it, as if shifting into a new nestled pose.
+		Duration: 180 ticks (~3 sec) per cycle; loops automatically.
+		Triggered by JobDriver_ToddlerPillowNesting via SetAnimation.
+	</comment>
+	<AnimationDef>
+		<defName>TPE_PillowNesting</defName>
+		<label>pillow nesting</label>
+		<durationTicks>180</durationTicks>
+		<startOnRandomTick>false</startOnRandomTick>
+		<playWhenDowned>false</playWhenDowned>
+		<keyframeParts>
+			<li>
+				<key>Root</key>
+				<value>
+					<workerType>ToddlersPlayExpanded.AnimationWorker_ToddlerPillowNesting</workerType>
+				</value>
+			</li>
+		</keyframeParts>
+	</AnimationDef>
+	-->
+
+</Defs>

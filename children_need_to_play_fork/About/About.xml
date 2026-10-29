@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModMetaData>
+  <name>The Children Need To Play</name>
+  <packageId>drati.ToddlersPlayExpanded.fork</packageId>
+  <author>Dratic95</author>
+  <modVersion>1.2.2</modVersion>
+  <description>  &lt;description&gt;[h1]Toddlers Play Expanded[/h1]
+
+A mod that entirely overhauls child development, by utilizing [b]Cyanobot's Toddlers[/b] mod! This mod expands upon play for the toddlers, giving them more to do than wiggle and watch bugs all day, it also expands there emotional state! making them feel just that bit more alive. Additionally, This mod reworks children so that they are no longer pure flesh robots that are so devoted they tossed away all forms of recreation. That's right! as per the name, Children need to play now. Watch them grow from little babies to rambunctious toddlers to happy and excitable children!
+
+A quick word of warning before i begin my explanations!
+Currently I'm focused on getting all the main new mechanics and systems up and running. after i do that. i will then go back and flesh them out properly in order to give them the love they deserve! Now with that out the way, lets get into the show!
+
+[h2]What This Mod Does[/h2]
+[list]
+[*]Removes the play-need cap — toddlers keep playing even when full.
+[*]New toddler play activities (some are only for walking toddlers).
+[*]Crib confinement system — toddlers locked in cribs grow restless and demand release. Toggle Crib Lock to keep them in for bed rest.
+[*]Toys and Toy Box — craft plush toys and props at the Toy Workbench. Toddlers pick them up, play with them, carry them around, and sleep with plushies for mood bonuses.
+[*]Toddler Moods — 100 random thoughts plus event-triggered reactions to weather, combat, social events, injury, and hazards etc.
+[*]Child Play Need System (ages 3-13, toggleable) — a Play need bar alongside Learning, with growth points blended from both so kids must balance fun and study.
+[*]Play Desires for children — two at a time, refreshing every 8 hours, age-gated into three brackets (3-6, 7-9, 10-13).
+[*]Learning time assignment for the schedule grid, plus Playground room rols.
+[/list]
+
+[h2]Toddler Play Activities[/h2]
+[list]
+[*]Spinning Around — lies down and rolls in a full 360.
+[*]Work Watching — follows a colonist and watches what they are doing.
+[*]Running Around — darts around with a speed boost.
+[*]Monster Hunt — walks with a toy sword looking for monsters. 75% chance mood buff, 25% debuff.
+[*]Being a Dinosaur — stomps around slowly with a dinosaur plush, chases imaginary prey.
+[*]Play With Toy — picks up toy and plays.
+[*]Carry Toy — grabs a toy and explores the colony.
+[*]Jumping Up and Down — happy hopping!
+[/list]
+
+[h2]Child Play Need System[/h2]
+An optional Play need for children 3-13. When enabled, kids gain a Play bar alongside Learning.
+[list]
+[*]Play decays over time (configurable 3-14 days, default ~10).
+[*]Low Play causes mood debuffs; high Play gives buffs.
+[*]Growth points blend Learning and Play so children must balance both.
+[*]Learning decays more slowly to make room for both activities.
+[/list]
+Play Desires work like Learning Desires — two at a time, 8-hour refresh, age-gated. Fulfilling them boosts Play need strongly.
+
+[h2]Toys and The Toy Box[/h2]
+Build the Toy Workbench to craft toys and store them in the Toy Box.
+[list]
+[*]Plush Toys — Teddy Bear, Muffalo, Sheep, Dinosaur, Monster. Toddlers can wear them.
+[*]Imagination Toys — Toy Sword for monster hunting.
+[*]Sensory, Technological, and Pull Toys — planned for future updates.
+[/list]
+Sleeping with a plush gives +2 mood for 24h. Sleeping without gives -4.
+
+[h2]Toddler Moods[/h2]
+[h3]Random Moods[/h3]
+Every in-game hour, awake toddlers roll for a fleeting emotional thought from 100 possibilities across 5 sets. Examples:
+[list]
+[*]Tiny annoyances: &quot;My sock is twisted!&quot; (-1)
+[*]Little joys: &quot;I found a pretty pebble!&quot; (+2)
+[*]Big feelings: &quot;I had a scary thought!&quot; (-4) or &quot;I did a big jump!&quot; (+5)
+[*]Dramatic highs/lows: &quot;I am the fastest ever!&quot; (+10) or &quot;I dropped my food...&quot; (-10)
+[/list]
+Small moments are 10x more common than dramatic ones. Up to 3 moods at once, configurable.
+
+[h3]Event-Triggered Moods[/h3]
+Colony events affect awake toddlers once per occurrence:
+[list]
+[*]Weather — rain (+3), snow (+4), toxic fallout/heat/cold/eclipse (-3)
+[*]Combat — active raid (-5), raid won (+4), enemy nearby (-7)
+[*]Social — new colonist (+5), wedding (+6), burial (-5)
+[*]Personal — injured (-6), rescued (+7), colonist died (-8)
+[*]Environmental — fire (-4), aurora (+6)
+[/list]
+
+[h3]Adoption Homesickness[/h3]
+Adopted toddlers with no living parent in the colony occasionally feel homesick (-10, 2 days). Roughly once every 20 days. Colony-born toddlers are unaffected.
+
+[h2]Road Map[/h2]
+[list]
+[*]More toys — new plush designs, crowns, wands, shields, sensory/tech/pull toys.
+[*]More toddler activities — collecting treasures, following family/pets, delivery service, blanket forts, pretending to fly.
+[*]Pacifiers — maybe.
+[*]More Play Desires.
+[*]More Buildings that spark joy in toddlers and children such as a bubble machine or balloon machine!
+[/list]
+
+[h2]Compatibility[/h2]
+[list]
+[*]Requires Harmony and Toddlers by Cyanobot.
+[*]Save-safe to add mid-game.
+[*]RimWorld 1.6.
+[/list]
+
+[h2]Credits[/h2]
+Created by Dratic95&lt;/description&gt;</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+    <li>
+      <packageId>cyanobot.toddlers</packageId>
+      <displayName>Toddlers</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2903359152</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>cyanobot.toddlers</li>
+    <!-- Optional soft-compat target: "Intimacy - Homely". Not a hard
+         dependency — RimWorld ignores this entry entirely if that mod
+         isn't installed. Ensures its assembly/defs are loaded first so
+         our reflection-based HomelyCompat layer can detect it reliably. -->
+    <li>Homely.PillowTalk.WithEuterpe</li>
+  </loadAfter>
+</ModMetaData>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <JobDef>
+    <defName>TPE_ChildPlayWithToy</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildPlayWithToy</driverClass>
+    <reportString>playing with TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildReadBook</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildReadBook</driverClass>
+    <reportString>reading TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildFloorDrawing</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildFloorDrawing</driverClass>
+    <reportString>drawing on the floor.</reportString>
+    <!-- Explicit duration — without this, JobDef.learningDuration defaults to
+         20000 ticks (~8 in-game hours). That default was silently harmless
+         before "Play when Idle" existed, because a normally-issued floor
+         drawing job always ends early via the play-satisfied check long before
+         reaching it. Now that an idle-triggered job can run to this full
+         duration cap (see PlayUtility.MarkJobIgnoresFullness), an unset value
+         would make Floor Drawing a wildly longer session than every other play
+         activity (all 2500-7500 ticks / ~40s-3h). 2500 matches the same
+         baseline used by PlayWithToy/WatchTelevision/Radiotalking. -->
+    <learningDuration>2500</learningDuration>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildWatchTelevision</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildWatchTelevision</driverClass>
+    <reportString>watching television.</reportString>
+    <joyMaxParticipants>4</joyMaxParticipants>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildBuildDirtCastles</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildBuildDirtCastles</driverClass>
+    <reportString>building dirt castles.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildNatureRunning</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildNatureRunning</driverClass>
+    <reportString>exploring nature.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildSkydreaming</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildSkydreaming</driverClass>
+    <reportString>sky dreaming.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildActivePlay</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildActivePlay</driverClass>
+    <reportString>playing actively.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildRadiotalking</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildRadiotalking</driverClass>
+    <reportString>chatting on the radio.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TPE_ChildBubblePopping</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_ChildBubblePopping</driverClass>
+    <reportString>popping bubbles.</reportString>
+  </JobDef>
+
+</Defs>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Bubble Machine mood thoughts. All three are SITUATIONAL (Thought_Situational is the
+       default thoughtClass when a <workerClass> is given and no thoughtClass is specified),
+       meaning they appear the instant a pawn steps into an active Bubble Machine's zone and
+       disappear the instant they leave — there's no memory/decay involved, matching
+       "given to a person when they are within a bubble zone" exactly. See
+       ToddlersPlayExpanded.BubbleMoodUtility for the shared zone-detection logic and each
+       ThoughtWorker_Bubble* class for the exact per-age-group condition. -->
+
+  <!-- Toddlers & babies: pure delight at the floaty, poppable bubbles. -->
+  <ThoughtDef>
+    <defName>TPE_BubbleJoyBaby</defName>
+    <workerClass>ToddlersPlayExpanded.ThoughtWorker_BubbleJoyBaby</workerClass>
+    <!-- CRITICAL: ThoughtDef.developmentalStageFilter defaults to Child|Adult (set on the
+         base engine class itself) and is checked by ThoughtUtility BEFORE the worker is
+         ever queried — without this override, a Baby-stage pawn would never even reach
+         ThoughtWorker_BubbleJoyBaby.CurrentStateInternal, no matter what it returns. This
+         is exactly the same reason vanilla ThoughtDefs that need to reach babies (e.g.
+         Royalty's Thoughts_Situation_Special) always declare this explicitly. -->
+    <developmentalStageFilter>Baby</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>So Many Bubbles!</label>
+        <description>Wow, look at all the floaty bubbles!! hehehe, I love them! they go floaty float and when i touch them they go POP!! I love bubbles cause they are so much fun!</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Children: still fun to chase and pop, just less overwhelming than for the little ones. -->
+  <ThoughtDef>
+    <defName>TPE_BubbleJoyChild</defName>
+    <workerClass>ToddlersPlayExpanded.ThoughtWorker_BubbleJoyChild</workerClass>
+    <stages>
+      <li>
+        <label>Bubbles</label>
+        <description>Theres some fun bubbles around here, i like to chase and pop them!</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Adults: annoyed by the mess — ONLY while stuck in an enclosed room with them
+       (ThoughtWorker_BubbleAnnoyedAdult gates on CompBubbleZone.GetIsZoneEnclosed).
+       -3 mood: a placeholder magnitude (the ask didn't specify a number for this one,
+       unlike the +6/+2 given for the other two) — picked to sit in the same "mild,
+       everyday annoyance" range as comparable vanilla environment thoughts. Easy to
+       retune if a different value is wanted. -->
+  <ThoughtDef>
+    <defName>TPE_BubbleAnnoyedAdult</defName>
+    <workerClass>ToddlersPlayExpanded.ThoughtWorker_BubbleAnnoyedAdult</workerClass>
+    <stages>
+      <li>
+        <label>Annoying Bubbles</label>
+        <description>Its so annoying trying to do anything with all these bubbles floating around the room! They keep popping, then all the soap gets all over me. Not to mention it really stings when it gets in my eyes! Someone needs to move the machine outside, I have no idea how those little ones like the bubbles so much!</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

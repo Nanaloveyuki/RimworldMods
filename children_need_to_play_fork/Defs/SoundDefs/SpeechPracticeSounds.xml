@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <!--
+        TPE_SpeechPracticeBabble
+        ═════════════════════════
+        Sustainer-based sound definition for toddler speech-practice babbling.
+        Each individual clip plays once (sustainLoop=False) and the
+        SubSustainer automatically schedules the next random clip from the
+        folder after a 1–2 second breath-gap. This creates a continuous chain
+        of varied babbling for the entire duration of the play activity.
+
+        Vanilla comparison:
+          - Vanilla BabyCrying uses SubEffecter_SoundTriggered + non-sustainer
+            SoundDef. This plays ONE cry sound per trigger.
+          - We use the same sustainer pattern as TPE_ChildCryingSound and
+            RimWorld construction/work sounds: the sustainer lives for the
+            whole activity, and the internal SubSustainer chains random grains
+            with a configurable gap between them.
+    -->
+    <SoundDef>
+        <defName>TPE_SpeechPracticeBabble</defName>
+        <!-- MUST be True for the JobDriver to spawn this via TrySpawnSustainer. -->
+        <sustain>True</sustain>
+        <context>MapOnly</context>
+        <maxSimultaneous>5</maxSimultaneous>
+        <!-- Must be PrioritizeNearest for sustainers; PrioritizeNewest is unsupported. -->
+        <priorityMode>PrioritizeNearest</priorityMode>
+        <!-- Quick fade-out when the activity ends and the sustainer is stopped. -->
+        <sustainFadeoutTime>0.1</sustainFadeoutTime>
+        <subSounds>
+            <li>
+                <muteWhenPaused>True</muteWhenPaused>
+                <volumeRange>12~15</volumeRange>
+                <distRange>5~25</distRange>
+                <!--
+                  sustainLoop=False  → each grain plays once for its full duration.
+                  sustainIntervalRange → gap between babbles (seconds). 1~2s gives
+                  a natural pause so the toddler appears to be thinking between
+                  attempts, and clips never overlap.
+                -->
+                <sustainLoop>False</sustainLoop>
+                <sustainIntervalRange>1~2</sustainIntervalRange>
+                <grains>
+                    <li Class="AudioGrain_Folder">
+                        <clipFolderPath>ToddlerSpeech</clipFolderPath>
+                    </li>
+                </grains>
+            </li>
+        </subSounds>
+    </SoundDef>
+</Defs>

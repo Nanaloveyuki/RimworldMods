@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Bubble Mote for the Bubble Machine -->
+  <!-- This mote floats around the bubble zone, spawned by the Bubble Machine comp -->
+  <ThingDef ParentName="MoteBase">
+    <defName>TPE_Mote_Bubble</defName>
+    <label>bubble</label>
+    <thingClass>ToddlersPlayExpanded.Mote_Bubble</thingClass>
+    
+    <!-- Static fallback lifespan (used only if a bubble is ever spawned WITHOUT going -->
+    <!-- through CompBubbleZone.TrySpawnBubble, e.g. a future debug action) -->
+    <!-- In normal play, CompBubbleZone randomizes each bubble's TOTAL on-screen time to -->
+    <!-- 8-15 seconds per spawn via Mote.solidTimeOverride, which both Mote_Bubble.EndOfLife -->
+    <!-- and the inherited Alpha fade calculation read instead of this static solidTime. -->
+    <mote>
+      <fadeInTime>0.5</fadeInTime>
+      <solidTime>4</solidTime>
+      <fadeOutTime>0.5</fadeOutTime>
+    </mote>
+    
+    <!-- Graphics -->
+    <graphicData>
+      <texPath>Things/Mote/Bubble</texPath>
+      <drawSize>1.0</drawSize>
+    </graphicData>
+    
+    <!-- Render above most things but below sky -->
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+  </ThingDef>
+
+</Defs>

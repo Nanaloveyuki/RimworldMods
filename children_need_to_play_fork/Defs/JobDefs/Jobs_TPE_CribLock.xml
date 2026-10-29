@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ==========================================
+       RETURN TODDLER TO CRIB
+       Colonist picks up a locked toddler who got
+       out of their crib and places them back on
+       the crib cell directly.
+       ========================================== -->
+  <JobDef>
+    <defName>TPE_ReturnToddlerToCrib</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_TPE_ReturnToddlerToCrib</driverClass>
+    <reportString>returning TargetA to crib.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- ==========================================
+       GIVE TOY TO LOCKED TODDLER
+       Colonist picks up a plush toy and equips
+       it on a crib-locked toddler.
+       ========================================== -->
+  <JobDef>
+    <defName>TPE_GiveToyToLockedToddler</defName>
+    <driverClass>ToddlersPlayExpanded.JobDriver_TPE_GiveToyToLockedToddler</driverClass>
+    <reportString>giving toy to TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+</Defs>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ==========================================
+       GIVE TOY TO LOCKED TODDLER
+       Colonists with Childcare enabled will bring
+       a plush toy to crib-locked toddlers who
+       don't already have one equipped.
+       Priority 82 (above feeding at 81).
+       ========================================== -->
+  <WorkGiverDef>
+    <defName>TPE_GiveToyToLockedToddler</defName>
+    <label>give toy to locked toddler</label>
+    <giverClass>ToddlersPlayExpanded.WorkGiver_TPE_GiveToyToLockedToddler</giverClass>
+    <workType>Childcare</workType>
+    <verb>give toy</verb>
+    <gerund>giving toy to</gerund>
+    <priorityInType>82</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+
+  <!-- ==========================================
+       DRESS TODDLER
+       Adult colonists with Childcare enabled will
+       seek out and dress toddlers who aren't
+       wearing baby bodywear (onesies or tribalwear).
+       Uses vanilla ForceTargetWear job.
+       Priority 75 (below feeding at 80).
+       ========================================== -->
+  <WorkGiverDef>
+    <defName>TPE_DressToddler</defName>
+    <label>dress toddlers</label>
+    <giverClass>ToddlersPlayExpanded.WorkGiver_DressToddler</giverClass>
+    <workType>Childcare</workType>
+    <verb>dress</verb>
+    <gerund>dressing</gerund>
+    <priorityInType>75</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+
+  <!-- ==========================================
+       TOY WORKBENCH BILLS
+       Pawns with Crafting work enabled can craft
+       toys at the toy workbench. This WorkGiver
+       was missing — without it pawns could not
+       interact with the workbench at all.
+       ========================================== -->
+  <WorkGiverDef>
+    <defName>TPE_DoBillsMakeToys</defName>
+    <label>make toys at workbench</label>
+    <giverClass>WorkGiver_DoBill</giverClass>
+    <workType>Crafting</workType>
+    <priorityInType>90</priorityInType>
+    <fixedBillGiverDefs>
+      <li>TPE_ToyWorkbench</li>
+    </fixedBillGiverDefs>
+    <verb>craft toys at</verb>
+    <gerund>crafting toys at</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+
+</Defs>

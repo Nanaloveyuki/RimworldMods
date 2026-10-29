@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThoughtDef>
+		<defName>TPE_SleptWithPlushToy</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Slept with a soft toy!</label>
+				<description>I got to go to sleep while snuggled up with my softest best friend, i felt so safe because they protected me!</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>TPE_NoSoftCuddleBuddy</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>No soft cuddle buddy?!</label>
+				<description>I had to sleep all alone without a soft friend to keep me safe! I felt so lonely and scared because what if a giant monster came and tried to eat me up? Who would keep me safe?!</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>TPE_CribRestless</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>0.1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby,Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>I wanna be out!</label>
+				<description>Im starting to get kinda really bored in here, theres not much to do but wiggle!</description>
+				<baseMoodEffect>-1</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>TPE_CribFrustrated</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>0.1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby,Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Stupid crib...</label>
+				<description>This isnt fair!!! I wanna go out of my crib but they wont let me!! I wanna go play toys!!!</description>
+				<baseMoodEffect>-2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>TPE_WantsOutOfCrib_Active</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby,Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>I want to be let out of my crib!</label>
+				<description>I'm stuck in my crib! I wanna be let out but no one is coming to get me!!! There's so much fun stuff out there and I wanna go play with it!</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>TPE_WasLockedInCrib</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>0.04</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby,Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Was locked in my crib</label>
+				<description>I'm finally out of my crib, but i'm still upset that the grown ups wouldn't let me out for so long! I was so boring in there! There was nothing to doooo! I hate my crib! im never getting back in there again, I wanna play forever!!</description>
+				<baseMoodEffect>-2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>TPE_CribLocked_Active</defName>
+		<workerClass>ToddlersPlayExpanded.ThoughtWorker_LockedInCrib</workerClass>
+		<developmentalStageFilter>Baby,Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Locked in!!! Not fair!!!</label>
+				<description>They put me in my crib and locked it so i cant get out!! This is so mean!! I just wanna go play with my toys and run around but they wont let me!! I dont like my crib anymore!! I wanna be free!!!</description>
+				<baseMoodEffect>-1</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<!-- Child (3-6) plush toy sleep thoughts - same mood values as toddlers but age-appropriate text -->
+	<ThoughtDef>
+		<defName>TPE_ChildSleptWithPlushToy</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Slept with my favorite toy</label>
+				<description>I got to cuddle with my favorite toy while I slept. It made me feel so safe and loved. I had such sweet dreams!</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>TPE_ChildNoPlushToy</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Child</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>No toy to cuddle</label>
+				<description>I had to sleep without my favorite toy to cuddle. I felt lonely and a bit scared. I wish I had something soft to hold onto.</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<!-- Adult (13+, includes Teenager life stage) plush toy sleep thoughts. Gated by
+	     TPE_Settings.enableAdultPlushSleep AND the 4-way adultPlushieMoodMode dropdown
+	     (see Patch_Toils_LayDown_ApplyBedThoughts in HarmonyPatches.cs) — unlike the
+	     toddler/child versions above, either or both of these can be individually
+	     suppressed by player choice, so the mood swing is opt-in on both ends.
+	     Deliberately NOT given <nullifyingTraits>: the sibling toddler/child plush
+	     thoughts above don't nullify for Psychopath either, so this keeps the whole
+	     plush-thought family consistent (only the play-NEED thoughts elsewhere in this
+	     mod use nullifyingTraits, per TPE_Settings.keepPlayMoodForPsychopaths' own doc
+	     comment, which lists exactly which thoughts it governs — these are not among them). -->
+	<ThoughtDef>
+		<defName>TPE_AdultSleptWithPlushToy</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Adult</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Slept with a comfort item</label>
+				<description>There's something quietly comforting about having a soft, familiar toy nearby while I sleep. I won't admit it to anyone, but it helped me sleep a little easier.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>TPE_AdultNoPlushToy</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>1</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Adult</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>Missed my comfort item</label>
+				<description>I wanted something soft to hold onto while I slept, but couldn't find one. It's a small thing, but I felt it.</description>
+				<baseMoodEffect>-4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<!-- Toddler sleeping in regular bed (not a crib) triggers distress due to perceived size -->
+	<ThoughtDef>
+		<defName>TPE_BedTooBig</defName>
+		<thoughtClass>Thought_Memory</thoughtClass>
+		<durationDays>0.75</durationDays>
+		<stackLimit>1</stackLimit>
+		<developmentalStageFilter>Baby</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>This bed is way too big!</label>
+				<description>This bed is way way way to big, it makes me feel so small and scared. There isn't even any walls! What if i fall off, id go SPLAT on the ground! Its so big that I'm scared a monster is gonna come find me and eat me up for dinner! I miss my crib!</description>
+				<baseMoodEffect>-6</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  EVENT-TRIGGERED toddler moods                                 -->
+    <!--  Applied by MapComponent_ToddlerEventMoods when conditions     -->
+    <!--  change, NOT by the random hourly roll.                       -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- ── POSITIVE events ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_RainStarted</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Its raining! Its raining!</label>
+                <description>Water is falling from the sky! Its all drippy and splishy! I wanna go splash in the puddles! Rain is so fun!</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- THUNDERSTORM has TWO possible moods (positive or negative, randomly chosen) -->
+    <ThoughtDef>
+        <defName>TPE_Event_ThunderstormFascinating</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The sky is doing something cool!</label>
+                <description>The sky is so bright and loud and wild! It makes big rumbles and flashes really bright! Its like the sky is alive and dancing! I think its amazing!</description>
+                <baseMoodEffect>5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ThunderstormScary</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The sky is mean!</label>
+                <description>The sky is so loud and angry and scary! It shakes everything with big scary sounds and makes it so bright I have to close my eyes! I dont like it! I just wanna be safe!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_SnowStarted</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>White fluffy stuff is falling!</label>
+                <description>Soft white fluff is coming down from the sky! Its so cold and pretty! I tried to catch some on my tongue! It tastes like cold!</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Aurora</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The sky is dancing with colours!</label>
+                <description>The night sky is all green and purple and moving like a ribbon! Its the prettiest thing Ive ever seen! I cant stop looking up!</description>
+                <baseMoodEffect>6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_RaidWon</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The bad guys went away!</label>
+                <description>All the scary fighting noises stopped! The mean people ran away! We won! Everyone is safe now! I knew we would win!</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_NewColonist</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>A new person came to play!</label>
+                <description>Someone new came to live with us! Maybe theyll be my friend! I wanna show them all my toys! New friends are the best!</description>
+                <baseMoodEffect>5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Wedding</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Everyones dancing and happy!</label>
+                <description>Everyones wearing pretty clothes and smiling and dancing! Theres music and yummy food! I love parties! This is so much fun!</description>
+                <baseMoodEffect>6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ToddlerRescued</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Someone saved me!</label>
+                <description>I was hurt and scared but someone picked me up and made me feel better! They carried me to safety! Theyre my hero! Thank you!</description>
+                <baseMoodEffect>7</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+
+    <!-- ── NEGATIVE events ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_FireOnMap</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Fire is scary!</label>
+                <description>Big hot orange fire is moving around and eating everything! It crackles and pops and burns stuff up! I can feel the heat and it hurts! Fire is really really scary and I want it to go away!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_RaidActive</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>There are scary noises outside!</label>
+                <description>There are loud bangs and shouting and scary people outside! Everyone looks worried! I have to hide! Whats happening?! Im so scared!</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ToxicFallout</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The air tastes funny...</label>
+                <description>The air smells all weird and yucky! My throat feels scratchy! They wont let me go outside and play! I wanna run around but I cant!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_HeatWave</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Its too hot to move...</label>
+                <description>Everything is so hot and sweaty! Im all sticky and uncomfortable! Even the floor is warm! I just wanna lie still and do nothing...</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ColdSnap</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Im shivering and cold...</label>
+                <description>Its so cold my fingers are all numb! I can see my breath! Im wrapped in blankets but Im still freezing! I hate being cold!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Eclipse</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The sun went away...</label>
+                <description>The sun disappeared and everything got all dark! Its supposed to be daytime but it looks like night! Did the sun fall down?! Thats scary!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ColonistDied</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>2.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Someone went away forever...</label>
+                <description>Someone I knew isnt here anymore... They went to sleep and didnt wake up... The grown ups are crying... I dont understand where they went...</description>
+                <baseMoodEffect>-8</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Burial</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <!-- User-requested: lingers 5 in-game hours (5/24 day) after burial, not
+             the usual 3-hour "ongoing" duration. It is a LINGERING mood in
+             MapComponent_ToddlerEventMoods.cs (refreshed while a COLONY MEMBER,
+             colonist or slave, is carried to a grave; never force-removed).
+             See Architecture.md section 5.2. -->
+        <durationDays>0.208333</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Everyone is so sad today...</label>
+                <description>Everyones wearing dark clothes and no one is smiling... They put someone in the ground... Why would they do that?! Its so sad and scary...</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ToddlerInjured</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>I got a big big ouchie!</label>
+                <description>Something hurt me really bad! Theres blood and everything stings! I wanna cry but it hurts too much! Why did this happen to me?!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ScaryPersonNearby</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>A scary person is close!</label>
+                <description>I saw a really scary person near me! They look mean and angry! They have weapons and scary clothes! I need to hide right now! Please make them go away!</description>
+                <baseMoodEffect>-7</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  NEW EVENT-TRIGGERED MOODS (v2)                                -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- ── ENVIRONMENTAL ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_VolcanicWinter</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The sky is all grey and ashy!</label>
+                <description>Ash is falling from the sky like grey snow! Its cold and dark and the sun is hiding! Everything looks sad and grey... I dont like this!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- TPE_Event_SolarFlare was REMOVED (user request): it duplicated the power
+         outage mood and misfired with mods that keep power on during a flare.
+         A flare that really switches the colony's power off now shows up as
+         TPE_Event_PowerOutage instead. See Architecture.md section 5.2. -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_Flashstorm</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Lightning and fire and loud!</label>
+                <description>The sky is throwing lightning down and it makes fire everywhere! Its so scary and crazy and dangerous! Everything is shaking and I feel so scared! I need to stay inside!!</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Blight</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The plants are all dying!</label>
+                <description>All the pretty green plants turned brown and yucky! Theyre wilting and dying! The blight ate them! Im scared we wont have enough food...</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Tornado</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Big spinning wind!</label>
+                <description>A huge spinning wind monster is moving around! It picks up stuff and throws it! Its so loud and scary! I hope it doesnt come here!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_DryThunderstorm</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Loud storm with no water!</label>
+                <description>The sky is yelling and lighting up but theres no water to help! Thats scary because fires could start and nothing can stop them! Whats gonna happen? Im really worried!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- ── INCIDENTS / THREATS ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_ManhunterPack</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Animals are going crazy!</label>
+                <description>All the animals are running around biting everyone! Their eyes look scary! Theyre not friendly anymore! I wanna run away!</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Infestation</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Bugs came from underground!</label>
+                <description>Giant scary bugs burst out of the ground! Theyre crawling everywhere and making nests! They have sharp claws! Ewww!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_MechanoidRaid</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Scary robot people!</label>
+                <description>Metal people with guns are attacking! They dont have faces and they move all jerky! Theyre not alive but theyre mean! They scare me so much!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_MadAnimal</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>A crazy animal!</label>
+                <description>One of the animals went crazy! Its running around biting and attacking! Its eyes look all wrong! I have to stay away from it!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_PrisonBreak</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The bad people escaped!</label>
+                <description>The prisoners broke out of their rooms! Theyre running around and fighting! They look angry! Dont let them catch me!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- ── SOCIAL / COLONY ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_Party</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Party time!</label>
+                <description>Everyones dancing and eating treats and being happy! Theres music and fun! I love parties! Can I stay up late?</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_Birthday</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Its my birthday!</label>
+                <description>I got older today! Everyone is saying happy birthday! Maybe there will be cake and presents! Im a big kid now!</description>
+                <baseMoodEffect>5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_SocialFight</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Grown ups are fighting!</label>
+                <description>Two people are hitting each other and yelling! Theyre supposed to be friends! Its scary when adults fight! I want them to stop it!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_MentalBreak</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Someone went crazy!</label>
+                <description>One of the grown ups is acting really weird! Theyre yelling or breaking stuff or walking away! Whats wrong with them?!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_AnimalTamed</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.5</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>We got a new animal friend!</label>
+                <description>Someone made a wild animal be our friend! Its not scared anymore! Now we have a new pet! Can I name it?</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- ── POSITIVE EVENTS ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_WandererJoins</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>A new friend appeared!</label>
+                <description>Someone wandered into our home and decided to stay! Maybe theyll play with me! Im so excited to meet them!</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ResourcePodCrash</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.5</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Presents fell from the sky!</label>
+                <description>A big metal box crashed down from space! Maybe it has toys or yummy food inside! I wanna go see!</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_MeteoriteImpact</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.5</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>A rock fell from space!</label>
+                <description>A big rock crashed into the ground! It made a huge boom! Its from outer space! Thats so cool!</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ThrumbosPassing</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Giant unicorns!</label>
+                <description>Huge beautiful horned animals are walking by! Theyre so big and fluffy and magical! Ive never seen anything like them!</description>
+                <baseMoodEffect>4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_VisitorsArrived</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>People came to visit!</label>
+                <description>Friendly people came to see us! Maybe they have stories or treats! I like when we have visitors!</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_TraderCaravan</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Merchants are here!</label>
+                <description>People with packs and animals came to trade! Maybe they have toys or candy! Can we buy something fun?</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- ── MEDICAL / HARDSHIP ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_DiseaseOutbreak</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>People are getting sick!</label>
+                <description>Everyones coughing and feeling yucky! They have to stay in bed! I hope I dont get sick too! Its scary!</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_MedicalOperation</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Someone is being cut open!</label>
+                <description>I saw someone on the table and doctors are cutting them! Theres blood and sharp tools! It looks scary but they say its to help...</description>
+                <baseMoodEffect>-2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_FoodShortage</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Theres no food!</label>
+                <description>The food is all gone! My tummy is rumbling and hurting! Were hungry! When will we eat again?!</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_PowerOutage</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>The lights went out!</label>
+                <description>All the lights and machines stopped working! Its dark and quiet! The batteries went empty! I dont like the dark...</description>
+                <baseMoodEffect>-2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- ── DISTURBING ── -->
+
+    <ThoughtDef>
+        <defName>TPE_Event_CorpseObserved</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>1.0</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Theres a dead person!</label>
+                <description>I saw someone who isnt moving and their eyes are closed! Theyre all pale and cold! Theyre dead! Thats so scary!</description>
+                <baseMoodEffect>-6</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ButcheringHumanlike</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.125</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Theyre cutting up a person!</label>
+                <description>The grown ups are cutting up a dead person like theyre an animal! Its so wrong and scary! Why would they do that?!</description>
+                <baseMoodEffect>-8</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_Event_ObservedBlood</defName>
+        <thoughtClass>Thought_Memory</thoughtClass>
+        <durationDays>0.25</durationDays>
+        <stackLimit>1</stackLimit>
+        <developmentalStageFilter>Baby,Child</developmentalStageFilter>
+        <stages>
+            <li>
+                <label>Theres blood everywhere!</label>
+                <description>Red stuff is all over the ground! Its blood! Someone got hurt! Its gross and scary! I want them to clean it up!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

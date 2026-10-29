@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <NeedDef>
+    <defName>TPE_ChildPlay</defName>
+    <needClass>ToddlersPlayExpanded.Need_ChildPlay</needClass>
+    <label>play</label>
+    <description>Children need time to play and have fun. If they don't play enough, they'll become unhappy and their growth will slow down.\n\nPlay activities include playing with toys, reading books, drawing on the floor, and more.</description>
+    <listPriority>490</listPriority>
+    <!-- developmentalStageFilter removed — need is gated by enableChildrenPlayNeed toggle -->
+    <colonistsOnly>true</colonistsOnly>
+    <major>true</major>
+  </NeedDef>
+
+</Defs>

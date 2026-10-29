@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  SELF SOOTHING mood thoughts                                    -->
+    <!--  Applied at the end of a Self Soothing activity (50% chance).   -->
+    <!--  The description is generated dynamically at runtime by         -->
+    <!--  <see cref="Thought_SelfSoothing.Description"/> based on the    -->
+    <!--  toddler's favourite adult and whether the outcome was positive -->
+    <!--  or negative.                                                   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Positive outcome: toddler managed to calm themselves down. -->
+    <ThoughtDef>
+        <defName>TPE_SelfSoothingPositive</defName>
+        <thoughtClass>ToddlersPlayExpanded.Thought_SelfSoothing</thoughtClass>
+        <stackLimit>1</stackLimit>
+        <durationDays>0.125</durationDays>  <!-- 3 hours -->
+        <developmentalStageFilter>Baby</developmentalStageFilter>
+        <!-- Mirrors vanilla's own convention for child/baby-facing mood thoughts
+             (see Biotech's MyChildHappy/MyChildSad/MyParentHappy/MyParentsHappy) —
+             Psychopath nullifies this thought's mood contribution by default.
+             Players can restore it via the "Keep play mood for psychopaths"
+             setting (Patch_ThoughtUtility_NullifyingTrait_PlayMood in
+             HarmonyPatches.cs suppresses nullification specifically for this
+             def when that setting is enabled). -->
+        <nullifyingTraits>
+            <li>Psychopath</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>I calmed my self down</label>
+                <description>[DYNAMIC]</description>
+                <baseMoodEffect>2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <!-- Negative outcome: toddler tried but failed to calm down. -->
+    <ThoughtDef>
+        <defName>TPE_SelfSoothingNegative</defName>
+        <thoughtClass>ToddlersPlayExpanded.Thought_SelfSoothing</thoughtClass>
+        <stackLimit>1</stackLimit>
+        <durationDays>0.125</durationDays>  <!-- 3 hours -->
+        <developmentalStageFilter>Baby</developmentalStageFilter>
+        <!-- See TPE_SelfSoothingPositive above — same Psychopath nullification
+             convention, same settings-gated exemption. -->
+        <nullifyingTraits>
+            <li>Psychopath</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>I'm starting to feel really bad!!</label>
+                <description>[DYNAMIC]</description>
+                <baseMoodEffect>-2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

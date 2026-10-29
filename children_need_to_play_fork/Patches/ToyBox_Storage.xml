@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/ThingDef[defName="ToyBox"]</xpath>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="ToyBox"]</xpath>
+					<value>
+						<thingClass>ToddlersPlayExpanded.Building_ToyBox</thingClass>
+					</value>
+				</li>
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="ToyBox"]/passability</xpath>
+					<value>
+						<passability>Standable</passability>
+					</value>
+				</li>
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="ToyBox"]/canOverlapZones</xpath>
+					<value>
+						<canOverlapZones>false</canOverlapZones>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="ToyBox"]</xpath>
+					<value>
+						<surfaceType>Item</surfaceType>
+						<inspectorTabs>
+							<li>ITab_Storage</li>
+						</inspectorTabs>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="ToyBox"]/building</xpath>
+					<value>
+						<blueprintClass>Blueprint_Storage</blueprintClass>
+						<maxItemsInCell>25</maxItemsInCell>
+						<fixedStorageSettings>
+							<filter>
+								<categories>
+									<li>Toys</li>
+								</categories>
+							</filter>
+						</fixedStorageSettings>
+						<defaultStorageSettings>
+							<priority>Normal</priority>
+							<filter>
+								<categories>
+									<li>Toys</li>
+								</categories>
+							</filter>
+						</defaultStorageSettings>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- Insert child play think node between Learning and Joy in the main colonist behavior core.
+       Priority: 8.5 (below Learning at 9.1, above Joy at 7.0), or 9.15 (just above Learning)
+       when play is urgent: below 30% and lower than Learning (v1.2.2).
+       Only activates for children whose play need is below 95%. -->
+
+  <Operation Class="PatchOperationInsert">
+    <xpath>/Defs/ThinkTreeDef[defName="MainColonistBehaviorCore"]/thinkRoot/subNodes/li/subNodes/li[@Class="ThinkNode_Priority_GetJoy"]</xpath>
+    <order>Prepend</order>
+    <value>
+      <li Class="ToddlersPlayExpanded.ThinkNode_Priority_ChildPlay">
+        <subNodes>
+          <li Class="ToddlersPlayExpanded.JobGiver_ChildPlay" />
+        </subNodes>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>
