@@ -2,8 +2,6 @@
 <LanguageData>
   <IM_Open>開啟 IrisMenus</IM_Open>
   <IM_Manage>新增 Mod 設定</IM_Manage>
-  <IM_OpenOriginalSettings>開啟原始設定視窗</IM_OpenOriginalSettings>
-  <IM_ExternalSettings>此 Mod 使用獨立設定視窗。請點擊下方按鈕開啟，並在該視窗中儲存修改。</IM_ExternalSettings>
   <IM_Registered>專屬設定</IM_Registered>
   <IM_Added>已新增</IM_Added>
   <IM_Pages>設定頁面</IM_Pages>
@@ -77,7 +75,7 @@
   <IM_NativeModSettings>Mod 設定</IM_NativeModSettings>
   <IM_NativeSwitchLight>切換至淺色主題</IM_NativeSwitchLight>
   <IM_NativeSwitchDark>切換至深色主題</IM_NativeSwitchDark>
-  <IM_NativeSearchPlaceholder>搜尋設定或 Mod</IM_NativeSearchPlaceholder>
+  <IM_NativeSearchPlaceholder>搜尋：@*模組* 設定詞 · +@*模組* 新增</IM_NativeSearchPlaceholder>
   <IM_NativeClose>關閉設定</IM_NativeClose>
   <IM_NativeSearchResults>搜尋結果</IM_NativeSearchResults>
   <IM_NativeChoosePage>從設定庫選擇 Mod，開啟它的設定。</IM_NativeChoosePage>
@@ -102,7 +100,7 @@
   <IM_NativeResetTitle>恢復本頁預設設定？</IM_NativeResetTitle>
   <IM_NativeResetDescription>恢復本頁的預設設定。其他頁面的設定不變。</IM_NativeResetDescription>
   <IM_NativeDone>完成</IM_NativeDone>
-  <IM_NativeHelpDescription>在側欄選擇 Mod 以開啟設定，也可以按名稱搜尋選項。右鍵點擊 Mod 可置頂、改名或調整順序。在設定庫中可以新增更多 Mod。部分頁面還提供目錄、使用說明和恢復預設值按鈕。</IM_NativeHelpDescription>
+  <IM_NativeHelpDescription>在側欄選擇 Mod。輸入 @*模組* 設定詞可限定模組搜尋；+@*模組* .* 可查詢新增狀態並直接新增。支援名稱、別名、套件名稱和 Mod 類型；含空格時加引號，例如 @"*FSF Tweaks*" .*。右鍵側欄 Mod 可置頂、改名或調整順序。</IM_NativeHelpDescription>
   <IM_NativeManagementTitle>新增 Mod 至設定庫</IM_NativeManagementTitle>
   <IM_NativeManagementHint>選擇要在 IrisMenus 中顯示的 Mod 設定。這不會啟用或停用遊戲 Mod。</IM_NativeManagementHint>
   <IM_NativeManagementShown>已顯示在設定庫</IM_NativeManagementShown>
@@ -110,6 +108,11 @@
   <IM_NativeManagementAlwaysShown>一律顯示</IM_NativeManagementAlwaysShown>
   <IM_NativeManagementNoPreview>暫無預覽圖</IM_NativeManagementNoPreview>
   <IM_NativeManagementEmpty>沒有可用的設定頁面。</IM_NativeManagementEmpty>
+  <IM_HostAllModSettings>所有 Mod 設定都使用 IrisMenus</IM_HostAllModSettings>
+  <IM_HostAllModSettingsHint>預設關閉。關閉後恢復原有手動新增項目，不會改動它們，也不會啟用或停用遊戲 Mod。</IM_HostAllModSettingsHint>
+  <IM_GlobalHostingActive>由全域接管顯示</IM_GlobalHostingActive>
+  <IM_ModLookupTitle>尋找並新增 Mod</IM_ModLookupTitle>
+  <IM_ModLookupHint>搜尋目前已載入且提供設定的 Mod。勾選結果可新增至設定庫，再按「開啟」。</IM_ModLookupHint>
   <IM_ValueColors>物品價值配色</IM_ValueColors>
   <IM_ValueColorsHint>按單件物品的市場價值配色，不計算整組價值。每級包含起始值，不包含下一級起始值；最後一級沒有上限，首級固定從 0 開始。點擊色塊可調整顏色，套用後立即生效。</IM_ValueColorsHint>
   <IM_ValueAddBand>新增價值級距</IM_ValueAddBand>

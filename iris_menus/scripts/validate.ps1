@@ -29,7 +29,7 @@ $chinese = @($zh.LanguageData.ChildNodes | ForEach-Object Name)
 if (Compare-Object $english $chinese) { throw 'Localization key mismatch.' }
 if (@($english | Select-Object -Unique).Count -ne $english.Count) { throw 'Duplicate English key.' }
 if (@($chinese | Select-Object -Unique).Count -ne $chinese.Count) { throw 'Duplicate Chinese key.' }
-$used = @(Get-ChildItem (Join-Path $root 'Source') -Filter *.cs |
+$used = @(Get-ChildItem (Join-Path $root 'Source') -Recurse -Filter *.cs |
     Select-String -Pattern '"(IM_[A-Za-z]+)"' -AllMatches | ForEach-Object { $_.Matches } |
     ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
 foreach ($key in $used) { if ($key -notin $english) { throw "Missing translation: $key" } }

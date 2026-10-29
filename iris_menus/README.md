@@ -42,6 +42,11 @@ using measured content height. Use `MenuControls.Section`, `Checkbox`, `Slider`,
 `Number` (int/float), and `Select` (dropdown) to build a page. Keep numeric edit
 buffers in your Mod or page instance, not local variables created each frame.
 
+To reuse a Listing drawer with native scrolling, register it normally, then call
+`MenuRegistry.RegisterPresentation(this, "general", MenuPresentation.Listing(DrawSettings))`.
+The annotation preserves the ordinary page's identity, search and save callback.
+The host owns the retained native page; its scroll view borrows the host context.
+
 For existing custom rendering, `MenuRegistry.Register` receives `Action<Rect>`.
 That page owns its controls and scrolling; `MenuScrollView` is also available
 for composing a custom page. Both APIs use the same optional save callback.
@@ -72,6 +77,26 @@ Explicitly registered owners take precedence over adapters.
 The full-screen host uses a dedicated desktop library page with
 `About/Preview.png` thumbnails, current-language aliases (or the About name),
 and hosted-page visibility controls. These controls do not enable or disable game mods.
+
+**Host all mod settings in IrisMenus** is off by default. It includes every loaded
+Mod with a nonempty settings category and routes its original entry into the host.
+It never changes `EnabledAdapters`: switching it off restores the player's manual
+selection unchanged. While it is on, per-Mod visibility/removal controls are disabled.
+
+Header search accepts typed selectors:
+
+| Input | Result |
+|---|---|
+| `@*xxx* option` | Search exposed settings of matching mods only |
+| `@*xxx* .*` | List all indexed settings of matching mods |
+| `+@*xxx* .*` | Find loaded mods, inspect hosting status, add them and open settings |
+| `+@"*FSF Tweaks*" .*` | Quote a selector containing spaces |
+
+Selectors match original/display names, registered aliases, package IDs and Mod
+type names, case-insensitively. Only `*` is a wildcard; `.*` in the content part
+means all settings, not a regular expression. Typed scope overrides the implicit
+current-Mod scope. Setting contents remain limited to explicit search metadata;
+search never executes an unselected drawer. Mod discovery also includes unadded mods.
 
 ### Language-specific Mod names
 
@@ -112,16 +137,22 @@ to the selected callback; unrelated windows retain their original appearance.
 Custom images/shaders and arbitrary consumer background colors are not covered.
 
 Character Editor (`CharacterEditor.CharacterEditorMod`, Workshop 1874644848)
-uses its drawing callback to open a separate configuration window and close
-the vanilla settings dialog. Its hosted page therefore provides an **Open
-original settings window** button instead of invoking that callback every
-IMGUI event. Clicking opens the original window, or focuses it if already open;
-closing it never automatically reopens it. Save changes with Character Editor's
-own Save button. Existing manual selections and settings entry routing still
-work; explicit page registrations retain precedence. No Character Editor
-methods or private settings are patched or reflected.
+opens its native configuration body directly inside IrisMenus, without a second
+launch button or stacked dialog. Its fixed-width body remains scrollable. Leaving
+the page saves its settings and slots; its own Save action returns to IM navigation.
+
+FSF Tweaks (Workshop 2893432492) uses an XML Extensions-generated launcher, not
+an ordinary settings drawer. IrisMenus hosts that native menu body without calling
+the per-frame launcher, preserving submenu lifecycle, keyed actions and XML
+Extensions shared settings storage. Native close/restart actions are scoped to the
+hosted menu. Both adapters retain explicit page-registration precedence.
 
 ## Build
+
+Source files are grouped by responsibility: `Registry/`, `Hosting/`, `Search/`,
+`Compatibility/`, `Rendering/`, `Pages/`, `Controls/`, `Documents/` and `Features/`.
+Reusable native widgets remain in `UI/`; namespaces and public registration APIs
+are unchanged. The project stays at `Source/IrisMenus.csproj`.
 
 Install the .NET 10 SDK and a local RimWorld 1.7 installation. The existing
 engine-double checks also require the .NET 9 runtime. Builds and deployment
@@ -234,6 +265,22 @@ are covered, not independent mod-drawn bars. A worker's own visibility condition
 still apply.
 
 ## Release notes
+
+### 2.0.1 — hosting policy, typed search and launcher compatibility (1.7)
+
+- Add a default-off global hosting switch independent of all manual selections.
+- Add owner-scoped `@` searches and `+@` Mod discovery with status, add and open controls.
+- Host Character Editor and XML Extensions/FSF native settings bodies directly,
+  preserving their save/close lifecycles without per-frame launcher windows.
+- Classify `Source` by responsibility; update linked checks and recursive localization validation.
+
+
+### Unreleased — native Listing presentation (1.7)
+
+- Add `MenuPresentation.Listing(Action<Listing_Standard>)` to reuse an ordinary
+  Listing drawer with a retained native scroll view and anchor focus, without
+  changing registration or caller-owned saving. The factory rejects null eagerly;
+  each fresh page disposes its scroll view, never the host-owned context.
 
 ### Unreleased — chapter navigation (1.7)
 
@@ -393,6 +440,20 @@ The current 1.7 contract is a single full-screen host with registered/native pag
 traditional drawers, opt-in adapters, search, browse memory, theme and configuration.
 The dated component and release-note evidence above predates this cutover; it does
 not establish a new build, migration regression result or game acceptance for it.
+
+2026-10-29 hosting/search/launcher update: provider/API consumer build passed with
+zero warnings/errors; 284 engine-double assertions passed. A throwaway smoke using
+the built provider and installed 1.7 assemblies exercised owner/alias filtering,
+global policy/manual-selection restoration, real UnityStubs switch pointer events,
+and management discovery of an unadded Mod. Three language resources have 151
+matching unique keys. Build-only staging verified 39 files by SHA-256.
+
+An isolated rendered instance remained black before Carbon discovery and could not
+be inspected through the bridge; its owned process was terminated after graceful
+shutdown timed out. This does not establish a cause in IrisMenus or third-party
+mods. CE/FSF rendered input, native Save/back, reopening and restart persistence
+remain unverified in-game; the new dialog lifecycle checks use engine doubles.
+No formal installation or preserved 1.6 output was changed.
 
 Compile and engine-double checks are not in-game acceptance. Before release,
 verify registered/native/adapted pages, original opted-in settings entry points,

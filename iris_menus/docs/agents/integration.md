@@ -55,6 +55,16 @@ MenuRegistry.RegisterPresentation(this, "general",
 
 Register the ordinary page first, then optionally annotate the same owner/page ID. The registration supplies stable identity, search and saving; without a presentation, its drawer runs directly in the full-screen host. `MenuPresentation.Create` receives the host-owned `IrisMenus.UI.UiContext` and must return a fresh retained `MenuNativePage`. The host owns its lifetime. See `tests/ApiConsumer/ExampleMod.cs` for a compile-checked consumer and [native components](../references/native-ui-components.md) for controls.
 
+For an existing Listing drawer, keep ordinary registration and annotate it with the native-scroll presentation:
+
+```csharp
+Action<Listing_Standard> draw = DrawGeneral;
+MenuRegistry.RegisterSubItemListing(this, "general", () => "General", draw, WriteSettings);
+MenuRegistry.RegisterPresentation(this, "general", MenuPresentation.Listing(draw));
+```
+
+`public static MenuPresentation Listing(Action<Listing_Standard> draw)` rejects null immediately and does not register or save a page. Each `Create` call returns a fresh retained page with one native `MenuScrollView` and the cached drawer. Its `Draw`, anchor `Focus` and `Dispose` delegate to that scroll view. The page borrows the prepared host context without beginning, ending or disposing it; the host disposes the page. The ordinary registration retains identity, metadata and the caller's save callback. Without the annotation, its ordinary Listing drawer remains usable.
+
 ```csharp
 public abstract class MenuNativePage : IDisposable
 {
@@ -150,9 +160,11 @@ Markdown supports its documented subset, not HTML. It preserves valid color tags
 
 ## Adapters and routing
 
-Manual adapters require a loaded Mod with nonempty `SettingsCategory()` and explicit user selection. Registered pages win; metadata alone does not opt in. Original drawers and `WriteSettings` execute directly, without extra scrolling or emulated `Dialog_ModSettings` lifecycle. The router replaces only exact `Dialog_ModSettings`, not custom subclasses or unrelated game settings.
+Adapters require a loaded Mod with nonempty `SettingsCategory()` and either manual selection or the default-off `HostAllModSettings` policy. Global hosting never edits `EnabledAdapters`; disabling it restores manual choices. Registered pages win; metadata alone does not opt in. Ordinary drawers and `WriteSettings` execute directly, without extra scrolling or emulated `Dialog_ModSettings` lifecycle. Routing replaces only exact `Dialog_ModSettings`, not custom subclasses or unrelated game settings.
 
-Character Editor (`CharacterEditor.CharacterEditorMod`, Workshop 1874644848) is an explicit launcher adapter. Invoke its original configuration dialog only on a click; focus an existing dialog instead of opening duplicates. Closing it does not reopen it; use its own Save. Never patch or reflect its private settings/draw methods.
+Character Editor and XML Extensions-emitted Mod launchers use detached native settings bodies in `Source/Compatibility/NativeSettingsBody.cs`. Do not invoke their launchers per draw or add their detached dialogs to WindowStack. CE saves native settings plus slots; XML uses its real `PreClose`/keyed-action/submenu/shared-storage lifecycle. `MenuSession` deactivates bodies after successful leave/replacement, and `MenuWindow.PreClose` releases the current body. Scoped native close requests return to IM navigation; failed saves keep selection for retry.
+
+Typed search uses `MenuSearchQuery`: `@selector terms` filters settings by owner identity, `+@selector terms` discovers loaded mods and exposes hosting status/add/open controls. Owner `*` is a glob; quote selectors containing spaces. Standalone `.*` content terms mean all. Typed owner scope overrides implicit current-Mod scope; settings indexing remains metadata-only. Source folder names classify responsibility without changing public namespaces.
 
 `ShowMainButton` defaults true. IrisMenus self-settings control the shared value; the bottom-bar management page also remains reachable from ordinary Mod settings. `MainButtonWorker_IrisMenus.Visible` still includes `base.Visible`; hiding it preserves other entry points.
 

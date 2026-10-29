@@ -95,6 +95,10 @@ namespace IrisMenus
                 && names.TryGetValue(language, out alias);
         }
 
+        internal static IEnumerable<string> GetModNameAliases(ModContentPack content) =>
+            modNameAliases.TryGetValue(content.PackageIdPlayerFacing, out Dictionary<string, string> names)
+                ? names.Values : Enumerable.Empty<string>();
+
         public static void Open()
         {
             if (!Find.WindowStack.IsOpen<MenuWindow>()) Find.WindowStack.Add(new MenuWindow());
@@ -315,8 +319,10 @@ namespace IrisMenus
             if (IrisMenusMod.Instance.Settings.RememberState && IrisMenusMod.Instance.Settings.LastSubItems.TryGetValue(OwnerId(owner), out string last))
                 native = owned.FirstOrDefault(page => page.Id == last) ?? native;
             if (native != null) return native;
-            if (!IrisMenusMod.Instance.Settings.EnabledAdapters.Contains(OwnerId(owner))) return null;
-            return AttachAdapterSearch(SettingsAdapter.Create(owner, owner.SettingsCategory));
+            if (!IrisMenusMod.Instance.Settings.HostsAdapter(OwnerId(owner))) return null;
+            string title = owner.SettingsCategory();
+            if (string.IsNullOrWhiteSpace(title)) return null;
+            return AttachAdapterSearch(SettingsAdapter.Create(owner, () => title));
         }
 
         internal static List<MenuPage> Adaptable()
@@ -349,6 +355,8 @@ namespace IrisMenus
         internal Func<string> Title;
         internal Action<Rect> Draw;
         internal Action Save;
+        internal Action Deactivate;
+        internal Action<Action> BindHostClose;
         internal readonly bool Adapted;
         internal bool IsSubItem;
         internal bool ActionLauncher;

@@ -40,9 +40,12 @@ namespace IrisMenus
         private int matchCursor;
         private string query = "";
         private string scope;
-        private string[] terms = new string[0];
+        private MenuSearchQuery parsedQuery = MenuSearchQuery.Parse("");
+        private MenuPage matchedPage;
+        private bool matchesOwner;
         internal IReadOnlyList<MenuSearchHit> Results => results;
         internal bool Pending => pageCursor < pages.Count || current != null || matchCursor < records.Count;
+        internal MenuSearchQuery ParsedQuery => parsedQuery;
 
         internal MenuCatalog(IReadOnlyList<MenuPage> pages) { this.pages = pages; }
 
@@ -52,7 +55,8 @@ namespace IrisMenus
             if (query == text && scope == ownerId) return;
             query = text;
             scope = ownerId;
-            terms = text.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+            parsedQuery = MenuSearchQuery.Parse(text);
+            matchedPage = null;
             results.Clear();
             matchCursor = 0;
         }
@@ -91,9 +95,19 @@ namespace IrisMenus
             for (int i = 0; i < budget && matchCursor < records.Count; i++)
             {
                 MenuSearchHit hit = records[matchCursor++];
-                if (scope != null && hit.Page.OwnerId != scope) continue;
+                if (parsedQuery.IsModLookup) continue;
+                if (parsedQuery.HasOwnerSelector)
+                {
+                    if (matchedPage != hit.Page)
+                    {
+                        matchedPage = hit.Page;
+                        matchesOwner = parsedQuery.MatchesOwner(hit.Page);
+                    }
+                    if (!matchesOwner) continue;
+                }
+                else if (scope != null && hit.Page.OwnerId != scope) continue;
                 bool matches = true;
-                foreach (string term in terms)
+                foreach (string term in parsedQuery.Terms)
                     if (hit.Text.IndexOf(term, StringComparison.CurrentCultureIgnoreCase) < 0) { matches = false; break; }
                 if (matches) results.Add(hit);
             }

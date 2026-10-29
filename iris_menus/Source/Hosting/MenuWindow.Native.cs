@@ -400,6 +400,11 @@ namespace IrisMenus
                 }
                 if (host.browse.ShowResults)
                 {
+                    if (SearchQuery.IsModLookup)
+                    {
+                        DrawManagementPage(main, true);
+                        return;
+                    }
                     DrawResultArea(main);
                     return;
                 }

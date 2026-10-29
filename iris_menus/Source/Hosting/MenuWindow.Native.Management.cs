@@ -14,18 +14,25 @@ namespace IrisMenus
             private sealed class ManagementEntry
             {
                 internal readonly UiCheckbox Visibility;
+                internal readonly UiButton Open;
+                internal MenuPage SearchPage;
                 internal ModContentPack Content;
                 internal MenuPage Adapter;
                 internal string Name, Metadata;
                 internal float Y, Height, TitleHeight, MetadataHeight, ActionHeight;
 
-                internal ManagementEntry(UiContext ui) { Visibility = new UiCheckbox(ui); }
+                internal ManagementEntry(UiContext ui) { Visibility = new UiCheckbox(ui); Open = new UiButton(ui); }
             }
 
             private readonly List<ManagementEntry> managementEntries = new List<ManagementEntry>();
             private readonly Dictionary<string, ManagementEntry> managementStates = new Dictionary<string, ManagementEntry>(StringComparer.Ordinal);
             private readonly Dictionary<ModContentPack, Texture2D> managementPreviews = new Dictionary<ModContentPack, Texture2D>();
             private Action<Rect> drawManagementEntries;
+            private UiSwitch hostAllSettings;
+            private string managementQuery = "";
+            private bool managementLookup;
+            private MenuSearchQuery managementSearch;
+            private float managementGlobalLabelHeight, managementGlobalHintHeight;
             private object managementLanguage;
             private int managementRevision = int.MinValue;
             private float managementWidth = -1f, managementScale = -1f, managementRowHeight = -1f;
@@ -38,32 +45,39 @@ namespace IrisMenus
             private void InitializeManagement()
             {
                 drawManagementEntries = DrawManagementEntries;
+                hostAllSettings = new UiSwitch(ui);
             }
 
-            private void SyncManagement()
+            private void SyncManagement(bool modLookup)
             {
-                if (managementRevision == host.catalogRevision && ReferenceEquals(managementLanguage, host.catalogLanguage)) return;
+                string query = modLookup ? host.browse.Query : "";
+                if (managementRevision == host.catalogRevision && ReferenceEquals(managementLanguage, host.catalogLanguage)
+                    && managementQuery == query && managementLookup == modLookup) return;
+                managementQuery = query;
+                managementLookup = modLookup;
+                managementSearch = MenuSearchQuery.Parse(query);
                 managementRevision = host.catalogRevision;
                 managementLanguage = host.catalogLanguage;
-                managementTitle = T("IM_NativeManagementTitle");
-                managementHint = T("IM_NativeManagementHint");
+                managementTitle = T(modLookup ? "IM_ModLookupTitle" : "IM_NativeManagementTitle");
+                managementHint = T(modLookup ? "IM_ModLookupHint" : "IM_NativeManagementHint");
                 managementShown = T("IM_NativeManagementShown");
                 managementHidden = T("IM_NativeManagementHidden");
                 managementAlwaysShown = T("IM_NativeManagementAlwaysShown");
                 managementNoPreview = T("IM_NativeManagementNoPreview");
                 managementEntries.Clear();
                 foreach (OwnerGroup group in registeredOwners)
-                    AddManagementEntry("registered:" + MenuOwnerActions.ContentOwnerId(group.Content), group.Content, null);
+                    AddManagementEntry("registered:" + MenuOwnerActions.ContentOwnerId(group.Content), group.Content, null, group.Pages[0]);
                 foreach (MenuPage adapter in host.adapters)
                 {
-                    if (!MenuRegistry.HasPages(adapter.Owner)) AddManagementEntry(adapter.Id, adapter.Content, adapter);
+                    if (!MenuRegistry.HasPages(adapter.Owner)) AddManagementEntry(adapter.Id, adapter.Content, adapter, adapter);
                 }
                 managementEntries.Sort((left, right) => StringComparer.CurrentCultureIgnoreCase.Compare(left.Name, right.Name));
                 managementWidth = -1f;
             }
 
-            private void AddManagementEntry(string id, ModContentPack content, MenuPage adapter)
+            private void AddManagementEntry(string id, ModContentPack content, MenuPage adapter, MenuPage searchPage)
             {
+                if (managementLookup && !managementSearch.MatchesMod(searchPage)) return;
                 if (!managementStates.TryGetValue(id, out ManagementEntry entry))
                 {
                     entry = new ManagementEntry(ui);
@@ -71,8 +85,10 @@ namespace IrisMenus
                 }
                 entry.Content = content;
                 entry.Adapter = adapter;
+                entry.SearchPage = searchPage;
                 entry.Name = MenuRegistry.GetModDisplayName(content);
-                entry.Metadata = T(adapter == null ? "IM_NativeRegistered" : "IM_NativeHosted");
+                entry.Metadata = managementLookup ? content.PackageIdPlayerFacing + " · " + searchPage.Owner?.GetType().FullName
+                    : T(adapter == null ? "IM_NativeRegistered" : "IM_NativeHosted");
                 managementEntries.Add(entry);
             }
 
@@ -112,6 +128,10 @@ namespace IrisMenus
                 managementTitleHeight = MeasureManagementText(managementTitle, width, 22f * scale, FontStyle.Bold);
                 managementHintHeight = MeasureManagementText(managementHint, width, 12f * scale);
                 managementHeadingHeight = managementTitleHeight + managementHintHeight + 34f * scale;
+                managementGlobalLabelHeight = MeasureManagementText(T("IM_HostAllModSettings"), Mathf.Max(1f, width - 78f * scale), 13f * scale);
+                managementGlobalHintHeight = MeasureManagementText(T("IM_HostAllModSettingsHint"), width, 12f * scale);
+                if (!managementLookup) managementHeadingHeight += Mathf.Max(36f * scale, managementGlobalLabelHeight)
+                    + managementGlobalHintHeight + 30f * scale;
                 float y = managementHeadingHeight;
                 foreach (ManagementEntry entry in managementEntries)
                 {
@@ -119,6 +139,7 @@ namespace IrisMenus
                     entry.TitleHeight = MeasureManagementText(entry.Name, managementTextWidth, 16f * scale, FontStyle.Bold);
                     entry.MetadataHeight = MeasureManagementText(entry.Metadata, managementTextWidth, 11f * scale);
                     entry.ActionHeight = entry.Adapter == null ? registeredActionHeight : adapterActionHeight;
+                    if (managementLookup) entry.ActionHeight += 44f * scale;
                     float textHeight = entry.TitleHeight + 8f * scale + entry.MetadataHeight;
                     if (managementCompact) textHeight += 10f * scale + entry.ActionHeight;
                     else textHeight = Mathf.Max(textHeight, entry.ActionHeight);
@@ -130,9 +151,9 @@ namespace IrisMenus
                     ? managementHeadingHeight + 100f * scale : y - 8f * scale;
             }
 
-            private void DrawManagementPage(Rect rect)
+            private void DrawManagementPage(Rect rect, bool modLookup = false)
             {
-                SyncManagement();
+                SyncManagement(modLookup);
                 float oldSize = ui.FontSize;
                 FontStyle oldStyle = ui.FontStyle;
                 try
@@ -144,7 +165,11 @@ namespace IrisMenus
                     ui.Fill(new Rect(rect.x, footerY, rect.width, 1f), ui.Palette.Line);
                     ui.FontSize = 13f * scale;
                     if (done.Draw(new Rect(Mathf.Max(rect.x, rect.xMax - 140f * scale), footerY + 14f * scale,
-                        Mathf.Min(140f * scale, rect.width), 36f * scale), T("IM_NativeDone"), primary: true, scale: scale)) CloseManagement();
+                        Mathf.Min(140f * scale, rect.width), 36f * scale), T("IM_NativeDone"), primary: true, scale: scale))
+                    {
+                        if (modLookup) ChangeQuery("");
+                        else CloseManagement();
+                    }
                 }
                 finally { ui.FontSize = oldSize; ui.FontStyle = oldStyle; }
             }
@@ -159,6 +184,19 @@ namespace IrisMenus
                 ui.FontStyle = FontStyle.Normal;
                 ui.Label(new Rect(0f, managementTitleHeight + 10f * scale, rect.width, managementHintHeight),
                     managementHint, palette.Muted, TextAnchor.UpperLeft, true);
+                if (!managementLookup)
+                {
+                    float toggleY = managementTitleHeight + managementHintHeight + 24f * scale;
+                    float toggleHeight = Mathf.Max(36f * scale, managementGlobalLabelHeight);
+                    ui.FontSize = 13f * scale;
+                    bool all = hostAllSettings.Draw(new Rect(0f, toggleY, rect.width, toggleHeight), Settings.HostAllModSettings, scale: scale);
+                    ui.Label(new Rect(0f, toggleY, Mathf.Max(1f, rect.width - 78f * scale), toggleHeight),
+                        T("IM_HostAllModSettings"), palette.Ink, TextAnchor.MiddleLeft, true);
+                    ui.FontSize = 12f * scale;
+                    ui.Label(new Rect(0f, toggleY + toggleHeight + 8f * scale, rect.width, managementGlobalHintHeight),
+                        T("IM_HostAllModSettingsHint"), palette.Muted, TextAnchor.UpperLeft, true);
+                    if (all != Settings.HostAllModSettings) SetGlobalHosting(all);
+                }
                 if (managementEntries.Count == 0)
                     ui.Label(new Rect(0f, managementHeadingHeight, rect.width, Mathf.Max(100f * scale, rect.height - managementHeadingHeight)),
                         T("IM_NativeManagementEmpty"), palette.Muted, TextAnchor.MiddleCenter, true);
@@ -184,13 +222,33 @@ namespace IrisMenus
                         : new Rect(row.xMax - managementPadding - managementActionWidth, row.center.y - entry.ActionHeight * 0.5f,
                             managementActionWidth, entry.ActionHeight);
                     bool registered = entry.Adapter == null;
-                    bool enabled = registered || Settings.EnabledAdapters.Contains(entry.Adapter.Id);
-                    bool next = entry.Visibility.Draw(action, enabled, enabled: !registered, scale: scale);
+                    bool enabled = registered || Settings.HostsAdapter(entry.Adapter.Id);
+                    Rect toggle = action;
+                    if (managementLookup) toggle.height -= 44f * scale;
+                    bool next = entry.Visibility.Draw(toggle, enabled, enabled: !registered && !Settings.HostAllModSettings, scale: scale);
                     ui.FontSize = 12f * scale;
-                    ui.Label(new Rect(action.x + 30f * scale, action.y, Mathf.Max(1f, action.width - 30f * scale), action.height),
-                        registered ? managementAlwaysShown : enabled ? managementShown : managementHidden, palette.Muted, TextAnchor.MiddleLeft, true);
+                    string status = registered ? managementAlwaysShown : Settings.HostAllModSettings ? T("IM_GlobalHostingActive")
+                        : enabled ? managementShown : managementHidden;
+                    ui.Label(new Rect(toggle.x + 30f * scale, toggle.y, Mathf.Max(1f, toggle.width - 30f * scale), toggle.height),
+                        status, palette.Muted, TextAnchor.MiddleLeft, true);
                     if (!registered && next != enabled) SetManagementVisibility(entry.Adapter, next);
+                    if (managementLookup && entry.Open.Draw(new Rect(action.x, toggle.yMax + 8f * scale, action.width, 36f * scale),
+                        T("IM_NativeOpenResult"), enabled, scale: scale))
+                    {
+                        host.Select(entry.SearchPage);
+                        pageChanged = true;
+                        return;
+                    }
                 }
+            }
+
+            private void SetGlobalHosting(bool enabled)
+            {
+                if (!enabled && host.session.Selected?.Adapted == true
+                    && !Settings.EnabledAdapters.Contains(host.session.Selected.Id) && !host.session.Select(null)) return;
+                Settings.HostAllModSettings = enabled;
+                SidebarSettingsChanged();
+                managementRevision = int.MinValue;
             }
 
             private void SetManagementVisibility(MenuPage page, bool visible)
@@ -198,6 +256,7 @@ namespace IrisMenus
                 if (!visible && host.session.Selected?.Id == page.Id && !host.session.Select(null)) return;
                 if (visible) Settings.EnabledAdapters.Add(page.Id);
                 else Settings.EnabledAdapters.RemoveAll(id => id == page.Id);
+                IrisMenusMod.Instance.WriteSettings();
                 if (!visible && host.session.Selected == null) host.browse.Navigate(null);
                 host.catalogRevision = -1;
                 revision = int.MinValue;

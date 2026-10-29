@@ -22,6 +22,7 @@ namespace IrisMenus
         private bool restoreResultScroll;
         private MenuPage requestedPage;
         private NativeSurface nativeSurface;
+        private readonly Action closeHostedPage;
         internal float Opacity => nativeSurface?.Opacity ?? 0f;
         protected override float Margin => 0f;
         private MenuSettings Settings => IrisMenusMod.Instance.Settings;
@@ -46,6 +47,7 @@ namespace IrisMenus
             closeOnAccept = false;
             closeOnClickedOutside = false;
             requestedPage = requested;
+            closeHostedPage = CloseHostedPage;
             MenuRegistry.AdoptActionOwners();
             MenuOwnerActions.EnsureLaunchers();
             NativeSettingsPages.EnsureRegistered();
@@ -102,6 +104,7 @@ namespace IrisMenus
             }
             finally
             {
+                session.Deactivate();
                 nativeSurface?.Dispose();
                 nativeSurface = null;
                 catalog?.Dispose();
@@ -222,7 +225,7 @@ namespace IrisMenus
         }
 
 
-        private IEnumerable<MenuPage> Hosted() => adapters.Where(page => !MenuRegistry.HasPages(page.Owner) && Settings.EnabledAdapters.Contains(page.Id));
+        private IEnumerable<MenuPage> Hosted() => adapters.Where(page => !MenuRegistry.HasPages(page.Owner) && Settings.HostsAdapter(page.Id));
 
 
         private void DrawSelected(Rect rect)
@@ -240,12 +243,15 @@ namespace IrisMenus
             try
             {
                 GUI.changed = false;
+                session.Selected?.BindHostClose?.Invoke(closeHostedPage);
                 using (nativeSurface.AdaptHostedCallback())
                     session.Draw(new Rect(0f, 0f, page.width, page.height));
                 if (GUI.changed) nativeSurface.RecordEdit();
             }
             finally { try { GUI.EndGroup(); } finally { state.Restore(); } }
         }
+
+        private void CloseHostedPage() => Select(null);
 
 
         private static void Activate(MenuOwnerAction action)

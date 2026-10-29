@@ -388,7 +388,7 @@ The isolated instance was stopped normally. No release version was assigned.
 - `UiDocument` 缓存全文布局，但正常文档页传入全文自然尺寸，正文仍遍历所有行与 span；代码背景和 span 宽度计算也需要减少重复工作。Sidebar、说明与部分内置设置行仍存在离屏处理。
 - `MenuSectionView` 已缓存章节测量并只调用相交章节的 Draw；超长单个章节内部仍需消费者自行优化。`RegisterListing` 的 `MenuScrollView` 仍逐 pass 执行完整 Listing 回调，生成布局与锚点。
 
-依据：[`UiThingsList`](../../Source/UI/Controls/UiThingsList.cs)、[`UiScrollView`](../../Source/UI/Containers/UiScrollView.cs)、[`UiDocument`](../../Source/UI/Containers/UiDocument.cs)、[`原生文档宿主`](../../Source/MenuRegistry.Documents.cs)、[`MenuSectionView`](../../Source/MenuSectionView.cs)、[`MenuScrollView`](../../Source/MenuScrollView.cs)。
+依据：[`UiThingsList`](../../Source/UI/Controls/UiThingsList.cs)、[`UiScrollView`](../../Source/UI/Containers/UiScrollView.cs)、[`UiDocument`](../../Source/UI/Containers/UiDocument.cs)、[`原生文档宿主`](../../Source/Registry/MenuRegistry.Documents.cs)、[`MenuSectionView`](../../Source/Controls/MenuSectionView.cs)、[`MenuScrollView`](../../Source/Controls/MenuScrollView.cs)。
 
 ### 实施顺序与验收
 
@@ -427,7 +427,7 @@ The isolated instance was stopped normally. No release version was assigned.
 - **列表提示的根层路径。** `UiThingsList.Draw` 当前在列表内部绘制并清空 tooltip 目标；应拆开观察与根层绘制，沿用既有 tooltip 组合方式，不让滚动裁切吞掉提示。动态数据替换还需明确移除 key 的缓存清理，不能承诺现有缓存长期有界。
 - **发行版本与外部示例。** 现有 API consumer 使用 ProjectReference，不证明独立发行引用完整。需另用暂存 DLL 和资源构建真实消费者，`Private=false`，不附带 provider DLL 副本。最低支持版本在这些契约实际交付后确定，不将历史 `1.1.2` 或保留的 1.6 DLL 宣称为已支持。
 
-依据：[`UiContext`](../../Source/UI/Core/UiContext.cs)、[`UiDocument`](../../Source/UI/Containers/UiDocument.cs)、[`UiThingsList`](../../Source/UI/Controls/UiThingsList.cs)、[`呈现契约`](../../Source/MenuRegistry.Presentation.cs)、[`API consumer`](../../tests/ApiConsumer/ApiConsumer.csproj)。
+依据：[`UiContext`](../../Source/UI/Core/UiContext.cs)、[`UiDocument`](../../Source/UI/Containers/UiDocument.cs)、[`UiThingsList`](../../Source/UI/Controls/UiThingsList.cs)、[`呈现契约`](../../Source/Registry/MenuRegistry.Presentation.cs)、[`API consumer`](../../tests/ApiConsumer/ApiConsumer.csproj)。
 
 ### 最小落地顺序
 

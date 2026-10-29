@@ -371,7 +371,7 @@ internal static class Program
 
     private static void Routing()
     {
-        var mod = new NoSettings();
+        var mod = new OtherMod();
         Find.WindowStack.Windows.Clear();
         var original = new RimWorld.Dialog_ModSettings(mod);
         Find.WindowStack.Add(original);
@@ -398,6 +398,27 @@ internal static class Program
         original = new RimWorld.Dialog_ModSettings(mod);
         Find.WindowStack.Add(original);
         Check(ReferenceEquals(Find.WindowStack.Windows.Single(), original), "Unselect restores original entry");
+        var settings = IrisMenusMod.Instance.Settings;
+        settings.EnabledAdapters.Add("unloaded.mod:Settings");
+        settings.HostAllModSettings = true;
+        Find.WindowStack.Windows.Clear();
+        Find.WindowStack.Add(new RimWorld.Dialog_ModSettings(mod));
+        Check(Find.WindowStack.WindowOfType<MenuWindow>()?.Page.Owner == mod,
+            "Global hosting routes a mod without adding a manual entry");
+        Check(settings.EnabledAdapters.SequenceEqual(new[] { "unloaded.mod:Settings" }),
+            "Global hosting never populates or rewrites manual selections");
+        MenuSettings persisted = LoadSettings(SaveSettings(settings));
+        Check(persisted.HostAllModSettings && persisted.EnabledAdapters.Single() == "unloaded.mod:Settings",
+            "Global hosting persists independently of unloaded manual selections");
+        settings.HostAllModSettings = false;
+        Find.WindowStack.Windows.Clear();
+        original = new RimWorld.Dialog_ModSettings(mod);
+        Find.WindowStack.Add(original);
+        Check(Find.WindowStack.Windows.Single() == original && settings.EnabledAdapters.Single() == "unloaded.mod:Settings",
+            "Disabling global hosting restores original routing without losing manual selections");
+        settings.EnabledAdapters.Add(MenuRegistry.OwnerId(mod));
+        Check(MenuRegistry.ResolveEntry(mod)?.Owner == mod, "Manual selections still route with global hosting disabled");
+        settings.EnabledAdapters.Clear();
         Find.WindowStack.Windows.Clear();
         original = new RimWorld.Dialog_ModSettings(IrisMenusMod.Instance);
         Find.WindowStack.Add(original);

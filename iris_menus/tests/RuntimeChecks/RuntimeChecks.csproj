@@ -4,24 +4,26 @@
     <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../Source/MenuRegistry.cs" Link="Production/MenuRegistry.cs" />
-    <Compile Include="../../Source/MenuOwnerActions.cs" Link="Production/MenuOwnerActions.cs" />
-    <Compile Include="../../Source/MenuSession.cs" Link="Production/MenuSession.cs" />
-    <Compile Include="../../Source/MenuScrollView.cs" Link="Production/MenuScrollView.cs" />
+    <Compile Include="../../Source/Registry/MenuRegistry.cs" Link="Production/MenuRegistry.cs" />
+    <Compile Include="../../Source/Registry/MenuOwnerActions.cs" Link="Production/MenuOwnerActions.cs" />
+    <Compile Include="../../Source/Hosting/MenuSession.cs" Link="Production/MenuSession.cs" />
+    <Compile Include="../../Source/Controls/MenuScrollView.cs" Link="Production/MenuScrollView.cs" />
     <Compile Include="../../Source/IrisMenusMod.cs" Link="Production/IrisMenusMod.cs" />
-    <Compile Include="../../Source/SettingsEntryRouter.cs" Link="Production/SettingsEntryRouter.cs" />
-    <Compile Include="../../Source/SettingsAdapter.cs" Link="Production/SettingsAdapter.cs" />
-    <Compile Include="../../Source/MenuSearchEntry.cs" Link="Production/MenuSearchEntry.cs" />
-    <Compile Include="../../Source/MenuCatalog.cs" Link="Production/MenuCatalog.cs" />
-    <Compile Include="../../Source/MenuBrowseState.cs" Link="Production/MenuBrowseState.cs" />
-    <Compile Include="../../Source/MenuSectionView.cs" Link="Production/MenuSectionView.cs" />
-    <Compile Include="../../Source/MenuControls.cs" Link="Production/MenuControls.cs" />
-    <Compile Include="../../Source/MarkdownParser.cs" Link="Production/MarkdownParser.cs" />
-    <Compile Include="../../Source/MarkdownViews.cs" Link="Production/MarkdownViews.cs" />
-    <Compile Include="../../Source/Documents.cs" Link="Production/Documents.cs" />
-    <Compile Include="../../Source/MarkdownDocument.cs" Link="Production/MarkdownDocument.cs" />
-    <Compile Include="../../Source/ItemValueColors.cs" Link="Production/ItemValueColors.cs" />
-    <Compile Include="../../Source/ThingRegistry.cs" Link="Production/ThingRegistry.cs" />
+    <Compile Include="../../Source/Compatibility/SettingsEntryRouter.cs" Link="Production/SettingsEntryRouter.cs" />
+    <Compile Include="../../Source/Compatibility/SettingsAdapter.cs" Link="Production/SettingsAdapter.cs" />
+    <Compile Include="../../Source/Search/MenuSearchEntry.cs" Link="Production/MenuSearchEntry.cs" />
+    <Compile Include="../../Source/Search/MenuCatalog.cs" Link="Production/MenuCatalog.cs" />
+    <Compile Include="../../Source/Search/MenuSearchQuery.cs" Link="Production/MenuSearchQuery.cs" />
+    <Compile Include="../../Source/Compatibility/NativeSettingsBody.cs" Link="Production/NativeSettingsBody.cs" />
+    <Compile Include="../../Source/Search/MenuBrowseState.cs" Link="Production/MenuBrowseState.cs" />
+    <Compile Include="../../Source/Controls/MenuSectionView.cs" Link="Production/MenuSectionView.cs" />
+    <Compile Include="../../Source/Controls/MenuControls.cs" Link="Production/MenuControls.cs" />
+    <Compile Include="../../Source/Documents/MarkdownParser.cs" Link="Production/MarkdownParser.cs" />
+    <Compile Include="../../Source/Documents/MarkdownViews.cs" Link="Production/MarkdownViews.cs" />
+    <Compile Include="../../Source/Documents/Documents.cs" Link="Production/Documents.cs" />
+    <Compile Include="../../Source/Documents/MarkdownDocument.cs" Link="Production/MarkdownDocument.cs" />
+    <Compile Include="../../Source/Features/ItemValueColors.cs" Link="Production/ItemValueColors.cs" />
+    <Compile Include="../../Source/Features/ThingRegistry.cs" Link="Production/ThingRegistry.cs" />
     <PackageReference Include="Lib.Harmony" Version="2.4.1" />
   </ItemGroup>
 </Project>

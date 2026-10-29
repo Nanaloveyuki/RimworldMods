@@ -17,6 +17,7 @@ namespace IrisMenus
         {
             if (page == Selected) return true;
             if (!Save()) return false;
+            Deactivate();
             Selected = page;
             DrawFailed = false;
             return true;
@@ -24,6 +25,7 @@ namespace IrisMenus
 
         internal void Rebind(MenuPage page)
         {
+            if (!ReferenceEquals(page, Selected)) Deactivate();
             Selected = page;
             DrawFailed = false;
         }
@@ -39,6 +41,14 @@ namespace IrisMenus
             if (Selected == null) return true;
             try { Selected.Save(); return true; }
             catch (Exception exception) { report("save " + Selected.Id, exception); return false; }
+        }
+
+        internal void Deactivate()
+        {
+            if (Selected == null) return;
+            try { Selected.Deactivate?.Invoke(); }
+            catch (Exception exception) { report("deactivate " + Selected.Id, exception); }
+            finally { Selected.BindHostClose?.Invoke(null); }
         }
 
         internal void Draw(Rect rect)

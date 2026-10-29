@@ -28,7 +28,7 @@
 |旧页面兼容|`SettingsAdapter.Create` 直接转发 `DoSettingsWindowContents`；Character Editor 是点击后启动专用窗口的 adapter|保留 opt-in 和特殊启动语义；不得强加第二层滚动、扫描私有字段或额外绘制 drawer|
 |owner actions|现有 `DrawOwnerActions`／`Activate`／`Run` 保留可见、可用、确认与异常反馈|完整宿主必须保留；`ActionLauncher` 不应变成没有内容的设置 tab|
 
-源码：[`MenuRegistry.Register／RegisterListing／ReplaceSubItemListings／ReplacementFor`](../../Source/MenuRegistry.cs)、[`MenuSession.Select／Save／Draw`](../../Source/MenuSession.cs)、[`MenuWindow.OnCloseRequest／PreClose／RefreshCatalog／DrawOwnerActions`](../../Source/MenuWindow.cs)、[`MenuCatalog.Query／Advance`](../../Source/MenuCatalog.cs)、[`MenuSectionView`](../../Source/MenuSectionView.cs)、[`SettingsAdapter.Create`](../../Source/SettingsAdapter.cs)。
+源码：[`MenuRegistry.Register／RegisterListing／ReplaceSubItemListings／ReplacementFor`](../../Source/Registry/MenuRegistry.cs)、[`MenuSession.Select／Save／Draw`](../../Source/Hosting/MenuSession.cs)、[`MenuWindow.OnCloseRequest／PreClose／RefreshCatalog／DrawOwnerActions`](../../Source/Hosting/MenuWindow.cs)、[`MenuCatalog.Query／Advance`](../../Source/Search/MenuCatalog.cs)、[`MenuSectionView`](../../Source/Controls/MenuSectionView.cs)、[`SettingsAdapter.Create`](../../Source/Compatibility/SettingsAdapter.cs)。
 
 搜索的预算是枚举步骤数，不是主线程毫秒保证，也不是后台线程；provider 的单次调用仍可能阻塞。导航按内容包合组，但搜索范围使用 `MenuPage.OwnerId`；同内容包多个 Mod 类型时，现有 owner 范围不天然等于网页里的“整个 Mod”。
 
@@ -57,7 +57,7 @@ Rect nativeEntry = new Rect(layout.MainButton.x, remember.center.y - 12f,
 
 44 不能容纳两个 24 高命中区。所以上行必须取消长标签自动换行，单行省略并提供完整 tooltip，checkbox 绘制与点击范围都限制在上 20 内；下行入口的文本也单行省略并有完整 tooltip。两行边界相接但不重叠，不把透明命中区扩到另一行；标签测量、tooltip 和实际 hit rect 使用同一几何。继续沿用现有 inline 判定和 72／120／152 高度，不因增加入口而让 body 缩短、底栏外溢或另开一行。
 
-依据：[`MenuLayout.Calculate`](../../Source/MenuLayout.cs)、[`MenuWindow.DrawFooter`](../../Source/MenuWindow.cs)、[`IrisMenusMod.MainButtonWorker_IrisMenus`](../../Source/IrisMenusMod.cs)、[`MenuRegistry.Open／ResolveEntry`](../../Source/MenuRegistry.cs)、[`SettingsEntryRouter.Prefix`](../../Source/SettingsEntryRouter.cs)。
+依据：[`MenuLayout.Calculate`](../../Source/MenuLayout.cs)、[`MenuWindow.DrawFooter`](../../Source/Hosting/MenuWindow.cs)、[`IrisMenusMod.MainButtonWorker_IrisMenus`](../../Source/IrisMenusMod.cs)、[`MenuRegistry.Open／ResolveEntry`](../../Source/Registry/MenuRegistry.cs)、[`SettingsEntryRouter.Prefix`](../../Source/Compatibility/SettingsEntryRouter.cs)。
 
 ## 单一宿主所有权与状态转换
 
@@ -81,7 +81,7 @@ Rect nativeEntry = new Rect(layout.MainButton.x, remember.center.y - 12f,
 
 记忆沿用 `RememberState`、`LastPage`、按 OwnerId 的 `LastSubItems` 与 `HostView`（mode/query/scope/resultPage/target、列表滚动、`listing:` 前缀）。关闭记忆时沿用 `ClearRememberedView` 并重置 Listing；自定义 `MenuSectionView` 的私有滚动不在现有持久化范围。`RestoreOpeningState` 的显式请求优先、失效范围回退、目标页缺失和索引未完时的结果滚动恢复也要保留。新增 theme／减少动态效果是独立偏好，不应被清除页面记忆连带重置；新抽屉／说明的跨重启记忆仍待决策。
 
-依据：[`MenuSession`](../../Source/MenuSession.cs)、[`MenuBrowseState`](../../Source/MenuBrowseState.cs)、[`MenuWindow.RestoreOpeningState／CaptureHostView／Select／OpenPage／DrawSearch／DrawResults／RebindSelection`](../../Source/MenuWindow.cs)、[`MenuSettings.ClearRememberedView`](../../Source/IrisMenusMod.cs)。
+依据：[`MenuSession`](../../Source/Hosting/MenuSession.cs)、[`MenuBrowseState`](../../Source/Search/MenuBrowseState.cs)、[`MenuWindow.RestoreOpeningState／CaptureHostView／Select／OpenPage／DrawSearch／DrawResults／RebindSelection`](../../Source/Hosting/MenuWindow.cs)、[`MenuSettings.ClearRememberedView`](../../Source/IrisMenusMod.cs)。
 
 ## 建议的最小新增契约
 
@@ -114,7 +114,7 @@ rail、tabs、目录和说明不需要先建完整设置 DSL。只有决定交�
 
 至少需要持久化 Theme 与减少动态效果选项。网页里的 density、scale、默认搜索范围、tooltip 延迟和 UI 音量不是现有 `MenuSettings`，只有真正纳入游戏行为后才增加，不能只显示控件。
 
-现有字段见 [`MenuSettings`](../../Source/IrisMenusMod.cs)，其中没有 Theme 或减少动态效果偏好。新宿主需为这些真实行为增加读写，同时复用 FrostEnabled／Blur／Transparency、RememberState、ShowMainButton 和 EnabledAdapters，不再存一份镜像。主题只作用于 IrisMenus；[`GuiState`](../../Source/GuiState.cs) 还原调用范围的状态，不全局改原版 Widgets 或游戏皮肤。
+现有字段见 [`MenuSettings`](../../Source/IrisMenusMod.cs)，其中没有 Theme 或减少动态效果偏好。新宿主需为这些真实行为增加读写，同时复用 FrostEnabled／Blur／Transparency、RememberState、ShowMainButton 和 EnabledAdapters，不再存一份镜像。主题只作用于 IrisMenus；[`GuiState`](../../Source/Rendering/GuiState.cs) 还原调用范围的状态，不全局改原版 Widgets 或游戏皮肤。
 
 ## 完整动效之前的关键底座
 

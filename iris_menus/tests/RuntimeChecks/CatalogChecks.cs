@@ -109,9 +109,102 @@ internal static class CatalogChecks
         check(Widgets.LastPosition.y == 240f, "Restored listing offset survives its first content measurement");
         reloaded.Reset(); reloaded.Draw(restoredViewport, list => list.CurHeight = 1000);
         check(Widgets.LastPosition.y == 0f, "Disabled memory resets visible listing scroll");
+        ScopedSearch(check);
         Anchors(check);
         ReplaceableListings(check);
         Sections(check);
+    }
+
+    private sealed class SearchOwner : Mod { }
+
+    private static void ScopedSearch(Action<bool, string> check)
+    {
+        var owner = new SearchOwner
+        {
+            Content = new ModContentPack { PackageIdPlayerFacing = "search.owner", Name = "Original Alpha" }
+        };
+        var other = new Mod { Content = new ModContentPack { PackageIdPlayerFacing = "search.other", Name = "Beta" } };
+        int draws = 0, reads = 0;
+        var page = new MenuPage("search.alpha", owner, () => "General", _ => draws++, () => { }, false)
+        {
+            SearchProvider = () =>
+            {
+                reads++;
+                return new[] { new MenuSearchEntry("night", () => "Shadow strength", () => "night darkness") };
+            }
+        };
+        var otherPage = new MenuPage("search.beta", other, () => "Original Alpha", _ => draws++, () => { }, false)
+        {
+            SearchProvider = () => new[] { new MenuSearchEntry("night", () => "Shadow strength", () => "night darkness") }
+        };
+        LoadedLanguage previousLanguage = LanguageDatabase.activeLanguage;
+        string sidebarId = MenuRegistry.SidebarIdentity(owner.Content);
+        try
+        {
+            MenuRegistry.RegisterModNameAlias(owner, "English", "Localized Alpha");
+            MenuRegistry.RegisterModNameAlias(owner, "ChineseSimplified", "另一别名");
+            LanguageDatabase.activeLanguage = new LoadedLanguage("English");
+            IrisMenusMod.Instance.Settings.SidebarAliases[sidebarId] = "Player Alpha";
+
+            using (var catalog = new MenuCatalog(new[] { page, otherPage }))
+            {
+                foreach (string selector in new[]
+                {
+                    "\"*ORIGINAL ALPHA*\"", "\"PLAYER ALPHA\"", "\"localized alpha\"", "另一别名",
+                    "SEARCH.OWNER", typeof(SearchOwner).FullName.ToUpperInvariant(), typeof(SearchOwner).Name,
+                    MenuRegistry.OwnerId(owner).ToUpperInvariant()
+                })
+                {
+                    catalog.Query("@" + selector + " night", MenuRegistry.OwnerId(other));
+                    while (catalog.Pending) catalog.Advance(2);
+                    check(catalog.Results.Count == 1 && catalog.Results[0].Page == page,
+                        "Explicit owner selector overrides implicit scope and never matches another owner's page text: " + selector);
+                }
+                catalog.Query("@\"Original Alpha\" .*", MenuRegistry.OwnerId(other));
+                while (catalog.Pending) catalog.Advance();
+                check(catalog.Results.Count == 2 && catalog.Results.All(hit => hit.Page == page),
+                    "Scoped all-settings token includes only the matching owner's page and exposed settings");
+                catalog.Query("@* .*", MenuRegistry.OwnerId(other));
+                while (catalog.Pending) catalog.Advance();
+                check(catalog.Results.Count == 4, "Wildcard owner selector searches every indexed mod regardless of implicit scope");
+                catalog.Query("@missing night", null);
+                while (catalog.Pending) catalog.Advance();
+                check(catalog.Results.Count == 0, "Missing explicit owner does not fall back to global content");
+                catalog.Query("@ .*", null);
+                while (catalog.Pending) catalog.Advance();
+                check(catalog.Results.Count == 0, "An incomplete owner selector cannot broaden the search");
+                catalog.Query("NIGHT darkness", MenuRegistry.OwnerId(other));
+                while (catalog.Pending) catalog.Advance();
+                check(catalog.Results.Count == 1 && catalog.Results[0].Page == otherPage,
+                    "Unprefixed content terms keep case-insensitive AND matching and implicit scope");
+                catalog.Query("+@*alpha* .*", null);
+                while (catalog.Pending) catalog.Advance();
+                check(catalog.ParsedQuery.IsModLookup && catalog.Results.Count == 0 && reads == 1 && draws == 0,
+                    "Mod discovery is exposed to the UI without returning settings or invoking draw callbacks");
+            }
+
+            MenuSearchQuery lookup = MenuSearchQuery.Parse("+@\"*alpha*\" search.owner localized .*");
+            check(lookup.IsModLookup && lookup.HasOwnerSelector && lookup.OwnerPattern == "*alpha*"
+                && lookup.Terms.SequenceEqual(new[] { "search.owner", "localized" }) && lookup.MatchesMod(page)
+                && !lookup.MatchesMod(otherPage), "Mod lookup AND-matches identity terms including hidden aliases");
+            check(!MenuSearchQuery.Parse("+@*alpha* shadow").MatchesMod(page),
+                "Mod lookup terms do not match settings content");
+            check(MenuSearchQuery.Parse("night .* @alpha +@beta").Terms.SequenceEqual(new[] { "night", ".*", "@alpha", "+@beta" }),
+                "Unprefixed terms preserve literal punctuation and typed-looking later tokens");
+            check(MenuSearchQuery.Parse("@search.*er").MatchesOwner(page)
+                && !MenuSearchQuery.Parse("@search.*other").MatchesOwner(page)
+                && MenuSearchQuery.Parse("@**ORIGINAL**ALPHA**").MatchesOwner(page)
+                && !MenuSearchQuery.Parse("@search.[owner]").MatchesOwner(page),
+                "Owner globs are anchored, case-insensitive and interpret only stars as wildcards");
+            MenuSearchQuery unfinished = MenuSearchQuery.Parse("@\"Original Alpha");
+            check(unfinished.OwnerPattern == "Original Alpha" && unfinished.MatchesOwner(page),
+                "An unfinished quoted selector uses the remaining text as its owner pattern");
+        }
+        finally
+        {
+            LanguageDatabase.activeLanguage = previousLanguage;
+            IrisMenusMod.Instance.Settings.SidebarAliases.Remove(sidebarId);
+        }
     }
 
     private static void ReplaceableListings(Action<bool, string> check)

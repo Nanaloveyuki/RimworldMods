@@ -83,6 +83,16 @@ private void DrawGeneral(Listing_Standard list)
 
 全屏宿主可以直接运行普通 drawer。需要原生双主题控件时，在原页面注册后调用 `MenuRegistry.RegisterPresentation(this, "general", new MenuPresentation(context => new MyNativePage(context)))`，页面继承 `MenuNativePage`。原页面注册继续提供身份、搜索与保存责任；宿主提供并持有 `UiContext`，消费者持有控件和设置。正文自行滚动，overlay 在根坐标绘制。章节、说明、预览和重置都需显式声明，不会从原 drawer 自动推导。
 
+若只想让现有 `Listing_Standard` drawer 使用原生滚动条，无需自行实现 `MenuNativePage`：
+
+```csharp
+Action<Listing_Standard> draw = DrawGeneral;
+MenuRegistry.RegisterSubItemListing(this, "general", () => "常规", draw, WriteSettings);
+MenuRegistry.RegisterPresentation(this, "general", MenuPresentation.Listing(draw));
+```
+
+`MenuPresentation.Listing(draw)` 会立即检查空回调，只创建呈现描述，不注册页面或保存设置。每次由宿主创建页面时，它保留同一个 drawer 和独立的原生 `MenuScrollView`，支持锚点定位；宿主释放页面时释放滚动条，但不会释放借用的 `UiContext`，也不会自行开始或结束帧。页面身份、搜索及保存回调仍来自普通注册；未添加注解时仍可使用原 Listing 页面。
+
 完整生命周期与签名见[接入契约](../agents/integration.md#native-full-screen-presentation-current-17)，可编译示例见 `tests/ApiConsumer/ExampleMod.cs`。未声明原生呈现的页面继续执行原 drawer；宿主会在回调范围内适配常见背景、按钮、滑块、默认勾选／开关和输入框外观，`Widgets.CheckboxLabeled`／标准 `GUI.Toggle` 显示为开关。普通与富文本在最终绘制时修正主题对比度，不改写字符串、原生编辑器、保存或滚动所有权；自绘图片／着色器、自定义控件背景及任意底色仍需消费者处理。无关游戏窗口保持原样。
 
 ## 3. 搜索并跳转到控件
@@ -139,9 +149,12 @@ MenuRegistry.RegisterSearchProvider(this, "details", () => new[]
 `RegisterAdapterSearch(owner, provider, focus)` 可以补充元数据和自定义定位，但不会自动启用托管，也不会自动拆分分类。
 需要独立分类时，应显式注册多个页面。
 
-Character Editor（创意工坊 1874644848）的该方法实际是独立窗口启动器，不能逐帧调用。
-托管后，其页面显示“打开原生设置窗口”按钮；点击才打开，已经打开时只聚焦，关闭后不会自动重开。
-请在 Character Editor 原生窗口中点击“保存”。已有手动勾选继续有效，无需取消再添加。
+“所有 Mod 设置都使用 IrisMenus”默认关闭，开启后接管所有已加载且具有设置分类的 Mod。它不修改手动添加列表，关闭后恢复原有条目；开启期间单项显示和侧栏移除控件不可用。
+
+顶部搜索支持 `@*名称或包名* 设置词` 限定模组，`@*名称或包名* .*` 列出全部已索引设置。输入 `+@*名称或包名* .*` 可查询是否已添加，并直接勾选添加、打开。支持原名、别名、包名和 Mod 类型，忽略大小写；含空格的选择器加引号，例如 `+@"*FSF Tweaks*" .*`。`*` 只在模组选择器中作通配符，`.*` 表示全部，不执行正则表达式。设置内容搜索仍需要显式元数据。
+
+Character Editor（创意工坊 1874644848）直接在 IM 内显示原生配置内容，不再要求再次点击打开。固定宽度内容可滚动查看；离页保存原生设置和槽位，原生“保存”返回 IM 导航。
+FSF Tweaks（创意工坊 2893432492）使用 XML Extensions 生成的窗口启动器。IM 改为承载实际设置内容，不逐帧启动原版窗口；保存仍执行其按键动作、子菜单关闭及共享设置存储流程，原生关闭／重启动作仅作用于当前承载会话。显式注册页面仍优先。
 
 各注册接口最后一个可选参数是保存回调，默认 `owner.WriteSettings`。
 切换页面或关闭窗口时保存，失败会保留当前页/窗口供重试。设置是即时修改的，关闭不是取消。

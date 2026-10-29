@@ -216,7 +216,26 @@ namespace UnityEngine
 
 namespace Verse
 {
-    public class Window { }
+    public class Window
+    {
+        public UnityEngine.Rect windowRect;
+        public virtual UnityEngine.Vector2 InitialSize => new UnityEngine.Vector2 { x = 800f, y = 700f };
+        public virtual void DoWindowContents(UnityEngine.Rect rect) { }
+        public virtual void PreClose() { }
+        public virtual void PostClose() { }
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        public virtual void Close(bool doCloseSound = true)
+        {
+            PreClose();
+            Find.WindowStack.Windows.Remove(this);
+            PostClose();
+        }
+    }
+    public static class GenCommandLine
+    {
+        public static int Restarts;
+        public static void Restart() { Restarts++; }
+    }
 }
 
 namespace IrisMenus.UI

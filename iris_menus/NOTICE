@@ -126,7 +126,7 @@ Pinned commit: a82657af920e8feaa2abbb29a0cf47a8f9a65a66
 IrisMenus' native controls and visual tokens adapt the original main-entry
 component design for RimWorld's native UI and game fonts. The upstream React
 runtime/package is not included in the game distribution. Native adaptation and
-changes are maintained in Source/UI and Source/MenuWindow.Native*.cs.
+changes are maintained in Source/UI and Source/Hosting/MenuWindow.Native*.cs.
 
 The upstream license at this version is MIT, not Apache-2.0. IrisMenus' separate
 dual-license grant does not change the upstream license. Its copyright notice,

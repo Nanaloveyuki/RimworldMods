@@ -51,6 +51,39 @@ namespace IrisMenus
         }
 
         public Func<UI.UiContext, MenuNativePage> Create { get; }
+
+        public static MenuPresentation Listing(Action<Listing_Standard> draw)
+        {
+            if (draw == null) throw new ArgumentNullException(nameof(draw));
+            return new MenuPresentation(context => new ListingNativePage(context, draw));
+        }
+
+        private sealed class ListingNativePage : MenuNativePage
+        {
+            private readonly MenuScrollView scroll;
+            private readonly Action<Listing_Standard> draw;
+            private readonly UI.UiContext context;
+            private readonly HostedGuiTheme theme = new HostedGuiTheme();
+
+            internal ListingNativePage(UI.UiContext context, Action<Listing_Standard> draw)
+            {
+                this.context = context;
+                scroll = new MenuScrollView(context);
+                this.draw = draw;
+            }
+
+            public override void Draw(Rect rect)
+            {
+                using (theme.Enter(context, "native-listing")) scroll.Draw(rect, draw);
+            }
+            public override void DrawOverlay(Rect viewport) => theme.DrawHoverCards(viewport);
+            public override void Focus(string anchor) => scroll.Focus(anchor);
+            public override void Dispose()
+            {
+                scroll.Dispose();
+                theme.Dispose();
+            }
+        }
     }
 
     // The host owns the context and the lifetime of this page. Draw owns its content scrolling;

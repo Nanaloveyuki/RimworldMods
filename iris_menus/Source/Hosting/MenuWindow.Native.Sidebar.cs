@@ -92,7 +92,7 @@ namespace IrisMenus
             {
                 if (action == 2) return index > SidebarCategoryStart(index);
                 if (action == 3) return index + 1 < SidebarCategoryEnd(index);
-                return action != 4 || sidebarOwners[index].Hosted;
+                return action != 4 || (sidebarOwners[index].Hosted && !Settings.HostAllModSettings);
             }
 
             private int SidebarCategoryStart(int index) => index < pinnedCount ? 0 : index < registeredCount ? pinnedCount : registeredCount;

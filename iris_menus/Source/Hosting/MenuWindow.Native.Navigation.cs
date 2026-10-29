@@ -350,6 +350,21 @@ namespace IrisMenus
                 ui.FontSize = oldSize;
             }
 
+            private string parsedSearchText;
+            private MenuSearchQuery parsedSearch;
+            private MenuSearchQuery SearchQuery
+            {
+                get
+                {
+                    if (parsedSearchText != host.browse.Query)
+                    {
+                        parsedSearchText = host.browse.Query;
+                        parsedSearch = MenuSearchQuery.Parse(parsedSearchText);
+                    }
+                    return parsedSearch;
+                }
+            }
+
             private void ChangeQuery(string query)
             {
 #if RIMWORLD_1_7
@@ -366,9 +381,11 @@ namespace IrisMenus
             private int resultStart, resultEnd;
             private void DrawResultArea(Rect rect)
             {
+                MenuSearchQuery query = SearchQuery;
                 float scopeWidth = Mathf.Min(260f * scale, rect.width * 0.5f);
-                string scopeLabel = host.browse.Scope == null ? T("IM_SearchGlobal") : T("IM_NativeCurrentMod");
-                if (scope.Draw(new Rect(rect.x, rect.y, scopeWidth, 36f * scale), scopeLabel))
+                string scopeLabel = query.HasOwnerSelector ? "@" + query.OwnerPattern
+                    : host.browse.Scope == null ? T("IM_SearchGlobal") : T("IM_NativeCurrentMod");
+                if (scope.Draw(new Rect(rect.x, rect.y, scopeWidth, 36f * scale), scopeLabel, !query.HasOwnerSelector))
                 {
                     host.browse.SetSearchScope(host.browse.Scope == null ? host.session.Selected?.OwnerId : null);
                     host.catalog.Query(host.browse.Query, host.browse.Scope); resultsScroll.Reset();

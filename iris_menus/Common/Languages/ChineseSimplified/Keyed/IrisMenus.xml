@@ -2,8 +2,6 @@
 <LanguageData>
   <IM_Open>打开 IrisMenus</IM_Open>
   <IM_Manage>添加 Mod 设置</IM_Manage>
-  <IM_OpenOriginalSettings>打开原生设置窗口</IM_OpenOriginalSettings>
-  <IM_ExternalSettings>此 Mod 使用独立设置窗口。请点击下方按钮打开，并在该窗口中保存修改。</IM_ExternalSettings>
   <IM_Registered>专属设置</IM_Registered>
   <IM_Added>已添加</IM_Added>
   <IM_Pages>设置页面</IM_Pages>
@@ -77,7 +75,7 @@
   <IM_NativeModSettings>Mod 设置</IM_NativeModSettings>
   <IM_NativeSwitchLight>切换到浅色主题</IM_NativeSwitchLight>
   <IM_NativeSwitchDark>切换到深色主题</IM_NativeSwitchDark>
-  <IM_NativeSearchPlaceholder>搜索设置或 Mod</IM_NativeSearchPlaceholder>
+  <IM_NativeSearchPlaceholder>搜索：@*模组* 设置词 · +@*模组* 添加</IM_NativeSearchPlaceholder>
   <IM_NativeClose>关闭设置</IM_NativeClose>
   <IM_NativeSearchResults>搜索结果</IM_NativeSearchResults>
   <IM_NativeChoosePage>从设置库选择 Mod，打开它的设置。</IM_NativeChoosePage>
@@ -102,7 +100,7 @@
   <IM_NativeResetTitle>恢复本页默认设置？</IM_NativeResetTitle>
   <IM_NativeResetDescription>恢复本页的默认设置。其他页面的设置不变。</IM_NativeResetDescription>
   <IM_NativeDone>完成</IM_NativeDone>
-  <IM_NativeHelpDescription>在侧栏选择 Mod 以打开设置，也可以按名称搜索选项。右键点击 Mod 可置顶、改名或调整顺序。在设置库中可以添加更多 Mod。部分页面还提供目录、使用说明和恢复默认按钮。</IM_NativeHelpDescription>
+  <IM_NativeHelpDescription>在侧栏选择 Mod。输入 @*模组* 设置词可限定模组搜索；+@*模组* .* 可查询添加状态并直接添加。支持名称、别名、包名和 Mod 类型；含空格时加引号，例如 @"*FSF Tweaks*" .*。右键侧栏 Mod 可置顶、改名或调整顺序。</IM_NativeHelpDescription>
   <IM_NativeManagementTitle>添加 Mod 到设置库</IM_NativeManagementTitle>
   <IM_NativeManagementHint>选择要在 IrisMenus 中显示的 Mod 设置。这不会启用或停用游戏 Mod。</IM_NativeManagementHint>
   <IM_NativeManagementShown>已显示在设置库</IM_NativeManagementShown>
@@ -110,6 +108,11 @@
   <IM_NativeManagementAlwaysShown>始终显示</IM_NativeManagementAlwaysShown>
   <IM_NativeManagementNoPreview>暂无预览图</IM_NativeManagementNoPreview>
   <IM_NativeManagementEmpty>没有可用的设置页面。</IM_NativeManagementEmpty>
+  <IM_HostAllModSettings>所有 Mod 设置都使用 IrisMenus</IM_HostAllModSettings>
+  <IM_HostAllModSettingsHint>默认关闭。关闭后恢复原有手动添加条目，不会改动它们，也不会启用或停用游戏 Mod。</IM_HostAllModSettingsHint>
+  <IM_GlobalHostingActive>由全局接管显示</IM_GlobalHostingActive>
+  <IM_ModLookupTitle>查找并添加 Mod</IM_ModLookupTitle>
+  <IM_ModLookupHint>搜索当前已加载且提供设置的 Mod。勾选结果可添加到设置库，然后点击“打开”。</IM_ModLookupHint>
   <IM_ValueColors>物品价值配色</IM_ValueColors>
   <IM_ValueColorsHint>按单件物品的市场价值配色，不计算整组价值。每档包含起始值，不包含下一档起始值；最后一档没有上限，首档固定从 0 开始。点击色块可调整颜色，应用后立即生效。</IM_ValueColorsHint>
   <IM_ValueAddBand>添加价值档位</IM_ValueAddBand>

@@ -56,6 +56,7 @@ namespace IrisMenus
     public sealed class MenuSettings : ModSettings
     {
         internal List<string> EnabledAdapters = new List<string>();
+        internal bool HostAllModSettings;
         internal List<string> SidebarPins = new List<string>();
         internal List<string> SidebarOrder = new List<string>();
         internal Dictionary<string, string> SidebarAliases = new Dictionary<string, string>();
@@ -78,9 +79,12 @@ namespace IrisMenus
         internal Dictionary<string, string> LastSubItems = new Dictionary<string, string>();
         internal Dictionary<string, string> HostView = new Dictionary<string, string>();
 
+        internal bool HostsAdapter(string id) => HostAllModSettings || EnabledAdapters.Contains(id);
+
         public override void ExposeData()
         {
             Scribe_Collections.Look(ref EnabledAdapters, "enabledAdapters", LookMode.Value);
+            Scribe_Values.Look(ref HostAllModSettings, "hostAllModSettings", false);
             Scribe_Values.Look(ref LastPage, "lastPage");
             Scribe_Values.Look(ref RememberState, "rememberState", true);
             Scribe_Values.Look(ref ShowMainButton, "showMainButton", true);
