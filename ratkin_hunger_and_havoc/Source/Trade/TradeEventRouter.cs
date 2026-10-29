@@ -19,8 +19,7 @@ namespace HungerAndHavoc.Trade
                 return false;
             }
 
-            IntVec3 cell;
-            if (!RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null))
+            if (!RHAH_IncidentArrival.TryFindSpawnCell(map, out IntVec3 cell, out bool dropPod))
             {
                 return false;
             }
@@ -38,6 +37,7 @@ namespace HungerAndHavoc.Trade
                 CarriesPlague = entry.Category == RHAH_IncidentCategory.Plague,
                 Map = map,
                 SpawnCell = cell,
+                DropPod = dropPod,
                 PawnCount = count,
                 Points = parms == null ? 0f : parms.points
             };

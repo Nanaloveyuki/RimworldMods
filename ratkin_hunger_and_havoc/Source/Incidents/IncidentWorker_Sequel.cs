@@ -31,12 +31,12 @@ namespace HungerAndHavoc.Incidents
             }
 
             Map map = Core.RHAH_MapResolver.Resolve(parms?.target as Map);
-            return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) && FindAnySpawnCell(map);
+            return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
+                RHAH_IncidentArrival.TryFindSpawnCell(map, out _, out _, IsAirdrop(entry));
         }
         static bool FindAnySpawnCell(Map map)
         {
-            IntVec3 cell;
-            return RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null);
+            return RCellFinder.TryFindRandomPawnEntryCell(out _, map, CellFinder.EdgeRoadChance_Animal, false, null);
         }
 
         protected override bool TryExecuteWorker(IncidentParms parms)
@@ -72,18 +72,7 @@ namespace HungerAndHavoc.Incidents
                 return false;
             }
 
-            bool airdrop = entry.DisplayId == "I-032" || entry.DisplayId == "I-046";
-            IntVec3 cell;
-            if (airdrop)
-            {
-                cell = DropCellFinder.TradeDropSpot(map);
-            }
-            else if (!RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null))
-            {
-                return false;
-            }
-
-            if (!cell.IsValid)
+            if (!RHAH_IncidentArrival.TryFindSpawnCell(map, out IntVec3 cell, out bool dropPod, IsAirdrop(entry)))
             {
                 return false;
             }
@@ -99,11 +88,16 @@ namespace HungerAndHavoc.Incidents
                 CarriesPlague = entry.Category == RHAH_IncidentCategory.Plague,
                 Map = map,
                 SpawnCell = cell,
-                DropPod = airdrop,
+                DropPod = dropPod,
                 PawnCount = RHAH_IncidentScale.Count(entry.DisplayId, parms == null ? 0f : parms.points, EventCap(), false),
                 Points = parms == null ? 0f : parms.points
             });
         }
+        static bool IsAirdrop(RHAH_IncidentEntry entry)
+        {
+            return entry.DisplayId == "I-032" || entry.DisplayId == "I-046";
+        }
+
         static int EventCap()
         {
             Core.RHAH_Settings settings = Core.RHAH_Mod.Settings;

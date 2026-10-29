@@ -3,11 +3,42 @@ using HungerAndHavoc.Core;
 using HungerAndHavoc.Narrative;
 using HungerAndHavoc.Pawn;
 using HungerAndHavoc.Storyteller.Suiyin;
+using RimWorld;
+using Verse;
 
 namespace HungerAndHavoc.Incidents
 {
     internal static class RHAH_IncidentArrival
     {
+        internal static bool TryFindSpawnCell(Map map, out IntVec3 cell, out bool dropPod, bool airdrop = false)
+        {
+            dropPod = airdrop;
+            if (!airdrop && RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null))
+            {
+                return true;
+            }
+
+            // 大气层也可使用 OrbitLayer，但 isSpace=false；实体地面不一定连到地图边缘。
+            if (map.Tile.Layer is OrbitLayer)
+            {
+                dropPod = true;
+                if (CellFinder.TryFindRandomCell(map, c => c.Standable(map) && !c.Fogged(map) &&
+                    !c.GetTerrain(map).dangerous && DropCellFinder.CanPhysicallyDropInto(c, map, true) &&
+                    map.reachability.CanReachColony(c), out cell))
+                {
+                    return true;
+                }
+            }
+            else if (airdrop)
+            {
+                cell = DropCellFinder.TradeDropSpot(map);
+                return cell.IsValid;
+            }
+
+            cell = IntVec3.Invalid;
+            return false;
+        }
+
         internal static RHAH_Attitude For(string displayId)
         {
             RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(displayId);

@@ -53,8 +53,15 @@ namespace HungerAndHavoc.Incidents
                 arrived.Add(pawn);
             }
 
-            for (int i = 0; i < arrived.Count; i++)
-                GenSpawn.Spawn(arrived[i], context.SpawnCell, context.Map);
+            if (context.DropPod)
+            {
+                HungerAndHavoc.Pawn.RHAH_VisitorRules.DropPods(arrived, context.Map, context.SpawnCell, null);
+            }
+            else
+            {
+                for (int i = 0; i < arrived.Count; i++)
+                    GenSpawn.Spawn(arrived[i], context.SpawnCell, context.Map);
+            }
 
             bool young = Role == RHAH_PawnRole.WildChild && arrived[0].ageTracker.AgeBiologicalYearsFloat < 14f;
             string key = young ? "RHAH_Choice_WildYoung" : "RHAH_Choice_Wild";

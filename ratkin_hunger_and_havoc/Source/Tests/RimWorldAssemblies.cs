@@ -15,6 +15,13 @@ namespace HungerAndHavoc.Tests
         internal static void Init()
         {
             EnsureResolved();
+            InitializeGameConfiguration();
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        static void InitializeGameConfiguration()
+        {
+            RuntimeHelpers.RunClassConstructor(typeof(RHAH_ContentApplierTests).TypeHandle);
         }
 
         internal static void EnsureResolved()

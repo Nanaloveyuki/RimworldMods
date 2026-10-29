@@ -16,7 +16,7 @@ namespace HungerAndHavoc.Incidents
         {
             Map map = ResolveMap(parms);
             return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
-                RHAH_RuntimeAllows() && TemperatureAllows(map) && FindAnySpawnCell(map);
+                RHAH_RuntimeAllows() && TemperatureAllows(map) && RHAH_IncidentArrival.TryFindSpawnCell(map, out _, out _);
         }
 
         protected override bool TryExecuteWorker(IncidentParms parms)
@@ -27,8 +27,7 @@ namespace HungerAndHavoc.Incidents
                 return false;
             }
 
-            IntVec3 cell;
-            if (!RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null))
+            if (!RHAH_IncidentArrival.TryFindSpawnCell(map, out IntVec3 cell, out bool dropPod))
             {
                 return false;
             }
@@ -44,6 +43,7 @@ namespace HungerAndHavoc.Incidents
                 CarriesPlague = CarriesPlague,
                 Map = map,
                 SpawnCell = cell,
+                DropPod = dropPod,
                 PawnCount = RHAH_IncidentScale.Count(DisplayId, parms.points, EventCap(), false),
                 Points = parms.points
             });
@@ -57,11 +57,6 @@ namespace HungerAndHavoc.Incidents
 
         protected abstract bool SubmitFacts(RHAH_IncidentContext context);
 
-        static bool FindAnySpawnCell(Map map)
-        {
-            IntVec3 cell;
-            return RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null);
-        }
 
         static int EventCap()
         {
