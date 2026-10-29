@@ -4,19 +4,15 @@ using Verse;
 
 namespace ToddlersPlayExpanded
 {
-    /// <summary>
-    /// The four categories shown as tabs in the mod-settings window.
-    /// </summary>
     public enum TPE_SettingsTab
     {
-        /// <summary>Toddlers and newborn-related settings.</summary>
-        ToddlersNewborns,
-        /// <summary>Child-related settings that are NOT part of the play-need system.</summary>
-        Children,
-        /// <summary>The toggleable play-need system for children (3–13).</summary>
-        ChildrensPlayNeed,
-        /// <summary>Adult (13+) plush-sleep settings — see <see cref="TPE_Settings.enableAdultPlushSleep"/>.</summary>
-        Adults
+        ToddlerMoods,
+        ToddlerActivities,
+        ChildMoods,
+        ChildPlay,
+        PlushSleep,
+        Presentation,
+        Debug
     }
 
     /// <summary>
@@ -216,8 +212,11 @@ namespace ToddlersPlayExpanded
         /// </summary>
         public bool enableChildCrying = true;
 
+        public bool enableOlderChildCrying = false;
+        public float parentIgnoreCryChance = 0.8f;
+
         /// <summary>
-        /// When true, suppresses the crying sound effect for children (ages 3–6)
+        /// When true, suppresses the crying sound effect for children of all enabled ages
         /// in the TPE_ChildCrying or TPE_ChildTantrum mental state. Visual tears
         /// and mood effects remain. Accessibility option for players who find
         /// child crying audio distressing.
@@ -390,9 +389,9 @@ namespace ToddlersPlayExpanded
         // ══════════════════════════════════════════════════════════════════════
         /// <summary>
         /// Which settings tab is currently open. Not saved — resets to
-        /// <see cref="TPE_SettingsTab.ToddlersNewborns"/> on restart.
+        /// <see cref="TPE_SettingsTab.ToddlerMoods"/> on restart.
         /// </summary>
-        public TPE_SettingsTab currentTab = TPE_SettingsTab.ToddlersNewborns;
+        public TPE_SettingsTab currentTab = TPE_SettingsTab.ToddlerMoods;
 
         public override void ExposeData()
         {
@@ -416,6 +415,8 @@ namespace ToddlersPlayExpanded
             Scribe_Values.Look(ref enableChildPlushSleep, "enableChildPlushSleep", true);
             Scribe_Values.Look(ref enableOlderChildPlushSleep, "enableOlderChildPlushSleep", true);
             Scribe_Values.Look(ref enableChildCrying, "enableChildCrying", true);
+            Scribe_Values.Look(ref enableOlderChildCrying, "enableOlderChildCrying", false);
+            Scribe_Values.Look(ref parentIgnoreCryChance, "parentIgnoreCryChance", 0.8f);
             Scribe_Values.Look(ref muteChildCryingSound, "muteChildCryingSound", false);
 
             // Adults (13+)
@@ -440,468 +441,84 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    /// <summary>
-    /// Mod entry point that registers the settings page in RimWorld's
-    /// Options → Mod Settings menu. The UI is organized into four tabbed
-    /// categories so that no single view grows tall enough to push options
-    /// off-screen.
-    /// </summary>
-    public class TPE_Mod : Mod
+    public partial class TPE_Mod : Mod
     {
         public static TPE_Settings Settings = null!;
 
-        /// <summary>
-        /// Height reserved for the row of category-tab buttons at the top of
-        /// the settings panel.
-        /// </summary>
-        private const float TabRowHeight = 36f;
+        internal static readonly string[] PageIds =
+        {
+            "toddler-moods", "toddler-activities", "child-moods", "child-play",
+            "plush-sleep", "presentation", "debug"
+        };
+        internal static readonly string[] PageKeys =
+        {
+            "ToddlerMoods", "ToddlerActivities", "ChildMoods", "ChildPlay",
+            "PlushSleep", "Presentation", "Debug"
+        };
 
-        /// <summary>
-        /// Horizontal gap between adjacent tab buttons.
-        /// </summary>
-        private const float TabButtonGap = 6f;
-
-        /// <summary>
-        /// Vertical gap between the tab row and the content area below it.
-        /// </summary>
-        private const float TabContentGap = 8f;
-
-        /// <summary>
-        /// Number of settings tabs — sizes <see cref="tabContentHeights"/>. Computed once
-        /// from the enum so adding a tab can never index out of range.
-        /// </summary>
-        private static readonly int TabCount = System.Enum.GetValues(typeof(TPE_SettingsTab)).Length;
-
-        /// <summary>
-        /// Scroll offset of the tab content area. UI-only (never saved); reset to the top
-        /// whenever the player switches tabs so a new tab never opens mid-scroll.
-        /// </summary>
-        private Vector2 settingsScrollPosition;
-
-        /// <summary>
-        /// Content height each tab actually used on its previous draw pass
-        /// (<see cref="Listing.CurHeight"/>), indexed by <c>(int)TPE_SettingsTab</c>. Used as
-        /// the scroll view's <c>viewRect</c> height on the next pass. Measuring instead of
-        /// hard-coding means sub-options that appear/disappear (e.g. the random-mood
-        /// sliders) and longer translations size the scroll area correctly by themselves.
-        /// Starts at 0 = "not measured yet" (the view then just fills the visible area for
-        /// one pass — see the clamp in <see cref="DoSettingsWindowContents"/>).
-        /// </summary>
-        private readonly float[] tabContentHeights = new float[TabCount];
+        private readonly System.Action<Listing_Standard>[] pageDrawers;
+        private readonly float[] pageHeights = new float[PageIds.Length];
+        private readonly Listing_Standard settingsListing = new Listing_Standard { maxOneColumn = true };
+        private Vector2 settingsScroll;
 
         public TPE_Mod(ModContentPack content) : base(content)
         {
             Settings = GetSettings<TPE_Settings>();
-
-            // Stale-DLL guard (dev mode only, once): logs one clear error if this DLL was not
-            // built from the Source/ folder next to it. Returns immediately when dev mode is
-            // off. See BuildFingerprintCheck / Architecture.md §3a.
+            pageDrawers = new System.Action<Listing_Standard>[]
+            {
+                DrawToddlerMoods, DrawToddlerActivities, DrawChildMoods, DrawChildPlay,
+                DrawPlushSleep, DrawPresentation, DrawDebug
+            };
             BuildFingerprintCheck.RunIfDevMode(content);
+            LongEventHandler.ExecuteWhenFinished(() => IrisMenusIntegration.Register(this));
         }
 
-        /// <summary>
-        /// Renders the entire settings window. The top portion is a row of
-        /// category buttons; the remainder shows only the settings belonging
-        /// to the currently selected category.
-        /// </summary>
-        /// <param name="inRect">The full rectangle allocated by RimWorld for this mod's settings page.</param>
+        internal static string PageTitle(int page) => ("TPE_Settings_Page_" + PageKeys[page]).Translate();
+
+        internal void DrawSettingsPage(int page, Listing_Standard listing)
+        {
+            listing.Label(("TPE_Settings_Page_" + PageKeys[page] + "_Description").Translate());
+            listing.GapLine(12f);
+            pageDrawers[page](listing);
+        }
+
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            // ── Tab button row ──
-            Rect tabRow = new Rect(inRect.x, inRect.y, inRect.width, TabRowHeight);
-            DrawTabButtons(tabRow);
+            const float rowHeight = 34f, gap = 6f;
+            int columns = Mathf.Max(1, Mathf.Min(4, Mathf.FloorToInt(inRect.width / 160f)));
+            int rows = (PageIds.Length + columns - 1) / columns;
+            float width = (inRect.width - (columns - 1) * gap) / columns;
+            for (int page = 0; page < PageIds.Length; page++)
+            {
+                Rect button = new Rect(inRect.x + page % columns * (width + gap),
+                    inRect.y + page / columns * (rowHeight + gap), width, rowHeight);
+                if (Widgets.ButtonText(button, PageTitle(page)) && (int)Settings.currentTab != page)
+                {
+                    Settings.currentTab = (TPE_SettingsTab)page;
+                    settingsScroll = Vector2.zero;
+                }
+                if ((int)Settings.currentTab == page) Widgets.DrawHighlight(button);
+            }
 
-            // ── Content area (everything below the tabs) ──
-            float contentY = inRect.y + TabRowHeight + TabContentGap;
-            Rect contentRect = new Rect(inRect.x, contentY, inRect.width, inRect.height - TabRowHeight - TabContentGap);
-
-            // ── Scrollable content (fixes tabs taller than the 900×700 settings window) ──
-            // The Toddlers / Newborns tab already needed ~580px against ~540px available
-            // before the animation toggle was added, so its last slider was clipped.
-            // viewRect height = what this tab measured last pass, but never less than the
-            // visible area, so short tabs show no scrollbar. Width ALWAYS reserves the
-            // scrollbar: if it only did so when scrolling, label wrapping (and therefore
-            // the measured height) could flip-flop right at the threshold every frame.
-            int tabIndex = (int)Settings.currentTab;
-            if ((uint)tabIndex >= (uint)TabCount)
-                tabIndex = 0; // defensive; currentTab is never persisted, so this can't really happen
-            float viewHeight = Mathf.Max(tabContentHeights[tabIndex], contentRect.height);
-            Rect viewRect = new Rect(0f, 0f, contentRect.width - GenUI.ScrollBarWidth, viewHeight);
-
-            Widgets.BeginScrollView(contentRect, ref settingsScrollPosition, viewRect);
-
-            // maxOneColumn: when content grows this pass (a sub-option was just revealed),
-            // the listing must NOT wrap the overflow into a second column — it is simply
-            // clipped for this one pass, and next pass viewHeight already fits it.
-            Listing_Standard listing = new Listing_Standard { maxOneColumn = true };
-            listing.Begin(viewRect);
-
-            // try/finally: the scroll view and the listing each push a GUI clip. If any
-            // tab's draw code ever threw, skipping End()/EndScrollView() would leave the
-            // clip stack unbalanced and cascade into per-frame GUI errors in every window.
+            int selected = (int)Settings.currentTab;
+            float header = rows * (rowHeight + gap) + gap;
+            Rect viewport = new Rect(inRect.x, inRect.y + header, inRect.width, Mathf.Max(0f, inRect.height - header));
+            Rect content = new Rect(0f, 0f, Mathf.Max(1f, viewport.width - GenUI.ScrollBarWidth),
+                Mathf.Max(viewport.height, pageHeights[selected]));
+            Widgets.BeginScrollView(viewport, ref settingsScroll, content);
+            settingsListing.Begin(content);
             try
             {
-                switch (Settings.currentTab)
-                {
-                    case TPE_SettingsTab.ToddlersNewborns:
-                        DrawToddlersNewbornsTab(listing);
-                        break;
-                    case TPE_SettingsTab.Children:
-                        DrawChildrenTab(listing);
-                        break;
-                    case TPE_SettingsTab.ChildrensPlayNeed:
-                        DrawChildrensPlayNeedTab(listing);
-                        break;
-                    case TPE_SettingsTab.Adults:
-                        DrawAdultsTab(listing);
-                        break;
-                }
-
-                // Remember how tall this tab really is for the next pass. Idempotent
-                // across the multiple OnGUI passes per frame (Layout/Repaint/input) —
-                // a plain overwrite of a measured value, never an accumulation.
-                tabContentHeights[tabIndex] = listing.CurHeight;
+                DrawSettingsPage(selected, settingsListing);
+                pageHeights[selected] = settingsListing.CurHeight;
             }
             finally
             {
-                listing.End();
+                settingsListing.End();
                 Widgets.EndScrollView();
             }
         }
 
-        /// <summary>
-        /// Draws the category buttons side-by-side. The active category
-        /// receives a highlight so the player knows which view is open.
-        /// </summary>
-        private void DrawTabButtons(Rect tabRow)
-        {
-            // Pair each tab enum with its display label.
-            (TPE_SettingsTab tab, string label)[] tabs = new (TPE_SettingsTab, string)[]
-            {
-                (TPE_SettingsTab.ToddlersNewborns, "TPE_Settings_Tab_ToddlersNewborns".Translate()),
-                (TPE_SettingsTab.Children,           "TPE_Settings_Tab_Children".Translate()),
-                (TPE_SettingsTab.ChildrensPlayNeed,  "TPE_Settings_Tab_ChildrensPlayNeed".Translate()),
-                (TPE_SettingsTab.Adults,              "TPE_Settings_Tab_Adults".Translate())
-            };
-
-            float buttonWidth = (tabRow.width - (tabs.Length - 1) * TabButtonGap) / tabs.Length;
-
-            for (int i = 0; i < tabs.Length; i++)
-            {
-                Rect buttonRect = new Rect(
-                    tabRow.x + i * (buttonWidth + TabButtonGap),
-                    tabRow.y,
-                    buttonWidth,
-                    tabRow.height);
-
-                bool isSelected = Settings.currentTab == tabs[i].tab;
-
-                if (Widgets.ButtonText(buttonRect, tabs[i].label))
-                {
-                    // Switching to a different tab starts it scrolled to the top.
-                    if (Settings.currentTab != tabs[i].tab)
-                        settingsScrollPosition = Vector2.zero;
-                    Settings.currentTab = tabs[i].tab;
-                }
-
-                // Highlight the selected tab so it stands out from the other two.
-                if (isSelected)
-                {
-                    Widgets.DrawHighlight(buttonRect);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toddlers / Newborns category.
-        /// Contains: random moods, event moods, self soothing, heater snuggling,
-        /// mute baby/toddler crying sounds, disable toddler play animations,
-        /// plush-sleep rendering/seeking, crib confinement scaling, bubble limits.
-        /// </summary>
-        private void DrawToddlersNewbornsTab(Listing_Standard listing)
-        {
-            listing.CheckboxLabeled(
-                "Enable random toddler moods",
-                ref Settings.enableRandomToddlerMoods,
-                "Awake toddlers occasionally gain spontaneous mood buffs or debuffs about small, everyday things.");
-
-            if (Settings.enableRandomToddlerMoods)
-            {
-                listing.Gap(8f);
-                listing.Label($"Max simultaneous random moods: {Settings.randomMoodMaxActive}");
-                Settings.randomMoodMaxActive = Mathf.RoundToInt(listing.Slider(Settings.randomMoodMaxActive, 1f, 5f));
-                listing.Label("How many random mood thoughts a toddler can have at once.");
-
-                listing.Gap(8f);
-                listing.Label($"Mood event frequency: {Settings.randomMoodFrequency:P0}");
-                Settings.randomMoodFrequency = listing.Slider(Settings.randomMoodFrequency, 0.05f, 0.50f);
-                listing.Label("Hourly chance for each awake toddler to gain a random mood.");
-            }
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Enable event-triggered toddler moods",
-                ref Settings.enableEventTriggeredMoods,
-                "Toddlers gain mood buffs/debuffs when colony events happen (raids, weather, death, weddings, etc.).");
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Enable toddler self soothing",
-                ref Settings.enableSelfSoothing,
-                "Upset toddlers in cribs may attempt to calm themselves down through activities like thumb sucking, blanket clutching, and thinking happy thoughts. More common when mood is low.");
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Enable heater snuggling",
-                ref Settings.enableHeaterSnuggling,
-                "When outdoor temperature drops below a toddler's comfortable minimum, toddlers will seek indoor heaters and idle next to them for warmth. They may bring a plush toy if one is available.");
-
-            if (Settings.enableHeaterSnuggling)
-            {
-                listing.Gap(4f);
-                listing.CheckboxLabeled(
-                    "Allow geothermal snuggling",
-                    ref Settings.allowGeothermalSnuggling,
-                    "When enabled, toddlers may also snuggle next to geothermal generators and steam geysers. Default OFF because these are industrial/natural heat sources rather than safe indoor heaters.");
-            }
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Mute baby / toddler crying sounds",
-                ref Settings.muteBabyCryingSound,
-                "When enabled, babies and toddlers in crying mental states will NOT play crying audio. Visual tears and mood effects still apply. Accessibility option.");
-
-            // Cosmetic toggle (default OFF = animations play). Sits next to the other
-            // presentation/accessibility option (mute crying) on this tab.
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "TPE_Settings_DisableToddlerPlayAnimations_Label".Translate(),
-                ref Settings.disableToddlerPlayAnimations,
-                "TPE_Settings_DisableToddlerPlayAnimations_Tooltip".Translate());
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "TPE_Settings_RenderPlushWhileSleeping_Label".Translate(),
-                ref Settings.renderPlushWhileSleeping,
-                "TPE_Settings_RenderPlushWhileSleeping_Tooltip".Translate());
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Label".Translate(),
-                ref Settings.alwaysSeekPlushRegardlessOfRest,
-                "TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Tooltip".Translate());
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Enable crib confinement priority scaling",
-                ref Settings.enableConfinementPriorityScaling,
-                "When enabled, crawler toddlers' escape-crib priority increases as confinement builds: Tier 1 (Restless)=2.0f, Tier 2 (Frustrated)=3.0f, Tier 3 (Desperate)=4.5f. When mental break triggers, priority resets to 2.0f (panic mode, forgets the gate exists).");
-
-            listing.Gap(12f);
-            listing.Label(
-                $"Global bubble rendering limit: {Settings.maxBubblesPerMap}",
-                -1f,
-                (TipSignal)"Maximum bubbles that can render at once across the entire map. Prevents performance issues with many bubble machines active. Range: 1–100.");
-            Settings.maxBubblesPerMap = Mathf.RoundToInt(listing.Slider(Settings.maxBubblesPerMap, 1f, 100f));
-
-            listing.Gap(8f);
-            listing.Label(
-                $"Bubble opacity: {Settings.bubbleOpacity:P0}",
-                -1f,
-                (TipSignal)"Controls how transparent or opaque bubbles appear when rendered. 100% = fully opaque (bubble texture as authored). Lower values make bubbles more see-through. Applies instantly to bubbles already on screen.");
-            Settings.bubbleOpacity = listing.Slider(Settings.bubbleOpacity, 0f, 1f);
-        }
-
-        /// <summary>
-        /// Children category (non-play-need).
-        /// Contains: plush-to-bed system, child crying system,
-        /// and mute child crying sounds.
-        /// </summary>
-        private void DrawChildrenTab(Listing_Standard listing)
-        {
-            listing.CheckboxLabeled(
-                "Enable children (3–6) plush-to-bed system",
-                ref Settings.enableChildPlushSleep,
-                "Children aged 3–6 will autonomously seek and equip plush toys before sleeping, receiving comfort thoughts when bedding down with one. Mirrors the toddler system but for older children.");
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Enable older children (7–12) plush-to-bed system",
-                ref Settings.enableOlderChildPlushSleep,
-                "Independent of the 3–6 toggle above. Children aged 7–12 will also autonomously seek and equip plush toys before sleeping, receiving the same comfort thoughts as younger children when bedding down with one.");
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Enable child crying system (3–6)",
-                ref Settings.enableChildCrying,
-                "Children aged 3–6 who become very unhappy may cry, seek comfort from adults, and disturb nearby colonists. When disabled, children behave like vanilla pawns with no crying mechanics.");
-
-            listing.Gap(12f);
-            listing.CheckboxLabeled(
-                "Mute child crying sounds (3–6)",
-                ref Settings.muteChildCryingSound,
-                "When enabled, children in crying or tantrum mental states will NOT play crying audio. Visual tears and mood effects still apply. Accessibility option.");
-        }
-
-        /// <summary>
-        /// Adults (13+) category. Contains the master toggle for the adult
-        /// plush-to-bed system and, when enabled, the 4-way mood-mode dropdown
-        /// controlling which (if any) of the two adult plush-sleep thoughts can apply.
-        /// </summary>
-        private void DrawAdultsTab(Listing_Standard listing)
-        {
-            listing.CheckboxLabeled(
-                "TPE_Settings_EnableAdultPlushSleep_Label".Translate(),
-                ref Settings.enableAdultPlushSleep,
-                "TPE_Settings_EnableAdultPlushSleep_Tooltip".Translate());
-
-            if (!Settings.enableAdultPlushSleep)
-            {
-                return;
-            }
-
-            listing.Gap(12f);
-            listing.Label("TPE_Settings_AdultMoodMode_Label".Translate());
-
-            // Dropdown button showing the currently selected mode. Clicking opens
-            // a FloatMenu with all four options — matches the exact wording the
-            // user specified: "No moodlets", "Only negative moodlet for not
-            // sleeping with plushie", "Only positive moodlet for sleeping with
-            // plushie", "Moodlets for both options".
-            Rect dropdownRect = listing.GetRect(30f);
-            if (Widgets.ButtonText(dropdownRect, AdultMoodModeLabel(Settings.adultPlushieMoodMode)))
-            {
-                List<FloatMenuOption> options = new List<FloatMenuOption>
-                {
-                    new FloatMenuOption("TPE_Settings_AdultMoodMode_None".Translate(),
-                        () => Settings.adultPlushieMoodMode = AdultPlushieMoodMode.None),
-                    new FloatMenuOption("TPE_Settings_AdultMoodMode_NegativeOnly".Translate(),
-                        () => Settings.adultPlushieMoodMode = AdultPlushieMoodMode.NegativeOnly),
-                    new FloatMenuOption("TPE_Settings_AdultMoodMode_PositiveOnly".Translate(),
-                        () => Settings.adultPlushieMoodMode = AdultPlushieMoodMode.PositiveOnly),
-                    new FloatMenuOption("TPE_Settings_AdultMoodMode_Both".Translate(),
-                        () => Settings.adultPlushieMoodMode = AdultPlushieMoodMode.Both),
-                };
-                Find.WindowStack.Add(new FloatMenu(options));
-            }
-
-            listing.Gap(6f);
-            listing.Label(AdultMoodModeDescription(Settings.adultPlushieMoodMode));
-        }
-
-        /// <summary>Short button-face label for the currently selected <see cref="AdultPlushieMoodMode"/>.</summary>
-        private static string AdultMoodModeLabel(AdultPlushieMoodMode mode)
-        {
-            switch (mode)
-            {
-                case AdultPlushieMoodMode.None: return "TPE_Settings_AdultMoodMode_None".Translate();
-                case AdultPlushieMoodMode.NegativeOnly: return "TPE_Settings_AdultMoodMode_NegativeOnly".Translate();
-                case AdultPlushieMoodMode.PositiveOnly: return "TPE_Settings_AdultMoodMode_PositiveOnly".Translate();
-                case AdultPlushieMoodMode.Both: return "TPE_Settings_AdultMoodMode_Both".Translate();
-                default: return mode.ToString();
-            }
-        }
-
-        /// <summary>Longer explanatory line shown under the dropdown for the currently selected mode.</summary>
-        private static string AdultMoodModeDescription(AdultPlushieMoodMode mode)
-        {
-            switch (mode)
-            {
-                case AdultPlushieMoodMode.None: return "TPE_Settings_AdultMoodMode_None_Desc".Translate();
-                case AdultPlushieMoodMode.NegativeOnly: return "TPE_Settings_AdultMoodMode_NegativeOnly_Desc".Translate();
-                case AdultPlushieMoodMode.PositiveOnly: return "TPE_Settings_AdultMoodMode_PositiveOnly_Desc".Translate();
-                case AdultPlushieMoodMode.Both: return "TPE_Settings_AdultMoodMode_Both_Desc".Translate();
-                default: return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Children's Play Need category.
-        /// Contains: debug logging, psychopath play-mood toggle, master toggle,
-        /// and (while the master toggle is ON) age-gated desires, decay slider,
-        /// growth-weight slider, play when idle, always include Active Play,
-        /// disable child play animations, and show dirt castles.
-        /// </summary>
-        private void DrawChildrensPlayNeedTab(Listing_Standard listing)
-        {
-            // Debug options at the very top
-            listing.CheckboxLabeled(
-                "[DEBUG] Debug Logging",
-                ref Settings.debugLogging,
-                "Enable detailed debug logging across the entire mod (crib gate, heater snuggling, play activities, AI allocation, etc.). Useful for troubleshooting. Logs do not affect gameplay—purely diagnostic.");
-
-            listing.GapLine(12f);
-
-            // Cross-cutting toggle: affects BOTH toddler Self Soothing thoughts
-            // (Toddlers/Newborns tab feature) and the child play-need thoughts
-            // below, so it's drawn unconditionally at the top of this tab rather
-            // than gated behind "enableChildrenPlayNeed".
-            listing.CheckboxLabeled(
-                "TPE_Settings_KeepPlayMoodForPsychopaths_Label".Translate(),
-                ref Settings.keepPlayMoodForPsychopaths,
-                "TPE_Settings_KeepPlayMoodForPsychopaths_Tooltip".Translate());
-
-            listing.GapLine(12f);
-
-            listing.CheckboxLabeled(
-                "Enable children play-need system (3–13)",
-                ref Settings.enableChildrenPlayNeed,
-                "Children gain a dedicated Play need alongside Learning. They'll develop Play Desires, run around, jump, spin, and chase each other — just like real kids! Growth points are blended from both needs so they must balance fun and study.");
-
-            if (Settings.enableChildrenPlayNeed)
-            {
-                listing.Gap(4f);
-                listing.CheckboxLabeled(
-                    "Age-gated play desires",
-                    ref Settings.ageGatedPlayDesires,
-                    "When ON, each play desire is restricted to specific age groups (e.g. plush toys only for ages 3–6). When OFF, any child (3–13) can receive any play desire.");
-
-                listing.Gap(8f);
-                listing.Label($"Play need decay time: {Settings.playNeedDecayDays:F1} days");
-                Settings.playNeedDecayDays = listing.Slider(Settings.playNeedDecayDays, 3f, 14f);
-                listing.Label("How long it takes for a child's play need to drain from full to empty.");
-
-                listing.Gap(8f);
-                listing.Label($"Play weight in growth: {Settings.playWeightInGrowth:F2}");
-                Settings.playWeightInGrowth = listing.Slider(Settings.playWeightInGrowth, 0f, 1f);
-                listing.Label("How much play need contributes to growth-point gain. 0.5 = average of learning and play.");
-
-                listing.Gap(12f);
-                listing.CheckboxLabeled(
-                    "TPE_Settings_PlayWhenIdle_Label".Translate(),
-                    ref Settings.playWhenIdle,
-                    "TPE_Settings_PlayWhenIdle_Tooltip".Translate());
-
-                listing.Gap(12f);
-                listing.CheckboxLabeled(
-                    "TPE_Settings_GuaranteeActivePlay_Label".Translate(),
-                    ref Settings.guaranteeActivePlayDesire,
-                    "TPE_Settings_GuaranteeActivePlay_Tooltip".Translate());
-
-                // Cosmetic toggle (default OFF = animations play). Placed right under
-                // "Always include Active Play" because Active Play is the only child play
-                // desire that animates; hidden with the rest of this block when the
-                // play-need system is off (Active Play can't be rolled then anyway).
-                listing.Gap(12f);
-                listing.CheckboxLabeled(
-                    "TPE_Settings_DisableChildPlayAnimations_Label".Translate(),
-                    ref Settings.disableChildPlayAnimations,
-                    "TPE_Settings_DisableChildPlayAnimations_Tooltip".Translate());
-
-                // Dirt-castle visual toggle (default ON). Sits with the other
-                // play-desire options; hidden along with them when the whole
-                // play-need system is disabled.
-                listing.Gap(12f);
-                listing.CheckboxLabeled(
-                    "TPE_Settings_ShowDirtCastles_Label".Translate(),
-                    ref Settings.showDirtCastles,
-                    "TPE_Settings_ShowDirtCastles_Tooltip".Translate());
-            }
-        }
-
-        public override string SettingsCategory()
-        {
-            return "Toddlers Play Expanded";
-        }
+        public override string SettingsCategory() => "TPE_ModSettingsCategory".Translate();
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
@@ -131,51 +130,6 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    // Patch JobGiver_ToddlerPlay.TryGiveJob — change 0.95f threshold to 1.01f
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlay_TryGiveJob
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlay");
-            return AccessTools.Method(type, "TryGiveJob");
-        }
-
-        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            foreach (var instr in instructions)
-            {
-                if (instr.opcode == OpCodes.Ldc_R4 && (float)instr.operand == 0.95f)
-                {
-                    instr.operand = 1.01f;
-                }
-                yield return instr;
-            }
-        }
-    }
-
-    // Patch JobGiver_ToddlerPlayInCrib.TryGiveJob — change 0.95f threshold to 1.01f
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlayInCrib");
-            return AccessTools.Method(type, "TryGiveJob");
-        }
-
-        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            foreach (var instr in instructions)
-            {
-                if (instr.opcode == OpCodes.Ldc_R4 && (float)instr.operand == 0.95f)
-                {
-                    instr.operand = 1.01f;
-                }
-                yield return instr;
-            }
-        }
-    }
 
     // =========================================================================
     // COMPREHENSIVE TV BLOCKING FOR CRIB-LOCKED TODDLERS
@@ -193,8 +147,8 @@ namespace ToddlersPlayExpanded
     // insufficient — the out-of-crib path will assign the TV job on the very
     // next think-node evaluation.
     //
-    // Defence-in-depth: we patch ALL entry points so that even if one is
-    // JIT-inlined or bypassed, the others still catch it.
+    // Eligibility prefixes avoid television searches for locked toddlers; job
+    // creation prefixes also cover direct callers that do not ask CanDo first.
     // =========================================================================
 
     /// <summary>
@@ -211,10 +165,11 @@ namespace ToddlersPlayExpanded
             return AccessTools.Method(type, "CanDoFromCrib", new System.Type[] { typeof(Pawn) });
         }
 
-        static void Postfix(Pawn pawn, ref bool __result)
+        static bool Prefix(Pawn pawn, ref bool __result)
         {
-            if (__result && CribLockUtility.IsCribLocked(pawn))
-                __result = false;
+            if (!CribLockUtility.IsCribLocked(pawn)) return true;
+            __result = false;
+            return false;
         }
     }
 
@@ -234,10 +189,11 @@ namespace ToddlersPlayExpanded
             return AccessTools.Method(type, "CanDo", new System.Type[] { typeof(Pawn) });
         }
 
-        static void Postfix(Pawn pawn, ref bool __result)
+        static bool Prefix(Pawn pawn, ref bool __result)
         {
-            if (__result && CribLockUtility.IsCribLocked(pawn))
-                __result = false;
+            if (!CribLockUtility.IsCribLocked(pawn)) return true;
+            __result = false;
+            return false;
         }
     }
 
@@ -291,114 +247,6 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    /// <summary>
-    /// Layer 5: Catch any TV job from the in-crib job giver.
-    /// Postfix on JobGiver_ToddlerPlayInCrib.TryGiveJob — nulls out the
-    /// returned job if it is a TV job and the toddler is locked.
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_BlockTV
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlayInCrib");
-            return AccessTools.Method(type, "TryGiveJob", new System.Type[] { typeof(Pawn) });
-        }
-
-        static void Postfix(Pawn pawn, ref Job __result)
-        {
-            if (__result != null && __result.def != null
-                && __result.def.defName == "ToddlerWatchTelevision"
-                && CribLockUtility.IsCribLocked(pawn))
-            {
-                __result = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Layer 6: Catch any TV job from the out-of-crib job giver.
-    /// Postfix on JobGiver_ToddlerPlay.TryGiveJob — nulls out the returned
-    /// job if it is a TV job and the toddler is locked.
-    /// THIS WAS THE MISSING PIECE — the out-of-crib job giver runs when the
-    /// in-crib giver returns null, and it can assign TV jobs through CanDo.
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlay_TryGiveJob_BlockTV
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlay");
-            return AccessTools.Method(type, "TryGiveJob", new System.Type[] { typeof(Pawn) });
-        }
-
-        static void Postfix(Pawn pawn, ref Job __result)
-        {
-            if (__result != null && __result.def != null
-                && __result.def.defName == "ToddlerWatchTelevision"
-                && CribLockUtility.IsCribLocked(pawn))
-            {
-                __result = null;
-            }
-        }
-    }
-
-    // Patch ToddlerPlayGiver.CanDo — change 0.9f threshold to 1.01f
-    // CRITICAL: Also add postfix guard to prevent animals from playing.
-    [HarmonyPatch(typeof(ToddlerPlayGiver), "CanDo")]
-    public static class Patch_ToddlerPlayGiver_CanDo
-    {
-        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            foreach (var instr in instructions)
-            {
-                if (instr.opcode == OpCodes.Ldc_R4 && (float)instr.operand == 0.9f)
-                {
-                    instr.operand = 1.01f;
-                }
-                yield return instr;
-            }
-        }
-
-        /// <summary>
-        /// FIX G2a: Postfix guard — prevent animals from autonomous play activities.
-        /// Even if the base mod somehow marks an animal as a toddler, only humanlike
-        /// pawns should participate in play givers.
-        /// </summary>
-        static void Postfix(Pawn pawn, ref bool __result)
-        {
-            if (__result && !pawn.RaceProps.Humanlike)
-                __result = false;
-        }
-    }
-
-    // Patch ToddlerPlayGiver.CanDoFromCrib — change 0.9f threshold to 1.01f
-    // CRITICAL: Also add postfix guard to prevent animals from in-crib play.
-    [HarmonyPatch(typeof(ToddlerPlayGiver), "CanDoFromCrib")]
-    public static class Patch_ToddlerPlayGiver_CanDoFromCrib
-    {
-        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            foreach (var instr in instructions)
-            {
-                if (instr.opcode == OpCodes.Ldc_R4 && (float)instr.operand == 0.9f)
-                {
-                    instr.operand = 1.01f;
-                }
-                yield return instr;
-            }
-        }
-
-        /// <summary>
-        /// FIX G2b: Postfix guard — prevent animals from in-crib play activities.
-        /// Only humanlike pawns should be able to play in their cribs.
-        /// </summary>
-        static void Postfix(Pawn pawn, ref bool __result)
-        {
-            if (__result && !pawn.RaceProps.Humanlike)
-                __result = false;
-        }
-    }
 
     // Patch ToddlerPlayUtility.ToddlerPlayTickCheckEnd — never end job just because play need is full
     [HarmonyPatch(typeof(ToddlerPlayUtility), "ToddlerPlayTickCheckEnd")]
@@ -1287,8 +1135,8 @@ namespace ToddlersPlayExpanded
             // its visual state after clicking, making the lock appear broken.
             yield return new Command_Toggle
             {
-                defaultLabel = "Lock in Crib",
-                defaultDesc = "Toggle whether this toddler is locked in their crib. When locked, colonists will not let them out and will return them to bed if they escape.",
+                defaultLabel = "TPE_CribLockLabel".Translate(),
+                defaultDesc = "TPE_CribLockTooltip".Translate(),
                 icon = TexCommand.ForbidOff,
                 activateSound = SoundDefOf.Checkbox_TurnedOn,
                 // Dynamic read — always reflects current hediff state
@@ -1320,13 +1168,13 @@ namespace ToddlersPlayExpanded
             {
                 pawn.health.RemoveHediff(existing);
                 if (pawn.Map != null)
-                    Messages.Message(pawn.Name.ToStringShort + " is no longer locked in their crib.", pawn, MessageTypeDefOf.NeutralEvent);
+                    Messages.Message("TPE_CribUnlockedMessage".Translate(pawn.Name.ToStringShort), pawn, MessageTypeDefOf.NeutralEvent);
             }
             else
             {
                 pawn.health.AddHediff(TPE_HediffDefOf.TPE_CribLocked);
                 if (pawn.Map != null)
-                    Messages.Message(pawn.Name.ToStringShort + " has been locked in their crib.", pawn, MessageTypeDefOf.NeutralEvent);
+                    Messages.Message("TPE_CribLockedMessage".Translate(pawn.Name.ToStringShort), pawn, MessageTypeDefOf.NeutralEvent);
             }
         }
     }
@@ -2146,11 +1994,11 @@ namespace ToddlersPlayExpanded
     // Priority layout inside MainColonistBehaviorCore (highest first):
     //   Food / Autofeed          ~9.5f
     //   Chemical needs           ~9.25f
-    //   Child play (urgent)       9.15f (play < 30% AND below Learning; never on TPE_Learning)
+    //   Child play (urgent)       9.15f (only after shared schedule/rest disqualification)
     //   Learning (child)         ~9.1f  (boosted to 9.4f when on TPE_Learning)
     //   Hemogen (vanilla)         9.1f  (flat; urgent play goes first for one session, accepted)
-    //   Meditate (Meditate sched.) 9.0f (Learning already beats it there, so urgent play does too)
-    //   Child play (normal)       8.5f
+    //   Meditate (Meditate sched.) 9.0f (play never enters this assignment)
+    //   Child play (normal)       8.5f (disqualified whenever vanilla Rest is eligible)
     //   Rest                     ~8f
     //   Joy                      ~7f    (suppressed to 0f for children on Learning)
     //   Work                     ~5.5f  (suppressed to 0f for children on Learning)
@@ -3518,154 +3366,6 @@ namespace ToddlersPlayExpanded
     }
 
 
-    // ══════════════════════════════════════════════════════════════════════
-    //  CHILD CRYING: AGE FILTER ON MentalFitDef.CalculateMTBDays
-    // ══════════════════════════════════════════════════════════════════════
-    /// <summary>
-    /// Prefix on MentalFitDef.CalculateMTBDays. Adds an age cap for our
-    /// TPE_ChildCryingFit def. The Child developmental-stage filter alone
-    /// covers ages 3-13, but we only want growth-tier-1 children (ages 3-6)
-    /// to enter the crying mental state. Returns infinity for children over 6.
-    /// All other MentalFitDefs are passed through unchanged.
-    /// </summary>
-    [HarmonyPatch(typeof(MentalFitDef), "CalculateMTBDays")]
-    public static class Patch_MentalFitDef_CalculateMTBDays_ChildCrying
-    {
-        public static bool Prefix(MentalFitDef __instance, Pawn pawn, ref float __result)
-        {
-            // Only intercept our child-crying fit, identified by its stateClass type.
-            // Type comparison is safe and does not rely on a hardcoded defName string.
-            if (__instance.mentalState?.stateClass != typeof(MentalState_ChildCry))
-                return true; // Not our def — let original run.
-
-            // If the child crying system is disabled, this fit can never trigger.
-            if (TPE_Mod.Settings?.enableChildCrying != true)
-            {
-                __result = float.PositiveInfinity;
-                return false; // Skip original — result already set to never.
-            }
-
-            // Children older than 6 are in growth tier 2 or 3 and should not cry via this fit.
-            if (pawn.ageTracker?.AgeBiologicalYears > 6)
-            {
-                __result = float.PositiveInfinity;
-                return false; // Skip original — result already set to never.
-            }
-
-            // Children aged 3-6: let the base method evaluate the mood curve normally.
-            return true;
-        }
-    }
-
-
-    // ══════════════════════════════════════════════════════════════════════
-    //  CHILD IMMUNITY: Vanilla baby crying does NOT affect children aged ≤ 6
-    // ══════════════════════════════════════════════════════════════════════
-    /// <summary>
-    /// Prefix on MentalState_BabyCry.AuraEffect. Grants immunity to pawns
-    /// aged 6 or younger so that a crying baby cannot push nearby young
-    /// children below the 30% mood threshold, which would cause them to cry
-    /// too — creating an endless doom loop of crying children.
-    ///
-    /// This patch targets vanilla MentalState_BabyCry only. Our custom
-    /// MentalState_ChildCry inherits from MentalState_BabyFit and declares
-    /// its own AuraEffect override with immunity built in, so this patch
-    /// does NOT affect child-crying AuraEffect calls.
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_MentalState_BabyCry_AuraEffect_ChildImmunity
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            // AuraEffect is protected — nameof() is inaccessible, so we use a string.
-            // AccessTools can resolve protected members via reflection.
-            return AccessTools.Method(typeof(MentalState_BabyCry), "AuraEffect",
-                new System.Type[] { typeof(Thing), typeof(Pawn) });
-        }
-
-        /// <summary>
-        /// Returns false (skips original) if the hearer is aged 6 or younger,
-        /// suppressing both HearClamor and any mood thought for young children.
-        /// </summary>
-        public static bool Prefix(Pawn hearer)
-        {
-            // Children aged 6 or younger are immune to baby crying debuffs.
-            if (hearer?.ageTracker != null && hearer.ageTracker.AgeBiologicalYears <= 6)
-                return false; // Skip original entirely.
-            return true; // Normal hearer — let original run.
-        }
-    }
-
-
-    // ══════════════════════════════════════════════════════════════════════
-    //  FIRST-CRY 1-HOUR CAP
-    // ══════════════════════════════════════════════════════════════════════
-    /// <summary>
-    /// Postfix on MentalFitGenerator.TickInterval. Runs every 150 ticks for
-    /// each eligible pawn. Manages a 1-hour timer that forces crying if the
-    /// child hasn't cried naturally via MTB after dropping below 30% mood.
-    /// </summary>
-    [HarmonyPatch(typeof(MentalFitGenerator), nameof(MentalFitGenerator.TickInterval))]
-    public static class Patch_MentalFitGenerator_TickInterval_FirstCryCap
-    {
-        public static void Postfix(MentalFitGenerator __instance)
-        {
-            // Access the private pawn field via Traverse since Harmony's ___pawn
-            // only works for direct parameters, not nested instance fields.
-            Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-            if (pawn != null)
-            {
-                ChildCryTracker.TickFirstCryCap(pawn);
-            }
-        }
-    }
-
-
-    // ══════════════════════════════════════════════════════════════════════
-    //  MOOD-DEBUFF TANTRUM TRIGGER (memory thoughts)
-    // ══════════════════════════════════════════════════════════════════════
-    /// <summary>
-    /// Postfix on MemoryThoughtHandler.TryGainMemory. When a child gains a new
-    /// memory thought with severity ≤ -12, rolls for an immediate tantrum cry.
-    /// Chance scales with severity (20% to 70%). Respects a 1-hour cooldown.
-    ///
-    /// NOTE: This catches memory-based thoughts (social fights, deaths, etc.).
-    /// Need-based thoughts (Starving, etc.) are situational and are caught by
-    /// the periodic scan in ChildCryTracker.CheckSevereThoughtTantrum instead.
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_MemoryThoughtHandler_TryGainMemory_TantrumTrigger
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            return AccessTools.Method(typeof(MemoryThoughtHandler), "TryGainMemory",
-                new System.Type[] { typeof(ThoughtDef), typeof(Pawn), typeof(Precept) });
-        }
-
-        public static void Postfix(ThoughtDef def, Pawn ___pawn)
-        {
-            // Skip during save/load to avoid triggering on deserialized thoughts.
-            if (Scribe.mode != LoadSaveMode.Inactive)
-                return;
-
-            // Find the thought that was just added so we can read its ACTUAL
-            // current severity (multi-stage thoughts like NeedFood have different
-            // severities per stage; def.stages[0] is often mild).
-            Thought_Memory justAdded = ___pawn.needs?.mood?.thoughts?.memories?.Memories
-                ?.Where(m => m.def == def)
-                ?.OrderBy(m => m.age)
-                ?.FirstOrDefault();
-
-            float moodEffect = justAdded?.MoodOffset()
-                ?? def?.stages?.FirstOrDefault()?.baseMoodEffect
-                ?? 0f;
-
-            if (moodEffect > -12f)
-                return;
-
-            ChildCryTracker.TryTriggerTantrum(___pawn, moodEffect, def?.defName);
-        }
-    }
 
     // ══════════════════════════════════════════════════════════════════════
     //  ACCESSIBILITY: MUTE CRYING SOUNDS
@@ -3677,7 +3377,7 @@ namespace ToddlersPlayExpanded
     /// are NOT affected — only the audio is muted.
     ///
     /// Covers:
-    ///   • Child crying (3–6):  <c>TPE_ChildCryingSound</c>  → gated by <c>muteChildCryingSound</c>
+    ///   • All enabled child crying: <c>TPE_ChildCryingSound</c> → gated by <c>muteChildCryingSound</c>
     ///
     /// Does NOT cover baby/toddler crying — that uses <see cref="SubEffecter_SoundTriggered"/>
     /// (one-shot on effecter spawn) and is handled by <see cref="Patch_SubEffecter_SoundTriggered_SubTrigger_MuteBabyCrying"/>.
@@ -4158,57 +3858,6 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    /// <summary>
-    /// Adds Self Soothing as a third in-crib play option (after TV watching
-    /// and sky dreaming). The base <see cref="JobGiver_ToddlerPlayInCrib"/>
-    /// hard-codes only those two activities; this postfix runs when the base
-    /// method returns null and tries Self Soothing if the toddler is eligible.
-    ///
-    /// IMPORTANT (applies to all four in-crib postfixes on this method: Self Soothing,
-    /// Crib Jumping, Ceiling Watching, Speaking Practice): the base method ALSO returns
-    /// null when the toddler is asleep, and the base mod evaluates it for sleeping
-    /// toddlers (its "must keep lying down" think-tree branch). So "null" does not mean
-    /// "the base found nothing". Every one of these postfixes must check
-    /// <see cref="TPE_PlayUtility.CanStartInCribPlay"/> before offering a job, or it wakes
-    /// sleeping toddlers (the "stuck at 28% rest" bug, see that method).
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_SelfSoothing
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlayInCrib");
-            return AccessTools.Method(type, "TryGiveJob", new System.Type[] { typeof(Pawn) });
-        }
-
-        static void Postfix(Pawn pawn, ref Job __result)
-        {
-            // Base already found a job — nothing to do.
-            if (__result != null) return;
-
-            // BUGFIX (sleep loop): never wake a sleeping (or downed) toddler to play.
-            // The base returns null for sleepers too; see TPE_PlayUtility.CanStartInCribPlay.
-            if (!TPE_PlayUtility.CanStartInCribPlay(pawn)) return;
-
-            // Feature disabled in mod settings.
-            if (TPE_Mod.Settings?.enableSelfSoothing != true) return;
-
-            // Bound once at startup (TPE_ToddlerPlayDefOf); was a DefDatabase lookup per think.
-            ToddlerPlayDef? playDef = TPE_ToddlerPlayDefOf.TPE_ToddlerSelfSoothing;
-            if (playDef == null) return;
-
-            // Already doing this activity — don't start a duplicate job.
-            if (pawn?.jobs?.curJob?.def == playDef.jobDef) return;
-
-            // CanDoFromCrib checks CribUtility.InCrib, play need, etc.
-            if (playDef.Worker.CanDoFromCrib(pawn))
-            {
-                Job? job = playDef.Worker.TryGiveJob(pawn);
-                if (job != null)
-                    __result = job;
-            }
-        }
-    }
 
     /// <summary>
     /// Mood-weighted replacement: when Self Soothing is eligible but was NOT
@@ -4350,46 +3999,6 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    /// <summary>
-    /// Adds Crib Jumping as an in-crib play option. The base
-    /// <see cref="JobGiver_ToddlerPlayInCrib"/> hard-codes only TV watching
-    /// and sky dreaming; this postfix runs when the base method returns null
-    /// and tries Crib Jumping if the toddler is eligible (walker + in crib).
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_CribJumping
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlayInCrib");
-            return AccessTools.Method(type, "TryGiveJob", new System.Type[] { typeof(Pawn) });
-        }
-
-        static void Postfix(Pawn pawn, ref Job __result)
-        {
-            // Base already found a job — nothing to do.
-            if (__result != null) return;
-
-            // BUGFIX (sleep loop): never wake a sleeping (or downed) toddler to play.
-            // See TPE_PlayUtility.CanStartInCribPlay and the Self Soothing postfix above.
-            if (!TPE_PlayUtility.CanStartInCribPlay(pawn)) return;
-
-            // Bound once at startup (TPE_ToddlerPlayDefOf); was a DefDatabase lookup per think.
-            ToddlerPlayDef? playDef = TPE_ToddlerPlayDefOf.TPE_ToddlerCribJumping;
-            if (playDef == null) return;
-
-            // Already doing this activity — don't start a duplicate job.
-            if (pawn?.jobs?.curJob?.def == playDef.jobDef) return;
-
-            // CanDoFromCrib checks CribUtility.InCrib, CanWalk, play need, etc.
-            if (playDef.Worker.CanDoFromCrib(pawn))
-            {
-                Job? job = playDef.Worker.TryGiveJob(pawn);
-                if (job != null)
-                    __result = job;
-            }
-        }
-    }
 
     /// <summary>
     /// Prevents colonists from repeatedly picking up and re-placing toddlers
@@ -4504,56 +4113,6 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    /// <summary>
-    /// Adds Ceiling Watching as an in-crib play option. The base
-    /// <see cref="JobGiver_ToddlerPlayInCrib"/> hard-codes only TV watching
-    /// and sky dreaming; this postfix runs when the base method returns null
-    /// and tries Ceiling Watching if the toddler is eligible (in a roofed crib).
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_CeilingWatching
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlayInCrib");
-            return AccessTools.Method(type, "TryGiveJob", new System.Type[] { typeof(Pawn) });
-        }
-
-        static void Postfix(Pawn pawn, ref Job __result)
-        {
-            // Base already found a job — nothing to do.
-            if (__result != null) return;
-
-            // BUGFIX (sleep loop): THIS was the activity in the user's report ("stuck at 28%
-            // rest, repeatedly sleeping and looking at the ceiling"). It has no cooldown and no
-            // crib requirement (any roofed bed or floor spot qualifies), so it was the one most
-            // often handed to a sleeping toddler. Never wake a sleeping (or downed) toddler to
-            // play — see TPE_PlayUtility.CanStartInCribPlay.
-            if (!TPE_PlayUtility.CanStartInCribPlay(pawn)) return;
-
-            // Bound once at startup (TPE_ToddlerPlayDefOf); was a DefDatabase lookup per think.
-            ToddlerPlayDef? playDef = TPE_ToddlerPlayDefOf.TPE_ToddlerCeilingWatching;
-            if (playDef == null) return;
-
-            // Already doing this activity — don't start a duplicate job.
-            if (pawn.jobs?.curJob?.def == playDef.jobDef) return;
-
-            // CanDoFromCrib checks Roofed, play need, etc.
-            if (playDef.Worker.CanDoFromCrib(pawn))
-            {
-                // PERFORMANCE: the worker is our own class, so call its TryGiveJobFromCrib
-                // directly. This used to look the method up by reflection (GetMethod) and
-                // MethodInfo.Invoke it, allocating an argument array on every think.
-                Job? job = playDef.Worker is ToddlerPlayGiver_CeilingWatching ceilingWatching
-                    ? ceilingWatching.TryGiveJobFromCrib(pawn)
-                    // Fallback (some other mod swapped the workerClass): TryGiveJob checks
-                    // its own CanDo, same as the old reflection path's fallback.
-                    : playDef.Worker.TryGiveJob(pawn);
-                if (job != null)
-                    __result = job;
-            }
-        }
-    }
 
     // PILLOW NESTING — SHELVED FOR LATER
     // All three integration patches (IsToddlerPlaying, TryGiveJob, GetBodyPos) commented out.
@@ -4675,47 +4234,6 @@ namespace ToddlersPlayExpanded
         }
     }
 
-    /// <summary>
-    /// Adds in-crib Speaking Practice as an in-crib play option. The base
-    /// <see cref="JobGiver_ToddlerPlayInCrib"/> hard-codes only TV watching
-    /// and sky dreaming; this postfix runs when the base method returns null
-    /// and tries Speaking Practice if the toddler is eligible (any toddler
-    /// in a crib).
-    /// </summary>
-    [HarmonyPatch]
-    public static class Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_SpeechPractice
-    {
-        static System.Reflection.MethodBase TargetMethod()
-        {
-            var type = AccessTools.TypeByName("Toddlers.JobGiver_ToddlerPlayInCrib");
-            return AccessTools.Method(type, "TryGiveJob", new System.Type[] { typeof(Pawn) });
-        }
-
-        static void Postfix(Pawn pawn, ref Job __result)
-        {
-            // Base already found a job — nothing to do.
-            if (__result != null) return;
-
-            // BUGFIX (sleep loop): never wake a sleeping (or downed) toddler to play.
-            // See TPE_PlayUtility.CanStartInCribPlay and the Self Soothing postfix above.
-            if (!TPE_PlayUtility.CanStartInCribPlay(pawn)) return;
-
-            // Bound once at startup (TPE_ToddlerPlayDefOf); was a DefDatabase lookup per think.
-            ToddlerPlayDef? playDef = TPE_ToddlerPlayDefOf.TPE_ToddlerSpeechPracticeInCrib;
-            if (playDef == null) return;
-
-            // Already doing this activity — don't start a duplicate job.
-            if (pawn?.jobs?.curJob?.def == playDef.jobDef) return;
-
-            // CanDoFromCrib checks CribUtility.InCrib, play need, etc.
-            if (playDef.Worker.CanDoFromCrib(pawn))
-            {
-                Job? job = playDef.Worker.TryGiveJob(pawn);
-                if (job != null)
-                    __result = job;
-            }
-        }
-    }
 
     // ══════════════════════════════════════════════════════════════════════
     //  SETTING: "Keep play mood for psychopaths" — suppress Psychopath's

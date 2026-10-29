@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using Verse;
 using Toddlers;
@@ -33,6 +33,8 @@ namespace ToddlersPlayExpanded
         /// <summary>Pre-computed sum of all magnitude weights.</summary>
         private static readonly int TotalWeight = ComputeTotalWeight();
 
+        private static readonly List<ThoughtDef>?[] MoodCandidates = new List<ThoughtDef>?[20];
+
         public MapComponent_ToddlerRandomMoods(Map map) : base(map) { }
 
         public override void MapComponentTick()
@@ -40,10 +42,11 @@ namespace ToddlersPlayExpanded
             if (!TPE_Mod.Settings.enableRandomToddlerMoods) return;
             if (!map.IsHashIntervalTick(CheckInterval)) return;
 
-            // Copy the list — AllPawnsSpawned is a cached mutable list.
-            List<Pawn> allSpawned = new List<Pawn>(map.mapPawns.AllPawnsSpawned);
-            foreach (Pawn pawn in allSpawned)
+            // Applying a memory does not change the map's spawned-pawn registry.
+            IReadOnlyList<Pawn> allSpawned = map.mapPawns.AllPawnsSpawned;
+            for (int i = 0; i < allSpawned.Count; i++)
             {
+                Pawn pawn = allSpawned[i];
                 if (!ToddlerUtility.IsToddler(pawn)) continue;
                 if (pawn.Dead || pawn.Downed) continue;
                 if (!pawn.Awake()) continue; // toddlers only react while awake
@@ -63,17 +66,17 @@ namespace ToddlersPlayExpanded
             MemoryThoughtHandler memories = pawn.needs?.mood?.thoughts?.memories;
             if (memories == null) return;
 
-            // Gather existing random moods and find the oldest one.
-            List<Thought_Memory> existingRandom = new List<Thought_Memory>();
+            int existingRandomCount = 0;
             Thought_Memory oldest = null;
             int oldestAge = -1;
 
             foreach (Thought_Memory mem in memories.Memories)
             {
                 string defName = mem.def.defName;
-                if (defName.StartsWith("TPE_RandomMoodPos_") || defName.StartsWith("TPE_RandomMoodNeg_"))
+                if (defName.StartsWith("TPE_RandomMoodPos_", StringComparison.Ordinal) ||
+                    defName.StartsWith("TPE_RandomMoodNeg_", StringComparison.Ordinal))
                 {
-                    existingRandom.Add(mem);
+                    existingRandomCount++;
                     if (mem.age > oldestAge)
                     {
                         oldestAge = mem.age;
@@ -83,7 +86,7 @@ namespace ToddlersPlayExpanded
             }
 
             int maxActive = TPE_Mod.Settings.randomMoodMaxActive;
-            if (existingRandom.Count >= maxActive && oldest != null)
+            if (existingRandomCount >= maxActive && oldest != null)
             {
                 memories.RemoveMemory(oldest);
             }
@@ -92,22 +95,33 @@ namespace ToddlersPlayExpanded
             bool positive = Rand.Value < 0.5f;
             int magnitude = PickWeightedMagnitude();
 
-            // Find all matching thoughts for this magnitude and sign.
-            string prefix = positive
-                ? $"TPE_RandomMoodPos_{magnitude}_"
-                : $"TPE_RandomMoodNeg_{magnitude}_";
-
-            List<ThoughtDef> candidates = new List<ThoughtDef>();
-            foreach (ThoughtDef def in DefDatabase<ThoughtDef>.AllDefsListForReading)
-            {
-                if (def.defName.StartsWith(prefix))
-                    candidates.Add(def);
-            }
+            List<ThoughtDef> candidates = GetMoodCandidates(positive, magnitude);
 
             if (candidates.Count == 0) return;
 
             ThoughtDef selected = candidates.RandomElement();
             memories.TryGainMemory(selected);
+        }
+
+        private static List<ThoughtDef> GetMoodCandidates(bool positive, int magnitude)
+        {
+            int index = (positive ? 0 : 10) + magnitude - 1;
+            List<ThoughtDef>? candidates = MoodCandidates[index];
+            if (candidates != null) return candidates;
+
+            string prefix = positive
+                ? $"TPE_RandomMoodPos_{magnitude}_"
+                : $"TPE_RandomMoodNeg_{magnitude}_";
+            candidates = new List<ThoughtDef>();
+            List<ThoughtDef> defs = DefDatabase<ThoughtDef>.AllDefsListForReading;
+            for (int i = 0; i < defs.Count; i++)
+            {
+                ThoughtDef def = defs[i];
+                if (def.defName.StartsWith(prefix, StringComparison.Ordinal))
+                    candidates.Add(def);
+            }
+            MoodCandidates[index] = candidates;
+            return candidates;
         }
 
         /// <summary>

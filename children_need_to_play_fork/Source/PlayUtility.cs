@@ -65,143 +65,8 @@ namespace ToddlersPlayExpanded
             return pawn?.CurJob?.jobGiver is JobGiver_ChildPlayWhenIdle;
         }
 
-        // ══════════════════════════════════════════════════════════════════
-        //  IDLE-PLAY JOB OVERRIDE CHECK
-        //
-        // Idle-triggered jobs (see above) can run for a long time despite the
-        // child having nothing urgent left to do -- that was the whole point. But
-        // if a GENUINELY more important job becomes available partway through
-        // (the child gets hungry, gets tired, a learning desire kicks in, work
-        // becomes available, etc.), the child should drop the idle play session
-        // and go do that instead, rather than finishing out the full ~40s-3h
-        // session first. RimWorld does NOT automatically re-check a pawn's whole
-        // think tree while a job is already running -- a job just runs to
-        // completion unless something explicitly calls
-        // Pawn_JobTracker.CheckForJobOverride(). Vanilla itself uses exactly this
-        // pattern for its own long-running relaxation jobs -- see
-        // JobDriver_Reading's "if (pawn.IsHashIntervalTick(600, delta))
-        // pawn.jobs.CheckForJobOverride(9.1f);" inside its own tick loop.
-        // ══════════════════════════════════════════════════════════════════
 
-        /// <summary>
-        /// How often (in ticks) an idle-triggered play job re-checks whether a
-        /// genuinely more important job has become available. Matches the
-        /// explicit "every 50 ticks" ask.
-        /// </summary>
-        const int IdlePlayOverrideCheckInterval = 50;
-
-        /// <summary>
-        /// Minimum think-tree priority a competing job's source node must report
-        /// for <see cref="Pawn_JobTracker.CheckForJobOverride"/> to let it
-        /// interrupt an idle-triggered play job. Deliberately a small POSITIVE
-        /// value rather than 0f: <c>CheckForJobOverride</c> treats a literal 0f
-        /// as "skip the priority comparison entirely", which would let ANY
-        /// different job win -- including a freshly re-rolled instance of idle
-        /// play itself, or vanilla's own plain wander job, neither of which is
-        /// "something more important". A ThinkNode only reports a priority AT
-        /// ALL if it explicitly overrides <c>GetPriority</c> -- true of every
-        /// real need-driven JobGiver in this game (food ~9.5, learning
-        /// ~9.1/9.4, rest ~8, child play 8.5 or 9.15 when urgent, work ~2/5.5/9, etc.) but
-        /// deliberately NOT true of sequential idle/wander-tier nodes like
-        /// <c>JobGiver_WanderColony</c>, <c>JobGiver_IdleJoy</c>, or our own
-        /// <see cref="JobGiver_ChildPlayWhenIdle"/> -- so those can never
-        /// satisfy this check and can never self-interrupt. Any small
-        /// strictly-positive value works; an exact 0f boundary is avoided for
-        /// float-precision safety.
-        /// </summary>
-        const float MinPriorityToInterruptIdlePlay = 0.01f;
-
-        /// <summary>
-        /// Re-checks (roughly every <see cref="IdlePlayOverrideCheckInterval"/>
-        /// ticks, staggered per-pawn via <c>IsHashIntervalTick</c> so many
-        /// idle-playing children don't all re-check on the same tick) whether
-        /// the pawn's CURRENT job -- if and only if it's an idle-triggered play
-        /// job (see <see cref="IsIdleTriggeredJob"/>) -- should yield to
-        /// something genuinely more important.
-        ///
-        /// Called from inside <see cref="PlayTickCheckEnd(Pawn,float,bool,int)"/>
-        /// so every play JobDriver gets this behaviour for free just by calling
-        /// PlayTickCheckEnd like they already must -- no per-driver wiring
-        /// needed. Deliberately scoped to ONLY idle-triggered jobs: a normal,
-        /// need-driven play session was already chosen because play was
-        /// genuinely low, so it's out of scope for this check; only
-        /// idle-triggered sessions (which run despite play already being
-        /// satisfied, precisely because there was nothing better to do at the
-        /// moment they were handed out) need to keep re-verifying that's still
-        /// true.
-        ///
-        /// If nothing more important is available this is a cheap no-op:
-        /// <c>CheckForJobOverride</c> re-runs the whole think tree, finds
-        /// nothing whose source node reports a priority ≥
-        /// <see cref="MinPriorityToInterruptIdlePlay"/>, and silently discards
-        /// the redetermined result back to the job pool without ever touching
-        /// the CURRENTLY-RUNNING job -- exactly the "if not, just continue on"
-        /// half of the requested behaviour.
-        ///
-        /// If something MORE important IS found, this is NOT a mere
-        /// notification -- <c>Pawn_JobTracker.CheckForJobOverride</c> itself
-        /// calls <c>StartJob(newJob, JobCondition.InterruptOptional, ...)</c>
-        /// synchronously and internally, which runs the full vanilla job-switch
-        /// pipeline: <c>CleanupCurrentJob</c> releases every reservation the old
-        /// (idle-play) job held, invokes <c>JobDriver.Cleanup</c> (which fires
-        /// every <c>AddFinishAction</c> callback the play JobDriver registered --
-        /// e.g. <see cref="JobDriver_ChildActivePlay"/>'s movement-hediff
-        /// removal, <see cref="JobDriver_ChildBubblePopping"/>'s path-stop, the
-        /// toy-carrying jobs' drop-and-unforbid cleanup -- exactly as if the job
-        /// had ended any other way), then immediately assigns the pawn's new
-        /// job and driver. By the time this method returns, the play session is
-        /// ALREADY fully torn down and the pawn is ALREADY running the new job
-        /// -- there is nothing further this method (or its caller) needs to do
-        /// to "cancel" it. The caller only needs to notice the swap happened (by
-        /// comparing <c>pawn.CurJob</c> before/after, see
-        /// <see cref="PlayTickCheckEnd(Pawn,float,bool,int)"/>) so it doesn't
-        /// mistakenly act on a job that's no longer running -- the actual
-        /// cancel-and-switch is unconditional and automatic the moment a
-        /// qualifying job is found, with no separate confirmation step.
-        /// </summary>
-        /// <param name="intervalDelta">
-        /// How many ticks have elapsed since this pawn's job driver last ran its
-        /// tick callback -- 1 for a plain per-tick <c>tickAction</c>, or the
-        /// actual interval size (commonly ~250) for a <c>tickIntervalAction</c>.
-        /// Needed so the <c>IsHashIntervalTick</c> check still reliably catches
-        /// a 50-tick boundary even for job drivers that only tick a few times a
-        /// second.
-        /// </param>
-        static void CheckForBetterJobWhileIdlePlaying(Pawn pawn, int intervalDelta)
-        {
-            if (pawn?.jobs == null)
-                return;
-
-            // Only idle-triggered jobs opt into this check.
-            if (!IsIdleTriggeredJob(pawn))
-                return;
-
-            if (!pawn.IsHashIntervalTick(IdlePlayOverrideCheckInterval, intervalDelta))
-                return;
-
-            if (TPE_Mod.Settings?.debugLogging ?? false)
-            {
-                Log.Message("[TPE DEBUG] " + pawn.LabelShort + ": idle-play override check firing (tick " +
-                    Find.TickManager.TicksGame + ", curJob=" + pawn.CurJob + ")");
-            }
-
-            pawn.jobs.CheckForJobOverride(MinPriorityToInterruptIdlePlay);
-
-            if ((TPE_Mod.Settings?.debugLogging ?? false) && pawn.CurJob?.jobGiver is not JobGiver_ChildPlayWhenIdle)
-            {
-                Log.Message("[TPE DEBUG] " + pawn.LabelShort + ": idle-play override check INTERRUPTED the job — new curJob=" + pawn.CurJob);
-            }
-        }
-
-        /// <summary>
-        /// Overload that accepts a tick <paramref name="delta"/> (used by
-        /// <c>tickIntervalAction</c> toils). Converts delta to the appropriate
-        /// play-need amount, mirroring vanilla
-        /// <see cref="LearningUtility.LearningTickCheckEnd(Pawn,int,bool)"/>.
-        /// Play fills ~10× faster than learning. The same <paramref name="delta"/>
-        /// is also threaded through as the idle-play override check's interval
-        /// window (see <see cref="CheckForBetterJobWhileIdlePlaying"/>).
-        /// </summary>
+        /// <summary>Converts an interval into play gain, like LearningTickCheckEnd.</summary>
         public static bool PlayTickCheckEnd(Pawn pawn, int delta, bool forced = false)
         {
             // Vanilla learning: 1.2E-05f per tick. Play fills ~10x faster.
@@ -209,23 +74,8 @@ namespace ToddlersPlayExpanded
             return PlayTickCheckEnd(pawn, amount, forced, delta);
         }
 
-        /// <summary>
-        /// Fills the child's play need by <paramref name="amount"/> and checks
-        /// whether the need has reached <see cref="SatisfiedThreshold"/>.
-        /// If satisfied (and neither <paramref name="forced"/> nor the pawn's
-        /// current job is idle-triggered — see <see cref="IsIdleTriggeredJob"/>),
-        /// the current job is ended with <see cref="JobCondition.Succeeded"/>.
-        /// Also periodically gives an idle-triggered job the chance to yield to
-        /// something more important — see
-        /// <see cref="CheckForBetterJobWhileIdlePlaying"/>.
-        /// </summary>
-        /// <param name="intervalDelta">
-        /// Ticks elapsed since this driver's tick callback last ran (default 1
-        /// for the common per-tick <c>tickAction</c> case). Only matters for the
-        /// idle-play override-check's timing — see
-        /// <see cref="CheckForBetterJobWhileIdlePlaying"/>.
-        /// </param>
-        /// <returns>True if the job ended (either because play is satisfied, or because it was just interrupted in favour of a more important job).</returns>
+        /// <summary>Fills play and ends satisfied non-idle sessions. Schedule/health
+        /// interruption is shared by every play driver via PlayScheduleUtility.</summary>
         public static bool PlayTickCheckEnd(Pawn pawn, float amount, bool forced = false, int intervalDelta = 1)
         {
             if (amount > 0f)
@@ -235,31 +85,12 @@ namespace ToddlersPlayExpanded
                 playNeed?.Play(amount);
             }
 
-            // Snapshot the job BEFORE the override-check: CheckForJobOverride can
-            // SYNCHRONOUSLY interrupt and replace pawn.jobs.curJob with a brand
-            // new job (see Pawn_JobTracker.StartJob). If that happens here, we
-            // must NOT fall through to the satisfaction check below -- unlike
-            // JobDriver.EndJobWith (which guards itself with a "is this still my
-            // job" check), the direct pawn.jobs.EndCurrentJob call below has no
-            // such guard, and would erroneously end the BRAND NEW job instead of
-            // the one we were originally ticking.
-            Job? jobBeforeOverrideCheck = pawn.CurJob;
-            CheckForBetterJobWhileIdlePlaying(pawn, intervalDelta);
-            if (pawn.CurJob != jobBeforeOverrideCheck)
-            {
-                // Idle play was just interrupted in favour of something more
-                // important. Report "ended" so callers that gate further
-                // per-tick logic on this return value (e.g. floor drawing's
-                // filth-making step) correctly skip it instead of acting on a
-                // job that is no longer running.
-                return true;
-            }
 
             // An idle-triggered job (see IsIdleTriggeredJob above) is treated
             // exactly like an explicitly forced call — it keeps running instead
             // of instantly ending the moment it notices play is already
             // satisfied.
-            bool effectiveForced = forced || IsIdleTriggeredJob(pawn);
+            bool effectiveForced = forced || pawn.CurJob?.playerForced == true || IsIdleTriggeredJob(pawn);
 
             if (!effectiveForced && PlaySatisfied(pawn))
             {

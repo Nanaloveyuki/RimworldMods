@@ -9,7 +9,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>TPE_BubbleMachine</defName>
     <label>bubble machine</label>
-    <description>A whimsical contraption that produces bubbles. While non-functional for now, it provides a pleasant aesthetic boost. Requires both a power connection and a small supply of chemfuel to run — a delightful decoration for any colony.</description>
+    <description>A machine that produces bubbles for toddlers and children to chase and pop. Requires a power connection and a small supply of chemfuel.</description>
     
     <!-- Graphics and appearance: Graphic_Multi handles rotations via _north, _south, _east, _west suffixes.
          If _west is missing, Graphic_Multi will automatically flip _east. -->

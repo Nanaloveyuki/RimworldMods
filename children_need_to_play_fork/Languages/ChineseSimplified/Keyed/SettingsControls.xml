@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_Settings_RandomMoods_Label>启用幼儿随机心情</TPE_Settings_RandomMoods_Label>
+  <TPE_Settings_RandomMoods_Tooltip>醒着的幼儿偶尔会因为日常小事产生好心情或坏心情。</TPE_Settings_RandomMoods_Tooltip>
+  <TPE_Settings_RandomMoodMax>同时保留的随机心情上限：{0}</TPE_Settings_RandomMoodMax>
+  <TPE_Settings_RandomMoodMax_Help>每名幼儿同时拥有的随机心情记忆数量。</TPE_Settings_RandomMoodMax_Help>
+  <TPE_Settings_RandomMoodFrequency>每小时产生随机心情的概率：{0}</TPE_Settings_RandomMoodFrequency>
+  <TPE_Settings_RandomMoodFrequency_Help>每名醒着的幼儿每小时获得一条随机心情的概率。</TPE_Settings_RandomMoodFrequency_Help>
+  <TPE_Settings_EventMoods_Label>启用幼儿对事件的心情反应</TPE_Settings_EventMoods_Label>
+  <TPE_Settings_EventMoods_Tooltip>幼儿会对袭击、天气、死亡、婚礼等殖民地事件产生心情反应。</TPE_Settings_EventMoods_Tooltip>
+  <TPE_Settings_SelfSoothing_Label>启用幼儿自我安抚</TPE_Settings_SelfSoothing_Label>
+  <TPE_Settings_SelfSoothing_Tooltip>婴儿床里难过的幼儿会尝试吮手指、攥毯子或想开心的事，让自己平静下来。</TPE_Settings_SelfSoothing_Tooltip>
+  <TPE_Settings_HeaterSnuggling_Label>允许幼儿依偎暖气</TPE_Settings_HeaterSnuggling_Label>
+  <TPE_Settings_HeaterSnuggling_Tooltip>天气寒冷时，幼儿会去室内暖气旁取暖，有时还会带上毛绒玩具。</TPE_Settings_HeaterSnuggling_Tooltip>
+  <TPE_Settings_GeothermalSnuggling_Label>允许在地热设施旁取暖</TPE_Settings_GeothermalSnuggling_Label>
+  <TPE_Settings_GeothermalSnuggling_Tooltip>也允许幼儿在地热发电机和蒸汽喷泉旁取暖。默认关闭。</TPE_Settings_GeothermalSnuggling_Tooltip>
+  <TPE_Settings_ConfinementPriority_Label>随关押时间提高逃离婴儿床的意愿</TPE_Settings_ConfinementPriority_Label>
+  <TPE_Settings_ConfinementPriority_Tooltip>会爬的幼儿越是烦躁、沮丧、绝望，就越想逃出婴儿床。哭闹期间，逃离意愿回到平常水平。</TPE_Settings_ConfinementPriority_Tooltip>
+  <TPE_Settings_ChildCrying_Label>启用 3–6 岁儿童哭闹</TPE_Settings_ChildCrying_Label>
+  <TPE_Settings_ChildCrying_Tooltip>不开心的低龄儿童可能哭闹、寻找大人安慰，并影响附近人的心情。</TPE_Settings_ChildCrying_Tooltip>
+  <TPE_Settings_OlderChildCrying_Label>启用 7–13 岁儿童哭闹</TPE_Settings_OlderChildCrying_Label>
+  <TPE_Settings_OlderChildCrying_Tooltip>大龄儿童也可能哭闹，持续时间和对附近人的心情惩罚均减半。仅适用于游戏中仍处于儿童阶段的角色。默认关闭。</TPE_Settings_OlderChildCrying_Tooltip>
+  <TPE_Settings_ParentIgnoreCryChance>家长冷处理哭闹的概率：{0}</TPE_Settings_ParentIgnoreCryChance>
+  <TPE_Settings_ParentIgnoreCryChance_Help>每次哭闹时，父母各自决定是否冷处理。冷处理时，家长会忽略哭声的干扰；孩子获得持续 12 小时的 −5 心情。设为 0% 时照常响应，设为 100% 时总是冷处理。</TPE_Settings_ParentIgnoreCryChance_Help>
+  <TPE_Settings_ChildrenPlayNeed_Label>启用儿童游玩需求</TPE_Settings_ChildrenPlayNeed_Label>
+  <TPE_Settings_ChildrenPlayNeed_Tooltip>儿童会在学习之外拥有游玩需求，并产生想玩的活动。学习和游玩共同影响成长点数。</TPE_Settings_ChildrenPlayNeed_Tooltip>
+  <TPE_Settings_AgeGatedDesires_Label>按年龄限制想玩的活动</TPE_Settings_AgeGatedDesires_Label>
+  <TPE_Settings_AgeGatedDesires_Tooltip>儿童只会想玩适合其年龄的活动。关闭后，各年龄儿童都可能产生任意游玩愿望。</TPE_Settings_AgeGatedDesires_Tooltip>
+  <TPE_Settings_PlayDecayDays>游玩需求耗尽时间：{0} 天</TPE_Settings_PlayDecayDays>
+  <TPE_Settings_PlayDecayDays_Help>儿童的游玩需求从全满降到空所需的时间。</TPE_Settings_PlayDecayDays_Help>
+  <TPE_Settings_PlayGrowthWeight>游玩对成长的权重：{0}</TPE_Settings_PlayGrowthWeight>
+  <TPE_Settings_PlayGrowthWeight_Help>设为 0 时只看学习，设为 1 时只看游玩；设为 0.5 时，两者各占一半。</TPE_Settings_PlayGrowthWeight_Help>
+  <TPE_Settings_ChildPlushSleep_Label>允许 3–6 岁儿童抱玩偶睡觉</TPE_Settings_ChildPlushSleep_Label>
+  <TPE_Settings_ChildPlushSleep_Tooltip>低龄儿童会在睡前寻找玩偶，抱着入睡时获得相应的心情。</TPE_Settings_ChildPlushSleep_Tooltip>
+  <TPE_Settings_OlderChildPlushSleep_Label>允许 7–12 岁儿童抱玩偶睡觉</TPE_Settings_OlderChildPlushSleep_Label>
+  <TPE_Settings_OlderChildPlushSleep_Tooltip>大龄儿童也会在睡前寻找玩偶，与低龄儿童的选项分别控制。</TPE_Settings_OlderChildPlushSleep_Tooltip>
+  <TPE_Settings_MuteBabyCrying_Label>静音婴儿和幼儿哭声</TPE_Settings_MuteBabyCrying_Label>
+  <TPE_Settings_MuteBabyCrying_Tooltip>关闭哭声音效，保留眼泪和心情影响。</TPE_Settings_MuteBabyCrying_Tooltip>
+  <TPE_Settings_MuteChildCrying_Label>静音儿童哭声</TPE_Settings_MuteChildCrying_Label>
+  <TPE_Settings_MuteChildCrying_Tooltip>关闭已启用年龄段儿童的哭闹音效，保留眼泪和心情影响。</TPE_Settings_MuteChildCrying_Tooltip>
+  <TPE_Settings_BubbleLimit>每张地图最多显示的泡泡数：{0}</TPE_Settings_BubbleLimit>
+  <TPE_Settings_BubbleLimit_Tooltip>整张地图同时显示的泡泡数量上限，可设为 1–100。</TPE_Settings_BubbleLimit_Tooltip>
+  <TPE_Settings_BubbleOpacity>泡泡不透明度：{0}</TPE_Settings_BubbleOpacity>
+  <TPE_Settings_BubbleOpacity_Tooltip>100% 使用贴图原本的不透明度，也会影响已经出现的泡泡。</TPE_Settings_BubbleOpacity_Tooltip>
+  <TPE_Settings_DebugLogging_Label>详细调试日志</TPE_Settings_DebugLogging_Label>
+  <TPE_Settings_DebugLogging_Tooltip>记录婴儿床门、依偎暖气和玩乐活动的排错信息。默认关闭。</TPE_Settings_DebugLogging_Tooltip>
+</LanguageData>

@@ -1,5 +1,23 @@
 # Changelog
 
+## Fork v1.3.0 — 2026-10-29
+
+- Unified normal, urgent, idle and crib play scheduling. Work, Sleep, Learning, assigned labor and medical/sleep needs now take precedence; player-forced orders remain protected.
+- Added staggered 50-tick running-play checks, including travel. Consolidated crib fallbacks and replaced four fullness-constant transpilers with narrow prefixes.
+- Added saved per-parent, per-bout crying responses (80% ignore by default, configurable 0–100%) and the child's −5 mood / 12-hour ignored memory.
+- Added independent, default-off older-child crying (ages 7–13 while still Child stage), with half-duration bouts and half-strength aura thoughts.
+- Made dirt castles selectable, attackable and deconstructible while retaining their lifespan.
+- Added complete Simplified Chinese player text and extracted normal player-visible C# strings; retained persisted identifiers and developer diagnostics.
+- Reduced repeated mood candidate scans, pawn snapshots and temporary memory lists; play trackers now clean up on destruction rather than a full periodic sweep. Environmental observation retains bounded polling.
+- Release build passed with 0 errors and 307 warnings. Actual-assembly smoke passed for shared scheduling rules, castle loading/deconstruction eligibility, tracker retention/removal, cry eligibility and saved parental decisions; all nine new patch groups attached with the game's installed Harmony. In-game visual/rest/aura and full-map profiling remain manual checks.
+
+## Fork settings — 2026-10-29
+
+- Added optional IrisMenus category registration without a compile-time or required mod dependency.
+- Reorganized every setting into seven shared categories for standalone and hosted settings; existing save keys, defaults and ranges are unchanged.
+- Current IrisMenus 1.7 uses themed native listing controls, scrolling, help overlays and adult plush-mood choices. Older providers retain categorized listings.
+- Added English and Simplified Chinese category titles/descriptions; fixed local dependency and inline-task paths for Windows/WSL builds.
+
 ## Fork import — 2026-10-29
 
 - Vendored upstream v1.2.2 with its MIT license and Dratic95 attribution intact.

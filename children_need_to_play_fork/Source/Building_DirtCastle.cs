@@ -15,7 +15,8 @@ namespace ToddlersPlayExpanded
         /// <summary>
         /// Dynamic label showing the builder's name.
         /// </summary>
-        public override string Label => $"{builderName}'s Castle!";
+        public override string Label => "TPE_DirtCastle_BuilderLabel".Translate(
+            builderName == "Unknown" ? "TPE_DirtCastle_UnknownBuilder".Translate().ToString() : builderName);
 
         /// <summary>
         /// Save/load the builder name so it persists across saves.

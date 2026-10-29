@@ -23,59 +23,8 @@ namespace ToddlersPlayExpanded
             return pawn.timetable.CurrentAssignment == TimeAssignmentDefOf.Sleep;
         }
 
-        /// <summary>
-        /// Shared entry gate for every in-crib activity this mod adds to the base mod's
-        /// <c>JobGiver_ToddlerPlayInCrib</c>: Self Soothing, Crib Jumping, Ceiling Watching and
-        /// Speaking Practice (in crib), i.e. the four <c>Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_*</c>
-        /// postfixes in HarmonyPatches.cs. They must call this BEFORE offering any job.
-        ///
-        /// BUGFIX (user report: "my baby gets stuck at 28% rest, repeatedly sleeping and
-        /// looking at the ceiling"). Toddlers' think tree evaluates <c>JobGiver_ToddlerPlayInCrib</c>
-        /// inside its "must keep lying down" branch, i.e. for toddlers who are ASLEEP, ahead of
-        /// <c>JobGiver_KeepLyingDown</c>. Vanilla's LayDown toil re-runs the think tree every 211
-        /// ticks (<c>CheckForJobOverride</c>), so that branch is evaluated over and over during
-        /// every nap. The base method protects sleepers itself: it returns null at once when
-        /// <c>!RestUtility.Awake(pawn)</c>. Our postfixes only ever saw "null", read it as "the base
-        /// mod found nothing", and offered our own activity, waking the toddler. The only thing
-        /// still stopping them was the base <c>ToddlerPlayGiver.CanDoFromCrib</c> check
-        /// <c>WillSoonHaveBasicNeed(pawn, 0f)</c>, which is exactly <c>rest &lt; 0.28</c>. Result: within
-        /// 211 ticks of rest passing 28% the sleeping toddler was woken (mostly for Ceiling Watching).
-        /// Rest doesn't rise while playing, so it sank a little. When the activity ended,
-        /// <c>KeepLyingDown</c> put the toddler straight back to sleep (below 60% it falls asleep at
-        /// once), and the next re-think above 28% woke it again: stuck at about 28% forever.
-        ///
-        /// With this gate a sleeping toddler is never offered one of our activities, so it sleeps
-        /// until vanilla wakes it: rest at the toddler life stage's natural wake threshold
-        /// (<c>naturalWakeThresholdOverride</c> 1.0 in Toddlers' LifeStages.xml, i.e. 100%), or one of
-        /// vanilla's own reasons (hungry, schedule, disturbance, danger).
-        ///
-        /// Checks, cheapest first:
-        /// <list type="bullet">
-        /// <item><c>Awake()</c>: the same test the base method uses, and the same one vanilla's
-        /// own in-bed recreation giver (<c>JobGiver_GetJoyInBed</c>, which sits in the identical
-        /// "must keep lying down" branch of vanilla's Humanlike think tree) opens with. One capacity
-        /// read plus one field read. It is false when the toddler is asleep OR unconscious.</item>
-        /// <item><c>!Downed</c>: a deliberate, conservative extra. Vanilla's in-bed joy and the base
-        /// mod's in-crib TV/Skydreaming do allow an awake downed pawn; ours don't, because three of
-        /// the four drivers (Self Soothing, Crib Jumping, Speaking Practice) fail on <c>Downed</c> on
-        /// their first tick. Offering them would only start and fail a job on every think (job
-        /// churn), and a downed toddler in a crib is resting to heal anyway. It also matches the
-        /// base mod's out-of-crib <c>ToddlerPlayGiver.CanDo</c>, which refuses downed toddlers.</item>
-        /// </list>
-        /// Deliberately NOT checked here (each giver's <c>CanDoFromCrib</c> already handles them):
-        /// toddler status, play need, "tired" (rest &lt; 28%), Sleep schedule, crib/roof/temperature.
-        /// Also deliberately NOT added to the givers' <c>CanDoFromCrib</c> overrides: the base mod
-        /// gates this at the JobGiver level, not the giver level, and the dev-mode
-        /// "Force play activity on toddler" action must still be able to force one (§4.1).
-        ///
-        /// Performance: two cheap reads per call, no allocation. It runs first, so the common case
-        /// (a sleeping toddler re-thinking every 211 ticks) costs only this and skips the giver's
-        /// roof/temperature/room checks entirely.
-        /// </summary>
-        public static bool CanStartInCribPlay(Pawn? pawn)
-        {
-            return pawn != null && pawn.Awake() && !pawn.Downed;
-        }
+        /// <summary>Autonomous in-crib play uses the same schedule/rest policy as all play.</summary>
+        public static bool CanStartInCribPlay(Pawn? pawn) => PlayScheduleUtility.CanPlayNow(pawn);
 
         public static bool CanWalk(Pawn pawn)
         {
@@ -270,13 +219,8 @@ namespace ToddlersPlayExpanded
 
         static bool IsWorkJob(Pawn p)
         {
-            var job = p.CurJob;
-            if (job == null) return false;
-            if (job.workGiverDef != null) return true;
-            string rs = job.def.reportString;
-            if (rs != null && (rs.Contains("work") || rs.Contains("harvest") || rs.Contains("construct") || rs.Contains("craft") || rs.Contains("cook") || rs.Contains("clean") || rs.Contains("haul") || rs.Contains("mine") || rs.Contains("research")))
-                return true;
-            return false;
+            Job job = p.CurJob;
+            return job != null && (job.workGiverDef != null || job.jobGiver is JobGiver_Work);
         }
     }
 

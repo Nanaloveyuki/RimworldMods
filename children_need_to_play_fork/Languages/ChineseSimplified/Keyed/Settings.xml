@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Settings page titles and descriptions -->
+  <TPE_Settings_Page_ToddlerMoods>幼儿情绪</TPE_Settings_Page_ToddlerMoods>
+  <TPE_Settings_Page_ToddlerMoods_Description>幼儿随机情绪、殖民地事件反应，以及精神变态者的游玩心情。</TPE_Settings_Page_ToddlerMoods_Description>
+  <TPE_Settings_Page_ToddlerActivities>幼儿活动</TPE_Settings_Page_ToddlerActivities>
+  <TPE_Settings_Page_ToddlerActivities_Description>自我安抚、依偎取暖和逃离婴儿床的行为。</TPE_Settings_Page_ToddlerActivities_Description>
+  <TPE_Settings_Page_ChildMoods>儿童情绪</TPE_Settings_Page_ChildMoods>
+  <TPE_Settings_Page_ChildMoods_Description>低龄儿童哭闹、可选的大龄儿童哭闹，以及父母是否回应的几率。</TPE_Settings_Page_ChildMoods_Description>
+  <TPE_Settings_Page_ChildPlay>儿童游玩</TPE_Settings_Page_ChildPlay>
+  <TPE_Settings_Page_ChildPlay_Description>儿童的游玩需求、游玩愿望，以及学习与游玩对成长的影响。</TPE_Settings_Page_ChildPlay_Description>
+  <TPE_Settings_Page_PlushSleep>玩偶睡眠</TPE_Settings_Page_PlushSleep>
+  <TPE_Settings_Page_PlushSleep_Description>睡前寻找玩偶的行为，以及各年龄段抱着玩偶入睡的情绪效果。</TPE_Settings_Page_PlushSleep_Description>
+  <TPE_Settings_Page_Presentation>视听效果</TPE_Settings_Page_Presentation>
+  <TPE_Settings_Page_Presentation_Description>哭声、游玩动画、睡眠时的玩偶显示和泡泡效果。</TPE_Settings_Page_Presentation_Description>
+  <TPE_Settings_Page_Debug>调试</TPE_Settings_Page_Debug>
+  <TPE_Settings_Page_Debug_Description>记录详细诊断日志，帮助排查模组行为问题。</TPE_Settings_Page_Debug_Description>
+  <TPE_StatsReport_GrowthTierDesc>儿童会随时间积累成长等级。学习和游玩需求满足得越好，成长就越快。在7岁、10岁和13岁的成长时刻，成长等级决定可供选择的特质和兴趣数量。每次成长时刻后，成长等级都会重置。</TPE_StatsReport_GrowthTierDesc>
+  <TPE_Settings_KeepPlayMoodForPsychopaths_Label>精神变态者也受游玩心情影响</TPE_Settings_KeepPlayMoodForPsychopaths_Label>
+  <TPE_Settings_KeepPlayMoodForPsychopaths_Tooltip>默认情况下，精神变态特质会使游玩相关思想的心情效果归零，与原版对婴儿和儿童共情思想的处理一致。这包括儿童的游玩满足与匮乏思想、幼儿自我安抚成功或失败的思想，以及生物科技中的婴儿游玩需求思想。启用后，具有精神变态特质的幼儿和儿童也会因这些思想获得或失去心情。其他被精神变态特质抵消的思想不受影响。</TPE_Settings_KeepPlayMoodForPsychopaths_Tooltip>
+  <TPE_Settings_PlayWhenIdle_Label>空闲时游玩</TPE_Settings_PlayWhenIdle_Label>
+  <TPE_Settings_PlayWhenIdle_Tooltip>儿童没有更重要的事可做、原本只会闲逛时，改为游玩，即使游玩需求已经满足。饥饿、疲倦、学习愿望或工作出现时，会停止这次游玩。不会占用专门安排的学习或工作时段。默认关闭。</TPE_Settings_PlayWhenIdle_Tooltip>
+  <TPE_Settings_GuaranteeActivePlay_Label>始终包含活力游玩</TPE_Settings_GuaranteeActivePlay_Label>
+  <TPE_Settings_GuaranteeActivePlay_Tooltip>每次刷新儿童的两个游玩愿望时，固定包含活力游玩（跑步、转圈、蹦跳和追逐），另一个愿望照常随机选择。关闭后，两个愿望都随机选择。默认关闭。</TPE_Settings_GuaranteeActivePlay_Tooltip>
+  <TPE_Settings_ShowDirtCastles_Label>保留搭好的泥土城堡</TPE_Settings_ShowDirtCastles_Label>
+  <TPE_Settings_ShowDirtCastles_Tooltip>儿童完成搭建泥土城堡的游玩后，会留下一座小城堡，约3天后消失。中途被打断则不会留下城堡。儿童不会在建筑、作物或种植区上搭建，野草等野生植物不受此限制。关闭后，游玩过程和需求恢复照常，但不再留下城堡；地图上已有的城堡不会被移除。默认开启。</TPE_Settings_ShowDirtCastles_Tooltip>
+  <TPE_Settings_EnableAdultPlushSleep_Label>允许成年人睡前寻找玩偶（13岁起）</TPE_Settings_EnableAdultPlushSleep_Label>
+  <TPE_Settings_EnableAdultPlushSleep_Tooltip>成年人（13岁起，包括青少年）也会像幼儿和儿童一样，在睡前主动寻找并抱上玩偶。默认关闭。关闭时，成年人不会寻找玩偶，也不会获得相关心情效果，无论下方如何设置。</TPE_Settings_EnableAdultPlushSleep_Tooltip>
+  <TPE_Settings_AdultMoodMode_Label>成年人抱玩偶入睡的心情效果</TPE_Settings_AdultMoodMode_Label>
+  <TPE_Settings_AdultMoodMode_None>无心情效果</TPE_Settings_AdultMoodMode_None>
+  <TPE_Settings_AdultMoodMode_NegativeOnly>只有没抱玩偶的负面效果</TPE_Settings_AdultMoodMode_NegativeOnly>
+  <TPE_Settings_AdultMoodMode_PositiveOnly>只有抱着玩偶的正面效果</TPE_Settings_AdultMoodMode_PositiveOnly>
+  <TPE_Settings_AdultMoodMode_Both>同时启用正面与负面效果</TPE_Settings_AdultMoodMode_Both>
+  <TPE_Settings_AdultMoodMode_None_Desc>成年人无论是否抱着玩偶入睡，都不会获得相关心情效果。</TPE_Settings_AdultMoodMode_None_Desc>
+  <TPE_Settings_AdultMoodMode_NegativeOnly_Desc>成年人没抱玩偶入睡会降低心情；抱着玩偶不会获得奖励。</TPE_Settings_AdultMoodMode_NegativeOnly_Desc>
+  <TPE_Settings_AdultMoodMode_PositiveOnly_Desc>成年人抱着玩偶入睡会提高心情；没抱玩偶不会受到惩罚。</TPE_Settings_AdultMoodMode_PositiveOnly_Desc>
+  <TPE_Settings_AdultMoodMode_Both_Desc>成年人抱着玩偶入睡会提高心情，没抱玩偶会降低心情，与幼儿和儿童的规则相同。</TPE_Settings_AdultMoodMode_Both_Desc>
+  <TPE_Settings_RenderPlushWhileSleeping_Label>显示睡眠时的玩偶</TPE_Settings_RenderPlushWhileSleeping_Label>
+  <TPE_Settings_RenderPlushWhileSleeping_Tooltip>适用于幼儿、儿童和已启用相关功能的成年人。入睡时若抱着玩偶，会将其显示在头部或枕头旁。关闭只会隐藏睡眠时的玩偶，不影响寻找和抱上玩偶的行为，也不影响心情。</TPE_Settings_RenderPlushWhileSleeping_Tooltip>
+  <TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Label>无论多困都先找玩偶</TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Label>
+  <TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Tooltip>适用于幼儿、儿童和已启用相关功能的成年人。通常在极度疲倦时会跳过寻找玩偶，以免耽误睡眠。启用后，即使休息需求极低，也会先尝试寻找并抱上玩偶。默认关闭。</TPE_Settings_AlwaysSeekPlushRegardlessOfRest_Tooltip>
+  <TPE_Settings_DisableToddlerPlayAnimations_Label>关闭幼儿游玩动画</TPE_Settings_DisableToddlerPlayAnimations_Label>
+  <TPE_Settings_DisableToddlerPlayAnimations_Tooltip>关闭本模组幼儿活动中的转圈、蹦跳、俯身观察和自我安抚扭动动画。活动照常进行，也照常恢复游玩需求。Toddlers模组原有的观察虫子、婴儿床内扭动、爬行和学步动画不受影响。立即生效，默认关闭此选项。</TPE_Settings_DisableToddlerPlayAnimations_Tooltip>
+  <TPE_Settings_DisableChildPlayAnimations_Label>关闭儿童游玩动画</TPE_Settings_DisableChildPlayAnimations_Label>
+  <TPE_Settings_DisableChildPlayAnimations_Tooltip>活力游玩时，儿童转圈或蹦跳会改为站着不动，蜗牛爬行会改为直立慢走。活动照常进行，也照常恢复游玩需求。其他儿童游玩活动没有动画。立即生效，默认关闭此选项。</TPE_Settings_DisableChildPlayAnimations_Tooltip>
+  <TPE_CribGateLabel>打开婴儿床护栏</TPE_CribGateLabel>
+  <TPE_CribGateTooltip>打开后，只会爬行的幼儿也能像会走路的幼儿一样自行离开婴儿床。「关在婴儿床里」始终优先于此设置。</TPE_CribGateTooltip>
+  <TPE_CribGateOpened>婴儿床护栏已打开，只会爬行的幼儿也能自行离开。</TPE_CribGateOpened>
+  <TPE_CribGateClosed>婴儿床护栏已关闭，只会爬行的幼儿无法自行离开。</TPE_CribGateClosed>
+</LanguageData>

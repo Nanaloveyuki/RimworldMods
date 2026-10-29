@@ -45,14 +45,14 @@ namespace ToddlersPlayExpanded
                 string adultName = GetAdultDisplayName();
                 string genderNoun = pawn.gender switch
                 {
-                    Gender.Female => "girl",
-                    Gender.Male => "boy",
-                    _ => "kid"
+                    Gender.Female => "TPE_SelfSoothing_Girl".Translate().ToString(),
+                    Gender.Male => "TPE_SelfSoothing_Boy".Translate().ToString(),
+                    _ => "TPE_SelfSoothing_Kid".Translate().ToString()
                 };
 
                 string description = isPositive
-                    ? $"I was having a really big big feeling so i did what {adultName} always says to do and i was able to calm my self down all on my own! I feel like such a big {genderNoun}!"
-                    : $"I was feeling really really worried but there wasn't anyone around that I know! So I tried to do what {adultName} always says to do but it didnt work and now i feel worse! I want {adultName} to come give me a hug!!!";
+                    ? "TPE_SelfSoothing_Positive".Translate(adultName, genderNoun).ToString()
+                    : "TPE_SelfSoothing_Negative".Translate(adultName).ToString();
 
                 // BUGFIX (psychopath mood toggle): vanilla's Thought.Description
                 // (the base property we're overriding here) appends a
@@ -94,13 +94,13 @@ namespace ToddlersPlayExpanded
         string GetAdultDisplayName()
         {
             if (otherPawn == null)
-                return "someone";
+                return "TPE_SelfSoothing_Someone".Translate();
 
             // Check whether otherPawn is a direct parent of the toddler.
             // GetDirectRelation returns non-null only for explicit relations.
             if (pawn.relations?.GetDirectRelation(PawnRelationDefOf.Parent, otherPawn) != null)
             {
-                return otherPawn.gender == Gender.Female ? "Mommy" : "Daddy";
+                return (otherPawn.gender == Gender.Female ? "TPE_SelfSoothing_Mommy" : "TPE_SelfSoothing_Daddy").Translate();
             }
 
             return otherPawn.LabelShort;

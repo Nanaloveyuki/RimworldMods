@@ -29,7 +29,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Spinning around";
+            return "TPE_Report_Spinning".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -129,8 +129,8 @@ namespace ToddlersPlayExpanded
             Pawn worker = Worker;
             if (worker != null && worker.CurJob != null)
             {
-                string doing = worker.CurJob.GetReport(worker) ?? "work";
-                return string.Format("Watching {0} do {1}", worker.NameShortColored, doing);
+                string doing = worker.CurJob.GetReport(worker) ?? "TPE_Report_Work".Translate().ToString();
+                return "TPE_Report_WatchingWork".Translate(worker.NameShortColored, doing);
             }
             return base.GetReport();
         }
@@ -219,7 +219,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Jumping up and down";
+            return "TPE_Report_Jumping".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -336,8 +336,8 @@ namespace ToddlersPlayExpanded
         public override string GetReport()
         {
             if (trackedGlass != null)
-                return "Looking through storage with " + trackedGlass.LabelShort;
-            return "Looking through storage: " + TargetA.Thing.LabelShort;
+                return "TPE_Report_StorageWithGlass".Translate(trackedGlass.LabelShort);
+            return "TPE_Report_LookingThroughStorage".Translate(TargetA.Thing.LabelShort);
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -452,7 +452,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Running around";
+            return "TPE_Report_Running".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -561,7 +561,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return lookingAround ? "looking for monsters" : "hunting monsters";
+            return (lookingAround ? "TPE_Report_LookingForMonsters" : "TPE_Report_HuntingMonsters").Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -720,10 +720,10 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            if (investigateTarget != null) return "Being a Dinosaur - Investigating";
-            if (isChasingPrey) return "Being a Dinosaur - Chasing Imaginary Prey";
-            if (isStomping) return "Being a Dinosaur - Stomping Around";
-            return "Being a Dinosaur - Dinosaur Stomping";
+            if (investigateTarget != null) return "TPE_Report_DinosaurInvestigating".Translate();
+            if (isChasingPrey) return "TPE_Report_DinosaurChasing".Translate();
+            if (isStomping) return "TPE_Report_DinosaurStomping".Translate();
+            return "TPE_Report_Dinosaur".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -1036,7 +1036,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Playing with " + TargetA.Thing.LabelShort;
+            return "TPE_Report_PlayingWith".Translate(TargetA.Thing.LabelShort);
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -1202,8 +1202,8 @@ namespace ToddlersPlayExpanded
         {
             Thing carried = pawn.carryTracker.CarriedThing;
             if (carried != null)
-                return "Carrying " + carried.LabelShort;
-            return "Going to pick up toy";
+                return "TPE_Report_Carrying".Translate(carried.LabelShort);
+            return "TPE_Report_FetchingToy".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -1302,10 +1302,10 @@ namespace ToddlersPlayExpanded
         {
             Thing carried = pawn.carryTracker.CarriedThing;
             if (carried != null)
-                return "Watching bugs with magnifying glass";
+                return "TPE_Report_BugWatchingWithGlass".Translate();
             if (trackedGlass != null)
-                return "Going to get magnifying glass to watch bugs";
-            return "Going to watch bugs";
+                return "TPE_Report_FetchingGlass".Translate();
+            return "TPE_Report_BugWatching".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -1425,9 +1425,19 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            if (!string.IsNullOrEmpty(currentSubActivity))
-                return "Self Soothing - " + currentSubActivity;
-            return "Self Soothing";
+            string key = currentSubActivity switch
+            {
+                "Thumb Sucking" => "TPE_SelfSoothing_ThumbSucking",
+                "Blanket Clutching" => "TPE_SelfSoothing_BlanketClutching",
+                "Curling up into a ball" => "TPE_SelfSoothing_CurlingUp",
+                "Eye covering" => "TPE_SelfSoothing_EyeCovering",
+                "Ear Covering" => "TPE_SelfSoothing_EarCovering",
+                "Pillow Cuddling" => "TPE_SelfSoothing_PillowCuddling",
+                "Thinking Happy Thoughts" => "TPE_SelfSoothing_HappyThoughts",
+                _ => null
+            };
+            return key != null ? "TPE_Report_SelfSoothingActivity".Translate(key.Translate())
+                : "TPE_Report_SelfSoothing".Translate();
         }
 
         /// <summary>
@@ -1668,7 +1678,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Jumping in crib";
+            return "TPE_Report_CribJumping".Translate();
         }
 
         /// <summary>
@@ -1775,7 +1785,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Gazing at the ceiling";
+            return "TPE_Report_CeilingWatching".Translate();
         }
 
         /// <summary>
@@ -1926,7 +1936,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Pillow Nesting";
+            return "TPE_Report_PillowNesting".Translate();
         }
 
         /// <summary>
@@ -2098,7 +2108,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return isPausing ? "practicing talking" : "walking around practicing talking";
+            return (isPausing ? "TPE_Report_SpeechPractice" : "TPE_Report_WalkingSpeechPractice").Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -2250,7 +2260,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "practicing talking in crib";
+            return "TPE_Report_CribSpeechPractice".Translate();
         }
 
         /// <summary>
@@ -2419,8 +2429,8 @@ namespace ToddlersPlayExpanded
         {
             Thing carried = pawn.carryTracker?.CarriedThing;
             if (carried != null)
-                return "snuggling by heater with " + carried.LabelShort;
-            return "snuggling by heater";
+                return "TPE_Report_HeaterWithToy".Translate(carried.LabelShort);
+            return "TPE_Report_HeaterSnuggling".Translate();
         }
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -2583,7 +2593,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Popping bubbles";
+            return "TPE_Report_PoppingBubbles".Translate();
         }
 
         /// <summary>
@@ -2722,7 +2732,7 @@ namespace ToddlersPlayExpanded
 
         public override string GetReport()
         {
-            return "Chasing bubbles";
+            return "TPE_Report_ChasingBubbles".Translate();
         }
 
         /// <summary>

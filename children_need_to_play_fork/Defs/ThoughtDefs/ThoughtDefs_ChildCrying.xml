@@ -53,4 +53,39 @@
         </stages>
     </ThoughtDef>
 
+    <ThoughtDef ParentName="TPE_BaseHeardCryingChild">
+        <defName>TPE_OlderChildCrying</defName>
+        <stages>
+            <li>
+                <label>older child crying</label>
+                <description>I can hear a child crying. I wish they would settle down.</description>
+                <baseMoodEffect>-4</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef ParentName="TPE_BaseHeardCryingChild">
+        <defName>TPE_MyOlderChildCrying</defName>
+        <stages>
+            <li>
+                <label>my older child is crying</label>
+                <description>My child is upset. I hope they feel better soon.</description>
+                <baseMoodEffect>-2</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>TPE_ChildCryingIgnored</defName>
+        <durationDays>0.5</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>I'm upset! Nobody cares!</label>
+                <description>I'm crying and my parent won't listen to me. It's not fair!</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
 </Defs>

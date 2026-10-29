@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_CraftPlushMuffalo.label>制作毛绒牦牛</TPE_CraftPlushMuffalo.label>
+  <TPE_CraftPlushMuffalo.description>缝制一只蓬松的毛绒牦牛玩偶。</TPE_CraftPlushMuffalo.description>
+  <TPE_CraftPlushMuffalo.jobString>制作毛绒牦牛。</TPE_CraftPlushMuffalo.jobString>
+  <TPE_CraftPlushTeddy.label>制作泰迪熊</TPE_CraftPlushTeddy.label>
+  <TPE_CraftPlushTeddy.description>缝制一只经典的泰迪熊。</TPE_CraftPlushTeddy.description>
+  <TPE_CraftPlushTeddy.jobString>制作泰迪熊。</TPE_CraftPlushTeddy.jobString>
+  <TPE_CraftPlushSheep.label>制作毛绒绵羊</TPE_CraftPlushSheep.label>
+  <TPE_CraftPlushSheep.description>缝制一只云朵般柔软的毛绒绵羊。</TPE_CraftPlushSheep.description>
+  <TPE_CraftPlushSheep.jobString>制作毛绒绵羊。</TPE_CraftPlushSheep.jobString>
+  <TPE_CraftPlushDino.label>制作毛绒恐龙</TPE_CraftPlushDino.label>
+  <TPE_CraftPlushDino.description>缝制一只背上带红刺的鲜绿色毛绒恐龙。</TPE_CraftPlushDino.description>
+  <TPE_CraftPlushDino.jobString>制作毛绒恐龙。</TPE_CraftPlushDino.jobString>
+  <TPE_CraftPlushMonster.label>制作毛绒小怪兽</TPE_CraftPlushMonster.label>
+  <TPE_CraftPlushMonster.description>缝制一只凹凸不平、长着大眼睛的紫色小怪兽。</TPE_CraftPlushMonster.description>
+  <TPE_CraftPlushMonster.jobString>制作毛绒小怪兽。</TPE_CraftPlushMonster.jobString>
+  <TPE_CraftPlushFox.label>制作毛绒狐狸</TPE_CraftPlushFox.label>
+  <TPE_CraftPlushFox.description>缝制一只有白色斑纹和蓬松尾巴的橙色狐狸。</TPE_CraftPlushFox.description>
+  <TPE_CraftPlushFox.jobString>制作毛绒狐狸。</TPE_CraftPlushFox.jobString>
+  <TPE_CraftToySword.label>制作玩具剑</TPE_CraftToySword.label>
+  <TPE_CraftToySword.description>雕刻一把供孩子扮演游戏用的小木剑。</TPE_CraftToySword.description>
+  <TPE_CraftToySword.jobString>制作玩具剑。</TPE_CraftToySword.jobString>
+  <TPE_CraftMagnifyingGlass.label>制作放大镜</TPE_CraftMagnifyingGlass.label>
+  <TPE_CraftMagnifyingGlass.description>制作一只用于观察细小物件和生物的精巧放大镜。</TPE_CraftMagnifyingGlass.description>
+  <TPE_CraftMagnifyingGlass.jobString>制作放大镜。</TPE_CraftMagnifyingGlass.jobString>
+
+</LanguageData>

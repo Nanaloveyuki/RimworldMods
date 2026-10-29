@@ -169,14 +169,14 @@ namespace ToddlersPlayExpanded
         {
             return currentActivity switch
             {
-                SubActivity.Running => "Running around",
-                SubActivity.Spinning => "Spinning around",
-                SubActivity.Jumping => "Jumping up and down",
-                SubActivity.SnailCrawling => "Snail crawling",
+                SubActivity.Running => "TPE_Report_Running".Translate(),
+                SubActivity.Spinning => "TPE_Report_Spinning".Translate(),
+                SubActivity.Jumping => "TPE_Report_Jumping".Translate(),
+                SubActivity.SnailCrawling => "TPE_Report_SnailCrawling".Translate(),
                 SubActivity.PeopleChasing => chaseTarget != null
-                    ? $"Chasing {chaseTarget.NameShortColored}"
-                    : "Chasing someone",
-                _ => "Playing actively"
+                    ? "TPE_Report_ChasingPawn".Translate(chaseTarget.NameShortColored)
+                    : "TPE_Report_ChasingSomeone".Translate(),
+                _ => "TPE_Report_ActivePlay".Translate()
             };
         }
 

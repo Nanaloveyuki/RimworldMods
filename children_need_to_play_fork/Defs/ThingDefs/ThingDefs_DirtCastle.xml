@@ -14,6 +14,13 @@
     <category>Building</category>
     <altitudeLayer>BuildingOnTop</altitudeLayer>
     <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
+    <building>
+      <alwaysDeconstructible>true</alwaysDeconstructible>
+      <claimable>false</claimable>
+      <repairable>false</repairable>
+      <canBeDamagedByAttacks>true</canBeDamagedByAttacks>
+    </building>
     <drawerType>MapMeshAndRealTime</drawerType>
     <graphicData>
       <texPath>Things/Misc/DirtCastle</texPath>

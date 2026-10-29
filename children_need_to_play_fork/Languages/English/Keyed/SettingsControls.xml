@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_Settings_RandomMoods_Label>Enable random toddler moods</TPE_Settings_RandomMoods_Label>
+  <TPE_Settings_RandomMoods_Tooltip>Awake toddlers occasionally gain mood memories about small, everyday things.</TPE_Settings_RandomMoods_Tooltip>
+  <TPE_Settings_RandomMoodMax>Maximum simultaneous random moods: {0}</TPE_Settings_RandomMoodMax>
+  <TPE_Settings_RandomMoodMax_Help>How many random mood memories a toddler can have at once.</TPE_Settings_RandomMoodMax_Help>
+  <TPE_Settings_RandomMoodFrequency>Random mood chance per hour: {0}</TPE_Settings_RandomMoodFrequency>
+  <TPE_Settings_RandomMoodFrequency_Help>Hourly chance for each awake toddler to gain a random mood.</TPE_Settings_RandomMoodFrequency_Help>
+  <TPE_Settings_EventMoods_Label>Enable event-triggered toddler moods</TPE_Settings_EventMoods_Label>
+  <TPE_Settings_EventMoods_Tooltip>Toddlers react to raids, weather, deaths, weddings and other colony events.</TPE_Settings_EventMoods_Tooltip>
+  <TPE_Settings_SelfSoothing_Label>Enable toddler self soothing</TPE_Settings_SelfSoothing_Label>
+  <TPE_Settings_SelfSoothing_Tooltip>Upset toddlers in cribs may try to calm themselves by sucking a thumb, clutching a blanket or thinking happy thoughts.</TPE_Settings_SelfSoothing_Tooltip>
+  <TPE_Settings_HeaterSnuggling_Label>Enable heater snuggling</TPE_Settings_HeaterSnuggling_Label>
+  <TPE_Settings_HeaterSnuggling_Tooltip>In cold weather, toddlers may seek indoor heaters for warmth and bring a plush toy.</TPE_Settings_HeaterSnuggling_Tooltip>
+  <TPE_Settings_GeothermalSnuggling_Label>Allow geothermal snuggling</TPE_Settings_GeothermalSnuggling_Label>
+  <TPE_Settings_GeothermalSnuggling_Tooltip>Also allow toddlers to warm themselves by geothermal generators and steam geysers. Off by default.</TPE_Settings_GeothermalSnuggling_Tooltip>
+  <TPE_Settings_ConfinementPriority_Label>Increase crib escape priority with confinement</TPE_Settings_ConfinementPriority_Label>
+  <TPE_Settings_ConfinementPriority_Tooltip>Restless, frustrated and desperate crawling toddlers try harder to leave their crib. During a crying fit, escape priority returns to its normal value.</TPE_Settings_ConfinementPriority_Tooltip>
+  <TPE_Settings_ChildCrying_Label>Enable crying for children aged 3–6</TPE_Settings_ChildCrying_Label>
+  <TPE_Settings_ChildCrying_Tooltip>Unhappy young children may cry, seek adult comfort and upset nearby people.</TPE_Settings_ChildCrying_Tooltip>
+  <TPE_Settings_OlderChildCrying_Label>Enable crying for children aged 7–13</TPE_Settings_OlderChildCrying_Label>
+  <TPE_Settings_OlderChildCrying_Tooltip>Older children may also cry, for half as long and with half the mood penalty for nearby people. Applies only while the game still treats them as children. Off by default.</TPE_Settings_OlderChildCrying_Tooltip>
+  <TPE_Settings_ParentIgnoreCryChance>Parent's chance to ignore crying: {0}</TPE_Settings_ParentIgnoreCryChance>
+  <TPE_Settings_ParentIgnoreCryChance_Help>Each parent decides once per crying bout. Ignoring avoids the crying interruption; the child gets −5 mood for 12 hours. At 0%, parents always respond normally. At 100%, parents always ignore.</TPE_Settings_ParentIgnoreCryChance_Help>
+  <TPE_Settings_ChildrenPlayNeed_Label>Enable children's play need</TPE_Settings_ChildrenPlayNeed_Label>
+  <TPE_Settings_ChildrenPlayNeed_Tooltip>Children gain a Play need alongside Learning. Play desires guide activities, and growth points depend on both needs.</TPE_Settings_ChildrenPlayNeed_Tooltip>
+  <TPE_Settings_AgeGatedDesires_Label>Restrict play desires by age</TPE_Settings_AgeGatedDesires_Label>
+  <TPE_Settings_AgeGatedDesires_Tooltip>Restrict each desire to its intended age group. Disable to let any child receive any play desire.</TPE_Settings_AgeGatedDesires_Tooltip>
+  <TPE_Settings_PlayDecayDays>Play need decay time: {0} days</TPE_Settings_PlayDecayDays>
+  <TPE_Settings_PlayDecayDays_Help>Time for a child's play need to drain from full to empty.</TPE_Settings_PlayDecayDays_Help>
+  <TPE_Settings_PlayGrowthWeight>Play weight in growth: {0}</TPE_Settings_PlayGrowthWeight>
+  <TPE_Settings_PlayGrowthWeight_Help>At 0, growth uses learning alone; at 1, play alone. At 0.5, both contribute equally.</TPE_Settings_PlayGrowthWeight_Help>
+  <TPE_Settings_ChildPlushSleep_Label>Enable plush-to-bed for children aged 3–6</TPE_Settings_ChildPlushSleep_Label>
+  <TPE_Settings_ChildPlushSleep_Tooltip>Young children seek a plush toy before sleeping and gain the related comfort thoughts.</TPE_Settings_ChildPlushSleep_Tooltip>
+  <TPE_Settings_OlderChildPlushSleep_Label>Enable plush-to-bed for children aged 7–12</TPE_Settings_OlderChildPlushSleep_Label>
+  <TPE_Settings_OlderChildPlushSleep_Tooltip>Older children also seek a plush toy before sleeping. Independent of the younger-child setting.</TPE_Settings_OlderChildPlushSleep_Tooltip>
+  <TPE_Settings_MuteBabyCrying_Label>Mute baby and toddler crying</TPE_Settings_MuteBabyCrying_Label>
+  <TPE_Settings_MuteBabyCrying_Tooltip>Suppress crying audio. Tears and mood effects remain.</TPE_Settings_MuteBabyCrying_Tooltip>
+  <TPE_Settings_MuteChildCrying_Label>Mute child crying</TPE_Settings_MuteChildCrying_Label>
+  <TPE_Settings_MuteChildCrying_Tooltip>Suppress crying and tantrum audio for all enabled child ages. Tears and mood effects remain.</TPE_Settings_MuteChildCrying_Tooltip>
+  <TPE_Settings_BubbleLimit>Maximum visible bubbles per map: {0}</TPE_Settings_BubbleLimit>
+  <TPE_Settings_BubbleLimit_Tooltip>Limit the number of bubbles rendered at once across the map, from 1 to 100.</TPE_Settings_BubbleLimit_Tooltip>
+  <TPE_Settings_BubbleOpacity>Bubble opacity: {0}</TPE_Settings_BubbleOpacity>
+  <TPE_Settings_BubbleOpacity_Tooltip>At 100%, use the texture's original opacity. Changes also affect bubbles already visible.</TPE_Settings_BubbleOpacity_Tooltip>
+  <TPE_Settings_DebugLogging_Label>Detailed debug logging</TPE_Settings_DebugLogging_Label>
+  <TPE_Settings_DebugLogging_Tooltip>Record diagnostic details for crib gates, heater snuggling and play activities. Off by default.</TPE_Settings_DebugLogging_Tooltip>
+</LanguageData>

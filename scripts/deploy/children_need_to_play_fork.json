@@ -1,0 +1,14 @@
+{
+  "target": "ChildrenNeedToPlayFork",
+  "package_id": "drati.ToddlersPlayExpanded.fork",
+  "new_target_name": true,
+  "versions": ["1.6", "1.7"],
+  "build": [["dotnet", "children_need_to_play_fork/Source/ToddlersPlayExpanded.csproj", {}]],
+  "files": [
+    "About/About.xml", "About/Preview.png", "Assemblies/ToddlersPlayExpanded.dll",
+    {"source": "Assemblies/ToddlersPlayExpanded.pdb", "optional": true},
+    "Defs", "Patches", "Languages", "Textures", "Sounds", "Source/*.cs", "Source/*.csproj",
+    "LICENSE", "README.md", "CHANGELOG.md", "Architecture.md"
+  ],
+  "required": ["About/About.xml", "About/Preview.png", "Assemblies/ToddlersPlayExpanded.dll", "LICENSE", "README.md"]
+}

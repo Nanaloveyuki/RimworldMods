@@ -117,17 +117,7 @@ namespace ToddlersPlayExpanded
             return pawn == null || !pawn.Spawned || pawn.Map == null;
         }
 
-        /// <summary>
-        /// Returns true if <paramref name="thing"/> has a <see cref="CompToyCategory"/>
-        /// with categoryLabel "Plush toys".  This lets the play-desire system filter
-        /// by toy category rather than hard-coding def names.
-        /// </summary>
-        public static bool IsPlushCategory(Thing thing)
-        {
-            if (thing == null) return false;
-            var comp = thing.TryGetComp<CompToyCategory>();
-            return comp != null && comp.Props.categoryLabel == "Plush toys";
-        }
+        public static bool IsPlushCategory(Thing thing) => IsPlushThing(thing);
 
         /// <summary>
         /// Returns true if the pawn is a toddler (base-mod <see cref="ToddlerUtility.IsToddler"/>

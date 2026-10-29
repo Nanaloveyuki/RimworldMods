@@ -67,26 +67,10 @@ namespace ToddlersPlayExpanded
             return tracker;
         }
 
-        /// <summary>
-        /// Removes dead or null pawns from the dictionary to prevent leaks.
-        /// Called infrequently (every 2500 ticks) via
-        /// <see cref="GameComponent.GameComponentTick"/>.
-        /// </summary>
-        public override void GameComponentTick()
+        /// <summary>Called by Pawn.Destroy; despawning and death alone retain play state.</summary>
+        internal void RemoveTracker(Pawn pawn)
         {
-            if (Find.TickManager.TicksGame % 2500 != 0)
-                return;
-
-            List<Pawn> toRemove = new List<Pawn>();
-            foreach (var kvp in trackers)
-            {
-                if (kvp.Key == null || kvp.Key.Destroyed)
-                    toRemove.Add(kvp.Key);
-            }
-            foreach (Pawn p in toRemove)
-            {
-                trackers.Remove(p);
-            }
+            trackers.Remove(pawn);
         }
 
         /// <summary>
@@ -101,7 +85,7 @@ namespace ToddlersPlayExpanded
                 scribeTrackerValues.Clear();
                 foreach (var kvp in trackers)
                 {
-                    if (kvp.Key != null && kvp.Value != null)
+                    if (kvp.Key != null && !kvp.Key.Destroyed && kvp.Value != null)
                     {
                         scribePawnKeys.Add(kvp.Key);
                         scribeTrackerValues.Add(kvp.Value);
@@ -123,7 +107,7 @@ namespace ToddlersPlayExpanded
                     {
                         Pawn pawn = scribePawnKeys[i];
                         Pawn_PlayTracker tracker = scribeTrackerValues[i];
-                        if (pawn != null && tracker != null)
+                        if (pawn != null && !pawn.Destroyed && tracker != null)
                         {
                             tracker.BindPawn(pawn);
                             trackers[pawn] = tracker;

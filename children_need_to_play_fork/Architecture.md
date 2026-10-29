@@ -11,15 +11,12 @@
 > Every count, file location, priority and class name below was re-checked against
 > the source in that pass; what changed is listed in §6 "Full-scan audit".
 >
-> **Latest structural change (v1.2.2):** urgent play outranks Learning (player report: a freshly
-> aged-up 3-year-old "refusing to play"). `ThinkNode_Priority_ChildPlay` now has two tiers: 8.5
-> normally, 9.15 (just above vanilla Learning's 9.1) when play < 30% AND play < Learning. Full
-> write-up: §4.2 "Urgent play tier" and §6.
->
-> **Previous (v1.2.1):** toddler sleep-loop fix (player report: "stuck at 28% rest,
-> repeatedly sleeping and looking at the ceiling"). New shared gate `TPE_PlayUtility.CanStartInCribPlay`
-> that all four in-crib postfixes on `JobGiver_ToddlerPlayInCrib` must call first, plus a new
-> `TPE_ToddlerPlayDefOf` (§2.7). Full write-up: §4.1 "In-crib dispatch" and §6.
+> **Latest fork change (2026-10-29):** shared scheduling/rest eligibility now gates normal,
+> urgent, idle and crib play. `PlaySchedulingPatches.cs` replaces four literal transpilers
+> with narrow prefixes and one crib fallback chooser; running play rechecks every 50 ticks.
+> `CryingPatches.cs` handles child cry hooks; parental decisions live in saved mental states.
+> See §4 for dispatch and §5 for subsystem ownership. The audit history in §6 describes
+> upstream versions, not the current fork's implementation.
 >
 > **Earlier (v1.2.0):** stale-DLL guard (a build-time source fingerprint plus a dev-mode startup
 > check, §3a) and upload cleanup (§1, §6). Fixes the v1.1.x Workshop upload whose DLL predated its
@@ -111,7 +108,9 @@ children_need_to_play_fork/        (mod root — packageId drati.ToddlersPlayExp
 │   ├── Mod.cs                     legacy empty `Verse.Mod` subclass — inert (no settings, never shown); real entry is TPE_Mod
 │   ├── HarmonyPatches.cs          ⭐ THE HUB — ~4800 lines, ~84 active patch classes (+3 commented-out Pillow Nesting
 │   │                                ones), each a TOP-LEVEL `public static class Patch_*` in the namespace
-│   ├── ModSettings.cs             TPE_Mod (real Mod subclass) + TPE_Settings (ModSettings) + tabbed UI
+│   ├── ModSettings.cs             TPE_Mod host + TPE_Settings persistence and standalone category navigation
+│   ├── SettingsPages.cs           seven shared category drawers, no gameplay state or duplicate settings store
+│   ├── IrisMenusIntegration.cs    optional reflection registration and hosted adult-mood choice
 │   ├── DefOfs.cs                  all `[DefOf]` static holder classes (TPE_JobDefOf, TPE_ThoughtDefOf, ...)
 │   ├── DebugActions.cs            Dev-mode "General" debug actions: Force play activity on toddler, Force play desire
 │   │                                on child, Test plush thought, Spawn 3/7 children, Spawn 7 toddlers, Spawn toy set,
@@ -179,14 +178,10 @@ small top-level `public static class Patch_<Target>_<Member>_<Purpose>`** (sibli
 the namespace — NOT nested inside `HarmonyPatches`) decorated with
 `[HarmonyPatch(typeof(X), "Method")]` (or `[HarmonyPatch]` + `TargetMethod()` for
 Toddlers-internal / overloaded targets) and a `Prefix`/`Postfix`/`Finalizer` method.
-~84 active ones live in this file, grouped by feature under `// ====` ALL-CAPS comment
-banners (e.g. "COMPREHENSIVE TV BLOCKING FOR CRIB-LOCKED TODDLERS", "TPE_LEARNING
-ASSIGNMENT BEHAVIOR", "CRIB LOCK SYSTEM", "EVENT-TRIGGERED TODDLER MOODS") — there are
-no `PATCH GROUP:` markers. Only four patches are transpilers — the constant swaps that
-remove the toddler play-need gate (§4.1); everything else is Prefix/Postfix/Finalizer.
-**When adding a new patch, follow this exact convention** — don't invent a
-new file unless the feature is large enough to deserve its own (see §2.6 for the
-exceptions that exist).
+Feature groups remain top-level patch classes. Scheduling patches live in
+`PlaySchedulingPatches.cs`; crying hooks live in `CryingPatches.cs`; remaining groups
+stay in `HarmonyPatches.cs`. The former four fullness-constant transpilers are removed.
+Use shared eligibility before dispatch, rather than interpreting a null result as permission.
 
 ### 2.2 Two parallel "play dispatch" strategies (toddlers vs. children)
 These are the two most important extension points and they are **not the
@@ -197,8 +192,8 @@ same pattern** — don't confuse them:
   all registered `ToddlerPlayDef`s in random order, calling `CanDo` on each giver and then
   `TryGiveJob` on the first eligible one. `JobGiver_ToddlerPlayInCrib` does NOT iterate: it
   hard-codes the base mod's TV + Skydreaming (`CanDoFromCrib`/`TryGiveJobFromCrib`), and
-  our four in-crib activities are attached to it by postfixes (§4.1 "In-crib dispatch",
-  including the sleep gate every one of them must call). This mod registers **17 `ToddlerPlayDef`s**
+  our four in-crib activities use one gated fallback chooser (§4.1).
+  This mod registers **17 `ToddlerPlayDef`s**
   (`Defs/ToddlerPlayDefs.xml`) backed by **16 active `ToddlerPlayGiver` subclasses**
   (14 in `ToddlerPlayGivers.cs` — `_Spinning`, `_WorkWatching`, `_Jumping`, `_Running`,
   `_MonsterHunt`, `_Dinosaur`, `_LookThroughStorage`, `_SelfSoothing`, `_CribJumping`,
@@ -216,8 +211,8 @@ same pattern** — don't confuse them:
 - **Children (3–13, this-mod-invented):** `Patches/ThinkTree_ChildPlay.xml`
   inserts `ThinkNode_Priority_ChildPlay { JobGiver_ChildPlay }` directly into
   vanilla's `MainColonistBehaviorCore` `ThinkNode_PrioritySorter`, just before
-  `ThinkNode_Priority_GetJoy` (own priority tier 8.5, between Learning at 9.1 and Rest/Joy
-  at 8/7; raised to 9.15, just above Learning, when play is urgent — exact gating in §4.2). `JobGiver_ChildPlay.TryGiveJob` reads the
+  `ThinkNode_Priority_GetJoy` (normal 8.5, urgent 9.15, both gated by schedule, assigned work,
+  sleep and medical-rest policy — §4.2). `JobGiver_ChildPlay.TryGiveJob` reads the
   pawn's **currently active 2 desires** off `Pawn_PlayTracker` (see §2.3) and
   tries each via its `PlayDesireGiver` (Strategy pattern, mirrors
   `PlayDesireGiver_PlayWithToy`, `_WatchTelevision`, `_BubblePopping`, etc. in
@@ -323,7 +318,7 @@ because they're substantial standalone subsystems, not a 5-line prefix:
 split when adding a defOf for a new def type.
 `TPE_ToddlerPlayDefOf` (v1.2.1) binds the base mod's `ToddlerPlayDef` type (hence
 `using Toddlers;` in DefOfs.cs) for the four in-crib activities, replacing per-think
-`DefDatabase<ToddlerPlayDef>.GetNamed(...)` calls in the in-crib postfixes. Field name =
+`DefDatabase<ToddlerPlayDef>.GetNamed(...)` calls in the shared in-crib chooser. Field name =
 defName. Code that still looks a ToddlerPlayDef up by string (DebugActions, the commented-out
 Pillow Nesting block) is deliberately left alone.
 
@@ -337,35 +332,17 @@ multiple `JobDriver`/`PlayDesireGiver` files. Exception that is still "shared": 
 building gate `ColonyHasBuilding(ThingDef | List<ThingDef>)` is a `protected static` on
 the `PlayDesireGiver` base class (only givers need it).
 
-### 2.9 Settings: tabbed `ModSettings`
-`ModSettings.cs` defines `TPE_SettingsTab` (enum) + `TPE_Settings : ModSettings`
-(four tabs: Toddlers/Newborns, Children, Children's Play Need, Adults) + `TPE_Mod : Mod`
-(the real entry point — `Mod.cs`'s `Mod` class is legacy/dead, kept only so
-old saves referencing it don't crash). **`TPE_Mod.Settings` is the read path
-used everywhere else in the codebase** (`TPE_Mod.Settings?.enableChildrenPlayNeed`,
-etc.) — always null-check with `?.` since settings can theoretically be
-absent during certain load orders.
+### 2.9 Settings: shared categories and optional IrisMenus
 
-**Scrollable tabs:** the tab content is drawn inside `Widgets.BeginScrollView`
-(the Toddlers/Newborns tab alone needs ~600px against ~540px available in the
-900×700 `Dialog_ModSettings`, so its last slider used to be clipped). The
-`viewRect` height is each tab's own MEASURED height from the previous pass
-(`tabContentHeights[(int)tab] = listing.CurHeight`, clamped to at least the
-visible height so short tabs get no scrollbar); the width always reserves
-`GenUI.ScrollBarWidth` (avoids wrap/height flip-flop at the threshold); the
-listing uses `maxOneColumn = true` (a just-revealed sub-option is clipped for one
-pass instead of wrapping into a second column); switching tabs resets the scroll
-position; drawing is in try/finally so `End()`/`EndScrollView()` always run.
-**Adding a setting needs no height bookkeeping** — just draw it.
+`ModSettings.cs` defines `TPE_SettingsTab`, `TPE_Settings` persistence and the `TPE_Mod` entry point. `SettingsPages.cs` owns seven category drawers: toddler moods, toddler activities, child moods, child play, plush sleep, presentation and debug. Every drawer edits the same `TPE_Mod.Settings` fields used by gameplay. Save keys, defaults and slider ranges are unchanged.
 
-**Known inconsistencies (left as-is):** the settings page is listed under
-`SettingsCategory()` = **"Toddlers Play Expanded"** (the mod's old name; the mod list says
-"The Children Need To Play"). Only the newer settings use Keyed translation keys
-(`TPE_Settings_*`); the older ones (random moods, event moods, self soothing, heater
-snuggling, mute crying, crib confinement scaling, bubble limit/opacity, the Children tab,
-debug logging, play-need master toggle, age gating, decay/growth sliders) are hardcoded
-English, as are the Crib Lock / Lock Play Need gizmo labels + messages and the toy float-menu
-labels. Migrate a string to `Languages/English/Keyed/Keys.xml` whenever you touch it (§7).
+The standalone window lays out category buttons in width-aware rows and draws the selected category in one measured `Listing_Standard` scroll view. Switching categories resets its scroll. `SettingsCategory()` matches the mod name, "The Children Need To Play".
+
+`IrisMenusIntegration.Register` runs after mod construction and checks the running package list for `Nanaloveyuki.IrisMenus`. Only its public API is resolved by reflection; there is no assembly reference, shipped provider DLL or hard mod dependency. Each stable page ID is registered with `RegisterSubItemListing` and `owner.WriteSettings`. Where available, `MenuPresentation.Listing` supplies native scrolling, themed controls and help overlays. Older providers keep ordinary categorized listings. The full standalone window remains usable without the provider.
+
+The hosted plush-sleep page uses public `MenuItemControls.ChoiceSort` for adult mood selection. Its labels are refreshed on language changes; outside the native host the same setting uses the ordinary FloatMenu. No extra category navigation or nested scroll view is drawn inside IrisMenus.
+
+Category titles and descriptions have English/Simplified Chinese keys. Upstream hardcoded English control labels remain English; this integration is not a complete translation.
 
 ---
 
@@ -488,13 +465,9 @@ Toddlers' JobGiver_ToddlerPlay.TryGiveJob(toddler)
   → returns a Job whose driver is one of OUR JobDriver_Toddler* classes
        (JobDrivers.cs — toils, e.g. JobDriver_ToddlerSpinning, _Jumping, _SelfSoothing...)
   → JobDriver runs its toils; per-tick play-need gain via tickAction on a toil
-  → "play-need gate removed" (feature #1): four TRANSPILERS at the top of
-       HarmonyPatches.cs rewrite the base mod's fullness constants to 1.01 — the 0.95
-       in JobGiver_ToddlerPlay.TryGiveJob and JobGiver_ToddlerPlayInCrib.TryGiveJob, the
-       0.9 in ToddlerPlayGiver.CanDo / CanDoFromCrib (those two also carry a postfix
-       that refuses non-humanlike pawns — the animal safeguard). Need can never reach
-       1.01, so toddlers keep playing when full. If Toddlers changes those literals the
-       transpilers silently stop matching — re-check after base-mod updates.
+  → PlaySchedulingPatches gates schedule, assigned work, rest and health before selection
+  → normal below-fullness requests keep the base implementation and its other patches
+  → narrow full-bar prefixes preserve optional toddler play without rewriting IL literals
   → ToddlerPlayUtility.ToddlerPlayTickCheckEnd (HARMONY-PATCHED by us)
        decides whether to end the job — patched so job ends by DURATION
        for our activities, not "need already full" (base mod's default logic)
@@ -515,16 +488,13 @@ HumanlikeToddler think tree (Toddlers ThinkTrees.xml)
   │    └─ JobGiver_KeepLyingDown              ← "keep sleeping"
   └─ ThinkNode_ConditionalInCrib → PrioritySorter { GetRest, LeaveCrib, ToddlerPlayInCrib (8 / 2), IdleInCrib }
 
-JobGiver_ToddlerPlayInCrib.TryGiveJob (base)
-  → returns null if: no play need | play ≥ 0.95 (transpiled to 1.01) | !RestUtility.Awake(pawn)
-  → else TV (CanDoFromCrib/TryGiveJobFromCrib) → Skydreaming → null
-  → OUR 4 POSTFIXES (HarmonyPatches.cs; same priority, so Harmony runs them in registration =
-       declaration order, in practice; each acts only if __result is still null):
-       _SelfSoothing → _CribJumping → _CeilingWatching → _SpeechPractice
-       each:  __result != null → return
-              !TPE_PlayUtility.CanStartInCribPlay(pawn) → return      ← THE SLEEP GATE (Awake && !Downed)
-              def = TPE_ToddlerPlayDefOf.X; already doing it → return
-              def.Worker.CanDoFromCrib(pawn) → TryGiveJob / TryGiveJobFromCrib
+JobGiver_ToddlerPlayInCrib.TryGiveJob
+  → shared prefix checks CanStartInCribPlay and the presence of a play need
+  → disqualified: null, with fallback disabled
+  → eligible and below 95%: original TV / Skydreaming implementation
+  → eligible and full: same two workers through cached crib-job delegates
+  → eligible but still null: one chooser tries SelfSoothing, CribJumping,
+       CeilingWatching and SpeechPractice, retaining each worker's settings/cooldowns
 ```
 The trap: base "null" also means "this toddler is asleep". Before v1.2.1 the postfixes read every
 null as "base found nothing" and woke sleepers. The only thing still stopping them was the base
@@ -537,20 +507,11 @@ Now a sleeping toddler sleeps until vanilla wakes it: the toddler life stage's
 `naturalWakeThresholdOverride` is 1.0 (100%), or hunger / schedule / disturbance / danger. Vanilla's identical branch (`JobGiver_GetJoyInBed` in Humanlike's `MustKeepLyingDown`)
 opens with the same `!pawn.Awake()` check.
 
-Awake-but-tired toddlers are unchanged and match the base mod. Below 28% every activity's
-`CanDoFromCrib` refuses. Between 28% and 30% (under Anything), `GetRest` (8) and play-in-crib
-(8 when play < 80%) tie and the PrioritySorter picks randomly. Every in-crib driver ends with
-`KeepLyingDown` (re-queues LayDown), and below 60% (`fallAsleepMaxThresholdOverride`) the toddler
-falls asleep at once, so at most one more activity can happen before the nap. That nap is now never
-interrupted by us. `KeepLyingDown` must be registered in `MakeNewToils` (driver level, conditioned
-on the saved bed target), like vanilla `JobDriver_RelaxAlone`. A toil `initAction` doesn't re-run
-when a saved job is restored. Ceiling Watching registered it in an initAction until the v1.2.1
-passover, so after a load mid-activity the toddler never lay back down. The other three drivers
-already registered it correctly.
-`Downed`: vanilla/base in-bed play allows an awake downed pawn; our gate doesn't, because 3 of the
-4 drivers fail on `Downed` on their first tick (that would be job churn). The gate is deliberately
-NOT inside the givers' `CanDoFromCrib`, so the debug "Force play activity" can still force one on a
-sleeper.
+Awake-but-tired and injured toddlers use the same policy as all other play selectors:
+`HealthAIUtility.ShouldSeekMedicalRest` and `JobGiver_GetRest.GetPriority` must both
+allow leisure. An autonomous running play job rechecks on staggered 50-tick intervals,
+including travel; forced orders keep player precedence. In-crib drivers register
+`KeepLyingDown` at driver level so saved jobs resume with the same finalizer.
 
 Debug entry point: `TPE_DebugActions` → "Force play activity on toddler" (General
 debug menu) lists EVERY registered `ToddlerPlayDef` (base mod's too) and starts the chosen
@@ -580,47 +541,24 @@ play-need system is off; first roll on the first interval after the tracker is c
     → picks up to 2 → stored in Pawn_PlayTracker.ActivePlayDesires
 
 Per child think-tree evaluation (MainColonistBehaviorCore's PrioritySorter):
-  ThinkNode_Priority_ChildPlay.GetPriority = 8.5 (PriorityNormal) when ALL of: setting on,
-    Biotech active, game tick ≥ 5000, child, has the TPE_ChildPlay need, play < 95%, and the
-    current assignment allowJoy (Anything, Recreation, Sleep, Meditate — only vanilla Work
-    disallows it) and is NOT TPE_Learning; otherwise 0. This is the same allowJoy gate
-    vanilla's ThinkNode_Priority_Learn uses for its 9.1 — so, exactly like vanilla
-    learning, an unsatisfied child may play before sleeping in Sleep hours (play 8.5 >
-    rest 8.0). Deliberate vanilla parity; change both together if ever changed.
-    URGENT PLAY TIER (v1.2.2): same gates, but 9.15 (PriorityUrgent) instead of 8.5 when
-    IsPlayMoreUrgentThanLearning: play < 30% (Need_ChildPlay.ThresholdSatisfied, the bar's
-    "Low" tier and low-play mood) AND play < Learning (ties → Learning; no Learning need
-    counts as 100%). 9.15 is just above Learning (9.1) and below every survival/hygiene
-    node: chemical 9.25, Dubs Bad Hygiene wash 9.25, food 9.5, DBH toilet/drink 9.6.
-    Accepted overlaps (reviewed): it also beats vanilla JobGiver_GetHemogen (flat 9.1), so a
-    hemogenic child low on play plays one session before feeding (vanilla already ties
-    hemogen with Learning at random, which can run a whole learning job first; a guard on
-    ShouldConsumeHemogenNow was rejected because with no hemogen source it would bring the
-    starvation back), and JobGiver_Meditate (9.0) on the Meditate schedule, which Learning
-    already beats. Override checks are unaffected: CheckForJobOverride compares the SOURCE
-    node JobGiver_ChildPlay's own (dead) GetPriority, never 9.15, so vanilla Reading's
-    CheckForJobOverride(9.1f) still can't be interrupted by play.
-    WHY: vanilla Learning keeps 9.1 until the need is 99.9% full and JobGiver_Learn hands
-    out jobs below 95% (LearningGiver.CanDo < 90%; "Learning Threshold for Learning Job
-    Fix" raises both to 99%). A child who just aged up starts Learning AND play at 50%
-    (Need.SetInitialLevel), so at a flat 8.5 play got ZERO turns for ~2 in-game days
-    while it drained to 20% (save-verified: 0.200000286 = 0.5 − 720 decay steps, float32).
-    The tier only REORDERS: if JobGiver_ChildPlay finds no job, the sorter falls through
-    to Learning. Hysteresis is natural — one session lifts play above 30% and the child is
-    back on 8.5; the tree is only consulted between jobs, so the two never flip-flop.
-    TPE_Learning hours still return 0 (hard rule), Recreation is unchanged (Learning is
-    already 0 there).
-    (JobGiver_ChildPlay.GetPriority — 8.5 Joy / 6 Anything<35% — is DEAD: a
-    ThinkNode_Priority parent never asks its children for a priority.)
+  ThinkNode_Priority_ChildPlay.GetPriority is 8.5 normally, or 9.15 when play < 30%
+    and below Learning. Both tiers use PlayScheduleUtility.CanSelectChildPlay:
+    setting enabled, Biotech active, tick >= 5000, Child stage, play need below 95%,
+    and shared schedule/work/medical/rest eligibility. Anything and Recreation are
+    the only allowed assignments; Work, Sleep, Learning and custom schedules return 0.
+    Existing assigned labor is protected under Anything, including prisoners without
+    a timetable. Recreation may supersede ordinary work; player-forced jobs stay protected.
+    If no desire can produce a job, the sorter falls through normally.
   ThinkNode_Priority_ChildPlay → JobGiver_ChildPlay.TryGiveJob(pawn)
     → TPE_Mod.Settings.enableChildrenPlayNeed gate
-    → CanPlayRightNow(pawn)  [child + tick ≥ 5000 + not TPE_Learning + allowJoy + play < 95%]
+    → PlayScheduleUtility.CanSelectChildPlay(pawn)
     → reads tracker.ActivePlayDesires, shuffles, tries each:
          desire.Giver.CanDo(pawn) → desire.Giver.TryGiveJob(pawn)
     → returns Job → JobDriver_Child* (JobDriver_ChildPlay.cs / _ChildActivePlay.cs /
          _ChildBubblePopping.cs / _ChildBuildDirtCastles.cs / _ChildWatchTelevision.cs)
-    → PlayUtility.PlayTickCheckEnd on a timer ends job when play need satisfied
-         or duration cap reached
+    → PlayUtility.PlayTickCheckEnd ends satisfied/expired sessions
+    → JobDriver.DriverTick checks running/traveling registered play jobs every 50 ticks;
+         idle play yields to any prioritized job, ordinary play to higher priorities
 ```
 **Reading (`PlayDesireGiver_ReadBook` → `JobDriver_ChildReadBook`) specifics:**
 the book is picked by vanilla `BookUtility.TryGetRandomBookToRead`, which
@@ -649,8 +587,8 @@ DRIVER-level finish action) → `Building_DirtCastle` (the Thing; label "<Name>'
 giver and the driver call it, so there is exactly one definition of "a cell a castle may
 occupy" (§2.8: don't duplicate a check across giver + driver).
 
-- **Setting `showDirtCastles`** (`TPE_Settings`, default ON, Children's Play Need tab,
-  inside the `enableChildrenPlayNeed` block; keys `TPE_Settings_ShowDirtCastles_*`).
+- **Setting `showDirtCastles`** (`TPE_Settings`, default ON, Presentation category;
+  keys `TPE_Settings_ShowDirtCastles_*`).
   Read via `DirtCastleUtility.CastlesEnabled` (null-safe, defaults ON). OFF ⇒ the child
   still walks out, plays the full session and gains Play, but `SpawnDirtCastle` returns
   on its first line — **no castle Thing is ever created**, so OFF costs nothing (no
@@ -837,7 +775,7 @@ Listed so you know where to look without re-deriving from scratch:
 | Plush-to-bed sleep system | `JobDriver_SeekPlushToy`, 4 sibling `Patch_JobDriver_LayDown_SetupToils*` redirect patches, `Patch_Toils_LayDown_ApplyBedThoughts`, `TPE_ToyUtility` | See §5.1 below — four independent age brackets (toddler / child 3–6 / child 7–12 / adult 13+) share one seek-and-equip job but each has its own Harmony redirect patch, own settings toggle, and (adults only) a 4-way mood-mode dial |
 | Event-Triggered Moods | `MapComponent_ToddlerEventMoods` + `GameComponent_KnownColonists` + Harmony patches on `IncidentWorker.TryExecute`, `Pawn.Kill` (prefix+postfix), `Pawn_AgeTracker.BirthdayBiological`, `InteractionWorker_RecruitAttempt.DoRecruit` (6-param overload) | **Full rules + per-mood trigger table: §5.2.** Four categories, never mixed for one ThoughtDef: ONGOING (polled; refreshed on awake toddlers, removed from ALL spawned toddlers when it ends), LINGERING (Burial + the three "witnessed" moods — refreshed while active, never force-removed), ONE-TIME polled edges (RaidWon, NewColonist, injury, rescue, corpse/blood sightings, homesick), ONE-TIME Harmony sources (incidents incl. disease outbreak, colonist death, birthday, animal tamed). |
 | Random hourly moods | `MapComponent_ToddlerRandomMoods` | Hourly roll per awake toddler (`randomMoodFrequency`, cap `randomMoodMaxActive`), 100 moods in 5 weighted sets (20 each) |
-| Child crying / tantrums (3–6) | `ChildCryTracker`, `MentalState_ChildCry` (`: MentalState_BabyFit`), `TPE_ChildCrying` / `TPE_ChildTantrum` MentalStateDefs, patches `MentalFitDef.CalculateMTBDays`, `MentalFitGenerator.TickInterval` (first-cry cap), `MentalState_BabyCry.AuraEffect` (pawns aged ≤ 6 immune to the vanilla baby-cry aura — prevents a crying-children doom loop), `MemoryThoughtHandler.TryGainMemory` (new memory ≤ −12 mood → 20–70% tantrum roll, 1 h cooldown; situational thoughts are caught by `ChildCryTracker`'s periodic scan), two sound-mute patches | MTB roll → cry mental state (or a tantrum after a severe thought) → looping cry sound (mutable via settings); nearby pawns get `TPE_ChildCrying`, parents `TPE_MyChildCrying` |
+| Child crying / tantrums | `ChildCryTracker`, `GameComponent_ChildCryTracker`, `MentalState_ChildCry`, `CryingPatches.cs` | Ages 3–6 use the original toggle; ages 7–13 additionally require Child stage and the default-off older toggle. Older bouts last 600/300 ticks and apply half-strength aura thoughts. Each parent's response is rolled once per bout and saved in the state; ignored parents skip this cry's clamor/mood and comfort targeting, and the child receives one −5 mood memory for 0.5 days. Severe accepted/renewed memories trigger directly; situational thoughts are scanned every 600 ticks with reused buffers. |
 | Bubble Machine + mood | `CompBubbleZone`, `Mote_Bubble`, `BubbleMoodUtility`, `BubbleSettings`, `ThoughtWorker_Bubble*` | Building needs power (20 W) AND chemfuel (`CompRefuelable`, 2.25/day, burns only while powered) and must be switched on (`CompBubbleZone.IsMachineActive`) → spawn timer → motes spawn/drift/despawn inside a cached zone (global cap `maxBubblesPerMap`) → ThoughtWorkers check `BubbleMoodUtility.IsInActiveBubbleZone` per pawn (babies/children joy, adults annoyed). Toddler activities Popping/Chasing Bubbles + child desire Bubble Popping use the zone. |
 | Homely compat | `HomelyCompat.cs` (reflection only, no compile-time ref) | Both Homely active + plush-to-bed setting on → tags plush apparel + steps aside for `JobDriver_UndressBeforeBed` |
 | God-mode "Lock Play Need at 50%" | `Patch_Pawn_GetGizmos_LockPlayNeed`, `Patch_Need_Play_NeedInterval_LockAt50`, `Need_ChildPlay` direct checks, `Pawn_PlayTracker.lockPlayNeed` | Gizmo visible only when `DebugSettings.godMode`; toggling clamps the relevant Need every interval tick. (Separate feature: the "Toggle God Mode: Max Learning / Max Play" debug actions, enforced by `MapComponent_GodModeNeeds` every 60 ticks.) |
@@ -1648,12 +1586,10 @@ Ignores vanilla's `flip` (only Ingest/SocialRelax drivers set it, and they carry
   `IsToddlerPlaying` postfix like the existing ones (CribJumping, CeilingWatching,
   SpeechPractice, HeaterSnuggling). Debug-menu support comes for free: "Force play
   activity on toddler" enumerates every registered `ToddlerPlayDef`.
-  **In-crib activity?** The base in-crib giver doesn't iterate defs, so add a
-  `Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_X` postfix copied from the existing four. Its first
-  two lines MUST be `if (__result != null) return;` then
-  `if (!TPE_PlayUtility.CanStartInCribPlay(pawn)) return;` (§4.1, §6: otherwise it wakes sleeping
-  toddlers). Add a `TPE_ToddlerPlayDefOf` field for its def rather than a `GetNamed` per think, and
-  end the driver with `KeepLyingDown` like the others.
+  **In-crib activity?** Add its `TPE_ToddlerPlayDefOf` field and register it in
+  `Patch_ToddlerCribPlaySelection`'s single gated chooser, rather than appending a
+  result-only postfix. Keep settings/cooldowns in the worker and end the driver
+  with `KeepLyingDown` like the others.
 - **New child (3–13) play desire** → new `PlayDesireGiver_X : PlayDesireGiver`
   in `PlayDesireGiver.cs` + `JobDriver_ChildX` + `PlayDesireDef` entry in
   `Defs/PlayDesireDefs/PlayDesires.xml`. If it depends on a player-built
@@ -1670,11 +1606,10 @@ Ignores vanilla's `flip` (only Ingest/SocialRelax drivers set it, and they carry
   near its feature's comment banner. Only break out to a new file if the
   feature is Bubble-Machine-scale (its own Comp/Mote/multi-file subsystem).
 - **New setting** → add a field to `TPE_Settings` (`ModSettings.cs`) AND its
-  `Scribe_Values.Look` line in `ExposeData` (same default in both), draw it in the right
-  tab method (`DrawToddlersNewbornsTab` / `DrawChildrenTab` / `DrawChildrensPlayNeedTab` /
-  `DrawAdultsTab`) with `TPE_Settings_<Name>_Label` / `_Tooltip` Keyed strings, update that
-  method's `<summary>` list, and read it via `TPE_Mod.Settings?.yourField` at the TOP of
-  whatever runtime method it gates (never make the XML patch conditional).
+  `Scribe_Values.Look` line in `ExposeData` with the same default; draw it in the
+  appropriate `SettingsPages.cs` category with localized label/tooltip keys.
+  Standalone and IrisMenus share that drawer; gameplay reads `TPE_Mod.Settings`.
+  Never make the XML patch conditional.
 - **New MapComponent-scale polling feature** → new dedicated
   `MapComponent_YourThing` file, not a bolt-on to an existing one (§2.5). Vanilla
   instantiates it on every map automatically — no `FinalizeInit` registration patch; put

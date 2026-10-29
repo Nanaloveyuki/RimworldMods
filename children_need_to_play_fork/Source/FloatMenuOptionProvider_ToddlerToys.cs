@@ -44,7 +44,7 @@ namespace ToddlersPlayExpanded
             // Play with toy
             var playJob = JobMaker.MakeJob(TPE_JobDefOf.TPE_PlayWithToy, clickedThing);
             playJob.playerForced = true;
-            yield return new FloatMenuOption("Play with " + clickedThing.LabelShort, delegate
+            yield return new FloatMenuOption("TPE_PlayWithToy".Translate(clickedThing.LabelShort), delegate
             {
                 toddler.jobs.TryTakeOrderedJob(playJob, JobTag.Misc);
             }, MenuOptionPriority.Default, null, clickedThing);
@@ -53,7 +53,7 @@ namespace ToddlersPlayExpanded
             var carryJob = JobMaker.MakeJob(TPE_JobDefOf.TPE_CarryToy, clickedThing);
             carryJob.playerForced = true;
             carryJob.count = 1;
-            yield return new FloatMenuOption("Carry " + clickedThing.LabelShort, delegate
+            yield return new FloatMenuOption("TPE_CarryToy".Translate(clickedThing.LabelShort), delegate
             {
                 toddler.jobs.TryTakeOrderedJob(carryJob, JobTag.Misc);
             }, MenuOptionPriority.Default, null, clickedThing);

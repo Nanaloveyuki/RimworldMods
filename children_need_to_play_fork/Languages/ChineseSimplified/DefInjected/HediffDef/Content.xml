@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_CribConfinement.label>婴儿床禁闭</TPE_CribConfinement.label>
+  <TPE_CribConfinement.description>这个幼儿被关在婴儿床里。清醒时留在床内会逐渐积累不满；达到极限后，会哭闹着要求被抱出去。</TPE_CribConfinement.description>
+  <TPE_CribConfinement.stages.0.label>满足</TPE_CribConfinement.stages.0.label>
+  <TPE_CribConfinement.stages.1.label>坐立不安</TPE_CribConfinement.stages.1.label>
+  <TPE_CribConfinement.stages.2.label>烦躁</TPE_CribConfinement.stages.2.label>
+  <TPE_CribConfinement.stages.3.label>想要出去</TPE_CribConfinement.stages.3.label>
+  <TPE_WantsOutOfCrib.label>想被抱出去</TPE_WantsOutOfCrib.label>
+  <TPE_WantsOutOfCrib.description>这个幼儿想被抱出婴儿床。</TPE_WantsOutOfCrib.description>
+  <TPE_WantsOutOfCrib.stages.0.label>闹着要出去</TPE_WantsOutOfCrib.stages.0.label>
+  <TPE_CribLocked.label>被关在婴儿床里</TPE_CribLocked.label>
+  <TPE_CribLocked.description>这个幼儿被关在婴儿床里。殖民者不会将其抱出；如果幼儿逃出来，会将其抱回床上。</TPE_CribLocked.description>
+  <TPE_CribLocked.stages.0.label>已关好</TPE_CribLocked.stages.0.label>
+  <TPE_Running.label>跑步</TPE_Running.label>
+  <TPE_Running.description>跑来跑去时，移动速度暂时提高。</TPE_Running.description>
+  <TPE_SnailCrawling.label>蜗牛爬行</TPE_SnailCrawling.label>
+  <TPE_SnailCrawling.description>像蜗牛一样缓慢移动。</TPE_SnailCrawling.description>
+  <TPE_DinosaurStomp.label>恐龙跺脚</TPE_DinosaurStomp.label>
+  <TPE_DinosaurStomp.description>模仿大恐龙，踩着沉重的步子走路。</TPE_DinosaurStomp.description>
+
+</LanguageData>

@@ -9,6 +9,7 @@ namespace ToddlersPlayExpanded
     /// </summary>
     public class CompProperties_ToyCategory : CompProperties
     {
+        [MustTranslate]
         public string categoryLabel = "";
 
         public CompProperties_ToyCategory()
@@ -29,7 +30,7 @@ namespace ToddlersPlayExpanded
         public override string CompInspectStringExtra()
         {
             if (!Props.categoryLabel.NullOrEmpty())
-                return "Category: " + Props.categoryLabel;
+                return "TPE_ToyCategory".Translate(Props.categoryLabel);
             return null;
         }
     }

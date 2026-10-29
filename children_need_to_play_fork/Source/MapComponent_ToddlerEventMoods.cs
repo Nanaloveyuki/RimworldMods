@@ -50,11 +50,10 @@ namespace ToddlersPlayExpanded
     ///   helpers below so "which toddlers are eligible" has one definition.
     ///
     /// ── Performance ──
-    /// Runs every <see cref="CheckInterval"/> ticks per map. No LINQ, no per-check
-    /// list copies (static scratch buffers, cleared on every use so nothing leaks
-    /// between saves), ONE pass over the map's pawns for all job/mental-state based
-    /// checks, and an early-out after the cheap colonist bookkeeping when the map
-    /// has no toddlers at all (the common case for most maps).
+    /// Runs every <see cref="CheckInterval"/> ticks per map. Reuses scratch buffers,
+    /// makes no pawn-list copies, and scans spawned pawns once for toddler discovery
+    /// and once for all job/mental-state checks. Maps without toddlers skip the
+    /// second pass. Blood observation scans the smaller of blood Things and nearby cells.
     /// </summary>
     public class MapComponent_ToddlerEventMoods : MapComponent
     {
@@ -244,6 +243,7 @@ namespace ToddlersPlayExpanded
         private static readonly List<IntVec3> tmpSocialFightCells = new List<IntVec3>();
         private static readonly List<Pawn> tmpPawnsToForget = new List<Pawn>();
         private static readonly List<Corpse> tmpHumanlikeCorpses = new List<Corpse>();
+        private static readonly List<Thing> tmpSparseBlood = new List<Thing>();
         private static readonly HashSet<int> tmpLiveTargetIds = new HashSet<int>();
 
         /// <summary>
@@ -391,19 +391,18 @@ namespace ToddlersPlayExpanded
         /// Fills <see cref="tmpToddlers"/> with every spawned, living toddler on the
         /// map (awake OR asleep — asleep ones still need ONGOING moods removed) and
         /// <see cref="tmpToddlerAwake"/> with each one's awake state, captured once
-        /// so every section of this check sees the same answer. Iterates the
-        /// engine's cached humanlike list — no allocation, and toddlers are always
-        /// humanlike (ToddlerUtility.IsToddler checks a humanlike life stage).
+        /// so every section of this check sees the same answer. Read the maintained
+        /// spawned registry directly: AllHumanlikeSpawned rebuilds another list.
         /// </summary>
         private void CollectToddlers()
         {
             tmpToddlers.Clear();
             tmpToddlerAwake.Clear();
-            List<Pawn> humanlikes = map.mapPawns.AllHumanlikeSpawned;
-            for (int i = 0; i < humanlikes.Count; i++)
+            IReadOnlyList<Pawn> pawns = map.mapPawns.AllPawnsSpawned;
+            for (int i = 0; i < pawns.Count; i++)
             {
-                Pawn p = humanlikes[i];
-                if (p.Dead || !ToddlerUtility.IsToddler(p)) continue;
+                Pawn p = pawns[i];
+                if (p.Dead || !p.RaceProps.Humanlike || !ToddlerUtility.IsToddler(p)) continue;
                 tmpToddlers.Add(p);
                 tmpToddlerAwake.Add(p.Awake());
             }
@@ -1225,7 +1224,8 @@ namespace ToddlersPlayExpanded
         /// </summary>
         private void ScanForBlood()
         {
-            // Live blood filth IDs: only needed to prune, and only if there's anything to prune.
+            int numCells = GenRadial.NumCellsInRadius(BloodSightRadius);
+            tmpSparseBlood.Clear();
             int bloodOnMap = 0;
             bool prune = seenBloodPairs.Count > 0;
             if (prune) tmpLiveTargetIds.Clear();
@@ -1233,6 +1233,9 @@ namespace ToddlersPlayExpanded
             {
                 List<Thing> things = map.listerThings.ThingsOfDef(bloodFilthDefList[d]);
                 bloodOnMap += things.Count;
+                // Sparse maps are cheaper to scan by blood Thing than by every nearby cell.
+                if (bloodOnMap < numCells) tmpSparseBlood.AddRange(things);
+                else tmpSparseBlood.Clear();
                 if (!prune) continue;
                 for (int j = 0; j < things.Count; j++) tmpLiveTargetIds.Add(things[j].thingIDNumber);
             }
@@ -1244,8 +1247,17 @@ namespace ToddlersPlayExpanded
             if (bloodOnMap == 0) return; // nothing to see — skip all radial scans
 
             ThoughtDef? bloodDef = TPE_ThoughtDefOf.TPE_Event_ObservedBlood;
-            if (bloodDef == null) return;
-            int numCells = GenRadial.NumCellsInRadius(BloodSightRadius);
+            if (bloodDef == null)
+            {
+                tmpSparseBlood.Clear();
+                return;
+            }
+            if (bloodOnMap < numCells)
+            {
+                ScanSparseBlood(bloodDef);
+                tmpSparseBlood.Clear();
+                return;
+            }
 
             for (int i = 0; i < tmpToddlers.Count; i++)
             {
@@ -1275,6 +1287,31 @@ namespace ToddlersPlayExpanded
                     }
                 }
 
+                if (sawNew) RefreshMemory(toddler, bloodDef);
+            }
+        }
+
+        private void ScanSparseBlood(ThoughtDef bloodDef)
+        {
+            float radiusSq = BloodSightRadius * BloodSightRadius;
+            for (int i = 0; i < tmpToddlers.Count; i++)
+            {
+                if (!tmpToddlerAwake[i]) continue;
+                Pawn toddler = tmpToddlers[i];
+                IntVec3 pos = toddler.Position;
+                bool sawNew = false;
+                for (int j = 0; j < tmpSparseBlood.Count; j++)
+                {
+                    Thing blood = tmpSparseBlood[j];
+                    IntVec3 cell = blood.Position;
+                    int distanceSq = (cell - pos).LengthHorizontalSquared;
+                    if (distanceSq == 0 || distanceSq > radiusSq) continue;
+                    long key = PairKey(toddler, blood);
+                    if (seenBloodPairs.Contains(key)) continue;
+                    if (!GenSight.LineOfSight(pos, cell, map, skipFirstCell: true)) continue;
+                    seenBloodPairs.Add(key);
+                    sawNew = true;
+                }
                 if (sawNew) RefreshMemory(toddler, bloodDef);
             }
         }
@@ -1413,11 +1450,11 @@ namespace ToddlersPlayExpanded
         internal static void ApplyToAwakeToddlers(Map? map, ThoughtDef? thought)
         {
             if (map == null || thought == null) return;
-            List<Pawn> humanlikes = map.mapPawns.AllHumanlikeSpawned;
-            for (int i = 0; i < humanlikes.Count; i++)
+            IReadOnlyList<Pawn> pawns = map.mapPawns.AllPawnsSpawned;
+            for (int i = 0; i < pawns.Count; i++)
             {
-                Pawn p = humanlikes[i];
-                if (p.Dead || !ToddlerUtility.IsToddler(p) || !p.Awake()) continue;
+                Pawn p = pawns[i];
+                if (p.Dead || !p.RaceProps.Humanlike || !ToddlerUtility.IsToddler(p) || !p.Awake()) continue;
                 RefreshMemory(p, thought);
             }
         }
@@ -1443,17 +1480,17 @@ namespace ToddlersPlayExpanded
                 memories.TryGainMemory(thought);
         }
 
-        /// <summary>
-        /// Removes the memory if present. The alloc-free GetFirstMemoryOfDef pre-check
-        /// matters: vanilla RemoveMemoriesOfDef allocates a closure for List.Find on
-        /// every call, and this runs for every inactive ongoing mood on every toddler
-        /// every check.
-        /// </summary>
+        /// <summary>Remove matching memories without RemoveMemoriesOfDef's predicate allocation.</summary>
         private static void RemoveMemory(Pawn pawn, ThoughtDef thought)
         {
             MemoryThoughtHandler? memories = pawn.needs?.mood?.thoughts?.memories;
-            if (memories == null || memories.GetFirstMemoryOfDef(thought) == null) return;
-            memories.RemoveMemoriesOfDef(thought);
+            if (memories == null) return;
+            List<Thought_Memory> list = memories.Memories;
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                Thought_Memory memory = list[i];
+                if (memory.def == thought) memories.RemoveMemory(memory);
+            }
         }
 
         private static bool AlreadyHasThought(Pawn pawn, ThoughtDef def)

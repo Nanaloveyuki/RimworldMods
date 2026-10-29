@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_PlayWithToy.label>玩毛绒玩偶</TPE_PlayWithToy.label>
+  <TPE_PlayWithToy.description>拿起柔软的毛绒玩偶玩耍。</TPE_PlayWithToy.description>
+  <TPE_FloorDrawing.label>地板画画</TPE_FloorDrawing.label>
+  <TPE_FloorDrawing.description>用粉笔在地上画画。负责清洁的人最终会擦掉这些画。</TPE_FloorDrawing.description>
+  <TPE_BuildDirtCastles.label>搭泥土城堡</TPE_BuildDirtCastles.label>
+  <TPE_BuildDirtCastles.description>到户外走走，搭建泥土城堡。</TPE_BuildDirtCastles.description>
+  <TPE_ReadBook.label>阅读</TPE_ReadBook.label>
+  <TPE_ReadBook.description>找一本书，练习阅读。</TPE_ReadBook.description>
+  <TPE_WatchTelevision.label>看电视</TPE_WatchTelevision.label>
+  <TPE_WatchTelevision.description>观看已接通电源的电视。</TPE_WatchTelevision.description>
+  <TPE_NatureRunning.label>探索自然</TPE_NatureRunning.label>
+  <TPE_NatureRunning.description>探索周围的户外环境。</TPE_NatureRunning.description>
+  <TPE_Skydreaming.label>天空遐想</TPE_Skydreaming.label>
+  <TPE_Skydreaming.description>找一处户外地点，仰望天空。</TPE_Skydreaming.description>
+  <TPE_ActivePlay.label>活力游玩</TPE_ActivePlay.label>
+  <TPE_ActivePlay.description>跑步、转圈、蹦跳、爬行，或追逐其他儿童。</TPE_ActivePlay.description>
+  <TPE_Radiotalking.label>无线电聊天</TPE_Radiotalking.label>
+  <TPE_Radiotalking.description>通过无线电与别人聊天。需要已接通电源的通讯台。</TPE_Radiotalking.description>
+  <TPE_BubblePopping.label>戳泡泡</TPE_BubblePopping.label>
+  <TPE_BubblePopping.description>在泡泡机附近跑来跑去，戳破漂浮的泡泡。需要已接通电源的泡泡机。</TPE_BubblePopping.description>
+
+</LanguageData>

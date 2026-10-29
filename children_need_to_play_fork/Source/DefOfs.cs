@@ -174,6 +174,9 @@ namespace ToddlersPlayExpanded
         // Crying child thoughts
         public static ThoughtDef TPE_ChildCrying;
         public static ThoughtDef TPE_MyChildCrying;
+        public static ThoughtDef TPE_OlderChildCrying;
+        public static ThoughtDef TPE_MyOlderChildCrying;
+        public static ThoughtDef TPE_ChildCryingIgnored;
 
         // Disturbing events
         public static ThoughtDef TPE_Event_CorpseObserved;
@@ -301,20 +304,7 @@ namespace ToddlersPlayExpanded
         public static PlayDesireDef TPE_BubblePopping;
     }
 
-    /// <summary>
-    /// Auto-resolved DefOf for the toddler <c>ToddlerPlayDef</c>s that C# code references by
-    /// def (the type comes from the base Toddlers mod, a hard dependency, so binding it here is
-    /// safe). These are the four in-crib activities offered by the
-    /// <c>Patch_JobGiver_ToddlerPlayInCrib_TryGiveJob_*</c> postfixes (HarmonyPatches.cs).
-    ///
-    /// Why a DefOf: those postfixes used to call <c>DefDatabase&lt;ToddlerPlayDef&gt;.GetNamed(...)</c>
-    /// on every think-tree evaluation of every in-crib toddler. A DefOf field is bound once at
-    /// startup and then costs one static read. All four defs ship in this mod's
-    /// Defs/ToddlerPlayDefs.xml, so a missing one would mean a broken install, and the
-    /// startup "Failed to find ToddlerPlayDef" error that would cause is the right signal.
-    /// Call sites still null-check, so a failed binding only disables that one activity.
-    /// Keep each field name identical to its defName (that is how [DefOf] binds).
-    /// </summary>
+    /// <summary>Bound once for the shared crib-play chooser; field names match defName.</summary>
     [DefOf]
     public static class TPE_ToddlerPlayDefOf
     {

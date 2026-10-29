@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_Report_Spinning>Spinning around</TPE_Report_Spinning>
+  <TPE_Report_Jumping>Jumping up and down</TPE_Report_Jumping>
+  <TPE_Report_Running>Running around</TPE_Report_Running>
+  <TPE_Report_LookingForMonsters>looking for monsters</TPE_Report_LookingForMonsters>
+  <TPE_Report_HuntingMonsters>hunting monsters</TPE_Report_HuntingMonsters>
+  <TPE_Report_DinosaurInvestigating>Being a Dinosaur - Investigating</TPE_Report_DinosaurInvestigating>
+  <TPE_Report_DinosaurChasing>Being a Dinosaur - Chasing Imaginary Prey</TPE_Report_DinosaurChasing>
+  <TPE_Report_DinosaurStomping>Being a Dinosaur - Stomping Around</TPE_Report_DinosaurStomping>
+  <TPE_Report_Dinosaur>Being a Dinosaur - Dinosaur Stomping</TPE_Report_Dinosaur>
+  <TPE_Report_FetchingToy>Going to pick up toy</TPE_Report_FetchingToy>
+  <TPE_Report_BugWatchingWithGlass>Watching bugs with magnifying glass</TPE_Report_BugWatchingWithGlass>
+  <TPE_Report_FetchingGlass>Going to get magnifying glass to watch bugs</TPE_Report_FetchingGlass>
+  <TPE_Report_BugWatching>Going to watch bugs</TPE_Report_BugWatching>
+  <TPE_Report_SelfSoothing>Self Soothing</TPE_Report_SelfSoothing>
+  <TPE_Report_CribJumping>Jumping in crib</TPE_Report_CribJumping>
+  <TPE_Report_CeilingWatching>Gazing at the ceiling</TPE_Report_CeilingWatching>
+  <TPE_Report_PillowNesting>Pillow Nesting</TPE_Report_PillowNesting>
+  <TPE_Report_SpeechPractice>practicing talking</TPE_Report_SpeechPractice>
+  <TPE_Report_WalkingSpeechPractice>walking around practicing talking</TPE_Report_WalkingSpeechPractice>
+  <TPE_Report_CribSpeechPractice>practicing talking in crib</TPE_Report_CribSpeechPractice>
+  <TPE_Report_HeaterSnuggling>snuggling by heater</TPE_Report_HeaterSnuggling>
+  <TPE_Report_PoppingBubbles>Popping bubbles</TPE_Report_PoppingBubbles>
+  <TPE_Report_ChasingBubbles>Chasing bubbles</TPE_Report_ChasingBubbles>
+  <TPE_Report_Work>work</TPE_Report_Work>
+  <TPE_Report_WatchingWork>Watching {0} do {1}</TPE_Report_WatchingWork>
+  <TPE_Report_StorageWithGlass>Looking through storage with {0}</TPE_Report_StorageWithGlass>
+  <TPE_Report_LookingThroughStorage>Looking through storage: {0}</TPE_Report_LookingThroughStorage>
+  <TPE_Report_PlayingWith>Playing with {0}</TPE_Report_PlayingWith>
+  <TPE_Report_Carrying>Carrying {0}</TPE_Report_Carrying>
+  <TPE_Report_SelfSoothingActivity>Self soothing: {0}</TPE_Report_SelfSoothingActivity>
+  <TPE_Report_HeaterWithToy>Snuggling by heater with {0}</TPE_Report_HeaterWithToy>
+  <TPE_SelfSoothing_ThumbSucking>Thumb Sucking</TPE_SelfSoothing_ThumbSucking>
+  <TPE_SelfSoothing_BlanketClutching>Blanket Clutching</TPE_SelfSoothing_BlanketClutching>
+  <TPE_SelfSoothing_CurlingUp>Curling up into a ball</TPE_SelfSoothing_CurlingUp>
+  <TPE_SelfSoothing_EyeCovering>Eye covering</TPE_SelfSoothing_EyeCovering>
+  <TPE_SelfSoothing_EarCovering>Ear Covering</TPE_SelfSoothing_EarCovering>
+  <TPE_SelfSoothing_PillowCuddling>Pillow Cuddling</TPE_SelfSoothing_PillowCuddling>
+  <TPE_SelfSoothing_HappyThoughts>Thinking Happy Thoughts</TPE_SelfSoothing_HappyThoughts>
+  <TPE_Report_SnailCrawling>Snail crawling</TPE_Report_SnailCrawling>
+  <TPE_Report_ChasingPawn>Chasing {0}</TPE_Report_ChasingPawn>
+  <TPE_Report_ChasingSomeone>Chasing someone</TPE_Report_ChasingSomeone>
+  <TPE_Report_ActivePlay>Playing actively</TPE_Report_ActivePlay>
+  <TPE_SelfSoothing_Girl>girl</TPE_SelfSoothing_Girl>
+  <TPE_SelfSoothing_Boy>boy</TPE_SelfSoothing_Boy>
+  <TPE_SelfSoothing_Kid>kid</TPE_SelfSoothing_Kid>
+  <TPE_SelfSoothing_Positive>I was having a really big big feeling so I did what {0} always says to do and I was able to calm myself down all on my own! I feel like such a big {1}!</TPE_SelfSoothing_Positive>
+  <TPE_SelfSoothing_Negative>I was feeling really really worried but there wasn't anyone around that I know! So I tried to do what {0} always says to do but it didn't work and now I feel worse! I want {0} to come give me a hug!</TPE_SelfSoothing_Negative>
+  <TPE_SelfSoothing_Someone>someone</TPE_SelfSoothing_Someone>
+  <TPE_SelfSoothing_Mommy>Mommy</TPE_SelfSoothing_Mommy>
+  <TPE_SelfSoothing_Daddy>Daddy</TPE_SelfSoothing_Daddy>
+  <TPE_DirtCastle_BuilderLabel>{0}'s castle</TPE_DirtCastle_BuilderLabel>
+  <TPE_ToyCategory>Category: {0}</TPE_ToyCategory>
+  <TPE_PlayWithToy>Play with {0}</TPE_PlayWithToy>
+  <TPE_CarryToy>Carry {0}</TPE_CarryToy>
+  <TPE_CribLockLabel>Lock in crib</TPE_CribLockLabel>
+  <TPE_CribLockTooltip>Toggle whether this toddler is locked in their crib. When locked, colonists will not let them out and will return them to bed if they escape.</TPE_CribLockTooltip>
+  <TPE_CribUnlockedMessage>{0} is no longer locked in their crib.</TPE_CribUnlockedMessage>
+  <TPE_CribLockedMessage>{0} has been locked in their crib.</TPE_CribLockedMessage>
+  <TPE_ModSettingsCategory>The Children Need To Play</TPE_ModSettingsCategory>
+  <TPE_DirtCastle_UnknownBuilder>Unknown</TPE_DirtCastle_UnknownBuilder>
+  <TPE_CryReason_LowMood>Crying from prolonged low mood</TPE_CryReason_LowMood>
+  <TPE_CryReason_SevereThought>Crying from a severe mood debuff</TPE_CryReason_SevereThought>
+
+</LanguageData>

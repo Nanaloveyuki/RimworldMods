@@ -30,24 +30,13 @@ namespace ToddlersPlayExpanded
     /// this point in the tree, so there's no downside to letting an already-satisfied
     /// child keep playing instead of wandering in circles.</para>
     ///
-    /// <para><b>Still respects the Learning/Recreation split:</b> exactly like
-    /// <see cref="JobGiver_ChildPlay"/> and <see cref="ThinkNode_Priority_ChildPlay"/>,
-    /// this refuses to act while the child's current schedule slot is
-    /// <see cref="TPE_TimeAssignmentDefOf.TPE_Learning"/> — dedicated learning time
-    /// stays learning-only (or a plain idle wander if there's truly nothing to learn),
-    /// never play, even when idle. It also mirrors vanilla <c>JobGiver_IdleJoy</c>'s own
-    /// <c>JoyUtility.TimetablePreventsGettingJoy</c> check, so an idle child during
-    /// Work-scheduled hours still just wanders — matching how idle adults don't get
-    /// random joy activities during Work hours either.</para>
+    /// <para>Uses the same schedule/health policy as ordinary and urgent play:
+    /// only Anything/Recreation hours, never Work, Sleep or dedicated Learning.
+    /// Idle play additionally ignores fullness, but yields to any prioritized job.
+    /// Eligibility does not ban prisoners; assigned labor remains protected.</para>
     /// </summary>
     public class JobGiver_ChildPlayWhenIdle : ThinkNode_JobGiver
     {
-        /// <summary>
-        /// Same "let the world settle" grace period <see cref="JobGiver_ChildPlay"/>
-        /// uses, so idle play can't fire on the very first tick of a freshly
-        /// generated/loaded map.
-        /// </summary>
-        const int GameStartNoPlayTicks = 5000;
 
         /// <summary>
         /// Scratch list used to shuffle candidate desires without allocating on every
@@ -158,52 +147,10 @@ namespace ToddlersPlayExpanded
             return null;
         }
 
-        /// <summary>
-        /// Returns true if this idle child should be offered a play job right now.
-        /// </summary>
         static bool IsEligible(Pawn pawn)
         {
-            // Master opt-in — default OFF.
-            if (TPE_Mod.Settings?.playWhenIdle != true)
-                return false;
-
-            // Without the play-need system there are no PlayDesireDefs worth offering
-            // (and no Need_ChildPlay to fill), so there's nothing meaningful to do.
-            if (TPE_Mod.Settings?.enableChildrenPlayNeed != true)
-                return false;
-
-            if (pawn == null || pawn.Dead || pawn.Downed)
-                return false;
-
-            if (Find.TickManager.TicksGame < GameStartNoPlayTicks)
-                return false;
-
-            if (!pawn.DevelopmentalStage.Child())
-                return false;
-
-            // Defensive: only pawns actually enrolled in our play-need system (player-
-            // faction children — see Patch_Pawn_NeedsTracker_AddOrRemoveNeedsAsAppropriate
-            // in HarmonyPatches.cs) have this need at all. Guests/prisoners/other-faction
-            // children never get it, so they're correctly excluded here too.
-            if (pawn.needs?.TryGetNeed(TPE_ChildPlayDefOf.TPE_ChildPlay) == null)
-                return false;
-
-            TimeAssignmentDef current = pawn.timetable?.CurrentAssignment ?? TimeAssignmentDefOf.Anything;
-
-            // Dedicated learning time stays learning-only (or a plain idle wander) —
-            // never play, even when there's genuinely nothing left to learn. Mirrors
-            // ThinkNode_Priority_ChildPlay's own TPE_Learning suppression so the
-            // Learning/Play schedule split holds even at the idle-fallback level.
-            if (current == TPE_TimeAssignmentDefOf.TPE_Learning)
-                return false;
-
-            // Mirrors vanilla JobGiver_IdleJoy's own gate — no idle play during
-            // Work-assigned hours, matching how idle adults don't get random joy
-            // activities while scheduled to Work either.
-            if (JoyUtility.TimetablePreventsGettingJoy(pawn))
-                return false;
-
-            return true;
+            return TPE_Mod.Settings?.playWhenIdle == true
+                && PlayScheduleUtility.CanSelectChildPlay(pawn, ignoreFullness: true);
         }
     }
 }

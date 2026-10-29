@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -5,18 +6,7 @@ using Verse.AI;
 
 namespace ToddlersPlayExpanded
 {
-    /// <summary>
-    /// Mental state for children in growth tier 1 (ages 3–6) who are sufficiently unhappy.
-    /// Inherits from MentalState_BabyFit directly (NOT MentalState_BabyCry) so we can:
-    ///   1. Write our own MentalStateTick using DrawPos instead of DrawPosHeld (which is null for walking children).
-    ///   2. Write our own AuraEffect that applies TPE_ChildCrying / TPE_MyChildCrying thoughts instead
-    ///      of vanilla CryingBaby, and grants immunity to hearers aged 6 or younger.
-    ///
-    /// The base MentalState_BabyFit provides:
-    ///   - The clamor aura loop (fires AuraEffect on nearby pawns every 150 ticks).
-    ///   - inCaravanCanDo, unspawnedNotInCaravanCanDo support.
-    ///   - Save/load of lastScreamTick and alreadyHeard via ExposeData.
-    /// </summary>
+    // Walking-child visuals and comfort seeking share the vanilla baby's saved aura lifecycle.
     public class MentalState_ChildCry : MentalState_BabyFit
     {
         // Sound effecter is managed automatically by PawnStatusEffecters system via stateEffecter.
@@ -26,6 +16,10 @@ namespace ToddlersPlayExpanded
         // means the first tick after load produces a tear immediately, which is fine.
         private int ticksUntilLeftTear;
         private int ticksUntilRightTear;
+        private List<Pawn> decidedParents = new List<Pawn>(2);
+        private List<Pawn> ignoredParents = new List<Pawn>(2);
+        private bool ignoredMemoryGiven;
+        private int comfortJobId = -1;
 
         // ─── Visual effect constants (matches vanilla baby crying) ───────────
         /// <summary>Ticks between each crying-dot mote pair.</summary>
@@ -58,6 +52,50 @@ namespace ToddlersPlayExpanded
             ChildCryTracker.OnCryStarted(pawn);
         }
 
+        public override void PostEnd()
+        {
+            Job current = pawn.CurJob;
+            if (current != null && comfortJobId >= 0 && current.loadID == comfortJobId && !current.playerForced)
+                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+            comfortJobId = -1;
+            base.PostEnd();
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Collections.Look(ref decidedParents, "decidedParents", LookMode.Reference);
+            Scribe_Collections.Look(ref ignoredParents, "ignoredParents", LookMode.Reference);
+            Scribe_Values.Look(ref ignoredMemoryGiven, "ignoredMemoryGiven", false);
+            Scribe_Values.Look(ref comfortJobId, "comfortJobId", -1);
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                decidedParents ??= new List<Pawn>(2);
+                ignoredParents ??= new List<Pawn>(2);
+            }
+        }
+
+        private bool ParentIgnoresCry(Pawn parent)
+        {
+            if (parent != pawn.GetMother() && parent != pawn.GetFather())
+                return false;
+            if (decidedParents.Contains(parent))
+                return ignoredParents.Contains(parent);
+
+            decidedParents.Add(parent);
+            float chance = TPE_Mod.Settings?.parentIgnoreCryChance ?? 0.8f;
+            if (chance < 1f && (chance <= 0f || !Rand.Chance(chance)))
+                return false;
+
+            ignoredParents.Add(parent);
+            if (!ignoredMemoryGiven && pawn.needs?.mood != null)
+            {
+                ignoredMemoryGiven = true;
+                pawn.needs.mood.thoughts.memories.TryGainMemory(TPE_ThoughtDefOf.TPE_ChildCryingIgnored);
+            }
+            return true;
+        }
+
         // ────────────────────────────────────────────────────────────────────
         //  TICK
         // ────────────────────────────────────────────────────────────────────
@@ -70,12 +108,16 @@ namespace ToddlersPlayExpanded
         /// </summary>
         public override void MentalStateTick(int delta)
         {
-            // If the crying system was disabled mid-game, end this bout immediately.
-            if (TPE_Mod.Settings?.enableChildCrying != true)
+            if (!ChildCryTracker.IsCryingEligibleChild(pawn)
+                || (ChildCryTracker.IsOlderChild(pawn) && age >= def.maxTicksBeforeRecovery / 2))
             {
                 RecoverFromState();
                 return;
             }
+
+            if (ChildCryTracker.IsOlderChild(pawn)
+                && (forceRecoverAfterTicks < 0 || forceRecoverAfterTicks > def.maxTicksBeforeRecovery / 2))
+                forceRecoverAfterTicks = def.maxTicksBeforeRecovery / 2;
 
             // Base tick handles the AuraEffect clamor (fires every 150 ticks via GenClamor).
             base.MentalStateTick(delta);
@@ -149,38 +191,21 @@ namespace ToddlersPlayExpanded
             }
             
             // Update crying behavior: find adult colonist to follow, or wait.
-            UpdateCryingBehavior();
+            UpdateCryingBehavior(delta);
         }
 
-        /// <summary>
-        /// Manages the child's behavior while crying: seeking a nearby adult colonist
-        /// to follow for comfort, or waiting in place if none are found.
-        /// </summary>
-        private void UpdateCryingBehavior()
+        private void UpdateCryingBehavior(int delta)
         {
-            // Only re-evaluate behavior every 60 ticks (≈1 second) to avoid
-            // iterating all map pawns every single tick. Vanilla baby-cry aura
-            // also uses a similar interval discipline (150 ticks).
-            if (!pawn.IsHashIntervalTick(60))
+            if (!pawn.IsHashIntervalTick(150, delta) || pawn.jobs == null || pawn.CurJob != null
+                || pawn.Drafted || pawn.Downed || !pawn.Awake() || pawn.jobs.jobQueue.Count != 0)
                 return;
 
-            if (pawn.jobs?.curJob == null)
-            {
-                // No job currently. Find an adult to follow.
-                Pawn targetAdult = FindNearbyGoodRelationshipAdult();
-                if (targetAdult != null)
-                {
-                    Job followJob = JobMaker.MakeJob(JobDefOf.Follow);
-                    followJob.targetA = targetAdult;
-                    pawn.jobs.TryTakeOrderedJob(followJob);
-                }
-                else
-                {
-                    // No good adult nearby. Wait in place.
-                    Job waitJob = JobMaker.MakeJob(JobDefOf.Wait);
-                    pawn.jobs.TryTakeOrderedJob(waitJob);
-                }
-            }
+            Pawn targetAdult = FindNearbyGoodRelationshipAdult();
+            Job job = targetAdult == null
+                ? JobMaker.MakeJob(JobDefOf.Wait)
+                : JobMaker.MakeJob(JobDefOf.Follow, targetAdult);
+            comfortJobId = job.loadID;
+            pawn.jobs.StartJob(job);
         }
 
         /// <summary>
@@ -217,6 +242,9 @@ namespace ToddlersPlayExpanded
                 if (opinion < 0)
                     continue;
 
+                if (ParentIgnoresCry(candidate))
+                    continue;
+
                 // This is a good candidate; keep it if it's the closest.
                 if (dist < closestDist)
                 {
@@ -240,31 +268,25 @@ namespace ToddlersPlayExpanded
         /// </summary>
         protected override void AuraEffect(Thing source, Pawn hearer)
         {
-            // ── Immunity: children aged 6 or younger are not affected ────────
-            // This deliberately also covers the crying child themselves (prevents
-            // self-debuff) and any other very young children nearby.
-            if (hearer?.ageTracker != null && hearer.ageTracker.AgeBiologicalYears <= 6)
+            if (!ChildCryTracker.IsCryingEligibleChild(pawn))
+                return;
+            if (hearer?.ageTracker == null || hearer.ageTracker.AgeBiologicalYears <= 6)
                 return;
 
-            // Apply the baby-cry clamor so AI systems (e.g. enemy alertness) hear the noise.
+            // BabyCry clamor disturbs sleep and notifies the lord; decide before either response.
+            // Only this mod's cry response is skipped, never feeding, medicine or another mod's jobs.
+            if (ParentIgnoresCry(hearer))
+                return;
             hearer.HearClamor(source, ClamorDefOf.BabyCry);
-
-            // Only apply mood thoughts when source is an identifiable pawn with a mood need.
             if (!(source is Pawn otherPawn) || hearer.needs?.mood == null)
                 return;
 
-            // Parents get a softer version of the thought (same as vanilla MyCryingBaby).
-            if (hearer == otherPawn.GetMother() || hearer == otherPawn.GetFather())
-            {
-                hearer.needs.mood.thoughts.memories.TryGainMemory(
-                    TPE_ThoughtDefOf.TPE_MyChildCrying, otherPawn);
-            }
-            else
-            {
-                // Everyone else (aged 7+) gets the full debuff.
-                hearer.needs.mood.thoughts.memories.TryGainMemory(
-                    TPE_ThoughtDefOf.TPE_ChildCrying, otherPawn);
-            }
+            bool isParent = hearer == otherPawn.GetMother() || hearer == otherPawn.GetFather();
+            bool olderChild = ChildCryTracker.IsOlderChild(otherPawn);
+            ThoughtDef thought = isParent
+                ? (olderChild ? TPE_ThoughtDefOf.TPE_MyOlderChildCrying : TPE_ThoughtDefOf.TPE_MyChildCrying)
+                : (olderChild ? TPE_ThoughtDefOf.TPE_OlderChildCrying : TPE_ThoughtDefOf.TPE_ChildCrying);
+            hearer.needs.mood.thoughts.memories.TryGainMemory(thought, otherPawn);
         }
     }
 }

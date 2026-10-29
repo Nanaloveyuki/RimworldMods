@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <!-- Settings tab labels -->
-  <TPE_Settings_Tab_ToddlersNewborns>Toddlers / Newborns</TPE_Settings_Tab_ToddlersNewborns>
-  <TPE_Settings_Tab_Children>Children</TPE_Settings_Tab_Children>
-  <TPE_Settings_Tab_ChildrensPlayNeed>Children's Play Need</TPE_Settings_Tab_ChildrensPlayNeed>
-  <TPE_Settings_Tab_Adults>Adults</TPE_Settings_Tab_Adults>
+  <!-- Settings page titles and descriptions -->
+  <TPE_Settings_Page_ToddlerMoods>Toddler moods</TPE_Settings_Page_ToddlerMoods>
+  <TPE_Settings_Page_ToddlerMoods_Description>Random toddler moods, colony event reactions, and play-related mood effects for psychopaths.</TPE_Settings_Page_ToddlerMoods_Description>
+  <TPE_Settings_Page_ToddlerActivities>Toddler activities</TPE_Settings_Page_ToddlerActivities>
+  <TPE_Settings_Page_ToddlerActivities_Description>Self soothing, heater snuggling, and crib escape behavior.</TPE_Settings_Page_ToddlerActivities_Description>
+  <TPE_Settings_Page_ChildMoods>Child moods</TPE_Settings_Page_ChildMoods>
+  <TPE_Settings_Page_ChildMoods_Description>Crying in younger children, optional crying in older children, and how often parents respond.</TPE_Settings_Page_ChildMoods_Description>
+  <TPE_Settings_Page_ChildPlay>Child play</TPE_Settings_Page_ChildPlay>
+  <TPE_Settings_Page_ChildPlay_Description>Children's play need, play desires, and the balance of learning and play in growth.</TPE_Settings_Page_ChildPlay_Description>
+  <TPE_Settings_Page_PlushSleep>Plush sleep</TPE_Settings_Page_PlushSleep>
+  <TPE_Settings_Page_PlushSleep_Description>Fetching plush toys before bed and sleep-related mood effects by age.</TPE_Settings_Page_PlushSleep_Description>
+  <TPE_Settings_Page_Presentation>Presentation</TPE_Settings_Page_Presentation>
+  <TPE_Settings_Page_Presentation_Description>Crying sounds, play animations, sleeping plush visuals, and bubble effects.</TPE_Settings_Page_Presentation_Description>
+  <TPE_Settings_Page_Debug>Debug</TPE_Settings_Page_Debug>
+  <TPE_Settings_Page_Debug_Description>Detailed diagnostic logging for troubleshooting mod behavior.</TPE_Settings_Page_Debug_Description>
 
   <!-- Growth tier tooltip: mentions both learning and play when child play system is active -->
   <TPE_StatsReport_GrowthTierDesc>Children progress through growth tiers over time. The higher the child's learning and play needs, the faster the progress. When a growth moment comes (at age 7, 10, and 13), the child's growth tier determines how many trait and passion options you can choose from. Growth tier resets after each growth moment.</TPE_StatsReport_GrowthTierDesc>

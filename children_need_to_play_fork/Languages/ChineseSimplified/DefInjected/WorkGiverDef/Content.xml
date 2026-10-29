@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TPE_GiveToyToLockedToddler.label>给被关住的幼儿送玩具</TPE_GiveToyToLockedToddler.label>
+  <TPE_GiveToyToLockedToddler.verb>送玩具</TPE_GiveToyToLockedToddler.verb>
+  <TPE_GiveToyToLockedToddler.gerund>给幼儿送玩具</TPE_GiveToyToLockedToddler.gerund>
+  <TPE_DressToddler.label>给幼儿穿衣</TPE_DressToddler.label>
+  <TPE_DressToddler.verb>穿衣</TPE_DressToddler.verb>
+  <TPE_DressToddler.gerund>给幼儿穿衣</TPE_DressToddler.gerund>
+  <TPE_DoBillsMakeToys.label>在工作台制作玩具</TPE_DoBillsMakeToys.label>
+  <TPE_DoBillsMakeToys.verb>制作玩具</TPE_DoBillsMakeToys.verb>
+  <TPE_DoBillsMakeToys.gerund>制作玩具</TPE_DoBillsMakeToys.gerund>
+
+</LanguageData>
