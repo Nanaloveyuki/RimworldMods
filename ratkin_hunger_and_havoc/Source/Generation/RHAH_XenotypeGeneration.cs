@@ -112,6 +112,13 @@ namespace HungerAndHavoc.Generation
                 return;
             }
 
+            // 出生先用空模板装入遗传基因，随后由原版设置异种身份
+            if (request.AllowedDevelopmentalStages.Newborn() && request.ForceNoIdeo &&
+                request.ForcedXenotype == XenotypeDefOf.Baseliner && __result == XenotypeDefOf.Baseliner)
+            {
+                return;
+            }
+
             bool permitted = HungerAndHavoc.Pawn.Compat.RHAH_HarXenotypeBridge.Allows(__result, request.KindDef.race);
             bool explicitSelection = request.ForcedXenotype != null || request.ForcedCustomXenotype != null ||
                 request.ForceBaselinerChance > 0f || !request.AllowedXenotypes.NullOrEmpty();

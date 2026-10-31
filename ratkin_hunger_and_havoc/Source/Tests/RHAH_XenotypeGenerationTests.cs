@@ -193,6 +193,48 @@ namespace HungerAndHavoc.Tests
             Assert.Throws<InvalidOperationException>(() => PawnGenerator.GetXenotypeForGeneratedPawn(forced));
         }
 
+        [Theory]
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public void InheritedNewbornUsesEmptyTemplateEvenWhenHarRejectsBaseliner(bool permitsBaseliner, bool hasInheritedGenes)
+        {
+            Allow((x, r) => r == race && (x == primary || permitsBaseliner));
+            GeneDef inherited = new GeneDef { defName = "InheritedBirthGene" };
+            PawnGenerationRequest request = new PawnGenerationRequest(kind,
+                forceNoIdeo: true,
+                forcedEndogenes: hasInheritedGenes ? new List<GeneDef> { inherited } : new List<GeneDef>(),
+                forcedXenotype: XenotypeDefOf.Baseliner, developmentalStages: DevelopmentalStage.Newborn);
+
+            Assert.Same(XenotypeDefOf.Baseliner, PawnGenerator.GetXenotypeForGeneratedPawn(request));
+            if (hasInheritedGenes) Assert.Same(inherited, Assert.Single(request.ForcedEndogenes));
+            else Assert.Null(request.ForcedEndogenes);
+        }
+
+        [Fact]
+        public void NonBirthNewbornRequestStillRespectsHar()
+        {
+            Allow((x, r) => x == primary && r == race);
+            PawnGenerationRequest request = new PawnGenerationRequest(kind,
+                forcedXenotype: XenotypeDefOf.Baseliner, developmentalStages: DevelopmentalStage.Newborn);
+
+            Assert.Throws<InvalidOperationException>(() => PawnGenerator.GetXenotypeForGeneratedPawn(request));
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void BirthTemplateDoesNotExemptSubstitutedResult(bool returnsNull)
+        {
+            Allow((x, r) => x == primary && r == race);
+            PawnGenerationRequest request = new PawnGenerationRequest(kind, forceNoIdeo: true,
+                forcedXenotype: XenotypeDefOf.Baseliner, developmentalStages: DevelopmentalStage.Newborn);
+
+            Assert.Throws<InvalidOperationException>(() =>
+                RHAH_GeneratedXenotypePatch.Postfix(request, returnsNull ? null : external));
+        }
+
         [Fact]
         public void NoncombatantOnlyPoolCannotFallBackToBaselinerForCombatRequest()
         {
