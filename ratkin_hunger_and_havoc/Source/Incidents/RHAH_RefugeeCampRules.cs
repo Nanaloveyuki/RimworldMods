@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace HungerAndHavoc.Incidents
 {
     internal readonly struct RHAH_CampPlan
@@ -44,29 +42,6 @@ namespace HungerAndHavoc.Incidents
         internal static bool CanOffer(bool violentQuests, bool campEnabled, bool hasSponsor, bool tileValid)
         {
             return violentQuests && campEnabled && hasSponsor && tileValid;
-        }
-
-        internal static bool Cleared(IList<bool> residentDead)
-        {
-            if (residentDead == null || residentDead.Count == 0)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < residentDead.Count; i++)
-            {
-                if (!residentDead[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        internal static bool CountsAsDead(bool missing, bool dead, bool downed, bool prisoner, bool onMap)
-        {
-            return !missing && dead && !downed && !prisoner && !onMap;
         }
 
         internal static bool AllowedWeapon(string defName, bool coreMod, bool weapon, bool melee, int tech, bool shortBow, bool wooden)

@@ -20,13 +20,19 @@ namespace HungerAndHavoc.Incidents
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Collections.Look(ref residents, "residents", LookMode.Reference);
+            Scribe_Collections.Look(ref residents, "residents", saveDestroyedThings: true, lookMode: LookMode.Reference);
             Scribe_Values.Look(ref cleared, "cleared", false);
             Scribe_Values.Look(ref nextCheck, "nextCheck", -1);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 residents = residents ?? new List<Verse.Pawn>();
             }
+        }
+
+        public override void FinalizeLoading()
+        {
+            base.FinalizeLoading();
+            RHAH_CampResidents.Reconcile(Map, residents);
         }
 
         public void AddResident(Verse.Pawn pawn)
@@ -55,20 +61,23 @@ namespace HungerAndHavoc.Incidents
             QuestUtility.SendQuestTargetSignals(questTags, "ResidentsCleared");
         }
 
-        bool AllDead()
+        internal bool AllDead()
         {
-            List<bool> dead = new List<bool>();
+            if (residents.Count == 0)
+            {
+                return false;
+            }
+
             for (int i = 0; i < residents.Count; i++)
             {
                 Verse.Pawn pawn = residents[i];
-                bool missing = pawn == null || pawn.Destroyed;
-                bool downed = pawn != null && pawn.Downed;
-                bool prisoner = pawn != null && pawn.IsPrisoner;
-                bool onMap = pawn != null && pawn.Spawned;
-                dead.Add(RHAH_RefugeeCampRules.CountsAsDead(missing, pawn != null && pawn.Dead, downed, prisoner, onMap));
+                if (pawn == null || !pawn.Dead)
+                {
+                    return false;
+                }
             }
 
-            return RHAH_RefugeeCampRules.Cleared(dead);
+            return true;
         }
     }
 
@@ -179,7 +188,8 @@ namespace HungerAndHavoc.Incidents
 
             if (spawned.Count > 0)
             {
-                LordMaker.MakeNewLord(faction, new LordJob_DefendPoint(center), map, spawned);
+                RHAH_CampResidents.Assign(map, spawned, center);
+                RHAH_Runtime.RegisterBatch(map, tick);
             }
 
             return spawned;
@@ -222,7 +232,7 @@ namespace HungerAndHavoc.Incidents
             RHAH_PawnCreationResult result = RHAH_PawnFactory.Create(new RHAH_PawnRequest
             {
                 SourceIncidentDisplayId = "I-051",
-                SpawnBatchId = RHAH_Runtime.NextBatchId(map),
+                SpawnBatchId = tick,
                 RelationshipGroupId = tick,
                 Role = role,
                 AttitudeAtArrival = RHAH_Attitude.Neutral,
@@ -231,7 +241,7 @@ namespace HungerAndHavoc.Incidents
                 Faction = faction,
                 SpawnCell = CellFinder.RandomClosewalkCellNear(center, map, 8),
                 BiologicalAge = age
-            });
+            }, registerBatch: false);
             if (!result.Succeeded)
             {
                 return null;

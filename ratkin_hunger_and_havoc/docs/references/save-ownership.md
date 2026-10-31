@@ -189,9 +189,23 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 
 | 字段 | 存档键 | 默认值 | 集合 | 说明 |
 | --- | --- | --- | --- | --- |
-| residents | residents | 空集合 | 是 | 居民引用。`PostLoadInit` 补空列表；null 与空集合语义相同 |
+| residents | residents | 空集合 | 是 | 居民 Pawn 引用，Reference 模式以 `saveDestroyedThings=true` 保留原版死亡后 Destroyed 的角色；仍由尸体或世界 Pawn 容器深存档。`PostLoadInit` 补空列表；null 集合等同空集合，单个 null 引用表示去向未知，不算死亡 |
 | cleared | cleared | false | 否 | |
 | nextCheck | nextCheck | -1 | 否 | 下次检查 tick |
+
+清营只认非空居民列表中每个非 null Pawn 的 `Dead`；仍然活着的倒地、被俘或离图居民均不算死亡，已死亡居民不因曾被俘或当前不在地图上而被排除。旧档已经写成 null 的居民引用没有可恢复身份，不能推定死亡。类型名、`residents` / `cleared` / `nextCheck` 键和既有任务信号不变。地图完成引用与初始化后，由站点 `FinalizeLoading` 一次性修正仍在本图的登记居民留驻；不补生离图居民，也不在 tick 扫描迁移。
+
+### LordJob_RHAH_Camp
+
+类型名：`HungerAndHavoc.Pawn.LordJob_RHAH_Camp`。沿用原版 `LordJob_DefendPoint.ExposeData`，不新增存档字段；本类型的 `AddFleeToil` 固定为 false。
+
+| 字段 | 存档键 | 默认值 | 集合 | 说明 |
+| --- | --- | --- | --- | --- |
+| point | point | (0, 0, 0) | 否 | 原版驻守位置 |
+| wanderRadius | wanderRadius | null | 否 | 原版闲逛半径 |
+| defendRadius | defendRadius | null | 否 | 原版驻守半径 |
+| isCaravanSendable | isCaravanSendable | false | 否 | 原版商队发送设置 |
+| addFleeToil | addFleeToil | false | 否 | 沿用原版键，营地不追加逃离 toil |
 
 ### WorldObject_RHAH_Approach
 
@@ -241,6 +255,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Pawn.HediffCompProperties_RHAH_SiegeFuryStage | Def XML `Class` | 不单独出现在 `.rws` |
 | HungerAndHavoc.Pawn.Thought_Memory_RHAH_NoExpiry | ThoughtDef `thoughtClass`，沿用原版记忆字段；无新增存档键，`ShouldDiscard=false` 保证读档后仍不过期 | Remove，随该记忆删除 |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Visitor | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree |
+| HungerAndHavoc.Pawn.LordJob_RHAH_Camp | Lord `lordJob`，沿用原版驻守字段 | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Intercept | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree。`exitCell` 随 Lord 删除，不改地图上的玩家 |
 | HungerAndHavoc.Incidents.WorldObject_RHAH_Interception | WorldObjectDef `worldObjectClass` | 已有地图或居民：Replace，类名改成 `RimWorld.Planet.Site`。没有地图也没有居民：Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_Beg | Job `driverClass` | Remove |

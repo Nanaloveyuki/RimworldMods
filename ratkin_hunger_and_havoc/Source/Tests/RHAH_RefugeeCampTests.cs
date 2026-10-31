@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using HungerAndHavoc.Incidents;
 using Xunit;
 
@@ -28,17 +27,6 @@ namespace HungerAndHavoc.Tests
             Assert.False(RHAH_RefugeeCampRules.CanOffer(true, false, true, true));
             Assert.False(RHAH_RefugeeCampRules.CanOffer(true, true, false, true));
             Assert.False(RHAH_RefugeeCampRules.CanOffer(true, true, true, false));
-        }
-
-        [Fact]
-        public void OnlyDeadResidentsClearTheCamp()
-        {
-            Assert.False(RHAH_RefugeeCampRules.Cleared(new List<bool>()));
-            Assert.False(RHAH_RefugeeCampRules.Cleared(new List<bool> { true, false }));
-            Assert.True(RHAH_RefugeeCampRules.Cleared(new List<bool> { true, true }));
-            Assert.False(RHAH_RefugeeCampRules.CountsAsDead(false, false, true, false, true));
-            Assert.False(RHAH_RefugeeCampRules.CountsAsDead(false, false, false, true, true));
-            Assert.True(RHAH_RefugeeCampRules.CountsAsDead(false, true, false, false, false));
         }
 
         [Fact]

@@ -9,12 +9,23 @@ namespace HungerAndHavoc.Pawn
     [HarmonyPatch(typeof(Thing), nameof(Thing.TakeDamage))]
     internal static class RHAH_AttitudeHarmPatch
     {
-        static void Prefix(Thing __instance, out int __state)
+        internal struct HarmContext
         {
-            __state = ((__instance as Verse.Pawn)?.GetLord()?.LordJob as LordJob_RHAH_Visitor)?.ArmedChoiceId ?? 0;
+            internal int ArmedChoiceId;
+            internal Lord Camp;
         }
 
-        static void Postfix(Thing __instance, DamageInfo dinfo, DamageWorker.DamageResult __result, int __state)
+        internal static void Prefix(Thing __instance, out HarmContext __state)
+        {
+            Verse.Pawn pawn = __instance as Verse.Pawn;
+            __state = new HarmContext
+            {
+                ArmedChoiceId = (pawn?.GetLord()?.LordJob as LordJob_RHAH_Visitor)?.ArmedChoiceId ?? 0,
+                Camp = RHAH_CampResidents.CaptureHarm(pawn)
+            };
+        }
+
+        internal static void Postfix(Thing __instance, DamageInfo dinfo, DamageWorker.DamageResult __result, HarmContext __state)
         {
             if (__result == null || __result.totalDamageDealt <= 0f || dinfo.Def == null ||
                 !dinfo.Def.harmsHealth || !dinfo.Def.ExternalViolenceFor(__instance))
@@ -34,7 +45,8 @@ namespace HungerAndHavoc.Pawn
             }
 
             HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.NotePlayerWounds(harmed, __result.hediffs);
-            if (RHAH_ArmedDemand.NotifyPlayerHarm(__state)) return;
+            if (RHAH_CampResidents.NotifyPlayerHarm(__state.Camp)) return;
+            if (RHAH_ArmedDemand.NotifyPlayerHarm(__state.ArmedChoiceId)) return;
             RHAH_BatchAttitude.TryShift(harmed, RHAH_BatchReaction.Harm);
         }
     }
