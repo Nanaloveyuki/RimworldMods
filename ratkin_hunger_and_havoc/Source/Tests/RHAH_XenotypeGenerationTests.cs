@@ -166,7 +166,7 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void MissingHarPermissionDoesNotBecomeAnImplicitBaseliner()
+        public void MissingHarPermissionKeepsGenerationAliveInsteadOfThrowing()
         {
             Allow((x, r) => false);
             Dictionary<XenotypeDef, float> pool = new Dictionary<XenotypeDef, float>();
@@ -174,11 +174,11 @@ namespace HungerAndHavoc.Tests
             Assert.Empty(pool);
             Assert.False(RHAH_XenotypeResolver.TryResolve(null, kind, out _));
             PawnGenerationRequest request = new PawnGenerationRequest(kind);
-            Assert.Throws<InvalidOperationException>(() => PawnGenerator.GetXenotypeForGeneratedPawn(request));
+            Assert.Same(XenotypeDefOf.Baseliner, PawnGenerator.GetXenotypeForGeneratedPawn(request));
         }
 
         [Fact]
-        public void ExplicitGeneratorRequestsKeepVanillaPrecedenceButStillRespectHar()
+        public void ExplicitGeneratorRequestsKeepVanillaPrecedenceAndCallerChoice()
         {
             PawnGenerationRequest forced = new PawnGenerationRequest(kind, forcedXenotype: external);
             Assert.Same(external, PawnGenerator.GetXenotypeForGeneratedPawn(forced));
@@ -190,7 +190,7 @@ namespace HungerAndHavoc.Tests
             };
             Assert.Same(external, PawnGenerator.GetXenotypeForGeneratedPawn(allowed));
             Allow((x, r) => x == primary && r == race);
-            Assert.Throws<InvalidOperationException>(() => PawnGenerator.GetXenotypeForGeneratedPawn(forced));
+            Assert.Same(external, PawnGenerator.GetXenotypeForGeneratedPawn(forced));
         }
 
         [Theory]
@@ -213,34 +213,49 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void NonBirthNewbornRequestStillRespectsHar()
+        public void RjwNewbornTemplateWithoutForceNoIdeoKeepsBaseliner()
         {
             Allow((x, r) => x == primary && r == race);
             PawnGenerationRequest request = new PawnGenerationRequest(kind,
                 forcedXenotype: XenotypeDefOf.Baseliner, developmentalStages: DevelopmentalStage.Newborn);
 
-            Assert.Throws<InvalidOperationException>(() => PawnGenerator.GetXenotypeForGeneratedPawn(request));
+            Assert.Same(XenotypeDefOf.Baseliner, PawnGenerator.GetXenotypeForGeneratedPawn(request));
         }
 
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public void BirthTemplateDoesNotExemptSubstitutedResult(bool returnsNull)
+        public void BirthTemplateOnlyExemptsTheTemplateItself(bool returnsNull)
         {
             Allow((x, r) => x == primary && r == race);
             PawnGenerationRequest request = new PawnGenerationRequest(kind, forceNoIdeo: true,
                 forcedXenotype: XenotypeDefOf.Baseliner, developmentalStages: DevelopmentalStage.Newborn);
 
-            Assert.Throws<InvalidOperationException>(() =>
-                RHAH_GeneratedXenotypePatch.Postfix(request, returnsNull ? null : external));
+            XenotypeDef result = returnsNull ? null : external;
+            RHAH_GeneratedXenotypePatch.Postfix(request, ref result);
+            if (returnsNull) Assert.Null(result);
+            else Assert.Same(external, result);
         }
 
         [Fact]
-        public void NoncombatantOnlyPoolCannotFallBackToBaselinerForCombatRequest()
+        public void CombatRequestWithoutPermittedCombatantKeepsVanillaResult()
         {
             primary.canGenerateAsCombatant = false;
             PawnGenerationRequest request = new PawnGenerationRequest(kind, mustBeCapableOfViolence: true);
-            Assert.Throws<InvalidOperationException>(() => PawnGenerator.GetXenotypeForGeneratedPawn(request));
+            Assert.Same(XenotypeDefOf.Baseliner, PawnGenerator.GetXenotypeForGeneratedPawn(request));
+        }
+
+        [Fact]
+        public void RacePermittedXenotypesFillThePoolWhenTheDeclaredDefaultIsRejected()
+        {
+            XenotypeDef subspecies = new XenotypeDef { defName = "Ratkin_HouseMouse" };
+            DefDatabase<XenotypeDef>.Add(subspecies);
+            Allow((x, r) => x == subspecies && r == race);
+
+            Dictionary<XenotypeDef, float> pool = new Dictionary<XenotypeDef, float>();
+            RHAH_XenotypeGeneration.ReplacePool(kind, pool);
+            Assert.Same(subspecies, Assert.Single(pool).Key);
+            Assert.Same(subspecies, PawnGenerator.GetXenotypeForGeneratedPawn(new PawnGenerationRequest(kind)));
         }
 
         [Fact]

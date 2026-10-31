@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using HungerAndHavoc.Pawn.Compat;
 using RimWorld;
 using Verse;
 
@@ -105,42 +105,41 @@ namespace HungerAndHavoc.Generation
     [HarmonyPatch(typeof(PawnGenerator), nameof(PawnGenerator.GetXenotypeForGeneratedPawn))]
     internal static class RHAH_GeneratedXenotypePatch
     {
-        internal static void Postfix(PawnGenerationRequest request, XenotypeDef __result)
+        internal static void Postfix(PawnGenerationRequest request, ref XenotypeDef __result)
         {
             if (!ModsConfig.BiotechActive || !RHAH_XenotypeGeneration.Owns(request.KindDef))
             {
                 return;
             }
 
-            // 出生先用空模板装入遗传基因，随后由原版设置异种身份
-            if (request.AllowedDevelopmentalStages.Newborn() && request.ForceNoIdeo &&
+            // 出生模板：调用方在生成后设置真实异种。原版出生和 RJW 都强制基准人新生，只有原版另外设置 ForceNoIdeo
+            if (request.AllowedDevelopmentalStages.Newborn() &&
                 request.ForcedXenotype == XenotypeDefOf.Baseliner && __result == XenotypeDefOf.Baseliner)
             {
                 return;
             }
 
-            bool permitted = HungerAndHavoc.Pawn.Compat.RHAH_HarXenotypeBridge.Allows(__result, request.KindDef.race);
+            // 调用方显式选择的异种由它自己和 HAR 裁决 这里不改选
             bool explicitSelection = request.ForcedXenotype != null || request.ForcedCustomXenotype != null ||
                 request.ForceBaselinerChance > 0f || !request.AllowedXenotypes.NullOrEmpty();
-            if (permitted && !explicitSelection && __result == XenotypeDefOf.Baseliner)
+            if (explicitSelection || __result != XenotypeDefOf.Baseliner)
             {
-                permitted = false;
-                List<XenotypeChance> pool = RHAH_XenotypeResolver.GenerationPool(request.KindDef);
-                for (int i = 0; i < pool.Count; i++)
-                {
-                    if (pool[i].xenotype == __result &&
-                        (!request.MustBeCapableOfViolence || __result.canGenerateAsCombatant))
-                    {
-                        permitted = true;
-                        break;
-                    }
-                }
+                return;
             }
-            if (!permitted)
+
+            // 隐式基准人是原版空池回退 鼠族不能用智人异种补位
+            List<XenotypeChance> pool = RHAH_XenotypeResolver.GenerationPool(request.KindDef);
+            XenotypeDef replacement = RHAH_XenotypeResolver.ChooseAllowed(pool, request.KindDef.race, Rand.Value,
+                (xenotype, race) => RHAH_HarXenotypeBridge.Allows(xenotype, race) &&
+                    (!request.MustBeCapableOfViolence || xenotype.canGenerateAsCombatant));
+            if (replacement == null)
             {
-                // 原版空池会退回基准人 不能把 HAR 拒绝当成许可
-                throw new InvalidOperationException("[RHAH] No permitted xenotype is available for " + request.KindDef.defName + ".");
+                Log.ErrorOnce("[RHAH] No permitted xenotype is available for " + request.KindDef.defName + ".",
+                    104831703);
+                return;
             }
+
+            __result = replacement;
         }
     }
 

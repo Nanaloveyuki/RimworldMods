@@ -97,13 +97,16 @@ namespace HungerAndHavoc.Generation
             if (RHAH_HarXenotypeBridge.Allows(primary, race))
             {
                 pool.Add(new XenotypeChance(primary, 1f));
+                return pool;
             }
-            else
+
+            // 鼠族基因扩展会整体替换种族白名单 默认鼠族异种可能不再合法 此时按种族当前许可的异种生成
+            List<XenotypeDef> all = DefDatabase<XenotypeDef>.AllDefsListForReading;
+            for (int i = 0; i < all.Count; i++)
             {
-                XenotypeDef fallback = Load(RHAH_GeneCatalog.FallbackXenotypeDefName);
-                if (RHAH_HarXenotypeBridge.Allows(fallback, race))
+                if (RHAH_HarXenotypeBridge.Allows(all[i], race))
                 {
-                    pool.Add(new XenotypeChance(fallback, 1f));
+                    pool.Add(new XenotypeChance(all[i], 1f));
                 }
             }
             return pool;

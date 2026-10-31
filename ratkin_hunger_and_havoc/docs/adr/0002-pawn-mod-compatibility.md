@@ -34,3 +34,20 @@
 - 关闭生成优化时，自有 PawnKind 的声明池不作为原生池来源，仍读取上游 `RatkinColonist`；不把自有展示池回读成新的权重依据
 - 出生请求使用 `Newborn`、`ForceNoIdeo` 和强制基准人作为遗传空模板；仅实际返回该模板时跳过随机生成许可校验，保留随后原版遗传身份赋值。空遗传列表在请求构造后可能为 null，不用列表是否存在识别出生。第三方改出的其它结果仍检查 HAR 许可
 
+## 2026-10-31 种族白名单被整体替换
+
+HAR 的 `RaceRestrictionSettings.CanUseXenotype` 对声明了 `onlyUseRaceRestrictedXenotypes` 的种族只放行 `whiteXenotypeList` 里的异种。Ratkin 种族就这样声明，而 Ratkin Gene Expanded 用 `PatchOperationReplace` 把白名单整体换成 `Ratkin_*` 亚种，`RK_XenoType_Ratkin` 与基准人都不在其中。
+
+上一节“无合法候选时停止生成”把这种配置判定成没有合法异种并抛异常。异常从 `PawnGenerator.GetXenotypeForGeneratedPawn` 抛出，会连带打断用同一 PawnKind 生成的所有第三方流程：RJW 产程每次生婴儿都失败并移除产程，事件生成的鼠族也全部失败。
+
+同一处还有第二个错误：上一节用 `Newborn` + `ForceNoIdeo` + 强制基准人识别出生模板，但 `ForceNoIdeo` 是原版出生请求的细节。RJW 的新生请求同样强制基准人、带 `forcedEndogenes`，却不设 `ForceNoIdeo`，于是被当成“没有合法异种”。
+
+决定：
+
+- 池解析按实际 HAR 许可回退：用户权重 → `RK_XenoType_Ratkin` → 上游 `RatkinColonist` 池 → 种族当前许可的全部异种（`DefDatabase<XenotypeDef>` 过滤）。种族白名单被替换后仍能生成，权重选择留给用户
+- 出生模板以 `Newborn` + 强制基准人为准，不再要求 `ForceNoIdeo`；只有实际返回该模板时跳过校验，真实异种仍由原版或 RJW 在生成后设置
+- 调用方显式选择的异种（强制、自定义、基准人概率、允许名单）不改选，交给调用方与 HAR 裁决；本模组不再用异常代替他人的生成流程
+- 无显式选择却拿到基准人，说明原版空池回退了，改选池内异种；`MustBeCapableOfViolence` 仍过滤非战斗异种，改不出来只记录一次 `Log.ErrorOnce` 并保留原版结果
+
+后果：`RK_XenoType_Ratkin` 缺席时饥荒鼠族取自鼠族扩展的亚种池，不再固定成基础鼠族；玩家可用设置权重把这些亚种纳入或排除。异常式“停止生成”不再是行为契约。
+
