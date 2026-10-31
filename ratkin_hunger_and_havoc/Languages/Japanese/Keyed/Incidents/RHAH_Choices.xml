@@ -39,6 +39,11 @@
   <RHAH_Choice_Wild_Text>野生のラットキンたちが、私たちの拠点の近くまでさまよって来ました。キャラバンの一員でもなく、代わりに話してくれる人もいません。ここで食べ物を探しています。\n\n受け入れますか？</RHAH_Choice_Wild_Text>
   <RHAH_Choice_WildYoung_Label>さまよう子ラットキン</RHAH_Choice_WildYoung_Label>
   <RHAH_Choice_WildYoung_Text>野生の子ラットキンが1人、私たちの拠点の近くまでさまよって来ました。大人はついていません。ここには食べ物も人もいますが、すべてが安全とは限りません。\n\nどうしましょうか？</RHAH_Choice_WildYoung_Text>
+  <RHAH_Feral_Wild_Label>野生化したラットキン</RHAH_Feral_Wild_Label>
+  <RHAH_Feral_WildYoung_Label>野生化した子ラットキン</RHAH_Feral_WildYoung_Label>
+  <RHAH_Feral_Wild_Text>野人として暮らすラットキンの一団が、私たちの拠点の近くまでさまよって来ました。食べ物を探しています。\n\n仲間に迎えたいなら、手なずける対象に指定できます。入植者を選んで相手を右クリックし、逮捕を試みることもできます。手なずけに失敗したり、逮捕しようとしたりすると、抵抗されることがあります。</RHAH_Feral_Wild_Text>
+  <RHAH_Feral_WildSingle_Text>野人として暮らすラットキンが1人、私たちの拠点の近くまでさまよって来ました。食べ物を探しています。\n\n仲間に迎えたいなら、手なずける対象に指定できます。入植者を選んで相手を右クリックし、逮捕を試みることもできます。手なずけに失敗したり、逮捕しようとしたりすると、抵抗されることがあります。</RHAH_Feral_WildSingle_Text>
+  <RHAH_Feral_WildYoung_Text>野生化した子ラットキンが1人、私たちの拠点の近くまでさまよって来ました。1人で食べ物を探しています。\n\n仲間に迎えたいなら、手なずける対象に指定できます。入植者を選んで相手を右クリックし、逮捕を試みることもできます。手なずけに失敗したり、逮捕しようとしたりすると、抵抗されることがあります。</RHAH_Feral_WildYoung_Text>
   <RHAH_Choice_Passersby_Label>通りすがりのラットキン</RHAH_Choice_Passersby_Label>
   <RHAH_Choice_Passersby_Text>ラットキンの流民の一団が、私たちの拠点の近くを通りかかりました。まだ次の食事を探す必要があり、ただ通り過ぎるつもりとは限りません。\n\nここに残ってもらいますか、それとも旅を続けてもらいますか？</RHAH_Choice_Passersby_Text>
   <RHAH_Choice_Siege_Label>包囲する物乞い</RHAH_Choice_Siege_Label>

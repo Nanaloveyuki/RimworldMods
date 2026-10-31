@@ -39,6 +39,11 @@
   <RHAH_Choice_Wild_Text>野生鼠族游荡到了我们据点附近，正在寻找食物。\n\n要接纳他们吗？</RHAH_Choice_Wild_Text>
   <RHAH_Choice_WildYoung_Label>游荡的幼年鼠族</RHAH_Choice_WildYoung_Label>
   <RHAH_Choice_WildYoung_Text>一只野生鼠蛋游荡到了我们据点附近，独自在这里寻找食物。\n\n我们应该怎么做？</RHAH_Choice_WildYoung_Text>
+  <RHAH_Feral_Wild_Label>野人鼠族</RHAH_Feral_Wild_Label>
+  <RHAH_Feral_WildYoung_Label>野人鼠蛋</RHAH_Feral_WildYoung_Label>
+  <RHAH_Feral_Wild_Text>一群鼠族像野人一样生活，游荡到了我们据点附近，正在寻找食物。\n\n想让他们加入，可以给他们标记驯服；也可以选中殖民者，右键他们尝试逮捕。驯服失败或逮捕时可能遭到反抗。</RHAH_Feral_Wild_Text>
+  <RHAH_Feral_WildSingle_Text>一只鼠族像野人一样生活，游荡到了我们据点附近，正在寻找食物。\n\n想让这只鼠族加入，可以给对方标记驯服；也可以选中殖民者，右键对方尝试逮捕。驯服失败或逮捕时可能遭到反抗。</RHAH_Feral_WildSingle_Text>
+  <RHAH_Feral_WildYoung_Text>一只野人鼠蛋游荡到了我们据点附近，独自在这里寻找食物。\n\n想让这只鼠蛋加入，可以给对方标记驯服；也可以选中殖民者，右键对方尝试逮捕。驯服失败或逮捕时可能遭到反抗。</RHAH_Feral_WildYoung_Text>
   <RHAH_Choice_Passersby_Label>路过的鼠族</RHAH_Choice_Passersby_Label>
   <RHAH_Choice_Passersby_Text>一队鼠族流民从我们据点附近路过，仍在为下一顿饭奔波。\n\n要留下他们，还是让他们继续走？</RHAH_Choice_Passersby_Text>
   <RHAH_Choice_Siege_Label>围攻乞食者</RHAH_Choice_Siege_Label>

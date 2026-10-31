@@ -11,6 +11,7 @@ using HungerAndHavoc.Incidents;
 using Oxygendsl.Core.Events;
 using Oxygendsl.Mod;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 using Xunit;
 
@@ -66,6 +67,10 @@ namespace HungerAndHavoc.Tests
             Current.Game.letterStack = new LetterStack();
             Current.Game.history = Uninitialized<History>();
             Current.Game.history.archive = new Archive();
+            World world = Uninitialized<World>();
+            world.factionManager = new FactionManager();
+            world.worldObjects = new WorldObjectsHolder();
+            Current.Game.World = world;
             Map map = Uninitialized<Map>();
             map.uniqueID = 41;
             Field(typeof(Game), "maps").SetValue(Current.Game, new List<Map> { map });
@@ -115,9 +120,50 @@ namespace HungerAndHavoc.Tests
         }
 
         [Theory]
+        [InlineData("I-008", false)]
+        [InlineData("I-008", true)]
+        [InlineData("I-009", false)]
+        [InlineData("I-009", true)]
+        [InlineData("I-010", false)]
+        [InlineData("I-010", true)]
+        public void WildVisitorLetterOffersActionsUntilItsDeadlineInEitherColor(string id, bool green)
+        {
+            RHAH_Mod.Settings.greenIncidentLetters = green;
+            bool sent = (bool)typeof(RHAH_IncidentFacts).GetMethod("OpenChoice", BindingFlags.Static | BindingFlags.NonPublic)
+                .Invoke(null, new object[] { Context(id), new List<RHAH_PawnCreationResult>(), new List<Verse.Pawn>() });
+
+            Assert.True(sent);
+            ChoiceLetter_RHAH_Visitors letter = Assert.IsType<ChoiceLetter_RHAH_Visitors>(Assert.Single(Find.LetterStack.LettersListForReading));
+            RHAH_ChoiceRecord record = Assert.Single(game.OpenChoices);
+            Assert.Equal(RHAH_ChoiceKind.Visitors, record.Choice);
+            Assert.Equal(record.Id, letter.choiceId);
+            Assert.Same(green ? RHAH_DefOf.RHAH_ChoiceVisitorsGreen : RHAH_DefOf.RHAH_ChoiceVisitors, letter.def);
+
+            List<DiaOption> options = new List<DiaOption>(letter.Choices);
+            foreach (string key in new[] { "RHAH_Choice_Feed", "RHAH_Choice_Reject", "RHAH_Choice_Ignore" })
+            {
+                DiaOption option = Assert.Single(options.FindAll(item =>
+                    (string)Field(typeof(DiaOption), "text").GetValue(item) == key.Translate().ToString()));
+                Assert.False(option.disabled);
+                Assert.NotNull(option.action);
+            }
+            DiaOption join = Assert.Single(options.FindAll(item =>
+                (string)Field(typeof(DiaOption), "text").GetValue(item) == "RHAH_Choice_Join".Translate().ToString()));
+            Assert.True(join.disabled);
+            Assert.NotNull(join.disabledReason);
+
+            Find.TickManager.DebugSetTicksGame(record.ExpireTick);
+            Assert.Single(letter.Choices);
+            Assert.True(letter.CanDismissWithRightClick);
+        }
+
+        [Theory]
         [InlineData("I-001", RHAH_ChoiceKind.Refugees)]
         [InlineData("I-011", RHAH_ChoiceKind.Refugees)]
         [InlineData("I-040", RHAH_ChoiceKind.Refugees)]
+        [InlineData("I-008", RHAH_ChoiceKind.Visitors)]
+        [InlineData("I-009", RHAH_ChoiceKind.Visitors)]
+        [InlineData("I-010", RHAH_ChoiceKind.Visitors)]
         [InlineData("I-015", RHAH_ChoiceKind.Aid)]
         [InlineData("I-020", RHAH_ChoiceKind.Intel)]
         public void DisabledDecisionSettingLeavesArrivalRouteWithoutOpeningARequest(string id, RHAH_ChoiceKind kind)

@@ -64,8 +64,8 @@ namespace HungerAndHavoc.Incidents
             }
 
             bool young = Role == RHAH_PawnRole.WildChild && arrived[0].ageTracker.AgeBiologicalYearsFloat < 14f;
-            string key = young ? "RHAH_Choice_WildYoung" : "RHAH_Choice_Wild";
-            string textKey = young ? key + "_Text" : arrived.Count == 1 ? "RHAH_Choice_WildSingle_Text" : key + "_Text";
+            string key = young ? "RHAH_Feral_WildYoung" : "RHAH_Feral_Wild";
+            string textKey = young ? key + "_Text" : arrived.Count == 1 ? "RHAH_Feral_WildSingle_Text" : key + "_Text";
             Find.LetterStack.ReceiveLetter((key + "_Label").Translate(), textKey.Translate(),
                 LetterDefOf.NeutralEvent, new LookTargets(arrived));
             return true;

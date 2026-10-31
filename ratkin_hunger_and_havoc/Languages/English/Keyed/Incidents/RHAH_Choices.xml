@@ -39,6 +39,11 @@
   <RHAH_Choice_Wild_Text>Wild ratkin have wandered near our colony, without a caravan or anyone to speak for them. They are looking for food here.\n\nShould we take them in?</RHAH_Choice_Wild_Text>
   <RHAH_Choice_WildYoung_Label>Wandering young ratkin</RHAH_Choice_WildYoung_Label>
   <RHAH_Choice_WildYoung_Text>A wild young ratkin has wandered near our colony without an adult. There is food here, and people too, but not everything is safe.\n\nWhat should we do?</RHAH_Choice_WildYoung_Text>
+  <RHAH_Feral_Wild_Label>Feral ratkin</RHAH_Feral_Wild_Label>
+  <RHAH_Feral_WildYoung_Label>Feral young ratkin</RHAH_Feral_WildYoung_Label>
+  <RHAH_Feral_Wild_Text>A group of ratkin living as wild people has wandered near our colony, looking for food.\n\nTo bring them into the colony, designate them for taming. You can also select a colonist and right-click them to attempt an arrest. Failed taming attempts or arrests may provoke resistance.</RHAH_Feral_Wild_Text>
+  <RHAH_Feral_WildSingle_Text>A ratkin living as a wild person has wandered near our colony, looking for food.\n\nTo bring this ratkin into the colony, designate them for taming. You can also select a colonist and right-click the ratkin to attempt an arrest. Failed taming attempts or arrests may provoke resistance.</RHAH_Feral_WildSingle_Text>
+  <RHAH_Feral_WildYoung_Text>A feral young ratkin has wandered near our colony, looking for food alone.\n\nTo bring this young ratkin into the colony, designate them for taming. You can also select a colonist and right-click the young ratkin to attempt an arrest. Failed taming attempts or arrests may provoke resistance.</RHAH_Feral_WildYoung_Text>
   <RHAH_Choice_Passersby_Label>Passing ratkin</RHAH_Choice_Passersby_Label>
   <RHAH_Choice_Passersby_Text>A group of ratkin refugees is passing near our colony. They still need to find their next meal; passing through may not be all they do.\n\nShould we keep them here, or let them keep walking?</RHAH_Choice_Passersby_Text>
   <RHAH_Choice_Siege_Label>Besieging beggars</RHAH_Choice_Siege_Label>
