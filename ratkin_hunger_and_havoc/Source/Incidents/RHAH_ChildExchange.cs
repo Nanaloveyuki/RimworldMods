@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using HungerAndHavoc.Api;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.Identity;
@@ -11,9 +12,54 @@ namespace HungerAndHavoc.Incidents
 {
     internal static class RHAH_ChildExchange
     {
+        static readonly ConditionalWeakTable<Verse.Pawn, ExchangeRequest> exchangeRequests =
+            new ConditionalWeakTable<Verse.Pawn, ExchangeRequest>();
+
+        sealed class ExchangeRequest
+        {
+            internal IReadOnlyList<RHAH_ChoiceRecord> Records;
+            internal int Count;
+            internal int MapId;
+            internal int BatchId;
+            internal RHAH_ChoiceRecord Record;
+        }
+
         internal static bool AcceptsChild(RHAH_ChoiceRecord record)
         {
             return record != null && (record.DisplayId == "I-013" || record.DisplayId == "I-019");
+        }
+
+        internal static bool Holds(Verse.Pawn pawn, IRHAH_Pawn snapshot)
+        {
+            if (snapshot?.SourceIncidentDisplayId != "I-013" || pawn?.MapHeld == null) return false;
+            IReadOnlyList<RHAH_ChoiceRecord> records = Current.Game?.GetComponent<GameComponent_RHAH_Game>()?.OpenChoices;
+            if (records == null) return false;
+            if (!exchangeRequests.TryGetValue(pawn, out ExchangeRequest request))
+            {
+                request = new ExchangeRequest();
+                exchangeRequests.Add(pawn, request);
+            }
+            int mapId = pawn.MapHeld.uniqueID;
+            if (!ReferenceEquals(request.Records, records) || request.MapId != mapId ||
+                request.BatchId != snapshot.SpawnBatchId || request.Record == null && request.Count != records.Count)
+            {
+                request.Records = records;
+                request.Count = records.Count;
+                request.MapId = mapId;
+                request.BatchId = snapshot.SpawnBatchId;
+                request.Record = null;
+                for (int i = records.Count - 1; i >= 0; i--)
+                {
+                    RHAH_ChoiceRecord record = records[i];
+                    if (record.DisplayId == "I-013" && record.MapId == mapId && record.BatchId == snapshot.SpawnBatchId &&
+                        record.PawnLoadIds.Contains(pawn.thingIDNumber))
+                    {
+                        request.Record = record;
+                        break;
+                    }
+                }
+            }
+            return request.Record != null && request.Record.Open;
         }
 
         internal static int FoodCost(RHAH_ChoiceRecord record)

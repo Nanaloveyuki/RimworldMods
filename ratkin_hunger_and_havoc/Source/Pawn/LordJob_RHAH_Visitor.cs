@@ -666,7 +666,7 @@ namespace HungerAndHavoc.Pawn
             if (RHAH_MouseSwarm.IsSource(snapshot.SourceIncidentDisplayId)) return false;
             Lord lord = pawn.GetLord();
             LordJob_RHAH_Visitor visitor = lord?.LordJob as LordJob_RHAH_Visitor;
-            if (RHAH_ArmedDemand.Holds(pawn)) return false;
+            if (RHAH_ArmedDemand.Holds(pawn) || RHAH_ChildExchange.Holds(pawn, snapshot)) return false;
             if (lord?.CurLordToil is LordToil_RHAH_WaitFood && visitor.ListedForFood(pawn))
             {
                 if (visitor.WaitingForFood(pawn))

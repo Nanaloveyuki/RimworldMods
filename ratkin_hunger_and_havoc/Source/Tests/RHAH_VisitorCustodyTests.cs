@@ -277,6 +277,126 @@ namespace HungerAndHavoc.Tests
         }
 
         [Theory]
+        [InlineData(false, RHAH_ChoiceAction.Ignore)]
+        [InlineData(true, RHAH_ChoiceAction.Ignore)]
+        [InlineData(false, RHAH_ChoiceAction.Reject)]
+        [InlineData(true, RHAH_ChoiceAction.Timeout)]
+        public void OpenExchangeKeepsAdultAndChildUntilTheRequestIsSettled(bool fed, RHAH_ChoiceAction action)
+        {
+            Verse.Pawn adult = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+            Verse.Pawn child = ExchangeVisitor(6f, RHAH_PawnRole.RatkinYoung);
+            foreach (Verse.Pawn pawn in new[] { adult, child })
+            {
+                CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
+                comp.State.sourceIncidentDisplayId = "I-013";
+                comp.State.foodWaitUntilTick = fed ? -1 : 0;
+                if (fed)
+                {
+                    RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.SeekingFood);
+                    RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.Fed);
+                    comp.SetLeaveAfter(0);
+                }
+                Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(pawn, RHAH_Api.Get(pawn)));
+            }
+            RHAH_ChoiceRecord record = Open(adult, child);
+            record.DisplayId = "I-013";
+            record.Kind = RHAH_RequestKind.Baby;
+            record.Choice = RHAH_ChoiceKind.ChildExchange;
+
+            foreach (Verse.Pawn pawn in new[] { adult, child })
+            {
+                Assert.False(LordJob_RHAH_Visitor.ReadyToLeave(pawn, RHAH_Api.Get(pawn)));
+                Assert.Null(JobGiver_RHAH_Leave.TryCreate(pawn));
+                Assert.NotEqual(RHAH_Lifecycle.Leaving, RHAH_Api.Get(pawn).Lifecycle);
+            }
+
+            Assert.Equal(action,
+                RHAH_ChoiceRuntime.TrySettleRequest(choices, record.Id, action, action == RHAH_ChoiceAction.Timeout ? 10 : 0, true));
+            Assert.False(record.Open);
+            Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(adult, RHAH_Api.Get(adult)));
+            Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(child, RHAH_Api.Get(child)));
+        }
+
+        [Theory]
+        [InlineData("source")]
+        [InlineData("map")]
+        [InlineData("batch")]
+        [InlineData("member")]
+        [InlineData("event")]
+        public void UnrelatedExchangeCannotHoldAnotherVisitor(string change)
+        {
+            Verse.Pawn pawn = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+            CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
+            comp.State.sourceIncidentDisplayId = "I-013";
+            comp.State.foodWaitUntilTick = 0;
+            RHAH_ChoiceRecord record = Open(pawn);
+            record.DisplayId = "I-013";
+            if (change == "source") comp.State.sourceIncidentDisplayId = "I-004";
+            else if (change == "map") record.MapId++;
+            else if (change == "batch") record.BatchId++;
+            else if (change == "member") record.PawnLoadIds.Clear();
+            else record.DisplayId = "I-019";
+
+            Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(pawn, RHAH_Api.Get(pawn)));
+        }
+
+        [Fact]
+        public void SettlingOneExchangeDoesNotReleaseAnotherBatch()
+        {
+            Verse.Pawn first = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+            Verse.Pawn second = ExchangeVisitor(6f, RHAH_PawnRole.RatkinYoung);
+            foreach (Verse.Pawn pawn in new[] { first, second })
+            {
+                CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
+                comp.State.sourceIncidentDisplayId = "I-013";
+                comp.State.foodWaitUntilTick = 0;
+            }
+            CompRHAH_Pawn.TryGet(second).State.spawnBatchId = 8;
+            RHAH_ChoiceRecord firstRequest = Open(first);
+            firstRequest.DisplayId = "I-013";
+            firstRequest.Choice = RHAH_ChoiceKind.ChildExchange;
+            firstRequest.Kind = RHAH_RequestKind.Baby;
+            RHAH_ChoiceRecord secondRequest = RHAH_ChoiceRuntime.Open(choices, new RHAH_ChoiceRecord
+            {
+                DisplayId = "I-013",
+                Choice = RHAH_ChoiceKind.ChildExchange,
+                Kind = RHAH_RequestKind.Baby,
+                BatchId = 8,
+                MapId = map.uniqueID,
+                ExpireTick = 10,
+                PawnLoadIds = new List<int> { second.thingIDNumber }
+            });
+
+            Assert.False(LordJob_RHAH_Visitor.ReadyToLeave(first, RHAH_Api.Get(first)));
+            Assert.False(LordJob_RHAH_Visitor.ReadyToLeave(second, RHAH_Api.Get(second)));
+            Assert.Equal(RHAH_ChoiceAction.Ignore,
+                RHAH_ChoiceRuntime.TrySettleRequest(choices, firstRequest.Id, RHAH_ChoiceAction.Ignore, 0, true));
+            Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(first, RHAH_Api.Get(first)));
+            Assert.False(LordJob_RHAH_Visitor.ReadyToLeave(second, RHAH_Api.Get(second)));
+            Assert.Equal(RHAH_ChoiceAction.Timeout,
+                RHAH_ChoiceRuntime.TrySettleRequest(choices, secondRequest.Id, RHAH_ChoiceAction.Timeout, 10, true));
+            Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(second, RHAH_Api.Get(second)));
+        }
+
+        [Fact]
+        public void OpenExchangeNeverOverridesAnExplicitDepartureOrMakesADownedVisitorWalk()
+        {
+            Verse.Pawn pawn = ExchangeVisitor(30f, RHAH_PawnRole.Refugee);
+            CompRHAH_Pawn.TryGet(pawn).State.sourceIncidentDisplayId = "I-013";
+            RHAH_ChoiceRecord record = Open(pawn);
+            record.DisplayId = "I-013";
+            Assert.False(LordJob_RHAH_Visitor.ReadyToLeave(pawn, RHAH_Api.Get(pawn)));
+
+            RHAH_Api.SetLifecycle(pawn, RHAH_Lifecycle.Leaving);
+            Field(typeof(Pawn_HealthTracker), "healthState").SetValue(pawn.health, PawnHealthState.Down);
+
+            Assert.True(record.Open);
+            Assert.True(LordJob_RHAH_Visitor.ReadyToLeave(pawn, RHAH_Api.Get(pawn)));
+            Assert.Null(JobGiver_RHAH_Leave.TryCreate(pawn));
+            Assert.Equal(RHAH_Lifecycle.Leaving, RHAH_Api.Get(pawn).Lifecycle);
+        }
+
+        [Theory]
         [InlineData(RHAH_PawnRole.Refugee, 6f, false)]
         [InlineData(RHAH_PawnRole.Refugee, 30f, false)]
         [InlineData(RHAH_PawnRole.RatkinYoung, 13.9f, true)]
