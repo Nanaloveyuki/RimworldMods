@@ -210,26 +210,26 @@ public static class RatkinRecycleUtility
 		if (settings == null || !settings.enabled || !IsRatkin(pawn) || pawn.Dead || pawn.Downed || pawn.needs?.food == null)
 			return false;
 		if (manual)
-			return settings.manualEnabled && pawn.Spawned && pawn.CanTakeOrder && !pawn.InMentalState
-				&& AgeYears(pawn) >= settings.manualMinAge;
+			return settings.manualEnabled && pawn.Spawned && pawn.CanTakeOrder;
 		return RatkinRecyclePolicy.AgeAllowed(pawn, settings.minEaterAge, settings.maxEaterAge, settings.eaterAgeUnlimited)
 			&& (settings.eaterStatuses & RatkinRecyclePolicy.Status(pawn)) != 0
 			&& (!settings.skipDrafted || !pawn.Drafted) && (!settings.skipMentalState || !pawn.InMentalState);
 	}
 
-	public static bool IsVictimAllowed(Pawn pawn)
+	public static bool IsVictimAllowed(Pawn pawn, bool manual = false)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
 		return settings != null && settings.enabled && IsRatkin(pawn) && !pawn.Dead &&
 			RatkinRecyclePolicy.AgeAllowed(pawn, settings.minVictimAge, settings.maxVictimAge, settings.victimAgeUnlimited) &&
-			(settings.victimStatuses & RatkinRecyclePolicy.Status(pawn)) != 0;
+			(manual || (settings.victimStatuses & RatkinRecyclePolicy.Status(pawn)) != 0);
 	}
 
-	public static bool CanTarget(Pawn eater, Pawn victim, EaterKind kind)
+	public static bool CanTarget(Pawn eater, Pawn victim, EaterKind kind, bool manual = false)
 	{
-		return kind != EaterKind.None && eater != null && eater != victim && IsVictimAllowed(victim) && victim.Spawned && eater.Spawned && victim.Map == eater.Map &&
-			!(RatkinRecycleMod.Settings.limitYoungPredators && kind == EaterKind.Egg && AgeYears(victim) >= RatkinRecycleMod.Settings.splitEggAge) &&
-			!victim.IsForbidden(eater);
+		return kind != EaterKind.None && eater != null && eater != victim && IsVictimAllowed(victim, manual)
+			&& victim.Spawned && eater.Spawned && victim.Map == eater.Map
+			&& (manual || (!(RatkinRecycleMod.Settings.limitYoungPredators && kind == EaterKind.Egg
+				&& AgeYears(victim) >= RatkinRecycleMod.Settings.splitEggAge) && !victim.IsForbidden(eater)));
 	}
 
 	public static bool IsOwnEgg(Pawn eater, Pawn victim)

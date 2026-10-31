@@ -40,10 +40,6 @@ public partial class RatkinRecycleSettings : ModSettings
 
 	public bool manualEnabled = true;
 
-	public float manualMinAge = 4f;
-
-	public bool manualRequireHunger;
-
 	public float adultAgeYears = 1f;
 
 	public float postpartumHours = 120f;
@@ -162,8 +158,6 @@ public partial class RatkinRecycleSettings : ModSettings
 		Scribe_Values.Look(ref otherMalnutritionSeverity, "otherMalnutritionSeverity", 0.4f);
 		Scribe_Values.Look(ref preferAvailableFood, "preferAvailableFood", defaultValue: true);
 		Scribe_Values.Look(ref manualEnabled, "manualEnabled", defaultValue: true);
-		Scribe_Values.Look(ref manualMinAge, "manualMinAge", 4f);
-		Scribe_Values.Look(ref manualRequireHunger, "manualRequireHunger", defaultValue: false);
 		Scribe_Values.Look(ref adultAgeYears, "adultAgeYears", 1f);
 		Scribe_Values.Look(ref postpartumHours, "postpartumHours", 120f);
 		Scribe_Values.Look(ref momOwnEggFallback, "momOwnEggFallback", defaultValue: true);
@@ -241,8 +235,6 @@ public partial class RatkinRecycleSettings : ModSettings
 		otherMalnutritionSeverity = 0.4f;
 		preferAvailableFood = true;
 		manualEnabled = true;
-		manualMinAge = 4f;
-		manualRequireHunger = false;
 		adultAgeYears = 1f;
 		postpartumHours = 120f;
 		momOwnEggFallback = true;
@@ -327,7 +319,6 @@ public partial class RatkinRecycleSettings : ModSettings
 		maxEaterAge = Nonnegative(maxEaterAge, 100f);
 		minVictimAge = Nonnegative(minVictimAge, 0f);
 		maxVictimAge = Nonnegative(maxVictimAge, 3f);
-		manualMinAge = Nonnegative(manualMinAge, 4f);
 		if (!eaterAgeUnlimited && maxEaterAge < minEaterAge) maxEaterAge = minEaterAge;
 		if (!victimAgeUnlimited && maxVictimAge < minVictimAge) maxVictimAge = minVictimAge;
 		adultAgeYears = Nonnegative(adultAgeYears, 1f);

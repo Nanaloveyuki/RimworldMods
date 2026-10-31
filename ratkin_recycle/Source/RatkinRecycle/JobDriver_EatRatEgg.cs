@@ -23,8 +23,6 @@ public class JobDriver_EatRatEgg : JobDriver
 	// The distinct JobDef preserves the entry point through queueing and save/load.
 	private bool Manual => job?.def == RatkinRecycleDefOf.ManualRecycleRatkinYoung;
 	private bool FoodPreventsRecycling => !Manual && RatkinRecycleFood.HasAvailableFood(pawn);
-	private bool CanStart => !Manual || !RatkinRecycleMod.Settings.manualRequireHunger
-		|| (RatkinRecycleUtility.IsHungryEnough(pawn, RatkinRecycleUtility.GetEaterKind(pawn, true)) && !IsFull());
 
 	public override void ExposeData()
 	{
@@ -56,8 +54,8 @@ public class JobDriver_EatRatEgg : JobDriver
 		Pawn victim = Victim;
 		EaterKind eaterKind = RatkinRecycleUtility.GetEaterKind(pawn, Manual);
 		return pawn.carryTracker != null && pawn.carryTracker.CarriedThing == null
-			&& RatkinRecycleUtility.CanTarget(pawn, victim, eaterKind)
-			&& CanStart && !FoodPreventsRecycling
+			&& RatkinRecycleUtility.CanTarget(pawn, victim, eaterKind, Manual)
+			&& !FoodPreventsRecycling
 			&& pawn.Reserve(victim, job, 1, -1, null, errorOnFailed);
 	}
 
@@ -66,7 +64,8 @@ public class JobDriver_EatRatEgg : JobDriver
 		AddFinishAction(_ => DropOwnedVictim());
 		// Despawn is expected after pickup; this failure belongs only to the approach.
 		Toil approach = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch);
-		approach.FailOnDespawnedNullOrForbidden(TargetIndex.A);
+		approach.FailOnDespawnedOrNull(TargetIndex.A);
+		approach.FailOn(() => !Manual && Victim.IsForbidden(pawn));
 		yield return approach;
 		Toil pickup = ToilMaker.MakeToil("carryRatkinYoung");
 		pickup.defaultCompleteMode = ToilCompleteMode.Instant;
@@ -74,7 +73,7 @@ public class JobDriver_EatRatEgg : JobDriver
 		yield return pickup;
 		Toil chew = ToilMaker.MakeToil("chewRatkinYoung");
 		chew.defaultCompleteMode = ToilCompleteMode.Never;
-		chew.tickAction = ChewTick;
+		chew.tickAction = () => ChewTick(approach);
 		chew.PlaySustainerOrSound(() => SoundDefOf.RawMeat_Eat);
 		yield return chew;
 	}
@@ -84,23 +83,39 @@ public class JobDriver_EatRatEgg : JobDriver
 		victimStored = Victim;
 		kind = RatkinRecycleUtility.GetEaterKind(pawn, Manual);
 		if (!RatkinRecycleUtility.CanEat(pawn, Manual)
-			|| !RatkinRecycleUtility.CanTarget(pawn, victimStored, kind)
-			|| !CanStart || FoodPreventsRecycling
+			|| !RatkinRecycleUtility.CanTarget(pawn, victimStored, kind, Manual)
+			|| FoodPreventsRecycling
 			|| pawn.carryTracker == null || pawn.carryTracker.CarriedThing != null)
 		{
 			EndJobWith(JobCondition.Incompletable);
 			return;
 		}
-		own = RatkinRecycleUtility.IsOwnEgg(pawn, victimStored);
-		tier = RatkinRecycleUtility.GrowthTier(victimStored);
-		// The count overload splits/despawns the pawn before moving it into the owner.
-		carried = pawn.carryTracker.TryStartCarry(victimStored, 1) == 1;
-		if (!carried || !OwnsLivingVictim())
+		if (nextBiteTick == 0)
 		{
-			EndJobWith(JobCondition.Incompletable);
-			return;
+			own = RatkinRecycleUtility.IsOwnEgg(pawn, victimStored);
+			tier = RatkinRecycleUtility.GrowthTier(victimStored);
 		}
-		nextBiteTick = Find.TickManager.TicksGame + Mathf.Max(10, RatkinRecycleMod.Settings.biteInterval);
+		// Toddlers' initial self-care stage is distinct from carrying capacity.
+		if (CanCarryVictim())
+		{
+			carried = pawn.carryTracker.TryStartCarry(victimStored, 1) == 1;
+			if (!carried || !OwnsLivingVictim())
+			{
+				EndJobWith(JobCondition.Incompletable);
+				return;
+			}
+		}
+		if (nextBiteTick == 0)
+			nextBiteTick = Find.TickManager.TicksGame + Mathf.Max(10, RatkinRecycleMod.Settings.biteInterval);
+	}
+
+	private bool CanCarryVictim()
+	{
+		if (!pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation)
+			|| pawn.carryTracker.AvailableStackSpace(victimStored.def) <= 0) return false;
+		foreach (Hediff hediff in pawn.health.hediffSet.hediffs)
+			if (hediff.def.defName == "LearningManipulation" && hediff.CurStageIndex == 0) return false;
+		return true;
 	}
 
 	private bool OwnsLivingVictim()
@@ -117,13 +132,21 @@ public class JobDriver_EatRatEgg : JobDriver
 			&& (thing == victimStored || thing == victimStored.Corpse);
 	}
 
-	private bool CanContinue()
+	private bool HasLivingVictim()
 	{
-		return carried && OwnsLivingVictim() && RatkinRecycleUtility.GetEaterKind(pawn, Manual) != EaterKind.None
-			&& RatkinRecycleUtility.IsVictimAllowed(victimStored);
+		return carried ? OwnsLivingVictim()
+			: victimStored != null && !victimStored.Destroyed && !victimStored.Dead
+				&& victimStored.Spawned && pawn.Spawned && victimStored.Map == pawn.Map
+				&& pawn.carryTracker.CarriedThing == null;
 	}
 
-	private void ChewTick()
+	private bool CanContinue()
+	{
+		return HasLivingVictim() && RatkinRecycleUtility.GetEaterKind(pawn, Manual) != EaterKind.None
+			&& RatkinRecycleUtility.IsVictimAllowed(victimStored, Manual);
+	}
+
+	private void ChewTick(Toil approach)
 	{
 		if (finished)
 		{
@@ -131,9 +154,14 @@ public class JobDriver_EatRatEgg : JobDriver
 			return;
 		}
 		// A death between our bites is not a completed meal, even after earlier bites.
-		if (!carried || !OwnsLivingVictim() || pawn.Dead || pawn.Downed)
+		if (!HasLivingVictim() || pawn.Dead || pawn.Downed)
 		{
 			EndJobWith(JobCondition.Incompletable);
+			return;
+		}
+		if (!carried && !pawn.CanReachImmediate(victimStored, PathEndMode.Touch))
+		{
+			JumpToToil(approach);
 			return;
 		}
 		if (IsFull())
@@ -159,7 +187,7 @@ public class JobDriver_EatRatEgg : JobDriver
 	private bool IsFull()
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (Manual && !settings.manualRequireHunger) return false;
+		if (Manual) return false;
 		return settings != null && settings.stopAtFullness > 0f && pawn.needs?.food != null
 			&& pawn.needs.food.CurLevelPercentage >= settings.stopAtFullness;
 	}

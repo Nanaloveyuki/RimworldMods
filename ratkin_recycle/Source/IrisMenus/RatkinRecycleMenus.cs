@@ -8,174 +8,77 @@ namespace RatkinRecycle.IrisMenus;
 [StaticConstructorOnStartup]
 public static class RatkinRecycleMenus
 {
+	private static string indexedRaceKeywords;
+
 	static RatkinRecycleMenus() => LongEventHandler.ExecuteWhenFinished(Register);
 
 	private static void Register()
 	{
 		RatkinRecycleMod owner = LoadedModManager.GetMod<RatkinRecycleMod>();
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		string lastRaceKeywords = settings.raceKeywords;
+		indexedRaceKeywords = settings.raceKeywords;
 		foreach (string id in RatkinRecycleSettings.PageIds)
 		{
 			string pageId = id;
-			MenuRegistry.RegisterSubItemListing(owner, pageId,
-				() => RatkinRecycleSettings.PageTitle(pageId), list =>
-				{
-					settings.DrawPage(pageId, list, MenuControls.Anchor);
-					if (lastRaceKeywords != settings.raceKeywords)
-					{
-						lastRaceKeywords = settings.raceKeywords;
-						MenuRegistry.InvalidateSearchIndex();
-					}
-				});
+			MenuRegistry.RegisterSubItem(owner, pageId, () => RatkinRecycleSettings.PageTitle(pageId), rect =>
+			{
+				settings.DrawPageWindow(pageId, rect);
+				RefreshSearchIndex(settings);
+			});
+			MenuRegistry.RegisterPresentation(owner, pageId,
+				new MenuPresentation(context => new RatkinRecycleNativePage(context, settings, pageId)));
 			MenuRegistry.RegisterSearchProvider(owner, pageId, () => SearchEntries(pageId));
 		}
 	}
 
-	public static IEnumerable<MenuSearchEntry> SearchEntries(string pageId)
+	internal static void RefreshSearchIndex(RatkinRecycleSettings settings)
 	{
-		foreach (var item in Entries(pageId))
-		{
-			var entry = item;
-			yield return new MenuSearchEntry(entry.id, () => T(entry.zh, entry.en),
-				() => entry.id + " " + entry.zh + " " + entry.en,
-				() => RatkinRecycleSettings.PageTitle(pageId));
-		}
-		if (pageId == "targets")
-		{
-			foreach (string role in new[] { "eater", "victim" })
-			{
-				foreach (var status in new[]
-				{
-					(RatkinRecycleStatus.Prisoner, "殖民地囚犯", "Colony prisoners"),
-					(RatkinRecycleStatus.Slave, "殖民地奴隶", "Colony slaves"),
-					(RatkinRecycleStatus.Colonist, "玩家自由殖民者", "Free player colonists"),
-					(RatkinRecycleStatus.FriendlyOutsider, "非敌对外来者：访客、商队", "Non-hostile outsiders: visitors and traders"),
-					(RatkinRecycleStatus.HostileOutsider, "敌对外来者", "Hostile outsiders"),
-					(RatkinRecycleStatus.Factionless, "无派系角色", "Factionless pawns")
-				})
-				{
-					string roleId = role;
-					var selected = status;
-					yield return new MenuSearchEntry(roleId + ":" + selected.Item1,
-						() => T(roleId == "eater" ? "捕食者：" : "被捕食者：", roleId == "eater" ? "Eaters: " : "Victims: ") + T(selected.Item2, selected.Item3),
-						() => selected.Item2 + " " + selected.Item3 + " status 身份",
-						() => RatkinRecycleSettings.PageTitle(pageId));
-				}
-			}
-		}
-		if (pageId == "chewing")
-		{
-			foreach (BodyPartDef part in RatkinRecyclePolicy.BodyParts)
-			{
-				BodyPartDef selected = part;
-				yield return new MenuSearchEntry("part:" + selected.defName, () => selected.LabelCap,
-					() => selected.defName + " 部位 天然 啃咬 body part natural bite",
-					() => T("允许直接啃咬的天然部位", "Natural parts allowed as direct bite targets"));
-			}
-		}
+		if (indexedRaceKeywords == settings.raceKeywords) return;
+		indexedRaceKeywords = settings.raceKeywords;
+		MenuRegistry.InvalidateSearchIndex();
 	}
 
-	private static string T(string chinese, string english) => LanguageDatabase.activeLanguage?.folderName?.StartsWith("Chinese", StringComparison.OrdinalIgnoreCase) == true ? chinese : english;
-
-	private static IEnumerable<(string id, string zh, string en)> Entries(string pageId)
+	public static IEnumerable<MenuSearchEntry> SearchEntries(string pageId)
 	{
-		switch (pageId)
+		var renderer = new SearchRenderer(pageId);
+		RatkinRecycleMod.Settings.DrawPage(pageId, renderer);
+		return renderer.Entries;
+	}
+
+	// Capture the same fields used by both UIs, including dynamic body parts. Search IDs
+	// cannot drift from their actual controls when a setting is added, removed or renamed.
+	private sealed class SearchRenderer : IRatkinRecycleSettingsRenderer
+	{
+		private readonly string pageId;
+		private string section;
+		public readonly List<MenuSearchEntry> Entries = new List<MenuSearchEntry>();
+		public bool IsMeasuring => true;
+
+		public SearchRenderer(string pageId) => this.pageId = pageId;
+
+		private void Add(string id, string label, string keywords = null)
 		{
-			case "general":
-				yield return ("section:enabled", "回收行为", "Recycling behavior");
-				yield return ("enabled", "启用捕食行为", "Enable predation");
-				yield return ("showLetter", "死亡信件", "Victim death letters");
-				yield return ("showStopLetter", "停嘴信件", "Stop-chewing letters");
-				yield return ("preferAvailableFood", "自动回收优先普通食物：背包、可达性、访客、商队、驮兽", "Automatic recycling food priority: inventory, reachability, visitors, traders, pack animals");
-				yield return ("section:hunger", "饥饿与母性判定", "Hunger and mothers");
-				yield return ("useMalnutritionTrigger", "营养不良严重度触发模式：挨饿、残留严重度、倒地风险", "Malnutrition severity trigger mode: starving, lingering severity, downed risk");
-				yield return ("momHungerPct", "鼠妈饱食度阈值", "Mother hunger threshold");
-				yield return ("otherHungerPct", "其他鼠族饱食度阈值", "Other Ratkin hunger threshold");
-				yield return ("momMalnutritionSeverity", "鼠妈营养不良严重度阈值", "Mother malnutrition severity threshold");
-				yield return ("otherMalnutritionSeverity", "其他鼠族营养不良严重度阈值", "Other Ratkin malnutrition severity threshold");
-				yield return ("adultAgeYears", "鼠妈最低生理年龄", "Mother minimum biological age");
-				yield return ("postpartumHours", "产后母性窗口", "Postpartum mother window");
-				yield return ("momOwnEggFallback", "亲生鼠蛋母性判定", "Mother fallback with living biological RatkinYoung");
-				yield return ("maxEggAge", "鼠蛋阶段上限", "RatkinYoung classification cutoff");
-				yield return ("section:fineMeal", "自动回收的精致食物判定", "Fine-meal rules for automatic recycling");
-				yield return ("fineMealMode", "精致食物判定方式", "Fine-meal rule");
-				yield return ("fineMealHours", "精致食物回顾窗口", "Fine-meal lookback window");
-				yield return ("section:manual", "主动回收：玩家命令、目标规则、跳过普通食物与精致食物检查", "Manual recycling: player orders, target rules, skip available-food and fine-meal checks");
-				yield return ("manualEnabled", "启用主动回收命令", "Enable the manual recycling command");
-				yield return ("manualMinAge", "主动回收者最低生理年龄", "Minimum biological age for manual recycling");
-				yield return ("manualRequireHunger", "主动回收受饥饿限制：启动阈值、吃饱停嘴", "Manual recycling hunger restrictions: trigger threshold, stop at fullness");
-				break;
-			case "targets":
-				yield return ("section:eater", "捕食者身份与年龄", "Eater statuses and ages");
-				yield return ("minEaterAge", "捕食者最低生理年龄", "Minimum eater biological age");
-				yield return ("maxEaterAge", "捕食者最高生理年龄", "Maximum eater biological age");
-				yield return ("eaterAgeUnlimited", "捕食者年龄无上限", "Unlimited maximum eater age");
-				yield return ("skipDrafted", "跳过征召捕食者", "Skip drafted eaters");
-				yield return ("skipMentalState", "跳过精神崩溃捕食者", "Skip eaters in a mental state");
-				yield return ("section:victim", "被捕食者身份与年龄", "Victim statuses and ages");
-				yield return ("minVictimAge", "被捕食者最低生理年龄", "Minimum victim biological age");
-				yield return ("maxVictimAge", "被捕食者最高生理年龄", "Maximum victim biological age");
-				yield return ("victimAgeUnlimited", "被捕食者年龄无上限", "Unlimited maximum victim age");
-				yield return ("section:youngPredators", "幼鼠捕食限制", "Young predators");
-				yield return ("limitYoungPredators", "幼鼠捕食者只能捕食小鼠蛋", "Restrict young eaters to younger RatkinYoung");
-				yield return ("splitEggAge", "大鼠蛋与小鼠蛋的分界", "Older/younger RatkinYoung split age");
-				yield return ("searchRadius", "搜索半径", "Search radius");
-				break;
-			case "chewing":
-				yield return ("section:bites", "啃食过程", "Bites");
-				yield return ("biteInterval", "每口间隔", "Bite interval");
-				yield return ("biteDamage", "每口伤害", "Bite damage");
-				yield return ("nutritionPerBite", "每口营养", "Nutrition per bite");
-				yield return ("stopAtFullness", "停嘴饱食度", "Stop at fullness");
-				yield return ("nutritionOnFinish", "死亡后额外营养", "Extra nutrition after victim death");
-				yield return ("limbsFirst", "优先四肢", "Prioritize limbs");
-				yield return ("destroyCorpse", "销毁尸体", "Destroy corpse");
-				yield return ("leaveMeat", "留下鼠肉", "Leave Ratkin meat");
-				yield return ("meatCount", "留下鼠肉数量", "Meat quantity");
-				yield return ("section:bodyParts", "允许直接啃咬的天然部位", "Natural bite-target whitelist");
-				break;
-			case "moods":
-				yield return ("section:moodStages", "心情与成长阶段", "Moods and age stages");
-				yield return ("babyMoodNeed", "鼠蛋心情需求条", "RatkinYoung mood need");
-				yield return ("tierToddlerMax", "幼儿心情档上限", "Toddler mood age cutoff");
-				yield return ("tierChildMax", "儿童心情档上限", "Child mood age cutoff");
-				yield return ("section:motherOther", "鼠妈吃非亲生鼠蛋", "Mother eating unrelated RatkinYoung");
-				yield return ("section:motherOwn", "鼠妈吃亲生鼠蛋", "Mother eating her own RatkinYoung");
-				yield return ("section:otherEater", "其他捕食者心情", "Other eater moods");
-				yield return ("section:eaten", "被捕食者心情", "Victim moods");
-				foreach (var group in new[]
-				{
-					("momNonOwn", "鼠妈吃非亲生鼠蛋", "Mother eating unrelated RatkinYoung"),
-					("momOwn", "鼠妈吃亲生鼠蛋", "Mother eating her own RatkinYoung"),
-					("other", "其他捕食者", "Other eaters"),
-					("eaten", "被捕食者", "Victims")
-				})
-				{
-					yield return (group.Item1 + "Toddler", group.Item2 + "：幼儿", group.Item3 + ": toddler");
-					yield return (group.Item1 + "Child", group.Item2 + "：儿童", group.Item3 + ": child");
-					yield return (group.Item1 + "Adult", group.Item2 + "：成年", group.Item3 + ": adult");
-				}
-				break;
-			case "station":
-				yield return ("section:station", "自动止血装置", "Automatic bleeding-control station");
-				yield return ("bleedStationEnabled", "启用止血装置", "Enable bleeding-control station");
-				yield return ("bleedStationRadius", "止血装置治疗半径", "Station treatment radius");
-				yield return ("bleedStationInterval", "止血装置治疗间隔", "Station treatment interval");
-				yield return ("bleedStationHeal", "止血装置伤口愈合量", "Station wound healing amount");
-				yield return ("bleedStationHealFriendly", "治疗玩家与友方角色", "Treat player and friendly pawns");
-				yield return ("bleedStationHealHostile", "治疗敌对角色", "Treat hostile pawns");
-				yield return ("bleedStationHealWild", "治疗无派系角色", "Treat factionless pawns");
-				yield return ("bleedStationHealAnimals", "治疗动物", "Treat animals");
-				break;
-			case "advanced":
-				yield return ("section:scheduling", "检查频率", "Scheduling");
-				yield return ("checkInterval", "捕食检查间隔", "Predation check interval");
-				yield return ("retryCooldown", "失败重试冷却", "Retry cooldown");
-				yield return ("section:raceKeywords", "生效种族关键字", "Affected race keywords");
-				yield return ("debugLog", "调试日志", "Debug logging");
-				yield return ("section:reset", "恢复全部默认设置", "Restore all default settings");
-				break;
+			string context = section;
+			Entries.Add(new MenuSearchEntry(id, () => label,
+				() => id + " " + keywords,
+				() => RatkinRecycleSettings.PageTitle(pageId) + " · " + context));
+		}
+
+		public void Section(string id, string label)
+		{
+			section = label;
+			Add("section:" + id, label);
+		}
+
+		public void Label(string text) { }
+		public void Check(string id, string label, ref bool value, string tooltip = null) => Add(id, label, tooltip);
+		public void Number(string id, string label, ref float value, float min = 0f, float max = float.MaxValue, bool enabled = true) => Add(id, label);
+		public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true) => Add(id, label);
+		public void TextField(string id, ref string value, int maxLength) => Add(id, section, value);
+		public bool Button(string id, string label)
+		{
+			Add(id, label);
+			return false;
 		}
 	}
 }
