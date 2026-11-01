@@ -567,6 +567,15 @@ namespace HungerAndHavoc.Incidents
             return entry.LabelKey.Translate();
         }
 
+        // 硬饼干的名字随翻译包变 取 Def 自己的 label 不自己写译名
+        static string SimpleMealLabel()
+        {
+            ThingDef hardtack = DefDatabase<ThingDef>.GetNamedSilentFail(RHAH_RequestRules.HardtackDefName);
+            return hardtack == null
+                ? "RHAH_Choice_SimpleMeal_Plain".Translate()
+                : "RHAH_Choice_SimpleMeal".Translate(hardtack.LabelCap.ToString());
+        }
+
         static string GoodsLabel(RHAH_ChoiceRecord record)
         {
             if (record.TransactionVersion == RHAH_RequestRules.TransactionVersion)
@@ -576,7 +585,7 @@ namespace HungerAndHavoc.Incidents
             }
             switch (record.Kind)
             {
-                case RHAH_RequestKind.SimpleMeal: return "RHAH_Choice_SimpleMeal".Translate();
+                case RHAH_RequestKind.SimpleMeal: return SimpleMealLabel();
                 case RHAH_RequestKind.FineMeal: return "RHAH_Choice_FineMeal".Translate();
                 case RHAH_RequestKind.Medicine: return "RHAH_Choice_Medicine".Translate();
                 case RHAH_RequestKind.HerbalMedicine: return "RHAH_Choice_HerbalMedicine".Translate();
