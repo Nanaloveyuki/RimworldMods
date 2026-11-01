@@ -67,7 +67,8 @@
   <RHAH_Choice_AbandonedSingle_Text>ラットキンの母親が、なぜか子供を私たちの拠点の近くに置いていきました。もうこの子を養えないのに見捨てることもできず、私たちのところへ連れてきたのでしょうか。引き取ってほしいようです。\n\nこの子だけでは、おそらく生きていけません。どうしましょうか？</RHAH_Choice_AbandonedSingle_Text>
   <RHAH_Choice_AbandonedSingleGrown_Text>ラットキンの母親が、なぜか子供を私たちの拠点の近くに置いていきました。もう養えないのに見捨てることもできず、私たちのところへ連れてきたのでしょうか。受け入れてほしいようです。\n\n世話をする人がいなければ、このラットキンはおそらく生きていくのが難しいでしょう。どうしましょうか？</RHAH_Choice_AbandonedSingleGrown_Text>
   <RHAH_Choice_WildSingle_Text>野生のラットキンが1人、私たちの拠点の近くまでさまよって来ました。キャラバンの一員でもなく、代わりに話してくれる人もいません。ここで食べ物を探しています。\n\n受け入れますか？</RHAH_Choice_WildSingle_Text>
-  <RHAH_Choice_SimpleMeal>簡単な食事</RHAH_Choice_SimpleMeal>
+  <RHAH_Choice_SimpleMeal>簡単な食事または{0}</RHAH_Choice_SimpleMeal>
+  <RHAH_Choice_SimpleMeal_Plain>簡単な食事</RHAH_Choice_SimpleMeal_Plain>
   <RHAH_Choice_FineMeal>手の込んだ食事</RHAH_Choice_FineMeal>
   <RHAH_Choice_Medicine>医薬品</RHAH_Choice_Medicine>
   <RHAH_Choice_HerbalMedicine>薬草</RHAH_Choice_HerbalMedicine>

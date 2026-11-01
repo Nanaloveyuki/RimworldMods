@@ -219,6 +219,37 @@ namespace HungerAndHavoc.Incidents
             }
         }
 
+        // 硬饼干来自鼠族包 只在运行时解析 不写 modDependencies
+        internal const string HardtackDefName = "RK_Food_Hardtack";
+
+        // 硬饼干耐储存 简单餐易腐 两种同时在场时要先出手简单餐
+        // Consume 从列表尾部向前扣 所以入列顺序必须与消耗优先级相反
+        internal static void AppendAcceptedDefs(RHAH_RequestKind kind, List<ThingDef> defs)
+        {
+            if (defs == null)
+            {
+                return;
+            }
+
+            if (kind == RHAH_RequestKind.SimpleMeal)
+            {
+                AppendDef(defs, HardtackDefName);
+                AppendDef(defs, ThingDefName(kind));
+                return;
+            }
+
+            AppendDef(defs, ThingDefName(kind));
+        }
+
+        static void AppendDef(List<ThingDef> defs, string defName)
+        {
+            ThingDef def = string.IsNullOrEmpty(defName) ? null : DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+            if (def != null && !defs.Contains(def))
+            {
+                defs.Add(def);
+            }
+        }
+
         internal static string SitePartDefName(RHAH_IntelSiteKind kind)
         {
             switch (kind)

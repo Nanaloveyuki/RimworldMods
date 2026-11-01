@@ -298,8 +298,15 @@ namespace HungerAndHavoc.Incidents
                 return ConsumeMedicine(map, amount);
             }
 
-            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(RHAH_RequestRules.ThingDefName(kind));
-            return def != null && Consume(map.listerThings.ThingsOfDef(def), amount);
+            List<ThingDef> defs = new List<ThingDef>();
+            RHAH_RequestRules.AppendAcceptedDefs(kind, defs);
+            List<Thing> accepted = new List<Thing>();
+            for (int i = 0; i < defs.Count; i++)
+            {
+                accepted.AddRange(map.listerThings.ThingsOfDef(defs[i]));
+            }
+
+            return Consume(accepted, amount);
         }
 
         internal static int Stock(Map map, RHAH_RequestKind kind)
@@ -314,13 +321,15 @@ namespace HungerAndHavoc.Incidents
                 return CountMedicine(map);
             }
 
-            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(RHAH_RequestRules.ThingDefName(kind));
-            if (def == null)
+            List<ThingDef> defs = new List<ThingDef>();
+            RHAH_RequestRules.AppendAcceptedDefs(kind, defs);
+            int total = 0;
+            for (int i = 0; i < defs.Count; i++)
             {
-                return 0;
+                total += CountSpawned(map.listerThings.ThingsOfDef(defs[i]));
             }
 
-            return CountSpawned(map.listerThings.ThingsOfDef(def));
+            return total;
         }
 
         internal static bool TryCreateSite(Map map, RHAH_IntelSiteKind kind, System.Func<bool> complete = null)

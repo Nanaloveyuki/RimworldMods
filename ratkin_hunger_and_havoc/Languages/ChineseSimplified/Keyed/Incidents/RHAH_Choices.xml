@@ -67,7 +67,8 @@
   <RHAH_Choice_AbandonedSingle_Text>一只鼠妈把孩子留在了我们据点附近。我们不知道她为何这样做，也许她已经养不起这只鼠蛋，希望我们收养孩子。\n\n这只鼠蛋需要食物和照料，我们应该怎么做？</RHAH_Choice_AbandonedSingle_Text>
   <RHAH_Choice_AbandonedSingleGrown_Text>一只鼠妈把孩子留在了我们据点附近。我们不知道她为何这样做，也许她已经养不起这孩子，希望我们接纳孩子。\n\n这只鼠族需要食物和住处，我们应该怎么做？</RHAH_Choice_AbandonedSingleGrown_Text>
   <RHAH_Choice_WildSingle_Text>一只野生鼠族游荡到了我们据点附近，正在寻找食物。\n\n要接纳这只来客吗？</RHAH_Choice_WildSingle_Text>
-  <RHAH_Choice_SimpleMeal>简单餐</RHAH_Choice_SimpleMeal>
+  <RHAH_Choice_SimpleMeal>简单餐或{0}</RHAH_Choice_SimpleMeal>
+  <RHAH_Choice_SimpleMeal_Plain>简单餐</RHAH_Choice_SimpleMeal_Plain>
   <RHAH_Choice_FineMeal>精致餐</RHAH_Choice_FineMeal>
   <RHAH_Choice_Medicine>药品</RHAH_Choice_Medicine>
   <RHAH_Choice_HerbalMedicine>草药</RHAH_Choice_HerbalMedicine>
