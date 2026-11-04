@@ -691,6 +691,46 @@ namespace LeadYourPet
                 || pet.jobs?.curDriver?.asleep == true);
         }
 
+        // A pet in one of these states cannot follow on its own: it is asleep/unconscious or in a
+        // mental state. The leash moves it by position instead of giving it a job.
+        internal static bool CannotFollowOnItsOwn(LeashLink link)
+        {
+            Pawn pet = link?.Pet;
+            if (pet == null)
+            {
+                return false;
+            }
+
+            // Eating and deathrest are bound to their own spot or casket; do not move those.
+            if (pet.CurJobDef == JobDefOf.Ingest || pet.CurJobDef == JobDefOf.Deathrest)
+            {
+                return false;
+            }
+
+            // Downed pets already have their own pull-back and lifecycle handling.
+            if (pet.Downed)
+            {
+                return false;
+            }
+
+            if (pet.mindState?.mentalStateHandler?.InMentalState == true)
+            {
+                return true;
+            }
+
+            return pet.jobs?.curDriver?.asleep == true || (pet.health?.capacities != null && !pet.Awake());
+        }
+
+        internal static bool IsLeashInMotion(LeashLink link)
+        {
+            if (MasterControlsMovement(link))
+            {
+                return true;
+            }
+
+            return link?.Pet?.pather != null && link.Pet.pather.Moving;
+        }
+
         public static bool IsSuppressedAgainstMasterFaction(Pawn pet, Faction faction)
         {
             if (LeadYourPetMod.Settings?.leashedHostilesCanAttack == true || pet == null || faction == null || Component == null)
@@ -914,7 +954,8 @@ namespace LeadYourPet
         public static bool ShouldDrag(LeashLink link)
         {
             if (link == null || link.Master == null || link.Pet == null || HasFixedAnchor(link)
-                || AllowsLeashedHostileAttack(link) || !link.Master.Spawned || !link.Pet.Spawned || link.Master.Map != link.Pet.Map)
+                || AllowsLeashedHostileAttack(link) || !link.Master.Spawned || !link.Pet.Spawned || link.Master.Map != link.Pet.Map
+                || CannotFollowOnItsOwn(link))
             {
                 return false;
             }
@@ -942,7 +983,7 @@ namespace LeadYourPet
             return masterSpeed < petSpeed * 0.75f;
         }
 
-        private static bool MasterControlsMovement(LeashLink link)
+        internal static bool MasterControlsMovement(LeashLink link)
         {
             if (link.AnchorMode != LeashAnchorMode.None)
             {
@@ -950,6 +991,41 @@ namespace LeadYourPet
             }
 
             return link.Master != null && link.Master.pather != null && link.Master.pather.Moving;
+        }
+
+        // Keeps the towed pet on the leash ring around the target, preferring the cell closest to
+        // the pet's current side so a sleeping or breaking pet is dragged, not reset to the anchor.
+        internal static bool TryFindTowCell(Pawn pet, IntVec3 target, float towDistance, out IntVec3 cell)
+        {
+            cell = IntVec3.Invalid;
+            Map map = pet?.Map;
+            if (map == null || !target.IsValid || !target.InBounds(map) || pet.Position == target)
+            {
+                return false;
+            }
+
+            Vector3 targetPos = target.ToVector3Shifted();
+            Vector3 offset = pet.Position.ToVector3Shifted() - targetPos;
+            float length = offset.magnitude;
+            if (length <= towDistance)
+            {
+                return false;
+            }
+
+            IntVec3 guess = IntVec3.FromVector3(targetPos + offset / length * towDistance);
+            for (int i = 0; i < GenRadial.RadialPattern.Length; i++)
+            {
+                IntVec3 candidate = guess + GenRadial.RadialPattern[i];
+                if (!candidate.InBounds(map) || candidate.DistanceTo(target) > towDistance || !candidate.Standable(map))
+                {
+                    continue;
+                }
+
+                cell = candidate;
+                return true;
+            }
+
+            return false;
         }
 
         public static bool CanYoungRatkinMove(Pawn pawn)

@@ -22,6 +22,16 @@ namespace LeadYourPet
             return (currentTick / 6) % bucketCount == linkBucket;
         }
 
+        public static bool ShouldTowLeashedPet(bool petCannotFollowOnItsOwn, bool hasFixedAnchor, bool leashInMotion, bool masterSleeping, bool preserveMapExit, float distance, float towDistance)
+        {
+            return petCannotFollowOnItsOwn
+                && !hasFixedAnchor
+                && leashInMotion
+                && !masterSleeping
+                && !preserveMapExit
+                && distance > towDistance;
+        }
+
         public static bool ShouldRunExpensiveLinkUpdate(int currentTick, int lastExpensiveUpdateTick, int minIntervalTicks, bool forceImmediate)
         {
             if (forceImmediate)

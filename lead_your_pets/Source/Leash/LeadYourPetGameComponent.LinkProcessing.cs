@@ -160,6 +160,7 @@ namespace LeadYourPet
                 link.YoungRatkinDutyState = LeashedYoungRatkinDutyState.FollowMaster;
                 UpdateYoungRatkinDutyReport(link);
             }
+            bool sleepingMaster = HandleSleepingMaster(link);
             if (LeadYourPetUtility.HasLeashCareJob(link))
             {
                 link.IsDragging = false;
@@ -168,10 +169,11 @@ namespace LeadYourPet
                 {
                     TryFeedPet(link, ticksGame);
                 }
+
+                TowPassiveLeashPet(link, sleepingMaster);
                 return;
             }
 
-            bool sleepingMaster = HandleSleepingMaster(link);
             bool runExpensiveUpdate = ShouldRunExpensiveLinkUpdate(link, ticksGame, forceImmediateUpdate);
             if (link.Kind == LeashLinkKind.YoungRatkinPet)
             {
@@ -234,6 +236,8 @@ namespace LeadYourPet
                     ForceFollow(link, ticksGame, forceImmediateUpdate);
                 }
             }
+
+            TowPassiveLeashPet(link, sleepingMaster);
 
 
             if (runExpensiveUpdate)
@@ -557,6 +561,7 @@ namespace LeadYourPet
         {
             if (link?.Pet?.jobs == null || !link.Pet.Spawned
                 || LeadYourPetUtility.HasLeashCareJob(link)
+                || LeadYourPetUtility.CannotFollowOnItsOwn(link)
                 || !LeadYourPetUtility.CanYoungRatkinMove(link.Pet) || !link.Pet.Awake()
                 || LeadYourPetUtility.AllowsLeashedHostileAttack(link)
                 || (LeadYourPetUtility.ShouldPreserveMapExitMovement(link.Pet) && !ShouldFollowDuringDeparture(link))
@@ -634,6 +639,79 @@ namespace LeadYourPet
                 }
 
                 TightPullBack(link, master.Position);
+            }
+        }
+
+        // Sleeping and mental-state pets cannot be given a follow job. They are moved by position
+        // instead so the rope stays taut without ending their state.
+        private void TowPassiveLeashPet(LeashLink link, bool sleepingMaster)
+        {
+            Pawn pet = link?.Pet;
+            if (pet == null || !pet.Spawned || !LeadYourPetUtility.CannotFollowOnItsOwn(link))
+            {
+                return;
+            }
+
+            IntVec3 targetCell = ResolveTargetCell(link);
+            if (!targetCell.IsValid)
+            {
+                return;
+            }
+
+            float leashLength = LeadYourPetUtility.MaxLeashLength;
+            if (!LeadYourPetRules.ShouldTowLeashedPet(
+                petCannotFollowOnItsOwn: true,
+                hasFixedAnchor: LeadYourPetUtility.HasFixedAnchor(link),
+                leashInMotion: LeadYourPetUtility.IsLeashInMotion(link),
+                masterSleeping: sleepingMaster,
+                preserveMapExit: LeadYourPetUtility.ShouldPreserveMapExitMovement(pet) && !ShouldFollowDuringDeparture(link),
+                distance: targetCell.DistanceTo(pet.Position),
+                towDistance: leashLength))
+            {
+                return;
+            }
+
+            if (pet.CarriedBy != null || GodHandsCompat.IsGrabbed(pet) || GodHandsCompat.IsGrabbed(link.Master))
+            {
+                return;
+            }
+
+            float towRadius = Mathf.Max(1f, leashLength - 1f);
+            if (!LeadYourPetUtility.TryFindTowCell(pet, targetCell, towRadius, out IntVec3 towCell))
+            {
+                return;
+            }
+
+            // A mental-state pet keeps its own walking destination; resume that path from the new cell
+            // instead of freezing it where the rope dropped it.
+            LocalTargetInfo destination = LocalTargetInfo.Invalid;
+            bool wasMoving = pet.pather != null && pet.pather.Moving;
+            if (wasMoving)
+            {
+                destination = pet.pather.Destination;
+            }
+
+            // The pawn is being dragged off its bed; clear the in-bed posture so the sleep toil and
+            // the renderer agree with the new position. The job itself keeps running.
+            if (pet.jobs != null && pet.jobs.posture.InBed())
+            {
+                Building_Bed bed = pet.CurrentBed();
+                if (bed != null)
+                {
+                    RestUtility.KickOutOfBed(pet, bed);
+                }
+            }
+
+            pet.pather?.StopDead();
+            pet.Position = towCell;
+            pet.Notify_Teleported(endCurrentJob: false, resetTweenedPos: false);
+
+            if (wasMoving && destination.IsValid
+                && (!destination.HasThing || (destination.Thing.Spawned && !destination.Thing.Destroyed))
+                && destination.Cell.InBounds(pet.Map)
+                && pet.CanReach(destination, PathEndMode.Touch, Danger.Deadly))
+            {
+                pet.pather.StartPath(destination, PathEndMode.Touch);
             }
         }
 

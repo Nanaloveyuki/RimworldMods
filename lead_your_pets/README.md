@@ -116,6 +116,12 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 
 发布：1.9.2 主程序集与 Guard 的 Release 构建均为零警告、零错误。已部署到 `Mods/LeadYourPetsContinued` 并通过 SHA-256 校验，保留原有 1.6 文件和 `PublishedFileId.txt`，未修改启用列表或玩家存档。
 
+## 1.9.3 — 睡眠与精神状态下的牵引
+
+修正：被牵引者进入睡眠或精神状态崩溃时，绳子仍在绳长范围内绘制，但完全不再牵引，主人走远后两者被拉开。现在这类无法接收跟随任务的宠物改由绳长判定直接移动本体：距离超过设置绳长时被拖到绳长环上，移动只改位置，不结束、不改写当前任务、睡眠标记或精神状态，倒下、进食与死亡休眠仍沿用原有逻辑。牵绳两端任一在移动（主人走动、锚定目标移动，或宠物自己因精神状态走动）即判定绳子绷紧；固定锚点（地面或物体）与非玩家退场流程不拖动。拖离床铺前会清除床铺姿势，避免睡眠任务与绘制位置不一致。
+
+验证：1.7 主程序集 Release 构建零警告、零错误；254 项 .NET 10 回归通过，其中新增 11 项覆盖睡眠牵引、绳长边界、主人静止、固定锚点、精神崩溃（含主人静止时自行游走）、清醒休息、倒地与判定组合。使用真实 1.7 游戏 DLL，未运行游戏画面或存档验收。
+
 ## 开发
 
 需要 .NET 10 SDK 和实际游戏安装。默认 `RimWorldVersion=1.7`，输出到 `1.7/Assemblies`、`1.7/Guard/Assemblies`；`RimWorldDir` / `RIMWORLD_DIR` 指向游戏根目录，不能指向反编译源码。默认路径为 Windows 的 `E:/Apps/Steam/steamapps/common/RimWorld` 或 WSL 的对应挂载路径。
