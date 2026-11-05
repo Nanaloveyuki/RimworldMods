@@ -16,7 +16,8 @@ namespace HungerAndHavoc.Incidents
         {
             Map map = ResolveMap(parms);
             return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
-                RHAH_RuntimeAllows() && TemperatureAllows(map) && RHAH_IncidentArrival.TryFindSpawnCell(map, out _, out _);
+                RHAH_RuntimeAllows() && TemperatureAllows(Outdoor(map), DisplayId == "I-012") &&
+                RHAH_IncidentArrival.TryFindSpawnCell(map, out _, out _);
         }
 
         protected override bool TryExecuteWorker(IncidentParms parms)
@@ -63,13 +64,18 @@ namespace HungerAndHavoc.Incidents
             Core.RHAH_Settings settings = Core.RHAH_Mod.Settings;
             return settings == null ? RHAH_IncidentScale.DefaultEventPawns : settings.maxEventPawns;
         }
-        bool TemperatureAllows(Map map)
+        static float Outdoor(Map map)
+        {
+            return map.mapTemperature == null ? 0f : map.mapTemperature.OutdoorTemp;
+        }
+
+        // 鼠族舒适温区只有 5 度 原版适宜季节检查在这个种族上几乎永不通过
+        static bool TemperatureAllows(float temperature, bool caravan)
         {
             Core.RHAH_Settings settings = Core.RHAH_Mod.Settings;
             float minimum = settings == null ? -35f : settings.minimumEventTemperature;
             float maximum = settings == null ? 70f : settings.maximumEventTemperature;
-            float temperature = map.mapTemperature == null ? 0f : map.mapTemperature.OutdoorTemp;
-            return HungerAndHavoc.Pawn.RHAH_VisitorRules.TemperatureAllows(temperature, minimum, maximum, DisplayId == "I-012");
+            return HungerAndHavoc.Pawn.RHAH_VisitorRules.TemperatureAllows(temperature, minimum, maximum, caravan);
         }
         static bool RHAH_RuntimeAllows()
         {

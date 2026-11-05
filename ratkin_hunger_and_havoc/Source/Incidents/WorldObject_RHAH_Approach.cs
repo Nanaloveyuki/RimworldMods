@@ -20,8 +20,13 @@ namespace HungerAndHavoc.Incidents
         bool crossing;
         bool arrivalPending;
         bool arriving;
+        int arrivalFailures;
 
         public override string Label => "RHAH_Approach_Label".Translate();
+
+        internal string DisplayId => displayId;
+
+        internal int MapId => mapId;
 
         public override Vector3 DrawPos
         {
@@ -61,6 +66,7 @@ namespace HungerAndHavoc.Incidents
             Scribe_Values.Look(ref travelRemainder, "travelRemainder", 0f);
             Scribe_Values.Look(ref crossing, "crossing", false);
             Scribe_Values.Look(ref arrivalPending, "arrivalPending", false);
+            Scribe_Values.Look(ref arrivalFailures, "arrivalFailures", 0);
             if (Scribe.mode == LoadSaveMode.PostLoadInit && displayId == null)
             {
                 displayId = "";
@@ -401,7 +407,15 @@ namespace HungerAndHavoc.Incidents
                 RHAH_ArrivalResult result = game == null
                     ? RHAH_ArrivalResult.Waiting
                     : game.SpawnArrived(displayId, points, mapId);
-                if (result == RHAH_ArrivalResult.Waiting)
+                if (result == RHAH_ArrivalResult.Failed && RHAH_ApproachRules.GivesUpArrival(++arrivalFailures))
+                {
+                    Log.Warning("[RHAH] Dropped approach " + displayId + " after " + arrivalFailures +
+                        " generations that produced nothing. map=" + mapId);
+                    Destroy();
+                    return;
+                }
+
+                if (result != RHAH_ArrivalResult.Spawned && result != RHAH_ArrivalResult.Terminal)
                 {
                     costLeft = GenDate.TicksPerHour;
                     return;

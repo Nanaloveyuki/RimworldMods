@@ -132,6 +132,14 @@ namespace HungerAndHavoc.Core
             if (entry.Target == HungerAndHavoc.Incidents.RHAH_IncidentTarget.Map && queued.Target is Map saved)
             {
                 int approachMap = saved.uniqueID;
+                if (HungerAndHavoc.Incidents.RHAH_Approach.EnRoute(displayId, approachMap))
+                {
+                    Log.Message("[RHAH] Dropped queued incident " + displayId +
+                        ". The previous approach is still on the world map.");
+                    DropPending(index);
+                    return false;
+                }
+
                 if (HungerAndHavoc.Incidents.RHAH_Approach.TrySend(displayId, points, approachMap))
                 {
                     Log.Message("[RHAH] Approach started for " + displayId + ". points=" + points.ToString("0.##") +
@@ -215,7 +223,7 @@ namespace HungerAndHavoc.Core
 
                 if (!arrivedDef.Worker.TryExecute(parms))
                 {
-                    return RHAH_ArrivalResult.Waiting;
+                    return RHAH_ArrivalResult.Failed;
                 }
             }
             catch (Exception exception)

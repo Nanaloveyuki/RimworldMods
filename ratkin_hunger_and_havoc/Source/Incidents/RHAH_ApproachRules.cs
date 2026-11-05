@@ -12,6 +12,7 @@ namespace HungerAndHavoc.Incidents
         internal const float DefaultSpeedMultiplier = 2f;
         internal const float MinSpeedMultiplier = 0.5f;
         internal const float MaxSpeedMultiplier = 4f;
+        internal const int MaxArrivalAttempts = 3;
 
         internal static float ClampSpeed(float multiplier)
         {
@@ -67,6 +68,12 @@ namespace HungerAndHavoc.Incidents
 
             int left = costLeft - delta;
             return left < 0 ? 0 : left;
+        }
+
+        // 等待中的队伍每小时重试生成 没有上限时生成失败的事件会永久留在世界地图上
+        internal static bool GivesUpArrival(int failures)
+        {
+            return failures >= MaxArrivalAttempts;
         }
 
         internal static int PickDistance(int roll)

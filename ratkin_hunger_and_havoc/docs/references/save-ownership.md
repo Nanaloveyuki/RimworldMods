@@ -223,6 +223,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | travelRemainder | travelRemainder | 0 | 否 | 倍速扣除不足一 tick 的余数，保存后继续累计；旧档缺键为 0，卸载随远行队 Remove |
 | crossing | crossing | false | 否 | 岛上出发时为 true，允许走进海洋格。旧档缺键时按陆地走 |
 | arrivalPending | arrivalPending | false | 否 | 已进入到达事务，等待时不再寻路；旧档缺键为 false。实际 Tile 已等于目标时，先清除遗留下一格与移动消耗并交接到达，不再等旧行程结束；已进入等待的重试倒计时不重置 |
+| arrivalFailures | arrivalFailures | 0 | 否 | 到达交接时 Worker 实际生成失败的次数。连续三次后队伍按 warning 移除；暂时不可用的等待不计入。旧档缺键为 0 |
 
 ### WorldObject_RHAH_Interception
 

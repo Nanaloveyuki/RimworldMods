@@ -36,6 +36,15 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
+        public void RepeatedGenerationFailuresStopRetrying()
+        {
+            Assert.False(RHAH_ApproachRules.GivesUpArrival(0));
+            Assert.False(RHAH_ApproachRules.GivesUpArrival(2));
+            Assert.True(RHAH_ApproachRules.GivesUpArrival(3));
+            Assert.True(RHAH_ApproachRules.GivesUpArrival(4));
+        }
+
+        [Fact]
         public void DistanceStaysBetweenFourAndSix()
         {
             Assert.Equal(4, RHAH_ApproachRules.PickDistance(0));

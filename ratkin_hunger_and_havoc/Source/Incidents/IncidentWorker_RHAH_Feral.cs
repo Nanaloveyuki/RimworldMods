@@ -18,7 +18,6 @@ namespace HungerAndHavoc.Incidents
                 (Role != RHAH_PawnRole.WildChild || Find.Storyteller.difficulty.ChildrenAllowed) &&
                 !map.GameConditionManager.ConditionIsActive(GameConditionDefOf.ToxicFallout) &&
                 (!ModsConfig.BiotechActive || !map.GameConditionManager.ConditionIsActive(GameConditionDefOf.NoxiousHaze)) &&
-                map.mapTemperature.SeasonAcceptableFor(RHAH_DefOf.RHAH_PawnKind_Ratkin.race) &&
                 Find.FactionManager.TryGetRandomNonColonyHumanlikeFaction(out _, false, true);
         }
 

@@ -101,6 +101,15 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
+        public void InFlightLookupIgnoresOtherIncidentsAndMaps()
+        {
+            Approach();
+            Assert.True(RHAH_Approach.EnRoute("I-001", 41));
+            Assert.False(RHAH_Approach.EnRoute("I-002", 41));
+            Assert.False(RHAH_Approach.EnRoute("I-001", 42));
+        }
+
+        [Fact]
         public void AlreadyOnDestinationStartsArrivalBeforeSpendingStaleTravelAndRetriesWithoutMoving()
         {
             ArrivalProbe approach = Approach();

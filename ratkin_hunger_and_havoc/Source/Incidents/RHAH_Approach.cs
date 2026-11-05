@@ -77,6 +77,22 @@ namespace HungerAndHavoc.Incidents
         }
 
 
+        internal static bool EnRoute(string displayId, int mapId)
+        {
+            List<WorldObject> objects = Find.WorldObjects.AllWorldObjects;
+            for (int i = 0; i < objects.Count; i++)
+            {
+                WorldObject_RHAH_Approach approach = objects[i] as WorldObject_RHAH_Approach;
+                if (approach != null && !approach.Destroyed && approach.DisplayId == displayId &&
+                    approach.MapId == mapId)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         static Map Home(int mapId)
         {
             Map home = Core.RHAH_MapResolver.MapById(mapId);
