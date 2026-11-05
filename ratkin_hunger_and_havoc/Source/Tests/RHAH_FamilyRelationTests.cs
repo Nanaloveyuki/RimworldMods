@@ -16,6 +16,7 @@ namespace HungerAndHavoc.Tests
         [Theory]
         [InlineData("I-003", RHAH_PawnRole.Mother, RHAH_PawnRole.RatkinYoung)]
         [InlineData("I-004", RHAH_PawnRole.BeggarMother, RHAH_PawnRole.BeggarChild)]
+        [InlineData("I-013", RHAH_PawnRole.Refugee, RHAH_PawnRole.RatkinYoung)]
         public void ArrivingFamilyHasRealParentRelations(string displayId, RHAH_PawnRole motherRole, RHAH_PawnRole childRole)
         {
             RimWorldAssemblies.EnsureResolved();

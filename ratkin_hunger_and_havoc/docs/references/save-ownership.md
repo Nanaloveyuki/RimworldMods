@@ -59,6 +59,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 
 2026-10-16 RimWorld 1.7：`NarrativeState.suiyinNarrativeForced` 默认 false，旧档缺键同样关闭穗音剧情；仅当前存档的设置强制开关可以开启。历史事件、信任、案子、待发信件和王国进度保留。关闭时停止剧情生成和办理，保留信任累计及袭击概率修正。`KingdomArcProgress.narrativePausedAt` 默认 -1，记录暂停 tick；恢复时顺延王国办理时钟，不补跑暂停期间的期限。两键随各自叙事组件 Remove；1.6 不读写这两个键。
 
+2026-11-05 I-013 易子而食：陪同成年鼠族固定为女性，并与同批 `RatkinYoung` 孩子建立真实 `Parent` 关系及 `parentPawnLoadId`/`childPawnLoadIds`；读档补齐沿用 I-003/I-004 的双向确认与女性校验，旧档无 parent ID 时不猜补。牵绳改在关系建立之后执行，母亲绳来源 2 恢复可达。
+
 
 
 
@@ -87,8 +89,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | carriesPlague | carriesPlague | false | 否 | |
 | attitudeAtArrival | attitudeAtArrival | Neutral | 否 | `RHAH_Attitude` |
 | attitude | attitude | Neutral | 否 | 当前 `RHAH_Attitude`，forceSave 保留明确 Neutral 停战。仅旧档缺键时回退到 `attitudeAtArrival`；键、类型和默认值不变 |
-| parentPawnLoadId | parentPawnLoadId | 0 | 否 | 明确的原父母身份；I-003/I-004 与母亲 childPawnLoadIds 双向确认后补齐原版 Parent |
-| childPawnLoadIds | childPawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同。I-003/I-004 生成时同时建立原版 Parent，不重复登记孩子 |
+| parentPawnLoadId | parentPawnLoadId | 0 | 否 | 明确的原父母身份；I-003/I-004/I-013 与母亲 childPawnLoadIds 双向确认后补齐原版 Parent |
+| childPawnLoadIds | childPawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同。I-003/I-004/I-013 生成时同时建立原版 Parent，不重复登记孩子 |
 | gateOverrides | gateOverrides | 空集合 | 是 | `PostLoadInit` 补字典；null 与空集合语义相同 |
 | extraData | extraData | 空集合 | 是 | `PostLoadInit` 补字典；null 与空集合语义相同；`SetExtra(key, null)` 删除键 |
 | droppedChildLoadIds | droppedChildLoadIds | 空集合 | 是 | 已放下的孩子 Load ID。`PostLoadInit` 补空列表 |

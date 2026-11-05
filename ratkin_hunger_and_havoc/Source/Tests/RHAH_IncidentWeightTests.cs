@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -6,6 +7,7 @@ using Verse;
 using RimWorld;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.Incidents;
+using HungerAndHavoc.Pawn;
 using Xunit;
 
 namespace HungerAndHavoc.Tests
@@ -268,7 +270,10 @@ namespace HungerAndHavoc.Tests
         public void ChildExchangeAccompanimentCannotBecomeAnOfferedChild(float configuredAge, float adultAge)
         {
             Assert.Equal(adultAge, RHAH_ChildExchange.GenerationAge(RHAH_PawnRole.Refugee, configuredAge));
-            Assert.Equal(configuredAge, RHAH_ChildExchange.GenerationAge(RHAH_PawnRole.RatkinYoung, configuredAge));
+            float? child = RHAH_ChildExchange.GenerationAge(RHAH_PawnRole.RatkinYoung, configuredAge);
+            Assert.True(child >= RHAH_ChildExchange.MinOfferedChildAge);
+            Assert.True(child <= RHAH_ChildExchange.MaxOfferedChildAge);
+            Assert.True(RHAH_ChildExchange.MaxOfferedChildAge < RHAH_VisitorRules.AdultCutoffAge);
         }
 
         [Theory]
@@ -289,8 +294,59 @@ namespace HungerAndHavoc.Tests
                     youngAgeFollowsRange = youngFollowsRange
                 };
                 Assert.True(RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.Refugee, "I-013") >= 14f);
-                float? child = RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.RatkinYoung, "I-013");
-                Assert.True(youngFollowsRange ? child >= min && child <= max : child < 14f);
+                // 待换的孩子必须留在幼年区间,配置把区间顶过十四岁也不能变成成人
+                Assert.True(RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.RatkinYoung, "I-013") <=
+                    RHAH_ChildExchange.MaxOfferedChildAge);
+            }
+            finally
+            {
+                RHAH_Mod.Settings = previousSettings;
+                Rand.PopState();
+            }
+        }
+
+        [Fact]
+        public void ChildExchangeMotherIsFemaleAndOlderThanTheChildSheBrings()
+        {
+            Assert.Equal(Gender.Female, RHAH_IncidentRoster.GenderAt("I-013", 0));
+            Assert.Null(RHAH_IncidentRoster.GenderAt("I-013", 1));
+            Assert.Equal(Gender.Female, RHAH_IncidentRoster.GenderAt("I-004", 0));
+            Assert.True(RHAH_IncidentRoster.LinksFamily("I-013"));
+
+            List<RHAH_PawnRole> roles = new List<RHAH_PawnRole> { RHAH_PawnRole.Refugee, RHAH_PawnRole.RatkinYoung };
+            List<float?> ages = new List<float?> { 14f, 6.9f };
+            RHAH_IncidentRoster.RaiseMotherAge("I-013", roles, ages);
+            Assert.True(ages[0] >= 6.9f + RHAH_VisitorRules.AdultStageAge);
+            Assert.Equal(6.9f, ages[1]);
+
+            // 母亲本来就够年长时不被压回
+            List<float?> adults = new List<float?> { 40f, 6f };
+            RHAH_IncidentRoster.RaiseMotherAge("I-004", roles, adults);
+            Assert.Equal(40f, adults[0]);
+
+            // 生成器会把无人抱的婴儿抬到 4 岁,母亲下限按抬龄后的实际年龄计算
+            List<float?> infants = new List<float?> { 14f, 0.5f };
+            RHAH_IncidentRoster.RaiseMotherAge("I-003", roles, infants);
+            Assert.Equal(4f + RHAH_VisitorRules.AdultStageAge, infants[0]);
+        }
+
+        [Fact]
+        public void TraderAndEnvoyNeverArriveAsSchoolingChildren()
+        {
+            RHAH_Settings previousSettings = RHAH_Mod.Settings;
+            Rand.PushState(907);
+            try
+            {
+                RHAH_Mod.Settings = new RHAH_Settings { minGeneratedAge = 0f, maxGeneratedAge = 4f };
+                for (int i = 0; i < 32; i++)
+                {
+                    Assert.True(RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.Trader, "I-012") >=
+                        RHAH_VisitorRules.GeneratedAdultAge);
+                    Assert.True(RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.Envoy, "I-020") >=
+                        RHAH_VisitorRules.GeneratedAdultAge);
+                    // 幼年随从仍按幼年规则
+                    Assert.True(RHAH_IncidentFacts.GenerationAge(RHAH_PawnRole.RatkinYoung, "I-012") < 14f);
+                }
             }
             finally
             {

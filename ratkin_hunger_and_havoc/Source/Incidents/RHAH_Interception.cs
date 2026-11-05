@@ -45,17 +45,28 @@ namespace HungerAndHavoc.Incidents
                 settings == null ? RHAH_IncidentScale.DefaultEventPawns : settings.maxEventPawns, false);
             List<Verse.Pawn> pawns = new List<Verse.Pawn>(count);
             bool committed = false;
+            // 拦截队沿用同一套角色与年龄上限,母亲也要按同批最年长的孩子抬高
+            List<RHAH_PawnRole> roles = new List<RHAH_PawnRole>(count);
+            List<float?> ages = new List<float?>(count);
+            for (int i = 0; i < count; i++)
+            {
+                RHAH_PawnRole planned = RHAH_IncidentRoster.RoleAt(displayId, Role(entry.Family), i);
+                roles.Add(planned);
+                // 拦截队必须能够自行穿图 不触发原事件伤残与分娩
+                ages.Add(RHAH_PawnDefaults.IsYoungRole(planned) ? Rand.Range(4f, 13.99f) : Rand.Range(18f, 50f));
+            }
+
+            RHAH_IncidentRoster.RaiseMotherAge(displayId, roles, ages);
             try
             {
                 for (int i = 0; i < count; i++)
                 {
-                    RHAH_PawnRole role = RHAH_IncidentRoster.RoleAt(displayId, Role(entry.Family), i);
                     RHAH_PawnCreationResult result = RHAH_PawnFactory.Create(new RHAH_PawnRequest
                     {
                         SourceIncidentDisplayId = displayId,
                         SpawnBatchId = batch,
                         RelationshipGroupId = batch,
-                        Role = role,
+                        Role = roles[i],
                         AttitudeAtArrival = RHAH_Attitude.Hostile,
                         CarriesPlague = entry.Category == RHAH_IncidentCategory.Plague,
                         Map = map,
@@ -63,8 +74,7 @@ namespace HungerAndHavoc.Incidents
                         Faction = faction,
                         SpawnCell = start,
                         Gender = RHAH_IncidentRoster.GenderAt(displayId, i),
-                        // 拦截队必须能够自行穿图 不触发原事件伤残与分娩
-                        BiologicalAge = RHAH_PawnDefaults.IsYoungRole(role) ? Rand.Range(4f, 13.99f) : Rand.Range(18f, 50f)
+                        BiologicalAge = ages[i]
                     }, registerBatch: false);
                     if (!result.Succeeded)
                     {

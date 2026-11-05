@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Verse;
 using HungerAndHavoc.Api;
 using RimWorld;
@@ -49,12 +50,56 @@ namespace HungerAndHavoc.Incidents
                 return Gender.Female;
             }
 
-            if ((displayId == "I-003" || displayId == "I-004") && index == 0)
+            // 来信与后续都把首位成年来客写成鼠妈,生成时必须保证确实是女性
+            if ((displayId == "I-003" || displayId == "I-004" || displayId == "I-013") && index == 0)
             {
                 return Gender.Female;
             }
 
             return null;
+        }
+
+        // 母亲必须在孩子出生前就已成年,避免成年家长带着学龄孩子
+        // I-013 的家长角色是 Refugee 而非 Mother,所以这里只要求首位不是幼年角色
+        internal static void RaiseMotherAge(string displayId, IList<RHAH_PawnRole> roles, IList<float?> ages)
+        {
+            if (!LinksFamily(displayId) || roles == null || ages == null ||
+                roles.Count == 0 || ages.Count == 0 || Pawn.RHAH_VisitorRules.IsYoungRole(roles[0]) ||
+                !ages[0].HasValue)
+            {
+                return;
+            }
+
+            float oldest = 0f;
+            for (int i = 1; i < roles.Count && i < ages.Count; i++)
+            {
+                if (!Pawn.RHAH_VisitorRules.IsYoungRole(roles[i]) || !ages[i].HasValue) continue;
+                // 生成器会把无人抱的婴儿抬到儿童年龄,母亲下限按实际到场年龄计算
+                float childAge = Pawn.RHAH_VisitorRules.LiftBabyToChildAge(ages[i], BabiesCarriable(), ImmobileBabiesAllowed())
+                    ?? ages[i].Value;
+                if (childAge > oldest) oldest = childAge;
+            }
+
+            if (oldest <= 0f) return;
+            // 只抬不压:配置的母亲下限已经由 GenerationAge 合入 ages[0]
+            float floor = oldest + Pawn.RHAH_VisitorRules.AdultStageAge;
+            if (ages[0].Value < floor) ages[0] = floor;
+        }
+
+        static bool BabiesCarriable()
+        {
+            return Pawn.Compat.RHAH_ToddlerPresence.BabiesCarriable;
+        }
+
+        static bool ImmobileBabiesAllowed()
+        {
+            return Core.RHAH_Mod.Settings != null && Core.RHAH_Mod.Settings.allowImmobileBabies;
+        }
+
+        // 首位成年来客是原孩子母亲的来源,生成后要建立真实亲子关系
+        internal static bool LinksFamily(string displayId)
+        {
+            return displayId == "I-003" || displayId == "I-004" || displayId == "I-013";
         }
 
         internal static bool StartsLabor(string displayId)

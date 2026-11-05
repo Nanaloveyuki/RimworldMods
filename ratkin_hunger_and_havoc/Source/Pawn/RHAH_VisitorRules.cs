@@ -145,6 +145,12 @@ namespace HungerAndHavoc.Pawn
                    role == RHAH_PawnRole.WildChild;
         }
 
+        // 商人与使者要自行开口谈交易,生成时按成年来客处理
+        internal static bool NeedsAdultBody(RHAH_PawnRole role)
+        {
+            return role == RHAH_PawnRole.Trader || role == RHAH_PawnRole.Envoy;
+        }
+
         internal static float? YoungAge(RHAH_PawnRole role, float roll)
         {
             float safeRoll = roll < 0f || float.IsNaN(roll) ? 0f : roll > 1f ? 1f : roll;
@@ -501,6 +507,12 @@ namespace HungerAndHavoc.Pawn
         internal const float RatEggMaxAge = 2.9f;
         internal const float ChildMinAge = 3f;
         internal const float ChildMaxAge = 6.9f;
+        // 鼠族 12 岁起算成年,母亲必须在孩子出生前就已成年
+        internal const float AdultStageAge = 12f;
+        // 需要开口谈交易的成年来客不能是学龄鼠族
+        internal const float GeneratedAdultAge = 18f;
+        // 生成与后续判定共用的成年分界,幼年角色必须严格小于此值
+        internal const float AdultCutoffAge = 14f;
 
         internal static int LockedGoodwill(RHAH_Attitude attitude)
         {

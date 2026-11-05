@@ -21,10 +21,21 @@ namespace HungerAndHavoc.Incidents
 
             bool armedDemand = Pawn.RHAH_ArmedDemand.Enabled && Pawn.RHAH_ArmedDemand.IsSiege(context.DisplayId);
             RHAH_Attitude arrivalAttitude = context.DisplayId == "I-052" || armedDemand ? RHAH_Attitude.Neutral : context.Attitude;
+            // 先整批定好角色与年龄,母亲的下限要按同批最年长的孩子抬高,必须先算再生成
+            List<RHAH_PawnRole> roles = new List<RHAH_PawnRole>(context.PawnCount);
+            List<float?> ages = new List<float?>(context.PawnCount);
+            for (int i = 0; i < context.PawnCount; i++)
+            {
+                RHAH_PawnRole plannedRole = RHAH_IncidentRoster.RoleAt(context.DisplayId, context.Role, i);
+                roles.Add(plannedRole);
+                ages.Add(GenerationAge(plannedRole, context.DisplayId));
+            }
+
+            RHAH_IncidentRoster.RaiseMotherAge(context.DisplayId, roles, ages);
             List<RHAH_PawnCreationResult> created = new List<RHAH_PawnCreationResult>();
             for (int i = 0; i < context.PawnCount; i++)
             {
-                RHAH_PawnRole role = RHAH_IncidentRoster.RoleAt(context.DisplayId, context.Role, i);
+                RHAH_PawnRole role = roles[i];
                 RHAH_PawnCreationResult result = RHAH_PawnFactory.Create(new RHAH_PawnRequest
                 {
                     SourceIncidentDisplayId = context.DisplayId,
@@ -38,7 +49,7 @@ namespace HungerAndHavoc.Incidents
                     Faction = HungerAndHavoc.Pawn.RHAH_AttitudeFactions.Require(arrivalAttitude),
                     SpawnCell = context.SpawnCell,
                     Gender = RHAH_IncidentRoster.GenderAt(context.DisplayId, i),
-                    BiologicalAge = GenerationAge(role, context.DisplayId),
+                    BiologicalAge = ages[i],
                     StartLabor = RHAH_IncidentRoster.StartsLabor(context.DisplayId),
                     Shatter = RHAH_IncidentRoster.Shatters(context.DisplayId, i)
                 }, registerBatch: false);
@@ -69,9 +80,10 @@ namespace HungerAndHavoc.Incidents
                 }
             }
 
+            // 亲子关系必须先于牵绳建立,否则 I-013/I-004 的母亲绳分支拿不到 Parent 关系
+            LinkFamily(context.DisplayId, arrived);
             Pawn.Compat.RHAH_LeashBridge.TryLeashArrivals(arrived);
             StockCuisine(context, arrived);
-            LinkFamily(context.DisplayId, arrived);
             if (Pawn.RHAH_VisitorGroup.TryStart(arrived, context.Map, context.SpawnCell, context.Role) == null)
             {
                 Rollback(created);
@@ -114,13 +126,13 @@ namespace HungerAndHavoc.Incidents
 
         static void LinkFamily(string displayId, List<Verse.Pawn> arrived)
         {
-            if (arrived.Count < 2 || (displayId != "I-003" && displayId != "I-004"))
+            if (arrived.Count < 2 || !RHAH_IncidentRoster.LinksFamily(displayId))
             {
                 return;
             }
 
             Identity.CompRHAH_Pawn mother = Identity.CompRHAH_Pawn.TryGet(arrived[0]);
-            if (mother == null)
+            if (mother == null || arrived[0].gender != Gender.Female)
             {
                 return;
             }
@@ -149,7 +161,7 @@ namespace HungerAndHavoc.Incidents
             {
                 Verse.Pawn child = pawns[i];
                 Identity.RHAH_PawnState state = Identity.CompRHAH_Pawn.TryGet(child)?.State;
-                if (state == null || (state.sourceIncidentDisplayId != "I-003" && state.sourceIncidentDisplayId != "I-004") ||
+                if (state == null || !RHAH_IncidentRoster.LinksFamily(state.sourceIncidentDisplayId) ||
                     state.parentPawnLoadId <= 0 || !byId.TryGetValue(state.parentPawnLoadId, out Verse.Pawn mother)) continue;
                 Identity.RHAH_PawnState parent = Identity.CompRHAH_Pawn.TryGet(mother)?.State;
                 if (parent == null || mother.gender != Gender.Female || parent.sourceIncidentDisplayId != state.sourceIncidentDisplayId ||
@@ -215,6 +227,12 @@ namespace HungerAndHavoc.Incidents
             }
             float motherMin = settings == null ? HungerAndHavoc.Pawn.RHAH_VisitorRules.DefaultMotherMinAge : settings.minMotherAge;
             float? age = HungerAndHavoc.Pawn.RHAH_VisitorRules.GenerationAge(role, null, min, max, Rand.Value, youngFollows, motherMin);
+            // 商人与使者要自己谈交易,不能是还在学龄的鼠族;同行幼年随从不受影响
+            if (HungerAndHavoc.Pawn.RHAH_VisitorRules.NeedsAdultBody(role) && age.HasValue &&
+                age.Value < HungerAndHavoc.Pawn.RHAH_VisitorRules.GeneratedAdultAge)
+            {
+                age = HungerAndHavoc.Pawn.RHAH_VisitorRules.GeneratedAdultAge;
+            }
             return displayId == "I-013" ? RHAH_ChildExchange.GenerationAge(role, age) : age;
         }
 
@@ -498,7 +516,7 @@ namespace HungerAndHavoc.Incidents
 
             for (int i = start; i < arrived.Count; i++)
             {
-                if (arrived[i].ageTracker == null || arrived[i].ageTracker.AgeBiologicalYearsFloat >= 14f)
+                if (arrived[i].ageTracker == null || arrived[i].ageTracker.AgeBiologicalYearsFloat >= HungerAndHavoc.Pawn.RHAH_VisitorRules.AdultCutoffAge)
                 {
                     return false;
                 }

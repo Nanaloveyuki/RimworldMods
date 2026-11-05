@@ -79,7 +79,7 @@ namespace HungerAndHavoc.Incidents
         internal static bool IsYoung(Verse.Pawn pawn)
         {
             return pawn != null && pawn.RaceProps != null && pawn.RaceProps.Humanlike && pawn.ageTracker != null &&
-                pawn.ageTracker.AgeBiologicalYearsFloat < 14f;
+                pawn.ageTracker.AgeBiologicalYearsFloat < RHAH_VisitorRules.AdultCutoffAge;
         }
 
         internal static bool IsOfferedChild(Verse.Pawn pawn)
@@ -87,9 +87,25 @@ namespace HungerAndHavoc.Incidents
             return IsYoung(pawn) && CompRHAH_Pawn.TryGet(pawn)?.State.role == RHAH_PawnRole.RatkinYoung;
         }
 
+        // 换子事件里的孩子必须留在幼年区间;配置把幼年区间顶过成年线时也不能让待换的孩子变成成人
+        internal const float MaxOfferedChildAge = RHAH_VisitorRules.ChildMaxAge;
+        // 低于幼年下限会变成需要抱的婴儿,换子与食物替代都按可行走的孩子处理
+        internal const float MinOfferedChildAge = RHAH_VisitorRules.ChildMinAge;
+
         internal static float? GenerationAge(RHAH_PawnRole role, float? age)
         {
-            return role == RHAH_PawnRole.RatkinYoung ? age : System.Math.Max(14f, age ?? 14f);
+            if (role != RHAH_PawnRole.RatkinYoung)
+            {
+                return System.Math.Max(RHAH_VisitorRules.AdultCutoffAge, age ?? RHAH_VisitorRules.AdultCutoffAge);
+            }
+
+            if (!age.HasValue || float.IsNaN(age.Value) || float.IsInfinity(age.Value))
+            {
+                return age;
+            }
+
+            return age.Value > MaxOfferedChildAge ? MaxOfferedChildAge :
+                age.Value < MinOfferedChildAge ? MinOfferedChildAge : age.Value;
         }
 
         internal static bool Eligible(Verse.Pawn pawn, Map map)
