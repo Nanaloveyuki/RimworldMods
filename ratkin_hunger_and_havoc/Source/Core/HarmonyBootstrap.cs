@@ -12,7 +12,9 @@ namespace HungerAndHavoc.Core
         {
             // 启动时绑定 API 宿主 再打 Harmony 补丁
             RHAH_Api.Bind(new RHAH_ApiHost());
-            new Harmony(RHAH_Runtime.HarmonyId).PatchAll();
+            Harmony harmony = new Harmony(RHAH_Runtime.HarmonyId);
+            harmony.PatchAll();
+            HungerAndHavoc.Pawn.Compat.RHAH_MercyBegCompat.Apply(harmony);
             HungerAndHavoc.EventMgr.RHAH_EventChainStartup.Initialize();
         }
     }

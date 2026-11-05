@@ -159,6 +159,8 @@ namespace HungerAndHavoc.Identity
 
         internal static bool CanTransfer(Verse.Pawn pawn)
         {
+            // 只拦会中断当前工作的精神状态; 婴幼儿哭泣 咯咯笑 发脾气这类 stopsJobs=false 不拦
+            if (pawn == null || (pawn.MentalStateDef?.stopsJobs ?? false)) return false;
             if (!RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Transfer)) return false;
             CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawn);
             if (comp == null) return false;

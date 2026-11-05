@@ -168,11 +168,25 @@ namespace HungerAndHavoc.Tests
         {
             Verse.Pawn pawn = Visitor(map);
             Assert.True(RHAH_VisitorBatch.CanConvert(pawn, map.uniqueID, false));
+            Assert.True(RHAH_ApiHost.CanTransfer(pawn));
 
-            Field(typeof(MentalStateHandler), "curStateInt").SetValue(
-                pawn.mindState.mentalStateHandler, Uninitialized<MentalState_Berserk>());
+            EnterMentalState(pawn, Uninitialized<MentalState_Berserk>(), stopsJobs: true);
             Assert.False(RHAH_VisitorBatch.CanConvert(pawn, map.uniqueID, false));
             Assert.False(RHAH_VisitorBatch.CanConvert(pawn, map.uniqueID, true));
+            Assert.False(RHAH_ApiHost.CanTransfer(pawn));
+
+            // 哭泣 咯咯笑 发脾气这些幼儿状态 stopsJobs=false 不打断工作 也不该拦转送
+            EnterMentalState(pawn, Uninitialized<MentalState>(), stopsJobs: false);
+            Assert.False(RHAH_VisitorBatch.CanConvert(pawn, map.uniqueID, false));
+            Assert.True(RHAH_ApiHost.CanTransfer(pawn));
+        }
+
+        void EnterMentalState(Verse.Pawn pawn, MentalState state, bool stopsJobs)
+        {
+            MentalStateDef def = Uninitialized<MentalStateDef>();
+            def.stopsJobs = stopsJobs;
+            state.def = def;
+            Field(typeof(MentalStateHandler), "curStateInt").SetValue(pawn.mindState.mentalStateHandler, state);
         }
 
 

@@ -19,6 +19,7 @@
 | Save Our Ship 2 `kentington.saveourship2` | 无专用加载顺序 | 可选 | 1.6，`OuterSpaceBiome` 按太空家园处理，不引用 SOS2 私有类型 | 未安装时地面家园不受影响；不改 SOS2 穿梭机起飞 | 太空家园目标筛选 |
 | Layered Atmosphere and Orbit `MrHydralisk.LayeredAtmosphereOrbit` | 无专用加载顺序 | 可选，不引用其程序集 | 1.7。使用原版 `OrbitLayer` 几何类型判断，包含 `isSpace=false` 的大气层；边缘无法步行入场时，从可站立、非迷雾、非危险、可空投且可达殖民地的实体地面入场。月面 `SurfaceLayer` 保留普通边缘路径 | 没有合法落点时保留原目标等待，不生成到空气中；温度、新内容、空岛与太空家园设置保持原有语义。高层室外温度超出配置时仍等待 | 普通边缘优先、非太空大气层与高轨空投选择、无地面及不可达/危险地面拒绝；实际落舱与整套 Mod 游戏环境未验收 |
 | Combat Extended `CETeam.CombatExtended` | 无专用加载顺序，角色生成时解析已加载程序集 | 可选，不编译引用 CE | RHAH 更换主武器后，调用公开 `LoadoutPropertiesExtension.GenerateLoadoutFor(Pawn, float)`；独立配置只装填当前武器并按 CE 容量限制生成一匣备用弹，不重跑副武器或护盾生成。弹种和关闭弹药系统的行为交给 CE | 公开类型、构造器、`primaryMagazineCount` 字段或方法签名不匹配，或调用失败时只报一次错误并跳过适配，访客照常生成；不修改 CE 文件或添加 Harmony 补丁 | 提供的 CE 16.7.4.0 声明支持 1.6，公开签名已核对；本机只有 1.7 游戏，不视为 CE 1.7 装填与战斗验收 |
+| 战败求饶 `satsukiseiyoshi.mercybeg` | 无专用加载顺序 | 可选，不引用 `MercyBeg.dll` | 1.7，运行时按类型名查找 `MercyBeg.MapComponent_MercyBegScanner.IsCandidate(Pawn)`，对 `RHAH_Api.IsVisitor` 为真的人返回 false。来客由选择信统一处置，不让对方的 600 tick 扫描把离场 Goto 当成溃逃接管。转送预检同时排除会中断当前工作的精神状态 | 模组未启用时直接跳过；已启用但类型或签名不匹配时只记一条警告，不改对方文件，来客照常离场 | 类型签名核对；未安装时来客行为不变 |
 
 兼容策略统一使用 `RHAH_Api` 的查询、闸门、行为策略、事件和 `TryMarkOrigin`。经历和特质用 `IsOwnedHistory`、`IsOwnedTrait`、`TryGetHistory`、`TryGetTrait`、`CopyHistoryIds`、`CopyTraitIds` 查询显示 ID 与 defName，不扫描 Backstory 或 TraitDef 前缀。兼容适配实现只能放在 `Source/Pawn/Compat`。需要补原版或种族框架缺口时，必须另行登记 Harmony 目标、版本范围和失败策略。
 
