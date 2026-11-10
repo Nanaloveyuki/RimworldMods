@@ -219,6 +219,7 @@ namespace Verse
     public class Window
     {
         public UnityEngine.Rect windowRect;
+        public virtual void PreOpen() { }
         public virtual UnityEngine.Vector2 InitialSize => new UnityEngine.Vector2 { x = 800f, y = 700f };
         public virtual void DoWindowContents(UnityEngine.Rect rect) { }
         public virtual void PreClose() { }

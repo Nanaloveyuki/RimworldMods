@@ -12,6 +12,7 @@ namespace IrisMenus
         {
             NativeSettingsBody body = owner.GetType().FullName == CharacterEditorMod
                 ? new CharacterEditorSettingsBody(owner)
+                : XmlToolkitSettingsBody.Matches(owner) ? new XmlToolkitSettingsBody(owner)
                 : XmlExtensionsSettingsBody.Matches(owner) ? new XmlExtensionsSettingsBody(owner) : null;
             var page = new MenuPage(MenuRegistry.OwnerId(owner), owner, title,
                 body == null ? owner.DoSettingsWindowContents : body.Draw,

@@ -142,10 +142,12 @@ launch button or stacked dialog. Its fixed-width body remains scrollable. Leavin
 the page saves its settings and slots; its own Save action returns to IM navigation.
 
 FSF Tweaks (Workshop 2893432492) uses an XML Extensions-generated launcher, not
-an ordinary settings drawer. IrisMenus hosts that native menu body without calling
-the per-frame launcher, preserving submenu lifecycle, keyed actions and XML
-Extensions shared settings storage. Native close/restart actions are scoped to the
-hosted menu. Both adapters retain explicit page-registration precedence.
+an ordinary settings drawer. IrisMenus hosts that menu body without calling the
+per-frame launcher. Selecting XML Extensions itself opens its native two-column
+settings browser inside the host, with scrollable fixed-width geometry and one
+native `PreOpen`/`PreClose` lifecycle per visit. Both paths preserve keyed actions,
+shared storage, and scoped native close/restart routing. Explicit page registration
+takes precedence over both adapters.
 
 ## Build
 
@@ -269,11 +271,16 @@ still apply.
 ### 2.0.1 — hosting policy, typed search and launcher compatibility (1.7)
 
 - Add a default-off global hosting switch independent of all manual selections.
-- Add owner-scoped `@` searches and `+@` Mod discovery with status, add and open controls.
-- Host Character Editor and XML Extensions/FSF native settings bodies directly,
+* Host Character Editor and XML Extensions/FSF native settings bodies directly,
   preserving their save/close lifecycles without per-frame launcher windows.
 - Classify `Source` by responsibility; update linked checks and recursive localization validation.
 
+
+### Unreleased — XML Extensions settings browser (1.7)
+
+- Host XmlMod's native settings browser once per visit instead of invoking its
+  window-adding settings drawer on every host draw; preserve native scroll geometry,
+  close/restart routing and shared-storage saves.
 
 ### Unreleased — native Listing presentation (1.7)
 

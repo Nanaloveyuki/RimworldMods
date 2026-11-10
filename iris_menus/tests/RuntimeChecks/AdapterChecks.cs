@@ -12,6 +12,7 @@ internal static class AdapterChecks
     {
         CharacterEditorFlow(check);
         XmlSettingsFlow(check);
+        XmlToolkitFlow(check);
         Lifecycle(check);
     }
 
@@ -139,6 +140,59 @@ internal static class AdapterChecks
             LoadedModManager.ModHandles.Remove(storage);
         }
     }
+    private static void XmlToolkitFlow(Action<bool, string> check)
+    {
+        var storage = new XmlExtensions.XmlMod();
+        LoadedModManager.ModHandles.Add(storage);
+        string id = MenuRegistry.OwnerId(storage);
+        IrisMenusMod.Instance.Settings.EnabledAdapters.Add(id);
+        XmlExtensions.BaseSettingsWindow.Reset();
+        Find.WindowStack.Windows.Clear();
+        var sentinel = new Window();
+        Find.WindowStack.Add(sentinel);
+        var session = new MenuSession((_, exception) => throw exception);
+        try
+        {
+            MenuPage page = MenuRegistry.ResolveEntry(storage);
+            session.Select(page);
+            page.BindHostClose(() => session.Select(null));
+            Rect rect = new Rect(120f, 80f, 520f, 400f);
+            for (int i = 0; i < 6; i++) session.Draw(rect);
+            check(storage.Draws == 0 && XmlExtensions.BaseSettingsWindow.ToolkitCreates == 1 &&
+                XmlExtensions.BaseSettingsWindow.ToolkitPreOpens == 1 && XmlExtensions.BaseSettingsWindow.ToolkitDraws == 6,
+                "XML Extensions toolkit body bypasses the per-frame Mod.DoSettingsWindowContents launcher");
+            check(Widgets.LastContent.width >= 1162f && Widgets.Groups == 0 && Find.WindowStack.Windows.Count == 1 &&
+                ReferenceEquals(Find.WindowStack.Windows[0], sentinel),
+                "XML Extensions native two-column geometry is scrollable without stacked toolkit windows");
+            check(session.Select(null) && storage.Saves == 1 && XmlExtensions.BaseSettingsWindow.ToolkitCloses == 1,
+                "XML Extensions toolkit leaves through its native PreClose save lifecycle");
+
+            session.Select(page);
+            page.BindHostClose(() => session.Select(null));
+            session.Draw(rect);
+            XmlExtensions.XmlExtensionsMenuModSettings.Next = () => new XmlExtensions.Action.CloseMenu().Run();
+            session.Draw(rect);
+            check(session.Selected == null && storage.Saves == 2 && XmlExtensions.BaseSettingsWindow.ToolkitCloses == 2 &&
+                Find.WindowStack.Windows.Count == 1,
+                "XML Extensions toolkit CloseMenu returns to host navigation and preserves unrelated windows");
+
+            session.Select(page);
+            page.BindHostClose(() => session.Select(null));
+            session.Draw(rect);
+            XmlExtensions.XmlExtensionsMenuModSettings.Next = () => new XmlExtensions.Action.RestartGame().Run();
+            session.Draw(rect);
+            check(session.Selected == null && storage.Saves == 3 && XmlExtensions.BaseSettingsWindow.ToolkitCloses == 3 &&
+                GenCommandLine.Restarts == 2,
+                "XML Extensions toolkit restart saves and deactivates before restarting");
+        }
+        finally
+        {
+            session.Deactivate();
+            Find.WindowStack.Windows.Clear();
+            IrisMenusMod.Instance.Settings.EnabledAdapters.Remove(id);
+            LoadedModManager.ModHandles.Remove(storage);
+        }
+    }
 
     private static void Lifecycle(Action<bool, string> check)
     {
@@ -222,7 +276,14 @@ internal sealed class XmlExtensions_Mod_FrozenSnowFoxTweaksSettings : Mod
 
 namespace XmlExtensions
 {
-    internal sealed class XmlMod : Mod { }
+    internal sealed class XmlMod : Mod
+    {
+        public override void DoSettingsWindowContents(Rect rect)
+        {
+            Draws++;
+            Find.WindowStack.Add(new XmlExtensionsMenuModSettings(null, true));
+        }
+    }
     internal sealed class SettingsMenuDef
     {
         internal int Opens, Closes, Draws, Value;
@@ -243,15 +304,44 @@ namespace XmlExtensions
         public static SettingsMenuDef SelectedMod;
         public int shouldClose;
         internal static int Creates, OldValue;
+        internal static int ToolkitCreates, ToolkitPreOpens, ToolkitDraws, ToolkitCloses;
         internal static bool FailWrite;
         internal static List<int> AppliedValues = new List<int>();
         internal static void Reset()
         {
             activeMenu = SelectedMod = null;
             Creates = OldValue = 0;
+            ToolkitCreates = ToolkitPreOpens = ToolkitDraws = ToolkitCloses = 0;
             FailWrite = false;
             AppliedValues.Clear();
             XmlExtensions_Mod_FrozenSnowFoxTweaksSettings.settingsMenuDef = new SettingsMenuDef();
+            XmlExtensionsMenuModSettings.Next = null;
+        }
+        public override void DoWindowContents(Rect rect)
+        {
+            if (shouldClose > 0) Close(true);
+            if (shouldClose == 2) GenCommandLine.Restart();
+        }
+    }
+    internal sealed class XmlExtensionsMenuModSettings : BaseSettingsWindow
+    {
+        internal static System.Action Next;
+        public override UnityEngine.Vector2 InitialSize => new UnityEngine.Vector2 { x = 1162f, y = 700f };
+        public XmlExtensionsMenuModSettings(SettingsMenuDef initialMenu, bool isXmlExtensions) { ToolkitCreates++; }
+        public override void PreOpen() { ToolkitPreOpens++; }
+        public override void DoWindowContents(Rect rect)
+        {
+            ToolkitDraws++;
+            System.Action next = Next;
+            Next = null;
+            next?.Invoke();
+            base.DoWindowContents(rect);
+        }
+        public override void PreClose()
+        {
+            ToolkitCloses++;
+            if (FailWrite) throw new InvalidOperationException("storage");
+            LoadedModManager.ModHandles.OfType<XmlMod>().Single().WriteSettings();
         }
     }
     internal sealed class ModSettingsWindow : BaseSettingsWindow
