@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using IrisMenus.UI;
@@ -256,11 +257,11 @@ namespace IrisMenus
 
         private static class HostedWidgetSlider
         {
-            private static bool Prefix(Rect rect, float value, float min, float max, bool middleAlignment, string label,
+            private static bool Prefix(MethodBase __originalMethod, Rect rect, float value, float min, float max, bool middleAlignment, string label,
                 string leftAlignedLabel, string rightAlignedLabel, float roundTo, ref float __result)
             {
                 HostedGuiTheme owner = ActiveControls;
-                if (owner == null) return true;
+                if (owner == null || HasForeignPatches(__originalMethod)) return true;
                 Rect rail = rect;
                 if (middleAlignment || !string.IsNullOrEmpty(label)) rail.y += Mathf.Round((rail.height - 10f) / 2f);
                 if (!string.IsNullOrEmpty(label)) rail.y += 5f;
@@ -284,6 +285,15 @@ namespace IrisMenus
                 if (roundTo > 0f) result = Mathf.RoundToInt(result / roundTo) * roundTo;
                 if (result != value) PlayNativeSliderChange();
                 __result = result;
+                return false;
+            }
+
+            private static bool HasForeignPatches(MethodBase method)
+            {
+                Patches patches = Harmony.GetPatchInfo(method);
+                if (patches == null) return false;
+                foreach (string patchOwner in patches.Owners)
+                    if (patchOwner != "Nanaloveyuki.IrisMenus.SettingsEntry") return true;
                 return false;
             }
         }

@@ -268,6 +268,14 @@ still apply.
 
 ## Release notes
 
+### 2.0.2 — hosted UI compatibility fixes (1.7)
+
+- Keep third-party Harmony slider patches in the call chain and restore hosted
+  theme state after callback cleanup, preventing downstream settings draw errors
+  and theme leakage into later UI.
+- Limit custom tab painting to IrisMenus-owned navigation scopes so native tabs
+  retain their original hover and press feedback.
+
 ### 2.0.1 — hosting policy, typed search and launcher compatibility (1.7)
 
 - Add a default-off global hosting switch independent of all manual selections.

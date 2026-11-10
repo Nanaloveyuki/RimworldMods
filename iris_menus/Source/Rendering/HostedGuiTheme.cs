@@ -50,8 +50,8 @@ namespace IrisMenus
             public void Dispose()
             {
                 if (owner == null) return;
-                owner.EndHoverCards();
-                current = previous;
+                try { owner.EndHoverCards(); }
+                finally { current = previous; }
             }
         }
 

@@ -114,7 +114,7 @@ namespace IrisMenus
             private static bool Prefix(TabRecord __instance, Rect rect)
             {
                 HostedGuiTheme owner = ActiveControls;
-                if (owner == null) return true;
+                if (owner == null || navigationPaint.Owner != owner) return true;
                 HostedControl retained = owner.Control(HostedControlKind.Tab, rect);
                 float selection = owner.DrawHostedNavigation(rect, __instance.Selected, false, retained);
                 Color color = GUI.color; bool wrap = Text.WordWrap; bool bypass = owner.bypass;
