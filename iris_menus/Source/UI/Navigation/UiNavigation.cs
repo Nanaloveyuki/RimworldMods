@@ -12,6 +12,7 @@ namespace IrisMenus.UI
             internal readonly UiId Id;
             internal UiInteraction Interaction;
             internal UiTween Hover, Press, Focus, Activation;
+            internal bool Dragged;
             internal Item(UiContext context) { Id = context.CreateId(); }
         }
 
@@ -102,7 +103,15 @@ namespace IrisMenus.UI
                 for (int i = first; i < end; i++)
                 {
                     Rect itemRect = itemRects == null ? ItemRect(local, i, vertical, rowHeight, gap) : itemRects[i];
+                    Event input = context.Event;
+                    if (input != null && input.type == EventType.MouseDown)
+                        items[i].Dragged = false;
+                    if (input != null && input.type == EventType.MouseDrag && context.IsCaptured(items[i].Id))
+                        items[i].Dragged = true;
+                    if (input != null && input.type == EventType.MouseUp && items[i].Dragged)
+                        context.Release(items[i].Id);
                     UiInteraction interaction = context.Interact(items[i].Id, itemRect, itemEnabled == null || itemEnabled[i]);
+                    if (input != null && input.type == EventType.MouseUp) items[i].Dragged = false;
                     items[i].Interaction = interaction;
                     if (interaction.Clicked) active = i;
                 }

@@ -142,7 +142,7 @@ internal static class Program
         var original = new MenuSettings
         {
             Theme = IrisMenus.UI.UiTheme.Dark, Scale = 1.2f, Density = 2, PanelOpacity = 0.72f,
-            ReducedMotion = true, RememberState = false, ShowMainButton = false,
+            ReducedMotion = true, TransitionDuration = 1.37f, RememberState = false, ShowMainButton = false,
             ShowTips = false, TipDelay = 0.6f, SearchCurrentMod = true,
             MarqueeText = "CUSTOM MARQUEE", ToastDuration = 6f, ShowToasts = false,
             LastPage = "test:page"
@@ -187,7 +187,7 @@ internal static class Program
         MenuSettings restored = LoadSettings(legacy);
         Check(restored.Theme == IrisMenus.UI.UiTheme.Dark && restored.Scale == 1.2f && restored.Density == 2
             && restored.PanelOpacity == 0.72f, "Legacy appearance values migrate even when legacy mode was disabled");
-        Check(restored.ReducedMotion && !restored.ShowTips && restored.TipDelay == 0.6f && restored.SearchCurrentMod
+        Check(restored.ReducedMotion && restored.TransitionDuration == 1.37f && !restored.ShowTips && restored.TipDelay == 0.6f && restored.SearchCurrentMod
             && restored.MarqueeText == "CUSTOM MARQUEE" && restored.ToastDuration == 6f && !restored.ShowToasts,
             "Migration preserves motion, tips, search, marquee and toast preferences");
         Check(!restored.RememberState && !restored.ShowMainButton && restored.HiddenMainButtons.Single() == "World",
@@ -297,21 +297,23 @@ internal static class Program
         data["scale"] = float.NaN;
         data["density"] = 8;
         data["panelOpacity"] = float.PositiveInfinity;
+        data["transitionDuration"] = float.NaN;
         data["tipDelay"] = float.NegativeInfinity;
         data["toastDuration"] = float.NaN;
         MenuSettings restored = LoadSettings(data);
         Check(!float.IsNaN(restored.Scale) && !float.IsInfinity(restored.Scale) && restored.Scale >= 0.8f && restored.Scale <= 1.3f
-            && restored.Density == 2 && !float.IsNaN(restored.PanelOpacity) && !float.IsInfinity(restored.PanelOpacity)
+            && restored.Density == 2 && restored.TransitionDuration == 0.72f && !float.IsNaN(restored.PanelOpacity) && !float.IsInfinity(restored.PanelOpacity)
             && restored.PanelOpacity >= 0f && restored.PanelOpacity <= 1f && restored.TipDelay >= 0.1f
             && restored.TipDelay <= 0.8f && restored.ToastDuration >= 1f && restored.ToastDuration <= 10f,
             "Settings replace nonfinite values and normalize density into supported ranges");
         data["scale"] = 8f;
         data["density"] = -8;
         data["panelOpacity"] = -2f;
+        data["transitionDuration"] = 8f;
         data["tipDelay"] = 8f;
         data["toastDuration"] = -8f;
         restored = LoadSettings(data);
-        Check(restored.Scale == 1.3f && restored.Density == 0 && restored.PanelOpacity == 0f
+        Check(restored.Scale == 1.3f && restored.Density == 0 && restored.TransitionDuration == 2f && restored.PanelOpacity == 0f
             && restored.TipDelay == 0.8f && restored.ToastDuration == 1f, "Finite out-of-range settings clamp at supported limits");
         restored = LoadSettings(new Dictionary<string, object>());
         Check(restored.EnabledAdapters != null && restored.HiddenMainButtons != null && restored.SidebarPins != null

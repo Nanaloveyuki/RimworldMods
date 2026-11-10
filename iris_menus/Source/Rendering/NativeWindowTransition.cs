@@ -7,7 +7,6 @@ namespace IrisMenus
     internal sealed class NativeWindowTransition : IDisposable
     {
 #if RIMWORLD_1_7
-        private const float Duration = 0.72f;
         private NativeGuiSnapshot17 snapshot;
         private double sampled;
         private float progress;
@@ -25,7 +24,7 @@ namespace IrisMenus
             sampled = Time.realtimeSinceStartup;
         }
 
-        internal float Sample(bool close, bool reducedMotion)
+        internal float Sample(bool close, bool reducedMotion, float duration)
         {
             if (close != closing)
             {
@@ -35,7 +34,8 @@ namespace IrisMenus
             }
             double now = Time.realtimeSinceStartup;
             if (reducedMotion || failed) progress = closing ? 0f : 1f;
-            else if (frozen) progress = Mathf.Clamp01(progress + (float)(now - sampled) / Duration * (closing ? -1f : 1f));
+            else if (duration <= 0f) progress = closing ? 0f : 1f;
+            else if (frozen) progress = Mathf.Clamp01(progress + (float)(now - sampled) / duration * (closing ? -1f : 1f));
             sampled = now;
             return progress;
         }
@@ -110,8 +110,8 @@ namespace IrisMenus
         internal float Value => presence.Value;
         internal bool Active => presence.IsRunning;
         internal void Open() => presence.Snap(0f);
-        internal float Sample(bool close, bool reducedMotion) => presence.Step(close ? 0f : 1f,
-            Time.realtimeSinceStartup, close ? UiMotion.Exit : UiMotion.Enter, reducedMotion);
+        internal float Sample(bool close, bool reducedMotion, float duration) => presence.Step(close ? 0f : 1f,
+            Time.realtimeSinceStartup, duration, reducedMotion);
         internal bool Draw(Rect viewport, bool reducedMotion, Action draw) => false;
         public void Dispose() { }
 #endif

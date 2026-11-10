@@ -170,6 +170,9 @@ internal static class CatalogChecks
                 catalog.Query("@missing night", null);
                 while (catalog.Pending) catalog.Advance();
                 check(catalog.Results.Count == 0, "Missing explicit owner does not fall back to global content");
+                MenuSearchQuery fragment = MenuSearchQuery.Parse("@alpha");
+                check(fragment.MatchesOwner(page) && !fragment.MatchesOwner(otherPage),
+                    "Owner selectors match a name fragment without wildcard markers");
                 catalog.Query("@ .*", null);
                 while (catalog.Pending) catalog.Advance();
                 check(catalog.Results.Count == 0, "An incomplete owner selector cannot broaden the search");
@@ -187,6 +190,8 @@ internal static class CatalogChecks
             check(lookup.IsModLookup && lookup.HasOwnerSelector && lookup.OwnerPattern == "*alpha*"
                 && lookup.Terms.SequenceEqual(new[] { "search.owner", "localized" }) && lookup.MatchesMod(page)
                 && !lookup.MatchesMod(otherPage), "Mod lookup AND-matches identity terms including hidden aliases");
+            check(MenuSearchQuery.Parse("+@alpha").MatchesMod(page),
+                "Mod lookup matches a name fragment without wildcard markers");
             check(!MenuSearchQuery.Parse("+@*alpha* shadow").MatchesMod(page),
                 "Mod lookup terms do not match settings content");
             check(MenuSearchQuery.Parse("night .* @alpha +@beta").Terms.SequenceEqual(new[] { "night", ".*", "@alpha", "+@beta" }),

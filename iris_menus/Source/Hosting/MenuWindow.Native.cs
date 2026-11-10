@@ -132,7 +132,7 @@ namespace IrisMenus
                 SyncCatalog();
             }
 
-            private float SamplePresence() => windowTransition.Sample(Closing, Settings.ReducedMotion);
+            private float SamplePresence() => windowTransition.Sample(Closing, Settings.ReducedMotion, Settings.TransitionDuration);
 
             internal void PrepareWindow()
             {

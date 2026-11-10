@@ -48,6 +48,8 @@
   <IM_NativeScale>Interface scale</IM_NativeScale>
   <IM_NativeMotion>Motion effects</IM_NativeMotion>
   <IM_NativeMotionHint>Turn off to show the final state immediately when opening panels and changing controls.</IM_NativeMotionHint>
+  <IM_TransitionDuration>Open/close animation</IM_TransitionDuration>
+  <IM_TransitionDurationHint>Time for IrisMenus to fade in and out, in seconds.</IM_TransitionDurationHint>
   <IM_NativeOpacity>Panel opacity</IM_NativeOpacity>
   <IM_NativeOpacityHint>Controls the setting panel's opacity over the gradient background. At 100%, the panel is solid.</IM_NativeOpacityHint>
   <IM_NativeRemember>Remember last page</IM_NativeRemember>
@@ -75,7 +77,7 @@
   <IM_NativeModSettings>Mod settings</IM_NativeModSettings>
   <IM_NativeSwitchLight>Switch to light theme</IM_NativeSwitchLight>
   <IM_NativeSwitchDark>Switch to dark theme</IM_NativeSwitchDark>
-  <IM_NativeSearchPlaceholder>Search: @*mod* option · +@*mod* to add</IM_NativeSearchPlaceholder>
+  <IM_NativeSearchPlaceholder>Search: @mod option · +@mod to add</IM_NativeSearchPlaceholder>
   <IM_NativeClose>Close settings</IM_NativeClose>
   <IM_NativeSearchResults>Search results</IM_NativeSearchResults>
   <IM_NativeChoosePage>Select a mod from the library to open its settings.</IM_NativeChoosePage>

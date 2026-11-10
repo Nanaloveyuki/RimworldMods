@@ -65,6 +65,7 @@ namespace IrisMenus
         internal List<string> HiddenMainButtons = new List<string>();
         internal IrisMenus.UI.UiTheme Theme = IrisMenus.UI.UiTheme.Light;
         internal bool ReducedMotion;
+        internal float TransitionDuration = 0.72f;
         internal float Scale = 1f;
         internal int Density = 1;
         internal float PanelOpacity = 0.94f;
@@ -92,6 +93,7 @@ namespace IrisMenus
             if (HiddenMainButtons == null) HiddenMainButtons = new List<string>();
             LookMigrated(ref Theme, "theme", "nativeTheme", IrisMenus.UI.UiTheme.Light);
             Scribe_Values.Look(ref ReducedMotion, "reducedMotion", false);
+            Scribe_Values.Look(ref TransitionDuration, "transitionDuration", 0.72f);
             LookMigrated(ref Scale, "scale", "nativeScale", 1f);
             LookMigrated(ref Density, "density", "nativeDensity", 1);
             LookMigrated(ref PanelOpacity, "panelOpacity", "nativePanelOpacity", 0.94f);
@@ -121,6 +123,7 @@ namespace IrisMenus
             }
             if (Scribe.mode == LoadSaveMode.PostLoadInit) ItemValueColors.Normalize(ref ItemValueBands);
             Scale = Mathf.Clamp(Finite(Scale, 1f), 0.8f, 1.3f);
+            TransitionDuration = Mathf.Clamp(Finite(TransitionDuration, 0.72f), 0f, 2f);
             Density = System.Math.Max(0, System.Math.Min(2, Density));
             PanelOpacity = Mathf.Clamp01(Finite(PanelOpacity, 0.94f));
             TipDelay = Mathf.Clamp(Finite(TipDelay, 0.3f), 0.1f, 0.8f);

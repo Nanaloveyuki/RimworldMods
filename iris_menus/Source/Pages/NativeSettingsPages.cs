@@ -39,6 +39,7 @@ namespace IrisMenus
             Search("density", "IM_NativeDensity", "IM_NativeDisplay"),
             Search("scale", "IM_NativeScale", "IM_NativeDisplay"),
             Search("motion", "IM_NativeMotion", "IM_NativeDisplay", "IM_NativeMotionHint"),
+            Search("transition-duration", "IM_TransitionDuration", "IM_NativeDisplay", "IM_TransitionDurationHint"),
             Search("opacity", "IM_NativeOpacity", "IM_NativeBackground", "IM_NativeOpacityHint"),
             Search("marquee", "IM_MarqueeText", "IM_NativeBackground")
         };
@@ -55,7 +56,7 @@ namespace IrisMenus
         private static IEnumerable<MenuSearchEntry> AppearanceSearch() => appearanceSearch;
         private static IEnumerable<MenuSearchEntry> BehaviorSearch() => behaviorSearch;
 
-        private enum RowKind { Switch, Slider, Segments, Select, Text }
+        private enum RowKind { Switch, Slider, SliderInput, Segments, Select, Text }
 
         private sealed class SettingRow
         {
@@ -67,6 +68,7 @@ namespace IrisMenus
             private readonly Action<float> set;
             private readonly UiSwitch toggle;
             private readonly UiSlider slider;
+            private readonly UiTextField sliderInput;
             private readonly UiSegments segments;
             private readonly UiSelect select;
             private readonly UiHoverCard tooltip;
@@ -77,6 +79,7 @@ namespace IrisMenus
             private readonly Func<string> getText;
             private readonly Action<string> setText;
             private float outputValue = float.NaN;
+            private string sliderInputValue;
 
             internal SettingRow(UiContext context, string id, string labelKey, RowKind kind,
                 Func<float> get, Action<float> set, string hintKey = null,
@@ -98,6 +101,10 @@ namespace IrisMenus
                 {
                     case RowKind.Switch: toggle = new UiSwitch(context); break;
                     case RowKind.Slider: slider = new UiSlider(context, min, max, step); break;
+                    case RowKind.SliderInput:
+                        slider = new UiSlider(context, min, max, step);
+                        sliderInput = new UiTextField(context, 8);
+                        break;
                     case RowKind.Segments: segments = new UiSegments(context, TranslateOptions()); break;
                     case RowKind.Select: select = new UiSelect(context, TranslateOptions()); break;
                 }
@@ -116,8 +123,8 @@ namespace IrisMenus
             }
 
             internal string Id { get; }
-            internal UiId FocusTarget => textField != null ? textField.Id : toggle != null ? toggle.Id : slider != null ? slider.Id :
-                select != null ? select.Id : segments.GetItemId(Mathf.Clamp(Mathf.RoundToInt(get()), 0, segments.Count - 1));
+            internal UiId FocusTarget => textField != null ? textField.Id : toggle != null ? toggle.Id : sliderInput != null ? sliderInput.Id :
+                slider != null ? slider.Id : select != null ? select.Id : segments.GetItemId(Mathf.Clamp(Mathf.RoundToInt(get()), 0, segments.Count - 1));
 
             private string[] TranslateOptions()
             {
@@ -178,6 +185,23 @@ namespace IrisMenus
                         using (context.Opacity(enabled ? 1f : 0.4f))
                             context.Label(new Rect(control.xMax - outputWidth, control.y, outputWidth, control.height), output, palette.Ink, TextAnchor.MiddleRight);
                         break;
+                    case RowKind.SliderInput:
+                        float inputWidth = 72f * scale;
+                        after = slider.Draw(new Rect(control.x, control.y, Mathf.Max(0f, control.width - inputWidth - 10f * scale), control.height), before, enabled, scale: scale);
+                        if (sliderInputValue == null || (after != before && !context.IsFocused(sliderInput.Id)))
+                            sliderInputValue = after.ToString("F2", CultureInfo.InvariantCulture);
+                        string edited = sliderInput.Draw(new Rect(control.xMax - inputWidth, control.y, inputWidth, control.height),
+                            sliderInputValue, enabled: enabled, scale: scale);
+                        if (edited != sliderInputValue)
+                        {
+                            sliderInputValue = edited;
+                            if (float.TryParse(edited, NumberStyles.Float, CultureInfo.InvariantCulture, out float parsed)
+                                && !float.IsNaN(parsed) && !float.IsInfinity(parsed))
+                                after = Mathf.Clamp(Mathf.Round(parsed * 100f) / 100f, slider.Minimum, slider.Maximum);
+                        }
+                        if (!context.IsFocused(sliderInput.Id))
+                            sliderInputValue = after.ToString("F2", CultureInfo.InvariantCulture);
+                        break;
                     case RowKind.Segments: after = segments.Draw(control, Mathf.RoundToInt(before), enabled, scale: scale); break;
                     case RowKind.Select: after = select.Draw(control, Mathf.RoundToInt(before), enabled, scale: scale); break;
                 }
@@ -208,6 +232,7 @@ namespace IrisMenus
             {
                 select?.Close();
                 textField?.Dispose();
+                sliderInput?.Dispose();
                 if (toggle != null) context.Release(toggle.Id);
                 if (slider != null) context.Release(slider.Id);
                 if (select != null)
@@ -261,11 +286,14 @@ namespace IrisMenus
                             () => settings.Scale, value => settings.Scale = value, min: 0.8f, max: 1.3f),
                         new SettingRow(context, "motion", "IM_NativeMotion", RowKind.Switch,
                             () => settings.ReducedMotion ? 0f : 1f, value => settings.ReducedMotion = value == 0f, "IM_NativeMotionHint"),
+                        new SettingRow(context, "transition-duration", "IM_TransitionDuration", RowKind.SliderInput,
+                            () => settings.TransitionDuration, value => settings.TransitionDuration = value,
+                            "IM_TransitionDurationHint", min: 0f, max: 2f, step: 0.01f, suffix: " s"),
                         new SettingRow(context, "opacity", "IM_NativeOpacity", RowKind.Slider,
                             () => settings.PanelOpacity, value => settings.PanelOpacity = value, "IM_NativeOpacityHint"),
                         new SettingRow(context, "marquee", "IM_MarqueeText", () => settings.MarqueeText, value => settings.MarqueeText = value)
                     };
-                    firstSectionCount = 4;
+                    firstSectionCount = 5;
                     chapters = new[] { new MenuChapter("display", Text("IM_NativeDisplay")), new MenuChapter("background", Text("IM_NativeBackground")) };
                     notes = new[]
                     {
@@ -426,6 +454,7 @@ namespace IrisMenus
                     settings.Density = 1;
                     settings.Scale = 1f;
                     settings.ReducedMotion = false;
+                    settings.TransitionDuration = 0.72f;
                     settings.PanelOpacity = 0.94f;
                     settings.MarqueeText = "IRIS MENUS";
                 }

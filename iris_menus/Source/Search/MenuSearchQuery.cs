@@ -99,7 +99,7 @@ namespace IrisMenus
         private bool MatchesIdentity(string identity)
         {
             if (string.IsNullOrEmpty(identity) || OwnerPattern.Length == 0) return false;
-            if (!ownerHasWildcard) return string.Equals(identity, OwnerPattern, StringComparison.OrdinalIgnoreCase);
+            if (!ownerHasWildcard) return identity.IndexOf(OwnerPattern, StringComparison.OrdinalIgnoreCase) >= 0;
             if (ownerParts.Length == 0) return true;
 
             int position = 0;

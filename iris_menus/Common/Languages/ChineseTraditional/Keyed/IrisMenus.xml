@@ -48,6 +48,8 @@
   <IM_NativeScale>介面縮放</IM_NativeScale>
   <IM_NativeMotion>動態效果</IM_NativeMotion>
   <IM_NativeMotionHint>關閉後，展開面板和調整控制項時直接顯示最終狀態。</IM_NativeMotionHint>
+  <IM_TransitionDuration>開啟與關閉動畫</IM_TransitionDuration>
+  <IM_TransitionDurationHint>IrisMenus 淡入與淡出所需時間，單位為秒。</IM_TransitionDurationHint>
   <IM_NativeOpacity>面板不透明度</IM_NativeOpacity>
   <IM_NativeOpacityHint>調整設定面板在漸層背景上的不透明度。100% 時面板完全不透明。</IM_NativeOpacityHint>
   <IM_NativeRemember>記住上次頁面</IM_NativeRemember>
@@ -75,7 +77,7 @@
   <IM_NativeModSettings>Mod 設定</IM_NativeModSettings>
   <IM_NativeSwitchLight>切換至淺色主題</IM_NativeSwitchLight>
   <IM_NativeSwitchDark>切換至深色主題</IM_NativeSwitchDark>
-  <IM_NativeSearchPlaceholder>搜尋：@*模組* 設定詞 · +@*模組* 新增</IM_NativeSearchPlaceholder>
+  <IM_NativeSearchPlaceholder>搜尋：@模組 設定詞 · +@模組 新增</IM_NativeSearchPlaceholder>
   <IM_NativeClose>關閉設定</IM_NativeClose>
   <IM_NativeSearchResults>搜尋結果</IM_NativeSearchResults>
   <IM_NativeChoosePage>從設定庫選擇 Mod，開啟它的設定。</IM_NativeChoosePage>

@@ -87,15 +87,15 @@ Header search accepts typed selectors:
 
 | Input | Result |
 |---|---|
-| `@*xxx* option` | Search exposed settings of matching mods only |
-| `@*xxx* .*` | List all indexed settings of matching mods |
-| `+@*xxx* .*` | Find loaded mods, inspect hosting status, add them and open settings |
+| `@mod option` | Search exposed settings of matching mods only |
+| `@mod .*` | List all indexed settings of matching mods |
+| `+@mod` | Find matching loaded mods, inspect hosting status, add them and open settings |
 | `+@"*FSF Tweaks*" .*` | Quote a selector containing spaces |
 
-Selectors match original/display names, registered aliases, package IDs and Mod
-type names, case-insensitively. Only `*` is a wildcard; `.*` in the content part
-means all settings, not a regular expression. Typed scope overrides the implicit
-current-Mod scope. Setting contents remain limited to explicit search metadata;
+Selectors match name fragments in original/display names, registered aliases,
+package IDs and Mod type names, case-insensitively. `*` supports ordered wildcard
+matching; `.*` in the content part means all settings, not a regular expression.
+Typed scope overrides the implicit current-Mod scope. Setting contents remain limited to explicit search metadata;
 search never executes an unselected drawer. Mod discovery also includes unadded mods.
 
 ### Language-specific Mod names
