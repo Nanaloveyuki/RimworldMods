@@ -179,3 +179,9 @@ bash scripts/deploy.sh lead_your_pets
 
 验证：Release 回归测试 259 项通过；1.7 主程序集与 Guard Release 构建零警告、零错误。发布 staging 的 43 个文件均通过 SHA-256 校验。
 
+## 1.9.6 — 婴幼儿陪同离图兼容
+
+启用 [婴儿不可独自离开](https://steamcommunity.com/sharedfiles/filedetails/?id=3837446529) 时，若未满 3 岁的被牵引者与同派系成年牵引者同处地图，则在牵引者离图流程中同步离开，使该 Mod 的陪同检查仍生效。无合格成年人陪同、未启用该 Mod 或其他 Pawn 继续使用原有离图流程。
+
+验证：Release 回归测试 259 项通过；1.7 主程序集与 Guard 构建零警告、零错误，部署文件 SHA-256 校验通过，保留 `PublishedFileId.txt`。未运行两个 Mod 的游戏内组合或存档验收。
+

@@ -114,6 +114,11 @@ namespace LeadYourPet
 
         private bool TryMakeLeashedPawnLeaveMap(Pawn pawn, Pawn master, Map map, Rot4 exitDir)
         {
+            if (BabyAccompaniedExitCompat.TryExitAlongsideAdultMaster(pawn, master, map, exitDir))
+            {
+                return true;
+            }
+
             if (pawn == null
                 || map == null
                 || !pawn.Spawned
