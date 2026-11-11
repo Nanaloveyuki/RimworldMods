@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Draft Anything Fixes</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.miliraflightjobfix</packageId>
+  <modVersion>0.1.0</modVersion>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Talesoftherim.DraftAnything</li>
+    <li>Ancot.MiliraRace</li>
+    <li>Drifter.FlightFramework</li>
+    <li>Shirohane.Gene.Expand</li>
+  </loadAfter>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Ancot.MiliraRace</packageId>
+      <displayName>Milira Race</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3256974620</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Talesoftherim.DraftAnything</packageId>
+      <displayName>Draft Anything 2.0</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3636082176</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <description>Fixes Draft Anything 2.0's injected drafted-order branch in MiliraConstant, which can interrupt Milira pawns' player-issued jobs. Draft Anything remains active in other think trees. The patch also prevents Milira Race's flight-job override from forcing every drafted job into custom flight handling. No saved pawn data is changed.</description>
+</ModMetaData>

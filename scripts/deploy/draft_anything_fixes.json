@@ -1,0 +1,24 @@
+{
+  "target": "DraftAnythingFixes",
+  "package_id": "nanaloveyuki.miliraflightjobfix",
+  "build": [
+    [
+      "dotnet",
+      "draft_anything_fixes/Source/MiliraFlightJobFix.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "README.md",
+    "1.7/Assemblies/MiliraFlightJobFix.dll",
+    {
+      "source": "1.7/Assemblies/MiliraFlightJobFix.pdb",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/MiliraFlightJobFix.dll"
+  ]
+}
