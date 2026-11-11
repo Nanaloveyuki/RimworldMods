@@ -226,7 +226,7 @@ namespace LeadYourPet
             buffer = (string)arguments[3];
         }
 
-        internal static void SelectExit(Listing_Standard list, string label, ref LeashedPawnMapExitBehavior value)
+        internal static void SelectExit(Listing_Standard list, string label, LeashedPawnMapExitBehavior value, Action<LeashedPawnMapExitBehavior> onSelected)
         {
             MethodInfo closed = select.MakeGenericMethod(typeof(LeashedPawnMapExitBehavior));
             LeashedPawnMapExitBehavior[] choices =
@@ -235,22 +235,16 @@ namespace LeadYourPet
                 LeashedPawnMapExitBehavior.LeaveMap,
                 LeashedPawnMapExitBehavior.Disappear
             };
-            LeashedPawnMapExitBehavior selected = value;
-            Action<LeashedPawnMapExitBehavior> chosen = next => selected = next;
-            closed.Invoke(null, new object[] { list, label, value, choices, (Func<LeashedPawnMapExitBehavior, string>)ExitLabel, chosen });
-            value = selected;
+            closed.Invoke(null, new object[] { list, label, value, choices, (Func<LeashedPawnMapExitBehavior, string>)ExitLabel, onSelected });
         }
 
-        internal static void SelectBoughtStatus(Listing_Standard list, string label, ref BoughtYoungRatkinStatus value)
+        internal static void SelectBoughtStatus(Listing_Standard list, string label, BoughtYoungRatkinStatus value, Action<BoughtYoungRatkinStatus> onSelected)
         {
             MethodInfo closed = select.MakeGenericMethod(typeof(BoughtYoungRatkinStatus));
             BoughtYoungRatkinStatus[] choices = ModsConfig.IdeologyActive
                 ? new[] { BoughtYoungRatkinStatus.Colonist, BoughtYoungRatkinStatus.Prisoner, BoughtYoungRatkinStatus.Slave }
                 : new[] { BoughtYoungRatkinStatus.Colonist, BoughtYoungRatkinStatus.Prisoner };
-            BoughtYoungRatkinStatus selected = value;
-            Action<BoughtYoungRatkinStatus> chosen = next => selected = next;
-            closed.Invoke(null, new object[] { list, label, value, choices, (Func<BoughtYoungRatkinStatus, string>)BoughtStatusLabel, chosen });
-            value = selected;
+            closed.Invoke(null, new object[] { list, label, value, choices, (Func<BoughtYoungRatkinStatus, string>)BoughtStatusLabel, onSelected });
         }
 
         static string BoughtStatusLabel(BoughtYoungRatkinStatus value)
@@ -437,7 +431,7 @@ namespace LeadYourPet
 
             IrisMenusCompat.Anchor(list, "bought-status");
             IrisMenusCompat.SelectBoughtStatus(list, "LeadYourPet_Settings_BoughtYoungRatkinStatus".Translate(),
-                ref settings.boughtYoungRatkinStatus);
+                settings.boughtYoungRatkinStatus, value => settings.boughtYoungRatkinStatus = value);
         }
 
         void DrawMapExit(Listing_Standard list)
@@ -451,7 +445,7 @@ namespace LeadYourPet
             IrisMenusCompat.Section(list, "LeadYourPet_Menu_MapExit".Translate());
             IrisMenusCompat.Anchor(list, "exit");
             IrisMenusCompat.SelectExit(list, "LeadYourPet_Settings_LeashedPawnMapExitBehavior".Translate(),
-                ref settings.leashedPawnMapExitBehavior);
+                settings.leashedPawnMapExitBehavior, value => settings.leashedPawnMapExitBehavior = value);
         }
 
         IEnumerable<object> SearchLeash()
