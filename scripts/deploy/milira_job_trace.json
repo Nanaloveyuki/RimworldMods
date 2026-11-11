@@ -1,0 +1,24 @@
+{
+  "target": "MiliraJobTrace",
+  "package_id": "nanaloveyuki.milirajobtrace",
+  "build": [
+    [
+      "dotnet",
+      "milira_job_trace/Source/MiliraJobTrace.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "README.md",
+    "1.7/Assemblies/MiliraJobTrace.dll",
+    {
+      "source": "1.7/Assemblies/MiliraJobTrace.pdb",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/MiliraJobTrace.dll"
+  ]
+}

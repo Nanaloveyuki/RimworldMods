@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Milira Job Trace</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.milirajobtrace</packageId>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Ancot.MiliraRace</li>
+  </loadAfter>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Ancot.MiliraRace</packageId>
+      <displayName>Milira Race</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3256974620</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <description>Temporary diagnostic mod for RimWorld 1.7. It records Milira colonist job starts, job ends, pather failures and arrivals without changing game state. Remove it after collecting the trace.</description>
+</ModMetaData>
