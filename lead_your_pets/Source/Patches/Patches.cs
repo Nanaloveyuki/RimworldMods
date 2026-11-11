@@ -321,6 +321,34 @@ namespace LeadYourPet
         }
     }
 
+    [HarmonyPatch]
+    public static class Patch_RimTalk_ToddlerCarryingUtility_TryMountToddler
+    {
+        private static readonly System.Type UtilityType = AccessTools.TypeByName(
+            "RimTalk_ToddlersExpansion.Integration.Toddlers.ToddlerCarryingUtility");
+
+        public static bool Prepare()
+        {
+            return AccessTools.Method(UtilityType, "TryMountToddler", new[] { typeof(Pawn), typeof(Pawn) }) != null;
+        }
+
+        static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(UtilityType, "TryMountToddler", new[] { typeof(Pawn), typeof(Pawn) });
+        }
+
+        public static bool Prefix(Pawn toddler, ref bool __result)
+        {
+            if (!LeadYourPetUtility.IsProtectedLeashedYoungRatkin(toddler))
+            {
+                return true;
+            }
+
+            __result = false;
+            return false;
+        }
+    }
+
     [HarmonyPatch(typeof(Pawn_JobTracker), nameof(Pawn_JobTracker.StartJob))]
     public static class Patch_PawnJobTracker_StartJob
     {

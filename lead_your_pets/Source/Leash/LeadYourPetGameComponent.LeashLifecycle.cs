@@ -115,7 +115,7 @@ namespace LeadYourPet
                 Kind = kind,
                 CreatedTick = Find.TickManager.TicksGame,
                 NextAutoInteractionTick = Find.TickManager.TicksGame + Rand.RangeInclusive(900, 1800),
-                UpdateBucket = Mathf.Abs(pet.thingIDNumber) % 4,
+                UpdateBucket = Mathf.Abs(pet.thingIDNumber),
                 LastExpensiveUpdateTick = Find.TickManager.TicksGame,
                 ForceImmediateUpdate = true,
                 CachedAutoInteractionPool = new List<LeadYourPetInteractionKind>()
@@ -302,7 +302,7 @@ namespace LeadYourPet
                 return;
             }
 
-            link.UpdateBucket = Mathf.Abs(link.Pet.thingIDNumber) % 4;
+            link.UpdateBucket = Mathf.Abs(link.Pet.thingIDNumber);
             linkByPet[link.Pet] = link;
             if (!linksByMaster.TryGetValue(link.Master, out List<LeashLink> masterLinks))
             {

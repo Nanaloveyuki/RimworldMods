@@ -59,8 +59,7 @@ namespace LeadYourPet
                 {
                     link.Pet.pather?.StopDead();
                 }
-                link.IsDragging = false;
-                MaintainDraggedSlow(link.Pet, false);
+                SetLinkDragging(link, false);
                 link.ForceImmediateUpdate = true;
                 return;
             }
@@ -128,8 +127,7 @@ namespace LeadYourPet
                 && LeadYourPetUtility.IsExternalToddlerHold(link.Pet.CurJobDef?.defName, link.Pet.jobs?.curDriver?.GetType().FullName))
             {
                 StopInteractionAnimation(link.Pet, finalizeTeleport: false);
-                link.IsDragging = false;
-                MaintainDraggedSlow(link.Pet, false);
+                SetLinkDragging(link, false);
                 return;
             }
             ReleaseExternalToddlerHold(link.Pet);
@@ -163,8 +161,7 @@ namespace LeadYourPet
             bool sleepingMaster = HandleSleepingMaster(link);
             if (LeadYourPetUtility.HasLeashCareJob(link))
             {
-                link.IsDragging = false;
-                MaintainDraggedSlow(link.Pet, false);
+                SetLinkDragging(link, false);
                 if (link.Pet.CurJobDef != JobDefOf.Ingest)
                 {
                     TryFeedPet(link, ticksGame);
@@ -199,8 +196,7 @@ namespace LeadYourPet
                 }
             }
 
-            link.IsDragging = draggingNow;
-            MaintainDraggedSlow(link.Pet, draggingNow);
+            SetLinkDragging(link, draggingNow);
 
             IntVec3 targetCell = ResolveTargetCell(link);
             if (!targetCell.IsValid)
@@ -492,6 +488,17 @@ namespace LeadYourPet
             {
                 pet.health.RemoveHediff(existing);
             }
+        }
+
+        private void SetLinkDragging(LeashLink link, bool dragging)
+        {
+            if (link == null || link.IsDragging == dragging)
+            {
+                return;
+            }
+
+            link.IsDragging = dragging;
+            MaintainDraggedSlow(link.Pet, dragging);
         }
 
         private void TryFeedPet(LeashLink link, int ticksGame)

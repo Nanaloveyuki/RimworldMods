@@ -1,3 +1,5 @@
+using System;
+
 namespace LeadYourPet
 {
     public static class LeadYourPetRules
@@ -20,6 +22,19 @@ namespace LeadYourPet
             }
 
             return (currentTick / 6) % bucketCount == linkBucket;
+        }
+
+        public static int ResolveLinkUpdateBucketCount(int baseBucketCount, float tickRateMultiplier)
+        {
+            if (baseBucketCount <= 1)
+            {
+                return 1;
+            }
+
+            int speedMultiplier = tickRateMultiplier > 1f
+                ? (int)Math.Ceiling(tickRateMultiplier)
+                : 1;
+            return baseBucketCount * speedMultiplier;
         }
 
         public static bool ShouldTowLeashedPet(bool petCannotFollowOnItsOwn, bool hasFixedAnchor, bool leashInMotion, bool masterSleeping, bool preserveMapExit, float distance, float towDistance)

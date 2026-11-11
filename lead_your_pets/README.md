@@ -122,6 +122,12 @@ English: Departing caravans keep visible leashes while vanilla departure AI cont
 
 验证：1.7 主程序集 Release 构建零警告、零错误；254 项 .NET 10 回归通过，其中新增 11 项覆盖睡眠牵引、绳长边界、主人静止、固定锚点、精神崩溃（含主人静止时自行游走）、清醒休息、倒地与判定组合。使用真实 1.7 游戏 DLL，未运行游戏画面或存档验收。
 
+## 1.9.4 — 高速轮询与幼崽牵引兼容
+
+修正与 RimTalk Toddlers Expansion 共用时，已牵引鼠蛋仍可经其 carrying API 被直接抱起的问题。优化拖拽减速 Hediff 的维护，只在拖拽状态切换时检查。牵引链轮询按 RimWorld 实际 TickRateMultiplier 调节：常速每条链约每 30 tick 检查一次，180 TPS 时约每 90 tick 检查一次，使现实时间间隔维持约 0.5 秒。
+
+验证：1.7 Release 构建零警告、零错误；258 项 .NET 10 回归通过。与 RimTalk Toddlers Expansion 1.6 程序集的 carrying API 签名核对完成；轮询频率覆盖常速、180 TPS 与更高速率的规则测试。
+
 ## 开发
 
 需要 .NET 10 SDK 和实际游戏安装。默认 `RimWorldVersion=1.7`，输出到 `1.7/Assemblies`、`1.7/Guard/Assemblies`；`RimWorldDir` / `RIMWORLD_DIR` 指向游戏根目录，不能指向反编译源码。默认路径为 Windows 的 `E:/Apps/Steam/steamapps/common/RimWorld` 或 WSL 的对应挂载路径。

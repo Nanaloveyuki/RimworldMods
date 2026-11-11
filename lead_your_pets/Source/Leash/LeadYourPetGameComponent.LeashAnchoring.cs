@@ -60,8 +60,7 @@ namespace LeadYourPet
             link.MasterSleepSuspended = false;
             link.YoungRatkinDutyState = LeashedYoungRatkinDutyState.FollowMaster;
             UpdateYoungRatkinDutyReport(link);
-            link.IsDragging = false;
-            MaintainDraggedSlow(link.Pet, false);
+            SetLinkDragging(link, false);
             link.ForceImmediateUpdate = true;
             link.CachedHasValidAutoInteractionPool = false;
             link.Pet.pather?.StopDead();

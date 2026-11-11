@@ -11,6 +11,7 @@ namespace LeadYourPet
 {
     public partial class LeadYourPetGameComponent : GameComponent
     {
+        private const int BaseLinkUpdateBucketCount = 5;
         private static readonly List<LeashLink> EmptyLinks = new List<LeashLink>(0);
         private static readonly List<Pawn> SinglePawnBuffer = new List<Pawn>(1);
         private List<LeashLink> links = new List<LeashLink>();
@@ -61,6 +62,10 @@ namespace LeadYourPet
                 return;
             }
 
+            int bucketCount = LeadYourPetRules.ResolveLinkUpdateBucketCount(
+                BaseLinkUpdateBucketCount,
+                Find.TickManager.TickRateMultiplier);
+
             linkSnapshot.Clear();
             linkSnapshot.AddRange(links);
             for (int i = 0; i < linkSnapshot.Count; i++)
@@ -73,8 +78,8 @@ namespace LeadYourPet
 
                 if (!LeadYourPetRules.ShouldProcessLinkOnTick(
                     currentTick: ticksGame,
-                    bucketCount: 4,
-                    linkBucket: link.UpdateBucket,
+                    bucketCount: bucketCount,
+                    linkBucket: link.UpdateBucket % bucketCount,
                     forceImmediate: link.ForceImmediateUpdate))
                 {
                     continue;

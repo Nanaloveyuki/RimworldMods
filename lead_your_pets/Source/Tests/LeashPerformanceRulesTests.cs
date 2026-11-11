@@ -9,12 +9,12 @@ namespace LeadYourPet.Tests
         {
             Assert.True(LeadYourPetRules.ShouldProcessLinkOnTick(
                 currentTick: 120,
-                bucketCount: 4,
+                bucketCount: 5,
                 linkBucket: 0));
 
             Assert.False(LeadYourPetRules.ShouldProcessLinkOnTick(
                 currentTick: 121,
-                bucketCount: 4,
+                bucketCount: 5,
                 linkBucket: 0));
         }
 
@@ -33,13 +33,28 @@ namespace LeadYourPet.Tests
         {
             Assert.True(LeadYourPetRules.ShouldProcessLinkOnTick(
                 currentTick: 126,
-                bucketCount: 4,
+                bucketCount: 5,
                 linkBucket: 1));
 
             Assert.True(LeadYourPetRules.ShouldProcessLinkOnTick(
                 currentTick: 138,
-                bucketCount: 4,
+                bucketCount: 5,
                 linkBucket: 3));
+
+            Assert.True(LeadYourPetRules.ShouldProcessLinkOnTick(
+                currentTick: 144,
+                bucketCount: 5,
+                linkBucket: 4));
+        }
+
+        [Theory]
+        [InlineData(1f, 5)]
+        [InlineData(3f, 15)]
+        [InlineData(6f, 30)]
+        [InlineData(0f, 5)]
+        public void ScalesLinkPollingBucketsWithActualTickRate(float tickRateMultiplier, int expectedBuckets)
+        {
+            Assert.Equal(expectedBuckets, LeadYourPetRules.ResolveLinkUpdateBucketCount(5, tickRateMultiplier));
         }
 
         [Fact]
