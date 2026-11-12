@@ -15,6 +15,7 @@ namespace MiliraFlightJobFix
         {
             MiliraPatch.Install();
             DraftAnythingCompatibility.Install();
+            DraftAnythingTrackerCleanup.Install();
         }
     }
 
