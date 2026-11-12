@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>UIRoot GUI Trace</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.uirootguitrace</packageId>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+  <description>Temporary diagnostic Mod that traces Harmony callbacks on UIRoot_Play.UIRootOnGUI and records colonist bar cache state when recaching or drawing fails. Remove it after collecting the failure log.</description>
+</ModMetaData>

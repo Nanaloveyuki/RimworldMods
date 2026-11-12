@@ -1,0 +1,25 @@
+{
+  "target": "UIRootGuiTrace",
+  "new_target_name": "UIRootGuiTrace",
+  "package_id": "nanaloveyuki.uirootguitrace",
+  "build": [
+    [
+      "dotnet",
+      "uiroot_gui_trace/Source/UIRootGuiTrace.csproj",
+      {}
+    ]
+  ],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "README.md",
+    "1.7/Assemblies/UIRootGuiTrace.dll",
+    {
+      "source": "1.7/Assemblies/UIRootGuiTrace.pdb",
+      "optional": true
+    }
+  ],
+  "required": [
+    "1.7/Assemblies/UIRootGuiTrace.dll"
+  ]
+}
