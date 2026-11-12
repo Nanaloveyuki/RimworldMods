@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <RimWorldVersion Condition="'$(RimWorldVersion)' == ''">1.7</RimWorldVersion>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)tmp/obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
+    <RimWorldDir Condition="'$(RimWorldDir)' == ''">$(RIMWORLD_DIR)</RimWorldDir>
+    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(OS)' == 'Windows_NT'">E:/Apps/Steam/steamapps/common/RimWorld</RimWorldDir>
+    <RimWorldDir Condition="'$(RimWorldDir)' == ''">/mnt/e/Apps/Steam/steamapps/common/RimWorld</RimWorldDir>
+    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == ''">$(HARMONY_ASSEMBLY_PATH)</HarmonyAssemblyPath>
+    <HarmonyAssemblyPath Condition="'$(HarmonyAssemblyPath)' == ''">$(RimWorldDir)/../../workshop/content/294100/2009463077/1.7/Assemblies/0Harmony.dll</HarmonyAssemblyPath>
+  </PropertyGroup>
+</Project>

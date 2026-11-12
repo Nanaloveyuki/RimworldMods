@@ -1,0 +1,19 @@
+{
+  "target": "AutoCutterIntervalFix",
+  "package_id": "nanaloveyuki.autocutterintervalfix",
+  "default_version": "1.7",
+  "versions": ["1.7"],
+  "forbidden_targets": ["3492083520", "2009463077"],
+  "build": [["dotnet", "auto_cutter_interval_fix/Source/AutoCutterIntervalFix.csproj", {}]],
+  "files": [
+    "About",
+    "LoadFolders.xml",
+    "README.md",
+    "1.7/Assemblies/AutoCutterIntervalFix.dll"
+  ],
+  "required": [
+    "About/About.xml",
+    "About/Preview.png",
+    "1.7/Assemblies/AutoCutterIntervalFix.dll"
+  ]
+}

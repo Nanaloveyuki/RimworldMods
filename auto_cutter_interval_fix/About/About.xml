@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Auto Cutter Interval Fix</name>
+  <author>Nanaloveyuki</author>
+  <packageId>nanaloveyuki.autocutterintervalfix</packageId>
+  <modVersion>1.0.0</modVersion>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>LingLuo.ItemCuter</packageId>
+      <displayName>Auto Cutter</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3492083520</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>LingLuo.ItemCuter</li>
+  </loadAfter>
+  <description>修复 Auto Cutter 更新后，旧存档中的自动切割机反复出现 DivideByZeroException、停止切割的问题。读取存档及执行切割机 Tick 前，将小于等于 0 的工作间隔恢复为原 Mod 默认的 60 tick。保留已有的正数间隔设置及原有切割、产物逻辑。需要原 Mod 和 Harmony，加载在它们之后。支持 RimWorld 1.7。
+
+Fixes repeating DivideByZeroException errors that stop Auto Cutter machines after loading older saves. Restores nonpositive work intervals to the original mod's default of 60 ticks on load and before ticking. Preserves positive interval settings and the original cutting and product logic. Requires Auto Cutter and Harmony; load after both. For RimWorld 1.7.</description>
+</ModMetaData>
