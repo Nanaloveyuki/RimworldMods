@@ -53,6 +53,7 @@ namespace HungerAndHavoc.Pawn.Compat
         private sealed class MeasuredLabel
         {
             internal float Width, Size, Height;
+            internal float NaturalWidth = -1f;
             internal FontStyle Style;
             internal object Language;
         }
@@ -187,24 +188,45 @@ namespace HungerAndHavoc.Pawn.Compat
                 }
         }
 
-        internal float LabelHeight(string text, float width)
+        private MeasuredLabel GetLabel(string text)
         {
-            text = text ?? string.Empty;
             if (!current.Labels.TryGetValue(text, out MeasuredLabel label))
             {
                 label = new MeasuredLabel();
                 current.Labels.Add(text, label);
             }
-            if (label.Width != width || label.Size != context.FontSize || label.Style != context.FontStyle ||
+            if (label.Size != context.FontSize || label.Style != context.FontStyle ||
                 !ReferenceEquals(label.Language, LanguageDatabase.activeLanguage))
             {
-                label.Width = width;
+                label.Width = -1f;
+                label.NaturalWidth = -1f;
                 label.Size = context.FontSize;
                 label.Style = context.FontStyle;
                 label.Language = LanguageDatabase.activeLanguage;
+            }
+            return label;
+        }
+
+        internal float LabelHeight(string text, float width)
+        {
+            text = text ?? string.Empty;
+            MeasuredLabel label = GetLabel(text);
+            if (label.Width != width)
+            {
+                label.Width = width;
                 label.Height = Measure(text, width);
             }
             return label.Height;
+        }
+
+        internal float LabelWidth(string text)
+        {
+            text = text ?? string.Empty;
+            MeasuredLabel label = GetLabel(text);
+            if (label.NaturalWidth < 0f)
+                label.NaturalWidth = UnityStubs.Gui.GuiBackend.Current?.MeasureText(1, context.FontSize, context.FontStyle,
+                    text, 100000f).x ?? Text.CalcSize(text).x;
+            return label.NaturalWidth;
         }
 
         internal float Measure(string text, float width)
@@ -270,6 +292,21 @@ namespace HungerAndHavoc.Pawn.Compat
             Control control = Get(id);
             if (control.Button == null) control.Button = new UiButton(context);
             return control.Button.Draw(row, label, GUI.enabled, scale: Scale);
+        }
+
+        internal bool WrappedButton(Rect row, string id, string label)
+        {
+            Control control = Get(id);
+            if (control.Button == null) control.Button = new UiButton(context);
+            bool clicked = control.Button.Draw(row, string.Empty, GUI.enabled, variant: UiButtonVariant.Ghost, scale: Scale);
+            float padding = 12f * Scale;
+            using (context.Opacity(GUI.enabled ? 1f : 0.42f))
+            {
+                context.Border(row, context.Palette.FooterLine);
+                context.Label(new Rect(row.x + padding, row.y, Mathf.Max(1f, row.width - padding * 2f), row.height),
+                    label, context.Palette.Ink, TextAnchor.MiddleCenter, true);
+            }
+            return clicked;
         }
 
         internal string TextField(Rect row, string id, string value, string placeholder)

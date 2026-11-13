@@ -17,6 +17,7 @@
   <RHAH_Settings_Weight_Tooltip>此类事件的出现权重乘以这个系数，范围 0 到 5。设为 0 时，此类事件停止出现。</RHAH_Settings_Weight_Tooltip>
   <RHAH_Menu_Events>事件</RHAH_Menu_Events>
   <RHAH_Menu_DevEvents>手动触发事件</RHAH_Menu_DevEvents>
+  <RHAH_Menu_DevEvents_RequiresDevMode>请先开启开发模式。</RHAH_Menu_DevEvents_RequiresDevMode>
   <RHAH_Menu_EventFrequency>事件频率</RHAH_Menu_EventFrequency>
   <RHAH_Menu_EventMeta>{0} / {1} / {2} / {3}。可广播：{4}。</RHAH_Menu_EventMeta>
   <RHAH_Menu_Events_Note>这里按 20 类事件设置。同类场景共用开关、规模、权重、到达态度和后续类型，事件发生时再选取具体场景。拖动滑条可粗略调整，右侧输入框可填写精确值。权重为 0 时，整类事件停止出现。</RHAH_Menu_Events_Note>

@@ -116,6 +116,12 @@ namespace HungerAndHavoc.Pawn.Compat
             return Native == null ? Widgets.ButtonText(row, label) : Native.Button(row, id, label);
         }
 
+        internal static bool WrappedButton(Rect row, string id, string label)
+        {
+            if (!IsVisible(row)) return false;
+            return Native == null ? Widgets.ButtonText(row, label) : Native.WrappedButton(row, id, label);
+        }
+
         internal static string TextField(Rect row, string id, string value, string placeholder = null)
         {
             if (!IsVisible(row)) return value;

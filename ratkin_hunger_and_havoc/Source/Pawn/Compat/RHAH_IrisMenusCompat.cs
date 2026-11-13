@@ -118,74 +118,44 @@ namespace HungerAndHavoc.Pawn.Compat
 
         internal void Register(Mod owner)
         {
-            RegisterPage(owner, "overview", "RHAH_Menu_General", new[]
-            {
-                Chapter("general", "RHAH_Menu_Overview", DrawOverview),
-                Chapter("arrival-options", "RHAH_Menu_ArrivalOptions", DrawArrivalOptions),
-                Chapter("removal", "RHAH_Menu_Removal", DrawRemoval)
-            }, SearchOverview, SearchExperimental, SearchRemoval);
-            RegisterPage(owner, "events", "RHAH_Menu_Events", new[]
-            {
-                Chapter("frequency", "RHAH_Menu_EventFrequency", DrawFrequency),
-                Chapter("event-types", "RHAH_Menu_Events", DrawEvents)
-            }, SearchFrequency, SearchCatalogEvents);
-            RegisterPage(owner, "dev-events", "RHAH_Menu_DevEvents", new[]
-            {
-                Chapter("event-tools", "RHAH_Menu_DevEvents", DrawDiagnosticEvents)
-            }, SearchDiagnosticEvents);
-            RegisterPage(owner, "visitors", "RHAH_Menu_Visitors", new[]
-            {
-                Chapter("behavior", "RHAH_Menu_Visitors", DrawVisitors),
-                Chapter("stay", "RHAH_Menu_Stay", DrawStay),
-                Chapter("plague", "RHAH_Menu_Plague", DrawPlague)
-            }, SearchVisitors, SearchStay, SearchPlague);
-            RegisterPage(owner, "relief", "RHAH_Menu_Relief", new[]
-            {
-                Chapter("relief-rules", "RHAH_Menu_Relief", DrawRelief),
-                Chapter("relief-food-list", "RHAH_Settings_ReliefFoods", DrawReliefFoods),
-                Chapter("give-food-list", "RHAH_Settings_GiveFoods", DrawGiveFoods),
-                Chapter("beg-food-list", "RHAH_Settings_BegFoods", DrawBegFoods)
-            }, SearchRelief);
-            RegisterPage(owner, "pawn-history", "RHAH_Menu_Generation", new[]
-            {
-                Chapter("generation", "RHAH_Menu_PawnHistory", DrawPawnHistory),
-                Chapter("environment", "RHAH_Menu_Environment", DrawEnvironment)
-            }, SearchPawnHistory, SearchEnvironment);
-            RegisterPage(owner, "genes", "RHAH_Menu_Genes", new[]
-            {
-                Chapter("genes", "RHAH_Menu_Genes", DrawGenes)
-            }, SearchGenes);
-            RegisterPage(owner, "suiyin-trust", "RHAH_Menu_TrustAndSettlement", new[]
-            {
-                Chapter("trust", "RHAH_Menu_SuiyinTrust", DrawSuiyinTrust),
-                Chapter("settlement", "RHAH_Menu_Settlement", DrawSettlement)
-            }, SearchSuiyinTrust, SearchSettlement);
-            RegisterPage(owner, "compat-diagnostics", "RHAH_Menu_CompatDiagnostics", new[]
-            {
-                Chapter("compatibility", "RHAH_Menu_CompatDiagnostics", DrawCompatDiagnostics),
-                Chapter("live-visitors", "RHAH_Menu_Pawns", DrawDiagnosticPawns)
-            }, SearchCompatDiagnostics, SearchDiagnosticPawns);
+            RegisterPage(owner, "overview", "RHAH_Menu_Overview", DrawOverview, SearchOverview);
+            RegisterPage(owner, "relief", "RHAH_Menu_Relief", DrawRelief, SearchReliefRules);
+            RegisterPage(owner, "relief-foods", "RHAH_Settings_ReliefFoods", DrawReliefFoods, SearchReliefFoods,
+                anchor => FocusFood(RHAH_IrisMenusItemKind.Relief, "relief-food-", anchor));
+            RegisterPage(owner, "give-foods", "RHAH_Settings_GiveFoods", DrawGiveFoods, SearchGiveFoods,
+                anchor => FocusFood(RHAH_IrisMenusItemKind.Give, "give-food-", anchor));
+            RegisterPage(owner, "beg-foods", "RHAH_Settings_BegFoods", DrawBegFoods, SearchBegFoods,
+                anchor => FocusFood(RHAH_IrisMenusItemKind.Beg, "beg-food-", anchor));
+            RegisterPage(owner, "visitors", "RHAH_Menu_Visitors", DrawVisitors, SearchVisitors);
+            RegisterPage(owner, "stay", "RHAH_Menu_Stay", DrawStay, SearchStay);
+            RegisterPage(owner, "plague", "RHAH_Menu_Plague", DrawPlague, SearchPlague);
+            RegisterPage(owner, "events", "RHAH_Menu_Events", DrawEvents, SearchCatalogEvents);
+            RegisterPage(owner, "pawns", "RHAH_Menu_Pawns", DrawDiagnosticPawns, SearchDiagnosticPawns);
+            RegisterPage(owner, "suiyin-trust", "RHAH_Menu_SuiyinTrust", DrawSuiyinTrust, SearchSuiyinTrust);
+            RegisterPage(owner, "settlement-progress", "RHAH_Menu_Settlement", DrawSettlement, SearchSettlement);
+            RegisterPage(owner, "environment", "RHAH_Menu_Environment", DrawEnvironment, SearchEnvironment);
+            RegisterPage(owner, "compat-diagnostics", "RHAH_Menu_CompatDiagnostics", DrawCompatDiagnostics, SearchCompatDiagnostics);
+            RegisterPage(owner, "genes", "RHAH_Menu_Genes", DrawGenes, SearchGenes);
+            RegisterPage(owner, "dev-events", "RHAH_Menu_DevEvents", DrawDiagnosticEvents, SearchDiagnosticEvents);
+            RegisterPage(owner, "event-frequency", "RHAH_Menu_EventFrequency", DrawFrequency, SearchFrequency);
+            RegisterPage(owner, "pawn-history", "RHAH_Menu_PawnHistory", DrawPawnHistory, SearchPawnHistory);
+            RegisterPage(owner, "experimental", "RHAH_Menu_Experimental", DrawExperimental, SearchExperimental);
+            RegisterPage(owner, "arrival-options", "RHAH_Menu_ArrivalOptions", DrawArrivalOptions, SearchArrivalOptions);
+            RegisterPage(owner, "removal", "RHAH_Menu_Removal", DrawRemoval, SearchRemoval);
         }
 
-        static RHAH_IrisMenusChapter Chapter(string id, string titleKey, Action<Listing_Standard> draw)
+        void RegisterPage(Mod owner, string pageId, string titleKey, Action<Listing_Standard> draw,
+            Func<IEnumerable<MenuSearchEntry>> search, Action<string> beforeFocus = null)
         {
-            return new RHAH_IrisMenusChapter(id, titleKey, draw);
-        }
-
-        void RegisterPage(Mod owner, string pageId, string titleKey,
-            RHAH_IrisMenusChapter[] chapters, params Func<IEnumerable<MenuSearchEntry>>[] searches)
-        {
+            var chapters = new[] { new RHAH_IrisMenusChapter("chapter-" + pageId, titleKey, draw) };
             MenuRegistry.RegisterSubItemListing(owner, pageId, () => titleKey.Translate(), list =>
             {
-                for (int i = 0; i < chapters.Length; i++)
-                {
-                    MenuControls.Anchor(list, chapters[i].Id);
-                    chapters[i].Draw(list);
-                }
+                MenuControls.Anchor(list, chapters[0].Id);
+                draw(list);
             });
-            MenuRegistry.RegisterSearchProvider(owner, pageId, () => SearchChapters(chapters, searches));
+            MenuRegistry.RegisterSearchProvider(owner, pageId, () => SearchChapters(chapters, new[] { search }));
             MenuRegistry.RegisterPresentation(owner, pageId,
-                new MenuPresentation(context => new RHAH_IrisMenusNativePage(context, chapters)));
+                new MenuPresentation(context => new RHAH_IrisMenusNativePage(context, chapters, beforeFocus)));
         }
 
         static IEnumerable<MenuSearchEntry> SearchChapters(RHAH_IrisMenusChapter[] chapters,
@@ -313,8 +283,34 @@ namespace HungerAndHavoc.Pawn.Compat
                     Mathf.Max(native.LabelHeight("RHAH_Settings_PredationFightBack".Translate(), Mathf.Max(1f, width - 68f * native.Scale)),
                         native.LabelHeight("RHAH_Settings_PredationFollowDifficulty".Translate(), Mathf.Max(1f, width - 68f * native.Scale)))));
             float buttonHeight = native == null ? IncidentButtonHeight : 36f * native.Scale;
+            float scale = native == null ? 1f : native.Scale;
+            float buttonGap = 8f * scale;
+            float buttonPadding = 12f * scale;
+            float buttonWidth = width;
+            float buttonsHeight = 0f;
+            float resultHeight = 0f;
+            bool stacked = false;
+            string queueLabel = null;
+            string instantLabel = null;
+            string result = null;
+            if (debug)
+            {
+                queueLabel = "RHAH_Menu_Trigger".Translate();
+                instantLabel = "RHAH_Menu_TriggerInstant".Translate();
+                float queueWidth = native == null ? Text.CalcSize(queueLabel).x : native.LabelWidth(queueLabel);
+                float instantWidth = native == null ? Text.CalcSize(instantLabel).x : native.LabelWidth(instantLabel);
+                stacked = (Mathf.Max(queueWidth, instantWidth) + buttonPadding * 2f) * 2f + buttonGap > width;
+                buttonWidth = stacked ? width : (width - buttonGap) * 0.5f;
+                float labelWidth = Mathf.Max(1f, buttonWidth - buttonPadding * 2f);
+                float queueHeight = native == null ? Text.CalcHeight(queueLabel, labelWidth) : native.LabelHeight(queueLabel, labelWidth);
+                float instantHeight = native == null ? Text.CalcHeight(instantLabel, labelWidth) : native.LabelHeight(instantLabel, labelWidth);
+                buttonHeight = Mathf.Max(buttonHeight, Mathf.Max(queueHeight, instantHeight) + 12f * scale);
+                buttonsHeight = stacked ? buttonHeight * 2f + buttonGap : buttonHeight;
+                if (debugResults.TryGetValue(entry.DisplayId, out result))
+                    resultHeight = native == null ? Text.CalcHeight(result, width) : native.LabelHeight(result, width);
+            }
             float height = titleHeight + metaHeight + 8f + RHAH_IrisMenusWidgets.CardPad * 2f;
-            if (debug) height += buttonHeight * 2f;
+            if (debug) height += buttonsHeight + (resultHeight > 0f ? buttonGap + resultHeight : 0f);
             if (settings != null && !debug) height += (row + 4f) * (entry.DisplayId == "I-051" ? 8f : 5f);
 
             if (!RHAH_IrisMenusWidgets.Card(list, anchor, height, out Rect inner))
@@ -326,28 +322,25 @@ namespace HungerAndHavoc.Pawn.Compat
             float cursor = inner.y + titleHeight + metaHeight + 8f;
             if (debug)
             {
-                float buttonWidth = Mathf.Min(160f, (inner.width - 8f) * 0.5f);
                 Rect button = new Rect(inner.x, cursor, buttonWidth, buttonHeight);
-                if (RHAH_IrisMenusWidgets.Button(button, "queue-" + entry.DisplayId, "RHAH_Menu_Trigger".Translate()))
+                Rect instant = new Rect(stacked ? inner.x : button.xMax + buttonGap,
+                    stacked ? button.yMax + buttonGap : cursor, buttonWidth, buttonHeight);
+                bool enabled = GUI.enabled;
+                try
                 {
-                    debugResults[entry.DisplayId] = Queue(entry);
+                    GUI.enabled = enabled && Prefs.DevMode;
+                    if (RHAH_IrisMenusWidgets.WrappedButton(button, "queue-" + entry.DisplayId, queueLabel))
+                        debugResults[entry.DisplayId] = Queue(entry);
+                    if (RHAH_IrisMenusWidgets.WrappedButton(instant, "instant-" + entry.DisplayId, instantLabel))
+                        debugResults[entry.DisplayId] = SpawnInstant(entry);
                 }
-
-                Rect instant = new Rect(button.xMax + 8f, cursor, buttonWidth, buttonHeight);
-                if (RHAH_IrisMenusWidgets.Button(instant, "instant-" + entry.DisplayId, "RHAH_Menu_TriggerInstant".Translate()))
+                finally
                 {
-                    debugResults[entry.DisplayId] = SpawnInstant(entry);
+                    GUI.enabled = enabled;
                 }
                 TooltipHandler.TipRegion(instant, "RHAH_Menu_TriggerInstant_Tip".Translate());
-                cursor += buttonHeight;
-
-                string result;
-                if (debugResults.TryGetValue(entry.DisplayId, out result))
-                {
-                    RHAH_IrisMenusWidgets.Label(new Rect(inner.x, cursor, inner.width, buttonHeight), result);
-                }
-
-                cursor += buttonHeight;
+                if (resultHeight > 0f)
+                    RHAH_IrisMenusWidgets.Label(new Rect(inner.x, cursor + buttonsHeight + buttonGap, inner.width, resultHeight), result);
             }
 
             if (settings != null && !debug)
@@ -458,8 +451,13 @@ namespace HungerAndHavoc.Pawn.Compat
             return value.ToString(format);
         }
 
-        static string Queue(RHAH_IncidentEntry entry)
+        internal static string Queue(RHAH_IncidentEntry entry)
         {
+            if (!Prefs.DevMode)
+            {
+                return "RHAH_Menu_DevEvents_RequiresDevMode".Translate();
+            }
+
             if (!RHAH_Runtime.AllowsNewContent)
             {
                 return "RHAH_Menu_Queue_Disabled".Translate();
@@ -492,8 +490,13 @@ namespace HungerAndHavoc.Pawn.Compat
             return "RHAH_Menu_Queue_Failed".Translate();
         }
 
-        static string SpawnInstant(RHAH_IncidentEntry entry)
+        internal static string SpawnInstant(RHAH_IncidentEntry entry)
         {
+            if (!Prefs.DevMode)
+            {
+                return "RHAH_Menu_DevEvents_RequiresDevMode".Translate();
+            }
+
             if (Current.Game == null)
             {
                 return "RHAH_Menu_Queue_NoGame".Translate();
@@ -1562,64 +1565,6 @@ namespace HungerAndHavoc.Pawn.Compat
 
 
 
-        IEnumerable<MenuSearchEntry> SearchRelief()
-        {
-            yield return Entry("relief-enabled", "RHAH_Settings_ReliefEnabled");
-            yield return Entry("relief-outside", "RHAH_Settings_EatOutsideRelief");
-            yield return Entry("relief-foods", "RHAH_Settings_ReliefFoods");
-            yield return Entry("give-foods", "RHAH_Settings_GiveFoods");
-            yield return Entry("beg-foods", "RHAH_Settings_BegFoods");
-            yield return Entry("give-food-sort", "RHAH_Settings_GiveFoods_Sort");
-            List<ThingDef> foods = new List<ThingDef>();
-            RHAH_ReliefFood.AppendCandidateFoods(foods);
-            for (int i = 0; i < foods.Count; i++)
-            {
-                ThingDef food = foods[i];
-                if (food == null || string.IsNullOrEmpty(food.defName))
-                {
-                    continue;
-                }
-
-                string modName = RHAH_ReliefFood.SourceModName(food);
-                string key = modName ?? string.Empty;
-                string id = "relief-food-" + food.defName;
-                string label = food.LabelCap;
-                yield return new MenuSearchEntry(
-                    id,
-                    () => label,
-                    () => food.defName + " " + (modName ?? string.Empty),
-                    () =>
-                    {
-                        pendingFoodMod = key;
-                        return modName;
-                    });
-            }
-
-            List<ThingDef> giveFoods = new List<ThingDef>();
-            RHAH_ReliefFood.AppendCandidateFoods(giveFoods);
-            int mode = RHAH_Mod.Settings == null ? 0 : RHAH_Mod.Settings.giveFoodListMode;
-            for (int i = 0; i < giveFoods.Count; i++)
-            {
-                ThingDef food = giveFoods[i];
-                if (food == null || string.IsNullOrEmpty(food.defName))
-                {
-                    continue;
-                }
-
-                string key = RHAH_ReliefFood.GroupKey(mode, food);
-                string id = "give-food-" + food.defName;
-                string label = food.LabelCap;
-                yield return new MenuSearchEntry(
-                    id,
-                    () => label,
-                    () => food.defName + " " + key,
-                    () =>
-                    {
-                        pendingGiveFoodGroup = key;
-                        return GiveFoodTitle(mode, key);
-                    });
-            }
-        }
         void DrawCompatDiagnostics(Listing_Standard list)
         {
             Section(list, "RHAH_Menu_CompatDiagnostics");
@@ -2197,8 +2142,6 @@ namespace HungerAndHavoc.Pawn.Compat
                 return;
             }
 
-            MenuControls.Anchor(list, "optimize-generation");
-            RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.optimizeGeneration), "RHAH_Settings_OptimizeGeneration".Translate(), ref settings.optimizeGeneration, "RHAH_Settings_OptimizeGeneration_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.aidRequestsEnabled), "RHAH_Settings_AidRequests".Translate(), ref settings.aidRequestsEnabled, "RHAH_Settings_AidRequests_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.intelTradesEnabled), "RHAH_Settings_IntelTrades".Translate(), ref settings.intelTradesEnabled, "RHAH_Settings_IntelTrades_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.visitorChoicesEnabled), "RHAH_Settings_VisitorChoices".Translate(), ref settings.visitorChoicesEnabled, "RHAH_Settings_VisitorChoices_Tooltip".Translate());
@@ -2216,7 +2159,6 @@ namespace HungerAndHavoc.Pawn.Compat
                 RHAH_ApproachRules.ClampSpeed(settings.approachSpeedMultiplier), RHAH_ApproachRules.MinSpeedMultiplier,
                 RHAH_ApproachRules.MaxSpeedMultiplier, "0.00", "RHAH_Settings_ApproachSpeed_Tooltip".Translate());
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.childExchangeFoodSubstitution), "RHAH_Settings_ChildExchangeFood".Translate(), ref settings.childExchangeFoodSubstitution, "RHAH_Settings_ChildExchangeFood_Tooltip".Translate());
-            RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.staggerGeneration), "RHAH_Settings_Stagger".Translate(), ref settings.staggerGeneration, "RHAH_Settings_Stagger_Tooltip".Translate());
         }
 
         void DrawFrequency(Listing_Standard list)
@@ -2453,7 +2395,7 @@ namespace HungerAndHavoc.Pawn.Compat
         static IEnumerable<MenuSearchEntry> SearchExperimental()
         {
             yield return Entry("optimize-generation", "RHAH_Settings_OptimizeGeneration", "generation optimizer");
-            yield return Entry("approach-speed", "RHAH_Settings_ApproachSpeed", "caravan speed travelers");
+            yield return Entry("stagger-generation", "RHAH_Settings_Stagger", "staggered generation");
         }
 
 

@@ -57,6 +57,8 @@
   <RHAH_Settings_RefugeeApparel_Sort_1>名前順</RHAH_Settings_RefugeeApparel_Sort_1>
   <RHAH_Settings_RefugeeApparel_Sort_2>バニラの分類別</RHAH_Settings_RefugeeApparel_Sort_2>
   <RHAH_Menu_PawnHistory>訪問者の生い立ち</RHAH_Menu_PawnHistory>
+  <RHAH_Menu_ArrivalOptions>到着と対応</RHAH_Menu_ArrivalOptions>
+  <RHAH_Menu_Stay>滞在期間</RHAH_Menu_Stay>
   <RHAH_Menu_Experimental>実験的機能</RHAH_Menu_Experimental>
   <RHAH_Menu_PawnHistory_Note>新しい訪問者は、チェックした生い立ちから一つを受け取ります。イベントですでに素性が決まっている人は、その素性のままです。特性は、そのあとでも選ばれます。</RHAH_Menu_PawnHistory_Note>
   <RHAH_Menu_PawnHistory_EnableAll>すべての生い立ちを有効にする</RHAH_Menu_PawnHistory_EnableAll>

@@ -17,6 +17,7 @@
   <RHAH_Settings_Weight_Tooltip>この種類のイベントの抽選時の重みに掛ける倍率です。範囲は0～5。0にすると、この種類は発生しなくなります。</RHAH_Settings_Weight_Tooltip>
   <RHAH_Menu_Events>イベント</RHAH_Menu_Events>
   <RHAH_Menu_DevEvents>イベントを手動で発生</RHAH_Menu_DevEvents>
+  <RHAH_Menu_DevEvents_RequiresDevMode>開発者モードを有効にしてください。</RHAH_Menu_DevEvents_RequiresDevMode>
   <RHAH_Menu_EventFrequency>イベント頻度</RHAH_Menu_EventFrequency>
   <RHAH_Menu_EventMeta>{0} / {1} / {2} / {3}。放送可：{4}。</RHAH_Menu_EventMeta>
   <RHAH_Menu_Events_Note>20種類のイベントを設定します。同じ種類の場面では、発生の許可、規模、重み、到着時の態度、その後を共有し、発生時に具体的な場面を選びます。スライダーで大まかに、入力欄で正確な値を設定します。重みが0なら種類全体が発生しません。</RHAH_Menu_Events_Note>

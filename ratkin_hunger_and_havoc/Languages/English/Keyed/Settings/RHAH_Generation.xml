@@ -57,6 +57,8 @@
   <RHAH_Settings_RefugeeApparel_Sort_1>By name</RHAH_Settings_RefugeeApparel_Sort_1>
   <RHAH_Settings_RefugeeApparel_Sort_2>By vanilla category</RHAH_Settings_RefugeeApparel_Sort_2>
   <RHAH_Menu_PawnHistory>Visitor histories</RHAH_Menu_PawnHistory>
+  <RHAH_Menu_ArrivalOptions>Arrival and interaction</RHAH_Menu_ArrivalOptions>
+  <RHAH_Menu_Stay>Visitor stays</RHAH_Menu_Stay>
   <RHAH_Menu_Experimental>Experimental</RHAH_Menu_Experimental>
   <RHAH_Menu_PawnHistory_Note>New visitors take one checked history. Someone whose story the incident already wrote keeps that story. Traits can still be chosen.</RHAH_Menu_PawnHistory_Note>
   <RHAH_Menu_PawnHistory_EnableAll>Enable all histories</RHAH_Menu_PawnHistory_EnableAll>
