@@ -15,9 +15,12 @@ namespace HungerAndHavoc.Pawn
             internal Lord Camp;
         }
 
-        internal static void Prefix(Thing __instance, out HarmContext __state)
+        internal static void Prefix(Thing __instance, out HarmContext __state, DamageInfo dinfo = default)
         {
             Verse.Pawn pawn = __instance as Verse.Pawn;
+            if (pawn != null && dinfo.Instigator?.Faction?.IsPlayer == true && dinfo.Def != null &&
+                dinfo.Def.harmsHealth && dinfo.Def.ExternalViolenceFor(__instance))
+                HungerAndHavoc.EventMgr.RHAH_WarlordBombardment.NotePlayerAttack(pawn);
             __state = new HarmContext
             {
                 ArmedChoiceId = (pawn?.GetLord()?.LordJob as LordJob_RHAH_Visitor)?.ArmedChoiceId ?? 0,

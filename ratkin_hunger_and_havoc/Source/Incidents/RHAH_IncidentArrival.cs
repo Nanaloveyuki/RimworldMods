@@ -55,9 +55,13 @@ namespace HungerAndHavoc.Incidents
             {
                 return RHAH_Attitude.Neutral;
             }
-            if (entry.DisplayId == "I-054")
+            if (entry.DisplayId == "I-054" || entry.DisplayId == RHAH_WarlordCompat.SuicideSquad)
             {
                 return RHAH_Attitude.Hostile;
+            }
+            if (entry.DisplayId == RHAH_WarlordCompat.MutilatedChildren)
+            {
+                return RHAH_Attitude.LeaningHostile;
             }
 
             RHAH_Settings settings = RHAH_Mod.Settings;

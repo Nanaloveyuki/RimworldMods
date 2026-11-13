@@ -18,6 +18,8 @@ namespace HungerAndHavoc.Core
         public static ThingDef RHAH_GuanyinTu;
         public static JobDef RHAH_Beg;
         public static JobDef RHAH_Gnaw;
+        public static JobDef RHAH_WarlordVandalize;
+        public static JobDef RHAH_WarlordIgnite;
         public static JobDef RHAH_DropChild;
         public static JobDef RHAH_MotherFeed;
         public static JobDef RHAH_Scavenge;

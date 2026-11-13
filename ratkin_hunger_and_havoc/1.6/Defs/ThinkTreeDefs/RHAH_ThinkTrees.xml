@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <ThinkTreeDef>
+    <defName>RHAH_WarlordSabotage</defName>
+    <insertTag>Humanlike_PostMentalState</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="HungerAndHavoc.Pawn.JobGiver_RHAH_WarlordSabotage" />
+  </ThinkTreeDef>
+  <ThinkTreeDef>
     <defName>RHAH_VisitorFallback</defName>
     <insertTag>Humanlike_PostDuty</insertTag>
     <insertPriority>100</insertPriority>

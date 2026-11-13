@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <RHAH_WarlordVandalize.reportString>TargetAを壊している。</RHAH_WarlordVandalize.reportString>
+  <RHAH_WarlordIgnite.reportString>TargetAに火をつけている。</RHAH_WarlordIgnite.reportString>
   <RHAH_Beg.reportString>食べ物を乞う</RHAH_Beg.reportString>
   <RHAH_Gnaw.reportString>樹皮や壁をかじる</RHAH_Gnaw.reportString>
   <RHAH_DropChild.reportString>子供を下ろす</RHAH_DropChild.reportString>

@@ -125,7 +125,7 @@ namespace HungerAndHavoc.Tests
 
             Assert.Equal(1, catalogDraws);
             Assert.Equal(developerMode ? 0 : 1, quotes);
-            Assert.Equal(57, entries.Count);
+            Assert.Equal(59, entries.Count);
             Assert.Equal(RHAH_IncidentCatalog.All.Select(entry => "dev-" + entry.DisplayId), entries.Select(entry => entry.Id));
             foreach (RHAH_IncidentEntry incident in RHAH_IncidentCatalog.All)
             {

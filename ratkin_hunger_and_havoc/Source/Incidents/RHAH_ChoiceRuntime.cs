@@ -70,6 +70,8 @@ namespace HungerAndHavoc.Incidents
             {
                 return RHAH_ChoiceAction.None;
             }
+            if (record.DisplayId == RHAH_WarlordCompat.MutilatedChildren && requested == RHAH_ChoiceAction.Reject)
+                return RHAH_ChoiceAction.None;
             if (requested == RHAH_ChoiceAction.Feed &&
                 !RHAH_RequestRules.ShowsFoodGive(record.DisplayId, record.Choice)) return RHAH_ChoiceAction.None;
             bool swarm = RHAH_MouseSwarm.IsSource(record.DisplayId);
@@ -429,33 +431,36 @@ namespace HungerAndHavoc.Incidents
             HungerAndHavoc.Storyteller.Suiyin.RHAH_EntrustCare.OnChoice(record);
         }
 
-        internal static bool HasAllyDestination()
+        internal static bool HasAllyDestination(string displayId = null)
         {
             if (Find.FactionManager == null || Find.WorldObjects == null) return false;
             List<Faction> factions = Find.FactionManager.AllFactionsListForReading;
             for (int i = 0; i < factions.Count; i++)
-                if (AcceptsAlly(factions[i])) return true;
+                if (AcceptsAlly(factions[i], displayId)) return true;
             return false;
         }
 
-        internal static List<Faction> AllyDestinations()
+        internal static List<Faction> AllyDestinations(string displayId = null)
         {
             List<Faction> result = new List<Faction>();
             if (Find.FactionManager == null || Find.WorldObjects == null) return result;
             List<Faction> factions = Find.FactionManager.AllFactionsListForReading;
             for (int i = 0; i < factions.Count; i++)
-                if (AcceptsAlly(factions[i])) result.Add(factions[i]);
+                if (AcceptsAlly(factions[i], displayId)) result.Add(factions[i]);
             result.Sort((left, right) => left.loadID.CompareTo(right.loadID));
             return result;
         }
 
-        static bool AcceptsAlly(Faction faction)
+        static bool AcceptsAlly(Faction faction, string displayId = null)
         {
             if (faction == null || faction.def == null || faction.IsPlayer)
             {
                 return false;
             }
 
+            bool underground = RHAH_WarlordCompat.IsUnderground(faction);
+            if (!RHAH_WarlordCompat.AllowsDestination(displayId, underground)) return false;
+            if (RHAH_WarlordCompat.AcceptsTransfer(faction, displayId)) return true;
             return RHAH_RequestRules.IsAllyDestination(
                 faction.IsPlayer,
                 faction.Hidden,
@@ -493,7 +498,7 @@ namespace HungerAndHavoc.Incidents
 
             // 只有「这家派系现在收不了」才归到派系头上，记录或世界失效走 Stale
             Faction faction = FindFaction(allyFactionId);
-            if (!AcceptsAlly(faction))
+            if (!AcceptsAlly(faction, record.DisplayId))
             {
                 refusal = RHAH_AllyRefusal.NoAcceptingFaction;
                 return false;
@@ -521,6 +526,7 @@ namespace HungerAndHavoc.Incidents
                 return false;
             }
 
+            EventMgr.RHAH_AllyDeparture.Start(record, leaving, Find.TickManager.TicksGame);
             RHAH_BatchAttitude.OrderVisitorLeave(leaving);
             refusal = RHAH_AllyRefusal.None;
             return true;
@@ -553,6 +559,7 @@ namespace HungerAndHavoc.Incidents
 
                 if (faction != null)
                 {
+                    RHAH_Api.SetExtra(pawn, EventMgr.RHAH_AllyDeparture.ProgressKey, null);
                     pawn.SetFaction(faction);
                     RHAH_AllyTransfer.OnArrival(record, faction, pawn, Find.TickManager.TicksGame);
                 }
@@ -778,7 +785,7 @@ namespace HungerAndHavoc.Incidents
             return remaining == 0;
         }
 
-        static RHAH_ChoiceRecord FindRecord(GameComponent_RHAH_Game game, int choiceId)
+        internal static RHAH_ChoiceRecord FindRecord(GameComponent_RHAH_Game game, int choiceId)
         {
             List<RHAH_ChoiceRecord> records = Records(game);
             for (int i = 0; i < records.Count; i++)

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <RHAH_WarlordVandalize.reportString>damaging TargetA.</RHAH_WarlordVandalize.reportString>
+  <RHAH_WarlordIgnite.reportString>setting fire to TargetA.</RHAH_WarlordIgnite.reportString>
   <RHAH_Beg.reportString>begging for food</RHAH_Beg.reportString>
   <RHAH_Gnaw.reportString>gnawing bark or wall plaster</RHAH_Gnaw.reportString>
   <RHAH_DropChild.reportString>putting a child down</RHAH_DropChild.reportString>

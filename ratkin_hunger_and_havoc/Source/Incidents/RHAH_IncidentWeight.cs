@@ -115,7 +115,7 @@ namespace HungerAndHavoc.Incidents
 
         internal static int MultiplyCount(string displayId, int count, bool famine, float multiplier)
         {
-            return !famine || count <= 1 || FixedGroup(displayId) || displayId == "I-052"
+            return !famine || count <= 1 || FixedGroup(displayId) || displayId == "I-052" || RHAH_WarlordCompat.IsVictimEvent(displayId)
                 ? count
                 : (int)Math.Ceiling(count * Core.GameComponent_RHAH_FamineYear.ClampMultiplier(multiplier));
         }
@@ -125,6 +125,8 @@ namespace HungerAndHavoc.Incidents
             float safe = RHAH_IncidentTuning.ClampPoints(points);
             switch (displayId)
             {
+                case "I-055": return Rand.RangeInclusive(1, 10);
+                case "I-056": return Rand.RangeInclusive(1, 12);
                 case "I-001": return Fixed(safe, 10, 50, 50f);
                 case "I-002": return Linear(safe, 120f, 1, 10);
                 case "I-003": return Linear(safe, 150f, 1, 10) + 1;

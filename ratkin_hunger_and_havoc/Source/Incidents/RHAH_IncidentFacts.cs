@@ -14,13 +14,16 @@ namespace HungerAndHavoc.Incidents
             if (context == null || context.Map == null || context.PawnCount <= 0 ||
                 context.SpawnCell == IntVec3.Invalid || context.SpawnBatchId <= 0 ||
                 context.RelationshipGroupId <= 0 || context.Role == RHAH_PawnRole.Unspecified ||
-                (context.DisplayId == "I-052" && !GameComponent_RHAH_FamineYear.Active))
+                (context.DisplayId == "I-052" && !GameComponent_RHAH_FamineYear.Active) ||
+                !RHAH_WarlordCompat.Available(context.DisplayId))
             {
                 return false;
             }
 
             bool armedDemand = Pawn.RHAH_ArmedDemand.Enabled && Pawn.RHAH_ArmedDemand.IsSiege(context.DisplayId);
-            RHAH_Attitude arrivalAttitude = context.DisplayId == "I-052" || armedDemand ? RHAH_Attitude.Neutral : context.Attitude;
+            RHAH_Attitude arrivalAttitude = RHAH_WarlordCompat.IsVictimEvent(context.DisplayId)
+                ? RHAH_IncidentArrival.For(context.DisplayId)
+                : context.DisplayId == "I-052" || armedDemand ? RHAH_Attitude.Neutral : context.Attitude;
             // 先整批定好角色与年龄,母亲的下限要按同批最年长的孩子抬高,必须先算再生成
             List<RHAH_PawnRole> roles = new List<RHAH_PawnRole>(context.PawnCount);
             List<float?> ages = new List<float?>(context.PawnCount);
@@ -61,6 +64,11 @@ namespace HungerAndHavoc.Incidents
                 }
 
                 created.Add(result);
+                if (context.DisplayId == RHAH_WarlordCompat.MutilatedChildren && !RHAH_WarlordVictimBody.Apply(result.Pawns[0]))
+                {
+                    Rollback(created);
+                    return false;
+                }
                 if (context.DisplayId == "I-053" && !RHAH_PleadingJoin.Apply(result.Pawns[0]))
                 {
                     Rollback(created);
@@ -84,7 +92,12 @@ namespace HungerAndHavoc.Incidents
             LinkFamily(context.DisplayId, arrived);
             Pawn.Compat.RHAH_LeashBridge.TryLeashArrivals(arrived);
             StockCuisine(context, arrived);
-            if (Pawn.RHAH_VisitorGroup.TryStart(arrived, context.Map, context.SpawnCell, context.Role) == null)
+            if (context.DisplayId == RHAH_WarlordCompat.SuicideSquad)
+                context.Map.attackTargetsCache.Notify_FactionHostilityChanged(arrived[0].Faction, Faction.OfPlayer);
+            bool groupStarted = context.DisplayId == RHAH_WarlordCompat.SuicideSquad
+                ? Trade.TradeEventRouter.TryCreateAssaultLord(arrived[0].Faction, context.Map, arrived)
+                : Pawn.RHAH_VisitorGroup.TryStart(arrived, context.Map, context.SpawnCell, context.Role) != null;
+            if (!groupStarted)
             {
                 Rollback(created);
                 return false;
@@ -211,6 +224,10 @@ namespace HungerAndHavoc.Incidents
 
         internal static float? GenerationAge(RHAH_PawnRole role, string displayId)
         {
+            if (RHAH_WarlordCompat.IsVictimEvent(displayId))
+            {
+                return RHAH_WarlordCompat.YoungAge(Pawn.Compat.RHAH_ToddlerPresence.Active, Rand.Value);
+            }
             if (displayId == "I-032" || displayId == "I-046")
             {
                 return HungerAndHavoc.Pawn.RHAH_VisitorRules.AirdropAge(Rand.Value);
@@ -255,6 +272,7 @@ namespace HungerAndHavoc.Incidents
         {
             RHAH_RequestSpec spec = RHAH_RequestRules.SpecFor(context.DisplayId);
             RHAH_ChoiceKind choice = spec.Choice;
+            if (context.DisplayId == RHAH_WarlordCompat.SuicideSquad) return false;
             if (choice == RHAH_ChoiceKind.None && RHAH_RequestRules.OffersVisitorControl(context.DisplayId))
             {
                 choice = RHAH_ChoiceKind.Visitors;
@@ -319,6 +337,13 @@ namespace HungerAndHavoc.Incidents
             string textKey = context.DisplayId == "I-034" || context.DisplayId == "I-048"
                 ? "RHAH_Arrival_GreatFamine_Text" : "RHAH_Arrival_Text";
             string text = textKey.Translate(IncidentLabel(context.DisplayId), context.Map.Parent.LabelCap);
+            if (context.DisplayId == RHAH_WarlordCompat.SuicideSquad)
+            {
+                Find.LetterStack.ReceiveLetter(LetterMaker.MakeLetter(IncidentLabel(context.DisplayId),
+                    "RHAH_Warlord_SuicideSquadText".Translate(),
+                    DefDatabase<LetterDef>.GetNamed("RHAH_BanditAttackLetter"), new LookTargets(arrived)));
+                return;
+            }
             RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(context.DisplayId);
             if (entry != null && entry.Category == RHAH_IncidentCategory.Plague &&
                 (RHAH_Mod.Settings == null || RHAH_Mod.Settings.plagueEnabled))
@@ -489,6 +514,7 @@ namespace HungerAndHavoc.Incidents
         {
             switch (record.DisplayId)
             {
+                case "I-056": return "RHAH_Warlord_MutilatedChildren";
                 case "I-003": return "RHAH_Choice_ShatteredMother";
                 case "I-004": return "RHAH_Choice_BeggarFamily";
                 case "I-005":

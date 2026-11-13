@@ -27,6 +27,18 @@ namespace HungerAndHavoc.Incidents
                 return;
             }
 
+            if (RHAH_WarlordCompat.IsUnderground(faction))
+            {
+                if (record.AllyGiftChecked) return;
+                record.AllyGiftChecked = true;
+                int goodwill = faction.GoodwillWith(Faction.OfPlayer);
+                if (RHAH_WarlordCompat.UndergroundGoodwill(goodwill) > 0 &&
+                    faction.TryAffectGoodwillWith(Faction.OfPlayer, 1, canSendMessage: false))
+                    record.AllyGoodwillGranted = 1;
+                if (RHAH_WarlordCompat.UndergroundGift(goodwill)) ScheduleGift(record, faction, tick);
+                return;
+            }
+
             float value = pawn.MarketValue;
             if (value > 0f)
             {
@@ -46,6 +58,11 @@ namespace HungerAndHavoc.Incidents
                 return;
             }
 
+            ScheduleGift(record, faction, tick);
+        }
+
+        static void ScheduleGift(RHAH_ChoiceRecord record, Faction faction, int tick)
+        {
             ThingDef incoming = faction.def.dropPodIncoming ?? ThingDefOf.DropPodIncoming;
             int flightTicks = incoming.skyfaller.ticksToImpactRange.max;
             long due = (long)tick + GiftDelay(Rand.Value, flightTicks);
@@ -169,10 +186,6 @@ namespace HungerAndHavoc.Incidents
             record.AllyGiftDueTick = -1;
             Faction faction = RHAH_ChoiceRuntime.FindFaction(record.AllyFactionId);
             Map map = RHAH_ChoiceRuntime.FindMap(record.MapId);
-            if (map == null || !map.IsPlayerHome)
-            {
-                map = Find.AnyPlayerHomeMap;
-            }
             if (map == null || faction == null)
             {
                 return;

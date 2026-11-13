@@ -48,6 +48,7 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
+            HungerAndHavoc.EventMgr.RHAH_WarlordBombardment.NotifyDeath(__instance, dinfo);
             HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.NotifyDeath(__instance, dinfo?.Instigator?.Faction == Faction.OfPlayer ||
                 (!dinfo.HasValue && HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.PlayerFatalBleeding(__instance)));
             CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(__instance);

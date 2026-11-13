@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <IncidentDef MayRequire="fxz.ratkinfaction">
+    <defName>RHAH_ChildSuicideSquad</defName>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_WarlordVictims</workerClass>
+    <category>ThreatBig</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+  <IncidentDef MayRequire="fxz.ratkinfaction">
+    <defName>RHAH_MutilatedChildren</defName>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_WarlordVictims</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+</Defs>

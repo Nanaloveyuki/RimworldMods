@@ -151,6 +151,20 @@ namespace HungerAndHavoc.Pawn
                 return job;
             }
 
+            DeferExitSearch(pawn, now);
+            return CreateCooldownWaitJob();
+        }
+
+        internal static void NotifyExitJobEnded(Verse.Pawn pawn, JobCondition condition)
+        {
+            if (condition != JobCondition.Incompletable && condition != JobCondition.Errored &&
+                condition != JobCondition.ErroredPather && condition != JobCondition.QueuedNoLongerValid) return;
+            if (!IsDeparting(pawn)) return;
+            DeferExitSearch(pawn, Find.TickManager.TicksGame);
+        }
+
+        static void DeferExitSearch(Verse.Pawn pawn, int now)
+        {
             ExitSearchCooldown cooldown;
             if (!ExitSearchCooldowns.TryGetValue(pawn, out cooldown))
             {
@@ -158,7 +172,6 @@ namespace HungerAndHavoc.Pawn
                 ExitSearchCooldowns.Add(pawn, cooldown);
             }
             cooldown.nextSearchTick = now + FailedExitSearchCooldownTicks;
-            return CreateCooldownWaitJob();
         }
 
         static Job CreateCooldownWaitJob()

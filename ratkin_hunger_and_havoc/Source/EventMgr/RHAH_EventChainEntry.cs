@@ -23,6 +23,13 @@ namespace HungerAndHavoc.EventMgr
             }
 
             int site = mapId >= 0 ? mapId : caravanId > 0 ? -caravanId : 0;
+            if (displayId == Incidents.RHAH_WarlordCompat.SuicideSquad)
+            {
+                runtime.Start(RHAH_EventChainProvider.ProviderKey, displayId, site, RHAH_EventChainMigration.SiteTile(site),
+                    tick, -1, RHAH_EventFollowRules.Payload(displayId, batchId, site), 0,
+                    RHAH_WarlordBombardment.NextTick(tick, RHAH_WarlordBombardment.Delay));
+                return;
+            }
             bool longChain = UsesLongChain(displayId);
             int deadline = longChain ? RHAH_EventFollowRules.LongDeadline(displayId, tick) : -1;
             int id = runtime.Start(RHAH_EventChainProvider.ProviderKey, displayId, site, RHAH_EventChainMigration.SiteTile(site), tick,

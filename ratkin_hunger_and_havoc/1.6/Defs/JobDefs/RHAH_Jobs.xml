@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <JobDef>
+    <defName>RHAH_WarlordVandalize</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_WarlordSabotage</driverClass>
+    <reportString>正在破坏TargetA。</reportString>
+  </JobDef>
+  <JobDef>
+    <defName>RHAH_WarlordIgnite</defName>
+    <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_WarlordSabotage</driverClass>
+    <reportString>正在点燃TargetA。</reportString>
+  </JobDef>
+  <JobDef>
     <defName>RHAH_Beg</defName>
     <driverClass>HungerAndHavoc.Pawn.JobDriver_RHAH_Beg</driverClass>
     <reportString>乞讨食物</reportString>

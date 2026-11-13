@@ -23,7 +23,9 @@ namespace HungerAndHavoc.Generation
                 forceGenerateNewPawn: true,
                 allowDowned: StageFor(age) == DevelopmentalStage.Baby,
                 canGeneratePawnRelations: false,
-                mustBeCapableOfViolence: request.SourceIncidentDisplayId == "I-052" || request.SourceIncidentDisplayId == "I-054",
+                mustBeCapableOfViolence: request.SourceIncidentDisplayId == "I-052" || request.SourceIncidentDisplayId == "I-054" ||
+                    (request.SourceIncidentDisplayId == Incidents.RHAH_WarlordCompat.SuicideSquad &&
+                     StageFor(age) != DevelopmentalStage.Baby),
                 allowPregnant: false,
                 allowFood: false,
                 allowAddictions: false,
@@ -64,6 +66,11 @@ namespace HungerAndHavoc.Generation
 
         internal static float? ResolveGenerationAge(RHAH_PawnRequest request)
         {
+            if (Incidents.RHAH_WarlordCompat.IsVictimEvent(request.SourceIncidentDisplayId) &&
+                HungerAndHavoc.Pawn.Compat.RHAH_ToddlerPresence.Active)
+            {
+                return request.BiologicalAge;
+            }
             bool carriable = HungerAndHavoc.Pawn.Compat.RHAH_ToddlerPresence.BabiesCarriable;
             bool immobileAllowed = Core.RHAH_Mod.Settings != null && Core.RHAH_Mod.Settings.allowImmobileBabies;
             // 角色不再决定抬龄 婴儿在来客体系里没人带着走 所以对全部角色生效

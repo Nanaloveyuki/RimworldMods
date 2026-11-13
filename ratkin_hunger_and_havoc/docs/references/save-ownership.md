@@ -167,8 +167,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | AllyFactionId | allyFactionId | -1 | 否 | 转送目标派系 loadID，-1 表示没有记录目标；0 是合法 loadID（每个世界的第一家派系就是 0），不能当未设置。转送完成后仍保留，作为回礼来源；待入籍成员以 AllyPawnIds 判断。旧档缺键为 -1；旧档里的 0 只可能来自从未成功送出的记录，读回后等同未设置（AllyPawnIds 为空，不会触发入籍） |
 | AllyPawnIds | allyPawnIds | 空集合 | 是 | 已下令离场、离图后才改入盟友的 pawn thingID。`PostLoadInit` 补空列表；null 与空集合语义相同。人离图或死亡后移除 |
 | AllyTransferredValue | allyTransferredValue | 0 | 否 | 本批成功离场来客的累计市场价值；仅成功转送时累加，旧档缺键为 0 |
-| AllyGoodwillGranted | allyGoodwillGranted | 0 | 否 | 本批已发放的转送好感；每次按累计目标 `min(10, ceil(AllyTransferredValue / 500))` 减去此值补发，非正价值目标为 0。旧档缺键为 0 |
-| AllyGiftChecked | allyGiftChecked | false | 否 | 首名来客成功离场时置 true，只判定一次工业及以上盟友的 50% 回礼；旧档缺键为 false |
+| AllyGoodwillGranted | allyGoodwillGranted | 0 | 否 | 本批已发放的转送好感；普通盟友按累计目标 `min(10, ceil(AllyTransferredValue / 500))` 补发。游击队仅首名实际离场时好感在 -25..-1 才加 1，整批上限 1，不计价值。旧档缺键为 0 |
+| AllyGiftChecked | allyGiftChecked | false | 否 | 首名来客成功离场时置 true；普通工业及以上盟友判定一次 50% 回礼，游击队仅好感至少 75 时必定回礼。旧档缺键为 false |
 | AllyGiftDueTick | allyGiftDueTick | -1 | 否 | 回礼投递到期 tick；-1 表示无待投递回礼，旧档缺键为 -1。到期投递或无家园取消后恢复 -1，不追加重试 |
 | TransactionVersion | transactionVersion | 0 | 否 | 0 是已存在情报请求；1 是新食物换实物报价，旧信不重新报价、不改回报 |
 | QuotedFoodDefName | quotedFoodDefName | 空字符串 | 否 | 新交易锁定一种库存食物，null 加载后补空 |
@@ -184,6 +184,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 `settled` 在同键内迁移，不增加持久化字段或枚举别名；`Prison = 12` 已删除，`Capture = 10`、`Ally = 13` 与其它显式编号不变。除旧 `Prison` / `12` 外仍交由原版枚举 Scribe 读取，未知数值保留，非法文本沿用原版失败处理（记录错误并回退 `None`）。本次不恢复旧送监狱操作已脱图的角色，卸载动作不变。
 
 盟友转送的累计价值、已发放好感、回礼判定与待投递时间均归本批 `RHAH_ChoiceRecord` 所有，随 `openChoices` 删除，不建立独立回礼队列。目标选择分页是临时对话节点，没有新增分页存档字段。
+
+2026-11-13 新转送在 ODF 中建立 `RHAH_AllyDeparture` 实例，payload 为选择记录 ID，siteId 固定为原地图。每游戏小时检查原批次待离场成员；角色 `extraData` 的 `rhah:allyExitProgress` 保存 `x|z|lastProgressTick`，缺失时建立基准，位置改变时更新。停滞严格超过四小时且仍允许转送和离图时调用原版 ExitMap，只有真正离图才办理入籍和回报。死亡、被俘、加入玩家或离开原图者取消待转送。完成入籍或取消后删除该 extra 键。旧记录不补建时钟。实例随 RHAH provider Remove，extra 键随身份标记 Remove。
 
 ### WorldObject_RHAH_RefugeeCamp
 
@@ -263,6 +265,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Incidents.WorldObject_RHAH_Interception | WorldObjectDef `worldObjectClass` | 已有地图或居民：Replace，类名改成 `RimWorld.Planet.Site`。没有地图也没有居民：Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_Beg | Job `driverClass` | Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_Gnaw | Job `driverClass` | Remove |
+| HungerAndHavoc.Pawn.JobDriver_RHAH_WarlordSabotage | Job `driverClass`；XML 反射入口公开，无新增存档字段 | Remove，清除当前和排队的破坏、纵火 Job |
+| HungerAndHavoc.Pawn.JobGiver_RHAH_WarlordSabotage | ThinkTree XML `Class`；XML 反射入口公开 | 不单独出现在 `.rws` |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_DropChild | Job `driverClass` | Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_MotherFeed | Job `driverClass` | Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_Scavenge | Job `driverClass` | Remove |
@@ -388,6 +392,10 @@ ODF 是必需依赖，事件链存档由 `Oxygendsl.Mod.GameComponent_Oxygendsl`
 
 `newContentDisabled` 把本 provider 设为 Disabled，不删除实例或世界物体。导出先备份原当前状态，随后禁用本 provider；`RemoveProviderState` 只处理序列化副本，不清理正在运行的 ODF runtime。失败迁移的旧记录仍随 RHAH 游戏/地图组件 Remove。完整玩家流程见 [unload-export.md](unload-export.md)。
 
+I-055 使用独立定时定义，payload 沿用 `I-055|batchId|mapId`。stage 0 在生成后十二小时炮击，stage 1 在爆炸传播后完成倒地检查；nextTick、阶段和动作凭据归 ODF 保存，缺图终止，不改投另一家园。I-056 沿用普通事件定义。两事件均只在鼠族军阀启用时进入新抽取。
+
+I-055 角色 `extraData` 新增 `rhah:warlordAttacked`（值 1 表示受过玩家攻击）、`rhah:warlordShells`（本批炮弹 thingID 的竖线分隔集合）、`rhah:warlordBombardmentTarget`（值 1 表示实际炮击目标）、`rhah:warlordDeathCounted`（值 1 表示已扣过本次死亡的好感）。缺键表示未发生；其它值不作为新增状态。炮弹及爆炸使用原版类型和存档；只有本批炮弹造成的直接爆炸死亡才扣附近世界据点派系好感，每派系每名死者扣 1。上述 extra 键随身份标记 Remove，定时实例随 provider Remove，原版炮弹、残肢和真实角色保留。
+
 ### 穗音剧情退休迁移
 
 穗音只保留信任及已有信任效果。`NarrativeState` 沿用已发布组件类型，读取 `trust`、普通来客的安置与信任结算记录；不读取或再保存 `kingdomArc`、身份、结局、通知队列、剧情奖励、粮洞、使者及记录地点的进度。没有剧情 tick、剧情入口或新邀请。
@@ -472,6 +480,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_RefugeeMassacre | IncidentDef | Remove |
 | RHAH_ChildExchange | IncidentDef | Remove |
 | RHAH_MouseSwarm, RHAH_PleadingJoin, RHAH_BanditAttack | IncidentDef | Remove。I-052/I-053/I-054；保留真实鼠族 Pawn、原版特质、技能与原版装备 |
+| RHAH_ChildSuicideSquad, RHAH_MutilatedChildren | IncidentDef | Remove。I-055/I-056；保留真实角色、原版 MissingBodyPart 和普通迫击炮弹 |
 | HungerAndHavoc.Narrative.NarrativeState | trust, nextCaseId, entrustCases, exchangeCases, journalCases, careEntrustEnabled, careExchangeEnabled；1.7 另有 careTrustEnabled | GameComponent | Remove。运行时只保存信任与普通来客结算；其它旧剧情键不再写出，迁移见上节 |
 | HungerAndHavoc.Storyteller.Suiyin.SuiyinMember | loadId, presence, care, child, careTicks, missingSince, lastCareTick | 嵌在安置记录里 | Remove；lastCareTick 默认 -1，旧累计保留，首次观察不补算未记录时间 |
 | HungerAndHavoc.Storyteller.Suiyin.SuiyinN004Case | id, motherId, mapId, startedTick, outcome, mother, missingSince, effectsApplied, children | 嵌在 entrustCases | Remove。只保留托孤信任结算，回访、奖励及剧情心情字段不再写出 |
@@ -480,6 +489,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_BeggarSiege | IncidentDef | Remove |
 | RHAH_Beg | JobDef | Remove |
 | RHAH_Gnaw | JobDef | Remove |
+| RHAH_WarlordVandalize, RHAH_WarlordIgnite | JobDef | Remove，清除当前和排队 Job、驱动与相关预约，保留玩家建筑及已经产生的原版火焰 |
 | RHAH_DropChild | JobDef | Remove |
 | RHAH_MotherFeed | JobDef | Remove |
 | RHAH_Scavenge | JobDef | Remove |
@@ -504,6 +514,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_VisitorLeave | DutyDef | Remove |
 | RHAH_VisitorTravel | DutyDef | Remove，随来客 Lord 和个人 duty 清理 |
 | RHAH_VisitorFallback | ThinkTreeDef | Remove |
+| RHAH_WarlordSabotage | ThinkTreeDef | Remove，I-055 婴幼儿在 `Humanlike_PostMentalState` 执行破坏；被俘、成为奴隶或殖民者后不再发派 |
 | RHAH_BroadcastHope | JobDef | Remove，清除当前和排队广播 Job，保留原版通讯台 |
 | RHAH_Gene_ThinRations | GeneDef | Remove。不替换成原版基因 |
 | RHAH_Gene_LargeLitter | GeneDef | Remove。不替换成原版基因 |

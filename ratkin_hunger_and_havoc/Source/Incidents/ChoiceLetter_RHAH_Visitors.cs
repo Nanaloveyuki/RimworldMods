@@ -69,11 +69,12 @@ namespace HungerAndHavoc.Incidents
                 }
 
 
-                if (RHAH_RequestRules.ShowsAlly(present.Count > 0, RHAH_ChoiceRuntime.HasAllyDestination()))
+                if (RHAH_RequestRules.ShowsAlly(present.Count > 0, RHAH_ChoiceRuntime.HasAllyDestination(displayId)))
                 {
                     yield return AllyOption(present);
                 }
-                yield return Action("RHAH_Choice_Reject", RHAH_ChoiceAction.Reject);
+                if (displayId != RHAH_WarlordCompat.MutilatedChildren)
+                    yield return Action("RHAH_Choice_Reject", RHAH_ChoiceAction.Reject);
                 yield return Action("RHAH_Choice_Ignore", RHAH_ChoiceAction.Ignore);
                 if (lookTargets.IsValid())
                 {
@@ -108,7 +109,7 @@ namespace HungerAndHavoc.Incidents
         internal DiaNode AllyPage(int page)
         {
             const int pageSize = 6;
-            List<Faction> factions = RHAH_ChoiceRuntime.AllyDestinations();
+            List<Faction> factions = RHAH_ChoiceRuntime.AllyDestinations(FindRecord()?.DisplayId);
             int pages = System.Math.Max(1, (factions.Count + pageSize - 1) / pageSize);
             page = System.Math.Max(0, System.Math.Min(page, pages - 1));
             DiaNode node = new DiaNode("RHAH_Choice_AllyPageText".Translate(page + 1, pages));
@@ -341,7 +342,7 @@ namespace HungerAndHavoc.Incidents
                     return action == RHAH_ChoiceAction.Ally ? "RHAH_Choice_NoLeave" : "RHAH_Choice_NoRecruit";
                 }
 
-                if (action == RHAH_ChoiceAction.Ally && !RHAH_ChoiceRuntime.HasAllyDestination())
+                if (action == RHAH_ChoiceAction.Ally && !RHAH_ChoiceRuntime.HasAllyDestination(record.DisplayId))
                 {
                     return "RHAH_Choice_NoAlly";
                 }

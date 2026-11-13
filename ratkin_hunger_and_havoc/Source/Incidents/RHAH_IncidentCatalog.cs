@@ -148,6 +148,8 @@ namespace HungerAndHavoc.Incidents
             entries.Add(Original("I-052", "RHAH_MouseSwarm", RHAH_IncidentFamily.Thief, true, RHAH_AttitudePool.Negative, 700f));
             entries.Add(Original("I-053", "RHAH_PleadingJoin", RHAH_IncidentFamily.Beggar, true, RHAH_AttitudePool.Positive, 200f));
             entries.Add(Original("I-054", "RHAH_BanditAttack", RHAH_IncidentFamily.Thief, false, RHAH_AttitudePool.Negative, 400f));
+            entries.Add(Original("I-055", "RHAH_ChildSuicideSquad", RHAH_IncidentFamily.Thief, false, RHAH_AttitudePool.Negative, 300f));
+            entries.Add(Original("I-056", "RHAH_MutilatedChildren", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Negative, 300f));
         }
 
         public static RHAH_IncidentEntry GetByDisplayId(string displayId)

@@ -19,22 +19,26 @@ namespace HungerAndHavoc.Tests
         readonly Harmony harmony = new Harmony("rhah.departure.exit.tests");
         readonly Dictionary<FieldInfo, object> previousDefs = new Dictionary<FieldInfo, object>();
         static bool blockerJobAvailable;
+        static bool normalExitAvailable;
         static int nextId = 1900;
 
         public RHAH_DepartureExitTests()
         {
             Current.Game.uniqueIDsManager = new UniqueIDsManager();
-            Bind(typeof(JobDefOf), "Goto", new JobDef { defName = "Goto" });
+            Bind(typeof(JobDefOf), "Goto", new JobDef { defName = "Goto", driverClass = typeof(JobDriver_Goto) });
             Bind(typeof(JobDefOf), "Wait", new JobDef { defName = "Wait" });
             Bind(typeof(RHAH_DefOf), "RHAH_DropChild", new JobDef { defName = "RHAH_DropChild" });
             Bind(typeof(RHAH_DefOf), "RHAH_CarryYoung", new JobDef { defName = "RHAH_CarryYoung" });
             Bind(typeof(RHAH_DefOf), "RHAH_VisitorLeave", new DutyDef { defName = "RHAH_VisitorLeave" });
             RHAH_Mod.Settings.familyDropEnabled = false;
             blockerJobAvailable = true;
+            normalExitAvailable = false;
             harmony.Patch(typeof(RCellFinder).GetMethod("TryFindBestExitSpot"),
                 prefix: new HarmonyMethod(typeof(RHAH_DepartureExitTests), nameof(NoNormalExit)));
             harmony.Patch(typeof(JobGiver_ExitMap).GetMethod("TryGiveJob", BindingFlags.Instance | BindingFlags.NonPublic),
                 prefix: new HarmonyMethod(typeof(RHAH_DepartureExitTests), nameof(BlockerJob)));
+            harmony.Patch(AccessTools.Method(typeof(Job), nameof(Job.MakeDriver)),
+                postfix: new HarmonyMethod(typeof(RHAH_LeaveJobPatch), nameof(RHAH_LeaveJobPatch.Postfix)));
         }
 
         public void Dispose()
@@ -88,6 +92,44 @@ namespace HungerAndHavoc.Tests
             Assert.False(result.IsValid);
         }
 
+        [Theory]
+        [InlineData(JobCondition.Incompletable)]
+        [InlineData(JobCondition.Errored)]
+        [InlineData(JobCondition.ErroredPather)]
+        [InlineData(JobCondition.QueuedNoLongerValid)]
+        public void FailedGotoWaitsInsteadOfReissuingTheExitInTheSameTick(JobCondition condition)
+        {
+            Verse.Pawn pawn = Visitor();
+            normalExitAvailable = true;
+            Job first = JobGiver_RHAH_Leave.TryCreate(pawn);
+            Assert.Same(JobDefOf.Goto, first.def);
+            Assert.True(first.exitMapOnArrival);
+
+            first.MakeDriver(pawn).Cleanup(condition);
+
+            Job wait = JobGiver_RHAH_Leave.TryCreate(pawn);
+            Assert.Same(JobDefOf.Wait, wait.def);
+            Assert.True(wait.expiryInterval > 0);
+            Find.TickManager.DebugSetTicksGame(GenDate.TicksPerHour);
+            Assert.Same(JobDefOf.Goto, JobGiver_RHAH_Leave.TryCreate(pawn).def);
+        }
+
+        [Theory]
+        [InlineData(JobCondition.Succeeded, true)]
+        [InlineData(JobCondition.InterruptForced, true)]
+        [InlineData(JobCondition.Incompletable, false)]
+        public void OrdinaryGotoAndInterruptionsDoNotDelayDeparture(JobCondition condition, bool exiting)
+        {
+            Verse.Pawn pawn = Visitor();
+            normalExitAvailable = true;
+            Job first = JobGiver_RHAH_Leave.TryCreate(pawn);
+            first.exitMapOnArrival = exiting;
+
+            first.MakeDriver(pawn).Cleanup(condition);
+
+            Assert.Same(JobDefOf.Goto, JobGiver_RHAH_Leave.TryCreate(pawn).def);
+        }
+
         Verse.Pawn Visitor()
         {
             Verse.Pawn pawn = (Verse.Pawn)typeof(RHAH_AttackChoiceTests)
@@ -113,8 +155,8 @@ namespace HungerAndHavoc.Tests
 
         static bool NoNormalExit(ref IntVec3 spot, ref bool __result)
         {
-            spot = IntVec3.Invalid;
-            __result = false;
+            spot = normalExitAvailable ? new IntVec3(140, 0, 249) : IntVec3.Invalid;
+            __result = normalExitAvailable;
             return false;
         }
 

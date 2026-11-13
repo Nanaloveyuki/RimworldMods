@@ -59,12 +59,13 @@ namespace HungerAndHavoc.Tests
             Assert.Equal("nanaloveyuki.ratkin.hungerandhavoc", provider.ProviderId);
             Assert.Equal(RHAH_EventChainProvider.ProviderKey, provider.ProviderId);
             HashSet<string> expected = new HashSet<string>(StringComparer.Ordinal);
-            for (int i = 1; i <= 54; i++)
+            for (int i = 1; i <= 56; i++)
             {
                 expected.Add("I-" + i.ToString("D3", CultureInfo.InvariantCulture));
             }
 
             expected.Add("RHAH_PredationArrival");
+            expected.Add("RHAH_AllyDeparture");
             Assert.Equal("RHAH_PredationArrival", RHAH_EventChainProvider.ArrivalId);
             Assert.Equal(expected.Count, provider.Definitions.Count);
             for (int i = 0; i < provider.Definitions.Count; i++)
