@@ -207,6 +207,9 @@ def synchronize(root, rimworld, target, process_check=probe_processes):
     target.mkdir(parents=True, exist_ok=True)
     for relative, source in sources.items():
         destination = assert_plain_path(target / relative)
+        if destination.name.casefold() == "publishedfileid.txt" and destination.is_file():
+            manifest[relative] = sha256(destination)
+            continue
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
         if sha256(destination) != manifest[relative]:
@@ -219,7 +222,7 @@ def synchronize(root, rimworld, target, process_check=probe_processes):
         for destination in sorted(base.rglob("*"), reverse=True):
             if destination.is_file():
                 relative = destination.relative_to(target).as_posix()
-                if relative not in sources:
+                if relative not in sources and destination.name.casefold() != "publishedfileid.txt":
                     destination.unlink()
                     removed.append(relative)
             elif destination.is_dir() and not any(destination.iterdir()):

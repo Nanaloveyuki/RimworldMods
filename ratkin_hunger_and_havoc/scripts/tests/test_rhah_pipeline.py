@@ -141,6 +141,18 @@ class DeploymentTests(unittest.TestCase):
             pipeline.synchronize(self.root, self.game, self.target, process_check)
         self.assertFalse(self.target.exists())
 
+    def test_existing_workshop_id_survives_sync_with_or_without_source_id(self):
+        fixture(self.target)
+        published_id = write(self.target, "About/PublishedFileId.txt", "installed-id")
+        for source_id in (None, "source-id"):
+            with self.subTest(source_id=source_id):
+                if source_id is not None:
+                    write(self.root, "About/PublishedFileId.txt", source_id)
+                result = pipeline.synchronize(self.root, self.game, self.target, mock.Mock())
+                self.assertEqual(published_id.read_text(), "installed-id")
+                if source_id is not None:
+                    self.assertEqual(result["files"]["About/PublishedFileId.txt"], pipeline.sha256(published_id))
+
     def test_game_started_between_checks_refuses_before_writes(self):
         process_check = mock.Mock(side_effect=[None, pipeline.PipelineError("Exit RimWorld")])
         with self.assertRaisesRegex(pipeline.PipelineError, "Exit RimWorld"):
@@ -224,6 +236,10 @@ class SharedDeploymentTests(unittest.TestCase):
             target = game / "Mods" / pipeline.MOD_NAME
             fixture(target)
             published_id = write(target, "About/PublishedFileId.txt", "installed-id")
+            write(source, "About/PublishedFileId.txt", "source-id")
+            stale_defs = [write(target, runtime + "/Defs/ThingDefs/RHAH_RecordBox.xml", "<Defs />")
+                          for runtime in ("1.6", "1.7")]
+            preserved = write(target, "user-notes.txt", "keep")
             for relative in pipeline.DLLS:
                 write(source, relative, "new-" + relative)
                 write(target, relative, "old-" + relative)
@@ -246,6 +262,9 @@ class SharedDeploymentTests(unittest.TestCase):
 
             self.assertEqual(result, 0)
             self.assertEqual(published_id.read_text(), "installed-id")
+            self.assertEqual(preserved.read_text(), "keep")
+            for stale in stale_defs:
+                self.assertEqual(stale.exists(), not complete_release)
             self.assertEqual((target / "Languages/English/Keyed/Content.xml").read_bytes(),
                              (source / "Languages/English/Keyed/Content.xml").read_bytes())
             for relative in pipeline.DLLS:
