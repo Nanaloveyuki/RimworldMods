@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_SuspiciousRoyal_Label>可疑的王室</RHAH_Incident_SuspiciousRoyal_Label>
+  <RHAH_IncidentGroup_I057>可疑的王室</RHAH_IncidentGroup_I057>
+  <RHAH_Royal_Arrival>一名自称是鼠族王国王室成员的鼠族来到了我们殖民地附近，看起来他似乎有话要说？</RHAH_Royal_Arrival>
+  <RHAH_Royal_Request>“你好，我是一名来自伟大鼠族王国的落魄王室，给我2500白银，在一年后我向皇帝讨要到爵位后必定十倍奉还于你。”</RHAH_Royal_Request>
+  <RHAH_Royal_Pay>交付2500白银</RHAH_Royal_Pay>
+  <RHAH_Royal_ReplyLabel>王室的回信</RHAH_Royal_ReplyLabel>
+  <RHAH_Royal_Fraud>看来我们被骗了，那个自称王室成员的该死的家伙居然骗走了我们那么多钱！</RHAH_Royal_Fraud>
+  <RHAH_Royal_Thanks>哈哈，朋友，我真的非常感谢你的帮助，现在是我兑现承诺的时候了。\n\n--一位{0}爵</RHAH_Royal_Thanks>
+  <RHAH_Royal_Peace>哦朋友，我顺便帮你摆平了宫廷，不用谢。</RHAH_Royal_Peace>
+  <RHAH_Royal_Lost>一年过去了，那位自称王室成员的来客始终没有回信，承诺的白银也没有送来。</RHAH_Royal_Lost>
+  <RHAH_Royal_Rank0>公</RHAH_Royal_Rank0>
+  <RHAH_Royal_Rank1>侯</RHAH_Royal_Rank1>
+  <RHAH_Royal_Rank2>伯</RHAH_Royal_Rank2>
+  <RHAH_Royal_Rank3>子</RHAH_Royal_Rank3>
+  <RHAH_Royal_Rank4>男</RHAH_Royal_Rank4>
+</LanguageData>

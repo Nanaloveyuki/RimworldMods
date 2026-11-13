@@ -159,8 +159,9 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | Site | site | None | 否 | `RHAH_IntelSiteKind` |
 | Choice | choice | None | 否 | `RHAH_ChoiceKind` |
 | Amount | amount | 0 | 否 | |
+| RequiredFoodNutrition | requiredFoodNutrition | 0 | 否 | 1.3.2 新食物请求的总营养报价，已包含预设倍率，随 openChoices 删除。0 表示旧记录：普通请求按 Amount × 0.9，实物交易按原 QuotedFoodCount 与 QuotedFoodDefName 的单位营养换算；旧报价不重抽，奖励不变 |
 | ArmedFoodDelivered | armedFoodDelivered | 0 | 否 | 保留旧档武装索粮已经交付的简单餐份数，每份折算 0.9 营养；新交付不再累加此字段。不按背包库存反推；卸载随 openChoices Remove |
-| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。包括向婴儿交付的索粮物资，不作为直喂消耗；普通直喂不写此账本。剩余需求为 (Amount - ArmedFoodDelivered) × 0.9 - 本值；旧档缺键按 0。卸载随 openChoices Remove |
+| ArmedFoodNutritionDelivered | armedFoodNutritionDelivered | 0 | 否 | 新增的实际交付营养量，仅计玩家 GiveToPawn 成功入包且当前允许的食物，最多补足剩余额度。包括向婴儿交付的索粮物资，不作为直喂消耗；普通直喂不写此账本。剩余需求为总营养报价 - ArmedFoodDelivered × 0.9 - 本值，总营养报价优先使用 RequiredFoodNutrition，旧记录按 Amount × 0.9；旧档缺键按 0。卸载随 openChoices Remove |
 | ExpireTick | expireTick | -1 | 否 | |
 | Settled | settled | None | 否 | `RHAH_ChoiceAction`。旧文本 `Prison` 和旧数值 `12` 读取为 `Capture`（关闭状态）；再存档写 `Capture`。其它名称和编号保持原有枚举存读，缺键仍为 `None` |
 | PawnLoadIds | pawnLoadIds | 空集合 | 是 | `PostLoadInit` 补 `List<int>`；null 与空集合语义相同 |
@@ -171,8 +172,8 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | AllyGiftChecked | allyGiftChecked | false | 否 | 首名来客成功离场时置 true；普通工业及以上盟友判定一次 50% 回礼，游击队仅好感至少 75 时必定回礼。旧档缺键为 false |
 | AllyGiftDueTick | allyGiftDueTick | -1 | 否 | 回礼投递到期 tick；-1 表示无待投递回礼，旧档缺键为 -1。到期投递或无家园取消后恢复 -1，不追加重试 |
 | TransactionVersion | transactionVersion | 0 | 否 | 0 是已存在情报请求；1 是新食物换实物报价，旧信不重新报价、不改回报 |
-| QuotedFoodDefName | quotedFoodDefName | 空字符串 | 否 | 新交易锁定一种库存食物，null 加载后补空 |
-| QuotedFoodCount | quotedFoodCount | 0 | 否 | 锁定报价份数，选库存总数量最多的同种有效食物，按实际到达人数每人 2.7 营养换算并向上取整，最多 100 份；旧信保留原 Amount |
+| QuotedFoodDefName | quotedFoodDefName | 空字符串 | 否 | 报价时用来估算营养和奖励价值的食物，交付可混合其它有效库存食物；没有库存时以简单餐估价。null 加载后补空 |
+| QuotedFoodCount | quotedFoodCount | 0 | 否 | 原始估价份数，按实际到达人数每人 2.7 营养换算并向上取整，最多 100 份；新交易的实际需求保存在 RequiredFoodNutrition，旧信继续用原估价折算营养 |
 | RewardDefNames | rewardDefNames | 空集合 | 是 | 携带奖励 defName，与 RewardCounts 同索引；RewardThingIds 保存这些奖励的实际堆身份；PostLoadInit 补空，null 与空集合相同 |
 | RewardCounts | rewardCounts | 空集合 | 是 | 携带奖励数量，成交前核对真实物品 |
 | RewardThingIds | rewardThingIds | 空集合 | 是 | 实际奖励 Thing ID，避免读档或重复点击生成第二份 |
@@ -180,12 +181,18 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | ResponsibleAdultThingId | responsibleAdultThingId | 0 | 否 | 实际出面的玩家成年人 thingID；0 无记录 |
 | ChildExchangeVersion | childExchangeVersion | 0 | 否 | 0 是既有婴儿索取信，1 是新换子交接；保留原索取数量与期限 |
 | ChildFoodAlternative | childFoodAlternative | false | 否 | true 表示确实用食物替代，不能启动“换出去的孩子”长链 |
+| RoyalGenuine | royalGenuine | false | 否 | I-057 到来时独立抽取的真假身份，随 openChoices Remove |
+| RoyalRepaymentInstanceId | royalRepaymentInstanceId | 0 | 否 | 实际收款后的一年回报 ODF 实例 ID；0 未收款 |
+| RoyalRank | royalRank | -1 | 否 | 回报执行时抽取的爵位，0..4 依次公侯伯子男；-1 尚未抽取 |
+| RoyalReplySent | royalReplySent | false | 否 | 真伪结果已发信，重复结算不再发物资或信件 |
 
 `settled` 在同键内迁移，不增加持久化字段或枚举别名；`Prison = 12` 已删除，`Capture = 10`、`Ally = 13` 与其它显式编号不变。除旧 `Prison` / `12` 外仍交由原版枚举 Scribe 读取，未知数值保留，非法文本沿用原版失败处理（记录错误并回退 `None`）。本次不恢复旧送监狱操作已脱图的角色，卸载动作不变。
 
 盟友转送的累计价值、已发放好感、回礼判定与待投递时间均归本批 `RHAH_ChoiceRecord` 所有，随 `openChoices` 删除，不建立独立回礼队列。目标选择分页是临时对话节点，没有新增分页存档字段。
 
 2026-11-13 新转送在 ODF 中建立 `RHAH_AllyDeparture` 实例，payload 为选择记录 ID，siteId 固定为原地图。每游戏小时检查原批次待离场成员；角色 `extraData` 的 `rhah:allyExitProgress` 保存 `x|z|lastProgressTick`，缺失时建立基准，位置改变时更新。停滞严格超过四小时且仍允许转送和离图时调用原版 ExitMap，只有真正离图才办理入籍和回报。死亡、被俘、加入玩家或离开原图者取消待转送。完成入籍或取消后删除该 extra 键。旧记录不补建时钟。实例随 RHAH provider Remove，extra 键随身份标记 Remove。
+
+1.3.2 的 I-057 使用 ODF 的 `RHAH_RoyalWatch` 单实例检查各家园当地凌晨 2 点的库存白银；初始化在 provider 激活前补建一次，新家园可提前下一次检查，不重建冷却。收款成功才保留 I-057 回报实例，payload 为原选择 ID，siteId 为原地图，一年到期；付款失败则取消尚未到期的实例。真假、爵位、已回信标记归原选择记录，ODF receipt 防止未知副作用自动重放。真王室仅在 `Rakinia` 尚有据点时兑现，原图缺失结束且不改投；无王国时失联并结束。假王室结果按保存 ID 清理仍在世界列表中的原来客，缺失对象跳过。两种实例均随本 provider Remove，未知经历按同槽替换。
 
 ### WorldObject_RHAH_RefugeeCamp
 
@@ -361,9 +368,11 @@ Letter 与 Quest 的类型见上表。WorldObject `RHAH_RefugeeCamp`、`RHAH_App
 | HungerAndHavoc.Core.GameComponent_RHAH_Game | begged colonist ids | beggedColonistIds | Remove。与乞讨者 id 等长。不等长时按短的一边截齐 |
 | HungerAndHavoc.Core.GameComponent_RHAH_Game | interactive long followups | longFollows | Remove。默认空列表，null 与空集合加载后相同；保存人物、分支、期限、实物和当前选择，不保存第二套调度器 |
 | HungerAndHavoc.Core.GameComponent_RHAH_Game | exclusive royal claim chain | longClaimChainId | Remove。默认 0 尚未认领；正数记录唯一 I-041 长链，完成后仍保留以阻止再次触发 |
+| HungerAndHavoc.Core.GameComponent_RHAH_Game | suspicious royal cooldown | lastRoyalArrivalTick | Remove。默认 -1 尚未到来；成功入场后记录 tick，全档共享 15 年冷却，首访白银严格大于 2500，后访严格大于 5000 |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | visitor pawn load IDs | visitorPawnLoadIds | Remove |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | food search ticks | foodSearchTicks | Remove |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | plague last spread day | plagueLastSpreadDay | Remove |
+| HungerAndHavoc.Core.MapComponent_RHAH_Map | suspicious royal daily wealth check | royalWealthCheckDay | Remove。默认 -1 未检查；当地年份乘全年天数加年内日序，避免多个家园相近时区重复检查本日 |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | wall gnaw counts | wallGnawCounts | Remove |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | camp predation prey | predationPrey | Remove |
 | HungerAndHavoc.Core.MapComponent_RHAH_Map | camp predators | predators | Remove |
@@ -526,6 +535,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_XenotypeIcon_Ratkin | XenotypeIconDef | Remove，删除自有 iconDef 引用；保留自定义异种名、其它模组图标和基因 |
 | RHAH_Faction_Hostile, RHAH_Faction_LeaningHostile, RHAH_Faction_Neutral, RHAH_Faction_LeaningFriendly, RHAH_Faction_Friendly | FactionDef | Replace。派系 loadID 保留，Def 改成已加载且不属于本模组的原版 `Ancients`。目标缺失就中止。玩家派系和其它模组派系不改 |
 | RHAH_History_* | BackstoryDef | Replace。童年或成年槽换成已加载、不属于本模组、同槽的 Backstory。按 defName 序选第一个，不按技能挑。背景带来的技能变化不保留。没有同槽背景就中止 |
+| RHAH_RoyalUnknownChildhood / RHAH_RoyalUnknownAdulthood | BackstoryDef | Replace。沿用上方同槽原版或其它模组经历替换规则 |
 | RHAH_Trait_* | TraitDef | Remove。不替换成原版特质 |
 | RHAH_Thought_EggKeeperYoung, RHAH_Thought_HungerRage, RHAH_Thought_FoodSnatcher, RHAH_Thought_PlagueDreadSick, RHAH_Thought_PlagueDreadNearby | ThoughtDef | Remove |
 | RHAH_Thought_NightTerrors, RHAH_Thought_GrainGreed, RHAH_Thought_Chillblood, RHAH_Thought_FamineGloom, RHAH_Thought_AilingMother, RHAH_Thought_FamilyThief | ThoughtDef | Remove |
@@ -589,6 +599,13 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | --- | --- |
 | nanaloveyuki.ratkin.hungerandhavoc | packageId。清理副本的 meta 里应去掉本包，但不在运行时存档字段中 |
 | RHAH_Settings.enableNewContent | 全局 ModSettings，默认 true |
+| RHAH_Settings.contentPreset | 全局 ModSettings，键 contentPreset，默认 0。最后应用的预设：0 残忍、1 过度现实、2 一般、3 全年龄；逐项调整后仍记录上次预设 |
+| RHAH_Settings.contentPreset132Chosen | 全局 ModSettings，键 contentPreset132Chosen，默认 false。首次主菜单选择或稍后选择后为 true；重置配置保留此标记 |
+| RHAH_Settings.plagueProgressionFactor | 全局 ModSettings，键 plagueProgressionFactor，默认 1。鼠疫正向病情进展倍率，不缩减免疫后康复速度 |
+| RHAH_Settings.negativeEffectFactor | 全局 ModSettings，键 negativeEffectFactor，默认 1。本模组负面心情与鼠疫、啃食损伤、再喂养综合征的负面健康效果倍率 |
+| RHAH_Settings.foodRequestFactor | 全局 ModSettings，键 foodRequestFactor，默认 1。新索粮、接济与食物交易的营养需求倍率，交子食物替代在交付时计算 |
+| RHAH_Settings.peacefulRefusals | 全局 ModSettings，键 peacefulRefusals，默认 false。普通拒绝与驱离改为离开，三个围攻变体除外；玩家实际伤害仍执行原反应 |
+| RHAH_Settings.plagueContagious | 全局 ModSettings，键 plagueContagious，默认 true。控制地图鼠疫传播，关闭时已有感染保留 |
 | RHAH_Settings.allowVisitorDoors | 全局 ModSettings，保存键 `famineVisitorsOpenDoors`，默认 false；恢复已发布旧键的读写。开启允许在场来客通过原版允许的门，关闭仍允许离场；敌情阻拦保留。更改与重置时清除受影响来客的寻路缓存和救济搜索缓存 |
 | RHAH_Settings.optimizeGeneration | 全局 ModSettings，默认 true。关闭后不套权重异种，事件 Profile 仍生效 |
 | RHAH_Settings.positiveIncidentDays | 全局 ModSettings，默认 15。正池平均天数，式子里的 averageDays，0 关闭，上限 60 |

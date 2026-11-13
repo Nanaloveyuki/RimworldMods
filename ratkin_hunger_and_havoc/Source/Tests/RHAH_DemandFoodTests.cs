@@ -92,6 +92,53 @@ namespace HungerAndHavoc.Tests
             Assert.False(settings.IsDemandFoodEnabled(drug));
         }
 
+        [Fact]
+        public void ContentPresetSettingsAndNutritionQuotesSurviveSaveLoad()
+        {
+            WithScribe(path =>
+            {
+                File.WriteAllText(path, "<settings />");
+                RHAH_Settings settings = Load<RHAH_Settings>(path);
+                Assert.False(settings.contentPreset132Chosen);
+                Assert.Equal(1f, settings.plagueProgressionFactor);
+                Assert.True(settings.plagueContagious);
+                RHAH_ContentPreset.Apply(settings, RHAH_ContentRating.AllAges);
+                Save(path, settings);
+                settings = Load<RHAH_Settings>(path);
+                Assert.True(settings.contentPreset132Chosen);
+                Assert.Equal(3, settings.contentPreset);
+                Assert.Equal(0.25f, settings.plagueProgressionFactor);
+                Assert.Equal(0.25f, settings.negativeEffectFactor);
+                Assert.Equal(0.5f, settings.foodRequestFactor);
+                Assert.True(settings.plagueSafeMode);
+                Assert.False(settings.plagueContagious);
+                Assert.True(settings.peacefulRefusals);
+                Assert.False(settings.IsIncidentEnabled("I-055"));
+                Assert.True(settings.IsIncidentEnabled("I-014"));
+                settings.ResetToDefaults();
+                Assert.True(settings.contentPreset132Chosen);
+                Assert.Equal(1f, settings.negativeEffectFactor);
+
+                RHAH_ChoiceRecord record = new RHAH_ChoiceRecord { Amount = 1, RequiredFoodNutrition = 0.45 };
+                Save(path, record);
+                record = Load<RHAH_ChoiceRecord>(path);
+                Assert.Equal(0.45, RHAH_NutritionPayment.Required(record), 6);
+
+                record = new RHAH_ChoiceRecord
+                {
+                    DisplayId = "I-057", MapId = 41, Amount = 2500, Settled = RHAH_ChoiceAction.Deliver,
+                    RoyalGenuine = true, RoyalRepaymentInstanceId = 17, RoyalRank = 4, RoyalReplySent = true
+                };
+                Save(path, record);
+                record = Load<RHAH_ChoiceRecord>(path);
+                Assert.True(record.RoyalGenuine);
+                Assert.Equal(17, record.RoyalRepaymentInstanceId);
+                Assert.Equal(4, record.RoyalRank);
+                Assert.True(record.RoyalReplySent);
+                Assert.Equal(RHAH_ChoiceAction.Deliver, record.Settled);
+            });
+        }
+
         static void Save(string path, IExposable value)
         {
             Scribe.saver.InitSaving(path, "record");

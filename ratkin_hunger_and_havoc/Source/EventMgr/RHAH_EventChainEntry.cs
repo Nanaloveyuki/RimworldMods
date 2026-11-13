@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using HungerAndHavoc.Core;
+using HungerAndHavoc.Incidents;
 using Oxygendsl.Core.Events;
 using Oxygendsl.Mod.Events;
 using Verse;
@@ -11,7 +12,7 @@ namespace HungerAndHavoc.EventMgr
     {
         internal static void NoteStarted(string displayId, int mapId, int caravanId, int tick, int batchId)
         {
-            if (string.IsNullOrEmpty(displayId) || !RHAH_Runtime.AllowsNewContent)
+            if (string.IsNullOrEmpty(displayId) || displayId == RHAH_SuspiciousRoyal.DisplayId || !RHAH_Runtime.AllowsNewContent)
             {
                 return;
             }

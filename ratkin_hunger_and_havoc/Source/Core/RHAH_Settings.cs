@@ -9,6 +9,13 @@ namespace HungerAndHavoc.Core
     {
         public bool enableNewContent = true;
         public bool optimizeGeneration = true;
+        public int contentPreset;
+        public bool contentPreset132Chosen;
+        public float plagueProgressionFactor = 1f;
+        public float negativeEffectFactor = 1f;
+        public float foodRequestFactor = 1f;
+        public bool peacefulRefusals;
+        public bool plagueContagious = true;
         public float positiveIncidentDays = 15f;
         public float negativeIncidentDays = 15f;
         public string positiveIncidentPace = HungerAndHavoc.Incidents.RHAH_IncidentPace.DefaultFormula;
@@ -231,6 +238,7 @@ namespace HungerAndHavoc.Core
         internal void ResetToDefaults()
         {
             bool doorsChanged = allowVisitorDoors;
+            bool presetChosen = contentPreset132Chosen;
             RHAH_Settings defaults = new RHAH_Settings();
             // 原地恢复全部配置 保留 Verse 持有的设置实例和 Mod 归属
             System.Reflection.FieldInfo[] fields = typeof(RHAH_Settings).GetFields(
@@ -241,7 +249,10 @@ namespace HungerAndHavoc.Core
                 fields[i].SetValue(this, fields[i].GetValue(defaults));
             }
 
+            contentPreset132Chosen = presetChosen;
+
             InvalidateReliefSearch();
+            Identity.RHAH_NegativeHealthEffects.RefreshPawns();
             if (doorsChanged)
             {
                 Pawn.RHAH_DoorPatch.InvalidateVisitorReachability();
@@ -259,6 +270,13 @@ namespace HungerAndHavoc.Core
             }
             Scribe_Values.Look(ref enableNewContent, "enableNewContent", true);
             Scribe_Values.Look(ref optimizeGeneration, "optimizeGeneration", true);
+            Scribe_Values.Look(ref contentPreset, "contentPreset", 0);
+            Scribe_Values.Look(ref contentPreset132Chosen, "contentPreset132Chosen", false);
+            Scribe_Values.Look(ref plagueProgressionFactor, "plagueProgressionFactor", 1f);
+            Scribe_Values.Look(ref negativeEffectFactor, "negativeEffectFactor", 1f);
+            Scribe_Values.Look(ref foodRequestFactor, "foodRequestFactor", 1f);
+            Scribe_Values.Look(ref peacefulRefusals, "peacefulRefusals", false);
+            Scribe_Values.Look(ref plagueContagious, "plagueContagious", true);
             Scribe_Values.Look(ref positiveIncidentDays, "positiveIncidentDays", 15f);
             Scribe_Values.Look(ref negativeIncidentDays, "negativeIncidentDays", 15f);
             Scribe_Values.Look(ref positiveIncidentPace, "positiveIncidentPace", HungerAndHavoc.Incidents.RHAH_IncidentPace.DefaultFormula);

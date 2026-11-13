@@ -556,6 +556,7 @@ namespace HungerAndHavoc.Incidents
         internal RHAH_IntelSiteKind Site;
         internal RHAH_ChoiceKind Choice;
         internal int Amount;
+        internal double RequiredFoodNutrition;
         internal int ArmedFoodDelivered;
         internal double ArmedFoodNutritionDelivered;
         internal int ExpireTick = -1;
@@ -578,6 +579,10 @@ namespace HungerAndHavoc.Incidents
         internal int ResponsibleAdultThingId;
         internal int ChildExchangeVersion;
         internal bool ChildFoodAlternative;
+        internal bool RoyalGenuine;
+        internal int RoyalRepaymentInstanceId;
+        internal int RoyalRank = -1;
+        internal bool RoyalReplySent;
 
         internal bool Open => Settled == RHAH_ChoiceAction.None;
 
@@ -591,6 +596,7 @@ namespace HungerAndHavoc.Incidents
             Scribe_Values.Look(ref Site, "site", RHAH_IntelSiteKind.None);
             Scribe_Values.Look(ref Choice, "choice", RHAH_ChoiceKind.None);
             Scribe_Values.Look(ref Amount, "amount", 0);
+            Scribe_Values.Look(ref RequiredFoodNutrition, "requiredFoodNutrition", 0d);
             Scribe_Values.Look(ref ArmedFoodDelivered, "armedFoodDelivered", 0);
             Scribe_Values.Look(ref ArmedFoodNutritionDelivered, "armedFoodNutritionDelivered", 0d);
             Scribe_Values.Look(ref ExpireTick, "expireTick", -1);
@@ -626,6 +632,10 @@ namespace HungerAndHavoc.Incidents
             Scribe_Values.Look(ref ResponsibleAdultThingId, "responsibleAdultThingId", 0);
             Scribe_Values.Look(ref ChildExchangeVersion, "childExchangeVersion", 0);
             Scribe_Values.Look(ref ChildFoodAlternative, "childFoodAlternative", false);
+            Scribe_Values.Look(ref RoyalGenuine, "royalGenuine", false);
+            Scribe_Values.Look(ref RoyalRepaymentInstanceId, "royalRepaymentInstanceId", 0);
+            Scribe_Values.Look(ref RoyalRank, "royalRank", -1);
+            Scribe_Values.Look(ref RoyalReplySent, "royalReplySent", false);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 DisplayId = DisplayId ?? string.Empty;

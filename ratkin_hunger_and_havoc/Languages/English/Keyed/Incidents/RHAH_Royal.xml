@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_SuspiciousRoyal_Label>A dubious royal</RHAH_Incident_SuspiciousRoyal_Label>
+  <RHAH_IncidentGroup_I057>A dubious royal</RHAH_IncidentGroup_I057>
+  <RHAH_Royal_Arrival>A ratkin claiming to be a member of the Ratkin Kingdom’s royal family has arrived near our colony. It seems he has something to say.</RHAH_Royal_Arrival>
+  <RHAH_Royal_Request>“Hello. I am an impoverished royal from the great Ratkin Kingdom. Give me 2500 silver, and once I have secured a title from the emperor in a year’s time, I will repay you tenfold.”</RHAH_Royal_Request>
+  <RHAH_Royal_Pay>Give 2500 silver</RHAH_Royal_Pay>
+  <RHAH_Royal_ReplyLabel>A royal reply</RHAH_Royal_ReplyLabel>
+  <RHAH_Royal_Fraud>Looks like we were swindled. That damned fellow claiming to be royalty walked away with all that silver!</RHAH_Royal_Fraud>
+  <RHAH_Royal_Thanks>Ha! My friend, thank you so much for your help. Now it is time to keep my promise.\n\n--A {0}</RHAH_Royal_Thanks>
+  <RHAH_Royal_Peace>Oh, my friend, I also smoothed things over for you at court. No need to thank me.</RHAH_Royal_Peace>
+  <RHAH_Royal_Lost>A year has passed. The visitor who claimed to be royalty has never written back, and the promised silver has not arrived.</RHAH_Royal_Lost>
+  <RHAH_Royal_Rank0>duke</RHAH_Royal_Rank0>
+  <RHAH_Royal_Rank1>marquess</RHAH_Royal_Rank1>
+  <RHAH_Royal_Rank2>count</RHAH_Royal_Rank2>
+  <RHAH_Royal_Rank3>viscount</RHAH_Royal_Rank3>
+  <RHAH_Royal_Rank4>baron</RHAH_Royal_Rank4>
+</LanguageData>

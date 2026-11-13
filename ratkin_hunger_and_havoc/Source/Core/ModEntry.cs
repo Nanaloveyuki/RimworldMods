@@ -56,6 +56,7 @@ namespace HungerAndHavoc.Core
 
         static void DrawSettings(Listing_Standard listing)
         {
+            DrawContentPresets(listing);
             DrawResetSettings(listing);
             listing.CheckboxLabeled("RHAH_Settings_EnableNewContent".Translate(), ref Settings.enableNewContent,
                 "RHAH_Settings_EnableNewContent_Tooltip".Translate());
@@ -236,6 +237,26 @@ namespace HungerAndHavoc.Core
             Generation.RHAH_FertilityRules.ClampLitter(ref Settings.litterMin, ref Settings.litterPeak, ref Settings.litterMax);
 
         }
+        internal static void DrawContentPresets(Listing_Standard listing)
+        {
+            listing.Label("RHAH_ContentPreset_Title".Translate());
+            listing.Label("RHAH_ContentPreset_SettingsHint".Translate());
+            for (int i = 0; i < 4; i++)
+            {
+                Incidents.RHAH_ContentRating rating = (Incidents.RHAH_ContentRating)i;
+                if (listing.ButtonText(Incidents.RHAH_IncidentRating.LabelKey(rating).Translate()))
+                    ApplyContentPreset(rating);
+            }
+            listing.GapLine();
+        }
+
+        internal static void ApplyContentPreset(Incidents.RHAH_ContentRating rating)
+        {
+            RHAH_ContentPreset.Apply(Settings, rating);
+            SettingsReset?.Invoke();
+            Settings.Mod.WriteSettings();
+        }
+
         internal static void DrawResetSettings(Listing_Standard listing)
         {
             if (listing.ButtonText("RHAH_Settings_Reset".Translate()))

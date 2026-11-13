@@ -74,7 +74,8 @@ namespace HungerAndHavoc.Incidents
                     yield return AllyOption(present);
                 }
                 if (displayId != RHAH_WarlordCompat.MutilatedChildren)
-                    yield return Action("RHAH_Choice_Reject", RHAH_ChoiceAction.Reject);
+                    yield return Action(RHAH_ContentPreset.PeacefulRefusal(record.DisplayId)
+                        ? "RHAH_Choice_PeacefulReject" : "RHAH_Choice_Reject", RHAH_ChoiceAction.Reject);
                 yield return Action("RHAH_Choice_Ignore", RHAH_ChoiceAction.Ignore);
                 if (lookTargets.IsValid())
                 {

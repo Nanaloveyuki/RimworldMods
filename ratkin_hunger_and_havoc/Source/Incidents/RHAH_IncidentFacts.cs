@@ -23,7 +23,8 @@ namespace HungerAndHavoc.Incidents
             bool armedDemand = Pawn.RHAH_ArmedDemand.Enabled && Pawn.RHAH_ArmedDemand.IsSiege(context.DisplayId);
             RHAH_Attitude arrivalAttitude = RHAH_WarlordCompat.IsVictimEvent(context.DisplayId)
                 ? RHAH_IncidentArrival.For(context.DisplayId)
-                : context.DisplayId == "I-052" || armedDemand ? RHAH_Attitude.Neutral : context.Attitude;
+                : context.DisplayId == "I-052" || context.DisplayId == RHAH_SuspiciousRoyal.DisplayId || armedDemand
+                    ? RHAH_Attitude.Neutral : context.Attitude;
             // 先整批定好角色与年龄,母亲的下限要按同批最年长的孩子抬高,必须先算再生成
             List<RHAH_PawnRole> roles = new List<RHAH_PawnRole>(context.PawnCount);
             List<float?> ages = new List<float?>(context.PawnCount);
@@ -64,6 +65,8 @@ namespace HungerAndHavoc.Incidents
                 }
 
                 created.Add(result);
+                if (context.DisplayId == RHAH_SuspiciousRoyal.DisplayId)
+                    RHAH_SuspiciousRoyal.HideHistory(result.Pawns[0]);
                 if (context.DisplayId == RHAH_WarlordCompat.MutilatedChildren && !RHAH_WarlordVictimBody.Apply(result.Pawns[0]))
                 {
                     Rollback(created);
@@ -237,6 +240,9 @@ namespace HungerAndHavoc.Incidents
             float min = settings == null ? 0f : settings.minGeneratedAge;
             float max = settings == null ? 50f : settings.maxGeneratedAge;
             bool youngFollows = settings != null && settings.youngAgeFollowsRange;
+            if (displayId == RHAH_SuspiciousRoyal.DisplayId)
+                return System.Math.Max(20f, HungerAndHavoc.Pawn.RHAH_VisitorRules.GenerationAge(
+                    role, null, min, max, Rand.Value, youngFollows) ?? 20f);
             if (displayId == "I-052" || displayId == "I-053" || displayId == "I-054")
             {
                 return RHAH_PleadingJoin.AdultAge(HungerAndHavoc.Pawn.RHAH_VisitorRules.GenerationAge(
@@ -270,6 +276,7 @@ namespace HungerAndHavoc.Incidents
         }
         static bool OpenChoice(RHAH_IncidentContext context, List<RHAH_PawnCreationResult> created, List<Verse.Pawn> arrived)
         {
+            if (context.DisplayId == RHAH_SuspiciousRoyal.DisplayId) return RHAH_SuspiciousRoyal.Open(context, arrived);
             RHAH_RequestSpec spec = RHAH_RequestRules.SpecFor(context.DisplayId);
             RHAH_ChoiceKind choice = spec.Choice;
             if (context.DisplayId == RHAH_WarlordCompat.SuicideSquad) return false;
@@ -306,6 +313,8 @@ namespace HungerAndHavoc.Incidents
                 Site = spec.Site,
                 Choice = choice,
                 Amount = amount,
+                RequiredFoodNutrition = RHAH_NutritionPayment.IsFood(spec.Kind)
+                    ? amount * Pawn.RHAH_DemandFood.MealNutrition * RHAH_ContentPreset.FoodFactor : 0,
                 ExpireTick = Find.TickManager.TicksGame + RHAH_RequestRules.TicksPerDay * (Core.RHAH_Mod.Settings == null ? RHAH_RequestRules.RequestDays : Core.RHAH_Mod.Settings.requestDays)
             });
             if (record == null)
@@ -348,7 +357,7 @@ namespace HungerAndHavoc.Incidents
             if (entry != null && entry.Category == RHAH_IncidentCategory.Plague &&
                 (RHAH_Mod.Settings == null || RHAH_Mod.Settings.plagueEnabled))
             {
-                text += "\n\n" + "RHAH_Choice_PlagueHint".Translate();
+                text += "\n\n" + PlagueHint();
             }
 
             bool hostile = false;
@@ -370,7 +379,8 @@ namespace HungerAndHavoc.Incidents
         {
             bool armedDemand = Pawn.RHAH_ArmedDemand.IsRequest(record);
             string label = armedDemand ? "RHAH_ArmedDemand_LetterTitle".Translate().ToString() : LetterLabel(record);
-            string text = armedDemand ? "RHAH_ArmedDemand_LetterText".Translate(record.Amount).ToString() : LetterText(record, arrived);
+            string text = armedDemand ? "RHAH_ArmedDemand_LetterText".Translate(
+                (RHAH_NutritionPayment.Required(record) / Pawn.RHAH_DemandFood.MealNutrition).ToString("0.##")).ToString() : LetterText(record, arrived);
             ChoiceLetter letter;
             if (record.Kind == RHAH_RequestKind.None)
             {
@@ -477,7 +487,9 @@ namespace HungerAndHavoc.Incidents
             }
             else
             {
-                text = key.Translate(incident, record.Amount, GoodsLabel(record));
+                text = RHAH_NutritionPayment.IsFood(record.Kind) && record.TransactionVersion != RHAH_RequestRules.TransactionVersion
+                    ? key.Translate(incident, RHAH_NutritionPayment.Required(record).ToString("0.##"), "RHAH_Request_NutritionUnit".Translate())
+                    : key.Translate(incident, record.Amount, GoodsLabel(record));
             }
             if (record.TransactionVersion == RHAH_RequestRules.TransactionVersion)
                 text += "\n\n" + RHAH_FoodTransaction.Details(record);
@@ -486,10 +498,16 @@ namespace HungerAndHavoc.Incidents
             if (entry != null && entry.Category == RHAH_IncidentCategory.Plague &&
                 (settings == null || settings.plagueEnabled))
             {
-                text += "\n\n" + "RHAH_Choice_PlagueHint".Translate();
+                text += "\n\n" + PlagueHint();
             }
 
             return text;
+        }
+
+        static string PlagueHint()
+        {
+            return (RHAH_Mod.Settings?.plagueContagious == false
+                ? "RHAH_Choice_PlagueNoSpreadHint" : "RHAH_Choice_PlagueHint").Translate();
         }
 
         static bool YoungArrivals(List<Verse.Pawn> arrived, int start)

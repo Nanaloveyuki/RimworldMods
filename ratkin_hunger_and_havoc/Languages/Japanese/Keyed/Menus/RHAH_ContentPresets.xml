@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ContentRating_Cruel>残酷なイベント</RHAH_ContentRating_Cruel>
+  <RHAH_ContentRating_Realistic>過度に現実的なイベント</RHAH_ContentRating_Realistic>
+  <RHAH_ContentRating_General>一般向けイベント</RHAH_ContentRating_General>
+  <RHAH_ContentRating_AllAges>全年齢向けイベント</RHAH_ContentRating_AllAges>
+  <RHAH_ContentPreset_Title>許容できるイベントを選択</RHAH_ContentPreset_Title>
+  <RHAH_ContentPreset_Recommended>（推奨）</RHAH_ContentPreset_Recommended>
+  <RHAH_ContentPreset_Later>後で選ぶ（現在の設定を維持）</RHAH_ContentPreset_Later>
+  <RHAH_ContentPreset_SettingsHint>プリセットはイベント、鼠疫、悪影響、食料の要求量を変更します。穂音の信頼の変化量は共通です。適用後も個別に調整できます。</RHAH_ContentPreset_SettingsHint>
+  <RHAH_ContentPreset_Introduction>このModには空想や歴史上の苦難を題材にした内容があり、すべての人に適しているとは限りません。新バージョンを遊ぶ前に、許容できるイベントを選ぶことをお勧めします。つらい現実や残酷な描写を避けたい場合は一般向けか全年齢向けを、過酷な世界を体験したい場合は残酷か過度に現実的なイベントを選んでください。\n\n後から設定の概要ページでプリセットを選ぶこともできます。\n\n残酷な内容や現実的な内容に不快感を覚えたら、一般向けか全年齢向けに切り替えてください。\n\n4段階では、鼠疫の進行、致死性と感染、発生するイベント、悪影響、食料の要求量が異なります。迷った場合は一般向けをお勧めします。\n\n残酷：従来の標準イベントと効果を維持。\n現実的：幼いラットキンの決死隊など、明確な流血描写のあるイベントを無効化。\n一般向け：鼠疫の進行と悪影響を75%にし、食料の要求と食料取引の費用を半減。子供の交換、危険なラットキン居住地、身体を損なわれた子供などを無効化。\n全年齢向け：鼠疫の進行と悪影響を25%にし、鼠疫による死亡と感染を防止。奴隷や囚人の取引など、不適切なイベントを無効化。\n\n一般向けと全年齢向けでは、飢饉の来訪者による扉の開放を禁止します。拒否で敵対するのは飢えた難民の包囲と、その強壮・鼠疫の派生イベントだけです。</RHAH_ContentPreset_Introduction>
+  <RHAH_Transaction_NutritionQuote>必要な食料：合計栄養値{0}以上。倉庫の複数種類の食料を組み合わせられます。相手が持参した報酬：{1}。</RHAH_Transaction_NutritionQuote>
+  <RHAH_Request_NutritionDeliver>食料を渡す（栄養値{0}以上）</RHAH_Request_NutritionDeliver>
+  <RHAH_Request_NutritionShort>渡せる備蓄食料の栄養値が不足しています。必要量：{0}。</RHAH_Request_NutritionShort>
+  <RHAH_Request_NutritionFailed>食料または来訪者の状況が変わり、引き渡しを完了できませんでした。</RHAH_Request_NutritionFailed>
+  <RHAH_Choice_PeacefulReject>拒否する（来訪者は立ち去る）</RHAH_Choice_PeacefulReject>
+  <RHAH_Request_NutritionUnit>栄養分の食料</RHAH_Request_NutritionUnit>
+  <RHAH_Choice_PlagueNoSpreadHint>この来訪者たちは鼠疫を患っており、治療と世話が必要です。現在の設定では鼠疫の感染は無効です。</RHAH_Choice_PlagueNoSpreadHint>
+  <RHAH_ChildExchange_NutritionFood>栄養値{0}以上の食料を渡し、子供を引き取る</RHAH_ChildExchange_NutritionFood>
+  <RHAH_ChildExchange_LegacyNutritionFood>子供の代わりに栄養値{0}以上の食料を渡す</RHAH_ChildExchange_LegacyNutritionFood>
+  <RHAH_ChildExchange_NutritionShort>渡せる備蓄食料の栄養値が{0}に足りません。複数種類の食料を組み合わせられます。</RHAH_ChildExchange_NutritionShort>
+  <RHAH_Transaction_NoNutritionQuote>来訪者が報酬を揃えていないため、取引できません。</RHAH_Transaction_NoNutritionQuote>
+</LanguageData>

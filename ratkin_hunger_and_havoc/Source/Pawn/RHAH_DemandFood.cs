@@ -63,7 +63,7 @@ namespace HungerAndHavoc.Pawn
 
         internal static double Remaining(RHAH_ChoiceRecord record)
         {
-            double left = (record.Amount - record.ArmedFoodDelivered) * MealNutrition - record.ArmedFoodNutritionDelivered;
+            double left = RHAH_NutritionPayment.Required(record) - record.ArmedFoodDelivered * MealNutrition - record.ArmedFoodNutritionDelivered;
             return left <= Tolerance ? 0 : left;
         }
 

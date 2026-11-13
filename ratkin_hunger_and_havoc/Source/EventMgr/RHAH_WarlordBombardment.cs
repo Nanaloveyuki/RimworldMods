@@ -36,6 +36,8 @@ namespace HungerAndHavoc.EventMgr
 
         public EventChainDecision Evaluate(EventChainInstance instance, int tick)
         {
+            if (Core.RHAH_Mod.Settings?.IsIncidentEnabled(Id) == false)
+                return EventChainDecision.Finish(EventChainEnd.Cancelled);
             return instance.Stage == 0
                 ? EventChainDecision.Action("bombard_children", NextTick(tick, ExplosionSettleTicks), 1)
                 : EventChainDecision.Action("finish_bombardment", -1);
@@ -43,6 +45,8 @@ namespace HungerAndHavoc.EventMgr
 
         public EventChainActionResult Apply(EventChainInstance instance, int tick, string actionId)
         {
+            if (Core.RHAH_Mod.Settings?.IsIncidentEnabled(Id) == false)
+                return EventChainActionResult.Applied("content_disabled", EventChainEnd.Cancelled);
             if (!(instance.PreparedState is int batchId))
                 return EventChainActionResult.Failed("Warlord bombardment is not prepared.");
             Map map = RHAH_ChoiceRuntime.FindMap(instance.SiteId);

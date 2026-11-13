@@ -51,7 +51,7 @@ namespace HungerAndHavoc.Incidents
             {
                 return RHAH_Attitude.Neutral;
             }
-            if (entry.DisplayId == "I-052")
+            if (entry.DisplayId == "I-052" || entry.DisplayId == RHAH_SuspiciousRoyal.DisplayId)
             {
                 return RHAH_Attitude.Neutral;
             }

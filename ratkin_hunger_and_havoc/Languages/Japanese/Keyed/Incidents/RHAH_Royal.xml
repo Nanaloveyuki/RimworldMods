@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_SuspiciousRoyal_Label>怪しい王族</RHAH_Incident_SuspiciousRoyal_Label>
+  <RHAH_IncidentGroup_I057>怪しい王族</RHAH_IncidentGroup_I057>
+  <RHAH_Royal_Arrival>ラットキン王国の王族を名乗るラットキンが、私たちのコロニーの近くにやって来た。何か話があるようだ。</RHAH_Royal_Arrival>
+  <RHAH_Royal_Request>「こんにちは。私は偉大なるラットキン王国から来た、落ちぶれた王族です。シルバーを2500ください。一年後、皇帝から爵位を頂いたら、必ず十倍にしてお返しします」</RHAH_Royal_Request>
+  <RHAH_Royal_Pay>シルバー2500を渡す</RHAH_Royal_Pay>
+  <RHAH_Royal_ReplyLabel>王族からの返事</RHAH_Royal_ReplyLabel>
+  <RHAH_Royal_Fraud>どうやら騙されたらしい。王族を名乗っていたあのろくでなしに、あれほどの金を持ち逃げされるとは！</RHAH_Royal_Fraud>
+  <RHAH_Royal_Thanks>ははは、友よ。君の助けには本当に感謝している。さあ、約束を果たす時だ。\n\n--とある{0}爵より</RHAH_Royal_Thanks>
+  <RHAH_Royal_Peace>ああ友よ、ついでに宮廷のほうも丸く収めておいた。礼には及ばない。</RHAH_Royal_Peace>
+  <RHAH_Royal_Lost>一年が過ぎた。王族を名乗っていた訪問者から返事はなく、約束のシルバーも届かなかった。</RHAH_Royal_Lost>
+  <RHAH_Royal_Rank0>公</RHAH_Royal_Rank0>
+  <RHAH_Royal_Rank1>侯</RHAH_Royal_Rank1>
+  <RHAH_Royal_Rank2>伯</RHAH_Royal_Rank2>
+  <RHAH_Royal_Rank3>子</RHAH_Royal_Rank3>
+  <RHAH_Royal_Rank4>男</RHAH_Royal_Rank4>
+</LanguageData>

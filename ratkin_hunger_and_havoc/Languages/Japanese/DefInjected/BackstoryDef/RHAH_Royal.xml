@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_RoyalUnknownChildhood.title>不明</RHAH_RoyalUnknownChildhood.title>
+  <RHAH_RoyalUnknownChildhood.titleShort>不明</RHAH_RoyalUnknownChildhood.titleShort>
+  <RHAH_RoyalUnknownChildhood.description>[PAWN_nameDef]は自分の幼少期について何も語らない。</RHAH_RoyalUnknownChildhood.description>
+  <RHAH_RoyalUnknownAdulthood.title>不明</RHAH_RoyalUnknownAdulthood.title>
+  <RHAH_RoyalUnknownAdulthood.titleShort>不明</RHAH_RoyalUnknownAdulthood.titleShort>
+  <RHAH_RoyalUnknownAdulthood.description>[PAWN_nameDef]は成人後の経歴について何も語らない。</RHAH_RoyalUnknownAdulthood.description>
+</LanguageData>

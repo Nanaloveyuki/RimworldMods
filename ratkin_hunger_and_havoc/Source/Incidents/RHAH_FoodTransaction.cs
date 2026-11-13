@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HungerAndHavoc.Core;
+using HungerAndHavoc.Pawn;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -42,13 +43,18 @@ namespace HungerAndHavoc.Incidents
                 examples[thing.def] = thing;
             }
             ThingDef chosen = RHAH_RequestRules.LargestFood(counts);
-            if (chosen == null || visitors.Count == 0) return;
+            if (visitors.Count == 0) return;
+            chosen = chosen ?? ThingDefOf.MealSimple;
+            if (chosen == null) return;
             record.QuotedFoodDefName = chosen.defName;
-            Thing example = examples[chosen];
-            record.QuotedFoodCount = RHAH_RequestRules.RequiredFoodUnits(visitors.Count, example.GetStatValue(StatDefOf.Nutrition));
+            examples.TryGetValue(chosen, out Thing example);
+            float nutrition = example == null ? chosen.ingestible.CachedNutrition : example.GetStatValue(StatDefOf.Nutrition);
+            float marketValue = example == null ? chosen.GetStatValueAbstract(StatDefOf.MarketValue) : example.MarketValue;
+            record.QuotedFoodCount = RHAH_RequestRules.RequiredFoodUnits(visitors.Count, nutrition);
+            record.RequiredFoodNutrition = record.QuotedFoodCount * (double)nutrition * RHAH_ContentPreset.FoodFactor;
             record.Amount = record.QuotedFoodCount;
             float multiplier = Rand.Range(0.8f, 1.2f);
-            double budget = record.QuotedFoodCount * example.MarketValue * multiplier;
+            double budget = record.QuotedFoodCount * marketValue * multiplier;
             List<ThingDef> goods = new List<ThingDef>();
             for (int i = 0; i < RewardGoods.Length; i++)
             {
@@ -58,7 +64,7 @@ namespace HungerAndHavoc.Incidents
             }
             if (goods.Count == 0) return;
             ThingDef rewardDef = goods[Rand.Range(0, goods.Count)];
-            int remaining = RHAH_RequestRules.RewardUnits(record.QuotedFoodCount, example.MarketValue,
+            int remaining = RHAH_RequestRules.RewardUnits(record.QuotedFoodCount, marketValue,
                 rewardDef.GetStatValueAbstract(StatDefOf.MarketValue), multiplier);
             int total = remaining;
             Verse.Pawn carrier = null;
@@ -88,15 +94,14 @@ namespace HungerAndHavoc.Incidents
 
         internal static string Details(RHAH_ChoiceRecord record)
         {
-            ThingDef food = DefDatabase<ThingDef>.GetNamedSilentFail(record.QuotedFoodDefName);
             string reward = string.Empty;
             for (int i = 0; i < record.RewardDefNames.Count && i < record.RewardCounts.Count; i++)
             {
                 ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(record.RewardDefNames[i]);
                 if (def != null) reward += (reward.Length == 0 ? string.Empty : ", ") + record.RewardCounts[i] + " × " + def.LabelCap;
             }
-            return food == null || reward.Length == 0 ? "RHAH_Transaction_NoQuote".Translate().ToString() :
-                "RHAH_Transaction_Quote".Translate(record.QuotedFoodCount, food.LabelCap, reward).ToString();
+            return RHAH_NutritionPayment.Required(record) <= 0 || reward.Length == 0 ? "RHAH_Transaction_NoNutritionQuote".Translate().ToString() :
+                "RHAH_Transaction_NutritionQuote".Translate(RHAH_NutritionPayment.Required(record).ToString("0.##"), reward).ToString();
         }
 
         sealed class Packet
@@ -134,17 +139,17 @@ namespace HungerAndHavoc.Incidents
                     if (rewards[j].Thing.def.defName == record.RewardDefNames[i]) total += rewards[j].Thing.stackCount;
                 if (i >= record.RewardCounts.Count || total != record.RewardCounts[i]) return false;
             }
-            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(record.QuotedFoodDefName);
-            if (def == null) return false;
+            double required = RHAH_NutritionPayment.Required(record);
+            if (required <= 0) return false;
 #if RIMWORLD_1_7
             IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
 #endif
-            int stock = 0;
-            List<Thing> available = map.listerThings.ThingsOfDef(def);
+            double stock = 0;
+            List<Thing> available = map.listerThings.ThingsInGroup(ThingRequestGroup.FoodSourceNotPlantOrTree);
             for (int i = 0; i < available.Count; i++)
             {
                 Thing thing = available[i];
-                if (!IsUsableFood(thing, visitors) ||
+                if (!IsUsableFood(thing, visitors) || RHAH_NutritionPayment.Nutrition(thing) <= 0 ||
 #if RIMWORLD_1_7
                     !CanDeliverFood(thing, carrier, colonists) ||
 #else
@@ -152,9 +157,9 @@ namespace HungerAndHavoc.Incidents
 #endif
                     !carrier.inventory.innerContainer.CanAcceptAnyOf(thing, false)) continue;
                 food.Add(thing);
-                stock += thing.stackCount;
+                stock += thing.stackCount * RHAH_NutritionPayment.Nutrition(thing);
             }
-            if (stock < record.QuotedFoodCount) return false;
+            if (stock + RHAH_DemandFood.Tolerance < required) return false;
 #if !RIMWORLD_1_7
             IReadOnlyList<Verse.Pawn> colonists = map.mapPawns.FreeColonistsSpawned;
 #endif
@@ -195,13 +200,14 @@ namespace HungerAndHavoc.Incidents
             Map map; Verse.Pawn carrier; List<Thing> food; List<Packet> rewards; List<IntVec3> cells;
             if (!Plan(record, out map, out carrier, out food, out rewards, out cells)) return false;
             List<Packet> payment = new List<Packet>();
-            int remaining = record.QuotedFoodCount;
+            double remaining = RHAH_NutritionPayment.Required(record);
             try
             {
-                for (int i = 0; i < food.Count && remaining > 0; i++)
+                for (int i = 0; i < food.Count && remaining > RHAH_DemandFood.Tolerance; i++)
                 {
                     Thing source = food[i];
-                    int count = Math.Min(remaining, source.stackCount);
+                    double nutrition = RHAH_NutritionPayment.Nutrition(source);
+                    int count = Math.Min(RHAH_DemandFood.Units(remaining, nutrition), source.stackCount);
                     IntVec3 origin = source.Position;
                     Thing split = source.SplitOff(count);
                     if (split.Spawned) split.DeSpawn();
@@ -209,10 +215,10 @@ namespace HungerAndHavoc.Incidents
                     payment.Add(packet);
                     if (!carrier.inventory.innerContainer.TryAdd(split, false)) throw new InvalidOperationException("Food inventory refused payment");
                     packet.Owner = carrier.inventory.innerContainer;
-                    remaining -= count;
+                    remaining -= count * nutrition;
                 }
 #if RIMWORLD_1_7
-                if (remaining != 0) throw new InvalidOperationException("Food payment no longer matches quote");
+                if (remaining > RHAH_DemandFood.Tolerance) throw new InvalidOperationException("Food payment no longer matches quote");
 #endif
                 for (int i = 0; i < rewards.Count; i++)
                 {

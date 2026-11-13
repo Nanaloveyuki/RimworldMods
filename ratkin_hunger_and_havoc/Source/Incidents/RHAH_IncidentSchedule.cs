@@ -267,7 +267,7 @@ namespace HungerAndHavoc.Incidents
             bool mapHome,
             bool playerCaravan)
         {
-            if (RHAH_IncidentGroups.PoolOf(entry.DisplayId) != pool ||
+            if (entry.DisplayId == RHAH_SuspiciousRoyal.DisplayId || RHAH_IncidentGroups.PoolOf(entry.DisplayId) != pool ||
                 !GameComponent_RHAH_FamineYear.Available(entry.DisplayId) ||
                 !RHAH_WarlordCompat.Available(entry.DisplayId))
             {

@@ -30,6 +30,7 @@ namespace HungerAndHavoc.Core
         bool newContentDisabled;
         List<RHAH_LongFollowRecord> longFollows = new List<RHAH_LongFollowRecord>();
         int longClaimChainId;
+        int lastRoyalArrivalTick = -1;
 
         public IReadOnlyList<string> ActiveGenerationBatches => activeGenerationBatches;
         public IReadOnlyList<string> PendingIncidentDisplayIds => pendingIncidentDisplayIds;
@@ -44,6 +45,7 @@ namespace HungerAndHavoc.Core
         internal bool NewContentDisabled => newContentDisabled;
         internal List<RHAH_LongFollowRecord> LongFollows => longFollows;
         internal int LongClaimChainId { get => longClaimChainId; set => longClaimChainId = value; }
+        internal int LastRoyalArrivalTick { get => lastRoyalArrivalTick; set => lastRoyalArrivalTick = value; }
 
 
         public GameComponent_RHAH_Game(Game game)
@@ -470,6 +472,7 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref newContentDisabled, "newContentDisabled", false);
             Scribe_Collections.Look(ref longFollows, "longFollows", LookMode.Deep);
             Scribe_Values.Look(ref longClaimChainId, "longClaimChainId", 0);
+            Scribe_Values.Look(ref lastRoyalArrivalTick, "lastRoyalArrivalTick", -1);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 activeGenerationBatches = activeGenerationBatches ?? new List<string>();
@@ -635,6 +638,7 @@ namespace HungerAndHavoc.Core
         int foodListTick = -1;
         Dictionary<int, int> wallGnawCounts = new Dictionary<int, int>();
         int plagueLastSpreadDay = -1;
+        int royalWealthCheckDay = -1;
         List<Verse.Pawn> predationPrey = new List<Verse.Pawn>();
         List<HungerAndHavoc.Incidents.RHAH_PredatorRecord> predators = new List<HungerAndHavoc.Incidents.RHAH_PredatorRecord>();
         bool predationRolled;
@@ -645,6 +649,7 @@ namespace HungerAndHavoc.Core
 
         public IReadOnlyList<int> VisitorPawnLoadIds => visitorPawnLoadIds;
         public int PlagueLastSpreadDay { get => plagueLastSpreadDay; set => plagueLastSpreadDay = value; }
+        internal int RoyalWealthCheckDay { get => royalWealthCheckDay; set => royalWealthCheckDay = value; }
         public bool PredationRolled { get => predationRolled; set => predationRolled = value; }
         public bool PredationSelected { get => predationSelected; set => predationSelected = value; }
         internal int LegacyPredationPendingTick { get => predationPendingTick; set => predationPendingTick = value; }
@@ -659,6 +664,7 @@ namespace HungerAndHavoc.Core
         public override void FinalizeInit()
         {
             Pawn.RHAH_ReliefArea.Ensure(map);
+            LongEventHandler.ExecuteWhenFinished(() => RHAH_RoyalWatch.NoteHomeAvailable(map));
         }
 
         public void RegisterVisitor(int pawnLoadId)
@@ -793,6 +799,7 @@ namespace HungerAndHavoc.Core
             Scribe_Collections.Look(ref foodSearchTicks, "foodSearchTicks", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref wallGnawCounts, "wallGnawCounts", LookMode.Value, LookMode.Value);
             Scribe_Values.Look(ref plagueLastSpreadDay, "plagueLastSpreadDay", -1);
+            Scribe_Values.Look(ref royalWealthCheckDay, "royalWealthCheckDay", -1);
             Scribe_Collections.Look(ref predationPrey, "predationPrey", LookMode.Reference);
             Scribe_Collections.Look(ref predators, "predators", LookMode.Deep);
             Scribe_Values.Look(ref predationRolled, "predationRolled", false);

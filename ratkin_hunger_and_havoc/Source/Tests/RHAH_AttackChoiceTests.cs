@@ -199,6 +199,27 @@ namespace HungerAndHavoc.Tests
             Assert.Equal(RHAH_Attitude.Hostile, RHAH_Api.Get(first).Attitude);
         }
 
+        [Fact]
+        public void GeneralPresetLetsRejectedSwarmLeaveWithoutProvokingIt()
+        {
+            RHAH_Mod.Settings.peacefulRefusals = true;
+            Verse.Pawn pawn = Visitor(1);
+            CompRHAH_Pawn.TryGet(pawn).ApplySeed(new RHAH_PawnSeed("I-052", 7, 0,
+                RHAH_PawnRole.Thief, RHAH_Lifecycle.SeekingFood));
+            RHAH_ChoiceRecord record = new RHAH_ChoiceRecord
+            {
+                DisplayId = "I-052", Choice = RHAH_ChoiceKind.Visitors,
+                BatchId = 7, MapId = map.uniqueID, ExpireTick = 10,
+                PawnLoadIds = new List<int> { pawn.thingIDNumber }
+            };
+            RHAH_ChoiceRuntime.Open(choices, record);
+            Assert.Equal(RHAH_ChoiceAction.Reject,
+                RHAH_ChoiceRuntime.TrySettle(choices, record.Id, RHAH_ChoiceAction.Reject, 100, true, false));
+            RHAH_ChoiceRuntime.Apply(record);
+            Assert.Equal(RHAH_Attitude.Neutral, RHAH_Api.Get(pawn).Attitude);
+            Assert.Equal(RHAH_Lifecycle.Leaving, RHAH_Api.Get(pawn).Lifecycle);
+        }
+
         [Theory]
         [InlineData("downed")]
         [InlineData("dead")]

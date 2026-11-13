@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <BackstoryDef>
+    <defName>RHAH_RoyalUnknownChildhood</defName>
+    <slot>Childhood</slot>
+    <title>未知</title>
+    <titleShort>未知</titleShort>
+    <description>[PAWN_nameDef]对自己的童年只字不提。</description>
+    <shuffleable>false</shuffleable>
+    <spawnCategories><li>RHAH_Royal</li></spawnCategories>
+  </BackstoryDef>
+  <BackstoryDef>
+    <defName>RHAH_RoyalUnknownAdulthood</defName>
+    <slot>Adulthood</slot>
+    <title>未知</title>
+    <titleShort>未知</titleShort>
+    <description>[PAWN_nameDef]对自己的成年经历只字不提。</description>
+    <shuffleable>false</shuffleable>
+    <spawnCategories><li>RHAH_Royal</li></spawnCategories>
+  </BackstoryDef>
+</Defs>

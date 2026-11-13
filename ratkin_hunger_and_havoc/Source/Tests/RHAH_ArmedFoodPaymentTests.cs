@@ -203,6 +203,75 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
+        public void OrdinaryRequestRechecksMixedStorageAfterStockChanges()
+        {
+            Verse.Pawn receiver = Visitor(901);
+            List<Verse.Pawn> visitors = new List<Verse.Pawn> { receiver };
+            ThingDef biscuit = Meal("MixedBiscuit", 0.2f, "example.foods");
+            PaymentFood meals = Food(2);
+            PaymentFood biscuits = Food(10, biscuit);
+            Assert.True(RHAH_NutritionPayment.CanPay(map, 3.6, visitors));
+
+            meals.stackCount = 1;
+            Assert.False(RHAH_NutritionPayment.TryPay(map, 3.6, visitors));
+            Assert.Equal(1, meals.stackCount);
+            Assert.Equal(10, biscuits.stackCount);
+            Assert.Equal(0, receiver.inventory.innerContainer.TotalStackCount);
+
+            meals.stackCount = 2;
+            Assert.True(RHAH_NutritionPayment.TryPay(map, 3.6, visitors));
+            Assert.Equal(2, receiver.inventory.innerContainer.TotalStackCountOfDef(ThingDefOf.MealSimple));
+            Assert.Equal(9, receiver.inventory.innerContainer.TotalStackCountOfDef(biscuit));
+            Assert.Equal(1, biscuits.stackCount);
+        }
+
+        [Theory]
+        [InlineData("I-013", 1, 10)]
+        [InlineData("I-013", 2, 20)]
+        [InlineData("I-019", 1, 20)]
+        [InlineData("I-019", 2, 20)]
+        public void ChildFoodReplacementUsesMixedNutritionAndRechecksTheSubstitutionSetting(string displayId, int children, int meals)
+        {
+            Verse.Pawn adult = Visitor(901);
+            List<Verse.Pawn> visitors = new List<Verse.Pawn> { adult };
+            adult.ageTracker = new Pawn_AgeTracker(adult);
+            Field(typeof(Pawn_AgeTracker), "ageBiologicalTicksInt").SetValue(adult.ageTracker, 30L * GenDate.TicksPerYear);
+            for (int i = 0; i < children; i++)
+            {
+                Verse.Pawn child = Visitor(902 + i);
+                child.ageTracker = new Pawn_AgeTracker(child);
+                Field(typeof(Pawn_AgeTracker), "ageBiologicalTicksInt").SetValue(child.ageTracker, 6L * GenDate.TicksPerYear);
+                visitors.Add(child);
+            }
+            RHAH_ChoiceRecord record = Request(visitors.ToArray());
+            record.DisplayId = displayId;
+            record.Kind = RHAH_RequestKind.Baby;
+            record.Choice = displayId == "I-013" ? RHAH_ChoiceKind.ChildExchange : RHAH_ChoiceKind.Aid;
+            for (int i = 1; i < visitors.Count; i++)
+            {
+                HungerAndHavoc.Identity.CompRHAH_Pawn.TryGet(visitors[i]).State.role = RHAH_PawnRole.RatkinYoung;
+                RHAH_Api.SetGate(visitors[i], RHAH_BehaviorGate.JoinColony, true);
+            }
+            Assert.Equal(meals, RHAH_ChildExchange.FoodCost(record));
+            ThingDef ration = Meal("ReplacementRation", 1.8f, "example.foods");
+            PaymentFood food = Food(meals / 2 - 1, ration);
+            Assert.False(RHAH_ChildExchange.CanDeliver(record, null, true));
+            Assert.False(RHAH_ChildExchange.TryExchange(record, null, true));
+            Assert.Equal(meals / 2 - 1, food.stackCount);
+            food.stackCount++;
+            Assert.True(RHAH_ChildExchange.CanDeliver(record, null, true));
+            Assert.False(RHAH_ChildExchange.CanDeliver(record, null, false));
+            RHAH_Mod.Settings.childExchangeFoodSubstitution = false;
+            Assert.False(RHAH_ChildExchange.CanDeliver(record, null, true));
+            RHAH_Mod.Settings.childExchangeFoodSubstitution = true;
+            RHAH_Mod.Settings.foodRequestFactor = 0.5f;
+            food.stackCount = (meals + 3) / 4;
+            Assert.True(RHAH_ChildExchange.CanDeliver(record, null, true));
+            food.stackCount--;
+            Assert.False(RHAH_ChildExchange.CanDeliver(record, null, true));
+        }
+
+        [Fact]
         public void OtherModStockRequiresOptInAndRespectsOptOut()
         {
             Verse.Pawn receiver = Visitor(901);
@@ -215,6 +284,68 @@ namespace HungerAndHavoc.Tests
             RHAH_Mod.Settings.SetDemandFoodEnabled(modFood.defName, false);
             Assert.False(RHAH_ArmedDemand.TryPay(record));
             Assert.Equal(0, receiver.inventory.innerContainer.TotalStackCount);
+        }
+
+        [Theory]
+        [InlineData("unreachable")]
+        [InlineData("inventoryRefuses")]
+        [InlineData("absent")]
+        public void ChildExchangeCannotPayTheChildWhoIsJoiningTheColony(string problem)
+        {
+            Verse.Pawn adult = Visitor(901);
+            Verse.Pawn child = Visitor(902);
+            child.ageTracker = new Pawn_AgeTracker(child);
+            Field(typeof(Pawn_AgeTracker), "ageBiologicalTicksInt").SetValue(child.ageTracker, 6L * GenDate.TicksPerYear);
+            RHAH_ChoiceRecord record = Request(adult, child);
+            record.DisplayId = "I-013";
+            record.Kind = RHAH_RequestKind.Baby;
+            record.Choice = RHAH_ChoiceKind.ChildExchange;
+            HungerAndHavoc.Identity.CompRHAH_Pawn.TryGet(child).State.role = RHAH_PawnRole.RatkinYoung;
+            RHAH_Api.SetGate(child, RHAH_BehaviorGate.JoinColony, true);
+            if (problem == "unreachable") unreachable.Add(adult.thingIDNumber);
+            if (problem == "absent") record.PawnLoadIds.Remove(adult.thingIDNumber);
+            if (problem == "inventoryRefuses")
+            {
+                adult.inventory.innerContainer = new ThingOwner<Thing>(adult.inventory, true);
+                adult.inventory.innerContainer.InnerListForReading.Add(new Thing { def = ThingDefOf.MealSimple, stackCount = 10 });
+            }
+            PaymentFood food = Food(10);
+            Assert.False(RHAH_ChildExchange.CanDeliver(record, null, true));
+            Assert.False(RHAH_ChildExchange.TryExchange(record, null, true));
+            Assert.True(food.Spawned);
+            Assert.Equal(10, food.stackCount);
+            Assert.Equal(0, child.inventory.innerContainer.TotalStackCount);
+            Assert.NotEqual(Faction.OfPlayer, child.Faction);
+        }
+
+        [Fact]
+        public void RoyalSilverRechecksStorageAndTransfersExactlyThePromisedAmount()
+        {
+            ThingDef previousSilver = ThingDefOf.Silver;
+            try
+            {
+                ThingDefOf.Silver = Meal("Silver", 0f, "ludeon.rimworld");
+                ThingDefOf.Silver.stackLimit = 500;
+                Verse.Pawn visitor = Visitor(901);
+                List<Verse.Pawn> visitors = new List<Verse.Pawn> { visitor };
+                PaymentFood first = Food(1500, ThingDefOf.Silver);
+                PaymentFood second = Food(1001, ThingDefOf.Silver);
+                Assert.Equal(2501, RHAH_RoyalSilver.Stored(map));
+                Assert.True(RHAH_RoyalSilver.CanPay(map, visitors));
+                second.stackCount = 999;
+                Assert.False(RHAH_RoyalSilver.TryPay(map, visitors));
+                Assert.Equal(2499, RHAH_RoyalSilver.Stored(map));
+                Assert.Equal(0, visitor.inventory.innerContainer.TotalStackCount);
+                second.stackCount = 1001;
+                Assert.True(RHAH_RoyalSilver.TryPay(map, visitors));
+                Assert.Equal(2500, visitor.inventory.innerContainer.TotalStackCountOfDef(ThingDefOf.Silver));
+                Assert.Equal(1, second.stackCount);
+                Assert.Equal(1, RHAH_RoyalSilver.Stored(map));
+            }
+            finally
+            {
+                ThingDefOf.Silver = previousSilver;
+            }
         }
 
         [Fact]

@@ -15,7 +15,7 @@ namespace HungerAndHavoc.Identity
             }
 
             RHAH_Settings settings = RHAH_Mod.Settings;
-            bool plagueOn = settings == null || settings.plagueEnabled;
+            bool plagueOn = settings == null || settings.plagueEnabled && settings.plagueContagious;
             if (!plagueOn)
             {
                 return;

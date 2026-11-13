@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <IncidentDef>
+    <defName>RHAH_SuspiciousRoyal</defName>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_SuspiciousRoyal</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+</Defs>

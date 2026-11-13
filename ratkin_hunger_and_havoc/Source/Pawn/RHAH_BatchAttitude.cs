@@ -22,7 +22,9 @@ namespace HungerAndHavoc.Pawn
     {
         internal static bool TryShift(Verse.Pawn affected, RHAH_BatchReaction reaction, bool wholeBatch = true)
         {
-            if (RHAH_MouseSwarm.TryProvoke(affected, wholeBatch))
+            bool peaceful = reaction != RHAH_BatchReaction.Harm &&
+                RHAH_ContentPreset.PeacefulRefusal(RHAH_Api.Get(affected)?.SourceIncidentDisplayId);
+            if (!peaceful && RHAH_MouseSwarm.TryProvoke(affected, wholeBatch))
             {
                 if (reaction == RHAH_BatchReaction.Harm)
                     HungerAndHavoc.EventMgr.RHAH_EventFollowMood.NoteHurt(affected);
@@ -39,7 +41,8 @@ namespace HungerAndHavoc.Pawn
                 HungerAndHavoc.EventMgr.RHAH_EventFollowMood.NoteHurt(affected);
             }
 
-            RHAH_AttitudeShift shift = RHAH_AttitudePolicy.React(comp.State.attitude, reaction == RHAH_BatchReaction.Harm);
+            RHAH_AttitudeShift shift = peaceful ? RHAH_AttitudeShift.Leave :
+                RHAH_AttitudePolicy.React(comp.State.attitude, reaction == RHAH_BatchReaction.Harm);
             if (shift == RHAH_AttitudeShift.None)
             {
                 return false;
@@ -50,7 +53,7 @@ namespace HungerAndHavoc.Pawn
                 : new List<Verse.Pawn> { affected };
             RHAH_Settings settings = RHAH_Mod.Settings;
             bool turnHostile = shift == RHAH_AttitudeShift.Hostile && (settings == null || settings.batchTurnsHostile);
-            bool leave = reaction == RHAH_BatchReaction.Expel || settings == null || settings.batchLeavesTogether;
+            bool leave = peaceful || reaction == RHAH_BatchReaction.Expel || settings == null || settings.batchLeavesTogether;
             if (members.Count == 0 || (!turnHostile && !leave))
             {
                 return false;

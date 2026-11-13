@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_RoyalUnknownChildhood.title>Unknown</RHAH_RoyalUnknownChildhood.title>
+  <RHAH_RoyalUnknownChildhood.titleShort>Unknown</RHAH_RoyalUnknownChildhood.titleShort>
+  <RHAH_RoyalUnknownChildhood.description>[PAWN_nameDef] has shared nothing about childhood.</RHAH_RoyalUnknownChildhood.description>
+  <RHAH_RoyalUnknownAdulthood.title>Unknown</RHAH_RoyalUnknownAdulthood.title>
+  <RHAH_RoyalUnknownAdulthood.titleShort>Unknown</RHAH_RoyalUnknownAdulthood.titleShort>
+  <RHAH_RoyalUnknownAdulthood.description>[PAWN_nameDef] has shared nothing about adult life.</RHAH_RoyalUnknownAdulthood.description>
+</LanguageData>

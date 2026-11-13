@@ -53,6 +53,7 @@ namespace HungerAndHavoc.Incidents
         public RHAH_AttitudePool DefaultAttitudePool { get; }
         public RHAH_Attitude DefaultAttitude { get; }
         public float DebugPoints { get; }
+        internal RHAH_ContentRating ContentRating => RHAH_IncidentRating.For(DisplayId);
 
         public RHAH_IncidentEntry(
             string displayId,
@@ -150,6 +151,7 @@ namespace HungerAndHavoc.Incidents
             entries.Add(Original("I-054", "RHAH_BanditAttack", RHAH_IncidentFamily.Thief, false, RHAH_AttitudePool.Negative, 400f));
             entries.Add(Original("I-055", "RHAH_ChildSuicideSquad", RHAH_IncidentFamily.Thief, false, RHAH_AttitudePool.Negative, 300f));
             entries.Add(Original("I-056", "RHAH_MutilatedChildren", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Negative, 300f));
+            entries.Add(Original("I-057", "RHAH_SuspiciousRoyal", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Positive, 200f));
         }
 
         public static RHAH_IncidentEntry GetByDisplayId(string displayId)
@@ -232,6 +234,7 @@ namespace HungerAndHavoc.Incidents
                 case "I-010":
                 case "I-012":
                 case "I-052":
+                case "I-057":
                     return RHAH_Attitude.Neutral;
                 default:
                     return RHAH_Attitude.LeaningFriendly;

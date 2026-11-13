@@ -31,6 +31,19 @@ namespace HungerAndHavoc.Pawn
                 yield break;
             }
 
+            RHAH_ChoiceRecord request = FoodRequest(clickedPawn);
+            if (request != null)
+            {
+                bool childAlternative = RHAH_ChildExchange.AcceptsChild(request);
+                double nutrition = childAlternative ? RHAH_ChildExchange.FoodNutrition(request) :
+                    RHAH_ArmedDemand.IsRequest(request) ? RHAH_DemandFood.Remaining(request) : RHAH_NutritionPayment.Required(request);
+                bool enough = RHAH_ChoiceRuntime.CanDeliverRequest(request, null, childAlternative);
+                FloatMenuOption payment = new FloatMenuOption("RHAH_Request_NutritionDeliver".Translate(nutrition.ToString("0.##")),
+                    enough ? () => Deliver(request, childAlternative) : null);
+                if (!enough) payment.tooltip = new TipSignal("RHAH_Request_NutritionShort".Translate(nutrition.ToString("0.##")));
+                yield return payment;
+            }
+
             yield return new FloatMenuOption(
                 "RHAH_Menu_ExpelAll".Translate(),
                 () => AssignExpel(actor, clickedPawn, true),
@@ -99,6 +112,12 @@ namespace HungerAndHavoc.Pawn
                     List<Thing> foods = new List<Thing>();
                     RHAH_ChoiceRecord demand = RHAH_ArmedDemand.FoodRequest(clickedPawn);
                     RHAH_FoodHandoff.CollectFood(actor, foods, clickedPawn, demand != null);
+                    if (demand != null && !RHAH_ArmedDemand.CanPay(demand))
+                    {
+                        yield return new FloatMenuOption("RHAH_Request_NutritionShort".Translate(
+                            RHAH_DemandFood.Remaining(demand).ToString("0.##")), null);
+                        yield break;
+                    }
                     if (foods.Count == 0)
                     {
                         yield return new FloatMenuOption(
@@ -131,6 +150,38 @@ namespace HungerAndHavoc.Pawn
                         };
                     }
                 }
+            }
+        }
+
+        static RHAH_ChoiceRecord FoodRequest(Verse.Pawn receiver)
+        {
+            IReadOnlyList<RHAH_ChoiceRecord> records = Current.Game?.GetComponent<GameComponent_RHAH_Game>()?.OpenChoices;
+            int batch = RHAH_Api.Get(receiver)?.SpawnBatchId ?? -1;
+            for (int i = 0; records != null && i < records.Count; i++)
+            {
+                RHAH_ChoiceRecord record = records[i];
+                if (record.Open && record.MapId == receiver.MapHeld.uniqueID && record.BatchId == batch &&
+                    record.PawnLoadIds.Contains(receiver.thingIDNumber) &&
+                    (RHAH_ChildExchange.AcceptsChild(record) || RHAH_NutritionPayment.IsFood(record.Kind) ||
+                        record.TransactionVersion == RHAH_RequestRules.TransactionVersion)) return record;
+            }
+            return null;
+        }
+
+        static void Deliver(RHAH_ChoiceRecord record, bool childAlternative)
+        {
+            GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
+            bool enabled = RHAH_Mod.Settings == null || RHAH_Mod.Settings.AllowsRequest(record.Choice);
+            RHAH_ChoiceAction result = RHAH_ChoiceRuntime.TrySettleRequest(game, record.Id, RHAH_ChoiceAction.Deliver,
+                Find.TickManager.TicksGame, enabled, null, childAlternative);
+            if (result != RHAH_ChoiceAction.Deliver)
+                Messages.Message("RHAH_Request_NutritionFailed".Translate(), MessageTypeDefOf.RejectInput);
+            else if (!record.Open)
+            {
+                List<Letter> letters = Find.LetterStack.LettersListForReading;
+                for (int i = letters.Count - 1; i >= 0; i--)
+                    if (letters[i] is ChoiceLetter_RHAH_Request letter && letter.choiceId == record.Id)
+                        Find.LetterStack.RemoveLetter(letter);
             }
         }
 

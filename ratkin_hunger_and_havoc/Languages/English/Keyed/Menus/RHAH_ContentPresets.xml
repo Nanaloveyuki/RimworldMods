@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ContentRating_Cruel>Cruel events</RHAH_ContentRating_Cruel>
+  <RHAH_ContentRating_Realistic>Uncomfortably realistic events</RHAH_ContentRating_Realistic>
+  <RHAH_ContentRating_General>General events</RHAH_ContentRating_General>
+  <RHAH_ContentRating_AllAges>All-ages events</RHAH_ContentRating_AllAges>
+  <RHAH_ContentPreset_Title>Choose the events you are comfortable with</RHAH_ContentPreset_Title>
+  <RHAH_ContentPreset_Recommended> (recommended)</RHAH_ContentPreset_Recommended>
+  <RHAH_ContentPreset_Later>Choose later; keep my current settings</RHAH_ContentPreset_Later>
+  <RHAH_ContentPreset_SettingsHint>Presets adjust events, plague, negative effects and food requests. Suiyin trust changes stay the same. You can adjust individual settings afterwards.</RHAH_ContentPreset_SettingsHint>
+  <RHAH_ContentPreset_Introduction>This mod draws on fantasy and historical hardships. Some content may not suit everyone. Before playing the new version, choose which events you are comfortable encountering. General or all-ages events suit players who prefer to avoid distressing realism and cruelty. Cruel or uncomfortably realistic events suit those looking for a harsher world.\n\nYou can also choose a preset later on the Overview settings page.\n\nIf cruel or realistic content makes you uncomfortable, switch to general or all-ages events.\n\nThe four presets differ in plague progression, lethality and transmission, available events, negative effects and the amount of food requested. If you are unsure, general events are recommended.\n\nCruel: the original default events and effects.\nRealistic: excludes explicit bloody scenes such as the young ratkin suicide squad.\nGeneral: plague progression and negative effects at 75%; food demands and food trade costs halved. Excludes child exchange, the dangerous ratkin settlement, mutilated young ratkin and similar events.\nAll ages: plague progression and negative effects at 25%; plague is nonlethal and does not spread. Excludes slave or prisoner trading and other unsuitable events.\n\nGeneral and all-ages presets prevent famine visitors from opening doors. Refusing visitors causes hostility only for hungry refugee sieges and their strong or plague variants.</RHAH_ContentPreset_Introduction>
+  <RHAH_Transaction_NutritionQuote>Food required: at least {0} nutrition. You may combine different foods from storage. Their carried payment: {1}.</RHAH_Transaction_NutritionQuote>
+  <RHAH_Request_NutritionDeliver>Deliver food (at least {0} nutrition)</RHAH_Request_NutritionDeliver>
+  <RHAH_Request_NutritionShort>Deliverable food in storage falls short of the required {0} nutrition.</RHAH_Request_NutritionShort>
+  <RHAH_Request_NutritionFailed>The food or visitors are no longer available for this handoff.</RHAH_Request_NutritionFailed>
+  <RHAH_Choice_PeacefulReject>Refuse (the visitors leave)</RHAH_Choice_PeacefulReject>
+  <RHAH_Request_NutritionUnit>nutrition worth of food</RHAH_Request_NutritionUnit>
+  <RHAH_Choice_PlagueNoSpreadHint>These visitors have ratkin plague and need treatment and care. Plague transmission is disabled in your current settings.</RHAH_Choice_PlagueNoSpreadHint>
+  <RHAH_ChildExchange_NutritionFood>Give food worth at least {0} nutrition for the young ratkin</RHAH_ChildExchange_NutritionFood>
+  <RHAH_ChildExchange_LegacyNutritionFood>Give food worth at least {0} nutrition instead of a child</RHAH_ChildExchange_LegacyNutritionFood>
+  <RHAH_ChildExchange_NutritionShort>Deliverable food in storage falls short of {0} nutrition. Different foods can be combined.</RHAH_ChildExchange_NutritionShort>
+  <RHAH_Transaction_NoNutritionQuote>The visitors do not have their full payment. This exchange is unavailable.</RHAH_Transaction_NoNutritionQuote>
+</LanguageData>

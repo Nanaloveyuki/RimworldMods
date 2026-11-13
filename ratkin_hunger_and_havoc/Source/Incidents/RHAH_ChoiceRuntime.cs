@@ -98,7 +98,7 @@ namespace HungerAndHavoc.Incidents
                 return RHAH_ChoiceAction.None;
             }
 
-            if (swarm && (settled == RHAH_ChoiceAction.Reject || settled == RHAH_ChoiceAction.Attack ||
+            if (swarm && (settled == RHAH_ChoiceAction.Reject && !RHAH_ContentPreset.PeacefulRefusal(record.DisplayId) || settled == RHAH_ChoiceAction.Attack ||
                 settled == RHAH_ChoiceAction.Capture || settled == RHAH_ChoiceAction.Enslave))
             {
                 if (!RHAH_MouseSwarm.Provoke(Present(record))) return RHAH_ChoiceAction.None;
@@ -158,6 +158,12 @@ namespace HungerAndHavoc.Incidents
                 if (RHAH_ArmedDemand.IsRequest(record))
                 {
                     RHAH_ArmedDemand.Tick(record, tick);
+                    continue;
+                }
+                if (record.DisplayId == RHAH_SuspiciousRoyal.DisplayId && record.Open &&
+                    record.ExpireTick >= 0 && tick >= record.ExpireTick)
+                {
+                    RHAH_SuspiciousRoyal.Settle(record, RHAH_ChoiceAction.Timeout, tick, true);
                     continue;
                 }
                 if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
@@ -228,6 +234,8 @@ namespace HungerAndHavoc.Incidents
         {
             RHAH_ChoiceRecord record = FindRecord(game, choiceId);
             if (record == null || !record.Open) return RHAH_ChoiceAction.None;
+            if (record.DisplayId == RHAH_SuspiciousRoyal.DisplayId)
+                return RHAH_SuspiciousRoyal.Settle(record, requested, tick, enabled);
             if (requested == RHAH_ChoiceAction.Feed &&
                 !RHAH_RequestRules.ShowsFoodGive(record.DisplayId, record.Choice)) return RHAH_ChoiceAction.None;
             if (RHAH_MouseSwarm.IsSource(record.DisplayId))
@@ -250,16 +258,8 @@ namespace HungerAndHavoc.Incidents
                 return record.Open ? requested : record.Settled;
             }
             if (record.ExpireTick >= 0 && tick >= record.ExpireTick) requested = RHAH_ChoiceAction.Timeout;
-            bool canDeliver = requested != RHAH_ChoiceAction.Deliver;
+            bool canDeliver = requested != RHAH_ChoiceAction.Deliver || CanDeliverRequest(record, outgoingChild, foodAlternative);
             Map map = FindMap(record.MapId);
-            if (requested == RHAH_ChoiceAction.Deliver)
-            {
-                canDeliver = record.TransactionVersion == RHAH_RequestRules.TransactionVersion
-                    ? RHAH_FoodTransaction.CanDeliver(record)
-                    : RHAH_ChildExchange.AcceptsChild(record) || record.Kind == RHAH_RequestKind.Baby
-                        ? RHAH_ChildExchange.CanDeliver(record, outgoingChild, foodAlternative)
-                        : map != null && RHAH_RequestRules.CanDeliver(record.Kind, Stock(map, record.Kind), record.Amount, false);
-            }
             RHAH_ChoiceAction settled = RHAH_RequestRules.Settle(requested, enabled, false, canDeliver);
             if (settled == RHAH_ChoiceAction.None) return settled;
             if (settled == RHAH_ChoiceAction.Deliver)
@@ -271,8 +271,8 @@ namespace HungerAndHavoc.Incidents
                     paid = RHAH_ChildExchange.TryExchange(record, outgoingChild, foodAlternative);
                 else
                     paid = RHAH_RequestRules.CreatesSite(settled, record.Site)
-                        ? TryCreateSite(map, record.Site, () => TryConsume(map, record.Kind, record.Amount))
-                        : TryConsume(map, record.Kind, record.Amount);
+                        ? TryCreateSite(map, record.Site, () => PayRequest(record, map))
+                        : PayRequest(record, map);
                 if (!paid) return RHAH_ChoiceAction.None;
             }
             record.Settled = settled;
@@ -280,6 +280,27 @@ namespace HungerAndHavoc.Incidents
             if (settled == RHAH_ChoiceAction.Deliver && record.TransactionVersion == RHAH_RequestRules.TransactionVersion &&
                 record.Site != RHAH_IntelSiteKind.None && Rand.Chance(0.25f)) TryCreateSite(map, record.Site);
             return settled;
+        }
+
+        internal static bool CanDeliverRequest(RHAH_ChoiceRecord record, Verse.Pawn outgoingChild = null, bool foodAlternative = false)
+        {
+            if (record == null || !record.Open) return false;
+            if (record.DisplayId == RHAH_SuspiciousRoyal.DisplayId) return RHAH_SuspiciousRoyal.CanPay(record);
+            if (RHAH_ArmedDemand.IsRequest(record)) return RHAH_ArmedDemand.CanPay(record);
+            if (record.TransactionVersion == RHAH_RequestRules.TransactionVersion) return RHAH_FoodTransaction.CanDeliver(record);
+            if (RHAH_ChildExchange.AcceptsChild(record) || record.Kind == RHAH_RequestKind.Baby)
+                return RHAH_ChildExchange.CanDeliver(record, outgoingChild, foodAlternative);
+            Map map = FindMap(record.MapId);
+            if (RHAH_NutritionPayment.IsFood(record.Kind))
+                return RHAH_NutritionPayment.CanPay(map, RHAH_NutritionPayment.Required(record), Present(record));
+            return map != null && RHAH_RequestRules.CanDeliver(record.Kind, Stock(map, record.Kind), record.Amount, false);
+        }
+
+        static bool PayRequest(RHAH_ChoiceRecord record, Map map)
+        {
+            return RHAH_NutritionPayment.IsFood(record.Kind)
+                ? RHAH_NutritionPayment.TryPay(map, RHAH_NutritionPayment.Required(record), Present(record))
+                : TryConsume(map, record.Kind, record.Amount);
         }
 
         internal static bool TryConsume(Map map, RHAH_RequestKind kind, int amount)
@@ -364,7 +385,12 @@ namespace HungerAndHavoc.Incidents
             }
 
             if (RHAH_MouseSwarm.IsSource(record.DisplayId) &&
-                (record.Settled == RHAH_ChoiceAction.Reject || record.Settled == RHAH_ChoiceAction.Timeout)) return;
+                (record.Settled == RHAH_ChoiceAction.Reject || record.Settled == RHAH_ChoiceAction.Timeout))
+            {
+                if (RHAH_ContentPreset.PeacefulRefusal(record.DisplayId))
+                    RHAH_BatchAttitude.OrderVisitorLeave(Present(record));
+                return;
+            }
             HungerAndHavoc.EventMgr.RHAH_EventFollowMood.OnChoice(record);
             if (record.Settled == RHAH_ChoiceAction.Deliver &&
                 (record.TransactionVersion == RHAH_RequestRules.TransactionVersion || record.ChildExchangeVersion > 0))

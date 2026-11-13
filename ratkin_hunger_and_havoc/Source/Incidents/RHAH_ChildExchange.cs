@@ -69,6 +69,11 @@ namespace HungerAndHavoc.Incidents
                 (record.DisplayId == "I-019" ? 2 : 1);
         }
 
+        internal static double FoodNutrition(RHAH_ChoiceRecord record)
+        {
+            return FoodCost(record) * RHAH_DemandFood.MealNutrition * RHAH_ContentPreset.FoodFactor;
+        }
+
         internal static bool FoodAlternative(RHAH_ChoiceRecord record)
         {
             return record != null && record.Settled == RHAH_ChoiceAction.Deliver &&
@@ -174,8 +179,8 @@ namespace HungerAndHavoc.Incidents
             {
                 if (RHAH_Mod.Settings != null && !RHAH_Mod.Settings.childExchangeFoodSubstitution)
                     return "RHAH_ChildExchange_FoodDisabled";
-                return RHAH_ChoiceRuntime.Stock(map, RHAH_RequestKind.SimpleMeal) >= FoodCost(record)
-                    ? null : "RHAH_ChildExchange_NoFood";
+                return RHAH_NutritionPayment.CanPay(map, FoodNutrition(record), FoodReceivers(record, visitors))
+                    ? null : "RHAH_ChildExchange_NutritionShort";
             }
             return Eligible(outgoing, map) && ReleaseAllowed(outgoing, RHAH_ReleaseReason.ModRequest)
                 ? null : "RHAH_ChildExchange_NoChild";
@@ -190,7 +195,7 @@ namespace HungerAndHavoc.Incidents
             Faction counterpart = visitors[0].Faction;
             Verse.Pawn responsible = Responsible(map, outgoing);
             // All join and payment gates are checked before changing custody.
-            if (foodAlternative && !RHAH_ChoiceRuntime.TryConsume(map, RHAH_RequestKind.SimpleMeal, FoodCost(record))) return false;
+            if (foodAlternative && !RHAH_NutritionPayment.TryPay(map, FoodNutrition(record), FoodReceivers(record, visitors))) return false;
             for (int i = 0; i < incoming.Count; i++)
             {
                 RHAH_ApiHost.CommitReleaseToColony(incoming[i], RHAH_ReleaseReason.JoinedPlayerFaction);
@@ -216,6 +221,11 @@ namespace HungerAndHavoc.Incidents
             EventMgr.RHAH_LongFollowRuntime.NoteChildTransfer(record.DisplayId, record.BatchId, record.MapId,
                 foodAlternative ? null : outgoing, responsible, incomingIds, foodAlternative);
             return true;
+        }
+
+        static List<Verse.Pawn> FoodReceivers(RHAH_ChoiceRecord record, List<Verse.Pawn> visitors)
+        {
+            return record.DisplayId == "I-013" ? visitors.FindAll(pawn => !IsOfferedChild(pawn)) : visitors;
         }
 
         static Verse.Pawn Responsible(Map map, Verse.Pawn child)

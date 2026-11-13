@@ -66,6 +66,8 @@ namespace HungerAndHavoc.Tests
 
             expected.Add("RHAH_PredationArrival");
             expected.Add("RHAH_AllyDeparture");
+            expected.Add("RHAH_RoyalWatch");
+            expected.Add("I-057");
             Assert.Equal("RHAH_PredationArrival", RHAH_EventChainProvider.ArrivalId);
             Assert.Equal(expected.Count, provider.Definitions.Count);
             for (int i = 0; i < provider.Definitions.Count; i++)

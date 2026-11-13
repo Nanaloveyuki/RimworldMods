@@ -183,6 +183,17 @@ namespace HungerAndHavoc.Pawn.Compat
             MenuControls.Anchor(list, "enable-new-content");
             RHAH_IrisMenusWidgets.Checkbox(list, "setting-" + nameof(settings.enableNewContent), "RHAH_Settings_EnableNewContent".Translate(), ref settings.enableNewContent, "RHAH_Settings_EnableNewContent_Tooltip".Translate());
 
+            Section(list, "RHAH_ContentPreset_Title");
+            RHAH_IrisMenusWidgets.Label(list, "RHAH_ContentPreset_SettingsHint".Translate());
+            for (int i = 0; i < 4; i++)
+            {
+                RHAH_ContentRating rating = (RHAH_ContentRating)i;
+                string anchor = "content-preset-" + rating;
+                MenuControls.Anchor(list, anchor);
+                if (RHAH_IrisMenusWidgets.Button(list, anchor, RHAH_IncidentRating.LabelKey(rating).Translate()))
+                    RHAH_Mod.ApplyContentPreset(rating);
+            }
+
             MenuControls.Anchor(list, "reset-settings");
             if (RHAH_IrisMenusWidgets.Button(list, "reset-settings", "RHAH_Settings_Reset".Translate()))
                 RHAH_Mod.ConfirmResetSettings();
@@ -192,6 +203,11 @@ namespace HungerAndHavoc.Pawn.Compat
         {
             yield return Entry("enable-new-content", "RHAH_Settings_EnableNewContent", "toggle content");
             yield return Entry("reset-settings", "RHAH_Settings_Reset", "reset defaults configuration");
+            for (int i = 0; i < 4; i++)
+            {
+                RHAH_ContentRating rating = (RHAH_ContentRating)i;
+                yield return Entry("content-preset-" + rating, RHAH_IncidentRating.LabelKey(rating), "content event preset rating");
+            }
         }
         void DrawRemoval(Listing_Standard list)
         {
@@ -271,6 +287,7 @@ namespace HungerAndHavoc.Pawn.Compat
             float width = Mathf.Max(1f, list.ColumnWidth - RHAH_IrisMenusWidgets.CardPad * 2f);
             string title = debug ? "RHAH_Menu_Format_IdentifiedLabel".Translate(entry.DisplayId, entry.LabelKey.Translate()).ToString()
                 : RHAH_IncidentGroups.LabelKey(RHAH_IncidentGroups.GroupOf(entry.DisplayId)).Translate().ToString();
+            title += " [" + RHAH_IncidentRating.LabelKey(entry.ContentRating).Translate() + "]";
             string meta = "RHAH_Menu_EventMeta".Translate(FamilyLabel(entry.Family), OriginLabel(entry.Origin),
                 CategoryLabel(entry.Category), TargetLabel(entry.Target), entry.BroadcastEligible ? "RHAH_Menu_Yes".Translate() : "RHAH_Menu_No".Translate());
             float titleHeight = native == null ? 22f : Mathf.Max(22f, native.LabelHeight(title, width));

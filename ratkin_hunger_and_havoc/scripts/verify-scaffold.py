@@ -249,15 +249,15 @@ def catalog_defs(catalog):
 def check_catalog():
     catalog = read("Source/Incidents/RHAH_IncidentCatalog.cs")
     ids, defs = catalog_defs(catalog)
-    if len(ids) != 59:
-        errors.append("catalog size %s, expected 59" % len(ids))
+    if len(ids) != 60:
+        errors.append("catalog size %s, expected 60" % len(ids))
     if len(set(ids)) != len(ids):
         errors.append("duplicate display ids")
-    expected = ["I-%03d" % i for i in range(1, 52)] + ["I-008-01", "I-009-01", "I-010-01"] + ["I-052", "I-053", "I-054", "I-055", "I-056"]
+    expected = ["I-%03d" % i for i in range(1, 52)] + ["I-008-01", "I-009-01", "I-010-01"] + ["I-052", "I-053", "I-054", "I-055", "I-056", "I-057"]
     if ids != expected:
         errors.append("display ids differ from primary and wild subevent catalog: %s" % ids[:8])
-    if len(defs) != 59:
-        errors.append("catalog def name count %s, expected 59" % len(defs))
+    if len(defs) != 60:
+        errors.append("catalog def name count %s, expected 60" % len(defs))
     if "RHH_" in catalog:
         errors.append("catalog still has RHH_")
     return defs
@@ -601,7 +601,7 @@ def main():
         for item in errors:
             print(" -", item)
         return 1
-    print("OK source contracts: API assembly, Identity Comp, I-001..I-056 and wild subevents, keyed symmetry, Japanese coverage/tokens/XML, active 1.7/Biotech XML and ThoughtDef fields")
+    print("OK source contracts: API assembly, Identity Comp, I-001..I-057 and wild subevents, keyed symmetry, Japanese coverage/tokens/XML, active 1.7/Biotech XML and ThoughtDef fields")
     return 0
 
 
