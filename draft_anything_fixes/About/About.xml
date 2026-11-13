@@ -3,7 +3,7 @@
   <name>Draft Anything Fixes</name>
   <author>Nanaloveyuki</author>
   <packageId>nanaloveyuki.miliraflightjobfix</packageId>
-  <modVersion>0.1.1</modVersion>
+  <modVersion>0.1.2</modVersion>
   <supportedVersions>
     <li>1.7</li>
   </supportedVersions>
@@ -31,5 +31,5 @@
       <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3636082176</steamWorkshopUrl>
     </li>
   </modDependencies>
-  <description>Prevents Draft Anything 2.0 from deleting existing player settings and draft controllers when a pawn is undrafted, avoiding colonist bar failures and lost GUI input. Only tracker objects created temporarily by Draft Anything during this session are eligible for cleanup. Also fixes Draft Anything's injected order branch in MiliraConstant and Milira Race's forced flight-job override. Adds no save fields.</description>
+  <description>Prevents Draft Anything 2.0 from deleting existing player settings and draft controllers when a pawn is undrafted, avoiding colonist bar failures and lost GUI input. Only tracker objects created temporarily by Draft Anything during this session are eligible for cleanup. Also removes Draft Anything's injected order branch from MiliraConstant so it cannot interrupt player orders. Preserves Milira Race's native drafted flight and flight controls. Adds no save fields.</description>
 </ModMetaData>

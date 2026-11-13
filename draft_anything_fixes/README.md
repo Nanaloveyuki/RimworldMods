@@ -1,6 +1,6 @@
 # Draft Anything Fixes
 
-This RimWorld 1.7 patch prevents Draft Anything 2.0 from deleting existing pawn trackers on undraft, which can break the colonist bar and GUI input. It also fixes two drafted-job conflicts involving Milira Race and Flight Framework.
+This RimWorld 1.7 patch fixes Draft Anything 2.0's tracker deletion on undraft and its injected order branch in Milira's constant think tree. Milira Race's native drafted flight remains enabled.
 
 ## Behavior
 
@@ -8,11 +8,11 @@ Draft Anything's `RestoreOriginalState` clears `playerSettings` and `drafter` ev
 
 Temporary trackers are removed on release only while they are still the same objects and vanilla no longer requires them. Settings needed by player pawns, player-hosted guests, or holding platforms remain; draft controllers needed by player humanlikes and colony mechs remain. Trackers supplied by another system or loaded without runtime ownership evidence are preserved. This means a previously controlled pawn loaded from a save can retain extra trackers after release; the patch does not guess which serialized objects were temporary. Tracking uses weak pawn keys and adds no save fields.
 
-The patch removes Milira's exact prefix from `Pawn_FlightTracker.Notify_JobStarted` when it is already installed. It also guards Milira's prefix method so it returns `true` if another mod installs it later. The normal Harmony chain then continues to the remaining flight patches and vanilla method. Flight Framework remains loaded and its controller continues to work for pawns that have one.
-
 When Draft Anything is installed, the patch removes its dynamically inserted controllable-pawn order branch from the `MiliraConstant` think tree. Drafted player orders continue to use the humanlike main think tree; Draft Anything's behavior in other think trees is unchanged.
 
-No save data is rewritten. The patch does not remove `CompFlightControl`, `Milira_InFlight`, or Flight Framework components. It changes drafted Milira behavior from “every current job is forced into the custom flying branch” to the remaining flight patches and vanilla job-def rules. Jobs that request flight can still fly; ordinary movement and work jobs are no longer forcibly marked as flying by the Milira prefix.
+Milira's `Pawn_FlightTracker.Notify_JobStarted` prefix remains installed and runs its original logic: eligible Milira fly while drafted or targeting an enemy, subject to `CompFlightControl.CanFly`. Its flight modes, hunger threshold, wing requirements, food cost, and `Milira_InFlight` effects remain managed by Milira. This patch makes no changes to Flight Framework.
+
+Version 0.1.2 removes the earlier flight-prefix suppression. No save data is rewritten. Restart the game after upgrading so the previous version's Harmony patches are unloaded.
 
 ## Build
 
@@ -24,11 +24,10 @@ The project uses the local RimWorld 1.7 `Assembly-CSharp.dll`, Unity stubs, and 
 
 ## Verification
 
-The assembly should log the flight-prefix message and, when Draft Anything is installed, a compatibility cleanup message:
+With Draft Anything installed, the assembly should log the compatibility installation and tracker protection messages. The branch-removal message appears once the injected node is present:
 
 ```text
-[MiliraFlightJobFix] Removed Milira's flight-job override; vanilla and remaining compatibility patches handle jobs.
-[MiliraFlightJobFix] Guarded Milira's flight-job override; vanilla and remaining compatibility patches handle jobs.
+[MiliraFlightJobFix] Draft Anything compatibility cleanup installed for Milira constant trees.
 [MiliraFlightJobFix] Removed Draft Anything's drafted-order branch from MiliraConstant; the humanlike main tree still handles player orders.
 [DraftAnythingFixes] Tracker cleanup preserves existing player settings and draft controllers.
 ```
@@ -41,6 +40,6 @@ Run the tracker regression checks against the installed Draft Anything DLL:
 
 An optional positional argument selects a different upstream DLL. The checks first reproduce the unpatched deletion, install the production Harmony patch, and exercise repeated control cycles, original settings, temporary enemy trackers, mixed ownership, replacement objects, loaded trackers, and components now required by vanilla. They run against the actual game and upstream assemblies without starting the graphical game.
 
-Disabling Draft Anything was confirmed in game to eliminate the affected save's UI failure. The new tracker patch still needs an in-game check with both Mods enabled: load the pre-failure save, draft and undraft the affected pawn repeatedly, and verify the colonist bar, medical settings, movement orders, and keyboard input. Drafted movement with the earlier flight compatibility fixes was already verified in the affected save.
+Disabling Draft Anything was confirmed in game to eliminate the affected save's UI failure. Version 0.1.2 still needs an in-game check with both Mods enabled: load the pre-failure save, draft and undraft the affected pawn repeatedly, and verify flight, uninterrupted movement orders, the colonist bar, medical settings, and keyboard input. Exercise Milira's always-fly, movement-only, and never-fly modes. Drafted movement was previously verified with flight suppression enabled; that result does not cover restored native flight.
 
 If upstream changes its method names or cleanup IL, the patch logs an installation failure. The tracker patch expects one null assignment to each of the two fields in `RestoreOriginalState`.

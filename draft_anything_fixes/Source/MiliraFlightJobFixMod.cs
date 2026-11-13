@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using RimWorld;
 using Verse;
 
 namespace MiliraFlightJobFix
@@ -13,67 +11,8 @@ namespace MiliraFlightJobFix
 
         public MiliraFlightJobFixMod(ModContentPack content) : base(content)
         {
-            MiliraPatch.Install();
             DraftAnythingCompatibility.Install();
             DraftAnythingTrackerCleanup.Install();
-        }
-    }
-
-    internal static class MiliraPatch
-    {
-        private const string PatchTypeName = "Milira.MilianPatch_Pawn_FlightTracker_Notify_JobStarted";
-
-        internal static void Install()
-        {
-            try
-            {
-                var harmony = new Harmony(MiliraFlightJobFixMod.HarmonyId);
-                Type patchType = AccessTools.TypeByName(PatchTypeName);
-                var miliraPrefix = patchType == null
-                    ? null
-                    : AccessTools.Method(patchType, "Prefix");
-                if (miliraPrefix == null)
-                {
-                    Log.Warning("[MiliraFlightJobFix] Milira's Notify_JobStarted prefix was not found; fix disabled.");
-                    return;
-                }
-
-                var notifyJobStarted = AccessTools.Method(typeof(Pawn_FlightTracker), nameof(Pawn_FlightTracker.Notify_JobStarted));
-                if (notifyJobStarted == null)
-                {
-                    Log.Warning("[MiliraFlightJobFix] Pawn_FlightTracker.Notify_JobStarted was not found; fix disabled.");
-                    return;
-                }
-
-                bool removed = false;
-                var patches = Harmony.GetPatchInfo(notifyJobStarted);
-                if (patches != null)
-                {
-                    foreach (Patch installed in patches.Prefixes.Where(p => p.PatchMethod == miliraPrefix).ToArray())
-                    {
-                        harmony.Unpatch(notifyJobStarted, installed.PatchMethod);
-                        removed = true;
-                    }
-                }
-
-                harmony.Patch(
-                    miliraPrefix,
-                    prefix: new HarmonyMethod(typeof(MiliraPatch), nameof(ReturnToOriginalFlow)));
-
-                Log.Message(removed
-                    ? "[MiliraFlightJobFix] Removed Milira's flight-job override; vanilla and remaining compatibility patches handle jobs."
-                    : "[MiliraFlightJobFix] Guarded Milira's flight-job override; vanilla and remaining compatibility patches handle jobs.");
-            }
-            catch (Exception exception)
-            {
-                Log.Error("[MiliraFlightJobFix] Could not disable Milira's Notify_JobStarted prefix: " + exception);
-            }
-        }
-
-        private static bool ReturnToOriginalFlow(ref bool __result)
-        {
-            __result = true;
-            return false;
         }
     }
 
