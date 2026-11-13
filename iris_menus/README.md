@@ -268,6 +268,13 @@ still apply.
 
 ## Release notes
 
+### 2.0.3 — inspect tab hover feedback (1.7)
+
+- Preserve native mouse hit testing while drawing inspect tabs outside their
+  window bounds, restoring hover highlights with IrisMenus enabled.
+- Track extra drawing context within IrisMenus so full-screen occlusion still
+  respects window order without changing the game's current drawing window.
+
 ### 2.0.2 — hosted UI compatibility fixes (1.7)
 
 - Keep third-party Harmony slider patches in the call chain and restore hosted

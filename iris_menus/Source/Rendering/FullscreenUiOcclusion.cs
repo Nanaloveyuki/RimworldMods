@@ -12,6 +12,8 @@ namespace IrisMenus
 {
     internal static class FullscreenUiOcclusion
     {
+        [ThreadStatic] private static Window extraDrawingWindow;
+
         private static bool CoversScreen(Window window)
         {
             bool covers = window is MenuWindow menu ? menu.Opacity > 0f :
@@ -42,7 +44,8 @@ namespace IrisMenus
         {
             WindowStack stack = Find.WindowStack;
             if (stack == null) return false;
-            if (stack.currentlyDrawnWindow != null) return ShouldSuppressWindow(stack.currentlyDrawnWindow);
+            Window drawingWindow = stack.currentlyDrawnWindow ?? extraDrawingWindow;
+            if (drawingWindow != null) return ShouldSuppressWindow(drawingWindow);
             for (int i = stack.Count - 1; i >= 0; i--)
                 if (CoversScreen(stack[i])) return true;
             return false;
@@ -56,12 +59,11 @@ namespace IrisMenus
         private static void DrawExtra(Window window)
         {
             if (ShouldSuppressWindow(window)) return;
-            WindowStack stack = Find.WindowStack;
-            Window previous = stack.currentlyDrawnWindow;
-            // ExtraOnGUI precedes the ordinary window group, but belongs to the same layer.
-            stack.currentlyDrawnWindow = window;
+            Window previous = extraDrawingWindow;
+            // Keep native hit testing unchanged for controls drawn outside their window bounds.
+            extraDrawingWindow = window;
             try { window.ExtraOnGUI(); }
-            finally { stack.currentlyDrawnWindow = previous; }
+            finally { extraDrawingWindow = previous; }
         }
 
         private static bool DrawShadow(Window window) => window.drawShadow && !ShouldSuppressWindow(window);
