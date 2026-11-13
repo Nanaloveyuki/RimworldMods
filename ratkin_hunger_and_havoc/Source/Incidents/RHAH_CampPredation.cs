@@ -190,6 +190,11 @@ namespace HungerAndHavoc.Incidents
             int corpseIndex = -1;
             Verse.Pawn prey = FindPrey(predator, component, out preyIndex);
             Corpse corpse = prey == null ? FindCorpse(predator, component, out corpseIndex) : null;
+            if (prey == null && corpse == null && HasLivingPrey(component, predator.Map, true))
+            {
+                record.nextSearchTick = System.Math.Max(record.nextSearchTick, RHAH_PredationRules.NextScanTick(now));
+                return false;
+            }
             RHAH_Settings settings = RHAH_Mod.Settings;
             bool follow = settings != null && settings.outsidePredatorsFollowDifficulty;
             RHAH_PredationDecision decision = RHAH_PredationRules.Decide(
@@ -301,13 +306,14 @@ namespace HungerAndHavoc.Incidents
                 predator.CanReach(target, PathEndMode.Touch, Danger.Deadly);
         }
 
-        static bool HasLivingPrey(MapComponent_RHAH_Map component, Map map)
+        static bool HasLivingPrey(MapComponent_RHAH_Map component, Map map, bool heldOnly = false)
         {
             List<Verse.Pawn> prey = component.PredationPrey;
             for (int i = 0; i < prey.Count; i++)
             {
                 Verse.Pawn pawn = prey[i];
-                if (pawn != null && pawn.Spawned && !pawn.Dead && pawn.Map == map && !PlayerMember(pawn))
+                if (pawn != null && !pawn.Destroyed && !pawn.Dead && pawn.MapHeld == map &&
+                    (!heldOnly || !pawn.Spawned) && !PlayerMember(pawn))
                 {
                     return true;
                 }

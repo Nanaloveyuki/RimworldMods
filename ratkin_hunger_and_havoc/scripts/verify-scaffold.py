@@ -73,7 +73,6 @@ COMP_SAVE_FIELDS = (
 )
 
 PLACEHOLDER = re.compile(r"\{[^{}]+\}")
-KEYED_ENTRY = re.compile(r"<([A-Za-z_][A-Za-z0-9_]*)>((?:(?!</\1>).)*)</\1>")
 COMPILE_REMOVE = re.compile(r'<Compile\s+Remove\s*=\s*"([^"]+)"')
 PROJECT_REF = re.compile(r'<ProjectReference\s+Include\s*=\s*"([^"]+)"')
 TRANSLATE_LITERAL = re.compile(r'"(RHAH_[A-Za-z0-9_]+)"\s*\.Translate\s*\(')
@@ -142,20 +141,7 @@ def strip_comments(text):
 
 
 def keyed_entries(rel_dir):
-    folder = ROOT / rel_dir
-    entries = {}
-    if not folder.is_dir():
-        errors.append("missing " + rel_dir)
-        return entries
-    for path in sorted(folder.rglob("*.xml")):
-        if "DefInjected" in path.parts:
-            continue
-        text = strip_comments(path.read_text(encoding="utf-8"))
-        for match in KEYED_ENTRY.finditer(text):
-            name = match.group(1)
-            if name != "LanguageData":
-                entries[name] = match.group(2)
-    return entries
+    return {key: value for (_, key), value in language_entries(rel_dir).items()}
 
 
 def check_about():

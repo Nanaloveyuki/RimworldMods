@@ -13,6 +13,7 @@ namespace Oxygendsl.Checks
         {
             DeadlinesAndStages(check);
             ReceiptsAndRestore(check);
+            StagePreparation(check);
             AtomicMigrationAndOwnership(check);
             ModesAndCallbacks(check);
             ScriptIsolation(check);
@@ -89,6 +90,52 @@ namespace Oxygendsl.Checks
             runtime.Tick(2); runtime.Tick(3);
             EventChainInstance failure = runtime.Find("owner", failing);
             check(failure.Receipts[0].Status == "pending" && failure.Revision == 0 && failure.PauseReason.Contains("after world mutation"), "exception retains uncertain pending receipt and never retries");
+        }
+
+        private static void StagePreparation(Action<bool, string> check)
+        {
+            var definition = new Definition { Decide = (instance, tick) => EventChainDecision.Action("roll", -1, 2) };
+            EventChainRuntime runtime = Runtime(definition);
+            int id = runtime.Start("owner", "I-002", 0, 0, 0, 30, "facts", nextTick: 1);
+            runtime.Tick(1);
+            EventChainInstance instance = runtime.Find("owner", id);
+            object prepared = instance.PreparedState;
+            List<EventChainReceipt> receipts = instance.Receipts;
+            EventChainReceipt receipt = receipts[0];
+            int prepares = definition.Prepares;
+            check(runtime.SetStage("owner", id, 3, 40, new string("facts".ToCharArray()), 10)
+                && instance.Stage == 3 && instance.DeadlineTick == 40 && instance.NextTick == 10 && instance.Revision == 2
+                && instance.Payload == "facts" && ReferenceEquals(instance.PreparedState, prepared) && definition.Prepares == prepares
+                && ReferenceEquals(instance.Receipts, receipts) && receipts.Count == 1 && ReferenceEquals(receipts[0], receipt)
+                && receipt.Status == "applied" && runtime.NextDueTick == 10,
+                "same-payload wake reschedules without preparing or replacing cached state and receipts");
+            definition.Preparing = copy =>
+            {
+                copy.Stage = 99; copy.DeadlineTick = 99; copy.NextTick = 99; copy.Payload = "mutated";
+                copy.PreparedState = new object();
+                copy.Receipts[0].Data = "mutated";
+                copy.Receipts.Add(new EventChainReceipt());
+                throw new ArgumentException("prepare failed after mutation");
+            };
+            Throws(() => runtime.SetStage("owner", id, 4, 50, "new-facts", 20), check, "changed payload prepare can fail after mutating its copy");
+            check(instance.Stage == 3 && instance.DeadlineTick == 40 && instance.NextTick == 10 && instance.Revision == 2
+                && instance.Payload == "facts" && ReferenceEquals(instance.PreparedState, prepared)
+                && ReferenceEquals(instance.Receipts, receipts) && receipts.Count == 1 && ReferenceEquals(receipts[0], receipt)
+                && receipt.Data == "" && receipt.Status == "applied" && runtime.NextDueTick == 10,
+                "failed stage preparation leaves live clocks payload cache receipts and due schedule unchanged");
+            object replacement = new object();
+            bool proposedStateVisible = false;
+            definition.Preparing = copy =>
+            {
+                proposedStateVisible = copy.Stage == 4 && copy.DeadlineTick == 50 && copy.NextTick == 20
+                    && copy.Payload == "new-facts" && copy.Revision == 3 && copy.Receipts.Count == 1;
+                copy.PreparedState = replacement;
+            };
+            check(runtime.SetStage("owner", id, 4, 50, "new-facts", 20) && proposedStateVisible
+                && instance.Stage == 4 && instance.DeadlineTick == 50 && instance.NextTick == 20 && instance.Revision == 3
+                && instance.Payload == "new-facts" && ReferenceEquals(instance.PreparedState, replacement)
+                && ReferenceEquals(instance.Receipts, receipts) && receipts.Count == 1 && ReferenceEquals(receipts[0], receipt)
+                && runtime.NextDueTick == 20, "successful payload change prepares proposed state before atomically committing its cache");
         }
 
         private static void AtomicMigrationAndOwnership(Action<bool, string> check)
@@ -219,11 +266,13 @@ namespace Oxygendsl.Checks
             public string Id { get { return "I-002"; } }
             public int Version { get; set; } = 1;
             internal int Prepares, Evaluates, Applies;
+            internal Action<EventChainInstance> Preparing;
             internal Func<EventChainInstance, int, EventChainDecision> Decide = (instance, tick) => EventChainDecision.Wait(-1);
             internal Func<EventChainInstance, int, string, EventChainActionResult> Act = (instance, tick, action) => EventChainActionResult.Applied();
             public void Prepare(EventChainInstance instance)
             {
                 Prepares++;
+                if (Preparing != null) { Preparing(instance); return; }
                 if (instance.Payload == "bad") throw new ArgumentException("malformed facts");
                 instance.PreparedState = "typed-facts";
             }

@@ -16,13 +16,30 @@ namespace HungerAndHavoc.Storyteller.Suiyin
                 return null;
             }
 
-            if (builtTick != tick || !ReferenceEquals(builtGame, Current.Game))
+            if (builtTick < 0 || tick < builtTick || tick - builtTick >= GenDate.TicksPerHour ||
+                !ReferenceEquals(builtGame, Current.Game))
             {
                 Rebuild(tick);
             }
 
-            Verse.Pawn pawn;
-            return byId.TryGetValue(loadId, out pawn) ? pawn : null;
+            if (byId.TryGetValue(loadId, out Verse.Pawn pawn))
+            {
+                return pawn.Discarded ? null : pawn;
+            }
+
+            // 新人物不能等下次小时刷新 同 tick 的查找共用一次扫描
+            if (builtTick != tick)
+            {
+                Rebuild(tick);
+            }
+            return byId.TryGetValue(loadId, out pawn) && !pawn.Discarded ? pawn : null;
+        }
+
+        internal static void Remember(Verse.Pawn pawn)
+        {
+            if (pawn == null || !ReferenceEquals(builtGame, Current.Game)) return;
+            if (pawn.Discarded) byId.Remove(pawn.thingIDNumber);
+            else byId[pawn.thingIDNumber] = pawn;
         }
 
         internal static void Clear()

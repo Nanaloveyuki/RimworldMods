@@ -44,7 +44,7 @@ namespace HungerAndHavoc.EventMgr
                         if (RHAH_LongFollowRuntime.AtHome(RHAH_LongFollowRuntime.Pawn(r.ChildIds[i], tick), map)) return true;
                     return false;
                 }
-                if (r.Phase == 4) return RHAH_LongFollowRuntime.Adult(subject);
+                if (r.Phase == 4) return !RHAH_LongFollowRuntime.Alive(subject) || RHAH_LongFollowRuntime.Adult(subject);
                 if (r.Phase == 5) return tick >= r.DueTick && (!r.FollowupSelected || !RHAH_LongFollowRuntime.Alive(subject) || subject.MapHeld != map);
                 if (r.Phase == 8) return tick >= r.DueTick && (!RHAH_LongFollowRuntime.Alive(subject) || RHAH_LongFollowRuntime.CanBring(subject, map));
                 return false;
@@ -439,6 +439,10 @@ namespace HungerAndHavoc.EventMgr
                 r.Phase = 1; r.Opened = true; RHAH_LongFollowRuntime.OpenLetter(r, map); return true;
             }
             Verse.Pawn subject = RHAH_LongFollowRuntime.Pawn(r.SubjectId, tick);
+            if (r.Phase == 4 && !RHAH_LongFollowRuntime.Alive(subject))
+            {
+                RHAH_LongFollowRuntime.Complete(r); return true;
+            }
             if (r.Phase == 4 && RHAH_LongFollowRuntime.Adult(subject))
             {
                 RHAH_LongFollowRuntime.Say(r, "RHAH_Long_RememberedMeals"); RHAH_LongFollowRuntime.Complete(r); return true;

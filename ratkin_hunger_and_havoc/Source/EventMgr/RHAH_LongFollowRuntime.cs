@@ -44,20 +44,23 @@ namespace HungerAndHavoc.EventMgr
             return null;
         }
 
-        static RHAH_LongFollowRecord BatchRecord(string id, int batchId)
+        static RHAH_LongFollowRecord BatchRecord(string id, int batchId, int mapId)
         {
             List<RHAH_LongFollowRecord> records = Game?.LongFollows;
             for (int i = 0; records != null && i < records.Count; i++)
             {
-                if (records[i].DisplayId == id && records[i].BatchId == batchId) return records[i];
+                if (records[i].DisplayId == id && records[i].BatchId == batchId && records[i].MapId == mapId) return records[i];
             }
             return null;
         }
 
         internal static void NoteArrival(string displayId, int batchId, Map map, IList<Verse.Pawn> arrived, Verse.Pawn sourceMother = null, Verse.Pawn attachmentAdult = null)
         {
-            if (Game == null || map == null || !RHAH_EventFollowRules.HasLongFollow(displayId) || BatchRecord(displayId, batchId) != null) return;
+            if (Game == null || map == null || !RHAH_EventFollowRules.HasLongFollow(displayId) || BatchRecord(displayId, batchId, map.uniqueID) != null) return;
             RHAH_PawnIndex.Clear();
+            bool longChain = RHAH_EventChainEntry.UsesLongChain(displayId);
+            string parent = ParentId(displayId);
+            if (!longChain && parent != "I-002" && parent != "I-037" && sourceMother == null) return;
             RHAH_LongFollowRecord record = new RHAH_LongFollowRecord { DisplayId = displayId, BatchId = batchId, MapId = map.uniqueID };
             for (int i = 0; arrived != null && i < arrived.Count; i++)
             {
@@ -66,12 +69,11 @@ namespace HungerAndHavoc.EventMgr
                 if (comp != null && RHAH_EventFollowRules.IsYoung(comp.State.role))
                 {
                     record.ChildIds.Add(pawn.thingIDNumber);
-                    Keep(pawn);
+                    if (longChain) Keep(pawn);
                     if (record.SubjectId == 0) record.SubjectId = pawn.thingIDNumber;
                     if (sourceMother == null && comp.State.parentPawnLoadId > 0) sourceMother = Pawn(comp.State.parentPawnLoadId, Now);
                 }
             }
-            string parent = ParentId(displayId);
             if (parent == "I-002") record.SubjectId = 0;
             if (parent == "I-041") record.MedicalHold = Identity.RHAH_Plague.HasActive(Pawn(record.SubjectId, Now));
             if (sourceMother == null && (parent == "I-002" || parent == "I-037"))
@@ -94,6 +96,7 @@ namespace HungerAndHavoc.EventMgr
                     if (child.relations != null && !child.relations.DirectRelationExists(PawnRelationDefOf.Parent, sourceMother)) child.relations.AddDirectRelation(PawnRelationDefOf.Parent, sourceMother);
                 }
             }
+            if (!longChain) return;
             if (parent == "I-033")
             {
                 if (attachmentAdult == null)
@@ -111,7 +114,7 @@ namespace HungerAndHavoc.EventMgr
 
         internal static void RegisterChain(int chainId, string id, int batchId, int mapId, int dueTick)
         {
-            RHAH_LongFollowRecord record = BatchRecord(id, batchId);
+            RHAH_LongFollowRecord record = BatchRecord(id, batchId, mapId);
             if (record == null)
             {
                 record = new RHAH_LongFollowRecord { DisplayId = id, BatchId = batchId, MapId = mapId };
@@ -138,6 +141,27 @@ namespace HungerAndHavoc.EventMgr
             }
         }
 
+        static void RemoveShortRecords(GameComponent_RHAH_Game game, EventChainProviderState state)
+        {
+            for (int i = game.LongFollows.Count - 1; i >= 0; i--)
+            {
+                RHAH_LongFollowRecord record = game.LongFollows[i];
+                if (record.ChainId != 0 || record.Completed || record.Opened || record.Phase != 0 ||
+                    !RHAH_EventFollowRules.HasLongFollow(record.DisplayId)) continue;
+                for (int j = 0; j < state.Instances.Count; j++)
+                {
+                    EventChainInstance instance = state.Instances[j];
+                    if (instance == null || instance.Id <= 0 || instance.DefinitionVersion != 1 ||
+                        (instance.Stage != 0 && instance.Stage != 2) ||
+                        instance.DefinitionId != record.DisplayId || instance.SiteId != record.MapId ||
+                        !RHAH_EventFollowRules.ReadPayload(instance.Payload, out string id, out int batch, out int site) ||
+                        id != record.DisplayId || batch != record.BatchId || site != record.MapId) continue;
+                    game.LongFollows.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
         internal static void PrepareGame(EventChainRuntime runtime)
         {
             GameComponent_RHAH_Game game = Game;
@@ -158,10 +182,10 @@ namespace HungerAndHavoc.EventMgr
                 EventChainInstance instance = state.Instances[i];
                 if (instance == null || instance.End != EventChainEnd.None || (instance.Stage != 1 && instance.Stage != 3) || !RHAH_EventFollowRules.HasLongFollow(instance.DefinitionId)) continue;
                 RHAH_EventFollowRules.ReadPayload(instance.Payload, out string id, out int batch, out int site);
-                if (BatchRecord(id, batch) == null)
+                if (BatchRecord(id, batch, site) == null)
                 {
                     bool staged = false;
-                    for (int j = 0; j < recovered.Count; j++) staged |= recovered[j].DisplayId == id && recovered[j].BatchId == batch;
+                    for (int j = 0; j < recovered.Count; j++) staged |= recovered[j].DisplayId == id && recovered[j].BatchId == batch && recovered[j].MapId == site;
                     if (!staged)
                     {
                         RHAH_LongFollowRecord record = new RHAH_LongFollowRecord { DisplayId = id, BatchId = batch, MapId = site };
@@ -185,11 +209,12 @@ namespace HungerAndHavoc.EventMgr
                     instance.NextTick = RHAH_EventChainMigration.NextLongTick(Now, instance.Id);
                 }
             }
+            RemoveShortRecords(game, state);
         }
 
         internal static void NoteChildTransfer(string displayId, int batchId, int mapId, Verse.Pawn outgoingChild, Verse.Pawn responsibleAdult, IList<int> incomingIds, bool foodAlternative)
         {
-            RHAH_LongFollowRecord record = BatchRecord(displayId, batchId);
+            RHAH_LongFollowRecord record = BatchRecord(displayId, batchId, mapId);
             if (record == null) return;
             record.FoodAlternative = foodAlternative;
             record.ResponsibleId = responsibleAdult?.thingIDNumber ?? record.ResponsibleId;
@@ -256,10 +281,12 @@ namespace HungerAndHavoc.EventMgr
 
         internal static void NotifyPawnChanged(Verse.Pawn pawn)
         {
+            RHAH_PawnIndex.Remember(pawn);
             List<RHAH_LongFollowRecord> records = Game?.LongFollows;
             for (int i = 0; pawn != null && records != null && i < records.Count; i++)
             {
                 RHAH_LongFollowRecord record = records[i];
+                if (record.Completed || record.ChainId <= 0) continue;
                 int id = pawn.thingIDNumber;
                 if (record.SubjectId != id && record.SourceAdultId != id && record.ResponsibleId != id && !record.ChildIds.Contains(id) && !record.VisitorIds.Contains(id)) continue;
                 Keep(pawn);
@@ -487,7 +514,12 @@ namespace HungerAndHavoc.EventMgr
             for (int i = 0; hediffs != null && i < hediffs.Count; i++)
             {
                 Hediff h = hediffs[i];
-                if (h is Hediff_Injury || (h.def.isBad && (h.def.lethalSeverity > 0f || h.def.tendable))) return true;
+                if (h is Hediff_Injury)
+                {
+                    if (!h.IsPermanent()) return true;
+                    continue;
+                }
+                if (h.def.isBad && (h.def.lethalSeverity > 0f || h.def.tendable)) return true;
             }
             return false;
         }
@@ -715,6 +747,20 @@ namespace HungerAndHavoc.EventMgr
         internal static bool AtOriginalEdge(Verse.Pawn pawn, Map map)
         {
             return TryOriginalEdge(pawn, map, out IntVec3 cell) && pawn.Position == cell;
+        }
+        internal static bool EdgeWaitNeedsRecovery(Verse.Pawn pawn, Map map)
+        {
+            return TryOriginalEdge(pawn, map, out IntVec3 cell) &&
+                (!cell.Standable(map) || !pawn.CanReach(cell, PathEndMode.OnCell, Danger.Deadly));
+        }
+        internal static void RecoverEdgeWait(Verse.Pawn pawn, Map map)
+        {
+            if (!TryOriginalEdge(pawn, map, out IntVec3 cell)) return;
+            if (!CellFinder.TryFindRandomCellNear(cell, map, 8,
+                c => c.Standable(map) && pawn.CanReach(c, PathEndMode.OnCell, Danger.Deadly), out IntVec3 replacement))
+                replacement = pawn.Position;
+            RHAH_Api.SetExtra(pawn, "rhah:longEdge", replacement.x + "," + replacement.z);
+            EdgeWait(pawn, map);
         }
         internal static bool HasEdgeHold(Verse.Pawn pawn)
         {

@@ -119,7 +119,8 @@ namespace HungerAndHavoc.EventMgr
             if (record.MedicalHold)
                 return !RHAH_LongFollowRuntime.MedicallyPaused(mother) && (record.DisplayId != "I-037" || !RHAH_LongFollowRuntime.Sick(mother));
             if (RHAH_LongFollowRuntime.MedicallyPaused(mother)) return !record.AskedEarly && !record.LetterOpen;
-            if (!RHAH_LongFollowRuntime.AtOriginalEdge(mother, map)) return false;
+            if (TimedDecisionDue(record, tick)) return true;
+            if (!RHAH_LongFollowRuntime.AtOriginalEdge(mother, map)) return RHAH_LongFollowRuntime.EdgeWaitNeedsRecovery(mother, map);
             if (record.DisplayId == "I-037")
             {
                 int status = ChildStatus(record, map, tick);
@@ -213,8 +214,13 @@ namespace HungerAndHavoc.EventMgr
                 }
                 return false;
             }
-            if (!RHAH_LongFollowRuntime.AtOriginalEdge(mother, map))
+            if (!RHAH_LongFollowRuntime.AtOriginalEdge(mother, map) && !TimedDecisionDue(record, tick))
             {
+                if (RHAH_LongFollowRuntime.EdgeWaitNeedsRecovery(mother, map))
+                {
+                    RHAH_LongFollowRuntime.RecoverEdgeWait(mother, map);
+                    return true;
+                }
                 return false;
             }
             if (record.DisplayId == "I-037")
@@ -307,6 +313,13 @@ namespace HungerAndHavoc.EventMgr
                 default:
                     return false;
             }
+        }
+
+        static bool TimedDecisionDue(RHAH_LongFollowRecord record, int tick)
+        {
+            if (record.Phase == PaidStay) return record.DueTick >= 0 && tick >= record.DueTick;
+            if (record.Phase == LivingChild && !record.ClaimAcknowledged) return false;
+            return record.DeadlineTick >= 0 && tick >= record.DeadlineTick;
         }
 
         internal static IEnumerable<RHAH_LongOption> Options(RHAH_LongFollowRecord record, Map map)

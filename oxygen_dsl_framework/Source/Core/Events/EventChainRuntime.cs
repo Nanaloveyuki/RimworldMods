@@ -186,13 +186,20 @@ namespace Oxygendsl.Core.Events
             RejectSelf(entry);
             if (stage < 0 || deadlineTick < -1 || nextTick < -1) throw new ArgumentOutOfRangeException("EventChain stage/schedule");
             if (ready) ValidateSchedule(nextTick, currentTick);
-            EventChainInstance copy = Copy(entry.Instance);
-            copy.Stage = stage; copy.DeadlineTick = deadlineTick; copy.NextTick = nextTick; copy.Payload = payload ?? "";
-            copy.Revision = NextRevision(copy.Revision);
-            if (!string.Equals(copy.Payload, entry.Instance.Payload, StringComparison.Ordinal)) Prepare(entry.Definition, copy);
-            entry.Instance.Stage = copy.Stage; entry.Instance.DeadlineTick = copy.DeadlineTick;
-            entry.Instance.NextTick = copy.NextTick; entry.Instance.Payload = copy.Payload;
-            entry.Instance.PreparedState = copy.PreparedState; entry.Instance.Revision = copy.Revision;
+            payload = payload ?? "";
+            int revision = NextRevision(entry.Instance.Revision);
+            object preparedState = entry.Instance.PreparedState;
+            if (!string.Equals(payload, entry.Instance.Payload, StringComparison.Ordinal))
+            {
+                EventChainInstance copy = Copy(entry.Instance);
+                copy.Stage = stage; copy.DeadlineTick = deadlineTick; copy.NextTick = nextTick; copy.Payload = payload;
+                copy.Revision = revision;
+                Prepare(entry.Definition, copy);
+                preparedState = copy.PreparedState;
+            }
+            entry.Instance.Stage = stage; entry.Instance.DeadlineTick = deadlineTick;
+            entry.Instance.NextTick = nextTick; entry.Instance.Payload = payload;
+            entry.Instance.PreparedState = preparedState; entry.Instance.Revision = revision;
             Schedule(entry);
             return true;
         }

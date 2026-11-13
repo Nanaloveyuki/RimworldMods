@@ -32,7 +32,7 @@ namespace HungerAndHavoc.EventMgr
                 return "roll=" + roll.ToString("R", System.Globalization.CultureInfo.InvariantCulture) + ";selected=false";
             }
 
-            List<Verse.Pawn> prey = Batch(map, batchId);
+            List<Verse.Pawn> prey = Batch(map, batchId, true);
             if (prey.Count == 0)
             {
                 return "roll=" + roll.ToString("R", System.Globalization.CultureInfo.InvariantCulture) + ";selected=true;no_prey";
@@ -105,21 +105,22 @@ namespace HungerAndHavoc.EventMgr
         }
 
 
-        static List<Verse.Pawn> Batch(Map map, int batchId)
+        static List<Verse.Pawn> Batch(Map map, int batchId, bool includeHeld = false)
         {
             batchBuffer.Clear();
-            IReadOnlyList<Verse.Pawn> spawned = map.mapPawns?.AllPawnsSpawned;
-            if (spawned == null)
+            // 空投入场下一 tick 仍在舱内,抽签不能丢失这批人物
+            IReadOnlyList<Verse.Pawn> pawns = includeHeld ? map.mapPawns?.AllPawns : map.mapPawns?.AllPawnsSpawned;
+            if (pawns == null)
             {
                 return batchBuffer;
             }
 
-            for (int i = 0; i < spawned.Count; i++)
+            for (int i = 0; i < pawns.Count; i++)
             {
-                CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(spawned[i]);
+                CompRHAH_Pawn comp = CompRHAH_Pawn.TryGet(pawns[i]);
                 if (comp != null && comp.State.spawnBatchId == batchId)
                 {
-                    batchBuffer.Add(spawned[i]);
+                    batchBuffer.Add(pawns[i]);
                 }
             }
 

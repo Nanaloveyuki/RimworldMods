@@ -23,7 +23,7 @@ namespace HungerAndHavoc.EventMgr
             }
 
             int site = mapId >= 0 ? mapId : caravanId > 0 ? -caravanId : 0;
-            bool longChain = RHAH_EventFollowRules.OpensLong(displayId, RHAH_Mod.Settings != null && RHAH_Mod.Settings.IncidentUsesLongChain(displayId));
+            bool longChain = UsesLongChain(displayId);
             int deadline = longChain ? RHAH_EventFollowRules.LongDeadline(displayId, tick) : -1;
             int id = runtime.Start(RHAH_EventChainProvider.ProviderKey, displayId, site, RHAH_EventChainMigration.SiteTile(site), tick,
                 longChain ? -1 : deadline, RHAH_EventFollowRules.Payload(displayId, batchId, site), longChain ? 3 : 0, tick == int.MaxValue ? -1 : tick + 1);
@@ -33,6 +33,11 @@ namespace HungerAndHavoc.EventMgr
                 runtime.SetStage(RHAH_EventChainProvider.ProviderKey, id, 3, -1,
                     RHAH_EventFollowRules.Payload(displayId, batchId, site), RHAH_EventChainMigration.NextLongTick(tick, id));
             }
+        }
+
+        internal static bool UsesLongChain(string displayId)
+        {
+            return RHAH_EventFollowRules.OpensLong(displayId, RHAH_Mod.Settings != null && RHAH_Mod.Settings.IncidentUsesLongChain(displayId));
         }
 
         internal static int QueueArrival(Map map, int dueTick)
@@ -56,7 +61,8 @@ namespace HungerAndHavoc.EventMgr
                 if (game != null && game.EventChainMigrationStatus == "" && !game.EventChainsLoaded)
                 {
                     // 新地图生成时 ODF 还未 Activate，由 Preparing 一次性导入
-                    component.LegacyPredationPendingTick = dueTick;
+                    component.LegacyPredationPendingTick = component.LegacyPredationPendingTick < 0
+                        ? dueTick : Math.Min(component.LegacyPredationPendingTick, dueTick);
                     return -1;
                 }
 
@@ -82,6 +88,7 @@ namespace HungerAndHavoc.EventMgr
                     }
                 }
 
+                if (existing.NextTick >= 0 && existing.NextTick <= dueTick) return existing.Id;
                 return runtime.SetStage(RHAH_EventChainProvider.ProviderKey, existing.Id, 0, -1, payload, dueTick) ? existing.Id : 0;
             }
 

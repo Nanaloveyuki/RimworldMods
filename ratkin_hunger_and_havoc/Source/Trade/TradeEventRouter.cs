@@ -62,15 +62,15 @@ namespace HungerAndHavoc.Trade
             }
 
             List<Verse.Pawn> attackers = new List<Verse.Pawn>();
-            int tick = Core.RHAH_Runtime.NextBatchId(destination);
+            int batchId = Core.RHAH_Runtime.NextBatchId(destination);
             int count = RHAH_IncidentScale.Count(entry.DisplayId, points, EventCap(), false);
             for (int i = 0; i < count; i++)
             {
                 RHAH_PawnCreationResult result = RHAH_PawnFactory.Create(new RHAH_PawnRequest
                 {
                     SourceIncidentDisplayId = entry.DisplayId,
-                    SpawnBatchId = Core.RHAH_Runtime.NextBatchId(destination, i),
-                    RelationshipGroupId = tick,
+                    SpawnBatchId = batchId,
+                    RelationshipGroupId = batchId,
                     Role = RHAH_PawnRole.Thief,
                     AttitudeAtArrival = attitude,
                     CarriesPlague = entry.Category == RHAH_IncidentCategory.Plague,
@@ -85,7 +85,6 @@ namespace HungerAndHavoc.Trade
                 }
 
                 attackers.Add(result.Pawns[0]);
-                Core.RHAH_Runtime.RegisterBatch(destination, RHAH_Api.Get(result.Pawns[0]).SpawnBatchId);
             }
 
             Map map = destination;
@@ -126,8 +125,9 @@ namespace HungerAndHavoc.Trade
                 return false;
             }
 
-            EventMgr.RHAH_EventChainEntry.NoteStarted(entry.DisplayId, destination == null ? 0 : map.uniqueID,
-                caravan == null ? 0 : caravan.ID, Find.TickManager.TicksGame, tick + 1);
+            Core.RHAH_Runtime.RegisterBatch(map, batchId);
+            EventMgr.RHAH_EventChainEntry.NoteStarted(entry.DisplayId, map.uniqueID,
+                caravan == null ? 0 : caravan.ID, Find.TickManager.TicksGame, batchId);
             Find.LetterStack.ReceiveLetter(CreateAmbushLetter(entry, attackers, faction));
             if (destination == null)
             {
