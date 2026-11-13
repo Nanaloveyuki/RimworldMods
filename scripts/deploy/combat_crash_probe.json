@@ -1,0 +1,7 @@
+{
+  "target": "CombatCrashProbe",
+  "package_id": "nanaloveyuki.combatcrashprobe",
+  "build": [["dotnet", "combat_crash_probe/Source/CombatCrashProbe.csproj", {}]],
+  "files": ["About", "LoadFolders.xml", "README.md", "1.7/Assemblies/CombatCrashProbe.dll", {"source": "1.7/Assemblies/CombatCrashProbe.pdb", "optional": true}],
+  "required": ["About/Preview.png", "1.7/Assemblies/CombatCrashProbe.dll"]
+}
