@@ -7,7 +7,7 @@ using Verse.AI;
 
 namespace HungerAndHavoc.Pawn
 {
-    // 饱食后的下一次原版进食可忽略赈灾区 不改全局 WillEat
+    // 原版紧急觅食也必须遵守来客的赈灾规则
     [HarmonyPatch(typeof(JobGiver_GetFood), "TryGiveJob")]
     internal static class RHAH_ReliefFoodPatch
     {
@@ -19,29 +19,41 @@ namespace HungerAndHavoc.Pawn
                 return;
             }
 
-            if (__result == null || __result.def != JobDefOf.Ingest || !RHAH_Api.IsVisitor(pawn) ||
-                !RHAH_VisitorRules.AllowsModBehavior(RHAH_VisitorStay.Kind(pawn)))
+            if (__result == null || !RHAH_BatchAttitude.CanOrderLeave(pawn))
+            {
+                return;
+            }
+
+            if (!RHAH_Api.Allows(pawn, RHAH_BehaviorGate.FeedFromRelief))
+            {
+                __result = null;
+                return;
+            }
+
+            if (!RHAH_ReliefFood.ReliefRulesApply)
+            {
+                return;
+            }
+
+            if (__result.def != JobDefOf.Ingest && __result.def != JobDefOf.Harvest &&
+                __result.def != JobDefOf.TakeFromOtherInventory)
             {
                 return;
             }
 
             IRHAH_Pawn snapshot = RHAH_Api.Get(pawn);
             RHAH_Settings settings = RHAH_Mod.Settings;
-            if (snapshot == null || !snapshot.HasBeenFed || settings == null ||
-                !settings.reliefEnabled || !settings.ignoreReliefAfterFed)
-            {
-                return;
-            }
-
+            bool ignoreZone = snapshot.HasBeenFed && settings != null && settings.ignoreReliefAfterFed;
             Thing food = __result.targetA.Thing;
-            if (food == null || food.MapHeld != pawn.Map)
+            RHAH_FoodReject rejection = RHAH_ReliefFood.Reject(pawn, food, true, ignoreZone, false);
+            if (rejection == RHAH_FoodReject.Zone && RHAH_ReliefFood.MayEatOutside(pawn))
             {
-                return;
+                rejection = RHAH_ReliefFood.Reject(pawn, food, false, false, false);
             }
 
-            if (RHAH_ReliefFood.Reject(pawn, food, true, true) != RHAH_FoodReject.None)
+            if (rejection != RHAH_FoodReject.None)
             {
-                __result = null;
+                __result = JobGiver_RHAH_Feed.TryCreate(pawn);
             }
         }
     }

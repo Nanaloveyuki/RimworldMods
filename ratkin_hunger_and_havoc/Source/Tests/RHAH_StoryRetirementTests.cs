@@ -9,6 +9,40 @@ namespace HungerAndHavoc.Tests
 {
     public class RHAH_StoryRetirementTests
     {
+        [Theory]
+        [InlineData("label", "RHAH_Suiyin_N001_Label")]
+        [InlineData("text", "RHAH_Suiyin_N004FamilyHere_Text")]
+        [InlineData("text", "RHAH_Ending_IdentityFull_Text")]
+        [InlineData("text", "RHAH_Journal_14")]
+        public void RemovesRawRetiredNoticeKeysAndTheirReferences(string field, string key)
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml("<game><history><archive><archivables><li Class='Verse.StandardLetter'><ID>22</ID><def>NeutralEvent</def><" + field + ">" +
+                key + "</" + field + "></li></archivables></archive></history><letterStack><letters><li>Letter_22</li></letters></letterStack></game>");
+            RHAH_StoryRetirement.Clean(document.DocumentElement);
+            Assert.Empty(document.SelectNodes("/game/history/archive/archivables/li"));
+            Assert.Empty(document.SelectNodes("/game/letterStack/letters/li"));
+            string once = document.OuterXml;
+            RHAH_StoryRetirement.Clean(document.DocumentElement);
+            Assert.Equal(once, document.OuterXml);
+        }
+
+        [Theory]
+        [InlineData("A translated letter from Suiyin")]
+        [InlineData("RHAH_Long_Label")]
+        [InlineData("RHAH_Suiyin_N999_Text")]
+        [InlineData("RHAH_Journal_15")]
+        [InlineData("A colonist mentioned RHAH_Suiyin_N001_Text")]
+        public void PreservesTranslatedOrdinaryAndUnknownNotices(string text)
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml("<game><history><archive><archivables><li Class='Verse.StandardLetter'><ID>22</ID><def>NeutralEvent</def><text>" +
+                text + "</text></li></archivables></archive></history><letterStack><letters><li>Letter_22</li></letters></letterStack></game>");
+            string before = document.OuterXml;
+            RHAH_StoryRetirement.Clean(document.DocumentElement);
+            Assert.Equal(before, document.OuterXml);
+        }
+
         [Fact]
         public void RetiresExactStoriesPreservingTrustOrdinaryLettersPeopleAndSupply()
         {
@@ -16,7 +50,7 @@ namespace HungerAndHavoc.Tests
             document.LoadXml(@"<game><components><li Class='HungerAndHavoc.Narrative.NarrativeState'><trust>71</trust></li></components>
 <history><archive><archivables>
 <li Class='HungerAndHavoc.Storyteller.Suiyin.ChoiceLetter_RHAH_KingdomArc'><ID>22</ID><def>RHAH_KingdomArcLetter</def></li>
-<li Class='RimWorld.StandardLetter'><ID>23</ID><def>NeutralEvent</def><text>Existing translated story remains</text></li>
+<li Class='Verse.StandardLetter'><ID>23</ID><def>NeutralEvent</def><text>Existing translated story remains</text></li>
 <li Class='HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Request'><ID>24</ID><def>RHAH_ChoiceRequest</def></li>
 </archivables></archive></history><letterStack><letters><li>Letter_22</li><li>Letter_23</li><li>Letter_24</li></letters></letterStack>
 <world><worldPawns><pawnsAlive><li><id>51</id><inventory><innerContainer><innerList/></innerContainer></inventory></li></pawnsAlive></worldPawns>

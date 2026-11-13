@@ -399,6 +399,7 @@ ODF 是必需依赖，事件链存档由 `Oxygendsl.Mod.GameComponent_Oxygendsl`
 `RHAH_StoryRetirement` 在 `Game.ExposeSmallComponents` 的 LoadingVars 前处理内存 XML：
 
 - 精确删除已移除的剧情选择信、粮洞、记录箱、迁徙记录、王国文书和四种剧情记忆；清除指向这些实例的引用，不按前缀删除普通内容。Scribe 字典的深存档或引用删除同步移除对应另一侧，保留逆重飞船普通物品与原位置的配对。
+- 归档中的原版 `Verse.StandardLetter`，仅在标题或正文等于已发布穗音剧情翻译键白名单项时删除，并清除对应 `Letter_ID` 引用。已翻译的历史正文、普通事件及其长后续保留，不按文本前缀匹配。
 - 未生成地图的 `RHAH_RecordSite` / `RHAH_KingdomSite` 删除；已有地图的地点保留 ID 与地图，转为原版 `Camp`，不生成缺少 SitePart 的空 Site；记录地点地图生成器改为 `Encounter`。王国到达动作删除，真实人员、关系及普通库存保留。
 - 王国地点的真实 `kingdomSupply` 转给记录中的原版 worldPawns 接收者背包，同时查找 pawnsAlive、pawnsMothballed 和 pawnsDead；找不到可接收的背包时中止加载，不能丢弃已有粮食。剧情文书不转移。
 - 身份组件加载时释放 `rhah:envoyHold` 保存的两项来客闸门；普通 `rhah:longHold` 仍在时不解除其留驻。更早缺持有键的旧使者按上方精确条件在内存 XML 解除，使用原版 Thing.IDNumberFromThingID 将完整 Thing ID 与使者数值 ID 对齐。

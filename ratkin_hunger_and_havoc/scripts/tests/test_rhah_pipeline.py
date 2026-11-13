@@ -16,6 +16,11 @@ spec = importlib.util.spec_from_file_location("rhah_pipeline", SCRIPT)
 pipeline = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pipeline)
 
+DEPLOY_SCRIPT = SCRIPT.parents[2] / "scripts/python/deploy.py"
+deploy_spec = importlib.util.spec_from_file_location("shared_deploy", DEPLOY_SCRIPT)
+deploy = importlib.util.module_from_spec(deploy_spec)
+deploy_spec.loader.exec_module(deploy)
+
 
 def write(root, relative, content="fixture"):
     path = root / relative
@@ -199,6 +204,53 @@ class DeploymentTests(unittest.TestCase):
             with self.assertRaisesRegex(pipeline.PipelineError, "SHA-256 mismatch"):
                 pipeline.synchronize(self.root, self.game, self.target, mock.Mock())
 
+
+
+class SharedDeploymentTests(unittest.TestCase):
+    def test_rhah_updates_both_runtimes_and_guard_with_shared_content(self):
+        for version in ("1.6", "1.7"):
+            with self.subTest(version=version):
+                self.deploy_fixture(version, complete_release=True)
+
+    def test_other_projects_keep_installed_legacy_runtime(self):
+        self.deploy_fixture("1.7", complete_release=False)
+
+    def deploy_fixture(self, version, complete_release):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "repo"
+            source = root / "ratkin_hunger_and_havoc"
+            fixture(source)
+            game = Path(temporary) / "game"
+            target = game / "Mods" / pipeline.MOD_NAME
+            fixture(target)
+            published_id = write(target, "About/PublishedFileId.txt", "installed-id")
+            for relative in pipeline.DLLS:
+                write(source, relative, "new-" + relative)
+                write(target, relative, "old-" + relative)
+            write(source, "Languages/English/Keyed/Content.xml", "<LanguageData><Updated>updated</Updated></LanguageData>")
+            managed = "" if version == "1.7" else "RimWorldWin64_Data/Managed/"
+            for name in ("Assembly-CSharp.dll", "UnityStubs.dll" if version == "1.7" else "UnityEngine.CoreModule.dll"):
+                write(game, managed + name)
+            config = json.loads((deploy.CONFIGS / "ratkin_hunger_and_havoc.json").read_text())
+            if not complete_release:
+                config.pop("rhah")
+                config["files"] = ["About", "Languages", "1.6", "1.7", "Guard"]
+            configs = root / "scripts/deploy"
+            write(configs, "ratkin_hunger_and_havoc.json", json.dumps(config))
+
+            with mock.patch.object(deploy, "ROOT", root), mock.patch.object(deploy, "CONFIGS", configs), \
+                    mock.patch.object(deploy, "IS_WSL", False), mock.patch.object(deploy, "reject_running_game"), \
+                    mock.patch.object(deploy, "module_pipeline", return_value=pipeline), \
+                    contextlib.redirect_stdout(io.StringIO()):
+                result = deploy.main(["ratkin_hunger_and_havoc", "--rimworld-dir", str(game), "--version", version, "--skip-build"])
+
+            self.assertEqual(result, 0)
+            self.assertEqual(published_id.read_text(), "installed-id")
+            self.assertEqual((target / "Languages/English/Keyed/Content.xml").read_bytes(),
+                             (source / "Languages/English/Keyed/Content.xml").read_bytes())
+            for relative in pipeline.DLLS:
+                expected = ("new-" if complete_release or relative.startswith("1.7/") else "old-") + relative
+                self.assertEqual((target / relative).read_text(), expected)
 
 
 class ProcessTests(unittest.TestCase):

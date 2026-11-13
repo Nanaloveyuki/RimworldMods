@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <RHAH_LongMother_Recognition>{0}回到地图边缘，认出了{1}。你可以让孩子去见她、拒绝见面，或给她{2}份食物让她离开。拒绝后，她会在地图边缘再等一天；已经成年的孩子获得 -2 心情，持续15天。</RHAH_LongMother_Recognition>
+  <RHAH_LongMother_Recognition>{0}回到地图边缘，认出了{1}。你可以让孩子去见她、拒绝见面，或给她{2}份食物让她离开。拒绝后，她会在地图边缘再等一天。</RHAH_LongMother_Recognition>
   <RHAH_LongMother_Meeting>{1}正走到地图边上去见{0}。见面后，你可以决定是否让孩子跟她走。</RHAH_LongMother_Meeting>
-  <RHAH_LongMother_TakeChild>{0}见到了{1}，想带这只孩子离开。她只会带走自己认出的孩子。拒绝后，她会独自离开，获得-3心情，持续15天。</RHAH_LongMother_TakeChild>
-  <RHAH_LongMother_RefusedWait>鼠妈会在地图边上再等一天，然后离开。她认出的孩子获得-2心情，持续15天。</RHAH_LongMother_RefusedWait>
-  <RHAH_LongMother_LivingChild>{1}还活着。{0}想看它一眼就走，你可以把她叫住；不叫住，她今天就会离开，获得+2心情，持续15天。</RHAH_LongMother_LivingChild>
+  <RHAH_LongMother_TakeChild>{0}见到了{1}，想带这只孩子离开。她只会带走自己认出的孩子。拒绝后，她会独自离开。</RHAH_LongMother_TakeChild>
+  <RHAH_LongMother_RefusedWait>鼠妈会在地图边上再等一天，然后离开。</RHAH_LongMother_RefusedWait>
+  <RHAH_LongMother_LivingChild>{1}还活着。{0}想看它一眼就走，你可以把她叫住；不然她今天就会离开。</RHAH_LongMother_LivingChild>
   <RHAH_LongMother_CalledMother>{0}要{2}份食物和{3}份药品。给她这些东西，她会再留一天；不给，她今天就走。这次探望让她获得+2心情，持续15天。</RHAH_LongMother_CalledMother>
   <RHAH_LongMother_PaidStay>食物和药品已经交给鼠妈。她会再留一天，然后离开。</RHAH_LongMother_PaidStay>
   <RHAH_LongMother_Burial>{1}已经死了。{0}在地图边上问孩子埋在哪里。你可以告诉她墓地，或说明孩子还没有安葬；不回答，她会等到天黑再走。</RHAH_LongMother_Burial>

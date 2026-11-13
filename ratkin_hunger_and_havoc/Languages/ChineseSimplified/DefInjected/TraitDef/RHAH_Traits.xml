@@ -35,7 +35,7 @@
   <RHAH_Trait_WoundTender.degreeDatas.0.label>细心</RHAH_Trait_WoundTender.degreeDatas.0.label>
   <RHAH_Trait_WoundTender.degreeDatas.0.description>{PAWN_nameDef}包扎时手很稳，外界的动静也很少让{PAWN_objective}分心。</RHAH_Trait_WoundTender.degreeDatas.0.description>
   <RHAH_Trait_EggKeeper.degreeDatas.0.label>喜爱幼儿</RHAH_Trait_EggKeeper.degreeDatas.0.label>
-  <RHAH_Trait_EggKeeper.degreeDatas.0.description>{PAWN_nameDef}总喜欢把幼崽护在身边，不管是不是自己的。身边的幼小同伴挨饿、病倒或倒下时，{PAWN_pronoun}会很难受。</RHAH_Trait_EggKeeper.degreeDatas.0.description>
+  <RHAH_Trait_EggKeeper.degreeDatas.0.description>{PAWN_nameDef}总喜欢把幼崽带在身边，不管是不是自己的。身边的幼小同伴挨饿、病倒或倒下时，{PAWN_pronoun}会很难受。</RHAH_Trait_EggKeeper.degreeDatas.0.description>
   <RHAH_Trait_LeanHunger.degreeDatas.0.label>耐饿</RHAH_Trait_LeanHunger.degreeDatas.0.label>
   <RHAH_Trait_LeanHunger.degreeDatas.0.description>{PAWN_nameDef}习惯把一顿饭拆成两顿，胃空着也能继续走，传奇耐饿王也不过如此吧。</RHAH_Trait_LeanHunger.degreeDatas.0.description>
   <RHAH_Trait_ThickFur.degreeDatas.0.label>耐寒</RHAH_Trait_ThickFur.degreeDatas.0.label>

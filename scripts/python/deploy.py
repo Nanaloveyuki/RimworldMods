@@ -389,15 +389,16 @@ def main(argv=None):
         print(f"Staged and SHA-256 verified {len(files)} files: {staging}")
         if args.build_only:
             continue
-        excluded = config.get("legacy_paths", []).copy() if version == "1.7" else ["1.7"]
-        if version == "1.7" and not config.get("install_missing_legacy"):
+        complete_release = bool(config.get("rhah"))
+        excluded = [] if complete_release else (config.get("legacy_paths", []).copy() if version == "1.7" else ["1.7"])
+        if version == "1.7" and not complete_release and not config.get("install_missing_legacy"):
             excluded.append("1.6")
         deployed = {relative: path for relative, path in files.items()
                     if not any(relative == prefix or relative.startswith(prefix + "/") for prefix in excluded)}
         guard_target(target, game, source, config, deployed)
         reject_running_game()
-        copy_verified(deployed, target, preserve_ids=True, preserve_legacy=version == "1.7")
-        print(f"Deployed and SHA-256 verified: {target}; installed legacy files and PublishedFileId preserved")
+        copy_verified(deployed, target, preserve_ids=True, preserve_legacy=version == "1.7" and not complete_release)
+        print(f"Deployed and SHA-256 verified: {target}; PublishedFileId preserved")
     return 0
 
 

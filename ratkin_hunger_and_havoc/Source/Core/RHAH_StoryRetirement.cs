@@ -31,6 +31,7 @@ namespace HungerAndHavoc.Core
         {
             "RHAH_Thought_LeftAlone", "RHAH_Thought_CaptiveYear", "RHAH_Thought_FamilyHere", "RHAH_Thought_Regret"
         };
+        static readonly HashSet<string> noticeKeys = RetiredNoticeKeys();
 
         static void Prefix()
         {
@@ -45,6 +46,7 @@ namespace HungerAndHavoc.Core
             List<XmlNode> nodes = new List<XmlNode>();
             Collect(game, nodes);
             ReleaseLegacyEnvoys(game, nodes);
+            RemoveUntranslatedNotices(game, removed);
             for (int i = nodes.Count - 1; i >= 0; i--)
             {
                 XmlNode node = nodes[i];
@@ -112,6 +114,48 @@ namespace HungerAndHavoc.Core
                 }
             }
             RemoveReferences(game, removed);
+        }
+
+        static HashSet<string> RetiredNoticeKeys()
+        {
+            string[] notices =
+            {
+                "N001", "N002", "N003", "N004ChildAlone", "N004FamilyHere", "N004Captive", "N004Story",
+                "N004Banished", "N004Revisit", "N004RescuePaid", "N004Killed", "N004Regret",
+                "N005Cared", "N005Dead", "N005Left", "N005Missing",
+                "N006Entry", "N006BaitGone", "N006Traced", "N006Gone",
+                "N008Arrive", "N008NoProof", "N008Dead", "N008Left", "N008Missing", "N008Timeout",
+                "N009Arrive", "N009Empty", "Aside_1", "Aside_2", "Aside_4"
+            };
+            HashSet<string> keys = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string notice in notices)
+            {
+                keys.Add("RHAH_Suiyin_" + notice + "_Label");
+                keys.Add("RHAH_Suiyin_" + notice + "_Text");
+            }
+            keys.Add("RHAH_Ending_IdentityFull_Label");
+            keys.Add("RHAH_Ending_IdentityFull_Text");
+            keys.Add("RHAH_Ending_IdentityPartial_Label");
+            keys.Add("RHAH_Ending_IdentityPartial_Text");
+            keys.Add("RHAH_Suiyin_Journal_Label");
+            for (int i = 1; i <= 14; i++) keys.Add("RHAH_Journal_" + i);
+            return keys;
+        }
+
+        // 旧版可能已把缺失翻译的字段名写进原版信件 只清这些精确键 保留译文历史
+        static void RemoveUntranslatedNotices(XmlNode game, HashSet<string> removed)
+        {
+            XmlNode archive = game["history"]?["archive"]?["archivables"];
+            if (archive == null) return;
+            for (int i = archive.ChildNodes.Count - 1; i >= 0; i--)
+            {
+                XmlNode notice = archive.ChildNodes[i];
+                string type = notice.Attributes?["Class"]?.Value;
+                if (type != "Verse.StandardLetter" || (!noticeKeys.Contains(notice["label"]?.InnerText ?? "") &&
+                    !noticeKeys.Contains(notice["text"]?.InnerText ?? ""))) continue;
+                Remember(notice, "ID", "Letter_", removed);
+                RemoveNode(notice);
+            }
         }
 
         static void ReleaseLegacyEnvoys(XmlNode game, List<XmlNode> nodes)
