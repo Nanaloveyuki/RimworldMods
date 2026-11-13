@@ -320,10 +320,10 @@ namespace HungerAndHavoc.Incidents
                 ? "RHAH_Arrival_GreatFamine_Text" : "RHAH_Arrival_Text";
             string text = textKey.Translate(IncidentLabel(context.DisplayId), context.Map.Parent.LabelCap);
             RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(context.DisplayId);
-            if (entry != null && entry.Category == RHAH_IncidentCategory.Plague)
+            if (entry != null && entry.Category == RHAH_IncidentCategory.Plague &&
+                (RHAH_Mod.Settings == null || RHAH_Mod.Settings.plagueEnabled))
             {
-                text += "\n\n" + (RHAH_Mod.Settings == null || RHAH_Mod.Settings.plagueEnabled
-                    ? "RHAH_Choice_PlagueHint" : "RHAH_Choice_PlagueDisabledHint").Translate();
+                text += "\n\n" + "RHAH_Choice_PlagueHint".Translate();
             }
 
             bool hostile = false;
@@ -345,8 +345,7 @@ namespace HungerAndHavoc.Incidents
         {
             bool armedDemand = Pawn.RHAH_ArmedDemand.IsRequest(record);
             string label = armedDemand ? "RHAH_ArmedDemand_LetterTitle".Translate().ToString() : LetterLabel(record);
-            string text = armedDemand ? "RHAH_ArmedDemand_LetterText".Translate(record.Amount,
-                (record.ExpireTick - Find.TickManager.TicksGame) / (float)GenDate.TicksPerDay).ToString() : LetterText(record, arrived);
+            string text = armedDemand ? "RHAH_ArmedDemand_LetterText".Translate(record.Amount).ToString() : LetterText(record, arrived);
             ChoiceLetter letter;
             if (record.Kind == RHAH_RequestKind.None)
             {
@@ -457,51 +456,12 @@ namespace HungerAndHavoc.Incidents
             }
             if (record.TransactionVersion == RHAH_RequestRules.TransactionVersion)
                 text += "\n\n" + RHAH_FoodTransaction.Details(record);
-            if (record.DisplayId == "I-013" || record.DisplayId == "I-019")
-                text += "\n\n" + (record.DisplayId == "I-019" ? "RHAH_ChildExchange_LegacyHint" : "RHAH_ChildExchange_SelectionHint").Translate();
-
-            if (RHAH_ChildExchange.AcceptsChild(record))
-            {
-                int each = RHAH_RequestRules.FoodForChildren(1);
-                if (settings != null && !settings.childExchangeFoodSubstitution)
-                {
-                    text += "\n\n" + "RHAH_Choice_ChildExchangeNoFoodHint".Translate();
-                }
-                else if (each <= 0)
-                {
-                    text += "\n\n" + "RHAH_Choice_ChildExchangeZeroFoodHint".Translate();
-                }
-                else
-                {
-                    text += "\n\n" + (record.DisplayId == "I-019" ? "RHAH_ChildExchange_LegacyFoodHint" : "RHAH_Choice_ChildExchangeFoodHint")
-                        .Translate(each, RHAH_ChildExchange.FoodCost(record));
-                }
-            }
-
-            int days = settings == null ? RHAH_RequestRules.RequestDays : settings.requestDays;
-            if (record.Kind == RHAH_RequestKind.None)
-            {
-                text += "\n\n" + "RHAH_Choice_VisitorHint".Translate(days);
-            }
-            else if (record.TransactionVersion == RHAH_RequestRules.TransactionVersion)
-            {
-                text += "\n\n" + "RHAH_Transaction_Hint".Translate(days);
-            }
-            else if (record.Choice == RHAH_ChoiceKind.Intel)
-            {
-                text += "\n\n" + "RHAH_Choice_IntelHint".Translate(days);
-            }
-            else
-            {
-                text += "\n\n" + "RHAH_Choice_RequestHint".Translate(days);
-            }
 
             RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(record.DisplayId);
-            if (entry != null && entry.Category == RHAH_IncidentCategory.Plague)
+            if (entry != null && entry.Category == RHAH_IncidentCategory.Plague &&
+                (settings == null || settings.plagueEnabled))
             {
-                string plagueKey = settings == null || settings.plagueEnabled
-                    ? "RHAH_Choice_PlagueHint" : "RHAH_Choice_PlagueDisabledHint";
-                text += "\n\n" + plagueKey.Translate();
+                text += "\n\n" + "RHAH_Choice_PlagueHint".Translate();
             }
 
             return text;

@@ -29,24 +29,24 @@
   <RHAH_Long_KeepFeeding>Continue feeding: one food</RHAH_Long_KeepFeeding>
   <RHAH_Long_StopFeeding>Stop feeding</RHAH_Long_StopFeeding>
   <RHAH_Long_Rehome>Place with {0}</RHAH_Long_Rehome>
-  <RHAH_Long_I-013_1>The visitor wants the exchange acknowledged. Feeding costs {2} food and gives a three-day stay.</RHAH_Long_I-013_1>
-  <RHAH_Long_I-013_8>The paper message asks for {2} food. Refusal leaves one further mention by a caravan.</RHAH_Long_I-013_8>
-  <RHAH_Long_I-019_1>{1} remembers being handed away. Entry costs {2} food; refusal leaves them waiting until dark.</RHAH_Long_I-019_1>
-  <RHAH_Long_I-019_2>Name who handed them away. The named person receives -8 mood permanently; the child receives +2 for 15 days.</RHAH_Long_I-019_2>
-  <RHAH_Long_I-019_7>They can name a direction. You may ask the next refugees requesting infants.</RHAH_Long_I-019_7>
+  <RHAH_Long_I-013_1>The visitor wants you to acknowledge the child exchange from years ago, and also asks for {2} units of food.</RHAH_Long_I-013_1>
+  <RHAH_Long_I-013_8>Someone has brought a written message and wants {2} units of food as payment.</RHAH_Long_I-013_8>
+  <RHAH_Long_I-019_1>{1} still remembers being handed away years ago. They want to come inside and ask for {2} units of food.</RHAH_Long_I-019_1>
+  <RHAH_Long_I-019_2>The visitor wants to know who handed them away all those years ago.</RHAH_Long_I-019_2>
+  <RHAH_Long_I-019_7>The visitor remembers the direction they were taken all those years ago.</RHAH_Long_I-019_7>
   <RHAH_Long_I-019_9>The visitors may confirm or deny seeing the child. Confirmation asks {2} food for the next destination.</RHAH_Long_I-019_9>
-  <RHAH_Long_I-032_1>{0} carries matching cloth. You can select children to send, or refuse.</RHAH_Long_I-032_1>
-  <RHAH_Long_I-032_2>Select children still in the colony. All unselected children stay.</RHAH_Long_I-032_2>
-  <RHAH_Long_I-032_3>The visitor now asks for {2} food, then will leave.</RHAH_Long_I-032_3>
-  <RHAH_Long_I-032_7>The child arrived, but food is short. A requested return takes five days.</RHAH_Long_I-032_7>
-  <RHAH_Long_I-033_1>{1} still follows the person once mistaken for a parent. Give one food; stopping may cause a bite or food theft. The first rehoming lasts one day; the second lasts.</RHAH_Long_I-033_1>
+  <RHAH_Long_I-032_1>{0} has brought a scrap of cloth that seems to have been cut from the same piece as the scrap the child left behind. The visitor wants to take the child away.</RHAH_Long_I-032_1>
+  <RHAH_Long_I-032_2>The visitor is waiting for the child to leave with them.</RHAH_Long_I-032_2>
+  <RHAH_Long_I-032_3>The visitor now asks for {2} units of food instead.</RHAH_Long_I-032_3>
+  <RHAH_Long_I-032_7>The child has arrived there, but food is short.</RHAH_Long_I-032_7>
+  <RHAH_Long_I-033_1>{1} still follows the person they once called Mama, waiting for a serving of food.</RHAH_Long_I-033_1>
   <RHAH_Long_TraderDirection>They named the direction the trader went.</RHAH_Long_TraderDirection>
   <RHAH_Long_ExchangeRetraction>The visitor now says they only heard about the exchange.</RHAH_Long_ExchangeRetraction>
   <RHAH_Long_ExchangeMention>Someone in the caravan mentioned the exchange once more.</RHAH_Long_ExchangeMention>
   <RHAH_Long_CannotRecognize>After one day, they said they could no longer recognize anyone.</RHAH_Long_CannotRecognize>
   <RHAH_Long_DirectionMatches>The later destination matched.</RHAH_Long_DirectionMatches>
   <RHAH_Long_DirectionDoesNotMatch>The later destination did not match. They stopped asking.</RHAH_Long_DirectionDoesNotMatch>
-  <RHAH_Long_ChildCannotRemember>The child is too young and only calls for a mother. Ask again at 14.</RHAH_Long_ChildCannotRemember>
+  <RHAH_Long_ChildCannotRemember>The child is too young and only calls for their mother.</RHAH_Long_ChildCannotRemember>
   <RHAH_Long_RememberedMeals>They only remember the meals after landing.</RHAH_Long_RememberedMeals>
   <RHAH_Long_ReturnedThin>The same child was returned, thinner than before.</RHAH_Long_ReturnedThin>
   <RHAH_Long_CameBackNextDay>The next day, the child returned to the original caregiver.</RHAH_Long_CameBackNextDay>

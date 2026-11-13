@@ -29,24 +29,24 @@
   <RHAH_Long_KeepFeeding>食べ物を1個与え続ける</RHAH_Long_KeepFeeding>
   <RHAH_Long_StopFeeding>食べ物を与えない</RHAH_Long_StopFeeding>
   <RHAH_Long_Rehome>{0}に育ててもらう</RHAH_Long_Rehome>
-  <RHAH_Long_I-013_1>来客は子供の交換を認めるよう求めています。食べ物{2}個を渡すと3日滞在します。</RHAH_Long_I-013_1>
-  <RHAH_Long_I-013_8>紙の伝言は食べ物{2}個を求めています。断れば次の交易隊が一度だけこの件に触れます。</RHAH_Long_I-013_8>
-  <RHAH_Long_I-019_1>{1}は引き渡されたことを覚えています。中に入れるには食べ物{2}個が必要です。断ると日暮れまで待ちます。</RHAH_Long_I-019_1>
-  <RHAH_Long_I-019_2>引き渡した人を指します。その人には永続的に心情-8、子供には15日間心情+2。</RHAH_Long_I-019_2>
-  <RHAH_Long_I-019_7>方角なら言えるそうです。次に赤ん坊を求める難民にその後を尋ねられます。</RHAH_Long_I-019_7>
+  <RHAH_Long_I-013_1>来客は、かつて子供を交換したことを認めるよう求めています。食べ物も{2}個ほしいそうです。</RHAH_Long_I-013_1>
+  <RHAH_Long_I-013_8>知らせを書いた紙を持ってきた者が、報酬として食べ物{2}個を求めています。</RHAH_Long_I-013_8>
+  <RHAH_Long_I-019_1>{1}は、かつて引き渡されたことを覚えています。中に入りたがり、食べ物も{2}個求めています。</RHAH_Long_I-019_1>
+  <RHAH_Long_I-019_2>来客は、あのとき自分を引き渡したのは誰だったのか知りたがっています。</RHAH_Long_I-019_2>
+  <RHAH_Long_I-019_7>来客は、あのとき連れていかれた方角を覚えています。</RHAH_Long_I-019_7>
   <RHAH_Long_I-019_9>来客はその子を見たと言う場合も、否定する場合もあります。見た場合は行き先の情報に食べ物{2}個を求めます。</RHAH_Long_I-019_9>
-  <RHAH_Long_I-032_1>{0}は合う布切れを持っています。引き渡す子供を選ぶか、断れます。</RHAH_Long_I-032_1>
-  <RHAH_Long_I-032_2>コロニーにいる子供を1人ずつ選びます。選ばなかった子は残ります。</RHAH_Long_I-032_2>
-  <RHAH_Long_I-032_3>来客は今度は食べ物{2}個を求め、立ち去ると言っています。</RHAH_Long_I-032_3>
-  <RHAH_Long_I-032_7>子供は到着しましたが食糧が足りません。戻してもらうには5日かかります。</RHAH_Long_I-032_7>
-  <RHAH_Long_I-033_1>{1}は親と間違えた人について回っています。食べ物を1個与えられます。止めると噛むか食べ物を盗む場合があります。最初の預け替えでは翌日戻り、2回目は残ります。</RHAH_Long_I-033_1>
+  <RHAH_Long_I-032_1>{0}が布切れを持ってきました。子供に残されていた布切れと、同じ布の別の部分のようです。子供を引き取りに来たと言っています。</RHAH_Long_I-032_1>
+  <RHAH_Long_I-032_2>来客は、子供が一緒に去るのを待っています。</RHAH_Long_I-032_2>
+  <RHAH_Long_I-032_3>来客は話を変え、食べ物{2}個を求めています。</RHAH_Long_I-032_3>
+  <RHAH_Long_I-032_7>子供は向こうに着きましたが、そこでは食糧が足りないようです。</RHAH_Long_I-032_7>
+  <RHAH_Long_I-033_1>{1}は、かつてママと呼んだ相手に今もついて回り、食べ物を1個もらうのを待っています。</RHAH_Long_I-033_1>
   <RHAH_Long_TraderDirection>当時の商人が去った方角を話しました。</RHAH_Long_TraderDirection>
   <RHAH_Long_ExchangeRetraction>来客は、交換の話を聞いただけだと言い直しました。</RHAH_Long_ExchangeRetraction>
   <RHAH_Long_ExchangeMention>交易隊の誰かが、当時の子供の交換にもう一度触れました。</RHAH_Long_ExchangeMention>
   <RHAH_Long_CannotRecognize>1日後、誰だったか分からないと言い直しました。</RHAH_Long_CannotRecognize>
   <RHAH_Long_DirectionMatches>その後の行き先が一致しました。</RHAH_Long_DirectionMatches>
   <RHAH_Long_DirectionDoesNotMatch>その後の行き先は一致せず、もう尋ねなくなりました。</RHAH_Long_DirectionDoesNotMatch>
-  <RHAH_Long_ChildCannotRemember>子供は幼すぎて母親を呼ぶだけです。14歳になったらまた尋ねます。</RHAH_Long_ChildCannotRemember>
+  <RHAH_Long_ChildCannotRemember>子供は幼すぎて、母親を呼ぶことしかできません。</RHAH_Long_ChildCannotRemember>
   <RHAH_Long_RememberedMeals>着地した後の食べ物だけ覚えているそうです。</RHAH_Long_RememberedMeals>
   <RHAH_Long_ReturnedThin>同じ子供が戻ってきました。去った時より痩せています。</RHAH_Long_ReturnedThin>
   <RHAH_Long_CameBackNextDay>翌日、その子は元の養育者のところへ戻りました。</RHAH_Long_CameBackNextDay>

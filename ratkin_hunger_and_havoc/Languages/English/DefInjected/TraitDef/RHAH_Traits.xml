@@ -35,7 +35,7 @@
   <RHAH_Trait_WoundTender.degreeDatas.0.label>careful</RHAH_Trait_WoundTender.degreeDatas.0.label>
   <RHAH_Trait_WoundTender.degreeDatas.0.description>{PAWN_nameDef} has a steady hand with bandages and is rarely distracted by what is happening around {PAWN_objective}.</RHAH_Trait_WoundTender.degreeDatas.0.description>
   <RHAH_Trait_EggKeeper.degreeDatas.0.label>fond of children</RHAH_Trait_EggKeeper.degreeDatas.0.label>
-  <RHAH_Trait_EggKeeper.degreeDatas.0.description>{PAWN_nameDef} likes to keep the young close and safe, whether they are {PAWN_possessive} own or not. When a young companion goes hungry, falls ill or is downed, {PAWN_pronoun} takes it hard.</RHAH_Trait_EggKeeper.degreeDatas.0.description>
+  <RHAH_Trait_EggKeeper.degreeDatas.0.description>{PAWN_nameDef} likes to have children around, whether related or not. When a young companion goes hungry, falls ill or is downed, {PAWN_pronoun} takes it hard.</RHAH_Trait_EggKeeper.degreeDatas.0.description>
   <RHAH_Trait_LeanHunger.degreeDatas.0.label>hunger-resistant</RHAH_Trait_LeanHunger.degreeDatas.0.label>
   <RHAH_Trait_LeanHunger.degreeDatas.0.description>{PAWN_nameDef} is used to splitting one meal into two and can keep walking on an empty stomach. Even a legendary champion of going hungry would have a hard time keeping up.</RHAH_Trait_LeanHunger.degreeDatas.0.description>
   <RHAH_Trait_ThickFur.degreeDatas.0.label>cold-tolerant</RHAH_Trait_ThickFur.degreeDatas.0.label>

@@ -70,7 +70,7 @@
   <RHAH_Follow_I-041_Text>The ratkin orphan who came to our colony is still in the colony. No mother is beside the orphan, and we watch the days go on anyway.</RHAH_Follow_I-041_Text>
   <RHAH_Approach_Label>Ratkin travelers</RHAH_Approach_Label>
   <RHAH_Approach_LetterLabel>Ratkin approaching</RHAH_Approach_LetterLabel>
-  <RHAH_Approach_LetterText>A group of ratkin is traveling toward {1}, still some way from our colony. The approaching group is: {0}.\n\nTheir pace depends on the roads and terrain along the way. If the sea lies between us, they cross from the far shore. They enter our map when they reach the colony.</RHAH_Approach_LetterText>
+  <RHAH_Approach_LetterText>A group of ratkin is traveling toward {1}, still some way from our colony. This time, we are expecting: {0}.</RHAH_Approach_LetterText>
   <RHAH_Approach_Inspect>Ratkin coming to our colony: {0}.</RHAH_Approach_Inspect>
   <RHAH_Approach_Target>The travelers' destination: {0}</RHAH_Approach_Target>
   <RHAH_Arrival_Text>The ratkin have arrived at {1}. The arriving group is: {0}.</RHAH_Arrival_Text>

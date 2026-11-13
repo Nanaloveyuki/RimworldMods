@@ -35,7 +35,7 @@
   <RHAH_Trait_WoundTender.degreeDatas.0.label>注意深い</RHAH_Trait_WoundTender.degreeDatas.0.label>
   <RHAH_Trait_WoundTender.degreeDatas.0.description>{PAWN_nameDef}は包帯を巻く手がぶれず、周囲の物音が{PAWN_objective}邪魔することもめったにない。</RHAH_Trait_WoundTender.degreeDatas.0.description>
   <RHAH_Trait_EggKeeper.degreeDatas.0.label>子供好き</RHAH_Trait_EggKeeper.degreeDatas.0.label>
-  <RHAH_Trait_EggKeeper.degreeDatas.0.description>{PAWN_nameDef}は自分の子でなくても、幼い子をそばに置いて守りたがる。身近な幼い仲間が飢えたり、病気になったり、倒れたりすると、{PAWN_pronoun}はひどくつらくなる。</RHAH_Trait_EggKeeper.degreeDatas.0.description>
+  <RHAH_Trait_EggKeeper.degreeDatas.0.description>{PAWN_nameDef}は自分の子でなくても、幼い子をそばに連れていたがる。身近な幼い仲間が飢えたり、病気になったり、倒れたりすると、{PAWN_pronoun}はひどくつらくなる。</RHAH_Trait_EggKeeper.degreeDatas.0.description>
   <RHAH_Trait_LeanHunger.degreeDatas.0.label>空腹に強い</RHAH_Trait_LeanHunger.degreeDatas.0.label>
   <RHAH_Trait_LeanHunger.degreeDatas.0.description>{PAWN_nameDef}は一食を二回に分けて食べるのに慣れていて、空っぽの胃でも歩き続けられる。伝説の空腹王だって、せいぜいこのくらいではないだろうか。</RHAH_Trait_LeanHunger.degreeDatas.0.description>
   <RHAH_Trait_ThickFur.degreeDatas.0.label>寒さに強い</RHAH_Trait_ThickFur.degreeDatas.0.label>

@@ -2,25 +2,25 @@
 <LanguageData>
   <RHAH_Choice_Shelter>短期労働者として受け入れる（{0}）</RHAH_Choice_Shelter>
   <RHAH_Choice_Label>訪問者</RHAH_Choice_Label>
-  <RHAH_Choice_Text>訪問者が拠点の近くで足を止め、条件を提示しました。\n\n要求：{2}を{1}。どう対応しましょうか？</RHAH_Choice_Text>
+  <RHAH_Choice_Text>「あの……欲しい物があるんだけど……」\n\n来客が拠点のそばで足を止め、条件を持ち出しました。\n\n{1} {2}がほしいそうです。どうしましょうか？</RHAH_Choice_Text>
   <RHAH_Choice_Aid_Label>援助</RHAH_Choice_Aid_Label>
-  <RHAH_Choice_Aid_Text>ラットキンの難民が拠点の近くにやって来て、援助を求めています。必要な物資は{2}を{1}。飢饉で足りない物は山ほどありますが、今回はこれが必要だそうです。\n\nどう対応しましょうか？</RHAH_Choice_Aid_Text>
+  <RHAH_Choice_Aid_Text>「お願いです、もう生きていけません。何か分けてもらえませんか。本当にありがとう……ありがとう……」\n\nラットキンの避難民が1人、拠点のそばに来て、{1} {2}を分けてほしいと頼んでいます。\n\nどうしましょうか？</RHAH_Choice_Aid_Text>
   <RHAH_Choice_Intel_Label>情報</RHAH_Choice_Intel_Label>
-  <RHAH_Choice_Intel_Text>ラットキンが拠点の近くにやって来ました。ある場所についての手掛かりを知っていて、{2}を{1}渡せば教えるそうです。ただでは教えません。先に品物を渡してから、場所を教えるという条件です。\n\n引き渡すと、該当する地点がワールドマップに表示されます。</RHAH_Choice_Intel_Text>
+  <RHAH_Choice_Intel_Text>「こんにちは。ちょっとした手がかりと引き換えに、物を譲ってほしいんです」\n\nラットキンが1人、拠点のそばにやってきました。ある場所の手がかりを、{1} {2}と交換したいそうです。</RHAH_Choice_Intel_Text>
   <RHAH_Choice_Baby_Label>赤ん坊を要求</RHAH_Choice_Baby_Label>
-  <RHAH_Choice_Baby_Text>ラットキンが私たちの拠点の近くにやって来て、赤ん坊を1人ほしいと言っています。\n\n拒否するか、返答を保留できます。食べ物による代替を有効にしている場合は、必要な簡単な食事を代わりに渡せます。子供を渡すことはできません。</RHAH_Choice_Baby_Text>
+  <RHAH_Choice_Baby_Text>「何か食べ物はありませんか？それか、赤ん坊でもいいんですが」ラットキンが1人、私たちの拠点のそばにやってきて、赤ん坊を要求しています。</RHAH_Choice_Baby_Text>
   <RHAH_Choice_Abandoned_Label>置き去りにされた子ラットキン</RHAH_Choice_Abandoned_Label>
-  <RHAH_Choice_Abandoned_Text>ラットキンの母親が、なぜか子供たちを私たちの拠点の近くに置いていきました。もう養えないのに見捨てることもできず、私たちのところへ連れてきたのでしょうか。子供たちを引き取ってほしいようです。\n\nこの子たちだけでは、おそらく生きていけません。どうしましょうか？</RHAH_Choice_Abandoned_Text>
+  <RHAH_Choice_Abandoned_Text>「子供たち、ごめんなさい……」\n\nラットキンの母親が、私たちの拠点のそばに子供たちを置いていきました。理由は分かりません。もう養えなくなり、私たちに引き取ってほしいのかもしれません。\n\nこの幼いラットキンたちには食べ物と世話が必要です。どうしましょうか？</RHAH_Choice_Abandoned_Text>
   <RHAH_Choice_Refugees_Label>難民</RHAH_Choice_Refugees_Label>
-  <RHAH_Choice_Refugees_Text>ラットキンの難民が私たちの拠点の近くにやって来ました。飢饉に追われ、ここまで歩いてきたのです。ここに残り、食事と寝場所を確保したいようです。\n\nどうしましょうか？</RHAH_Choice_Refugees_Text>
+  <RHAH_Choice_Refugees_Text>「どうか置いてください。私たちはよく働きます。こき使ってもらってかまいません、一口でも食べられるなら！」\n\nラットキンの避難民が私たちの拠点のそばにやってきて、ここに留まりたいと頼んでいます。飢饉から逃れてきた彼らには、食べ物と身を寄せる場所が必要です。\n\nどうしましょうか？</RHAH_Choice_Refugees_Text>
   <RHAH_Choice_ChildExchange_Label>子を取り替えて食らう</RHAH_Choice_ChildExchange_Label>
   <RHAH_Choice_ChildExchange_Text>ラットキンの母親が子供を1人、私たちの拠点の近くに連れてきました。立ち去る前に、途切れ途切れに話します。「この子をもう食べさせていけないんです、チュウ。食べ物を少し頂けませんか。それとも、交換しませんか？」\n\nこの母親は子供を、食べ物、あるいは「食べ物」と交換したいそうです。どうしましょうか？</RHAH_Choice_ChildExchange_Text>
   <RHAH_Choice_Kinship_Label>人違いの家族</RHAH_Choice_Kinship_Label>
   <RHAH_Choice_Kinship_Text>「ママなの、チュウ？」\n\n「チュウチュウ！ ぜったいママだよ！」\n\n「わたしのママだ、チュウ！」\n\n子ラットキンが1人、にぎやかに私たちの拠点の近くへやって来ました。入植者を見つけると、舌足らずの変わった話し方で「ママ」と呼びます。\n\nどうしましょうか？</RHAH_Choice_Kinship_Text>
   <RHAH_Choice_Airdrop_Label>空輸の手違い</RHAH_Choice_Airdrop_Label>
-  <RHAH_Choice_Airdrop_Text>誰がこの子ラットキンたちを私たちの拠点の近くに送り届けたのか、本当はどこへ送るつもりだったのか、わかりません。放っておけば、おそらく飢え死にするでしょう。受け入れるなら食べ物と世話をする人が必要です。子供が多すぎて、拠点では支えきれないかもしれません。よく考える必要があります。\n\nどうしましょうか？</RHAH_Choice_Airdrop_Text>
+  <RHAH_Choice_Airdrop_Text>幼いラットキンたちが私たちの拠点のそばへ送り届けられました。誰が送ったのか、本当はどこへ行くはずだったのかも分かりません。誰かが食事を与え、世話をする必要があります。\n\nどうしましょうか？</RHAH_Choice_Airdrop_Text>
   <RHAH_Choice_Visitors_Label>訪問者</RHAH_Choice_Visitors_Label>
-  <RHAH_Choice_Visitors_Text>ラットキンの訪問者が私たちの拠点の近くにやって来ました。残るかどうかはまだ決まっていません。中へ迎え入れますか、それとも旅を続けてもらいますか？</RHAH_Choice_Visitors_Text>
+  <RHAH_Choice_Visitors_Text>「食べる物と、雨風をしのげる場所がほしいんです」ラットキンの来客が私たちの拠点のそばにやってきました。まだ留まるかどうかは決めていないようです。中に入れますか、それとも先へ行ってもらいますか？</RHAH_Choice_Visitors_Text>
   <RHAH_Choice_BeggarFamily_Label>訪問者</RHAH_Choice_BeggarFamily_Label>
   <RHAH_Choice_BeggarFamily_Text>{0}がやって来ました。\n\n飢饉に追われたラットキンの母親と{1}人の子供が、私たちの拠点の近くまで来ました。母親は食べ物を乞い、子供たちはその足元に身を寄せています。\n\n「お願いです、チュウ。私たち親子に少し食べ物を恵んでください」\n\n少し間を置いて、母親は続けました。「どんな仕事でも、何でもします。不満なんてありません」\n\nどうしましょうか？</RHAH_Choice_BeggarFamily_Text>
   <RHAH_Choice_LaboringRefugees_Label>出産間近の流民</RHAH_Choice_LaboringRefugees_Label>
@@ -41,28 +41,21 @@
   <RHAH_Choice_WildYoung_Text>野生の子ラットキンが1人、私たちの拠点の近くまでさまよって来ました。大人はついていません。ここには食べ物も人もいますが、すべてが安全とは限りません。\n\nどうしましょうか？</RHAH_Choice_WildYoung_Text>
   <RHAH_Feral_Wild_Label>野生化したラットキン</RHAH_Feral_Wild_Label>
   <RHAH_Feral_WildYoung_Label>野生化した子ラットキン</RHAH_Feral_WildYoung_Label>
-  <RHAH_Feral_Wild_Text>野人として暮らすラットキンの一団が、私たちの拠点の近くまでさまよって来ました。食べ物を探しています。\n\n仲間に迎えたいなら、手なずける対象に指定できます。入植者を選んで相手を右クリックし、逮捕を試みることもできます。手なずけに失敗したり、逮捕しようとしたりすると、抵抗されることがあります。</RHAH_Feral_Wild_Text>
-  <RHAH_Feral_WildSingle_Text>野人として暮らすラットキンが1人、私たちの拠点の近くまでさまよって来ました。食べ物を探しています。\n\n仲間に迎えたいなら、手なずける対象に指定できます。入植者を選んで相手を右クリックし、逮捕を試みることもできます。手なずけに失敗したり、逮捕しようとしたりすると、抵抗されることがあります。</RHAH_Feral_WildSingle_Text>
-  <RHAH_Feral_WildYoung_Text>野生化した子ラットキンが1人、私たちの拠点の近くまでさまよって来ました。1人で食べ物を探しています。\n\n仲間に迎えたいなら、手なずける対象に指定できます。入植者を選んで相手を右クリックし、逮捕を試みることもできます。手なずけに失敗したり、逮捕しようとしたりすると、抵抗されることがあります。</RHAH_Feral_WildYoung_Text>
+  <RHAH_Feral_Wild_Text>野人のように暮らすラットキンの一団が私たちの拠点のそばへ迷い込み、食べ物を探しています。</RHAH_Feral_Wild_Text>
+  <RHAH_Feral_WildSingle_Text>野人のように暮らすラットキンが1人、私たちの拠点のそばへ迷い込み、食べ物を探しています。</RHAH_Feral_WildSingle_Text>
+  <RHAH_Feral_WildYoung_Text>野生の幼いラットキンが1人、私たちの拠点のそばへ迷い込み、ひとりで食べ物を探しています。</RHAH_Feral_WildYoung_Text>
   <RHAH_Choice_Passersby_Label>通りすがりのラットキン</RHAH_Choice_Passersby_Label>
   <RHAH_Choice_Passersby_Text>ラットキンの流民の一団が、私たちの拠点の近くを通りかかりました。まだ次の食事を探す必要があり、ただ通り過ぎるつもりとは限りません。\n\nここに残ってもらいますか、それとも旅を続けてもらいますか？</RHAH_Choice_Passersby_Text>
   <RHAH_Choice_Siege_Label>包囲する物乞い</RHAH_Choice_Siege_Label>
-  <RHAH_Choice_Siege_Text>ラットキンの物乞いたちが私たちの拠点の周りに集まりました。食べ物を求めていますが、その態度はただ一食を乞うだけには見えません。まず敵対しているか見極めてから、対処を決めましょう。\n\nどうしましょうか？</RHAH_Choice_Siege_Text>
+  <RHAH_Choice_Siege_Text>ラットキンの物乞いたちが私たちの拠点のそばを取り囲み、食べ物を要求しています。\n\nどうしましょうか？</RHAH_Choice_Siege_Text>
   <RHAH_Choice_Orphan_Label>ペストの孤児</RHAH_Choice_Orphan_Label>
   <RHAH_Choice_Orphan_Text>ラットキンの孤児が1人、私たちの拠点の近くにやって来ました。母親はついていません。この災いの中では、大人が1人いなくなるだけで、生き延びる手段がいくつも失われてしまいます。\n\nどうしましょうか？</RHAH_Choice_Orphan_Text>
   <RHAH_Choice_KinshipGrown_Text>ラットキンが1人、私たちの拠点の近くにやって来て、入植者を見るなり「ママ」と呼びました。呼ばれた人には見覚えがないのに、相手は人違いではないと言い張っています。\n\nどうしましょうか？</RHAH_Choice_KinshipGrown_Text>
-  <RHAH_Choice_VisitorHint>返答できるのは{0}日です。食べ物を渡す場合は、入植者を選んで訪問者を右クリックしてください。拒否するか期限が過ぎると、訪問者は態度と集団の反応設定に従って立ち去るか、敵対します。</RHAH_Choice_VisitorHint>
-  <RHAH_Choice_RequestHint>返答できるのは{0}日です。拒否するか期限が過ぎると、訪問者は態度と集団の反応設定に従って立ち去るか、敵対します。</RHAH_Choice_RequestHint>
-  <RHAH_Choice_IntelHint>返答できるのは{0}日です。物資を渡すと、訪問者は地点を教えてくれます。拒否するか期限が過ぎると、訪問者は態度と集団の反応設定に従って立ち去るか、敵対します。</RHAH_Choice_IntelHint>
-  <RHAH_Choice_PlagueHint>この訪問者たちはラットキンのペストにかかっており、治療と世話が必要です。接触すると感染が広がるおそれもあります。この手紙で、彼らをどう扱うか決めてください。</RHAH_Choice_PlagueHint>
-  <RHAH_Choice_PlagueDisabledHint>ペストは無効のため、この一行は健康な状態で到着します。</RHAH_Choice_PlagueDisabledHint>
-  <RHAH_Choice_ChildExchangeFoodHint>子供の代わりに簡単な食事を渡せます。訪問した子供1人につき{0}食分、今回は合計{1}食分です。交換後、訪問した子供はコロニーに加入します。</RHAH_Choice_ChildExchangeFoodHint>
-  <RHAH_Choice_ChildExchangeNoFoodHint>食料による代替は無効です。依頼に応じるには、条件を満たすコロニーの子供を選んで引き渡してください。</RHAH_Choice_ChildExchangeNoFoodHint>
-  <RHAH_Choice_ChildExchangeZeroFoodHint>子供1人あたりの簡単な食事が0に設定されているため、食料による代替に食事は不要です。コロニーの子供を引き渡すこともできます。</RHAH_Choice_ChildExchangeZeroFoodHint>
+  <RHAH_Choice_PlagueHint>この来客たちはペストにかかっており、治療と世話が必要です。接触すれば病気が広がる危険もあります。</RHAH_Choice_PlagueHint>
   <RHAH_Choice_AbandonedGrown_Text>ラットキンの母親が、なぜか子供たちを私たちの拠点の近くに置いていきました。もう養えないのに見捨てることもできず、私たちのところへ連れてきたのでしょうか。受け入れてほしいようです。\n\n世話をする人がいなければ、子供たちはおそらく生きていくのが難しいでしょう。どうしましょうか？</RHAH_Choice_AbandonedGrown_Text>
   <RHAH_Choice_ChildExchangeGrown_Text>ラットキンの母親が、ラットキンを1人、私たちの拠点の近くに連れてきました。立ち去る前に、途切れ途切れに話します。「この子をもう食べさせていけないんです、チュウ。食べ物を少し頂けませんか。それとも、交換しませんか？」\n\nこの母親は自分の子供を、食べ物、あるいは「食べ物」と交換したいそうです。どうしましょうか？</RHAH_Choice_ChildExchangeGrown_Text>
   <RHAH_Choice_BeggarFamilyGrown_Text>{0}がやって来ました。\n\n飢饉に追われたラットキンの母親と{1}人の子供が、私たちの拠点の近くまで来ました。母親は食べ物を乞い、子供たちはそのそばにいます。\n\n「お願いです、チュウ。私たち親子に少し食べ物を恵んでください」\n\n少し間を置いて、母親は続けました。「どんな仕事でも、何でもします。不満なんてありません」\n\nどうしましょうか？</RHAH_Choice_BeggarFamilyGrown_Text>
-  <RHAH_Choice_AirdropGrown_Text>誰がこのラットキンたちを私たちの拠点の近くに送り届けたのか、本当はどこへ送るつもりだったのか、わかりません。放っておけば、おそらく飢え死にするでしょう。受け入れるなら食べ物と住む場所が必要です。人数が多すぎて、拠点では支えきれないかもしれません。よく考える必要があります。\n\nどうしましょうか？</RHAH_Choice_AirdropGrown_Text>
+  <RHAH_Choice_AirdropGrown_Text>ラットキンたちが私たちの拠点のそばへ送り届けられました。誰が送ったのか、本当はどこへ行くはずだったのかも分かりません。食べ物と住む場所が必要です。\n\nどうしましょうか？</RHAH_Choice_AirdropGrown_Text>
   <RHAH_Choice_KinshipInfant_Text>ラットキンの赤ん坊が1人、私たちの拠点の近くに置き去りにされました。まだ「ママ」とも言えず、泣きながら誰かが世話をしてくれるのを待つことしかできません。\n\nどうしましょうか？</RHAH_Choice_KinshipInfant_Text>
   <RHAH_Choice_AbandonedSingle_Text>ラットキンの母親が、なぜか子供を私たちの拠点の近くに置いていきました。もうこの子を養えないのに見捨てることもできず、私たちのところへ連れてきたのでしょうか。引き取ってほしいようです。\n\nこの子だけでは、おそらく生きていけません。どうしましょうか？</RHAH_Choice_AbandonedSingle_Text>
   <RHAH_Choice_AbandonedSingleGrown_Text>ラットキンの母親が、なぜか子供を私たちの拠点の近くに置いていきました。もう養えないのに見捨てることもできず、私たちのところへ連れてきたのでしょうか。受け入れてほしいようです。\n\n世話をする人がいなければ、このラットキンはおそらく生きていくのが難しいでしょう。どうしましょうか？</RHAH_Choice_AbandonedSingleGrown_Text>
@@ -79,18 +72,18 @@
   <RHAH_Choice_Hire>長期労働者として雇う（{0}後に立ち去る）</RHAH_Choice_Hire>
   <RHAH_Choice_Feed>食べ物を与える（渡されるのを待つ）</RHAH_Choice_Feed>
   <RHAH_Choice_Recruit>短期労働者として受け入れる（{0}後に立ち去る）</RHAH_Choice_Recruit>
-  <RHAH_Choice_Enslave>奴隷にする（その場で奴隷になり、反抗心をなくす）</RHAH_Choice_Enslave>
-  <RHAH_Choice_Capture>捕らえる（その場で囚人になり、12時間眠る）</RHAH_Choice_Capture>
+  <RHAH_Choice_Enslave>奴隷にする（奴隷に変え、抵抗心をゼロにする）</RHAH_Choice_Enslave>
+  <RHAH_Choice_Capture>捕らえる（囚人に変え、12時間麻酔をかける）</RHAH_Choice_Capture>
   <RHAH_Choice_Attack>攻撃（一行全員が敵対する）</RHAH_Choice_Attack>
   <RHAH_Choice_ChooseAlly>同盟派閥へ送る…</RHAH_Choice_ChooseAlly>
   <RHAH_Choice_Ally>{0}へ送る</RHAH_Choice_Ally>
-  <RHAH_Choice_AllyPageText>受け入れ先の同盟派閥を選んでください（{0}/{1}ページ）。\n\n訪問者が無事にマップを離れてから、その市場価値に応じて友好度が上がります。市場価値500につき約+1、今回送る一行全体で最大+10です。工業水準以上の同盟派閥は、50%の確率で3日以内に少量の物資をお礼としてドロップポッドで送ってきます。</RHAH_Choice_AllyPageText>
+  <RHAH_Choice_AllyPageText>彼らを受け入れる同盟者を選んでください（{0}/{1}ページ）。</RHAH_Choice_AllyPageText>
   <RHAH_Choice_AllyPrevious>前のページ</RHAH_Choice_AllyPrevious>
   <RHAH_Choice_AllyNext>次のページ</RHAH_Choice_AllyNext>
   <RHAH_Choice_AllyBack>戻る</RHAH_Choice_AllyBack>
   <RHAH_Choice_NoAlly>受け入れられる同盟派閥がありません。</RHAH_Choice_NoAlly>
   <RHAH_Choice_AllyRefused>選んだ派閥は今この訪問者たちを受け入れられません（撃退された、拠点を失った、あるいは同盟が解消された可能性があります）。</RHAH_Choice_AllyRefused>
-  <RHAH_Choice_AllySent>{0}人は離脱命令を受け、{1}へ向かっています。このマップを歩いて離れてから初めてその派閥の一員となり、友好度とお礼はそれ以降に精算されます。今回送る一行全体で最大+10です。相手の拠点で直接見つけることはできません。</RHAH_Choice_AllySent>
+  <RHAH_Choice_AllySent>{0}人の来客が{1}へ向かっています。</RHAH_Choice_AllySent>
   <RHAH_Choice_AllyGiftLabel>同盟派閥からのお礼</RHAH_Choice_AllyGiftLabel>
   <RHAH_Choice_AllyGiftText>{0}が、訪問者を新たな仲間として送り出してくれたお礼に、物資をドロップポッドで届けてくれました。</RHAH_Choice_AllyGiftText>
   <RHAH_Choice_AllyGoodwillReason>訪問者の受け入れ</RHAH_Choice_AllyGoodwillReason>
@@ -116,7 +109,7 @@
   <RHAH_Choice_SiteUnavailable>訪問者は地点を用意できませんでした。物資はまだ手元にあり、手紙でもう一度選べます。</RHAH_Choice_SiteUnavailable>
   <RHAH_Choice_Fed>訪問者は食事を済ませました。</RHAH_Choice_Fed>
   <RHAH_Choice_MouseSwarm_Label>ネズミの大群</RHAH_Choice_MouseSwarm_Label>
-  <RHAH_Choice_MouseSwarm_Text>凶作で住む場所を失った大勢のラットキンが、こちらへ向かっているのが確認されました。食料庫の食べ物をすべて食べ尽くされたくなければ、早急に選択する必要があります。</RHAH_Choice_MouseSwarm_Text>
+  <RHAH_Choice_MouseSwarm_Text>凶作で住む場所を失った大勢のラットキンが、こちらへ向かっているのが確認されました。</RHAH_Choice_MouseSwarm_Text>
   <RHAH_Choice_PleadingJoin_Label>加入の懇願</RHAH_Choice_PleadingJoin_Label>
   <RHAH_Choice_PleadingJoin_Text>気力の尽きたラットキンが、よろめきながらここへやって来ました。長旅ですっかり疲れ果てたようです。\n\n「ここに置いてもらえませんか？仕事はよくできます！食べ物はほんの少しでいいんです。どうかお願いします！」</RHAH_Choice_PleadingJoin_Text>
 </LanguageData>
