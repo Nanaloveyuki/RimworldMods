@@ -7,7 +7,7 @@
   <RHAH_Settings_EatOutsideRelief>Allow food outside the relief zone</RHAH_Settings_EatOutsideRelief>
   <RHAH_Settings_EatOutsideRelief_Tooltip>With this off, visitors eat only food they can reach inside the zone. If the zone has none, they beg, wait, or leave.</RHAH_Settings_EatOutsideRelief_Tooltip>
   <RHAH_Settings_IgnoreReliefAfterFed>Ignore the relief zone after eating</RHAH_Settings_IgnoreReliefAfterFed>
-  <RHAH_Settings_IgnoreReliefAfterFed_Tooltip>On, a full visitor may take the next meal from outside the zone. Off, a full visitor stops looking for another meal.</RHAH_Settings_IgnoreReliefAfterFed_Tooltip>
+  <RHAH_Settings_IgnoreReliefAfterFed_Tooltip>When enabled, visitors who have eaten their fill can take their next meal from outside the relief zone.</RHAH_Settings_IgnoreReliefAfterFed_Tooltip>
   <RHAH_Settings_LeaveAfterFed>Leave the map after eating</RHAH_Settings_LeaveAfterFed>
   <RHAH_Settings_LeaveAfterFed_Tooltip>On, a visitor who can reach an exit leaves after eating. An adult carries out a child too young or too weak to walk. Off, a full visitor stays on the map.</RHAH_Settings_LeaveAfterFed_Tooltip>
   <RHAH_Settings_ReliefScore>Relief food bonus: {0}%</RHAH_Settings_ReliefScore>
@@ -28,7 +28,7 @@
   <RHAH_Settings_ReliefFoods_Empty>No foods match.</RHAH_Settings_ReliefFoods_Empty>
   <RHAH_ReliefArea_Label>Relief zone</RHAH_ReliefArea_Label>
   <RHAH_ReliefArea_Expand>Expand relief zone</RHAH_ReliefArea_Expand>
-  <RHAH_ReliefArea_Expand_Desc>Mark cells where visitors may take food. An empty zone does not become the whole map.</RHAH_ReliefArea_Expand_Desc>
+  <RHAH_ReliefArea_Expand_Desc>Mark cells where visitors may take food. When the relief zone is empty, visitors restricted to it can only search for food if taking food outside the zone is allowed.</RHAH_ReliefArea_Expand_Desc>
   <RHAH_ReliefArea_Clear>Clear relief zone</RHAH_ReliefArea_Clear>
   <RHAH_ReliefArea_Clear_Desc>Remove marked cells. Once none remain, visitors who cannot leave the zone stop taking food here.</RHAH_ReliefArea_Clear_Desc>
   <RHAH_Settings_ReliefFoods_Quote>Visitors stop taking food you turn off. Food added later stays available.</RHAH_Settings_ReliefFoods_Quote>

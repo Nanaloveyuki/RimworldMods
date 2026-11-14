@@ -131,7 +131,7 @@ namespace HungerAndHavoc.Pawn.Compat
             RegisterPage(owner, "plague", "RHAH_Menu_Plague", DrawPlague, SearchPlague);
             RegisterPage(owner, "events", "RHAH_Menu_Events", DrawEvents, SearchCatalogEvents);
             RegisterPage(owner, "background-stories", "RHAH_Background_SettingsTitle",
-                Dialog_RHAH_BackgroundOptions.DrawEntry, () => new[] { Entry("chapter-background-stories", "RHAH_Background_SettingsTitle") });
+                DrawBackgroundStories, SearchBackgroundStories);
             RegisterPage(owner, "pawns", "RHAH_Menu_Pawns", DrawDiagnosticPawns, SearchDiagnosticPawns);
             RegisterPage(owner, "suiyin-trust", "RHAH_Menu_SuiyinTrust", DrawSuiyinTrust, SearchSuiyinTrust);
             RegisterPage(owner, "settlement-progress", "RHAH_Menu_Settlement", DrawSettlement, SearchSettlement);

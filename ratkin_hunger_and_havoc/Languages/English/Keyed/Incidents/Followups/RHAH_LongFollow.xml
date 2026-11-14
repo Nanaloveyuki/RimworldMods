@@ -3,15 +3,15 @@
   <RHAH_Long_Label>Returning visitor</RHAH_Long_Label>
   <RHAH_Long_Stale>This choice is no longer available.</RHAH_Long_Stale>
   <RHAH_Long_NoFood>Not enough available food.</RHAH_Long_NoFood>
-  <RHAH_Long_RecognizeFeed>Acknowledge and feed, through {0}</RHAH_Long_RecognizeFeed>
-  <RHAH_Long_Recognize>Acknowledge without food, through {0}</RHAH_Long_Recognize>
+  <RHAH_Long_RecognizeFeed>Have {0} acknowledge the exchange and give the visitor food</RHAH_Long_RecognizeFeed>
+  <RHAH_Long_Recognize>Have {0} acknowledge the exchange without giving food</RHAH_Long_Recognize>
   <RHAH_Long_Deny>Do not acknowledge</RHAH_Long_Deny>
   <RHAH_Long_Capture>Capture the visitor</RHAH_Long_Capture>
   <RHAH_Long_Pay>Give {0} units of food</RHAH_Long_Pay>
   <RHAH_Long_Refuse>Refuse</RHAH_Long_Refuse>
   <RHAH_Long_Welcome>Let them in and give {0} food</RHAH_Long_Welcome>
   <RHAH_Long_RejectEntry>Refuse entry</RHAH_Long_RejectEntry>
-  <RHAH_Long_Point>Point to {0}</RHAH_Long_Point>
+  <RHAH_Long_Point>Name {0} as the person who handed them over</RHAH_Long_Point>
   <RHAH_Long_NoPoint>Name nobody</RHAH_Long_NoPoint>
   <RHAH_Long_AskNext>Ask the next refugee group</RHAH_Long_AskNext>
   <RHAH_Long_StopAsking>Stop asking</RHAH_Long_StopAsking>
@@ -25,8 +25,8 @@
   <RHAH_Long_KeepAll>Keep all children</RHAH_Long_KeepAll>
   <RHAH_Long_GiveFood>Give {0} food</RHAH_Long_GiveFood>
   <RHAH_Long_RequestReturn>Request the child back</RHAH_Long_RequestReturn>
-  <RHAH_Long_NoReturn>Do not request a return</RHAH_Long_NoReturn>
-  <RHAH_Long_KeepFeeding>Continue feeding: one food</RHAH_Long_KeepFeeding>
+  <RHAH_Long_NoReturn>Let the child stay there</RHAH_Long_NoReturn>
+  <RHAH_Long_KeepFeeding>Keep giving one serving of food</RHAH_Long_KeepFeeding>
   <RHAH_Long_StopFeeding>Stop feeding</RHAH_Long_StopFeeding>
   <RHAH_Long_Rehome>Place with {0}</RHAH_Long_Rehome>
   <RHAH_Long_I-013_1>The visitor wants you to acknowledge the child exchange from years ago, and also asks for {2} units of food.</RHAH_Long_I-013_1>
@@ -34,7 +34,7 @@
   <RHAH_Long_I-019_1>{1} still remembers being handed away years ago. They want to come inside and ask for {2} units of food.</RHAH_Long_I-019_1>
   <RHAH_Long_I-019_2>The visitor wants to know who handed them away all those years ago.</RHAH_Long_I-019_2>
   <RHAH_Long_I-019_7>The visitor remembers the direction they were taken all those years ago.</RHAH_Long_I-019_7>
-  <RHAH_Long_I-019_9>The visitors may confirm or deny seeing the child. Confirmation asks {2} food for the next destination.</RHAH_Long_I-019_9>
+  <RHAH_Long_I-019_9>Some visitors say they have seen the child; others say they have not. Those willing to share information ask for {2} servings of food in exchange.</RHAH_Long_I-019_9>
   <RHAH_Long_I-032_1>{0} has brought a scrap of cloth that seems to have been cut from the same piece as the scrap the child left behind. The visitor wants to take the child away.</RHAH_Long_I-032_1>
   <RHAH_Long_I-032_2>The visitor is waiting for the child to leave with them.</RHAH_Long_I-032_2>
   <RHAH_Long_I-032_3>The visitor now asks for {2} units of food instead.</RHAH_Long_I-032_3>
@@ -43,12 +43,12 @@
   <RHAH_Long_TraderDirection>They named the direction the trader went.</RHAH_Long_TraderDirection>
   <RHAH_Long_ExchangeRetraction>The visitor now says they only heard about the exchange.</RHAH_Long_ExchangeRetraction>
   <RHAH_Long_ExchangeMention>Someone in the caravan mentioned the exchange once more.</RHAH_Long_ExchangeMention>
-  <RHAH_Long_CannotRecognize>After one day, they said they could no longer recognize anyone.</RHAH_Long_CannotRecognize>
-  <RHAH_Long_DirectionMatches>The later destination matched.</RHAH_Long_DirectionMatches>
-  <RHAH_Long_DirectionDoesNotMatch>The later destination did not match. They stopped asking.</RHAH_Long_DirectionDoesNotMatch>
+  <RHAH_Long_CannotRecognize>A day later, the visitor changes their story and says they can no longer recognize the person who handed them over.</RHAH_Long_CannotRecognize>
+  <RHAH_Long_DirectionMatches>The destination the visitor named matches the direction they remember.</RHAH_Long_DirectionMatches>
+  <RHAH_Long_DirectionDoesNotMatch>The destination the visitor named does not match the direction they remember. They stop asking.</RHAH_Long_DirectionDoesNotMatch>
   <RHAH_Long_ChildCannotRemember>The child is too young and only calls for their mother.</RHAH_Long_ChildCannotRemember>
   <RHAH_Long_RememberedMeals>They only remember the meals after landing.</RHAH_Long_RememberedMeals>
   <RHAH_Long_ReturnedThin>The same child was returned, thinner than before.</RHAH_Long_ReturnedThin>
-  <RHAH_Long_CameBackNextDay>The next day, the child returned to the original caregiver.</RHAH_Long_CameBackNextDay>
-  <RHAH_Long_CalledAgain>The child returned with beggars and called to the familiar person again.</RHAH_Long_CalledAgain>
+  <RHAH_Long_CameBackNextDay>The next day, the child returns to the same person as before.</RHAH_Long_CameBackNextDay>
+  <RHAH_Long_CalledAgain>The child returns with a group of beggars. Seeing their old caregiver, they call out Mommy again.</RHAH_Long_CalledAgain>
 </LanguageData>

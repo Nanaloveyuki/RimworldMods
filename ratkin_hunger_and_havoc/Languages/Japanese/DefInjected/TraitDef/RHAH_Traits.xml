@@ -65,7 +65,7 @@
   <RHAH_Trait_Distrustful.degreeDatas.0.label>疑り深い</RHAH_Trait_Distrustful.degreeDatas.0.label>
   <RHAH_Trait_Distrustful.degreeDatas.0.description>{PAWN_nameDef}はもう他人をなかなか信用できない。他人の親切さえ、{PAWN_objective}だまそうとする罠に思えることが多い。</RHAH_Trait_Distrustful.degreeDatas.0.description>
   <RHAH_Trait_WeakFlesh.degreeDatas.0.label>体が弱い</RHAH_Trait_WeakFlesh.degreeDatas.0.label>
-  <RHAH_Trait_WeakFlesh.degreeDatas.0.description>{PAWN_nameDef}は体がとても弱く、ぶつけたあとが残る。</RHAH_Trait_WeakFlesh.degreeDatas.0.description>
+  <RHAH_Trait_WeakFlesh.degreeDatas.0.description>{PAWN_nameDef}は体がとても弱く、ちょっとした衝撃にも耐えにくい。</RHAH_Trait_WeakFlesh.degreeDatas.0.description>
   <RHAH_Trait_WeakGut.degreeDatas.0.label>胃が弱い</RHAH_Trait_WeakGut.degreeDatas.0.label>
   <RHAH_Trait_WeakGut.degreeDatas.0.description>{PAWN_nameDef}は胃が弱く、食べてから間もないのにまた腹が空く。</RHAH_Trait_WeakGut.degreeDatas.0.description>
   <RHAH_Trait_Chillblood.degreeDatas.0.label>寒がり</RHAH_Trait_Chillblood.degreeDatas.0.label>

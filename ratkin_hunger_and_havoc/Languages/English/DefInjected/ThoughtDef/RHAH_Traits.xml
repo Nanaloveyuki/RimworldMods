@@ -35,7 +35,7 @@
   <RHAH_Thought_PlagueDreadSick.stages.0.label>afraid of sickness</RHAH_Thought_PlagueDreadSick.stages.0.label>
   <RHAH_Thought_PlagueDreadSick.stages.0.description>I am sick. I am afraid it might be serious.</RHAH_Thought_PlagueDreadSick.stages.0.description>
   <RHAH_Thought_PlagueDreadNearby.stages.0.label>afraid of plague</RHAH_Thought_PlagueDreadNearby.stages.0.label>
-  <RHAH_Thought_PlagueDreadNearby.stages.0.description>Someone nearby is sick. I don't want it on me.</RHAH_Thought_PlagueDreadNearby.stages.0.description>
+  <RHAH_Thought_PlagueDreadNearby.stages.0.description>Someone nearby is sick. I’m afraid I might catch it.</RHAH_Thought_PlagueDreadNearby.stages.0.description>
   <RHAH_Thought_NightTerrors.stages.0.label>jumpy</RHAH_Thought_NightTerrors.stages.0.label>
   <RHAH_Thought_NightTerrors.stages.0.description>Wh... what was that?!</RHAH_Thought_NightTerrors.stages.0.description>
   <RHAH_Thought_NightTerrors.stages.1.label>jumpy</RHAH_Thought_NightTerrors.stages.1.label>

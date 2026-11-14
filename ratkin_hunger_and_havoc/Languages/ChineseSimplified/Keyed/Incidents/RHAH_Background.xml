@@ -104,4 +104,6 @@
   <RHAH_Background_SettingsNamesUndergroundGoodwill>找到名单，游击队增加好感：{0}</RHAH_Background_SettingsNamesUndergroundGoodwill>
   <RHAH_Background_SettingsNamesWarlordGoodwill>找到名单，军阀增加好感：{0}</RHAH_Background_SettingsNamesWarlordGoodwill>
   <RHAH_Background_SettingsRestorationGoodwill>原样修复，双方各增加好感：{0}</RHAH_Background_SettingsRestorationGoodwill>
+  <RHAH_Background_SettingsMinimum>最小值：{0}</RHAH_Background_SettingsMinimum>
+  <RHAH_Background_SettingsMaximum>最大值：{0}</RHAH_Background_SettingsMaximum>
 </LanguageData>

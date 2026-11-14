@@ -193,6 +193,8 @@ public static class RatkinRecycleUtility
 			return false;
 		}
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
+		float fullness = kind == EaterKind.Mom ? settings.momHungerPct : settings.otherHungerPct;
+		if (p.needs.food.CurLevelPercentage >= fullness) return false;
 		if (settings.useMalnutritionTrigger)
 		{
 			if (!p.needs.food.Starving) return false;
@@ -200,8 +202,7 @@ public static class RatkinRecycleUtility
 			float threshold = kind == EaterKind.Mom ? settings.momMalnutritionSeverity : settings.otherMalnutritionSeverity;
 			return severity > 0f && severity >= threshold;
 		}
-		float fullness = kind == EaterKind.Mom ? settings.momHungerPct : settings.otherHungerPct;
-		return p.needs.food.CurLevelPercentage < fullness;
+		return true;
 	}
 
 	public static bool CanEat(Pawn pawn, bool manual = false)
@@ -329,7 +330,7 @@ public static class RatkinRecycleUtility
 					}
 					if (pawn.CurJobDef != RatkinRecycleDefOf.EatRatEgg && pawn.CurJobDef != RatkinRecycleDefOf.ManualRecycleRatkinYoung
 						&& pawn.carryTracker?.CarriedThing == null && CanEat(pawn)
-						&& (settings.useMalnutritionTrigger ? pawn.needs.food.Starving : pawn.needs.food.CurLevelPercentage < num))
+						&& pawn.needs.food.CurLevelPercentage < num)
 					{
 						eaterBuffer.Add(pawn);
 					}

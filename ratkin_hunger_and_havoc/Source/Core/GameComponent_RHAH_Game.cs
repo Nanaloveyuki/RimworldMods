@@ -145,6 +145,15 @@ namespace HungerAndHavoc.Core
                     return false;
                 }
 
+                if (displayId == RHAH_SuspiciousRoyal.DisplayId &&
+                    !RHAH_SuspiciousRoyal.Available(LastRoyalArrivalTick, Find.TickManager.TicksGame,
+                        RHAH_RoyalSilver.Stored(saved)))
+                {
+                    Log.Warning("[RHAH] Royal approach cancelled before departure: wealth or cooldown requirement is not met.");
+                    DropPending(index);
+                    return false;
+                }
+
                 if (HungerAndHavoc.Incidents.RHAH_Approach.TrySend(displayId, points, approachMap))
                 {
                     Log.Message("[RHAH] Approach started for " + displayId + ". points=" + points.ToString("0.##") +
@@ -218,7 +227,7 @@ namespace HungerAndHavoc.Core
                 return RHAH_ArrivalResult.Terminal;
             }
 
-            IncidentParms parms = new IncidentParms { target = map, points = points };
+            IncidentParms parms = new RHAH_ArrivalParms { target = map, points = points };
             try
             {
                 if (arrivedDef.requireColonistsPresent && map.mapPawns.FreeColonistsSpawnedCount == 0)

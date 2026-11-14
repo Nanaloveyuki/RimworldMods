@@ -7,18 +7,18 @@
   <RHAH_Settings_Begging>物乞いを許可</RHAH_Settings_Begging>
   <RHAH_Settings_Begging_Tooltip>オフにすると、訪問者は入植者に食べ物をねだらなくなります。</RHAH_Settings_Begging_Tooltip>
   <RHAH_Settings_BegAutoGive>物乞いに成功したら所持品の食べ物を自動で渡す</RHAH_Settings_BegAutoGive>
-  <RHAH_Settings_BegAutoGive_Tooltip>初期設定はオフです。オンにすると、物乞いに成功したとき、相手の所持品から物乞いを許可した食べ物を1食分取ります。栄養の高いものを優先します。オフでも訪問者は頼みますが、食べ物は所持品に残り、成功にも数えません。右クリックで渡す食べ物、救援エリアでの食事、世話による給餌はこれまでどおりです。</RHAH_Settings_BegAutoGive_Tooltip>
+  <RHAH_Settings_BegAutoGive_Tooltip>初期設定はオフです。オンにすると、物乞いに成功した来客は、相手の所持品から物乞いを許可した食べ物を1食分もらいます。栄養の高いものを優先します。</RHAH_Settings_BegAutoGive_Tooltip>
   <RHAH_Settings_BegSuccessChance>初回の物乞いの成功率：{0}%</RHAH_Settings_BegSuccessChance>
   <RHAH_Settings_BegSuccessChance_Tooltip>同じ入植者に初めて物乞いする時の基本成功率です。下の社交スキルの補正を加え、最大100%になります。初期値は35。</RHAH_Settings_BegSuccessChance_Tooltip>
   <RHAH_Settings_BegSocialBonus>社交スキル1レベルごとの成功率：+{0}%</RHAH_Settings_BegSocialBonus>
   <RHAH_Settings_BegSocialBonus_Tooltip>物乞いをする側の社交スキル1レベルごとに加える成功率です。範囲は0～20、初期値は3。同じ相手への2回目以降の物乞いは成功になりません。</RHAH_Settings_BegSocialBonus_Tooltip>
   <RHAH_Settings_BegFoods>物乞いで渡せる食べ物</RHAH_Settings_BegFoods>
-  <RHAH_Settings_BegFoods_Tooltip>オフにした食べ物は、物乞い成功時に所持品から渡されません。生の食材や材料はこのリストに含まれません。</RHAH_Settings_BegFoods_Tooltip>
+  <RHAH_Settings_BegFoods_Tooltip>物乞いに成功したとき、入植者は所持品の中から許可された食べ物だけを渡します。リストには調理済みの食事だけが表示され、生の食材や材料は含まれません。</RHAH_Settings_BegFoods_Tooltip>
   <RHAH_Settings_BegFoods_All>すべて許可</RHAH_Settings_BegFoods_All>
   <RHAH_Settings_BegFoods_None>すべて禁止</RHAH_Settings_BegFoods_None>
   <RHAH_Settings_BegFoods_Search>食べ物やModを検索</RHAH_Settings_BegFoods_Search>
   <RHAH_Settings_BegFoods_Empty>該当する食べ物はありません。</RHAH_Settings_BegFoods_Empty>
-  <RHAH_Settings_BegFoods_Quote>オフにした食べ物は物乞いで持っていかれません。後から追加された食事は、初期設定で物乞いの対象になります。右クリックで渡す食べ物は別のリストで設定します。</RHAH_Settings_BegFoods_Quote>
+  <RHAH_Settings_BegFoods_Quote>来客は物乞いで許可された食べ物だけをもらえます。後から追加された食事は初期設定で許可されます。右クリックで渡す食べ物は別のリストで設定します。</RHAH_Settings_BegFoods_Quote>
   <RHAH_Settings_BegFoods_Sort>物乞い用の食べ物の分類</RHAH_Settings_BegFoods_Sort>
   <RHAH_Settings_BegFoods_Sort_0>Mod別</RHAH_Settings_BegFoods_Sort_0>
   <RHAH_Settings_BegFoods_Sort_1>名前順</RHAH_Settings_BegFoods_Sort_1>
@@ -30,25 +30,25 @@
   <RHAH_Settings_Stealing>窃盗を許可</RHAH_Settings_Stealing>
   <RHAH_Settings_Stealing_Tooltip>オフにすると、訪問者は物を盗まなくなります。</RHAH_Settings_Stealing_Tooltip>
   <RHAH_Settings_Fighting>反撃を許可</RHAH_Settings_Fighting>
-  <RHAH_Settings_Fighting_Tooltip>オフにすると、訪問者は傷つけられたり追い払われたりしても反撃せず、立ち去ります。</RHAH_Settings_Fighting_Tooltip>
+  <RHAH_Settings_Fighting_Tooltip>オンにすると、訪問者は傷つけられたり追い払われたりしたときに反撃できます。オフの場合は立ち去ります。</RHAH_Settings_Fighting_Tooltip>
   <RHAH_Settings_Gnawing>木や壁をかじることを許可</RHAH_Settings_Gnawing>
   <RHAH_Settings_Gnawing_Tooltip>オフにすると、訪問者は空腹をしのぐために樹皮や壁をかじらなくなります。</RHAH_Settings_Gnawing_Tooltip>
   <RHAH_Settings_BatchHostile>同じ集団全員を敵対させる</RHAH_Settings_BatchHostile>
-  <RHAH_Settings_BatchHostile_Tooltip>オフにすると、1人を傷つけたり追い払ったりしても、同じ集団の他の訪問者は敵対しません。</RHAH_Settings_BatchHostile_Tooltip>
+  <RHAH_Settings_BatchHostile_Tooltip>オンにすると、1人を傷つけたり追い払ったりしたとき、同じ集団の他の訪問者も敵対します。オフの場合は当人だけが影響を受けます。</RHAH_Settings_BatchHostile_Tooltip>
   <RHAH_Settings_BatchLeave>同じ集団全員で立ち去る</RHAH_Settings_BatchLeave>
-  <RHAH_Settings_BatchLeave_Tooltip>オフにすると、傷害や追放の影響を受けるのはその1人だけです。同じ集団の他の訪問者は残ります。</RHAH_Settings_BatchLeave_Tooltip>
+  <RHAH_Settings_BatchLeave_Tooltip>オンにすると、1人を傷つけたり追い払ったりしたとき、同じ集団の他の訪問者も一緒に立ち去ります。オフの場合、他の訪問者は残ります。</RHAH_Settings_BatchLeave_Tooltip>
   <RHAH_Settings_ShortStayLockApparel>短期滞在中は現在の衣服を固定</RHAH_Settings_ShortStayLockApparel>
-  <RHAH_Settings_ShortStayLockApparel_Tooltip>初期値はオンです。短期滞在の開始時に、そのとき着ている衣服を固定します。滞在が終わるとき、または囚人、奴隷、入植者になるときは、そのときに固定した衣服だけを外します。オフにすると、新しく始まる短期滞在では衣服を固定しません。すでに滞在中の人は、その衣服を固定したままです。</RHAH_Settings_ShortStayLockApparel_Tooltip>
+  <RHAH_Settings_ShortStayLockApparel_Tooltip>初期設定はオンです。短期労働者は仕事を始めた時の衣服を、雇用期間が終わるか、囚人、奴隷、入植者になるまで着続けます。オフの場合、新たに雇う短期労働者は自分で着替えられます。すでに雇用中の短期労働者は元の衣服を着続けます。</RHAH_Settings_ShortStayLockApparel_Tooltip>
   <RHAH_Settings_VisitorChoices>訪問者の選択肢を有効にする</RHAH_Settings_VisitorChoices>
-  <RHAH_Settings_VisitorChoices_Tooltip>オフにすると、新しい訪問者について、受け入れ、雇用、拒否の選択を尋ねなくなります。すでにいる訪問者には右クリックメニューで対応できます。</RHAH_Settings_VisitorChoices_Tooltip>
+  <RHAH_Settings_VisitorChoices_Tooltip>オンにすると、新たな来客について、受け入れ、雇用、拒否を尋ねる手紙が届きます。オフの場合は新たな選択の手紙を送りません。すでにいる来客には右クリックメニューで対応できます。</RHAH_Settings_VisitorChoices_Tooltip>
   <RHAH_Settings_FoodGiveHint>食べ物の渡し方を再表示しない</RHAH_Settings_FoodGiveHint>
   <RHAH_Settings_FoodGiveHint_Tooltip>チェックすると、初めて給餌を選んだ時も、訪問者への食べ物の渡し方を表示しません。</RHAH_Settings_FoodGiveHint_Tooltip>
   <RHAH_Settings_FamilyDrop>子供を抱えて退去する時に下ろす</RHAH_Settings_FamilyDrop>
-  <RHAH_Settings_FamilyDrop_Tooltip>オフにすると、母親は立ち去る時、まだ抱えている子供を下ろさなくなります。</RHAH_Settings_FamilyDrop_Tooltip>
+  <RHAH_Settings_FamilyDrop_Tooltip>オンにすると、母親は立ち去る時、まだ抱えている子供を下ろします。オフの場合は子供を連れて立ち去ります。</RHAH_Settings_FamilyDrop_Tooltip>
   <RHAH_Settings_MotherFeed>母親が子供に食べ物を与える</RHAH_Settings_MotherFeed>
-  <RHAH_Settings_MotherFeed_Tooltip>オフにすると、母親は空腹の子供に所持品の食べ物を1食分渡さなくなります。</RHAH_Settings_MotherFeed_Tooltip>
+  <RHAH_Settings_MotherFeed_Tooltip>オンにすると、母親は所持品から食べ物を1食分取り出し、空腹の子供に渡します。</RHAH_Settings_MotherFeed_Tooltip>
   <RHAH_Settings_PrisonerScavenge>囚人が地面で食べ物を探す</RHAH_Settings_PrisonerScavenge>
-  <RHAH_Settings_PrisonerScavenge_Tooltip>オフにすると、空腹の囚人は地面の汚れを1層なめ取らなくなります。</RHAH_Settings_PrisonerScavenge_Tooltip>
+  <RHAH_Settings_PrisonerScavenge_Tooltip>オンにすると、空腹の囚人は地面の汚れをなめ、1回につき1層を取り除きます。</RHAH_Settings_PrisonerScavenge_Tooltip>
   <RHAH_Settings_TailBite>尾をかじることを許可</RHAH_Settings_TailBite>
   <RHAH_Settings_TailBite_Tooltip>オンにすると、空腹の囚人は、近くで眠っている3歳未満でラットキンの尾が残っている囚人の尾をかみ切ります。初期設定はオフです。</RHAH_Settings_TailBite_Tooltip>
   <RHAH_Settings_BegFailMood>物乞いを断られた時の心情：{0}</RHAH_Settings_BegFailMood>
@@ -68,11 +68,11 @@
   <RHAH_Settings_GnawBark>樹皮をかじった時の栄養：{0}</RHAH_Settings_GnawBark>
   <RHAH_Settings_GnawBark_Tooltip>植物を1回かじるごとに補う栄養です。範囲は0～2、初期値は0.25。</RHAH_Settings_GnawBark_Tooltip>
   <RHAH_Settings_GnawBarkDamage>樹皮をかじった時のダメージ：{0}</RHAH_Settings_GnawBarkDamage>
-  <RHAH_Settings_GnawBarkDamage_Tooltip>植物を1回かじるごとに差し引く固定耐久です。素材、建築、ダメージ倍率はこの1回を変えません。範囲は0～50、初期値は12。</RHAH_Settings_GnawBarkDamage_Tooltip>
+  <RHAH_Settings_GnawBarkDamage_Tooltip>植物を1回かじるごとに失う固定耐久値です。範囲は0～50、初期値は12。</RHAH_Settings_GnawBarkDamage_Tooltip>
   <RHAH_Settings_GnawWall>壁をかじった時の栄養：{0}</RHAH_Settings_GnawWall>
   <RHAH_Settings_GnawWall_Tooltip>壁を1回かじるごとに補う栄養です。範囲は0～2、初期値は0.20。</RHAH_Settings_GnawWall_Tooltip>
   <RHAH_Settings_GnawWallDamage>壁をかじった時のダメージ：{0}</RHAH_Settings_GnawWallDamage>
-  <RHAH_Settings_GnawWallDamage_Tooltip>壁を1回かじるごとに差し引く固定耐久です。素材、建築、ダメージ倍率はこの1回を変えません。範囲は0～50、初期値は10。</RHAH_Settings_GnawWallDamage_Tooltip>
+  <RHAH_Settings_GnawWallDamage_Tooltip>壁を1回かじるごとに失う固定耐久値です。素材やダメージ倍率には左右されません。範囲は0～50、初期値は10。</RHAH_Settings_GnawWallDamage_Tooltip>
   <RHAH_Settings_ClayBites>観音土を食べられる口数：{0}</RHAH_Settings_ClayBites>
   <RHAH_Settings_ClayBites_Tooltip>一度の満腹期間に食べられる観音土の口数の上限です。範囲は1～3、初期値は3。</RHAH_Settings_ClayBites_Tooltip>
   <RHAH_Settings_ClayDays>観音土の集計期間：{0}日</RHAH_Settings_ClayDays>
@@ -84,7 +84,7 @@
   <RHAH_Settings_PrisonerHungry>囚人の空腹の境界：{0}%</RHAH_Settings_PrisonerHungry>
   <RHAH_Settings_PrisonerHungry_Tooltip>囚人の食欲ゲージがこの割合を下回ると、汚れをなめたり尾をかじったりします。範囲は0～100、初期値は20。</RHAH_Settings_PrisonerHungry_Tooltip>
   <RHAH_Settings_TailAge>尾をかじられる年齢の上限：{0}</RHAH_Settings_TailAge>
-  <RHAH_Settings_TailAge_Tooltip>この年齢未満で、眠っている子供だけが対象です。範囲は0～18歳、初期値は3歳。</RHAH_Settings_TailAge_Tooltip>
+  <RHAH_Settings_TailAge_Tooltip>この年齢未満で、眠っている幼い囚人だけが対象です。範囲は0～18歳、初期値は3歳。</RHAH_Settings_TailAge_Tooltip>
   <RHAH_Settings_Scavenge>汚れをなめた時の栄養：{0}</RHAH_Settings_Scavenge>
   <RHAH_Settings_Scavenge_Tooltip>汚れを1回なめるごとに補う栄養です。範囲は0～2、初期値は0.15。</RHAH_Settings_Scavenge_Tooltip>
   <RHAH_Settings_TailFood>尾をかみ切った時の栄養：{0}</RHAH_Settings_TailFood>
@@ -96,7 +96,7 @@
   <RHAH_Settings_FamineYearChance>毎年の飢饉発生率：{0}%</RHAH_Settings_FamineYearChance>
   <RHAH_Settings_FamineYearChance_Tooltip>その年が飢饉の年になる確率です。範囲は0～100%、初期値は40%。</RHAH_Settings_FamineYearChance_Tooltip>
   <RHAH_Settings_FamineYearMultiplier>飢饉の年の訪問者人数倍率：{0}</RHAH_Settings_FamineYearMultiplier>
-  <RHAH_Settings_FamineYearMultiplier_Tooltip>飢饉の年は、このMODの通常の複数人集団について、通常の人数上限を適用した後にこの倍率を掛け、端数を切り上げます。単独の訪問者、人数固定の母子家族、出産間近の二人組は通常の人数を保ちます。ネズミの大群は常に15～50人です。放送では倍率を切り上げた数まで、異なる集団を呼び寄せます。範囲は1～4、初期値は3。</RHAH_Settings_FamineYearMultiplier_Tooltip>
+  <RHAH_Settings_FamineYearMultiplier_Tooltip>飢饉の年は、このMODの通常の複数人集団について、通常の人数上限を適用した後にこの倍率を掛け、端数を切り上げます。単独の訪問者、人数固定の母子家族、出産間近の二人組は通常の人数を保ちます。ラットキンの大群は常に15～50人です。放送では倍率を切り上げた数まで、異なる集団を呼び寄せます。範囲は1～4、初期値は3。</RHAH_Settings_FamineYearMultiplier_Tooltip>
   <RHAH_Settings_FamineYearDisasterChance>飢饉の年の毎日の追加災害発生率：{0}%</RHAH_Settings_FamineYearDisasterChance>
   <RHAH_Settings_FamineYearDisasterChance_Tooltip>飢饉の年の毎日、現地時刻の午前6時に、この確率で寒波、熱波、有毒な降灰、火山の冬の発生を試みます。追加の災害は飢饉の年ごとに最大1回発生します。範囲は0～100%、初期値は20%。</RHAH_Settings_FamineYearDisasterChance_Tooltip>
   <RHAH_FamineYear_Label>{0}年の見通し</RHAH_FamineYear_Label>
@@ -108,7 +108,7 @@
   <RHAH_Settings_FamineMalnutrition>到着時の栄養失調：{0}</RHAH_Settings_FamineMalnutrition>
   <RHAH_Settings_FamineMalnutrition_Tooltip>空腹での到着が有効な場合、このMODのプレイヤー所属ではない飢饉の訪問者が到着時に抱える栄養失調の重症度です。範囲は0.01～0.5、初期値は0.25。</RHAH_Settings_FamineMalnutrition_Tooltip>
   <RHAH_Settings_FamineMood>飢饉の訪問者の心情を有効化</RHAH_Settings_FamineMood>
-  <RHAH_Settings_FamineMood_Tooltip>初期設定はオン。このMODの訪問者は飢餓状態で心情が低下し、食べ物を断られたか食料要求の期限が過ぎると、さらに悪化します。実際に満腹まで食べると、1日間 +6。このMODから来たラットキンは、保護、捕縛、奴隷化、追放、食事によっても心情が変わり、コロニー加入後も適用されます。食事は1個あたりの栄養を手の込んだ食事と比べ、1日間 +6 または +12。オフにすると、これらの心情への影響は止まります。</RHAH_Settings_FamineMood_Tooltip>
+  <RHAH_Settings_FamineMood_Tooltip>初期設定はオン。このMODの訪問者は飢えると心情が低下し、食料を断られたり要求の期限が過ぎたりした後も空腹が続くと、さらに悪化します。実際に満腹まで食べると、1日間 +6。このMODから来たラットキンは、保護、捕縛、奴隷化、追放、食事によっても心情が変わり、コロニー加入後も適用されます。食事は1個あたりの栄養を手の込んだ食事と比べ、1日間 +6 または +12。オフにすると、これらの心情への影響は止まります。</RHAH_Settings_FamineMood_Tooltip>
   <RHAH_Settings_ClayMood>観音土による心情を有効化</RHAH_Settings_ClayMood>
   <RHAH_Settings_ClayMood_Tooltip>初期設定はオン。心情を持つ人物が現在の満腹期間に観音土を1個、2個、3個食べると、心情にそれぞれ-2、-4、-6の影響を受けます。現在の段階だけが適用され、期間が終わると消えます。</RHAH_Settings_ClayMood_Tooltip>
   <RHAH_Settings_FamineTrade>飢饉キャラバンの特別価格を有効化</RHAH_Settings_FamineTrade>

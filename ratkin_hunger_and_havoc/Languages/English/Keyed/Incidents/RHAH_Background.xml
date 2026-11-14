@@ -28,7 +28,7 @@
   <RHAH_Background_SettingsDescription>All-ages news from the kingdom, drawn from its own event pool.</RHAH_Background_SettingsDescription>
   <RHAH_Background_SettingsEnabled>Enable background stories</RHAH_Background_SettingsEnabled>
   <RHAH_Background_SettingsAverageDays>Average interval between background stories: {0} days</RHAH_Background_SettingsAverageDays>
-  <RHAH_Background_SettingsFrequency>Set the interval to 0 to stop random messages. Weights determine relative selection chances. Civil war follows rebellion only. Evacuations and memorials require both warlord and guerrilla factions in the world.</RHAH_Background_SettingsFrequency>
+  <RHAH_Background_SettingsFrequency>Set the interval to 0 to stop random messages. Weights determine each message’s relative chance of being chosen. Internal conflict only follows rebellion. Wounded ratkin and memorial stories require both warlord and guerrilla factions in the world.</RHAH_Background_SettingsFrequency>
   <RHAH_Background_SettingsWeight>Selection weight: {0}</RHAH_Background_SettingsWeight>
   <RHAH_Background_SettingsCivilWar>Enable internal conflict after rebellion</RHAH_Background_SettingsCivilWar>
   <RHAH_Background_SettingsCivilWarChance>Chance of internal conflict after each rebellion: {0}%</RHAH_Background_SettingsCivilWarChance>
@@ -36,7 +36,7 @@
   <RHAH_Background_SettingsTakeover>Enable settlement takeovers by guerrillas and warlords</RHAH_Background_SettingsTakeover>
   <RHAH_Background_SettingsTakeoverRule>Requires the corresponding factions in the world. When the wait after internal conflict ends, each side gets one chance to take one settlement. The kingdom keeps at least 3 settlements. Settlements with active maps are excluded.</RHAH_Background_SettingsTakeoverRule>
   <RHAH_Background_SettingsTakeoverChance>Chance for each side to take a settlement: {0}%</RHAH_Background_SettingsTakeoverChance>
-  <RHAH_Background_SettingsTakeoverDelay>Wait after internal conflict: {0} days (60 days is one year)</RHAH_Background_SettingsTakeoverDelay>
+  <RHAH_Background_SettingsTakeoverDelay>Wait after internal conflict: {0} days (default 60 days, one year)</RHAH_Background_SettingsTakeoverDelay>
   <RHAH_Background_SettingsUnrestBonus>Increase in this mod’s negative event rate during unrest: {0}%</RHAH_Background_SettingsUnrestBonus>
   <RHAH_Background_SettingsUnrestDays>Duration of unrest effects: {0} days</RHAH_Background_SettingsUnrestDays>
   <RHAH_Background_SettingsRuinsDistance>Ruins distance from home: {0}–{1} tiles along passable routes</RHAH_Background_SettingsRuinsDistance>
@@ -59,7 +59,7 @@
   <RHAH_Background_AidManifest_Text>A weapons aid manifest from {0} has surfaced. The kingdom calls the shipment a generous gift from its allies. Its traders are already selling some of it.\n\nOur next ratkin weapon purchase from a kingdom caravan or settlement will receive a {2}% discount.</RHAH_Background_AidManifest_Text>
   <RHAH_Background_AidManifest_Option>Keep an eye out</RHAH_Background_AidManifest_Option>
   <RHAH_Background_CancelledBanquet_Label>The banquet was cancelled</RHAH_Background_CancelledBanquet_Label>
-  <RHAH_Background_CancelledBanquet_Text>A noble banquet in {0} was suddenly cancelled. The cooks had already ordered the food, but the deliveries were turned away. Traders are selling it cheaply.\n\nOur next food purchase from a kingdom caravan or settlement will receive a {2}% discount.</RHAH_Background_CancelledBanquet_Text>
+  <RHAH_Background_CancelledBanquet_Text>A noble banquet planned by {0} was suddenly cancelled. The cooks had already prepared the ingredients, but the delivery workers were told to take them away. The traders had to sell them cheaply.\n\nOur next food purchase from a kingdom caravan or settlement will receive a {2}% discount.</RHAH_Background_CancelledBanquet_Text>
   <RHAH_Background_CancelledBanquet_Option>Understood</RHAH_Background_CancelledBanquet_Option>
   <RHAH_Background_HarvestFestival_FollowLabel>The wagons went home</RHAH_Background_HarvestFestival_FollowLabel>
   <RHAH_Background_HarvestFestival_FollowText>A trader returning from {0} mentioned how fine the festival wagons looked. Once the nobles had taken their share, the empty wagons were sent back to the villages. The villagers were still waiting for their grain.</RHAH_Background_HarvestFestival_FollowText>
@@ -83,7 +83,7 @@
   <RHAH_Background_JoinUnavailable>We cannot take in this wounded ratkin right now.</RHAH_Background_JoinUnavailable>
   <RHAH_Background_InteractionUnavailable>We cannot complete this task now. Check the caravan’s location and supplies.</RHAH_Background_InteractionUnavailable>
   <RHAH_Background_Evacuated>The wounded left one by one. Someone repeated the old callsign before leaving.</RHAH_Background_Evacuated>
-  <RHAH_Background_WoundedJoined>The wounded ratkin joined our caravan. The others handed over a small bag and thanked us.</RHAH_Background_WoundedJoined>
+  <RHAH_Background_WoundedJoined>The wounded ratkin joined our caravan. The others handed over their luggage and thanked us.</RHAH_Background_WoundedJoined>
   <RHAH_Background_Supply>Provide {0} {1} (both factions +{2})</RHAH_Background_Supply>
   <RHAH_Background_Restore>Restore with {0} {1} (both factions +{2})</RHAH_Background_Restore>
   <RHAH_Background_SearchNames>Find the names (guerrillas +{0}, warlords +{1})</RHAH_Background_SearchNames>
@@ -104,4 +104,6 @@
   <RHAH_Background_SettingsNamesUndergroundGoodwill>Names found: guerrilla goodwill: {0}</RHAH_Background_SettingsNamesUndergroundGoodwill>
   <RHAH_Background_SettingsNamesWarlordGoodwill>Names found: warlord goodwill: {0}</RHAH_Background_SettingsNamesWarlordGoodwill>
   <RHAH_Background_SettingsRestorationGoodwill>Restoration goodwill with each faction: {0}</RHAH_Background_SettingsRestorationGoodwill>
+  <RHAH_Background_SettingsMinimum>Minimum: {0}</RHAH_Background_SettingsMinimum>
+  <RHAH_Background_SettingsMaximum>Maximum: {0}</RHAH_Background_SettingsMaximum>
 </LanguageData>

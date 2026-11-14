@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Settings_MaxEventPawns>Visitors per event: {0}</RHAH_Settings_MaxEventPawns>
-  <RHAH_Settings_MaxEventPawns_Tooltip>One incident stays at or under this count. 1 to 100, default 30. A lower count still uses that incident's minimum. A mother and child stay together.</RHAH_Settings_MaxEventPawns_Tooltip>
+  <RHAH_Settings_MaxEventPawns_Tooltip>Maximum number of visitors in an ordinary incident. Range 1 to 100, default 30. If this is below the incident’s required minimum, that minimum still applies. Special incidents such as mother-and-child families use their own population rules.</RHAH_Settings_MaxEventPawns_Tooltip>
   <RHAH_Settings_MinAge>Minimum arrival age: {0}</RHAH_Settings_MinAge>
   <RHAH_Settings_MaxAge>Maximum arrival age: {0}</RHAH_Settings_MaxAge>
   <RHAH_Settings_Age_Tooltip>Ordinary visitors arrive inside this range. 0 to 100, default 0 to 50. A mother stays at least as old as her own minimum. Ratkin young keep their own ages unless the switch below is on.</RHAH_Settings_Age_Tooltip>
@@ -51,7 +51,7 @@
   <RHAH_Settings_RefugeeApparel_None>Forbid all</RHAH_Settings_RefugeeApparel_None>
   <RHAH_Settings_RefugeeApparel_Search>Search clothing or mods</RHAH_Settings_RefugeeApparel_Search>
   <RHAH_Settings_RefugeeApparel_Empty>No clothing matches.</RHAH_Settings_RefugeeApparel_Empty>
-  <RHAH_Settings_RefugeeApparel_Quote>By default, visitors receive only vanilla tribalwear, the specified NewRatkinPlus clothes, and vanilla baby and child basics. Clothes from other mods stay off the default list. Ordinary clothes never replace a temperature wrap.</RHAH_Settings_RefugeeApparel_Quote>
+  <RHAH_Settings_RefugeeApparel_Quote>The default clothing list includes vanilla tribalwear, specified NewRatkinPlus clothing, and vanilla basic clothing for the young. New visitors wear temperature clothing first, then compatible ordinary clothing.</RHAH_Settings_RefugeeApparel_Quote>
   <RHAH_Settings_RefugeeApparel_Sort>Clothing grouping</RHAH_Settings_RefugeeApparel_Sort>
   <RHAH_Settings_RefugeeApparel_Sort_0>By mod</RHAH_Settings_RefugeeApparel_Sort_0>
   <RHAH_Settings_RefugeeApparel_Sort_1>By name</RHAH_Settings_RefugeeApparel_Sort_1>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Background_Rebellion_Label>反乱</RHAH_Background_Rebellion_Label>
-  <RHAH_Background_Rebellion_Text>遠方から知らせが届いた。天災と人災による飢饉により、{0}の下層のラトキンたちが立ち上がった。食糧の分配を旗印に、{0}当局に抵抗している。</RHAH_Background_Rebellion_Text>
+  <RHAH_Background_Rebellion_Text>遠方から知らせが届いた。天災と人災による飢饉により、{0}の下層のラットキンたちが立ち上がった。食糧の分配を旗印に、{0}当局に抵抗している。</RHAH_Background_Rebellion_Text>
   <RHAH_Background_Rebellion_Option>動向を注視する</RHAH_Background_Rebellion_Option>
   <RHAH_Background_Ruins_Label>廃墟</RHAH_Background_Ruins_Label>
-  <RHAH_Background_Ruins_Text>近くのラトキンの仮拠点が壊滅したという知らせがあった。誰の仕業かは分からない。残骸と廃墟、そして遺体が散らばっているという。あそこのラトキンたちは、もう助からなかったのかもしれない……</RHAH_Background_Ruins_Text>
+  <RHAH_Background_Ruins_Text>近くのラットキンの仮拠点が壊滅したという知らせがあった。誰の仕業かは分からない。残骸と廃墟、そして遺体が散らばっているという。あそこのラットキンたちは、もう助からなかったのかもしれない……</RHAH_Background_Ruins_Text>
   <RHAH_Background_Ruins_Option>気の毒に</RHAH_Background_Ruins_Option>
   <RHAH_Background_Unrest_Label>騒動</RHAH_Background_Unrest_Label>
-  <RHAH_Background_Unrest_Text>近くのラトキンの仮拠点で騒動が起きた。食糧の分配が原因らしい……巻き込まれたくなければ、しばらく注意しておいた方がよさそうだ。</RHAH_Background_Unrest_Text>
+  <RHAH_Background_Unrest_Text>近くのラットキンの仮拠点で騒動が起きた。食糧の分配が原因らしい……巻き込まれたくなければ、しばらく注意しておいた方がよさそうだ。</RHAH_Background_Unrest_Text>
   <RHAH_Background_Unrest_Option>動向を注視する</RHAH_Background_Unrest_Option>
   <RHAH_Background_Mutiny_Label>兵士の反乱</RHAH_Background_Mutiny_Label>
   <RHAH_Background_Mutiny_Text>{0}の暴動鎮圧部隊で反乱が起きた。原因はまだ分かっていない。軍の給与か、それとも別の事情だろうか。兵士の一部がここを通りかかったり、宿を求めたりするかもしれない。いずれにせよ、警戒しておくべきだ。</RHAH_Background_Mutiny_Text>
@@ -19,7 +19,7 @@
   <RHAH_Background_Takeover_Text>こちらは{0}。{1}の支配権を確保した。この拠点は今や我々のものだ。以上。</RHAH_Background_Takeover_Text>
   <RHAH_Background_Explore>廃墟を探索する</RHAH_Background_Explore>
   <RHAH_Background_ExploreDescription>廃墟で持ち帰れそうな物資を探す。</RHAH_Background_ExploreDescription>
-  <RHAH_Background_ExploreReport>ラトキンの廃墟の探索に向かっている。</RHAH_Background_ExploreReport>
+  <RHAH_Background_ExploreReport>ラットキンの廃墟の探索に向かっている。</RHAH_Background_ExploreReport>
   <RHAH_Background_ExploreRemaining>まだ荷物に収められていない物資がある。持ち物を整理してから、再び探索できる。</RHAH_Background_ExploreRemaining>
   <RHAH_Background_Explored_Label>廃墟の探索完了</RHAH_Background_Explored_Label>
   <RHAH_Background_Explored_Text>キャラバンは廃墟をくまなく調べ、使えそうな物資を荷物に収めた。もう持ち帰るほどのものは残っていない。</RHAH_Background_Explored_Text>
@@ -28,7 +28,7 @@
   <RHAH_Background_SettingsDescription>全年齢向けの王国の知らせ。専用のイベント枠から選ばれる。</RHAH_Background_SettingsDescription>
   <RHAH_Background_SettingsEnabled>背景ストーリーを有効にする</RHAH_Background_SettingsEnabled>
   <RHAH_Background_SettingsAverageDays>背景ストーリーの平均間隔：{0}日</RHAH_Background_SettingsAverageDays>
-  <RHAH_Background_SettingsFrequency>間隔を0にするとランダムな便りを停止します。重みは各便りの選ばれやすさです。内乱は反乱からのみ発生します。避難と記念碑には軍閥とゲリラ両派閥の存在が必要です。</RHAH_Background_SettingsFrequency>
+  <RHAH_Background_SettingsFrequency>間隔を0にするとランダムな知らせを停止します。重みは各知らせの選ばれやすさを決めます。内乱は反乱からのみ発生します。負傷者と記念碑のイベントには、軍閥とゲリラの両派閥がワールドに存在する必要があります。</RHAH_Background_SettingsFrequency>
   <RHAH_Background_SettingsWeight>選択の重み：{0}</RHAH_Background_SettingsWeight>
   <RHAH_Background_SettingsCivilWar>反乱後の内乱を有効にする</RHAH_Background_SettingsCivilWar>
   <RHAH_Background_SettingsCivilWarChance>反乱後に内乱が起きる確率：{0}%</RHAH_Background_SettingsCivilWarChance>
@@ -67,7 +67,7 @@
   <RHAH_Background_AidManifest_FollowText>{0}の援助目録の別のページが届いた。武器の数はなく、割譲する村や鉱山、通行権が並んでいた。\n\nかつて連合軍を打ち破った武器も、こうして買われたのだろう。</RHAH_Background_AidManifest_FollowText>
   <RHAH_Background_CancelledBanquet_FollowLabel>支払いは誰が</RHAH_Background_CancelledBanquet_FollowLabel>
   <RHAH_Background_CancelledBanquet_FollowText>{0}の農家が、中止になった宴会の代金を請求し始めた。仕入れ担当の役人は、宴会が取り消された以上、請求も無効だと言っている。\n\n食材はもう売られた。農家にはまだ金が届いていない。</RHAH_Background_CancelledBanquet_FollowText>
-  <RHAH_Background_SiteSameCallsign>旧連合軍の避難地点</RHAH_Background_SiteSameCallsign>
+  <RHAH_Background_SiteSameCallsign>旧連合軍の負傷者の避難地点</RHAH_Background_SiteSameCallsign>
   <RHAH_Background_SiteMemorial>旧連合軍の記念碑</RHAH_Background_SiteMemorial>
   <RHAH_Background_SiteNameList>放棄された連合軍の連絡所</RHAH_Background_SiteNameList>
   <RHAH_Background_SiteDescriptionSameCallsign>負傷者たちが避難を待っている。手を貸せば、軍閥とゲリラ双方との友好度が上がる。</RHAH_Background_SiteDescriptionSameCallsign>
@@ -104,4 +104,6 @@
   <RHAH_Background_SettingsNamesUndergroundGoodwill>名簿発見によるゲリラの友好度上昇：{0}</RHAH_Background_SettingsNamesUndergroundGoodwill>
   <RHAH_Background_SettingsNamesWarlordGoodwill>名簿発見による軍閥の友好度上昇：{0}</RHAH_Background_SettingsNamesWarlordGoodwill>
   <RHAH_Background_SettingsRestorationGoodwill>修復による双方それぞれの友好度上昇：{0}</RHAH_Background_SettingsRestorationGoodwill>
+  <RHAH_Background_SettingsMinimum>最小値：{0}</RHAH_Background_SettingsMinimum>
+  <RHAH_Background_SettingsMaximum>最大値：{0}</RHAH_Background_SettingsMaximum>
 </LanguageData>

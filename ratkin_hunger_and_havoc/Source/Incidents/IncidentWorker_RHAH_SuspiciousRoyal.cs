@@ -13,8 +13,9 @@ namespace HungerAndHavoc.Incidents
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
             return map?.IsPlayerHome == true && game != null && RHAH_Runtime.AllowsNewContent &&
                 RHAH_Mod.Settings?.IsIncidentEnabled(RHAH_SuspiciousRoyal.DisplayId) != false &&
-                RHAH_SuspiciousRoyal.Available(game.LastRoyalArrivalTick, Find.TickManager.TicksGame,
-                    RHAH_RoyalSilver.Stored(map)) &&
+                (parms.forced || parms is RHAH_ArrivalParms ||
+                    RHAH_SuspiciousRoyal.Available(game.LastRoyalArrivalTick, Find.TickManager.TicksGame,
+                    RHAH_RoyalSilver.Stored(map))) &&
                 Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
                 RHAH_IncidentArrival.TryFindSpawnCell(map, out _, out _);
         }

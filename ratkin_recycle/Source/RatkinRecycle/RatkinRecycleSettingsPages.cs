@@ -171,12 +171,12 @@ public partial class RatkinRecycleSettings
 		renderer.Check("preferAvailableFood", T("自动回收时优先普通食物", "Prefer available food during automatic recycling"), ref preferAvailableFood);
 		renderer.Label(T("仅影响自动回收，默认开启。检查自身背包、原版允许食用且可达的地图食物，以及同一访客／商队队伍中可达驮兽的食物；不要求精致食物。禁止食用、不可达、无法预约、空营养膏机和需先收获的作物不算。抱起前及每口前复查，发现食物就停止回收并尝试放下鼠蛋。关闭后恢复原来的自动回收优先级。", "Applies only to automatic recycling; enabled by default. Check personal inventory, reachable map food allowed by vanilla, and reachable pack animals in the same visiting group; fine meals are not required. Forbidden, unreachable or unreservable food, empty dispensers and crops requiring harvest do not count. Recheck before pickup and every bite; when food is found, stop recycling and try to put down the RatkinYoung. Disable to restore the previous automatic recycling priority."));
 		renderer.Section("hunger", T("自动回收的饥饿与母性判定", "Automatic recycling: hunger and mothers"));
-		renderer.Check("useMalnutritionTrigger", T("按营养不良严重度触发，替代饱食度", "Trigger by malnutrition severity instead of fullness"), ref useMalnutritionTrigger);
-		renderer.Number("momHungerPct", T("鼠妈饱食度触发阈值（0–1）", "Mother hunger threshold (0–1 fullness)"), ref momHungerPct, 0f, 1f, enabled: !useMalnutritionTrigger);
-		renderer.Number("otherHungerPct", T("其他鼠族饱食度触发阈值（0–1）", "Other Ratkin hunger threshold (0–1 fullness)"), ref otherHungerPct, 0f, 1f, enabled: !useMalnutritionTrigger);
-		renderer.Number("momMalnutritionSeverity", T("鼠妈营养不良严重度阈值（0–1）", "Mother malnutrition severity threshold (0–1)"), ref momMalnutritionSeverity, 0f, 1f, enabled: useMalnutritionTrigger);
-		renderer.Number("otherMalnutritionSeverity", T("其他鼠族营养不良严重度阈值（0–1）", "Other Ratkin malnutrition severity threshold (0–1)"), ref otherMalnutritionSeverity, 0f, 1f, enabled: useMalnutritionTrigger);
-		renderer.Label(T("以下启动阈值仅影响自动回收。营养不良模式要求角色正在挨饿，且实际营养不良严重度大于 0 并达到设定阈值。阈值过高时，角色可能已经倒地。啃食停嘴规则见“啃食与部位”。灰显的阈值属于另一种模式。", "These trigger thresholds apply only to automatic recycling. Malnutrition mode requires current starvation and positive malnutrition severity at or above the threshold. A high threshold may leave the pawn downed before it can act. See Chewing for stop rules. Grayed-out thresholds belong to the other mode."));
+		renderer.Check("useMalnutritionTrigger", T("自动回收还需达到营养不良阈值", "Also require malnutrition for automatic recycling"), ref useMalnutritionTrigger);
+		renderer.Number("momHungerPct", T("鼠妈饱食度触发阈值（0–1）", "Mother hunger threshold (0–1 fullness)"), ref momHungerPct, 0f, 1f);
+		renderer.Number("otherHungerPct", T("其他鼠族饱食度触发阈值（0–1）", "Other Ratkin hunger threshold (0–1 fullness)"), ref otherHungerPct, 0f, 1f);
+		MalnutritionThreshold(renderer, "momMalnutritionSeverity", T("鼠妈营养不良阈值（0–99%）", "Mother malnutrition threshold (0–99%)"), ref momMalnutritionSeverity);
+		MalnutritionThreshold(renderer, "otherMalnutritionSeverity", T("其他鼠族营养不良阈值（0–99%）", "Other Ratkin malnutrition threshold (0–99%)"), ref otherMalnutritionSeverity);
+		renderer.Label(T("仅影响自动回收。饱食度低于对应阈值时才会触发；开启营养不良条件后，还须正在挨饿，并且实际营养不良严重度大于 0、达到对应百分比。设为 0% 仍须已有营养不良。营养不良阈值是硬下限，各角色的耐受不同，设得过高可能在达到阈值前就倒地，因而无法触发。倒地或缺少移动、操作能力的角色会被跳过。啃食停嘴规则见“啃食与部位”。", "Applies only to automatic recycling. Fullness must be below the corresponding threshold. With the malnutrition requirement enabled, the eater must also be starving with positive malnutrition severity at or above the corresponding percentage. At 0%, malnutrition must still be present. This is a strict minimum: tolerance varies between pawns, so a high setting may cause them to collapse before reaching it and prevent recycling. Downed pawns and those unable to move or manipulate are skipped. See Chewing for stop rules."));
 		renderer.Number("adultAgeYears", T("鼠妈最低生理年龄（岁）", "Minimum biological age for mothers (years)"), ref adultAgeYears);
 		renderer.Number("postpartumHours", T("产后母性窗口（游戏小时）", "Postpartum mother window (game hours)"), ref postpartumHours);
 		renderer.Check("momOwnEggFallback", T("仍有亲生鼠蛋时，也视为鼠妈", "Also count mothers with living biological RatkinYoung"), ref momOwnEggFallback);
@@ -191,6 +191,14 @@ public partial class RatkinRecycleSettings
 		renderer.Section("manual", T("主动回收", "Manual recycling"));
 		renderer.Check("manualEnabled", T("启用主动回收命令", "Enable the manual recycling command"), ref manualEnabled);
 		renderer.Label(T("玩家可命令具备移动和操作能力的鼠族主动回收。主动回收不受双方身份、年龄、饥饿触发条件、幼鼠分界、禁用目标或普通／精致食物检查限制。目标须是存活、同地图、非自身、可预约且可达的鼠族。停嘴与安全界限见“啃食与部位”。", "Players can order controllable Ratkin capable of moving and manipulation to recycle manually. Orders ignore both roles' status and age filters, hunger triggers, young-predator split, forbidden targets and available-food/fine-meal checks. Targets must be living Ratkin on the same map, not the eater, reservable and reachable. See Chewing for fullness and safety limits."));
+	}
+
+	private void MalnutritionThreshold(IRatkinRecycleSettingsRenderer renderer, string id, string label, ref float severity)
+	{
+		float percent = severity * 100f;
+		float previous = percent;
+		renderer.Number(id, label, ref percent, 0f, 99f, enabled: useMalnutritionTrigger);
+		if (!renderer.IsMeasuring && percent != previous) severity = percent / 100f;
 	}
 
 	private void DrawTargets(IRatkinRecycleSettingsRenderer renderer)

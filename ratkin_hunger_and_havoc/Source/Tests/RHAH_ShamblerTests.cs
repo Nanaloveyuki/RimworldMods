@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using HarmonyLib;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.EventMgr;
+using HungerAndHavoc.Generation;
 using HungerAndHavoc.Incidents;
 using Oxygendsl.Core.Events;
 using Oxygendsl.Mod.Events;
@@ -26,6 +27,7 @@ namespace HungerAndHavoc.Tests
         readonly Map map;
         readonly List<Map> arrivals = new List<Map>();
         readonly List<int> counts = new List<int>();
+        RHAH_PawnRequest generationRequest;
         EventChainRuntime runtime;
         bool moving = true;
         bool crawling;
@@ -147,6 +149,32 @@ namespace HungerAndHavoc.Tests
         }
 
         [Theory]
+        [InlineData("I-059")]
+        [InlineData("I-059-01")]
+        [InlineData("I-060")]
+        [InlineData("I-060-01")]
+        [InlineData("I-061")]
+        public void FreshRatkinDoesNotJoinEntityFactionBeforeMutating(string displayId)
+        {
+            AccessTools.Field(typeof(FactionManager), "ofEntities").SetValue(Find.FactionManager,
+                new Faction { def = new FactionDef { humanlikeFaction = false } });
+            map.info.Size = new IntVec3(9, 1, 9);
+            Patch(AccessTools.Method(typeof(RCellFinder), nameof(RCellFinder.TryFindRandomPawnEntryCell)), nameof(FindEntry));
+            Patch(AccessTools.Method(typeof(RCellFinder), nameof(RCellFinder.TryFindTravelDestFrom)), nameof(FindDestination));
+            Patch(AccessTools.Method(typeof(RHAH_PawnFactory), nameof(RHAH_PawnFactory.Generate)), nameof(CaptureGeneration));
+            harmony.Unpatch(AccessTools.Method(typeof(RHAH_Shamblers), nameof(RHAH_Shamblers.TrySpawn)),
+                HarmonyPatchType.Prefix, harmony.Id);
+
+            Assert.False(RHAH_Shamblers.TrySpawn(map, displayId, 1, out List<Verse.Pawn> pawns));
+
+            Assert.Empty(pawns);
+            Assert.NotNull(generationRequest);
+            Assert.Null(generationRequest.Faction);
+            Assert.Same(RHAH_DefOf.RHAH_PawnKind_Ratkin, generationRequest.PawnKind);
+            Assert.Equal(displayId, generationRequest.SourceIncidentDisplayId);
+        }
+
+        [Theory]
         [InlineData(PawnHealthState.Mobile, true, false, true)]
         [InlineData(PawnHealthState.Mobile, false, false, false)]
         [InlineData(PawnHealthState.Down, false, true, true)]
@@ -250,6 +278,24 @@ namespace HungerAndHavoc.Tests
         static bool CanMove(ref bool __result) { __result = active.moving; return false; }
         static bool CanCrawl(ref bool __result) { __result = active.crawling; return false; }
         static bool SuppressLetter() => false;
+        static bool FindEntry(ref IntVec3 result, ref bool __result)
+        {
+            result = new IntVec3(0, 0, 4);
+            __result = true;
+            return false;
+        }
+        static bool FindDestination(ref IntVec3 travelDest, ref bool __result)
+        {
+            travelDest = new IntVec3(8, 0, 4);
+            __result = true;
+            return false;
+        }
+        static bool CaptureGeneration(RHAH_PawnRequest request, ref Verse.Pawn __result)
+        {
+            active.generationRequest = request;
+            __result = null;
+            return false;
+        }
         static bool Spawn(Map map, int count, ref List<Verse.Pawn> pawns, ref bool __result)
         {
             active.arrivals.Add(map);

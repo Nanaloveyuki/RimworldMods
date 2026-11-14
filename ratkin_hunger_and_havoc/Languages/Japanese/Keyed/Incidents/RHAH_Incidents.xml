@@ -52,22 +52,22 @@
   <RHAH_Incident_PlagueCaravanMuggers_Label>ペストを抱えたキャラバン強盗</RHAH_Incident_PlagueCaravanMuggers_Label>
   <RHAH_CaravanAmbush_LetterText>ラットキンの強盗団があなたの一行を襲っています。\n\n彼らはすぐに攻撃し、物資を奪い、倒れた者を連れ去ることもあります。</RHAH_CaravanAmbush_LetterText>
   <RHAH_Incident_RefugeeMassacre_Label>危険なラットキンの避難キャンプ</RHAH_Incident_RefugeeMassacre_Label>
-  <RHAH_Follow_I-002>あのとき子供を置いていった母親</RHAH_Follow_I-002>
-  <RHAH_Follow_I-002_Text>あのとき拠点のそばに置かれた子供は、今もここにいる。ラットキンの母親がまだ生きているかは、私たちには分からない。もし戻ってきたら、自分の子供だと分かるだろうか？</RHAH_Follow_I-002_Text>
+  <RHAH_Follow_I-002>あのとき置いていかれた幼いラットキン</RHAH_Follow_I-002>
+  <RHAH_Follow_I-002_Text>あのときラットキンの母親が私たちの拠点のそばに子供たちを置いていきました。その子たちは今も拠点にいます。母親がまだ生きているかは、私たちには分かりません。もし戻ってきたら、自分の子供だと分かるでしょうか？</RHAH_Follow_I-002_Text>
   <RHAH_Follow_I-012>この荷物にいるはずのない子供</RHAH_Follow_I-012>
-  <RHAH_Follow_I-012_Text>あのときキャラバンから買った子供は、今もここにいる。一度の取引の後には、毎日の食事が続く。</RHAH_Follow_I-012_Text>
-  <RHAH_Follow_I-013>交換に出された子</RHAH_Follow_I-013>
-  <RHAH_Follow_I-013_Text>あのとき交換のために連れてこられたラットキンは、今もここにいる。もし本当に子供を一人、代わりに渡していたら、今ごろどこにいるのだろう？</RHAH_Follow_I-013_Text>
+  <RHAH_Follow_I-012_Text>あのときキャラバンと共に私たちの拠点へ来た子供たちは、今もここにいます。キャラバンはとっくに去りましたが、私たちは毎食この子たちの食事を作っています。</RHAH_Follow_I-012_Text>
+  <RHAH_Follow_I-013>あのときの子供の交換</RHAH_Follow_I-013>
+  <RHAH_Follow_I-013_Text>あのとき交換のために連れてこられたラットキンは、今も私たちの拠点に住んでいます。もし代わりに自分たちの子供を引き渡していたら、その子が後にどこへ行ったかを知るのは難しいでしょう。</RHAH_Follow_I-013_Text>
   <RHAH_Follow_I-019>求められた子供</RHAH_Follow_I-019>
-  <RHAH_Follow_I-019_Text>あのとき乳児を要求しに来たラットキンは、今もここにいる。本当に子供を渡していたら、引き取った人はどんな世話をしていたのだろう？　私たちには分からない。</RHAH_Follow_I-019_Text>
-  <RHAH_Follow_I-032>空中投下の後</RHAH_Follow_I-032>
-  <RHAH_Follow_I-032_Text>あのときここに来たラットキンは、今もここにいる。今でも肖像と名前を持って、あの人たちを探している誰かがいるのだろうか。</RHAH_Follow_I-032_Text>
-  <RHAH_Follow_I-033>食べ物目当て</RHAH_Follow_I-033>
-  <RHAH_Follow_I-033_Text>あのとき「ママ」と呼んでいたラットキンは、今もここにいる。どうやら、ただ人の善意に甘えて食べ物をもらいに来ただけらしい。</RHAH_Follow_I-033_Text>
+  <RHAH_Follow_I-019_Text>あのとき赤ん坊を要求しに来たラットキンは、今も私たちの拠点にいます。もし子供を引き渡していたら、その子が後にどんな暮らしをしたかを知るのは難しいでしょう。</RHAH_Follow_I-019_Text>
+  <RHAH_Follow_I-032>空中投下で来た子供たち</RHAH_Follow_I-032>
+  <RHAH_Follow_I-032_Text>あのとき私たちの拠点に空中投下されたラットキンたちは、今もここに住んでいます。どこかで今も彼らの肖像と名前を持ち、探し回っている人がいるのでしょうか。</RHAH_Follow_I-032_Text>
+  <RHAH_Follow_I-033>あのときママと呼んだ子供</RHAH_Follow_I-033>
+  <RHAH_Follow_I-033_Text>あのとき私たちの仲間を「ママ」と呼んだ幼いラットキンは、今も拠点に住んでいます。人違いだったのか、ただ一口の食べ物が欲しかったのか、私たちには今も分かりません。</RHAH_Follow_I-033_Text>
   <RHAH_Follow_I-037>病気のまま去った母親</RHAH_Follow_I-037>
-  <RHAH_Follow_I-037_Text>あの日、子ラットキンを残していった母親は、今どうしているだろう？　まだ生きていれば、きっと子供たちの今の様子を見たいだろう。</RHAH_Follow_I-037_Text>
+  <RHAH_Follow_I-037_Text>あの日、母親は幼いラットキンたちを私たちの拠点に残し、病気を抱えたまま去っていきました。今どうしているのかは分かりません。まだ生きていれば、子供たちの今の姿を見たいと思っているでしょう。</RHAH_Follow_I-037_Text>
   <RHAH_Follow_I-041>ここに残った孤児</RHAH_Follow_I-041>
-  <RHAH_Follow_I-041_Text>あのときここに来たラットキンの孤児は、今もここにいる。母親がそばにいなくても、暮らしは続けなければならない。</RHAH_Follow_I-041_Text>
+  <RHAH_Follow_I-041_Text>あのとき拠点に来たラットキンの孤児は、今もここに住んでいます。私たちはこの子の世話をし、日々成長する姿を見てきました。</RHAH_Follow_I-041_Text>
   <RHAH_Approach_Label>旅するラットキンの一行</RHAH_Approach_Label>
   <RHAH_Approach_LetterLabel>ラットキンが接近中</RHAH_Approach_LetterLabel>
   <RHAH_Approach_LetterText>ラットキンの一隊が{1}へ向かって歩いています。私たちの拠点までは、まだ少し距離があります。今回やってくるのは、{0}です。</RHAH_Approach_LetterText>
@@ -75,7 +75,7 @@
   <RHAH_Approach_Target>一行の目的地：{0}</RHAH_Approach_Target>
   <RHAH_Arrival_Text>ラットキンが{1}に到着しました。今回やって来たのは、{0}です。</RHAH_Arrival_Text>
   <RHAH_Arrival_GreatFamine_Text>大勢の飢えたラットキンが{1}に到着しました。食べ物を探し回り、すでに私たちの物資を狙っている者もいます。\n\n今回やって来たのは、{0}です。</RHAH_Arrival_GreatFamine_Text>
-  <RHAH_Incident_MouseSwarm_Label>ネズミの大群</RHAH_Incident_MouseSwarm_Label>
+  <RHAH_Incident_MouseSwarm_Label>ラットキンの大群</RHAH_Incident_MouseSwarm_Label>
   <RHAH_Incident_PleadingJoin_Label>加入の懇願</RHAH_Incident_PleadingJoin_Label>
   <RHAH_Incident_BanditAttack_Label>盗賊の襲撃</RHAH_Incident_BanditAttack_Label>
   <RHAH_BanditAttack_LetterText>追い詰められたラットキンの一団が盗賊になりました。私たちを襲い、物資を奪おうとしています。</RHAH_BanditAttack_LetterText>

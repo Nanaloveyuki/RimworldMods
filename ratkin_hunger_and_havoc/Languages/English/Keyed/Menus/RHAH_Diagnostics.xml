@@ -16,6 +16,6 @@
   <RHAH_Menu_Diagnostics_Pending>Pending incidents</RHAH_Menu_Diagnostics_Pending>
   <RHAH_Menu_Diagnostics_Batches>Active batches</RHAH_Menu_Diagnostics_Batches>
   <RHAH_Menu_Diagnostics_Map>Current map</RHAH_Menu_Diagnostics_Map>
-  <RHAH_Menu_Developer_Note>Dev mode queues are on the trigger page. Version and IrisMenus are under Compatibility and diagnostics.</RHAH_Menu_Developer_Note>
+  <RHAH_Menu_Developer_Note>Use the trigger incidents page to trigger incidents manually. Version and IrisMenus information are on the Compatibility and diagnostics page.</RHAH_Menu_Developer_Note>
   <RHAH_Menu_Developer_LastPawn>Last listed visitor</RHAH_Menu_Developer_LastPawn>
 </LanguageData>

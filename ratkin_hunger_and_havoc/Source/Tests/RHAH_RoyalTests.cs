@@ -29,6 +29,13 @@ namespace HungerAndHavoc.Tests
         readonly List<string> replies = new List<string>();
         readonly List<Verse.Pawn> discarded = new List<Verse.Pawn>();
         EventChainRuntime mapRuntime;
+        int storedSilver;
+        bool homeAllowed = true;
+        bool skylandAllowed = true;
+        bool entryAllowed = true;
+        RHAH_IncidentContext arrival;
+        IncidentParms executedParms;
+        List<IncidentDef> previousIncidents;
         static RHAH_RoyalTests active;
 
         public RHAH_RoyalTests()
@@ -67,6 +74,11 @@ namespace HungerAndHavoc.Tests
             ThingDefOf.Silver = previousSilver;
             LanguageDatabase.activeLanguage = previousLanguage;
             LanguageDatabase.defaultLanguage = previousDefaultLanguage;
+            if (previousIncidents != null)
+            {
+                DefDatabase<IncidentDef>.Clear();
+                foreach (IncidentDef incident in previousIncidents) DefDatabase<IncidentDef>.Add(incident);
+            }
             active = null;
             fixture.Dispose();
         }
@@ -80,6 +92,112 @@ namespace HungerAndHavoc.Tests
         public void WealthThresholdIsStrictAndCooldownIsFifteenFullYears(int last, int tick, int silver, bool available)
         {
             Assert.Equal(available, RHAH_SuspiciousRoyal.Available(last, tick, silver));
+        }
+
+        [Theory]
+        [InlineData(false, 2500, -1, false)]
+        [InlineData(false, 2501, -1, true)]
+        [InlineData(false, 5001, 0, false)]
+        [InlineData(true, 0, -1, true)]
+        [InlineData(true, 0, 0, true)]
+        public void ForcedArrivalSkipsOnlyTheWealthAndCooldownCheck(bool forced, int silver, int last, bool expected)
+        {
+            PrepareArrival();
+            storedSilver = silver;
+            Current.Game.GetComponent<GameComponent_RHAH_Game>().LastRoyalArrivalTick = last;
+            IncidentWorker_RHAH_SuspiciousRoyal worker = new IncidentWorker_RHAH_SuspiciousRoyal();
+            bool available = (bool)AccessTools.Method(typeof(IncidentWorker_RHAH_SuspiciousRoyal), "CanFireNowSub")
+                .Invoke(worker, new object[] { new IncidentParms { target = map, forced = forced } });
+            Assert.Equal(expected, available);
+        }
+
+        [Theory]
+        [InlineData(false, true, true, true, true)]
+        [InlineData(true, false, true, true, true)]
+        [InlineData(true, true, false, true, true)]
+        [InlineData(true, true, true, false, true)]
+        [InlineData(true, true, true, true, false)]
+        public void ForcedArrivalStillRequiresEnabledContentAndASafeHome(bool content, bool incident, bool home, bool skyland, bool entry)
+        {
+            PrepareArrival();
+            RHAH_Mod.Settings.enableNewContent = content;
+            RHAH_Mod.Settings.SetIncidentEnabled(RHAH_SuspiciousRoyal.DisplayId, incident);
+            homeAllowed = home;
+            skylandAllowed = skyland;
+            entryAllowed = entry;
+            Assert.False(ExecuteArrival());
+            Assert.Null(arrival);
+            Assert.Equal(-1, Current.Game.GetComponent<GameComponent_RHAH_Game>().LastRoyalArrivalTick);
+        }
+
+        [Fact]
+        public void ForcedExecutionSubmitsTheRoyalArrivalAndRecordsItsActualArrivalTick()
+        {
+            PrepareArrival();
+            Current.Game.GetComponent<GameComponent_RHAH_Game>().LastRoyalArrivalTick = 100;
+            Assert.True(ExecuteArrival());
+            Assert.NotNull(arrival);
+            Assert.Equal(RHAH_SuspiciousRoyal.DisplayId, arrival.DisplayId);
+            Assert.Same(map, arrival.Map);
+            Assert.Equal(Api.RHAH_Attitude.Neutral, arrival.Attitude);
+            Assert.Equal(Find.TickManager.TicksGame, Current.Game.GetComponent<GameComponent_RHAH_Game>().LastRoyalArrivalTick);
+        }
+
+        [Fact]
+        public void CommittedRoyalApproachCanEnterAfterTheStoredSilverHasBeenSpent()
+        {
+            PrepareApproachArrival();
+            GameComponent_RHAH_Game game = Current.Game.GetComponent<GameComponent_RHAH_Game>();
+            game.LastRoyalArrivalTick = 100;
+            storedSilver = 0;
+            RoyalApproachProbe approach = new RoyalApproachProbe { ID = 95 };
+            approach.Configure(RHAH_SuspiciousRoyal.DisplayId, 200f, map.uniqueID, false);
+            Find.WorldObjects.AllWorldObjects.Add(approach);
+
+            AccessTools.Method(typeof(WorldObject_RHAH_Approach), "Arrive").Invoke(approach, null);
+
+            Assert.True(approach.RemovalRequested);
+            Assert.NotNull(arrival);
+            Assert.Same(map, arrival.Map);
+            Assert.IsType<RHAH_ArrivalParms>(executedParms);
+            Assert.False(executedParms.forced);
+            Assert.Single(Find.WorldObjects.AllWorldObjects.OfType<WorldObject_RHAH_Approach>());
+            Assert.Equal(Find.TickManager.TicksGame, game.LastRoyalArrivalTick);
+        }
+
+        [Theory]
+        [InlineData(false, true, true, true, true)]
+        [InlineData(true, false, true, true, true)]
+        [InlineData(true, true, false, true, true)]
+        [InlineData(true, true, true, false, true)]
+        [InlineData(true, true, true, true, false)]
+        public void CommittedArrivalStillRespectsContentAndMapSafety(bool content, bool incident, bool home, bool skyland, bool entry)
+        {
+            PrepareApproachArrival();
+            RHAH_Mod.Settings.enableNewContent = content;
+            RHAH_Mod.Settings.SetIncidentEnabled(RHAH_SuspiciousRoyal.DisplayId, incident);
+            homeAllowed = home;
+            skylandAllowed = skyland;
+            entryAllowed = entry;
+
+            RHAH_ArrivalResult result = Current.Game.GetComponent<GameComponent_RHAH_Game>()
+                .SpawnArrived(RHAH_SuspiciousRoyal.DisplayId, 200f, map.uniqueID);
+
+            Assert.NotEqual(RHAH_ArrivalResult.Spawned, result);
+            Assert.Null(arrival);
+            Assert.Equal(-1, Current.Game.GetComponent<GameComponent_RHAH_Game>().LastRoyalArrivalTick);
+        }
+
+        [Fact]
+        public void RoyalQueueWithInsufficientWealthDoesNotCreateADoomedApproach()
+        {
+            PrepareApproachArrival();
+            GameComponent_RHAH_Game game = Current.Game.GetComponent<GameComponent_RHAH_Game>();
+            Assert.True(game.QueueIncident(RHAH_SuspiciousRoyal.DisplayId, 200f, map.uniqueID));
+            Assert.False(game.TrySpawnPending(0));
+            Assert.Empty(game.PendingIncidentDisplayIds);
+            Assert.Empty(Find.WorldObjects.AllWorldObjects.OfType<WorldObject_RHAH_Approach>());
+            Assert.Null(arrival);
         }
 
         [Theory]
@@ -280,6 +398,76 @@ namespace HungerAndHavoc.Tests
         void Patch(MethodInfo target, string name) => harmony.Patch(target,
             prefix: new HarmonyMethod(AccessTools.Method(typeof(RHAH_RoyalTests), name)));
 
+        void PrepareArrival()
+        {
+            Patch(AccessTools.PropertyGetter(typeof(Map), nameof(Map.IsPlayerHome)), nameof(Home));
+            Patch(AccessTools.Method(typeof(RHAH_RoyalSilver), nameof(RHAH_RoyalSilver.Stored)), nameof(StoredSilver));
+            Patch(AccessTools.Method(typeof(Pawn.Compat.RHAH_SkylandCompat), nameof(Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents)), nameof(Skyland));
+            Patch(AccessTools.Method(typeof(RHAH_IncidentArrival), nameof(RHAH_IncidentArrival.TryFindSpawnCell)), nameof(EntryCell));
+            Patch(AccessTools.Method(typeof(RHAH_IncidentFacts), nameof(RHAH_IncidentFacts.Submit)), nameof(SubmitArrival));
+        }
+
+        void PrepareApproachArrival()
+        {
+            PrepareArrival();
+            previousIncidents = new List<IncidentDef>(DefDatabase<IncidentDef>.AllDefsListForReading);
+            DefDatabase<IncidentDef>.Clear();
+            DefDatabase<IncidentDef>.Add(new IncidentDef
+            {
+                defName = "RHAH_SuspiciousRoyal",
+                workerClass = typeof(IncidentWorker_RHAH_SuspiciousRoyal),
+                category = new IncidentCategoryDef()
+            });
+            map.info = new MapInfo { parent = new Settlement() };
+            map.mapPawns = new MapPawns(map);
+            Current.Game.storyteller = (RimWorld.Storyteller)RuntimeHelpers.GetUninitializedObject(typeof(RimWorld.Storyteller));
+            Patch(AccessTools.Method(typeof(RimWorld.Storyteller), nameof(RimWorld.Storyteller.RecordIncidentFired)), nameof(RecordFired));
+            Patch(AccessTools.Method(typeof(IncidentWorker_RHAH_SuspiciousRoyal), "TryExecuteWorker"), nameof(CaptureParms));
+        }
+
+        sealed class RoyalApproachProbe : WorldObject_RHAH_Approach
+        {
+            internal bool RemovalRequested;
+            public override void Destroy() => RemovalRequested = true;
+        }
+
+        static bool RecordFired() => false;
+
+        static void CaptureParms(IncidentParms __0) => active.executedParms = __0;
+
+        bool ExecuteArrival()
+        {
+            return (bool)AccessTools.Method(typeof(IncidentWorker_RHAH_SuspiciousRoyal), "TryExecuteWorker")
+                .Invoke(new IncidentWorker_RHAH_SuspiciousRoyal(), new object[] { new IncidentParms { target = map, forced = true } });
+        }
+
+        static bool StoredSilver(ref int __result)
+        {
+            __result = active.storedSilver;
+            return false;
+        }
+
+        static bool Skyland(ref bool __result)
+        {
+            __result = active.skylandAllowed;
+            return false;
+        }
+
+        static bool EntryCell(ref IntVec3 __1, ref bool __2, ref bool __result)
+        {
+            __1 = active.entryAllowed ? new IntVec3(10, 0, 10) : IntVec3.Invalid;
+            __2 = false;
+            __result = active.entryAllowed;
+            return false;
+        }
+
+        static bool SubmitArrival(RHAH_IncidentContext __0, ref bool __result)
+        {
+            active.arrival = __0;
+            __result = true;
+            return false;
+        }
+
         static bool DropCell(ref IntVec3 __result)
         {
             __result = new IntVec3(10, 0, 10);
@@ -317,7 +505,7 @@ namespace HungerAndHavoc.Tests
 
         static bool Home(ref bool __result)
         {
-            __result = true;
+            __result = active.homeAllowed;
             return false;
         }
 

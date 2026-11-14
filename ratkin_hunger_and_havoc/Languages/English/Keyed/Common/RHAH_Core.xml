@@ -2,7 +2,7 @@
 <LanguageData>
   <RHAH_ModName>Ratkin: Hunger and Havoc</RHAH_ModName>
   <RHAH_Settings_EnableNewContent>Enable new content</RHAH_Settings_EnableNewContent>
-  <RHAH_Settings_EnableNewContent_Tooltip>New Hunger and Havoc incidents and visitors stop appearing. Visitors already here keep begging, trading, stealing, or leaving.</RHAH_Settings_EnableNewContent_Tooltip>
+  <RHAH_Settings_EnableNewContent_Tooltip>When disabled, new Hunger and Havoc incidents and visitors stop appearing. Visitors already here keep begging, trading, stealing, or leaving.</RHAH_Settings_EnableNewContent_Tooltip>
   <RHAH_Settings_Reset>Reset this mod's settings</RHAH_Settings_Reset>
   <RHAH_Settings_ResetConfirm>Restore all Ratkin: Hunger and Havoc settings to their defaults? Custom switches, values, and list selections will be reset. Story progress and visitors in your save remain unchanged.</RHAH_Settings_ResetConfirm>
   <RHAH_Menu_Visitors>Visitors</RHAH_Menu_Visitors>

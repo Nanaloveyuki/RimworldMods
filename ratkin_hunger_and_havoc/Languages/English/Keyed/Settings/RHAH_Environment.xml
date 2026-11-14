@@ -7,7 +7,7 @@
   <RHAH_Settings_Temp_Tooltip>While the map is outside this range, new incidents aimed at the map stop. Default -35°C to 70°C. Caravans ignore this limit.</RHAH_Settings_Temp_Tooltip>
   <RHAH_Menu_Environment>Environment</RHAH_Menu_Environment>
   <RHAH_Menu_Environment_Note>When the map is outside what a new visitor can bear, they get the lightest wrap that covers the gap. If none covers it, they get the thickest. People already here keep the clothes they are wearing.</RHAH_Menu_Environment_Note>
-  <RHAH_Menu_Environment_Disabled>Temperature wraps are off. New visitors get none of this extra clothing.</RHAH_Menu_Environment_Disabled>
+  <RHAH_Menu_Environment_Disabled>Temperature clothing is disabled. New visitors follow the ordinary clothing settings.</RHAH_Menu_Environment_Disabled>
   <RHAH_Menu_Environment_Cold>Cold</RHAH_Menu_Environment_Cold>
   <RHAH_Menu_Environment_Heat>Heat</RHAH_Menu_Environment_Heat>
   <RHAH_Settings_TemperatureApparel>Use {0}</RHAH_Settings_TemperatureApparel>

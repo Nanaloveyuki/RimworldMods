@@ -76,7 +76,7 @@
   <RHAH_Settings_AidRequests>Enable aid requests</RHAH_Settings_AidRequests>
   <RHAH_Settings_AidRequests_Tooltip>Off, new aid and baby-exchange letters stop. An open request can still be delivered or refused.</RHAH_Settings_AidRequests_Tooltip>
   <RHAH_Settings_IntelTrades>Enable intel trades</RHAH_Settings_IntelTrades>
-  <RHAH_Settings_IntelTrades_Tooltip>Off, new intel stops being traded for a site. Sites already placed stay on the world.</RHAH_Settings_IntelTrades_Tooltip>
+  <RHAH_Settings_IntelTrades_Tooltip>When enabled, visitors can exchange information about locations for supplies. Disabling this stops new intel trades. Locations already revealed remain on the world map.</RHAH_Settings_IntelTrades_Tooltip>
   <RHAH_Settings_TraderIgnoreEnvironment>Trader caravans ignore harsh weather</RHAH_Settings_TraderIgnoreEnvironment>
   <RHAH_Settings_TraderIgnoreEnvironment_Tooltip>On, famine traders stay after entering even in cold, heat, or dangerous weather. Off, harsh weather still sends them away.</RHAH_Settings_TraderIgnoreEnvironment_Tooltip>
   <RHAH_Settings_TraderIgnoreEnclosed>Trader caravans stay in closed rooms</RHAH_Settings_TraderIgnoreEnclosed>
@@ -96,8 +96,8 @@
   <RHAH_Settings_PredationChance>Ratkin refugees hunted: {0}%</RHAH_Settings_PredationChance>
   <RHAH_Settings_PredationChance_Tooltip>Each camp map rolls this chance for a predator. 0 to 100, default 10. At 0, none arrive.</RHAH_Settings_PredationChance_Tooltip>
   <RHAH_Settings_PredationFightBack>Refugees fight predators</RHAH_Settings_PredationFightBack>
-  <RHAH_Settings_PredationFightBack_Tooltip>Off, hunted camp ratkin run. Anyone who cannot use violence still cannot fight.</RHAH_Settings_PredationFightBack_Tooltip>
-  <RHAH_Settings_PredationFollowDifficulty>Outside predators hunt normally once the ratkin are gone</RHAH_Settings_PredationFollowDifficulty>
+  <RHAH_Settings_PredationFightBack_Tooltip>When enabled, ratkin at the settlement who are capable of violence fight back against predators. When disabled, hunted ratkin flee.</RHAH_Settings_PredationFightBack_Tooltip>
+  <RHAH_Settings_PredationFollowDifficulty>Outside predators follow the save’s difficulty when no ratkin remain to eat</RHAH_Settings_PredationFollowDifficulty>
   <RHAH_Settings_PredationFollowDifficulty_Tooltip>On, they resume ordinary hunting when no reachable ratkin or corpse remains. Off, a hungry predator with nothing reachable leaves the map.</RHAH_Settings_PredationFollowDifficulty_Tooltip>
   <RHAH_Settings_FollowPredator>Short follow-up predators: {0}%</RHAH_Settings_FollowPredator>
   <RHAH_Settings_FollowPredator_Tooltip>When an incident uses the short follow-up, this is the chance predators are sent once that group appears. 0 to 100, default 10. At 0, none are sent.</RHAH_Settings_FollowPredator_Tooltip>

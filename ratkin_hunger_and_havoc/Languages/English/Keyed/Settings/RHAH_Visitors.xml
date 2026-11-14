@@ -7,7 +7,7 @@
   <RHAH_Settings_Begging>Allow begging</RHAH_Settings_Begging>
   <RHAH_Settings_Begging_Tooltip>Off, visitors stop begging from colonists.</RHAH_Settings_Begging_Tooltip>
   <RHAH_Settings_BegAutoGive>Give carried food when begging succeeds</RHAH_Settings_BegAutoGive>
-  <RHAH_Settings_BegAutoGive_Tooltip>Off by default. On, a successful beg takes one allowed food from the colonist's pack, highest nutrition first. Off, the visitor still asks, the food stays in the pack, and the beg does not count as success. Handing food over, relief food, and feeding during care continue as usual.</RHAH_Settings_BegAutoGive_Tooltip>
+  <RHAH_Settings_BegAutoGive_Tooltip>Disabled by default. When enabled, a successful beg gives the visitor one allowed food item from the colonist’s pack, preferring food with higher nutrition.</RHAH_Settings_BegAutoGive_Tooltip>
   <RHAH_Settings_BegSuccessChance>First beg succeeds: {0}%</RHAH_Settings_BegSuccessChance>
   <RHAH_Settings_BegSuccessChance_Tooltip>Base chance the first time someone begs from one colonist. Social skill adds the bonus below, up to 100%. Default 35.</RHAH_Settings_BegSuccessChance_Tooltip>
   <RHAH_Settings_BegSocialBonus>Social skill bonus: +{0}% per level</RHAH_Settings_BegSocialBonus>
@@ -68,7 +68,7 @@
   <RHAH_Settings_GnawBark>Bark nutrition: {0}</RHAH_Settings_GnawBark>
   <RHAH_Settings_GnawBark_Tooltip>Nutrition from one bite of a plant. 0 to 2, default 0.25.</RHAH_Settings_GnawBark_Tooltip>
   <RHAH_Settings_GnawBarkDamage>Bark damage: {0}</RHAH_Settings_GnawBarkDamage>
-  <RHAH_Settings_GnawBarkDamage_Tooltip>Fixed hit points removed by one bite of a plant. Material, building, and damage multipliers do not change the bite. 0 to 50, default 12.</RHAH_Settings_GnawBarkDamage_Tooltip>
+  <RHAH_Settings_GnawBarkDamage_Tooltip>Fixed hit points a plant loses each time a visitor gnaws it. Range 0 to 50, default 12.</RHAH_Settings_GnawBarkDamage_Tooltip>
   <RHAH_Settings_GnawWall>Wall nutrition: {0}</RHAH_Settings_GnawWall>
   <RHAH_Settings_GnawWall_Tooltip>Nutrition from one bite of a wall. 0 to 2, default 0.20.</RHAH_Settings_GnawWall_Tooltip>
   <RHAH_Settings_GnawWallDamage>Wall damage: {0}</RHAH_Settings_GnawWallDamage>
@@ -84,7 +84,7 @@
   <RHAH_Settings_PrisonerHungry>Prisoner hunger: {0}%</RHAH_Settings_PrisonerHungry>
   <RHAH_Settings_PrisonerHungry_Tooltip>A prisoner scavenges or bites a tail below this food level. 0 to 100, default 20.</RHAH_Settings_PrisonerHungry_Tooltip>
   <RHAH_Settings_TailAge>Tail-bite age: {0}</RHAH_Settings_TailAge>
-  <RHAH_Settings_TailAge_Tooltip>Only a sleeping child under this age can be bitten. 0 to 18, default 3.</RHAH_Settings_TailAge_Tooltip>
+  <RHAH_Settings_TailAge_Tooltip>Tail-bite targets must be sleeping young prisoners below this age. Range 0 to 18 years, default 3.</RHAH_Settings_TailAge_Tooltip>
   <RHAH_Settings_Scavenge>Filth nutrition: {0}</RHAH_Settings_Scavenge>
   <RHAH_Settings_Scavenge_Tooltip>Nutrition from licking filth once. 0 to 2, default 0.15.</RHAH_Settings_Scavenge_Tooltip>
   <RHAH_Settings_TailFood>Tail nutrition: {0}</RHAH_Settings_TailFood>
@@ -96,7 +96,7 @@
   <RHAH_Settings_FamineYearChance>Yearly famine chance: {0}%</RHAH_Settings_FamineYearChance>
   <RHAH_Settings_FamineYearChance_Tooltip>Chance that a year is a famine year. Range 0 to 100%, default 40%.</RHAH_Settings_FamineYearChance_Tooltip>
   <RHAH_Settings_FamineYearMultiplier>Famine-year visitor multiplier: {0}</RHAH_Settings_FamineYearMultiplier>
-  <RHAH_Settings_FamineYearMultiplier_Tooltip>During famine years, this mod's ordinary multi-person groups are multiplied after their usual population cap, rounding up. Single visitors, fixed mother-and-child families and laboring pairs retain their usual size. Mouse swarms always number 15 to 50. Broadcasts can call up to this multiplier rounded up in distinct groups. Range 1 to 4, default 3.</RHAH_Settings_FamineYearMultiplier_Tooltip>
+  <RHAH_Settings_FamineYearMultiplier_Tooltip>During famine years, this mod's ordinary multi-person groups are multiplied after their usual population cap, rounding up. Single visitors, fixed mother-and-child families and laboring pairs retain their usual size. Ratkin swarms always number 15 to 50. Broadcasts can call up to this multiplier rounded up in distinct groups. Range 1 to 4, default 3.</RHAH_Settings_FamineYearMultiplier_Tooltip>
   <RHAH_Settings_FamineYearDisasterChance>Daily extra disaster chance in famine years: {0}%</RHAH_Settings_FamineYearDisasterChance>
   <RHAH_Settings_FamineYearDisasterChance_Tooltip>At 6 AM local time each day of a famine year, this chance applies to an attempt to cause a cold snap, heat wave, toxic fallout or volcanic winter. At most one extra disaster succeeds per famine year. Range 0 to 100%, default 20%.</RHAH_Settings_FamineYearDisasterChance_Tooltip>
   <RHAH_FamineYear_Label>{0}: The year's outlook</RHAH_FamineYear_Label>

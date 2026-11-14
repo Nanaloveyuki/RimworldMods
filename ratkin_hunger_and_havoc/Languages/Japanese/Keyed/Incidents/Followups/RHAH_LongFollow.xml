@@ -3,15 +3,15 @@
   <RHAH_Long_Label>再訪した来客</RHAH_Long_Label>
   <RHAH_Long_Stale>この選択はもう実行できません。</RHAH_Long_Stale>
   <RHAH_Long_NoFood>利用できる食べ物が足りません。</RHAH_Long_NoFood>
-  <RHAH_Long_RecognizeFeed>{0}が認めて食べ物を渡す</RHAH_Long_RecognizeFeed>
-  <RHAH_Long_Recognize>{0}が認めるが食べ物は渡さない</RHAH_Long_Recognize>
+  <RHAH_Long_RecognizeFeed>{0}が交換の事実を認め、来客に食べ物を渡す</RHAH_Long_RecognizeFeed>
+  <RHAH_Long_Recognize>{0}が交換の事実を認めるが、食べ物は渡さない</RHAH_Long_Recognize>
   <RHAH_Long_Deny>認めない</RHAH_Long_Deny>
   <RHAH_Long_Capture>来客を捕らえる</RHAH_Long_Capture>
   <RHAH_Long_Pay>食べ物を{0}個渡す</RHAH_Long_Pay>
   <RHAH_Long_Refuse>断る</RHAH_Long_Refuse>
   <RHAH_Long_Welcome>中に入れ、食べ物を{0}個渡す</RHAH_Long_Welcome>
   <RHAH_Long_RejectEntry>中に入れない</RHAH_Long_RejectEntry>
-  <RHAH_Long_Point>{0}を指す</RHAH_Long_Point>
+  <RHAH_Long_Point>当時自分を引き渡したのは{0}だと伝える</RHAH_Long_Point>
   <RHAH_Long_NoPoint>誰も指さない</RHAH_Long_NoPoint>
   <RHAH_Long_AskNext>次の難民に尋ねる</RHAH_Long_AskNext>
   <RHAH_Long_StopAsking>もう尋ねない</RHAH_Long_StopAsking>
@@ -34,7 +34,7 @@
   <RHAH_Long_I-019_1>{1}は、かつて引き渡されたことを覚えています。中に入りたがり、食べ物も{2}個求めています。</RHAH_Long_I-019_1>
   <RHAH_Long_I-019_2>来客は、あのとき自分を引き渡したのは誰だったのか知りたがっています。</RHAH_Long_I-019_2>
   <RHAH_Long_I-019_7>来客は、あのとき連れていかれた方角を覚えています。</RHAH_Long_I-019_7>
-  <RHAH_Long_I-019_9>来客はその子を見たと言う場合も、否定する場合もあります。見た場合は行き先の情報に食べ物{2}個を求めます。</RHAH_Long_I-019_9>
+  <RHAH_Long_I-019_9>来客の中にはその子を見たと言う者も、見ていないと言う者もいます。情報を提供してくれる来客は、引き換えに食べ物{2}個を求めています。</RHAH_Long_I-019_9>
   <RHAH_Long_I-032_1>{0}が布切れを持ってきました。子供に残されていた布切れと、同じ布の別の部分のようです。子供を引き取りに来たと言っています。</RHAH_Long_I-032_1>
   <RHAH_Long_I-032_2>来客は、子供が一緒に去るのを待っています。</RHAH_Long_I-032_2>
   <RHAH_Long_I-032_3>来客は話を変え、食べ物{2}個を求めています。</RHAH_Long_I-032_3>
@@ -44,11 +44,11 @@
   <RHAH_Long_ExchangeRetraction>来客は、交換の話を聞いただけだと言い直しました。</RHAH_Long_ExchangeRetraction>
   <RHAH_Long_ExchangeMention>交易隊の誰かが、当時の子供の交換にもう一度触れました。</RHAH_Long_ExchangeMention>
   <RHAH_Long_CannotRecognize>1日後、誰だったか分からないと言い直しました。</RHAH_Long_CannotRecognize>
-  <RHAH_Long_DirectionMatches>その後の行き先が一致しました。</RHAH_Long_DirectionMatches>
-  <RHAH_Long_DirectionDoesNotMatch>その後の行き先は一致せず、もう尋ねなくなりました。</RHAH_Long_DirectionDoesNotMatch>
+  <RHAH_Long_DirectionMatches>来客が話した行き先は、その子が覚えていた方角と一致しました。</RHAH_Long_DirectionMatches>
+  <RHAH_Long_DirectionDoesNotMatch>来客が話した行き先は、その子が覚えていた方角と一致しませんでした。その子はもう尋ねなくなりました。</RHAH_Long_DirectionDoesNotMatch>
   <RHAH_Long_ChildCannotRemember>子供は幼すぎて、母親を呼ぶことしかできません。</RHAH_Long_ChildCannotRemember>
-  <RHAH_Long_RememberedMeals>着地した後の食べ物だけ覚えているそうです。</RHAH_Long_RememberedMeals>
-  <RHAH_Long_ReturnedThin>同じ子供が戻ってきました。去った時より痩せています。</RHAH_Long_ReturnedThin>
-  <RHAH_Long_CameBackNextDay>翌日、その子は元の養育者のところへ戻りました。</RHAH_Long_CameBackNextDay>
-  <RHAH_Long_CalledAgain>物乞いたちと戻ってきた子供は、その人を見てもう一度呼びかけました。</RHAH_Long_CalledAgain>
+  <RHAH_Long_RememberedMeals>子供は、ここに空中投下されてから食べた食事だけを覚えています。</RHAH_Long_RememberedMeals>
+  <RHAH_Long_ReturnedThin>あのとき一緒に去った子供が送り返されました。去った時より痩せています。</RHAH_Long_ReturnedThin>
+  <RHAH_Long_CameBackNextDay>翌日、その子は元の相手のところへ戻りました。</RHAH_Long_CameBackNextDay>
+  <RHAH_Long_CalledAgain>子供が物乞いたちと共に戻ってきました。あのとき世話をしてくれた人を見ると、もう一度「ママ」と呼びました。</RHAH_Long_CalledAgain>
 </LanguageData>

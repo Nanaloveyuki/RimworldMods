@@ -8,9 +8,9 @@
   <RHAH_Thought_MotherDiedAtDoor.stages.0.description>母は私を迎えに戻り、門の前で死んでしまった。</RHAH_Thought_MotherDiedAtDoor.stages.0.description>
   <RHAH_Thought_ChildStillAlive.stages.0.label>子は生きている</RHAH_Thought_ChildStillAlive.stages.0.label>
   <RHAH_Thought_ChildStillAlive.stages.0.description>私の子は生きている。それだけでも分かってよかった。</RHAH_Thought_ChildStillAlive.stages.0.description>
-  <RHAH_LongKeepsakeTaken.stages.0.label>形見を取り上げられた</RHAH_LongKeepsakeTaken.stages.0.label>
+  <RHAH_LongKeepsakeTaken.stages.0.label>思い出の品を取り上げられた</RHAH_LongKeepsakeTaken.stages.0.label>
   <RHAH_LongKeepsakeTaken.stages.0.description>昔の家から持ってきた大切な物を取り上げられた。</RHAH_LongKeepsakeTaken.stages.0.description>
-  <RHAH_LongKeepsakeLost.stages.0.label>形見を失った</RHAH_LongKeepsakeLost.stages.0.label>
+  <RHAH_LongKeepsakeLost.stages.0.label>思い出の品がなくなった</RHAH_LongKeepsakeLost.stages.0.label>
   <RHAH_LongKeepsakeLost.stages.0.description>昔の家から持ってきた大切な物がなくなった。</RHAH_LongKeepsakeLost.stages.0.description>
   <RHAH_LongClaimScared.stages.0.label>素性を話すのが怖い</RHAH_LongClaimScared.stages.0.label>
   <RHAH_LongClaimScared.stages.0.description>私を探しに来た人が殺された。もう自分の素性を話すのが怖い。</RHAH_LongClaimScared.stages.0.description>

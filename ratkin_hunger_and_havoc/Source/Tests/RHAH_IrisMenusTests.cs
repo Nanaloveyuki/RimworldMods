@@ -234,6 +234,30 @@ namespace HungerAndHavoc.Tests
         }
 
         static IEnumerable<string> SearchIds(string page) => registered[page].Search().Select(entry => entry.Id);
+
+        [Fact]
+        public void EverySearchProviderHasUniqueIdsWhenCombinedWithItsChapter()
+        {
+            MethodInfo combine = AccessTools.Method(typeof(RHAH_IrisMenusPages), "SearchChapters");
+            foreach (KeyValuePair<string, RegisteredPage> page in registered)
+            {
+                RHAH_IrisMenusChapter[] chapters =
+                {
+                    new RHAH_IrisMenusChapter("chapter-" + page.Key, "RHAH_Background_SettingsTitle", page.Value.Draw)
+                };
+                IEnumerable<MenuSearchEntry> entries = (IEnumerable<MenuSearchEntry>)combine.Invoke(null,
+                    new object[] { chapters, new[] { page.Value.Search } });
+                string[] ids = entries.Select(entry => entry.Id).ToArray();
+                Assert.Equal(ids.Length, ids.Distinct(StringComparer.Ordinal).Count());
+            }
+            string[] background = SearchIds("background-stories").ToArray();
+            Assert.Contains("background-Enabled", background);
+            Assert.Contains("background-RuinsDistance", background);
+            Assert.Contains("background-event-Rebellion", background);
+            Assert.Contains("background-weight-Rebellion", background);
+            Assert.Contains("background-RestorationGoodwill", background);
+        }
+
         static bool CapturePage(string pageId, Action<Listing_Standard> draw, Func<IEnumerable<MenuSearchEntry>> search, Action<string> beforeFocus)
         {
             registered.Add(pageId, new RegisteredPage { Draw = draw, Search = search, BeforeFocus = beforeFocus });

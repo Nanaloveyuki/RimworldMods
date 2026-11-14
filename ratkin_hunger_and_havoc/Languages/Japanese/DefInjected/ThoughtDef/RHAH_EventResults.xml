@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Thought_MotherGoneBad.stages.0.description>母は私をここに置いていった。その場所を今も覚えている。</RHAH_Thought_MotherGoneBad.stages.0.description>
-  <RHAH_Thought_MotherGoneBad.stages.0.label>ママがここに置いて、いなくなった</RHAH_Thought_MotherGoneBad.stages.0.label>
+  <RHAH_Thought_MotherGoneBad.stages.0.label>ママにここへ置いていかれた</RHAH_Thought_MotherGoneBad.stages.0.label>
   <RHAH_Thought_MotherGoneGood.stages.0.description>母が去った後、ここの人がごはんをくれた。やっとお腹いっぱい食べられた。</RHAH_Thought_MotherGoneGood.stages.0.description>
   <RHAH_Thought_MotherGoneGood.stages.0.label>ママはいなくなったけど、お腹いっぱい</RHAH_Thought_MotherGoneGood.stages.0.label>
   <RHAH_Thought_AteMotherGuilt.stages.0.description>自分の母を食べてしまった。あの一口を今も覚えている。</RHAH_Thought_AteMotherGuilt.stages.0.description>
-  <RHAH_Thought_AteMotherGuilt.stages.0.label>ママを食べちゃった。ごめんね…</RHAH_Thought_AteMotherGuilt.stages.0.label>
+  <RHAH_Thought_AteMotherGuilt.stages.0.label>母を食べた罪悪感</RHAH_Thought_AteMotherGuilt.stages.0.label>
   <RHAH_Thought_AteMotherFine.stages.0.description>飢えていたから母を食べた。あの時は、お腹を満たすことしか考えていなかった。</RHAH_Thought_AteMotherFine.stages.0.description>
   <RHAH_Thought_AteMotherFine.stages.0.label>母を食べて空腹を満たした</RHAH_Thought_AteMotherFine.stages.0.label>
   <RHAH_Thought_AidAgain.stages.0.description>今回は食べ物をもらえた。またお腹が空いたら、ここで頼んでみたい。</RHAH_Thought_AidAgain.stages.0.description>
-  <RHAH_Thought_AidAgain.stages.0.label>また頼めばもらえる</RHAH_Thought_AidAgain.stages.0.label>
+  <RHAH_Thought_AidAgain.stages.0.label>また食べ物を頼みに来たい</RHAH_Thought_AidAgain.stages.0.label>
   <RHAH_Thought_AidEmpty.stages.0.description>もらった食べ物もいずれ尽きる。ほかにも分けてくれる人を探さないと。</RHAH_Thought_AidEmpty.stages.0.description>
-  <RHAH_Thought_AidEmpty.stages.0.label>袋が空になる前に次を探さないと</RHAH_Thought_AidEmpty.stages.0.label>
+  <RHAH_Thought_AidEmpty.stages.0.label>また食べ物を頼める人を探さないと</RHAH_Thought_AidEmpty.stages.0.label>
   <RHAH_Thought_TraderSilent.stages.0.description>あの商隊が持ち込んだ病気にかかった。来た時は一言も教えてくれなかった。</RHAH_Thought_TraderSilent.stages.0.description>
   <RHAH_Thought_TraderSilent.stages.0.label>あの商隊、病気だと言わなかった</RHAH_Thought_TraderSilent.stages.0.label>
   <RHAH_Thought_MotherSorry.stages.0.description>空腹で母に噛みついてしまった。母は生きているけれど、思い出すたびに申し訳なくなる。</RHAH_Thought_MotherSorry.stages.0.description>
   <RHAH_Thought_MotherSorry.stages.0.label>母に噛みついた後悔</RHAH_Thought_MotherSorry.stages.0.label>
   <RHAH_Thought_MotherFine.stages.0.description>お腹が空いて母に噛みついた。今も生きているし、たいしたことじゃないと思う。</RHAH_Thought_MotherFine.stages.0.description>
-  <RHAH_Thought_MotherFine.stages.0.label>母に噛みついても平気</RHAH_Thought_MotherFine.stages.0.label>
+  <RHAH_Thought_MotherFine.stages.0.label>噛みついた母はまだ生きている</RHAH_Thought_MotherFine.stages.0.label>
   <RHAH_Thought_ChildDeadGlad.stages.0.description>噛みついてきた子が死んだ。もう噛まれる心配をしなくていい。</RHAH_Thought_ChildDeadGlad.stages.0.description>
-  <RHAH_Thought_ChildDeadGlad.stages.0.label>噛みついたあのクソガキがやっと死んだ</RHAH_Thought_ChildDeadGlad.stages.0.label>
+  <RHAH_Thought_ChildDeadGlad.stages.0.label>噛みついてきた子が死んだ</RHAH_Thought_ChildDeadGlad.stages.0.label>
   <RHAH_Thought_ChildDeadSad.stages.0.description>私の子が死んだ。空腹のあまり私に噛みついた、あの子が。</RHAH_Thought_ChildDeadSad.stages.0.description>
-  <RHAH_Thought_ChildDeadSad.stages.0.label>私の子が…</RHAH_Thought_ChildDeadSad.stages.0.label>
+  <RHAH_Thought_ChildDeadSad.stages.0.label>私の子が死んだ</RHAH_Thought_ChildDeadSad.stages.0.label>
   <RHAH_Thought_ChildStarvedSad.stages.0.description>食べ物を求めて子を連れてきたのに、結局飢え死にさせてしまった。</RHAH_Thought_ChildStarvedSad.stages.0.description>
   <RHAH_Thought_ChildStarvedSad.stages.0.label>子は結局飢え死にした</RHAH_Thought_ChildStarvedSad.stages.0.label>
   <RHAH_Thought_ChildStarvedGlad.stages.0.description>子が飢え死にした。食べさせる口が一つ減ったとしか思えない。</RHAH_Thought_ChildStarvedGlad.stages.0.description>
@@ -39,7 +39,7 @@
   <RHAH_Thought_SoldFed.stages.0.description>買われてここに来た。少なくとも、ここではごはんをもらえる。</RHAH_Thought_SoldFed.stages.0.description>
   <RHAH_Thought_SoldFed.stages.0.label>買われた先では食事がある</RHAH_Thought_SoldFed.stages.0.label>
   <RHAH_Thought_TradedAway.stages.0.description>食べ物と引き換えに、知らない人たちの所へ置いていかれた。</RHAH_Thought_TradedAway.stages.0.description>
-  <RHAH_Thought_TradedAway.stages.0.label>交換に出されちゃった</RHAH_Thought_TradedAway.stages.0.label>
+  <RHAH_Thought_TradedAway.stages.0.label>食べ物と交換に出された</RHAH_Thought_TradedAway.stages.0.label>
   <RHAH_Thought_TradedFed.stages.0.description>交換に出されてここへ来た。食べ物があるから、ここにいたい。</RHAH_Thought_TradedFed.stages.0.description>
   <RHAH_Thought_TradedFed.stages.0.label>ごはんのある所に交換された</RHAH_Thought_TradedFed.stages.0.label>
   <RHAH_Thought_FineGood.stages.0.description>今回もらったごはんはおいしい。こんなごはんは久しぶりだ。</RHAH_Thought_FineGood.stages.0.description>
@@ -63,13 +63,13 @@
   <RHAH_Thought_BornAlive.stages.0.description>私の子が生まれ、生きていてくれた。こうして見ていられるだけでうれしい。</RHAH_Thought_BornAlive.stages.0.description>
   <RHAH_Thought_BornAlive.stages.0.label>子は生きてくれた</RHAH_Thought_BornAlive.stages.0.label>
   <RHAH_Thought_FellBad.stages.0.description>乗っていた降下ポッドがここに落ちた。周りに知り合いは一人もいなかった。</RHAH_Thought_FellBad.stages.0.description>
-  <RHAH_Thought_FellBad.stages.0.label>空から落ちてきたんだ</RHAH_Thought_FellBad.stages.0.label>
+  <RHAH_Thought_FellBad.stages.0.label>知らない場所に降下した</RHAH_Thought_FellBad.stages.0.label>
   <RHAH_Thought_FellGood.stages.0.description>乗っていた降下ポッドがここに落ちた。ここの人たちはごはんもくれた。</RHAH_Thought_FellGood.stages.0.description>
   <RHAH_Thought_FellGood.stages.0.label>ごはんのある所に落ちた</RHAH_Thought_FellGood.stages.0.label>
   <RHAH_Thought_WrongKinBad.stages.0.description>知らない人を母だと思い込んでいた。間違いだと分かっても、母の居場所は分からない。</RHAH_Thought_WrongKinBad.stages.0.description>
   <RHAH_Thought_WrongKinBad.stages.0.label>知らない人を母だと思った</RHAH_Thought_WrongKinBad.stages.0.label>
   <RHAH_Thought_WrongKinGood.stages.0.description>ここの人を母だと思い込んでいた。間違えても、ごはんをくれた。</RHAH_Thought_WrongKinGood.stages.0.description>
-  <RHAH_Thought_WrongKinGood.stages.0.label>間違えたけど、ごはんはある</RHAH_Thought_WrongKinGood.stages.0.label>
+  <RHAH_Thought_WrongKinGood.stages.0.label>人違いでも食べ物をもらえた</RHAH_Thought_WrongKinGood.stages.0.label>
   <RHAH_Thought_PlagueMotherDeadBad.stages.0.description>母は私をここに置いていき、その後死んだ。もう一度会うことすらできない。</RHAH_Thought_PlagueMotherDeadBad.stages.0.description>
   <RHAH_Thought_PlagueMotherDeadBad.stages.0.label>ママがここに置いて、死んじゃった</RHAH_Thought_PlagueMotherDeadBad.stages.0.label>
   <RHAH_Thought_PlagueMotherDeadGood.stages.0.description>母は死んだけれど、私はペストを生き延びた。まだ食べて、生きていける。</RHAH_Thought_PlagueMotherDeadGood.stages.0.description>
@@ -77,9 +77,9 @@
   <RHAH_Thought_PlagueLeft.stages.0.description>母が去った時、私はペストにかかっていた。あの病気の日々を今も覚えている。</RHAH_Thought_PlagueLeft.stages.0.description>
   <RHAH_Thought_PlagueLeft.stages.0.label>母が去った時はペストだった</RHAH_Thought_PlagueLeft.stages.0.label>
   <RHAH_Thought_PlagueLived.stages.0.description>母が去った時はまだ病気だった。それでもペストを生き延びた。</RHAH_Thought_PlagueLived.stages.0.description>
-  <RHAH_Thought_PlagueLived.stages.0.label>生き残った</RHAH_Thought_PlagueLived.stages.0.label>
+  <RHAH_Thought_PlagueLived.stages.0.label>ペストを生き延びた</RHAH_Thought_PlagueLived.stages.0.label>
   <RHAH_Thought_OrphanBad.stages.0.description>ペストで死にかけた。今もまたかかるのが怖い。</RHAH_Thought_OrphanBad.stages.0.description>
-  <RHAH_Thought_OrphanBad.stages.0.label>病気で死にかけた</RHAH_Thought_OrphanBad.stages.0.label>
+  <RHAH_Thought_OrphanBad.stages.0.label>ペストで死にかけた</RHAH_Thought_OrphanBad.stages.0.label>
   <RHAH_Thought_OrphanGood.stages.0.description>ペストを生き延びた。今もごはんを食べられる。</RHAH_Thought_OrphanGood.stages.0.description>
   <RHAH_Thought_OrphanGood.stages.0.label>生き延びて食事もできる</RHAH_Thought_OrphanGood.stages.0.label>
   <RHAH_Thought_CleanBirth.stages.0.description>私はペストにかかったけれど、子にはまだうつっていない。元気な姿を見るとほっとする。</RHAH_Thought_CleanBirth.stages.0.description>
@@ -89,7 +89,7 @@
   <RHAH_Thought_BornSick.stages.0.description>私の子は生まれた時からペストにかかっていた。こんなに小さいのに苦しんでいる。</RHAH_Thought_BornSick.stages.0.description>
   <RHAH_Thought_BornSick.stages.0.label>子は生まれた時からペスト</RHAH_Thought_BornSick.stages.0.label>
   <RHAH_Thought_DropSick.stages.0.description>降下ポッドがここに落ちた時、もうペストにかかっていた。生き延びられるか怖かった。</RHAH_Thought_DropSick.stages.0.description>
-  <RHAH_Thought_DropSick.stages.0.label>落ちてきた時から病気</RHAH_Thought_DropSick.stages.0.label>
+  <RHAH_Thought_DropSick.stages.0.label>ペストにかかったまま降下した</RHAH_Thought_DropSick.stages.0.label>
   <RHAH_Thought_DropLived.stages.0.description>降下ポッドがここに落ちた時はペストにかかっていた。今は生き延びた。</RHAH_Thought_DropLived.stages.0.description>
   <RHAH_Thought_DropLived.stages.0.label>降下後にペストを生き延びた</RHAH_Thought_DropLived.stages.0.label>
   <RHAH_Thought_WrongSick.stages.0.description>ペストにかかっていた時、ここの人を母だと思い込んだ。人違いの戸惑いも病気のつらさも覚えている。</RHAH_Thought_WrongSick.stages.0.description>

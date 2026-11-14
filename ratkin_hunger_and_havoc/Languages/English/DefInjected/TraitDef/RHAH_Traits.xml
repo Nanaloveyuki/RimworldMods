@@ -83,7 +83,7 @@
   <RHAH_Trait_PlagueSurvivor.degreeDatas.0.label>plague aftereffects</RHAH_Trait_PlagueSurvivor.degreeDatas.0.label>
   <RHAH_Trait_PlagueSurvivor.degreeDatas.0.description>{PAWN_nameDef} survived an epidemic once and faces illness with a little more confidence now. Tiredness comes easily, though.</RHAH_Trait_PlagueSurvivor.degreeDatas.0.description>
   <RHAH_Trait_GrainSneak.degreeDatas.0.label>poker-faced</RHAH_Trait_GrainSneak.degreeDatas.0.label>
-  <RHAH_Trait_GrainSneak.degreeDatas.0.description>{PAWN_nameDef} keeps real thoughts off {PAWN_possessive} face.</RHAH_Trait_GrainSneak.degreeDatas.0.description>
+  <RHAH_Trait_GrainSneak.degreeDatas.0.description>{PAWN_nameDef} rarely lets real thoughts show on {PAWN_possessive} face.</RHAH_Trait_GrainSneak.degreeDatas.0.description>
   <RHAH_Trait_SiegeDigger.degreeDatas.0.label>born digger</RHAH_Trait_SiegeDigger.degreeDatas.0.label>
   <RHAH_Trait_SiegeDigger.degreeDatas.0.description>{PAWN_nameDef} is good at digging passages and trenches. When bored, even the couch looks worth scratching at.</RHAH_Trait_SiegeDigger.degreeDatas.0.description>
   <RHAH_Trait_GranaryBreaker.degreeDatas.0.label>combative</RHAH_Trait_GranaryBreaker.degreeDatas.0.label>

@@ -328,8 +328,8 @@ public partial class RatkinRecycleSettings : ModSettings
 		tierChildMax = Math.Max(tierToddlerMax, Nonnegative(tierChildMax, 3f));
 		momHungerPct = Math.Clamp(Finite(momHungerPct, 0.5f), 0f, 1f);
 		otherHungerPct = Math.Clamp(Finite(otherHungerPct, 0.3f), 0f, 1f);
-		momMalnutritionSeverity = Math.Clamp(Finite(momMalnutritionSeverity, 0.2f), 0f, 1f);
-		otherMalnutritionSeverity = Math.Clamp(Finite(otherMalnutritionSeverity, 0.4f), 0f, 1f);
+		momMalnutritionSeverity = Math.Clamp(Finite(momMalnutritionSeverity, 0.2f), 0f, 0.99f);
+		otherMalnutritionSeverity = Math.Clamp(Finite(otherMalnutritionSeverity, 0.4f), 0f, 0.99f);
 		postpartumHours = Nonnegative(postpartumHours, 120f);
 		fineMealHours = Nonnegative(fineMealHours, 48f);
 		fineMealMode = Math.Clamp(fineMealMode, 0, 1);

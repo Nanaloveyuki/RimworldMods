@@ -57,17 +57,17 @@
   <RHAH_Follow_I-012>Children who should not have been cargo</RHAH_Follow_I-012>
   <RHAH_Follow_I-012_Text>The children who arrived with that caravan are still in our colony. The caravan is long gone, but we still have meals to make for them.</RHAH_Follow_I-012_Text>
   <RHAH_Follow_I-013>The child trade</RHAH_Follow_I-013>
-  <RHAH_Follow_I-013_Text>The ratkin brought to our colony for the trade is still in the colony. If we really had sent a child away in return, where would that child be now?</RHAH_Follow_I-013_Text>
+  <RHAH_Follow_I-013_Text>The ratkin brought here for the child exchange still lives in our colony. If we had handed over one of our own children then, we would have little way of knowing where that child ended up.</RHAH_Follow_I-013_Text>
   <RHAH_Follow_I-019>The one they asked for</RHAH_Follow_I-019>
-  <RHAH_Follow_I-019_Text>Someone once came to our colony asking for a baby. The ratkin from that visit is still here. If we really had handed the child over, how would the next people have raised that child?</RHAH_Follow_I-019_Text>
+  <RHAH_Follow_I-019_Text>The ratkin who once came asking for a baby still lives in our colony. If we had handed over a child then, we would have little way of knowing how that child fared.</RHAH_Follow_I-019_Text>
   <RHAH_Follow_I-032>The children from the drop</RHAH_Follow_I-032>
   <RHAH_Follow_I-032_Text>The ratkin dropped on our colony are still in the colony. We do not know whether anyone still keeps their pictures and names, and is still looking for them.</RHAH_Follow_I-032_Text>
   <RHAH_Follow_I-033>The child who called for mother</RHAH_Follow_I-033>
-  <RHAH_Follow_I-033_Text>The young ratkin who called our people Mommy is still in the colony. As we see it, that child saw a kind face and came for a meal.</RHAH_Follow_I-033_Text>
+  <RHAH_Follow_I-033_Text>The young ratkin who once called one of our people Mommy still lives in the colony. We never worked out whether the child mistook them for someone else or just wanted a meal.</RHAH_Follow_I-033_Text>
   <RHAH_Follow_I-037>The mother who left sick</RHAH_Follow_I-037>
   <RHAH_Follow_I-037_Text>That mother left her young in our colony and went away sick. We do not know what became of her. If she is still alive, she probably wants to see how the children are now.</RHAH_Follow_I-037_Text>
   <RHAH_Follow_I-041>The orphan who stayed</RHAH_Follow_I-041>
-  <RHAH_Follow_I-041_Text>The ratkin orphan who came to our colony is still in the colony. No mother is beside the orphan, and we watch the days go on anyway.</RHAH_Follow_I-041_Text>
+  <RHAH_Follow_I-041_Text>The ratkin orphan who came to our colony still lives here. We have cared for this child and watched them grow day by day.</RHAH_Follow_I-041_Text>
   <RHAH_Approach_Label>Ratkin travelers</RHAH_Approach_Label>
   <RHAH_Approach_LetterLabel>Ratkin approaching</RHAH_Approach_LetterLabel>
   <RHAH_Approach_LetterText>A group of ratkin is traveling toward {1}, still some way from our colony. This time, we are expecting: {0}.</RHAH_Approach_LetterText>
@@ -75,7 +75,7 @@
   <RHAH_Approach_Target>The travelers' destination: {0}</RHAH_Approach_Target>
   <RHAH_Arrival_Text>The ratkin have arrived at {1}. The arriving group is: {0}.</RHAH_Arrival_Text>
   <RHAH_Arrival_GreatFamine_Text>A large group of starving ratkin has reached {1}. They are searching for food, and some already have their eyes on our supplies.\n\nThe arriving group is: {0}.</RHAH_Arrival_GreatFamine_Text>
-  <RHAH_Incident_MouseSwarm_Label>Mouse swarm</RHAH_Incident_MouseSwarm_Label>
+  <RHAH_Incident_MouseSwarm_Label>Ratkin swarm</RHAH_Incident_MouseSwarm_Label>
   <RHAH_Incident_PleadingJoin_Label>Pleading to join</RHAH_Incident_PleadingJoin_Label>
   <RHAH_Incident_BanditAttack_Label>Bandit attack</RHAH_Incident_BanditAttack_Label>
   <RHAH_BanditAttack_LetterText>A group of desperate ratkin has turned to banditry. They are coming to attack you and steal your supplies.</RHAH_BanditAttack_LetterText>

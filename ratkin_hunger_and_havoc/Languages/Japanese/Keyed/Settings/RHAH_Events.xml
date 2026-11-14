@@ -22,13 +22,13 @@
   <RHAH_Menu_EventMeta>{0} / {1} / {2} / {3}。放送可：{4}。</RHAH_Menu_EventMeta>
   <RHAH_Menu_Events_Note>20種類のイベントを設定します。同じ種類の場面では、発生の許可、規模、重み、到着時の態度、その後を共有し、発生時に具体的な場面を選びます。スライダーで大まかに、入力欄で正確な値を設定します。重みが0なら種類全体が発生しません。</RHAH_Menu_Events_Note>
   <RHAH_Menu_EventEnabled>発生を許可</RHAH_Menu_EventEnabled>
-  <RHAH_Menu_EventEnabled_Tip>オフにすると、この種類のイベントは抽選や予約の対象から外れます。すでにいる訪問者は活動を続けます。</RHAH_Menu_EventEnabled_Tip>
+  <RHAH_Menu_EventEnabled_Tip>オフにすると、この種類の新たなイベントは発生しなくなります。すでにいる来客は通常どおり活動します。</RHAH_Menu_EventEnabled_Tip>
   <RHAH_Menu_DebugPoints>規模</RHAH_Menu_DebugPoints>
   <RHAH_Menu_DebugPoints_Tip>自然発生と開発者モードでの発生は、同じ種類でこの規模を共有します。訪問者の人数や援助の要求量に影響し、範囲は1～10000です。食料の取引は、その時点の備蓄から要求量を決めます。スライダーで大まかに、入力欄で正確な値を設定します。</RHAH_Menu_DebugPoints_Tip>
   <RHAH_Menu_IncidentWeight>発生の重み</RHAH_Menu_IncidentWeight>
   <RHAH_Menu_IncidentWeight_Tip>100でこの種類の元の割合を保ちます。値を下げると発生が減り、0なら発生しません。同じ種類の場面が多くても、全体の割合は増えません。スライダーで大まかに、入力欄で正確な値を設定します。</RHAH_Menu_IncidentWeight_Tip>
   <RHAH_Menu_Attitude>到着時の態度</RHAH_Menu_Attitude>
-  <RHAH_Menu_Attitude_Tip>選んだ到着時の態度は、この種類の全場面に適用されます。未変更なら各場面の元の態度を使います。スイインの信頼が負の場合はさらに1段階悪化し、敵対は敵対のままです。すでにいる訪問者の態度は変わりません。</RHAH_Menu_Attitude_Tip>
+  <RHAH_Menu_Attitude_Tip>選んだ到着時の態度は、この種類の全場面に適用されます。未変更なら各場面の元の態度を使います。穂音がストーリーテラーで信頼が負の場合、来客の態度はさらに1段階悪化し、敵対を下限とします。新たな来客にだけ適用されます。</RHAH_Menu_Attitude_Tip>
   <RHAH_Menu_Attitude_Hostile>敵対</RHAH_Menu_Attitude_Hostile>
   <RHAH_Menu_Attitude_LeaningHostile>やや敵対的</RHAH_Menu_Attitude_LeaningHostile>
   <RHAH_Menu_Attitude_Neutral>中立</RHAH_Menu_Attitude_Neutral>
@@ -49,7 +49,7 @@
   <RHAH_Menu_Queue_Fired>生成しました。</RHAH_Menu_Queue_Fired>
   <RHAH_Menu_Queue_Queued>予約しました。一時停止ウィンドウを閉じると生成されます。</RHAH_Menu_Queue_Queued>
   <RHAH_Menu_Queue_Failed>予約できませんでした。</RHAH_Menu_Queue_Failed>
-  <RHAH_Menu_DevEvents_Note>開発者モードのページです。「通常の手順で発生」では予約され、マップへの訪問者は先にワールドマップを移動します。「今すぐこのマップに配置」では、このマップにすぐ現れます。ウィンドウを閉じる必要も、キャラバンを出す必要もありません。</RHAH_Menu_DevEvents_Note>
+  <RHAH_Menu_DevEvents_Note>開発者モードのページです。「通常の手順で発生」ではイベントが予約され、マップへの来客は先にワールドマップを移動します。「今すぐこのマップに配置」では、現在のマップに直接来客が現れます。</RHAH_Menu_DevEvents_Note>
   <RHAH_Menu_Frequency_Gap>線は、このグループがこれからの各日に少なくとも1回起きる確率です。上の平均日数と間隔の式から求めます。横軸は日数、縦軸はその日の確率です。0にすると、このグループは起きません。線にマウスを合わせると、その日の確率が表示されます。グラフは現在の信頼と季節で推定します。</RHAH_Menu_Frequency_Gap>
   <RHAH_Menu_Frequency_Positive>好ましいイベントの平均間隔（日）</RHAH_Menu_Frequency_Positive>
   <RHAH_Menu_Frequency_Negative>好ましくないイベントの平均間隔（日）</RHAH_Menu_Frequency_Negative>
@@ -74,15 +74,15 @@
   <RHAH_Menu_Target_Map>マップ</RHAH_Menu_Target_Map>
   <RHAH_Menu_Target_Caravan>キャラバン</RHAH_Menu_Target_Caravan>
   <RHAH_Settings_AidRequests>援助の要請を有効にする</RHAH_Settings_AidRequests>
-  <RHAH_Settings_AidRequests_Tooltip>オフにすると、新たな援助要請や赤ん坊の交換の手紙は届かなくなります。すでに開かれた要請には、引き渡しや拒否で対応できます。</RHAH_Settings_AidRequests_Tooltip>
+  <RHAH_Settings_AidRequests_Tooltip>オンにすると、援助や赤ん坊の交換について手紙で返答を求められます。オフの場合、新たな要求は届きませんが、既存の要求には引き渡しや拒否で対応できます。</RHAH_Settings_AidRequests_Tooltip>
   <RHAH_Settings_IntelTrades>情報の取引を有効にする</RHAH_Settings_IntelTrades>
-  <RHAH_Settings_IntelTrades_Tooltip>オフにすると、新たな情報を取引して地点を知ることはできなくなります。引き渡し済みの地点はワールドマップに残ります。</RHAH_Settings_IntelTrades_Tooltip>
+  <RHAH_Settings_IntelTrades_Tooltip>オンにすると、来客は場所の情報を物資と交換できます。オフの場合は新たな情報取引を停止します。すでに教わった場所はワールドマップに残ります。</RHAH_Settings_IntelTrades_Tooltip>
   <RHAH_Settings_TraderIgnoreEnvironment>キャラバンが悪環境を無視</RHAH_Settings_TraderIgnoreEnvironment>
   <RHAH_Settings_TraderIgnoreEnvironment_Tooltip>オンにすると、被災者のキャラバンは、寒さ、暑さ、危険な天候のためにマップに入ってすぐ立ち去ることはありません。オフの場合は、悪環境で立ち去ります。</RHAH_Settings_TraderIgnoreEnvironment_Tooltip>
   <RHAH_Settings_TraderIgnoreEnclosed>キャラバンは閉じた部屋に留まる</RHAH_Settings_TraderIgnoreEnclosed>
   <RHAH_Settings_TraderIgnoreEnclosed_Tooltip>オンにすると、被災者のキャラバンは閉じ込められた部屋から脱出するための掘削を行いません。オフの場合、マップの端にたどり着けなければ、掘って道を作り立ち去ります。</RHAH_Settings_TraderIgnoreEnclosed_Tooltip>
   <RHAH_Settings_SpaceApproach>軌道の拠点で事件を許可</RHAH_Settings_SpaceApproach>
-  <RHAH_Settings_SpaceApproach_Tooltip>初期設定はオフです。オフのとき、小惑星や SOS2 の軌道船を含む軌道上の拠点には、歩いて向かうラットキンの一行は生成されず、マップ事件も抽選されません。オンにすると許可されます。すでにオデッセイの軌道層にいる一行は、シャトルの離陸を妨げません。</RHAH_Settings_SpaceApproach_Tooltip>
+  <RHAH_Settings_SpaceApproach_Tooltip>初期設定はオフです。オンにすると、小惑星やSOS2の軌道船など、宇宙の拠点にもマップイベントや歩いて向かうラットキンの一行が現れます。オデッセイの軌道層にいるラットキンの一行は、通常どおりシャトルを離陸させられます。</RHAH_Settings_SpaceApproach_Tooltip>
   <RHAH_Settings_SkylandIncidents>空島で事件を許可</RHAH_Settings_SkylandIncidents>
   <RHAH_Settings_SkylandIncidents_Tooltip>初期設定はオフです。オフの間、RimSkyBlock_Skyland の空島マップでは、このModのマップ事件とラットキン遠行隊の来訪が発生しません。オンにすると許可されますが、遠行隊が空島に入れない場合があります。地上のマップには影響せず、軌道の拠点で事件を許可する設定とは別に切り替えられます。</RHAH_Settings_SkylandIncidents_Tooltip>
   <RHAH_Settings_ApproachSpeed>ラットキン遠行隊の速度：{0}x</RHAH_Settings_ApproachSpeed>
@@ -96,7 +96,7 @@
   <RHAH_Settings_PredationChance>ラットキン難民への捕食発生率：{0}%</RHAH_Settings_PredationChance>
   <RHAH_Settings_PredationChance_Tooltip>避難キャンプの各マップに捕食者が現れる確率です。範囲は0～100、初期値は10。0では出現しません。</RHAH_Settings_PredationChance_Tooltip>
   <RHAH_Settings_PredationFightBack>ラットキン難民が捕食者に反撃</RHAH_Settings_PredationFightBack>
-  <RHAH_Settings_PredationFightBack_Tooltip>オフにすると、追われた避難キャンプのラットキンは逃げます。暴力行為ができない人物は、オンでも反撃できません。</RHAH_Settings_PredationFightBack_Tooltip>
+  <RHAH_Settings_PredationFightBack_Tooltip>オンにすると、暴力行為ができる避難キャンプのラットキンは捕食者に反撃します。オフの場合、狙われたラットキンは逃げます。</RHAH_Settings_PredationFightBack_Tooltip>
   <RHAH_Settings_PredationFollowDifficulty>獲物のラットキンがいない時、外来の捕食者にセーブの難易度を適用</RHAH_Settings_PredationFollowDifficulty>
   <RHAH_Settings_PredationFollowDifficulty_Tooltip>オンにすると、近づけるラットキンや死体が見つからない場合、バニラの採食行動に戻ります。オフの場合、空腹で近づける獲物がなければマップを離れます。</RHAH_Settings_PredationFollowDifficulty_Tooltip>
   <RHAH_Settings_FollowPredator>短いその後の捕食者：{0}%</RHAH_Settings_FollowPredator>
@@ -104,14 +104,14 @@
   <RHAH_Settings_FollowBirth>出産後の観察：{0}日</RHAH_Settings_FollowBirth>
   <RHAH_Settings_FollowBirth_Tooltip>出産間近の流民が子供を産んだ後、心情を付けるまで観察する日数です。範囲は0～60日、初期値は3日。</RHAH_Settings_FollowBirth_Tooltip>
   <RHAH_Settings_FollowPlagueBirth>ペストでの出産の観察：{0}日</RHAH_Settings_FollowPlagueBirth>
-  <RHAH_Settings_FollowPlagueBirth_Tooltip>ペストを患う出産間近の流民に心情を付けるまで観察する日数です。範囲は0～60日、初期値は5日。</RHAH_Settings_FollowPlagueBirth_Tooltip>
+  <RHAH_Settings_FollowPlagueBirth_Tooltip>ペストを患う出産間近の流民が産んだ子供が、この日数だけ生存すると、母親にその後の心情が付きます。範囲は0～60日、初期値は5日。子供が病気になると、それに応じた心情が早めに付きます。</RHAH_Settings_FollowPlagueBirth_Tooltip>
   <RHAH_Settings_FollowMother>母親の再訪：{0}日</RHAH_Settings_FollowMother>
   <RHAH_Settings_FollowMother_Tooltip>ペストを患う母親が立ち去ってから戻るまでの日数です。範囲は0～120日、初期値は15日。</RHAH_Settings_FollowMother_Tooltip>
   <RHAH_Settings_FollowYears>長いその後：{0}年</RHAH_Settings_FollowYears>
   <RHAH_Settings_FollowYears_Tooltip>その後の設定があるイベントで長いその後を選ぶと、子供がその後の年齢に達してから、手紙は最長これだけの年数を待ちます。範囲は0～20、初期値は2。母親が戻る場合は、別の日数を使います。</RHAH_Settings_FollowYears_Tooltip>
-  <RHAH_Settings_FollowAdult>続編の対象年齢：{0}</RHAH_Settings_FollowAdult>
+  <RHAH_Settings_FollowAdult>後日談の対象年齢：{0}</RHAH_Settings_FollowAdult>
   <RHAH_Settings_FollowAdult_Tooltip>長いその後と、そのあとの心情で使う年齢です。範囲は1～80歳、初期値は14歳。</RHAH_Settings_FollowAdult_Tooltip>
-  <RHAH_Settings_FollowMood>続編の心情の倍率：{0}%</RHAH_Settings_FollowMood>
+  <RHAH_Settings_FollowMood>後日談の心情：{0}%</RHAH_Settings_FollowMood>
   <RHAH_Settings_FollowMood_Tooltip>そのあとの心情を、この割合で調整します。範囲は0～300、初期値は100。1ポイント未満になっても、元の向きで1ポイント残ります。</RHAH_Settings_FollowMood_Tooltip>
   <RHAH_Settings_RequestRange_Tooltip>この段階で要求する量の下限または上限です。実際の量は、資産に応じて上下限の間で決まります。</RHAH_Settings_RequestRange_Tooltip>
   <RHAH_Settings_RequestSimpleMin>簡単な食事の最少数：{0}</RHAH_Settings_RequestSimpleMin>

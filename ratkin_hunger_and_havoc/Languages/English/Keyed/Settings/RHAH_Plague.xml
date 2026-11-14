@@ -17,5 +17,5 @@
   <RHAH_Settings_PlagueSafe>Plague safe mode</RHAH_Settings_PlagueSafe>
   <RHAH_Settings_PlagueSafe_Tooltip>Off by default. On, the plague stops short of killing. The sick cannot move, but the plague itself leaves them alive.</RHAH_Settings_PlagueSafe_Tooltip>
   <RHAH_Settings_PlagueSeverity>Plague severity: {0}</RHAH_Settings_PlagueSeverity>
-  <RHAH_Settings_PlagueSeverity_Tooltip>Highest severity a new infection can reach. 0.01 to 1, default 0.10.</RHAH_Settings_PlagueSeverity_Tooltip>
+  <RHAH_Settings_PlagueSeverity_Tooltip>Highest initial severity a newly infected patient can receive. Range 0.01 to 1, default 0.10.</RHAH_Settings_PlagueSeverity_Tooltip>
 </LanguageData>

@@ -3,7 +3,7 @@
   <RHAH_PlagueSpreading>コロニー内でペストが広がり始めました。</RHAH_PlagueSpreading>
   <RHAH_Menu_Plague>ペスト</RHAH_Menu_Plague>
   <RHAH_Settings_Plague>ペストを有効にする</RHAH_Settings_Plague>
-  <RHAH_Settings_Plague_Tooltip>オフにすると、新しい訪問者は病気を持ち込まず、コロニー内でも感染が広がりません。すでに感染した人には引き続き治療が必要です。</RHAH_Settings_Plague_Tooltip>
+  <RHAH_Settings_Plague_Tooltip>オンにすると、新たな来客がペストを持ち込んだり、入植者へ病気が広がったりすることがあります。オフの場合は新たな感染を停止します。すでに病気の人には引き続き治療が必要です。</RHAH_Settings_Plague_Tooltip>
   <RHAH_Settings_PlaguePerCarrier>患者1人ごとの感染率加算：{0}%</RHAH_Settings_PlaguePerCarrier>
   <RHAH_Settings_PlaguePerCarrier_Tooltip>マップ上のペストに感染したラットキン1人ごとに、入植者の感染率をこの分だけ上げます。範囲は0～100、初期値は0.5。</RHAH_Settings_PlaguePerCarrier_Tooltip>
   <RHAH_Settings_PlagueCap>感染率の上限：{0}%</RHAH_Settings_PlagueCap>
@@ -15,7 +15,7 @@
   <RHAH_Settings_PlagueBlood>血液循環が{0}%以上なら感染しない</RHAH_Settings_PlagueBlood>
   <RHAH_Settings_PlagueBlood_Tooltip>血液循環がこの割合以上の人は感染しません。範囲は0～300、初期値は120。</RHAH_Settings_PlagueBlood_Tooltip>
   <RHAH_Settings_PlagueSafe>ペスト安全モード</RHAH_Settings_PlagueSafe>
-  <RHAH_Settings_PlagueSafe_Tooltip>初期設定はオフです。オンにすると、ペストは致死の手前で止まります。病人は動けませんが、ペスト自体では死にません。</RHAH_Settings_PlagueSafe_Tooltip>
+  <RHAH_Settings_PlagueSafe_Tooltip>初期設定はオフです。オンにすると、ペストは病人が動けなくなる段階で悪化を止め、ペストによる死亡を防ぎます。</RHAH_Settings_PlagueSafe_Tooltip>
   <RHAH_Settings_PlagueSeverity>ペストの重症度：{0}</RHAH_Settings_PlagueSeverity>
-  <RHAH_Settings_PlagueSeverity_Tooltip>新しい感染が達しうる重症度の上限です。範囲は0.01～1、初期値は0.10。</RHAH_Settings_PlagueSeverity_Tooltip>
+  <RHAH_Settings_PlagueSeverity_Tooltip>新たにペストに感染した病人が持ちうる、初期の重症度の上限です。範囲は0.01～1、初期値は0.10。</RHAH_Settings_PlagueSeverity_Tooltip>
 </LanguageData>

@@ -73,7 +73,6 @@ namespace HungerAndHavoc.Incidents
                     SourceIncidentDisplayId = displayId,
                     Role = role,
                     PawnKind = RHAH_DefOf.RHAH_PawnKind_Ratkin,
-                    Faction = Faction.OfEntities,
                     BiologicalAge = age,
                     Map = map
                 });

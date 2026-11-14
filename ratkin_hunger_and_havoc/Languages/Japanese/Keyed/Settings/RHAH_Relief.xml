@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Menu_Relief>救援エリア</RHAH_Menu_Relief>
-  <RHAH_Menu_Relief_Note>訪問者はまず、指定したマス内で手の届く食べ物を探します。エリア外の食べ物、食後の制限、退去については下のスイッチで設定します。</RHAH_Menu_Relief_Note>
+  <RHAH_Menu_Relief_Note>来客はまず救援エリア内で取れる食べ物を探します。エリア外での食事や、満腹になった後もマップに留まるかどうかは、下の設定で決まります。</RHAH_Menu_Relief_Note>
   <RHAH_Settings_ReliefEnabled>救援エリアを有効にする</RHAH_Settings_ReliefEnabled>
   <RHAH_Settings_ReliefEnabled_Tooltip>オフにすると、訪問者は指定したマスの制限を受けなくなります。設定済みのエリアはマップに残ります。</RHAH_Settings_ReliefEnabled_Tooltip>
   <RHAH_Settings_EatOutsideRelief>救援エリア外の食べ物を取ることを許可</RHAH_Settings_EatOutsideRelief>
   <RHAH_Settings_EatOutsideRelief_Tooltip>オフにすると、訪問者はエリア内で手の届く食べ物だけを食べます。エリア内に食べ物がなければ、物乞いをするか、待つか、立ち去ります。</RHAH_Settings_EatOutsideRelief_Tooltip>
   <RHAH_Settings_IgnoreReliefAfterFed>食後は救援エリアの制限を解除</RHAH_Settings_IgnoreReliefAfterFed>
-  <RHAH_Settings_IgnoreReliefAfterFed_Tooltip>オンにすると、満腹になった訪問者は次の食事をエリア外から取れます。オフの場合、満腹になった訪問者は次の食事を自分で探さなくなります。</RHAH_Settings_IgnoreReliefAfterFed_Tooltip>
+  <RHAH_Settings_IgnoreReliefAfterFed_Tooltip>オンにすると、満腹になった来客は次の食事をエリア外から取れます。</RHAH_Settings_IgnoreReliefAfterFed_Tooltip>
   <RHAH_Settings_LeaveAfterFed>食後にマップを離れる</RHAH_Settings_LeaveAfterFed>
   <RHAH_Settings_LeaveAfterFed_Tooltip>オンにすると、出口まで歩ける訪問者は満腹になってから立ち去ります。幼すぎる、または歩けないラットキンの子供は大人が抱えて連れ出します。オフの場合、満腹になった訪問者もマップに残ります。</RHAH_Settings_LeaveAfterFed_Tooltip>
   <RHAH_Settings_ReliefScore>救援エリア内の食べ物への評価加算：{0}%</RHAH_Settings_ReliefScore>
@@ -28,17 +28,17 @@
   <RHAH_Settings_ReliefFoods_Empty>該当する食べ物はありません。</RHAH_Settings_ReliefFoods_Empty>
   <RHAH_ReliefArea_Label>救援エリア</RHAH_ReliefArea_Label>
   <RHAH_ReliefArea_Expand>救援エリアを拡張</RHAH_ReliefArea_Expand>
-  <RHAH_ReliefArea_Expand_Desc>訪問者が食べ物を取れるマスを指定します。エリアが空でも、マップ全体が対象になるわけではありません。</RHAH_ReliefArea_Expand_Desc>
+  <RHAH_ReliefArea_Expand_Desc>来客が食べ物を取れるマスを指定します。救援エリアが空の場合、エリアの制限を受ける来客は、エリア外での食事が許可されてから食べ物を探せます。</RHAH_ReliefArea_Expand_Desc>
   <RHAH_ReliefArea_Clear>救援エリアを消去</RHAH_ReliefArea_Clear>
-  <RHAH_ReliefArea_Clear_Desc>指定したマスを消します。すべて消すと、エリア外に出られない訪問者はここから食べ物を取れなくなります。</RHAH_ReliefArea_Clear_Desc>
-  <RHAH_Settings_ReliefFoods_Quote>オフにした食べ物は訪問者が取らなくなります。後から追加された食べ物は、初期設定で取ることができます。</RHAH_Settings_ReliefFoods_Quote>
+  <RHAH_ReliefArea_Clear_Desc>指定した救援エリアのマスを消します。すべて消すと、エリアの制限を受け、エリア外での食事を許可されていない来客は、食べ物を取れる場所がなくなります。</RHAH_ReliefArea_Clear_Desc>
+  <RHAH_Settings_ReliefFoods_Quote>来客は有効にした食べ物だけを取ります。後から追加された食べ物は初期設定で許可されます。</RHAH_Settings_ReliefFoods_Quote>
   <RHAH_Settings_GiveFoods>訪問者に渡せる食べ物</RHAH_Settings_GiveFoods>
   <RHAH_Settings_GiveFoods_Tooltip>オフにした食べ物は、訪問者に渡す右クリックメニューに表示されません。</RHAH_Settings_GiveFoods_Tooltip>
   <RHAH_Settings_GiveFoods_All>すべて許可</RHAH_Settings_GiveFoods_All>
   <RHAH_Settings_GiveFoods_None>すべて禁止</RHAH_Settings_GiveFoods_None>
   <RHAH_Settings_GiveFoods_Search>食べ物やModを検索</RHAH_Settings_GiveFoods_Search>
   <RHAH_Settings_GiveFoods_Empty>該当する食べ物はありません。</RHAH_Settings_GiveFoods_Empty>
-  <RHAH_Settings_GiveFoods_Quote>オフにした食べ物は訪問者に渡せません。後から追加された食べ物は、初期設定で渡せます。</RHAH_Settings_GiveFoods_Quote>
+  <RHAH_Settings_GiveFoods_Quote>右クリックで給餌するときは、許可された食べ物を渡せます。後から追加された食べ物は初期設定で許可されます。</RHAH_Settings_GiveFoods_Quote>
   <RHAH_Settings_GiveFoods_Sort>渡す食べ物の分類</RHAH_Settings_GiveFoods_Sort>
   <RHAH_Settings_GiveFoods_Sort_0>Mod別</RHAH_Settings_GiveFoods_Sort_0>
   <RHAH_Settings_GiveFoods_Sort_1>名前順</RHAH_Settings_GiveFoods_Sort_1>

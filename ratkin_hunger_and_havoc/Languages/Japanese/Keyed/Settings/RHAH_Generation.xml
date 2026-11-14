@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RHAH_Settings_MaxEventPawns>1回の訪問者数の上限：{0}</RHAH_Settings_MaxEventPawns>
-  <RHAH_Settings_MaxEventPawns_Tooltip>1回のイベントの人数をこの数に制限します。範囲は1～100、初期値は30。イベントの最少人数を下回る場合は、その最少人数を使用します。母親と子供は引き離しません。</RHAH_Settings_MaxEventPawns_Tooltip>
+  <RHAH_Settings_MaxEventPawns_Tooltip>通常のイベントの訪問者数の上限です。範囲は1～100、初期値は30。イベントに必要な最少人数を下回る場合は、その最少人数を生成します。母子などの特殊なイベントでは、それぞれの人数規則を使います。</RHAH_Settings_MaxEventPawns_Tooltip>
   <RHAH_Settings_MinAge>訪問者の最低年齢：{0}</RHAH_Settings_MinAge>
   <RHAH_Settings_MaxAge>訪問者の最高年齢：{0}</RHAH_Settings_MaxAge>
   <RHAH_Settings_Age_Tooltip>通常の訪問者の年齢をこの範囲に設定します。設定範囲は0～100歳、初期値は0～50歳。母親は、母親用の最低年齢を下回りません。ラットキンの子供は、下のスイッチをオンにしない限り、子供用の年齢を使用します。</RHAH_Settings_Age_Tooltip>
@@ -46,12 +46,12 @@
   <RHAH_Menu_Content_conflict>衝突</RHAH_Menu_Content_conflict>
   <RHAH_Menu_Content_siege>包囲</RHAH_Menu_Content_siege>
   <RHAH_Settings_RefugeeApparel>支給可能な衣服</RHAH_Settings_RefugeeApparel>
-  <RHAH_Settings_RefugeeApparel_Tooltip>オフにした衣服は、新しい訪問者には渡しません。耐寒・耐暑服は環境のページで設定し、先に着せます。普段着は、その服を置き換えない位置にだけ足します。</RHAH_Settings_RefugeeApparel_Tooltip>
+  <RHAH_Settings_RefugeeApparel_Tooltip>新たな来客には、許可された普段着だけを支給します。耐寒・耐暑服は環境のページで別に設定し、先に着せます。その後、干渉しない部位に普段着を追加します。</RHAH_Settings_RefugeeApparel_Tooltip>
   <RHAH_Settings_RefugeeApparel_All>すべて許可</RHAH_Settings_RefugeeApparel_All>
   <RHAH_Settings_RefugeeApparel_None>すべて禁止</RHAH_Settings_RefugeeApparel_None>
   <RHAH_Settings_RefugeeApparel_Search>衣服やModを検索</RHAH_Settings_RefugeeApparel_Search>
   <RHAH_Settings_RefugeeApparel_Empty>該当する衣服はありません。</RHAH_Settings_RefugeeApparel_Empty>
-  <RHAH_Settings_RefugeeApparel_Quote>初期設定では、バニラのトライバルウェア、NewRatkinPlusで指定されたラットキンの衣服、バニラの子供用の基本的な衣服だけを支給します。他のModの衣服は初期リストに含まれません。普段着が耐寒・耐暑服を置き換えることはありません。</RHAH_Settings_RefugeeApparel_Quote>
+  <RHAH_Settings_RefugeeApparel_Quote>初期の衣服リストには、バニラのトライバルウェア、NewRatkinPlusで指定されたラットキンの衣服、バニラの子供用の基本的な衣服が含まれます。新たな来客には耐寒・耐暑服を先に着せ、その後で干渉しない普段着を組み合わせます。</RHAH_Settings_RefugeeApparel_Quote>
   <RHAH_Settings_RefugeeApparel_Sort>衣服の分類</RHAH_Settings_RefugeeApparel_Sort>
   <RHAH_Settings_RefugeeApparel_Sort_0>Mod別</RHAH_Settings_RefugeeApparel_Sort_0>
   <RHAH_Settings_RefugeeApparel_Sort_1>名前順</RHAH_Settings_RefugeeApparel_Sort_1>
@@ -75,7 +75,7 @@
   <RHAH_Settings_PawnTraits>新しい訪問者にこのModの特性を付ける</RHAH_Settings_PawnTraits>
   <RHAH_Settings_PawnTraits_Tooltip>オフにすると、新しい訪問者はこのModの特性を得ません。すでにいる人は、今の特性のままです。1人あたりの数は、これまでどおり上の上限に従います。</RHAH_Settings_PawnTraits_Tooltip>
   <RHAH_Menu_Experimental_Gap>現在、このページでは訪問者の生成の高速化のみ設定できます。</RHAH_Menu_Experimental_Gap>
-  <RHAH_Menu_Experimental_Note>これらの設定は訪問者が現れるまでの処理時間を変えます。オフにしても、訪問者は各イベントで定められた装備、生い立ち、健康状態、遺伝子で現れます。</RHAH_Menu_Experimental_Note>
+  <RHAH_Menu_Experimental_Note>このページの設定は、新たな来客の生成にかかる時間を短縮します。オフの場合、新たな来客の装備、生い立ち、健康状態、遺伝子は各イベントの通常の手順で生成されます。</RHAH_Menu_Experimental_Note>
   <RHAH_Settings_OptimizeGeneration>訪問者の生成を高速化</RHAH_Settings_OptimizeGeneration>
   <RHAH_Settings_OptimizeGeneration_Tooltip>訪問者がより早く現れ、ランダムな服装と素性は少なくなります。ゼノタイプが決まっていない場合は、遺伝子ページの重みで決まります。</RHAH_Settings_OptimizeGeneration_Tooltip>
   <RHAH_Settings_ApparelAwful>ひどい品質の衣服：{0}%</RHAH_Settings_ApparelAwful>
