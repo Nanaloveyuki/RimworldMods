@@ -22,7 +22,7 @@ internal static class RatkinRecycleManualCommand
 		Command_Target command = new Command_Target
 		{
 			defaultLabel = T("触发鼠族回收", "Trigger Ratkin recycling"),
-			defaultDesc = T("指定一名年龄符合设置的鼠族并主动回收。不受自动回收的身份、捕食者年龄、幼鼠分界、禁用或饥饿条件限制，也不会吃饱停嘴。", "Choose a Ratkin within the configured victim age range for manual recycling. Automatic status, eater age, young-predator, forbidden and hunger restrictions do not apply; fullness does not stop chewing."),
+			defaultDesc = T("指定另一名鼠族并主动回收。双方年龄、身份、幼鼠分界、禁用和食物检查均不限制主动回收。捕食者须具备移动和操作能力。", "Choose another Ratkin for manual recycling. Ages, statuses, young-predator rules, forbidden targets and food checks do not restrict manual orders. The eater must be capable of moving and manipulation."),
 			icon = TexCommand.AttackMelee,
 			groupable = false,
 			targetingParams = new TargetingParameters
@@ -60,7 +60,7 @@ internal static class RatkinRecycleManualCommand
 	{
 		if (!CanSelect(eater, victim))
 		{
-			Messages.Message(T("无法回收该目标；请检查目标年龄、可达性和预约。", "Cannot recycle this target. Check victim age, reachability and reservations."), eater, MessageTypeDefOf.RejectInput, historical: false);
+			Messages.Message(T("无法回收该目标；请检查捕食者能力、目标可达性和预约。", "Cannot recycle this target. Check eater capacities, reachability and reservations."), eater, MessageTypeDefOf.RejectInput, historical: false);
 			return;
 		}
 		Job job = JobMaker.MakeJob(RatkinRecycleDefOf.ManualRecycleRatkinYoung, victim);

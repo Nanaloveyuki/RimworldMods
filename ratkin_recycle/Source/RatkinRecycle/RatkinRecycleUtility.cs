@@ -207,7 +207,9 @@ public static class RatkinRecycleUtility
 	public static bool CanEat(Pawn pawn, bool manual = false)
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (settings == null || !settings.enabled || !IsRatkin(pawn) || pawn.Dead || pawn.Downed || pawn.needs?.food == null)
+		if (settings == null || !settings.enabled || !IsRatkin(pawn) || pawn.Dead || pawn.Downed || pawn.needs?.food == null
+			|| !pawn.health.capacities.CapableOf(PawnCapacityDefOf.Moving)
+			|| !pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation))
 			return false;
 		if (manual)
 			return settings.manualEnabled && pawn.Spawned && pawn.CanTakeOrder;
@@ -220,8 +222,8 @@ public static class RatkinRecycleUtility
 	{
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
 		return settings != null && settings.enabled && IsRatkin(pawn) && !pawn.Dead &&
-			RatkinRecyclePolicy.AgeAllowed(pawn, settings.minVictimAge, settings.maxVictimAge, settings.victimAgeUnlimited) &&
-			(manual || (settings.victimStatuses & RatkinRecyclePolicy.Status(pawn)) != 0);
+			(manual || (RatkinRecyclePolicy.AgeAllowed(pawn, settings.minVictimAge, settings.maxVictimAge, settings.victimAgeUnlimited)
+				&& (settings.victimStatuses & RatkinRecyclePolicy.Status(pawn)) != 0));
 	}
 
 	public static bool CanTarget(Pawn eater, Pawn victim, EaterKind kind, bool manual = false)
@@ -459,7 +461,6 @@ public static class RatkinRecycleUtility
 		}
 		try
 		{
-			GainEggThoughts(eater, victim, kind, own, tier);
 			if (eater != null && !eater.Dead && eater.needs?.food != null)
 			{
 				eater.needs.food.CurLevel = Mathf.Min(eater.needs.food.MaxLevel, eater.needs.food.CurLevel + settings.nutritionOnFinish);
@@ -506,7 +507,6 @@ public static class RatkinRecycleUtility
 		}
 		try
 		{
-			GainEggThoughts(eater, victim, kind, own, tier);
 			SendEatLetter(eater, victim, kind, own, tier, eatenFully: false, stopReason);
 			if (settings.debugLog)
 			{
@@ -591,25 +591,40 @@ public static class RatkinRecycleUtility
 			if (eatenFully)
 			{
 				text2 = "鼠蛋被吃掉了吱";
-				text3 = string.Format("{0}把{1}啃了个干净{2}。", text, victim.LabelShort, own ? "(亲生)" : "(非亲生)");
+				text3 = $"{victim.LabelShort}被{text}捕食了，{PredationRelationship(eater, victim)}。";
 			}
 			else
 			{
 				bool exhausted = stopReason == "exhausted";
-				text2 = exhausted ? "鼠鼠停嘴了吱" : "鼠鼠啃饱停嘴了吱";
-				text3 = exhausted
+				bool safety = stopReason == "safety";
+				text2 = exhausted || safety ? "鼠鼠停嘴了吱" : "鼠鼠啃饱停嘴了吱";
+				text3 = safety
+					? $"{text}停止了对{victim.LabelShort}的啃食。{victim.LabelShort}还活着，再咬一口可能会致命。"
+					: exhausted
 					? string.Format("{0}放下了{1}{2}。{1}还活着，身上已经没有允许继续啃食的部位。", text, victim.LabelShort, own ? "(亲生)" : "(非亲生)")
 					: string.Format("{0}啃了{1}几口，吃饱收工{2}。{1}还活着。", text, victim.LabelShort, own ? "(亲生)" : "(非亲生)");
 			}
-			string text4 = FormatMoodShort(text, GetEaterThought(kind, own, tier));
-			string text5 = FormatMoodShort(victim.LabelShort, GetVictimThought(tier));
-			if (text4 != null)
+			if (!eatenFully)
 			{
-				text3 = text3 + "\n心情:" + text4 + ((text5 != null) ? (" / " + text5) : "");
+				string text4 = FormatMoodShort(text, GetEaterThought(kind, own, tier));
+				string text5 = FormatMoodShort(victim.LabelShort, GetVictimThought(tier));
+				if (text4 != null)
+					text3 = text3 + "\n心情:" + text4 + ((text5 != null) ? (" / " + text5) : "");
 			}
 			Letter letter = LetterMaker.MakeLetter(text2, text3, LetterDefOf.NeutralEvent, new LookTargets(victim));
 			Find.LetterStack.ReceiveLetter(letter);
 		}
+	}
+
+	private static string PredationRelationship(Pawn eater, Pawn victim)
+	{
+		if (eater == null) return "他们没有血缘关系";
+		if (victim.GetFather() == eater || eater.GetFather() == victim) return "他们是父子关系";
+		if (victim.GetMother() == eater || eater.GetMother() == victim) return "他们是母子关系";
+		if (eater.relations != null)
+			foreach (Pawn relative in eater.relations.FamilyByBlood)
+				if (relative == victim) return "他们有血缘关系";
+		return "他们没有血缘关系";
 	}
 
 	private static string FormatMoodShort(string pawnName, ThoughtDef def)

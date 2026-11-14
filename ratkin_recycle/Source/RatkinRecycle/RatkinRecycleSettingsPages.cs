@@ -13,7 +13,7 @@ public interface IRatkinRecycleSettingsRenderer
 	void Label(string text);
 	void Check(string id, string label, ref bool value, string tooltip = null);
 	void Number(string id, string label, ref float value, float min = 0f, float max = float.MaxValue, bool enabled = true);
-	void Integer(string id, string label, ref int value, int min = 0, bool enabled = true);
+	void Integer(string id, string label, ref int value, int min = 0, bool enabled = true, int max = int.MaxValue);
 	void TextField(string id, ref string value, int maxLength);
 	bool Button(string id, string label);
 }
@@ -167,7 +167,7 @@ public partial class RatkinRecycleSettings
 		renderer.Section("enabled", T("回收行为", "Recycling behavior"));
 		renderer.Check("enabled", T("启用捕食行为", "Enable predation"), ref enabled);
 		renderer.Check("showLetter", T("捕食目标死亡时发来信件", "Send a letter when the victim dies"), ref showLetter);
-		renderer.Check("showStopLetter", T("吃饱或没有可啃部位而停嘴，且目标存活时发来信件", "Send a letter when chewing stops with the victim alive, from fullness or no eligible parts"), ref showStopLetter);
+		renderer.Check("showStopLetter", T("捕食停嘴且目标存活时发来信件", "Send a letter when chewing stops with the victim alive"), ref showStopLetter);
 		renderer.Check("preferAvailableFood", T("自动回收时优先普通食物", "Prefer available food during automatic recycling"), ref preferAvailableFood);
 		renderer.Label(T("仅影响自动回收，默认开启。检查自身背包、原版允许食用且可达的地图食物，以及同一访客／商队队伍中可达驮兽的食物；不要求精致食物。禁止食用、不可达、无法预约、空营养膏机和需先收获的作物不算。抱起前及每口前复查，发现食物就停止回收并尝试放下鼠蛋。关闭后恢复原来的自动回收优先级。", "Applies only to automatic recycling; enabled by default. Check personal inventory, reachable map food allowed by vanilla, and reachable pack animals in the same visiting group; fine meals are not required. Forbidden, unreachable or unreservable food, empty dispensers and crops requiring harvest do not count. Recheck before pickup and every bite; when food is found, stop recycling and try to put down the RatkinYoung. Disable to restore the previous automatic recycling priority."));
 		renderer.Section("hunger", T("自动回收的饥饿与母性判定", "Automatic recycling: hunger and mothers"));
@@ -176,7 +176,7 @@ public partial class RatkinRecycleSettings
 		renderer.Number("otherHungerPct", T("其他鼠族饱食度触发阈值（0–1）", "Other Ratkin hunger threshold (0–1 fullness)"), ref otherHungerPct, 0f, 1f, enabled: !useMalnutritionTrigger);
 		renderer.Number("momMalnutritionSeverity", T("鼠妈营养不良严重度阈值（0–1）", "Mother malnutrition severity threshold (0–1)"), ref momMalnutritionSeverity, 0f, 1f, enabled: useMalnutritionTrigger);
 		renderer.Number("otherMalnutritionSeverity", T("其他鼠族营养不良严重度阈值（0–1）", "Other Ratkin malnutrition severity threshold (0–1)"), ref otherMalnutritionSeverity, 0f, 1f, enabled: useMalnutritionTrigger);
-		renderer.Label(T("以下启动阈值仅影响自动回收。营养不良模式要求角色正在挨饿，且实际营养不良严重度大于 0 并达到设定阈值；进食后残留的营养不良不会触发。阈值过高时，角色可能已经倒地。严重度只决定是否开始，自动回收开始后仍按停嘴饱食度结束。主动回收不受这些阈值或吃饱停嘴限制。灰显的阈值属于另一种模式。", "These trigger thresholds apply only to automatic recycling. Malnutrition mode requires the pawn to be starving, with actual malnutrition severity above 0 and at or above the threshold; lingering malnutrition after eating does not trigger recycling. A high threshold may leave the pawn downed before it can act. Severity only controls starting; automatic chewing still ends at the configured fullness. Manual recycling ignores these thresholds and does not stop at fullness. Grayed-out thresholds belong to the other mode."));
+		renderer.Label(T("以下启动阈值仅影响自动回收。营养不良模式要求角色正在挨饿，且实际营养不良严重度大于 0 并达到设定阈值。阈值过高时，角色可能已经倒地。啃食停嘴规则见“啃食与部位”。灰显的阈值属于另一种模式。", "These trigger thresholds apply only to automatic recycling. Malnutrition mode requires current starvation and positive malnutrition severity at or above the threshold. A high threshold may leave the pawn downed before it can act. See Chewing for stop rules. Grayed-out thresholds belong to the other mode."));
 		renderer.Number("adultAgeYears", T("鼠妈最低生理年龄（岁）", "Minimum biological age for mothers (years)"), ref adultAgeYears);
 		renderer.Number("postpartumHours", T("产后母性窗口（游戏小时）", "Postpartum mother window (game hours)"), ref postpartumHours);
 		renderer.Check("momOwnEggFallback", T("仍有亲生鼠蛋时，也视为鼠妈", "Also count mothers with living biological RatkinYoung"), ref momOwnEggFallback);
@@ -190,7 +190,7 @@ public partial class RatkinRecycleSettings
 		renderer.Number("fineMealHours", T("精致食物回顾窗口（游戏小时）", "Fine-meal lookback window (game hours)"), ref fineMealHours, enabled: recent);
 		renderer.Section("manual", T("主动回收", "Manual recycling"));
 		renderer.Check("manualEnabled", T("启用主动回收命令", "Enable the manual recycling command"), ref manualEnabled);
-		renderer.Label(T("玩家可命令可控制的鼠族主动回收。可配置的目标限制仅为“捕食双方”中的被捕食者年龄范围；主动回收不受双方身份、捕食者年龄、饥饿、幼鼠分界、禁用目标或普通／精致食物检查限制，也不会因吃饱而停嘴。目标仍须是存活、同地图、非自身、可预约且可达的鼠族。", "Players can order controllable Ratkin to recycle manually. The only configurable target restriction is the victim age range under Participants. Manual orders ignore both roles' status filters, eater age, hunger, young-predator split, forbidden targets and available-food/fine-meal checks, and do not stop at fullness. Targets must still be living Ratkin on the same map, not the eater, reservable and reachable."));
+		renderer.Label(T("玩家可命令具备移动和操作能力的鼠族主动回收。主动回收不受双方身份、年龄、饥饿触发条件、幼鼠分界、禁用目标或普通／精致食物检查限制。目标须是存活、同地图、非自身、可预约且可达的鼠族。停嘴与安全界限见“啃食与部位”。", "Players can order controllable Ratkin capable of moving and manipulation to recycle manually. Orders ignore both roles' status and age filters, hunger triggers, young-predator split, forbidden targets and available-food/fine-meal checks. Targets must be living Ratkin on the same map, not the eater, reservable and reachable. See Chewing for fullness and safety limits."));
 	}
 
 	private void DrawTargets(IRatkinRecycleSettingsRenderer renderer)
@@ -204,7 +204,7 @@ public partial class RatkinRecycleSettings
 		renderer.Check("skipDrafted", T("跳过征召中的捕食者", "Skip drafted eaters"), ref skipDrafted);
 		renderer.Check("skipMentalState", T("跳过精神崩溃中的捕食者", "Skip eaters in a mental state"), ref skipMentalState);
 		renderer.Section("victim", T("被捕食者", "Victims"));
-		renderer.Label(T("身份仅限制自动回收；下方被捕食者年龄范围同时适用于自动和主动回收。", "Status filters apply only to automatic recycling; the victim age range below applies to both automatic and manual recycling."));
+		renderer.Label(T("下方身份和年龄范围只限制自动回收。", "The status and age filters below apply only to automatic recycling."));
 		Statuses(renderer, "victim", ref victimStatuses);
 		renderer.Number("minVictimAge", T("最低生理年龄（岁，含）", "Minimum biological age (years, inclusive)"), ref minVictimAge);
 		renderer.Check("victimAgeUnlimited", T("被捕食者年龄无上限", "No maximum victim age"), ref victimAgeUnlimited);
@@ -219,10 +219,12 @@ public partial class RatkinRecycleSettings
 	private void DrawChewing(IRatkinRecycleSettingsRenderer renderer)
 	{
 		renderer.Section("bites", T("啃食过程", "Bites"));
-		renderer.Integer("biteInterval", T("每口间隔（tick，最少 10；1 倍速每秒 60 tick）", "Bite interval (ticks, minimum 10; 60 ticks per second at 1× speed)"), ref biteInterval, 10);
+		renderer.Integer("biteInterval", T("每口啃食耗时（60–1200 tick；默认 360）", "Time per bite (60–1200 ticks; default 360)"), ref biteInterval, 60, max: 1200);
 		renderer.Number("biteDamage", T("每口基础伤害（额外随机增加 0–2）", "Base bite damage (plus a random 0–2)"), ref biteDamage);
 		renderer.Number("nutritionPerBite", T("每口获得的营养", "Nutrition per bite"), ref nutritionPerBite);
-		renderer.Number("stopAtFullness", T("自动回收停嘴饱食度（0–1；0 = 持续啃食）", "Automatic recycling stop fullness (0–1; 0 = keep chewing)"), ref stopAtFullness, 0f, 1f);
+		renderer.Label(T("每口进度条走满后啃咬一次。开始时饱食度不超过 95%，则重复啃食至 95% 停嘴；开始时超过 95%，则持续啃食，忽略饱食度和被捕食者安全界限。重新靠近目标时暂停进度。", "Each full progress bar triggers one bite. Eaters starting at or below 95% fullness repeat bites until 95%. Eaters starting above 95% keep chewing regardless of fullness and victim safety limits. Progress pauses while approaching the target again."));
+		renderer.Check("victimSafetyLimit", T("被捕食者安全界限", "Victim safety limit"), ref victimSafetyLimit,
+			T("捕食者当前不饥饿时，在预计会致死的一口前停嘴。开始时饱食度超过 95% 的捕食忽略此限制。已造成的伤口仍可能流血。", "When the eater is currently fed, stop before a bite predicted to kill the victim. Eaters starting above 95% fullness bypass this limit. Existing wounds can still bleed."));
 		renderer.Number("nutritionOnFinish", T("目标死亡后额外获得的营养", "Extra nutrition when the victim dies"), ref nutritionOnFinish);
 		renderer.Check("limbsFirst", T("优先四肢，其次躯干，最后头部", "Prioritize limbs, then torso, then head"), ref limbsFirst);
 		renderer.Check("destroyCorpse", T("目标死亡后销毁尸体", "Destroy the corpse after the victim dies"), ref destroyCorpse);
@@ -246,7 +248,7 @@ public partial class RatkinRecycleSettings
 		renderer.Check("babyMoodNeed", T("鼠蛋阶段拥有心情需求条", "Give RatkinYoung a mood need"), ref babyMoodNeed);
 		renderer.Number("tierToddlerMax", T("幼儿心情档上限（生理年龄，岁）", "Toddler mood cutoff (biological years)"), ref tierToddlerMax);
 		renderer.Number("tierChildMax", T("儿童心情档上限（生理年龄，岁）", "Child mood cutoff (biological years)"), ref tierChildMax);
-		renderer.Label(T("以下数值为心情增减：正数提高心情，负数降低心情。", "Mood offsets below: positive values improve mood; negative values lower it."));
+		renderer.Label(T("第一口造成实际伤害时赋予双方心情。以下数值为心情增减：正数提高心情，负数降低心情。", "Both pawns gain their memories on the first bite that causes damage. Positive offsets improve mood; negative offsets lower it."));
 		MoodGroup(renderer, "motherOther", T("鼠妈吃非亲生鼠蛋", "Mother eating unrelated RatkinYoung"), "momNonOwn", ref momNonOwnToddler, ref momNonOwnChild, ref momNonOwnAdult);
 		MoodGroup(renderer, "motherOwn", T("鼠妈吃亲生鼠蛋", "Mother eating her own RatkinYoung"), "momOwn", ref momOwnToddler, ref momOwnChild, ref momOwnAdult);
 		MoodGroup(renderer, "otherEater", T("其他捕食者", "Other eaters"), "other", ref otherToddler, ref otherChild, ref otherAdult);
@@ -365,7 +367,7 @@ public partial class RatkinRecycleSettings
 		finally { GUI.enabled = previous; }
 	}
 
-	private void Integer(Listing_Standard list, string id, string label, ref int value, Action<Listing_Standard, string, float> anchor, bool measure, int min = 0, bool enabled = true)
+	private void Integer(Listing_Standard list, string id, string label, ref int value, Action<Listing_Standard, string, float> anchor, bool measure, int min = 0, bool enabled = true, int max = int.MaxValue)
 	{
 		Rect field = NumberRow(list, id, label, anchor, measure);
 		if (measure) return;
@@ -375,7 +377,7 @@ public partial class RatkinRecycleSettings
 		{
 			GUI.enabled = previous && enabled;
 			string next = Widgets.TextField(field, buffer);
-			if (next != buffer && enabled && int.TryParse(next, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed) && parsed >= min) value = parsed;
+			if (next != buffer && enabled && int.TryParse(next, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed) && parsed >= min && parsed <= max) value = parsed;
 			numberBuffers[id] = next;
 		}
 		finally { GUI.enabled = previous; }
@@ -401,7 +403,7 @@ public partial class RatkinRecycleSettings
 		public void Label(string text) => RatkinRecycleSettings.Label(list, text, IsMeasuring);
 		public void Check(string id, string label, ref bool value, string tooltip = null) => RatkinRecycleSettings.Check(list, id, label, ref value, anchor, IsMeasuring, tooltip);
 		public void Number(string id, string label, ref float value, float min = 0f, float max = float.MaxValue, bool enabled = true) => settings.Number(list, id, label, ref value, anchor, IsMeasuring, min, max, enabled);
-		public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true) => settings.Integer(list, id, label, ref value, anchor, IsMeasuring, min, enabled);
+		public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true, int max = int.MaxValue) => settings.Integer(list, id, label, ref value, anchor, IsMeasuring, min, enabled, max);
 
 		public void TextField(string id, ref string value, int maxLength)
 		{

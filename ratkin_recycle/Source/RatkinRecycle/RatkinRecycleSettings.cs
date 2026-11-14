@@ -78,13 +78,13 @@ public partial class RatkinRecycleSettings : ModSettings
 
 	public int retryCooldown = 900;
 
-	public int biteInterval = 90;
+	public int biteInterval = 360;
 
 	public float biteDamage = 4f;
 
 	public float nutritionPerBite = 0.05f;
 
-	public float stopAtFullness = 0.7f;
+	public bool victimSafetyLimit = true;
 
 	public float nutritionOnFinish = 0.4f;
 
@@ -177,10 +177,10 @@ public partial class RatkinRecycleSettings : ModSettings
 		Scribe_Values.Look(ref skipMentalState, "skipMentalState", defaultValue: true);
 		Scribe_Values.Look(ref checkInterval, "checkInterval", 120);
 		Scribe_Values.Look(ref retryCooldown, "retryCooldown", 900);
-		Scribe_Values.Look(ref biteInterval, "biteInterval", 90);
+		Scribe_Values.Look(ref biteInterval, "biteInterval", 360);
 		Scribe_Values.Look(ref biteDamage, "biteDamage", 4f);
 		Scribe_Values.Look(ref nutritionPerBite, "nutritionPerBite", 0.05f);
-		Scribe_Values.Look(ref stopAtFullness, "stopAtFullness", 0.7f);
+		Scribe_Values.Look(ref victimSafetyLimit, "victimSafetyLimit", defaultValue: true);
 		Scribe_Values.Look(ref nutritionOnFinish, "nutritionOnFinish", 0.4f);
 		Scribe_Values.Look(ref limbsFirst, "limbsFirst", defaultValue: true);
 		Scribe_Values.Look(ref destroyCorpse, "destroyCorpse", defaultValue: true);
@@ -254,10 +254,10 @@ public partial class RatkinRecycleSettings : ModSettings
 		skipMentalState = true;
 		checkInterval = 120;
 		retryCooldown = 900;
-		biteInterval = 90;
+		biteInterval = 360;
 		biteDamage = 4f;
 		nutritionPerBite = 0.05f;
-		stopAtFullness = 0.7f;
+		victimSafetyLimit = true;
 		nutritionOnFinish = 0.4f;
 		limbsFirst = true;
 		destroyCorpse = true;
@@ -330,14 +330,13 @@ public partial class RatkinRecycleSettings : ModSettings
 		otherHungerPct = Math.Clamp(Finite(otherHungerPct, 0.3f), 0f, 1f);
 		momMalnutritionSeverity = Math.Clamp(Finite(momMalnutritionSeverity, 0.2f), 0f, 1f);
 		otherMalnutritionSeverity = Math.Clamp(Finite(otherMalnutritionSeverity, 0.4f), 0f, 1f);
-		stopAtFullness = Math.Clamp(Finite(stopAtFullness, 0.7f), 0f, 1f);
 		postpartumHours = Nonnegative(postpartumHours, 120f);
 		fineMealHours = Nonnegative(fineMealHours, 48f);
 		fineMealMode = Math.Clamp(fineMealMode, 0, 1);
 		searchRadius = Nonnegative(searchRadius, 40f);
 		checkInterval = Math.Max(10, checkInterval);
 		retryCooldown = Math.Max(1, retryCooldown);
-		biteInterval = Math.Max(10, biteInterval);
+		biteInterval = Math.Clamp(biteInterval, 60, 1200);
 		biteDamage = Nonnegative(biteDamage, 4f);
 		nutritionPerBite = Nonnegative(nutritionPerBite, 0.05f);
 		nutritionOnFinish = Nonnegative(nutritionOnFinish, 0.4f);

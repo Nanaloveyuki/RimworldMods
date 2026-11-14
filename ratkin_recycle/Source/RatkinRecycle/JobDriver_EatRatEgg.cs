@@ -8,14 +8,19 @@ namespace RatkinRecycle;
 
 public class JobDriver_EatRatEgg : JobDriver
 {
+	private const float StopFullness = 0.95f;
 	private Pawn victimStored;
 	private EaterKind kind;
 	private bool own;
 	private int tier;
 	private bool carried;
 	private bool finished;
-	private int nextBiteTick;
+	private int biteTicks;
+	private int biteDuration;
+	private bool startedChewing;
+	private bool ignoreFullnessAndSafety;
 	private bool consumed;
+	private bool thoughtsGranted;
 	private int consecutiveNoDamageBites;
 
 	private Pawn Victim => job?.GetTarget(TargetIndex.A).Thing as Pawn;
@@ -33,8 +38,12 @@ public class JobDriver_EatRatEgg : JobDriver
 		Scribe_Values.Look(ref tier, "tier");
 		Scribe_Values.Look(ref carried, "carried");
 		Scribe_Values.Look(ref finished, "finished");
-		Scribe_Values.Look(ref nextBiteTick, "nextBiteTick");
+		Scribe_Values.Look(ref biteTicks, "biteTicks");
+		Scribe_Values.Look(ref biteDuration, "biteDuration");
+		Scribe_Values.Look(ref startedChewing, "startedChewing");
+		Scribe_Values.Look(ref ignoreFullnessAndSafety, "ignoreFullnessAndSafety");
 		Scribe_Values.Look(ref consumed, "consumed");
+		Scribe_Values.Look(ref thoughtsGranted, "thoughtsGranted");
 		Scribe_Values.Look(ref consecutiveNoDamageBites, "consecutiveNoDamageBites");
 		if (Scribe.mode == LoadSaveMode.PostLoadInit && victimStored == null)
 		{
@@ -45,7 +54,6 @@ public class JobDriver_EatRatEgg : JobDriver
 			kind = RatkinRecycleUtility.GetEaterKind(pawn, Manual);
 			own = RatkinRecycleUtility.IsOwnEgg(pawn, victimStored);
 			tier = victimStored == null ? 0 : RatkinRecycleUtility.GrowthTier(victimStored);
-			nextBiteTick = Find.TickManager.TicksGame + Mathf.Max(10, RatkinRecycleMod.Settings.biteInterval);
 		}
 	}
 
@@ -74,8 +82,31 @@ public class JobDriver_EatRatEgg : JobDriver
 		Toil chew = ToilMaker.MakeToil("chewRatkinYoung");
 		chew.defaultCompleteMode = ToilCompleteMode.Never;
 		chew.tickAction = () => ChewTick(approach);
+		ShowBiteProgress(chew);
 		chew.PlaySustainerOrSound(() => SoundDefOf.RawMeat_Eat);
 		yield return chew;
+	}
+
+	private void ShowBiteProgress(Toil chew)
+	{
+		Effecter progress = null;
+		// Vanilla's WithProgressBar skips visitors and traders.
+		chew.AddPreTickAction(() =>
+		{
+			progress ??= EffecterDefOf.ProgressBar.Spawn();
+			progress.EffectTick(pawn, TargetInfo.Invalid);
+			if (progress.children.Count == 0) return;
+			MoteProgressBar mote = ((SubEffecter_ProgressBar)progress.children[0]).mote;
+			if (mote == null) return;
+			mote.progress = biteDuration > 0 ? Mathf.Clamp01((float)biteTicks / biteDuration) : 0f;
+			mote.offsetZ = -0.5f;
+			mote.alwaysShow = true;
+		});
+		chew.AddFinishAction(() =>
+		{
+			progress?.Cleanup();
+			progress = null;
+		});
 	}
 
 	private void CarryAction()
@@ -90,10 +121,11 @@ public class JobDriver_EatRatEgg : JobDriver
 			EndJobWith(JobCondition.Incompletable);
 			return;
 		}
-		if (nextBiteTick == 0)
+		if (!startedChewing)
 		{
 			own = RatkinRecycleUtility.IsOwnEgg(pawn, victimStored);
 			tier = RatkinRecycleUtility.GrowthTier(victimStored);
+			StartChewing();
 		}
 		// Toddlers' initial self-care stage is distinct from carrying capacity.
 		if (CanCarryVictim())
@@ -105,8 +137,7 @@ public class JobDriver_EatRatEgg : JobDriver
 				return;
 			}
 		}
-		if (nextBiteTick == 0)
-			nextBiteTick = Find.TickManager.TicksGame + Mathf.Max(10, RatkinRecycleMod.Settings.biteInterval);
+		if (biteDuration == 0) StartNextBite();
 	}
 
 	private bool CanCarryVictim()
@@ -154,11 +185,12 @@ public class JobDriver_EatRatEgg : JobDriver
 			return;
 		}
 		// A death between our bites is not a completed meal, even after earlier bites.
-		if (!HasLivingVictim() || pawn.Dead || pawn.Downed)
+		if (!HasLivingVictim() || !RatkinRecycleUtility.CanEat(pawn, Manual))
 		{
 			EndJobWith(JobCondition.Incompletable);
 			return;
 		}
+		if (!startedChewing) StartChewing();
 		if (!carried && !pawn.CanReachImmediate(victimStored, PathEndMode.Touch))
 		{
 			JumpToToil(approach);
@@ -176,20 +208,30 @@ public class JobDriver_EatRatEgg : JobDriver
 			}
 			return;
 		}
-		int ticks = Find.TickManager.TicksGame;
-		if (ticks >= nextBiteTick)
+		if (biteDuration == 0) StartNextBite();
+		if (++biteTicks >= biteDuration)
 		{
-			nextBiteTick = ticks + Mathf.Max(10, RatkinRecycleMod.Settings.biteInterval);
+			StartNextBite();
 			Bite();
 		}
 	}
 
+	private void StartChewing()
+	{
+		startedChewing = true;
+		ignoreFullnessAndSafety = pawn.needs.food.CurLevelPercentage > StopFullness;
+	}
+
+	private void StartNextBite()
+	{
+		biteTicks = 0;
+		biteDuration = Mathf.Clamp(RatkinRecycleMod.Settings.biteInterval, 60, 1200);
+	}
+
 	private bool IsFull()
 	{
-		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
-		if (Manual) return false;
-		return settings != null && settings.stopAtFullness > 0f && pawn.needs?.food != null
-			&& pawn.needs.food.CurLevelPercentage >= settings.stopAtFullness;
+		return !ignoreFullnessAndSafety && pawn.needs?.food != null
+			&& pawn.needs.food.CurLevelPercentage >= StopFullness;
 	}
 
 	private void StopPartially(string reason)
@@ -227,6 +269,11 @@ public class JobDriver_EatRatEgg : JobDriver
 		}
 		RatkinRecycleSettings settings = RatkinRecycleMod.Settings;
 		DamageInfo damage = new DamageInfo(DamageDefOf.Bite, settings.biteDamage + Rand.Range(0f, 2f), 0f, -1f, pawn, part);
+		if (WouldBreachSafetyLimit(damage))
+		{
+			StopPartially("safety");
+			return;
+		}
 		// The whitelist restricts direct targets; losing a part can still remove descendants
 		// and its wounds can bleed. Do not redirect or spread damage to other parts.
 		damage.SetAllowDamagePropagation(false);
@@ -247,6 +294,11 @@ public class JobDriver_EatRatEgg : JobDriver
 			return;
 		}
 		consecutiveNoDamageBites = 0;
+		if (!thoughtsGranted)
+		{
+			RatkinRecycleUtility.GainEggThoughts(pawn, victimStored, kind, own, tier);
+			thoughtsGranted = true;
+		}
 		consumed = true;
 		if (pawn.needs?.food != null)
 		{
@@ -270,6 +322,36 @@ public class JobDriver_EatRatEgg : JobDriver
 		{
 			StopPartially("full");
 		}
+	}
+
+	private bool WouldBreachSafetyLimit(DamageInfo damage)
+	{
+		if (ignoreFullnessAndSafety || !RatkinRecycleMod.Settings.victimSafetyLimit
+			|| pawn.needs.food.CurCategory != HungerCategory.Fed || damage.Amount <= 0f) return false;
+		if (victimStored.def.damageMultipliers != null)
+			foreach (DamageMultiplier multiplier in victimStored.def.damageMultipliers)
+				if (multiplier.damageDef == damage.Def)
+					damage.SetAmount(Mathf.RoundToInt(damage.Amount * multiplier.multiplier));
+		float factor = 1f;
+		if (ModsConfig.BiotechActive && victimStored.genes != null)
+			factor *= victimStored.genes.FactorForDamage(damage);
+		factor *= victimStored.health.FactorForDamage(damage);
+		// Use unarmored damage so armor randomness cannot turn a predicted safe bite lethal.
+		float severity = damage.Amount * factor;
+		if (severity <= 0f) return false;
+		// Armor can round sub-point damage up to one.
+		if (damage.Def.armorCategory != null) severity = Mathf.Max(1f, severity);
+		if (damage.Def.ExternalViolenceFor(victimStored))
+			severity *= victimStored.GetStatValue(StatDefOf.IncomingDamageFactor);
+		BodyPartRecord part = damage.HitPart;
+		HediffDef injury = HealthUtility.GetHediffDefFromDamage(damage.Def, victimStored, part);
+		if (victimStored.health.WouldDieAfterAddingHediff(injury, part, severity)) return true;
+		// Non-colony pawns can also die randomly from a newly downing injury.
+		bool diesWhenDowned = victimStored.kindDef.forceDeathOnDowned
+			|| (!victimStored.health.forceDowned && !victimStored.IsWildMan() && !victimStored.IsDeactivated()
+				&& victimStored.Faction?.IsPlayer != true && victimStored.HostFaction?.IsPlayer != true);
+		return !victimStored.Downed && diesWhenDowned
+			&& victimStored.health.WouldBeDownedAfterAddingHediff(injury, part, severity);
 	}
 
 	private void DropOwnedVictim()

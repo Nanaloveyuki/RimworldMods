@@ -288,7 +288,7 @@ internal sealed class RatkinRecycleNativePage : MenuNativePage, IRatkinRecycleSe
 		row.Buffer = next;
 	}
 
-	public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true)
+	public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true, int max = int.MaxValue)
 	{
 		Row row = Next(RowKind.Integer, id, label);
 		if (capturing) return;
@@ -299,7 +299,7 @@ internal sealed class RatkinRecycleNativePage : MenuNativePage, IRatkinRecycleSe
 			row.Invalid = false;
 		}
 		string next = DrawNumber(row, enabled);
-		bool valid = int.TryParse(next, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed) && parsed >= min;
+		bool valid = int.TryParse(next, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed) && parsed >= min && parsed <= max;
 		row.Invalid = !valid;
 		if (enabled && next != row.Buffer && valid) value = row.LastInteger = parsed;
 		row.Buffer = next;

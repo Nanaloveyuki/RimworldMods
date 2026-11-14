@@ -73,7 +73,7 @@ public static class RatkinRecycleMenus
 		public void Label(string text) { }
 		public void Check(string id, string label, ref bool value, string tooltip = null) => Add(id, label, tooltip);
 		public void Number(string id, string label, ref float value, float min = 0f, float max = float.MaxValue, bool enabled = true) => Add(id, label);
-		public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true) => Add(id, label);
+		public void Integer(string id, string label, ref int value, int min = 0, bool enabled = true, int max = int.MaxValue) => Add(id, label);
 		public void TextField(string id, ref string value, int maxLength) => Add(id, section, value);
 		public bool Button(string id, string label)
 		{
