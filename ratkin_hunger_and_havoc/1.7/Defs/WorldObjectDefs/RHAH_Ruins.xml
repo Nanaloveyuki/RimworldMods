@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorldObjectDef ParentName="StaticWorldObjectBase">
+    <defName>RHAH_Ruins</defName>
+    <label>ratkin camp ruins</label>
+    <description>The remains of a ratkin camp. A caravan can search the ruins for supplies.</description>
+    <worldObjectClass>HungerAndHavoc.Incidents.WorldObject_RHAH_Ruins</worldObjectClass>
+    <texture>World/WorldObjects/TribalSettlement</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>World/WorldObjects/Expanding/DestroyedSettlement</expandingIconTexture>
+    <expandingIconPriority>20</expandingIconPriority>
+    <validLaunchTarget>false</validLaunchTarget>
+  </WorldObjectDef>
+</Defs>

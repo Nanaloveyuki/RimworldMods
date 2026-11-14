@@ -19,7 +19,7 @@ namespace HungerAndHavoc.EventMgr
 
         internal RHAH_EventChainProvider()
         {
-            IEventChainDefinition[] items = new IEventChainDefinition[60];
+            IEventChainDefinition[] items = new IEventChainDefinition[64];
             Lazy<EventChainScript> follow = new Lazy<EventChainScript>(() => EventChainScript.Compile(ReadScript("RHAH_EventFollow")));
             Lazy<EventChainScript> arrival = new Lazy<EventChainScript>(() => EventChainScript.Compile(ReadScript("RHAH_PredationArrival")));
             for (int i = 0; i < 56; i++)
@@ -32,6 +32,10 @@ namespace HungerAndHavoc.EventMgr
             items[57] = new RHAH_AllyDeparture();
             items[58] = new RHAH_RoyalWatch();
             items[59] = new RHAH_RoyalRepayment();
+            items[60] = new RHAH_BackgroundFollow(RHAH_BackgroundFollow.CivilWarId);
+            items[61] = new RHAH_BackgroundFollow(RHAH_BackgroundFollow.TakeoverId);
+            items[62] = new RHAH_BackgroundTradeFollow();
+            items[63] = new RHAH_ShamblerReinforcements();
             definitions = Array.AsReadOnly(items);
         }
 

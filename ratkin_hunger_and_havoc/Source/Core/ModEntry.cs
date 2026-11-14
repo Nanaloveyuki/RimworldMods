@@ -58,6 +58,7 @@ namespace HungerAndHavoc.Core
         {
             DrawContentPresets(listing);
             DrawResetSettings(listing);
+            Incidents.Dialog_RHAH_BackgroundOptions.DrawEntry(listing);
             listing.CheckboxLabeled("RHAH_Settings_EnableNewContent".Translate(), ref Settings.enableNewContent,
                 "RHAH_Settings_EnableNewContent_Tooltip".Translate());
             DrawRemoval(listing);

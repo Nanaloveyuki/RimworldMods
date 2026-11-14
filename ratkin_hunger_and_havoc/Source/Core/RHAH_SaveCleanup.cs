@@ -15,10 +15,8 @@ namespace HungerAndHavoc.Core
         internal readonly HashSet<string> GeneDefs = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> XenotypeIconDefs = new HashSet<string>(StringComparer.Ordinal);
         internal readonly HashSet<string> ThoughtStageKeys = new HashSet<string>(StringComparer.Ordinal);
-        internal readonly HashSet<string> CampObjectDefs = new HashSet<string>(StringComparer.Ordinal);
-        internal readonly HashSet<string> CampObjectClasses = new HashSet<string>(StringComparer.Ordinal);
+        internal readonly HashSet<string> WorldObjectDefs = new HashSet<string>(StringComparer.Ordinal);
         internal readonly Dictionary<string, string> Replacements = new Dictionary<string, string>(StringComparer.Ordinal);
-        internal readonly Dictionary<string, string> MapGeneratorReplacements = new Dictionary<string, string>(StringComparer.Ordinal);
         internal string PackageId;
     }
 
@@ -51,6 +49,7 @@ namespace HungerAndHavoc.Core
 
             RequireReplacements(game);
             RequireKnownTypes(game);
+            RequireUnloadedWorldObjects(game);
             RemovedEntries += OxygenEventChainHost.RemoveProviderState(document, RHAH_EventChainProvider.ProviderKey);
             // 先撤销短工加的原版锁 再移除身份 Hediff
             foreach (XElement ownedLocks in ContentNodes(game).Where(item => item.Name == "shortStayLockedApparel" &&
@@ -81,14 +80,14 @@ namespace HungerAndHavoc.Core
             {
                 TransferKingdomSupply(game, site);
             }
-            foreach (XElement site in ContentNodes(game).Where(IsMappedCamp).ToList())
+            foreach (XElement site in ContentNodes(game).Where(IsOwnedWorldObject).ToList())
             {
-                ConvertCamp(site);
+                Remove(site);
             }
 
             foreach (XElement node in ContentNodes(game).Where(IsOwnedClass).ToList())
             {
-                if (node.Document == null || IsMappedCamp(node))
+                if (node.Document == null)
                 {
                     continue;
                 }
@@ -308,101 +307,28 @@ namespace HungerAndHavoc.Core
                 node.Name == "factionDef";
         }
 
-        bool IsMappedCamp(XElement node)
+        bool IsOwnedWorldObject(XElement node)
         {
-            if (!HasMapOrResidents(node) || node.Element("def") == null)
-            {
-                return false;
-            }
-
-            string typeName = ClassName(node);
-            return plan.CampObjectDefs.Contains((string)node.Element("def")) ||
-                (typeName != null && plan.CampObjectClasses.Contains(typeName));
+            return node.Element("ID") != null && node.Element("def") != null &&
+                (node.Name == "worldObject" || node.Parent?.Name == "worldObjects") &&
+                (plan.WorldObjectDefs.Contains((string)node.Element("def")) || IsOwnedClass(node));
         }
 
-        static bool HasMapOrResidents(XElement node)
+        void RequireUnloadedWorldObjects(XElement game)
         {
-            if (node == null || node.Element("ID") == null)
+            foreach (XElement site in ContentNodes(game).Where(IsOwnedWorldObject))
             {
-                return false;
-            }
-
-            XElement game = node.Ancestors().FirstOrDefault(item => item.Name == "game");
-            string reference = "WorldObject_" + node.Element("ID").Value;
-            if (game != null && game.Element("maps") != null)
-            {
-                foreach (XElement map in game.Element("maps").Elements())
+                string reference = "WorldObject_" + site.Element("ID").Value;
+                foreach (XElement map in game.Element("maps")?.Elements() ?? Enumerable.Empty<XElement>())
                 {
                     if ((string)map.Element("mapInfo")?.Element("parent") == reference)
                     {
-                        return true;
+                        // 原版物品没有来源归属 不能按角色派系判断整张地图可以删除
+                        throw new InvalidOperationException("Cannot remove RHAH site " + site.Element("def").Value +
+                            " (ID " + site.Element("ID").Value + "): map " + (string)map.Element("uniqueID") +
+                            " is still loaded. Move all pawns and items out and let the map unload before exporting again.");
                     }
                 }
-            }
-
-            XElement residents = node.Element("residents");
-            return residents != null && residents.Elements().Any();
-        }
-
-        void ConvertCamp(XElement site)
-        {
-            string typeName = ClassName(site);
-            if (typeName != null && typeName != "RimWorld.Planet.Site" && !plan.CampObjectClasses.Contains(typeName))
-            {
-                throw new InvalidOperationException("Site cannot keep a generated map at " + PathOf(site));
-            }
-
-            if (typeName != null && typeName != "RimWorld.Planet.Site")
-            {
-                site.SetAttributeValue("Class", "RimWorld.Planet.Site");
-            }
-
-            site.SetElementValue("def", "Site");
-            Remove(site.Element("parts"));
-            Remove(site.Element("cleared"));
-            Remove(site.Element("nextCheck"));
-            Remove(site.Element("displayId"));
-            Remove(site.Element("spawnBatchId"));
-            Remove(site.Element("settled"));
-            RetargetGenerator(site);
-            ReplacedDefs++;
-        }
-
-        void RetargetGenerator(XElement site)
-        {
-            XElement game = site.Ancestors().FirstOrDefault(item => item.Name == "game");
-            string reference = "WorldObject_" + (string)site.Element("ID");
-            if (game?.Element("maps") == null || string.IsNullOrEmpty((string)site.Element("ID")))
-            {
-                return;
-            }
-
-            foreach (XElement map in game.Element("maps").Elements())
-            {
-                if ((string)map.Element("mapInfo")?.Element("parent") != reference)
-                {
-                    continue;
-                }
-
-                XElement generator = map.Element("generatorDef");
-                string name = (generator?.Value ?? string.Empty).Trim();
-                if (generator == null || !plan.MapGeneratorReplacements.TryGetValue(name, out string replacement))
-                {
-                    continue;
-                }
-
-                if (string.IsNullOrEmpty(replacement))
-                {
-                    throw new InvalidOperationException("Missing map generator replacement for " + name + " at " + PathOf(generator));
-                }
-
-                if (generator.Value == replacement)
-                {
-                    continue;
-                }
-
-                generator.Value = replacement;
-                ReplacedDefs++;
             }
         }
 
@@ -483,12 +409,6 @@ namespace HungerAndHavoc.Core
             if (node.Name == "iconDef" && plan.XenotypeIconDefs.Contains(node.Value))
             {
                 Remove(node);
-                return;
-            }
-
-            if (node.Name == "def" && plan.CampObjectDefs.Contains(node.Value) && owner?.Element("ID") != null)
-            {
-                Remove(owner);
                 return;
             }
 

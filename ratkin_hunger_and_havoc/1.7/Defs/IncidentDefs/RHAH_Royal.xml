@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <IncidentDef>
-    <defName>RHAH_SuspiciousRoyal</defName>
+    <defName>RHAH_SuspiciousRoyal</defName><label>A dubious royal</label>
     <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_SuspiciousRoyal</workerClass>
     <category>Misc</category>
     <targetTags><li>Map_PlayerHome</li></targetTags>

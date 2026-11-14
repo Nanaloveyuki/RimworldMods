@@ -148,7 +148,10 @@ namespace HungerAndHavoc.Incidents
             bool playerCaravan,
             int checkIntervalTicks)
         {
-            if (days <= 0f || !Rand.MTBEventOccurs(days, GenDate.TicksPerDay, checkIntervalTicks))
+            float multiplier = pool == RHAH_AttitudePool.Negative
+                ? RHAH_BackgroundStories.NegativeRateMultiplier(Find.TickManager.TicksGame)
+                : 1f;
+            if (days <= 0f || !Rand.MTBEventOccurs(days / multiplier, GenDate.TicksPerDay, checkIntervalTicks))
             {
                 return;
             }
@@ -269,6 +272,7 @@ namespace HungerAndHavoc.Incidents
         {
             if (entry.DisplayId == RHAH_SuspiciousRoyal.DisplayId || RHAH_IncidentGroups.PoolOf(entry.DisplayId) != pool ||
                 !GameComponent_RHAH_FamineYear.Available(entry.DisplayId) ||
+                !RHAH_Shamblers.Available(entry.DisplayId) ||
                 !RHAH_WarlordCompat.Available(entry.DisplayId))
             {
                 return 0f;

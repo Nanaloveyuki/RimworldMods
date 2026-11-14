@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_IncidentGroup_I059>シャンブラーになった幼いラットキン</RHAH_IncidentGroup_I059>
+  <RHAH_IncidentGroup_I060>ラットキンのシャンブラー群</RHAH_IncidentGroup_I060>
+  <RHAH_IncidentGroup_I061>ラットキンのシャンブラー大群</RHAH_IncidentGroup_I061>
+  <RHAH_Incident_ShamblerChild_Label>シャンブラーになった幼いラットキン</RHAH_Incident_ShamblerChild_Label>
+  <RHAH_Incident_ShamblerGroup_Label>ラットキンのシャンブラー群</RHAH_Incident_ShamblerGroup_Label>
+  <RHAH_Incident_ShamblerHorde_Label>ラットキンのシャンブラー大群</RHAH_Incident_ShamblerHorde_Label>
+  <RHAH_Incident_ShamblerChild_Text>すでに命を失ったように見える幼いラットキンが、コロニーの周辺へふらふらとやって来ました。その動きはシャンブラーの特徴と一致しています。放っておいてもよさそうです。距離を保っていれば、今のところこちらに危害を加えには来ないでしょう。</RHAH_Incident_ShamblerChild_Text>
+  <RHAH_Incident_ShamblerGroup_Text>ラットキンのシャンブラーが何体か、コロニーの周辺にやって来ました。すでに命は失われています。放っておくこともできますが、なぜこのラットキンたちがシャンブラーになったのかは気がかりです。</RHAH_Incident_ShamblerGroup_Text>
+  <RHAH_Incident_ShamblerHorde_Text>ラットキンのシャンブラーの大群が、コロニーの周辺にやって来ました。とても手ごわそうです。さらにシャンブラーが引き寄せられる前に、早く片づける必要があります。\n\n三日後、このマップに生存していて動けるラットキンのシャンブラーが残っていれば、もう一群がやって来ます。</RHAH_Incident_ShamblerHorde_Text>
+  <RHAH_Shambler_Reinforcements_Label>さらなるラットキンのシャンブラー</RHAH_Shambler_Reinforcements_Label>
+  <RHAH_Shambler_Reinforcements_Text>ラットキンのシャンブラーの大群がさらにコロニーの周辺へ引き寄せられ、こちらへ押し寄せています。</RHAH_Shambler_Reinforcements_Text>
+</LanguageData>

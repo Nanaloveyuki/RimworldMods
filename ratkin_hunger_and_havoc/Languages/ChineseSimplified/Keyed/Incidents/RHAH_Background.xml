@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Background_Rebellion_Label>叛乱</RHAH_Background_Rebellion_Label>
+  <RHAH_Background_Rebellion_Text>有人从远方传来了消息，{0}因为天灾和人祸导致的饥荒引起了底层鼠族的反抗，他们举起了分粮的大旗反抗着{0}当局。</RHAH_Background_Rebellion_Text>
+  <RHAH_Background_Rebellion_Option>密切关注</RHAH_Background_Rebellion_Option>
+  <RHAH_Background_Ruins_Label>废墟</RHAH_Background_Ruins_Label>
+  <RHAH_Background_Ruins_Text>有人告诉我们临近的鼠族临时据点被毁灭了，凶手未知，那里现在只剩下残骸和废墟以及满地的尸体，看来那里的鼠族凶多吉少了……</RHAH_Background_Ruins_Text>
+  <RHAH_Background_Ruins_Option>可怜</RHAH_Background_Ruins_Option>
+  <RHAH_Background_Unrest_Label>骚动</RHAH_Background_Unrest_Label>
+  <RHAH_Background_Unrest_Text>临近的一处鼠族临时据点发生了骚动，似乎是因为粮食分配问题……如果我们不希望被波及，那么最好最近注意一下。</RHAH_Background_Unrest_Text>
+  <RHAH_Background_Unrest_Option>密切关注</RHAH_Background_Unrest_Option>
+  <RHAH_Background_Mutiny_Label>哗变</RHAH_Background_Mutiny_Label>
+  <RHAH_Background_Mutiny_Text>{0}的一支镇暴部队发生了哗变，尚不清楚什么原因导致的，可能是军饷，又或者是其他原因。可能会有部分士兵路过或是借宿我们这里，无论如何我们都应该打起警惕。</RHAH_Background_Mutiny_Text>
+  <RHAH_Background_Mutiny_Option>已了解</RHAH_Background_Mutiny_Option>
+  <RHAH_Background_CivilWar_Label>内乱</RHAH_Background_CivilWar_Label>
+  <RHAH_Background_CivilWar_Text>{0}向外紧急发送了通讯，宣称内部已然存在极其激烈的斗争，并存在着多方势力的权力角逐，当局已无暇顾及外交。</RHAH_Background_CivilWar_Text>
+  <RHAH_Background_CivilWar_Option>保持关注并呼吁和平</RHAH_Background_CivilWar_Option>
+  <RHAH_Background_Takeover_Label>据点易主</RHAH_Background_Takeover_Label>
+  <RHAH_Background_Takeover_Text>这里是{0}，我们已得到{1}的控制权，现在该据点属于我们，完毕。</RHAH_Background_Takeover_Text>
+  <RHAH_Background_Explore>探索废墟</RHAH_Background_Explore>
+  <RHAH_Background_ExploreDescription>在废墟中搜寻还能带走的物资。</RHAH_Background_ExploreDescription>
+  <RHAH_Background_ExploreReport>正在前往探索鼠族废墟。</RHAH_Background_ExploreReport>
+  <RHAH_Background_ExploreRemaining>有些物资还没装进远行队的行囊，整理后可以继续搜寻。</RHAH_Background_ExploreRemaining>
+  <RHAH_Background_Explored_Label>废墟探索完毕</RHAH_Background_Explored_Label>
+  <RHAH_Background_Explored_Text>远行队搜遍了废墟，将还能用的物资装进了行囊。这里已经没什么值得带走的东西了。</RHAH_Background_Explored_Text>
+  <RHAH_Background_RuinsSupplies>可搜寻物资：硬饼干 {0}，白银 {1}，零部件 {2}</RHAH_Background_RuinsSupplies>
+  <RHAH_Background_SettingsTitle>王国背景故事</RHAH_Background_SettingsTitle>
+  <RHAH_Background_SettingsDescription>全年龄向的王国消息，使用独立事件池。</RHAH_Background_SettingsDescription>
+  <RHAH_Background_SettingsEnabled>启用背景故事</RHAH_Background_SettingsEnabled>
+  <RHAH_Background_SettingsAverageDays>背景消息平均间隔：{0} 天</RHAH_Background_SettingsAverageDays>
+  <RHAH_Background_SettingsFrequency>间隔为0时停止随机消息。权重决定各消息被选中的相对机会；内乱只由叛乱引发。伤员与纪念碑需要世界中同时存在军阀和游击队。</RHAH_Background_SettingsFrequency>
+  <RHAH_Background_SettingsWeight>抽取权重：{0}</RHAH_Background_SettingsWeight>
+  <RHAH_Background_SettingsCivilWar>启用叛乱后的内乱消息</RHAH_Background_SettingsCivilWar>
+  <RHAH_Background_SettingsCivilWarChance>每次叛乱引发内乱的概率：{0}%</RHAH_Background_SettingsCivilWarChance>
+  <RHAH_Background_SettingsCivilWarDelay>叛乱后等待：{0} 天</RHAH_Background_SettingsCivilWarDelay>
+  <RHAH_Background_SettingsTakeover>启用游击队与军阀夺取据点</RHAH_Background_SettingsTakeover>
+  <RHAH_Background_SettingsTakeoverRule>需要世界中存在对应派系。内乱后的等待期结束时，双方各判定一次，各可夺取一个据点。王国始终至少保留3个据点；正在使用的据点地图暂不易主。</RHAH_Background_SettingsTakeoverRule>
+  <RHAH_Background_SettingsTakeoverChance>每方夺取一个据点的概率：{0}%</RHAH_Background_SettingsTakeoverChance>
+  <RHAH_Background_SettingsTakeoverDelay>内乱后等待：{0} 天（默认60天为一年）</RHAH_Background_SettingsTakeoverDelay>
+  <RHAH_Background_SettingsUnrestBonus>骚动期间本模组负面事件发生率提高：{0}%</RHAH_Background_SettingsUnrestBonus>
+  <RHAH_Background_SettingsUnrestDays>骚动影响持续：{0} 天</RHAH_Background_SettingsUnrestDays>
+  <RHAH_Background_SettingsRuinsDistance>废墟距离家园：{0}～{1} 世界格（按可通行路线）</RHAH_Background_SettingsRuinsDistance>
+  <RHAH_Background_SettingsHardtack>废墟硬饼干：{0}～{1}</RHAH_Background_SettingsHardtack>
+  <RHAH_Background_SettingsSilver>废墟白银：{0}～{1}</RHAH_Background_SettingsSilver>
+  <RHAH_Background_SettingsComponents>废墟零部件：{0}～{1}</RHAH_Background_SettingsComponents>
+  <RHAH_Background_TwoTaxes_Label>两次缴税</RHAH_Background_TwoTaxes_Label>
+  <RHAH_Background_TwoTaxes_Text>有人告诉我们，有处被{0}割出去的村庄最近收到了两份税单，分别来自{1}和{0}。</RHAH_Background_TwoTaxes_Text>
+  <RHAH_Background_TwoTaxes_Option>了解</RHAH_Background_TwoTaxes_Option>
+  <RHAH_Background_SameCallsign_Label>同一个呼号</RHAH_Background_SameCallsign_Label>
+  <RHAH_Background_SameCallsign_Text>附近传来了一段求救通讯。呼号很旧，是军阀和游击队还在一起时用过的。几名伤员被困在那里，两边的人暂时收起了武器，却都不肯先把伤员交给对方。\n\n他们希望我们的远行队能去帮忙撤离。</RHAH_Background_SameCallsign_Text>
+  <RHAH_Background_SameCallsign_Option>记下位置</RHAH_Background_SameCallsign_Option>
+  <RHAH_Background_HarvestFestival_Label>丰收节的空粮车</RHAH_Background_HarvestFestival_Label>
+  <RHAH_Background_HarvestFestival_Text>{0}公开宣布举办丰收庆典，称各地粮仓充盈，鼠民安居乐业。商人们也得到了消息，开始出售庆典粮食。\n\n下次向王国商队或王国据点购买食物时，可享受{2}%折扣。</RHAH_Background_HarvestFestival_Text>
+  <RHAH_Background_HarvestFestival_Option>看来是个好年</RHAH_Background_HarvestFestival_Option>
+  <RHAH_Background_Memorial_Label>纪念碑上的空位</RHAH_Background_Memorial_Label>
+  <RHAH_Background_Memorial_Text>附近有一座旧联军的纪念碑。碑顶已经裂了，下面还有几行没刻完的名字。军阀的人想先把碑修起来，游击队的人想先找回失踪的名单，谁也说服不了谁。\n\n我们可以派远行队去看看，帮他们送些钢铁或原木、寻找名单，或者照着原样把碑修好。</RHAH_Background_Memorial_Text>
+  <RHAH_Background_Memorial_Option>记下位置</RHAH_Background_Memorial_Option>
+  <RHAH_Background_AidManifest_Label>援助清单</RHAH_Background_AidManifest_Label>
+  <RHAH_Background_AidManifest_Text>{0}的一份武器援助清单流了出来。王国声称这批武器是盟友的慷慨赠礼，商人们则忙着处理其中的一部分。\n\n下次向王国商队或王国据点购买鼠族武器时，可享受{2}%折扣。</RHAH_Background_AidManifest_Text>
+  <RHAH_Background_AidManifest_Option>留意一下</RHAH_Background_AidManifest_Option>
+  <RHAH_Background_CancelledBanquet_Label>宴会取消了</RHAH_Background_CancelledBanquet_Label>
+  <RHAH_Background_CancelledBanquet_Text>{0}原定的一场贵族宴会突然取消了。厨子已经备好了食材，送货的人却被告知把东西拉走，商人们只好便宜出售。\n\n下次向王国商队或王国据点购买食物时，可享受{2}%折扣。</RHAH_Background_CancelledBanquet_Text>
+  <RHAH_Background_CancelledBanquet_Option>知道了</RHAH_Background_CancelledBanquet_Option>
+  <RHAH_Background_HarvestFestival_FollowLabel>粮车回去了</RHAH_Background_HarvestFestival_FollowLabel>
+  <RHAH_Background_HarvestFestival_FollowText>从{0}回来的商人提起，庆典上的粮车装饰得很漂亮，卸完给贵族的那一份后，空车就被赶回了村庄。村里的人还在等分粮。</RHAH_Background_HarvestFestival_FollowText>
+  <RHAH_Background_AidManifest_FollowLabel>援助的价钱</RHAH_Background_AidManifest_FollowLabel>
+  <RHAH_Background_AidManifest_FollowText>有人送来了{0}那份援助清单的另一页。上面没有武器的数量，只有割让的村庄、矿场和通行权。\n\n当年击溃联军的武器，大概就是这样买来的。</RHAH_Background_AidManifest_FollowText>
+  <RHAH_Background_CancelledBanquet_FollowLabel>谁来付账</RHAH_Background_CancelledBanquet_FollowLabel>
+  <RHAH_Background_CancelledBanquet_FollowText>{0}的农户开始追讨那场宴会的货款。负责采购的官员说宴会既然取消了，账自然也就作废了。\n\n食材已经卖出去了，农户还没拿到钱。</RHAH_Background_CancelledBanquet_FollowText>
+  <RHAH_Background_SiteSameCallsign>旧联军伤员撤离点</RHAH_Background_SiteSameCallsign>
+  <RHAH_Background_SiteMemorial>旧联军纪念碑</RHAH_Background_SiteMemorial>
+  <RHAH_Background_SiteNameList>废弃的联军联络站</RHAH_Background_SiteNameList>
+  <RHAH_Background_SiteDescriptionSameCallsign>伤员等着撤离。帮助他们后，军阀与游击队对我们的好感都会提高。</RHAH_Background_SiteDescriptionSameCallsign>
+  <RHAH_Background_SiteDescriptionMemorial>碑上的名字分成了两列，最后几行还是空的。</RHAH_Background_SiteDescriptionMemorial>
+  <RHAH_Background_SiteDescriptionNameList>旧联军的名单可能还留在这处联络站里。</RHAH_Background_SiteDescriptionNameList>
+  <RHAH_Background_SiteDescriptionWaitingForNames>有人指了指附近的旧联络站。也许能在那里找到没刻完的名字。</RHAH_Background_SiteDescriptionWaitingForNames>
+  <RHAH_Background_SiteDescriptionJoinOffer>伤员已经安排好撤离，其中一只成年鼠族想跟我们一起生活。要让这名伤员加入远行队吗？</RHAH_Background_SiteDescriptionJoinOffer>
+  <RHAH_Background_Visit>前往协助</RHAH_Background_Visit>
+  <RHAH_Background_VisitDescription>派远行队前去和当地鼠族交谈。</RHAH_Background_VisitDescription>
+  <RHAH_Background_VisitReport>正在前往鼠族集会地点。</RHAH_Background_VisitReport>
+  <RHAH_Background_AcceptWounded>让伤员加入</RHAH_Background_AcceptWounded>
+  <RHAH_Background_DeclineWounded>婉拒，继续协助撤离</RHAH_Background_DeclineWounded>
+  <RHAH_Background_JoinUnavailable>暂时无法接纳这名伤员。</RHAH_Background_JoinUnavailable>
+  <RHAH_Background_InteractionUnavailable>现在无法完成这项帮助。请检查远行队的位置和携带的材料。</RHAH_Background_InteractionUnavailable>
+  <RHAH_Background_Evacuated>伤员们陆续离开了。有人在临走时又报了一遍那个旧呼号。</RHAH_Background_Evacuated>
+  <RHAH_Background_WoundedJoined>那只伤员跟上了我们的远行队。其他人把行李递过来，向我们道了谢。</RHAH_Background_WoundedJoined>
+  <RHAH_Background_Supply>提供{0}个{1}（双方好感+{2}）</RHAH_Background_Supply>
+  <RHAH_Background_Restore>用{0}个{1}原样修复（双方好感+{2}）</RHAH_Background_Restore>
+  <RHAH_Background_SearchNames>寻找名单（游击队+{0}，军阀+{1}）</RHAH_Background_SearchNames>
+  <RHAH_Background_NameListLabel>名单可能在这里</RHAH_Background_NameListLabel>
+  <RHAH_Background_NameListText>一只老鼠族记得附近还有一处旧联络站。联军的名册可能还留在那里，我们可以派远行队去找找。</RHAH_Background_NameListText>
+  <RHAH_Background_NamesFound>远行队找到了那份名单，托人送回了纪念碑。空着的几行终于有了名字。</RHAH_Background_NamesFound>
+  <RHAH_Background_MemorialSupplied>材料被搬到了碑旁。两边的人开始一起干活，争执的声音暂时停了下来。</RHAH_Background_MemorialSupplied>
+  <RHAH_Background_MemorialRestored>远行队照着原样修好了纪念碑。两边的人都看了很久，谁也没有提议改掉碑上的字。</RHAH_Background_MemorialRestored>
+  <RHAH_Background_SettingsTradeDiscount>王国后续交易折扣：{0}%</RHAH_Background_SettingsTradeDiscount>
+  <RHAH_Background_SettingsWoundedJoinChance>撤离后伤员请求加入的概率：{0}%</RHAH_Background_SettingsWoundedJoinChance>
+  <RHAH_Background_SettingsStoryDistance>伤员与纪念碑距离家园：{0}～{1}世界格</RHAH_Background_SettingsStoryDistance>
+  <RHAH_Background_SettingsEvacuationGoodwill>协助撤离，双方各增加好感：{0}</RHAH_Background_SettingsEvacuationGoodwill>
+  <RHAH_Background_SettingsMemorialSteel>纪念碑捐赠钢铁数量：{0}</RHAH_Background_SettingsMemorialSteel>
+  <RHAH_Background_SettingsMemorialWood>纪念碑捐赠原木数量：{0}</RHAH_Background_SettingsMemorialWood>
+  <RHAH_Background_SettingsRestorationSteel>原样修复消耗钢铁：{0}</RHAH_Background_SettingsRestorationSteel>
+  <RHAH_Background_SettingsRestorationWood>原样修复消耗原木：{0}</RHAH_Background_SettingsRestorationWood>
+  <RHAH_Background_SettingsMaterialsGoodwill>捐赠材料，双方各增加好感：{0}</RHAH_Background_SettingsMaterialsGoodwill>
+  <RHAH_Background_SettingsNamesUndergroundGoodwill>找到名单，游击队增加好感：{0}</RHAH_Background_SettingsNamesUndergroundGoodwill>
+  <RHAH_Background_SettingsNamesWarlordGoodwill>找到名单，军阀增加好感：{0}</RHAH_Background_SettingsNamesWarlordGoodwill>
+  <RHAH_Background_SettingsRestorationGoodwill>原样修复，双方各增加好感：{0}</RHAH_Background_SettingsRestorationGoodwill>
+</LanguageData>

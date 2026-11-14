@@ -33,9 +33,9 @@ namespace HungerAndHavoc.Incidents
             return ticks;
         }
 
-        internal static bool UsesApproach(RHAH_IncidentTarget target)
+        internal static bool UsesApproach(RHAH_IncidentTarget target, string displayId = null)
         {
-            return target == RHAH_IncidentTarget.Map;
+            return target == RHAH_IncidentTarget.Map && displayId != "I-058" && !RHAH_Shamblers.IsEvent(displayId);
         }
 
         internal static int MoveTicks(float tileDifficulty, float roadMultiplier)

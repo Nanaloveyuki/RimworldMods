@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ChildSuicideSquad.label>Civilian young ratkin suicide squad</RHAH_ChildSuicideSquad.label>
+  <RHAH_MutilatedChildren.label>Mutilated young ratkin</RHAH_MutilatedChildren.label>
+  <RHAH_LargeRefugeeWave.label>Large refugee wave</RHAH_LargeRefugeeWave.label>
+  <RHAH_AbandonedRatkinChildren.label>Abandoned ratkin young</RHAH_AbandonedRatkinChildren.label>
+  <RHAH_ShatteredMother.label>Shattered mother</RHAH_ShatteredMother.label>
+  <RHAH_BeggarFamily.label>Begging famine mother</RHAH_BeggarFamily.label>
+  <RHAH_BeggarGroup.label>Begging ratkin group</RHAH_BeggarGroup.label>
+  <RHAH_ThiefRatkinGroup.label>Thieving ratkin</RHAH_ThiefRatkinGroup.label>
+  <RHAH_ThiefRatkinChildGroup.label>Thieving ratkin young</RHAH_ThiefRatkinChildGroup.label>
+  <RHAH_WildRatkinWandersIn.label>Wild ratkin wanders in</RHAH_WildRatkinWandersIn.label>
+  <RHAH_WildRatkinChildWandersIn.label>Wild ratkin young wanders in</RHAH_WildRatkinChildWandersIn.label>
+  <RHAH_WildRatkinGroupWandersIn.label>Wild ratkin group wanders in</RHAH_WildRatkinGroupWandersIn.label>
+  <RHAH_FeralRatkinWandersIn.label>Feral Wild ratkin wanders in</RHAH_FeralRatkinWandersIn.label>
+  <RHAH_FeralRatkinChildWandersIn.label>Feral Wild ratkin young wanders in</RHAH_FeralRatkinChildWandersIn.label>
+  <RHAH_FeralRatkinGroupWandersIn.label>Feral Wild ratkin group wanders in</RHAH_FeralRatkinGroupWandersIn.label>
+  <RHAH_FamineRefugees.label>Famine refugees</RHAH_FamineRefugees.label>
+  <RHAH_RatkinTraderCaravan.label>Ratkin trader caravan</RHAH_RatkinTraderCaravan.label>
+  <RHAH_ChildExchange.label>Child exchange</RHAH_ChildExchange.label>
+  <RHAH_BeggarSiege.label>Beggar siege</RHAH_BeggarSiege.label>
+  <RHAH_AidSimpleMeal.label>Refugee aid (simple meal)</RHAH_AidSimpleMeal.label>
+  <RHAH_AidFineMeal.label>Refugee aid (fine meal)</RHAH_AidFineMeal.label>
+  <RHAH_AidMedicine.label>Refugee aid (medicine)</RHAH_AidMedicine.label>
+  <RHAH_AidSilver.label>Refugee aid (silver)</RHAH_AidSilver.label>
+  <RHAH_AidBaby.label>Refugee aid (baby)</RHAH_AidBaby.label>
+  <RHAH_IntelTreasureSimpleMeal.label>Intel (stash, simple meal)</RHAH_IntelTreasureSimpleMeal.label>
+  <RHAH_IntelTreasureHerbal.label>Intel (stash, herbal)</RHAH_IntelTreasureHerbal.label>
+  <RHAH_IntelTreasureSilver.label>Intel (stash, silver)</RHAH_IntelTreasureSilver.label>
+  <RHAH_IntelStructureSimpleMeal.label>Intel (structure, simple meal)</RHAH_IntelStructureSimpleMeal.label>
+  <RHAH_IntelStructureHerbal.label>Intel (structure, herbal)</RHAH_IntelStructureHerbal.label>
+  <RHAH_IntelStructureSilver.label>Intel (structure, silver)</RHAH_IntelStructureSilver.label>
+  <RHAH_IntelSettlementSimpleMeal.label>Intel (settlement, simple meal)</RHAH_IntelSettlementSimpleMeal.label>
+  <RHAH_IntelSettlementHerbal.label>Intel (settlement, herbal)</RHAH_IntelSettlementHerbal.label>
+  <RHAH_IntelSettlementSilver.label>Intel (settlement, silver)</RHAH_IntelSettlementSilver.label>
+  <RHAH_LaboringRefugees.label>Laboring refugees</RHAH_LaboringRefugees.label>
+  <RHAH_StrongSiege.label>Strong siege</RHAH_StrongSiege.label>
+  <RHAH_Passersby.label>Passersby</RHAH_Passersby.label>
+  <RHAH_AirdropMistake.label>Airdrop mistake</RHAH_AirdropMistake.label>
+  <RHAH_MisguidedKinship.label>Mistaken kin</RHAH_MisguidedKinship.label>
+  <RHAH_GreatFamine.label>Great famine</RHAH_GreatFamine.label>
+  <RHAH_CaravanMuggers.label>Caravan muggers</RHAH_CaravanMuggers.label>
+  <RHAH_PlagueWanderers.label>Plague wanderers</RHAH_PlagueWanderers.label>
+  <RHAH_PlagueAbandonedBabies.label>Plague abandoned young</RHAH_PlagueAbandonedBabies.label>
+  <RHAH_PlagueTraderCaravan.label>Plague trader caravan</RHAH_PlagueTraderCaravan.label>
+  <RHAH_PlaguePassersby.label>Plague passersby</RHAH_PlaguePassersby.label>
+  <RHAH_PlagueRefugees.label>Plague refugees</RHAH_PlagueRefugees.label>
+  <RHAH_PlagueOrphan.label>Plague orphan</RHAH_PlagueOrphan.label>
+  <RHAH_PlagueBeggarGroup.label>Plague beggar group</RHAH_PlagueBeggarGroup.label>
+  <RHAH_PlagueThiefGroup.label>Plague thief group</RHAH_PlagueThiefGroup.label>
+  <RHAH_PlagueLaboringRefugees.label>Plague laboring refugees</RHAH_PlagueLaboringRefugees.label>
+  <RHAH_PlagueStrongSiege.label>Plague strong siege</RHAH_PlagueStrongSiege.label>
+  <RHAH_PlagueAirdropMistake.label>Plague airdrop mistake</RHAH_PlagueAirdropMistake.label>
+  <RHAH_PlagueMisguidedKinship.label>Plague mistaken kin</RHAH_PlagueMisguidedKinship.label>
+  <RHAH_PlagueGreatFamine.label>Plague great famine</RHAH_PlagueGreatFamine.label>
+  <RHAH_PlagueCaravanMuggers.label>Plague caravan muggers</RHAH_PlagueCaravanMuggers.label>
+  <RHAH_PlagueRevenge.label>Plague revenge</RHAH_PlagueRevenge.label>
+  <RHAH_RefugeeMassacre.label>Dangerous ratkin settlement</RHAH_RefugeeMassacre.label>
+  <RHAH_MouseSwarm.label>Mouse swarm</RHAH_MouseSwarm.label>
+  <RHAH_PleadingJoin.label>Pleading to join</RHAH_PleadingJoin.label>
+  <RHAH_BanditAttack.label>Bandit attack</RHAH_BanditAttack.label>
+  <RHAH_SuspiciousRoyal.label>A dubious royal</RHAH_SuspiciousRoyal.label>
+  <RHAH_SoupKitchen.label>Soup kitchen</RHAH_SoupKitchen.label>
+</LanguageData>

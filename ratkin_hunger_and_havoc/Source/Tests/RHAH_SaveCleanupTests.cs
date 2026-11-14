@@ -150,37 +150,33 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void ConvertsAMappedCampAndDeletesAnEmptyOne()
+        public void RemovesUnloadedOwnedSitesAndKeepsWorldPawnsAndForeignMaps()
         {
             RHAH_SaveCleanup cleanup = new RHAH_SaveCleanup(Plan());
             XDocument document = Sample();
 
             cleanup.Clean(document);
 
-            XElement mapped = WorldObject(document, "30");
-            Assert.Equal("RimWorld.Planet.Site", (string)mapped.Attribute("Class"));
-            Assert.Equal("Site", (string)mapped.Element("def"));
-            Assert.Equal("30", (string)mapped.Element("ID"));
-            Assert.Equal("WorldObject_30", (string)MapParent(document, "30"));
-            Assert.Equal("Encounter", (string)MapGenerator(document, "30"));
-            Assert.Null(mapped.Element("parts"));
-            Assert.Equal("Thing_11", (string)mapped.Element("residents").Element("li"));
+            Assert.Null(FindBareId(document, "30"));
             Assert.Null(FindBareId(document, "31"));
-            XElement record = WorldObject(document, "32");
-            Assert.Equal("Site", (string)record.Element("def"));
-            Assert.Equal("32", (string)record.Element("ID"));
-            Assert.Equal("WorldObject_32", (string)MapParent(document, "32"));
-            Assert.Equal("Encounter", (string)MapGenerator(document, "32"));
-            Assert.Null(record.Element("parts"));
+            Assert.Null(FindBareId(document, "32"));
             Assert.Null(FindBareId(document, "33"));
+            Assert.Null(FindBareId(document, "40"));
+            Assert.Equal("11", (string)Pawn(document, "11").Element("id"));
+            Assert.Equal("RatkinColonist", (string)Pawn(document, "11").Element("kindDef"));
+            Assert.Single(document.Descendants("maps").Single().Elements());
             Assert.Equal("Base_Player", (string)MapGenerator(document, "90"));
             Assert.Equal("WorldObject_90", (string)MapParent(document, "90"));
             Assert.Equal("ForeignThing", (string)document.Descendants("things").Elements()
                 .First(item => (string)item.Element("id") == "77").Element("def"));
         }
 
-        [Fact]
-        public void InterceptionExportKeepsColonistsAndRetainedCaravanData()
+        [Theory]
+        [InlineData("HungerAndHavoc.Incidents.WorldObject_RHAH_RefugeeCamp", "RHAH_RefugeeCamp")]
+        [InlineData("HungerAndHavoc.Incidents.WorldObject_RHAH_Interception", "RHAH_Interception")]
+        [InlineData("RimWorld.Planet.Site", "RHAH_RecordSite")]
+        [InlineData("Foreign.WorldObject", "RHAH_RefugeeCamp")]
+        public void LoadedOwnedSiteAbortsBeforeChangingPawnsItemsOrCaravanData(string typeName, string defName)
         {
             XDocument document = XDocument.Parse(@"<savegame><game>
 <world><worldObjects><worldObjects>
@@ -190,40 +186,63 @@ namespace HungerAndHavoc.Tests
 <li Class=""HungerAndHavoc.Incidents.WorldObject_RHAH_Interception""><def>RHAH_Interception</def><ID>93</ID></li>
 <li Class=""RimWorld.Planet.CaravansBattlefield""><def>AttackedNonPlayerCaravan</def><ID>94</ID></li>
 </worldObjects></worldObjects></world>
-<maps><li><mapInfo><parent>WorldObject_91</parent></mapInfo><generatorDef>Encounter</generatorDef>
+<maps><li><uniqueID>0</uniqueID><mapInfo><parent>WorldObject_91</parent></mapInfo><generatorDef>Encounter</generatorDef>
 <retainedCaravanData><name>Homeward</name><outfits><li>Outfit_2</li></outfits></retainedCaravanData>
 <components><li Class=""HungerAndHavoc.Core.MapComponent_RHAH_Map"" /></components>
 <things>
 <li Class=""Verse.Pawn""><def>Human</def><id>100</id><kindDef>Colonist</kindDef><faction>Faction_1</faction></li>
 <li Class=""Verse.Pawn""><def>Ratkin</def><id>101</id><kindDef>RHAH_PawnKind_Ratkin</kindDef>
 <healthTracker><hediffSet><hediffs><li><def>RHAH_HungerMark</def></li></hediffs></hediffSet></healthTracker></li>
+<li><def>Silver</def><id>Silver102</id><stackCount>100</stackCount></li>
 </things>
 <lordManager><lords><li><loadID>3</loadID><lordJob Class=""HungerAndHavoc.Pawn.LordJob_RHAH_Intercept""><exitCell>(-1, -1, -1)</exitCell></lordJob></li></lords></lordManager>
 </li></maps></game></savegame>");
-            XElement map = document.Descendants("maps").Single().Element("li");
-            string colonist = Pawn(document, "100").ToString();
-            string retained = map.Element("retainedCaravanData").ToString();
+            XElement site = WorldObject(document, "91");
+            site.SetAttributeValue("Class", typeName);
+            site.Element("def").Value = defName;
+            string before = document.ToString();
+
+            InvalidOperationException error = Assert.Throws<InvalidOperationException>(
+                () => new RHAH_SaveCleanup(Plan()).Clean(document));
+
+            Assert.Contains(defName, error.Message);
+            Assert.Contains("ID 91", error.Message);
+            Assert.Contains("map 0 is still loaded", error.Message);
+            Assert.Contains("Move all pawns and items out", error.Message);
+            Assert.Equal(before, document.ToString());
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("<things><li><def>Silver</def><id>Silver1</id></li></things>")]
+        public void LoadedOwnedSiteWithoutPlayerPawnsStillAborts(string content)
+        {
+            XDocument document = XDocument.Parse("<savegame><game><world><worldObjects><worldObjects>" +
+                "<li Class='HungerAndHavoc.Incidents.WorldObject_RHAH_RefugeeCamp'><def>RHAH_RefugeeCamp</def><ID>5</ID></li>" +
+                "</worldObjects></worldObjects></world><maps><li><mapInfo><parent>WorldObject_5</parent></mapInfo>" +
+                content + "</li></maps></game></savegame>");
+            string before = document.ToString();
+
+            Assert.Throws<InvalidOperationException>(() => new RHAH_SaveCleanup(Plan()).Clean(document));
+
+            Assert.Equal(before, document.ToString());
+        }
+
+        [Fact]
+        public void RemovingUnloadedOwnedSiteClearsItsArrivalReferencesAndKeepsForeignSites()
+        {
+            XDocument document = XDocument.Parse(@"<savegame><game><world><worldObjects><worldObjects>
+<li Class=""HungerAndHavoc.Incidents.WorldObject_RHAH_RefugeeCamp""><def>RHAH_RefugeeCamp</def><ID>5</ID></li>
+<li Class=""RimWorld.Planet.Site""><def>Site</def><ID>6</ID><parts><li><def>PreciousLump</def></li></parts></li>
+<li Class=""RimWorld.Planet.Caravan""><def>Caravan</def><ID>7</ID><pather><arrivalAction Class=""Foreign.ArrivalAction""><site>WorldObject_5</site></arrivalAction></pather></li>
+</worldObjects></worldObjects></world></game></savegame>");
+            string foreignSite = WorldObject(document, "6").ToString();
 
             new RHAH_SaveCleanup(Plan()).Clean(document);
 
-            XElement parent = WorldObject(document, "91");
-            Assert.Equal("RimWorld.Planet.Site", (string)parent.Attribute("Class"));
-            Assert.Equal("Site", (string)parent.Element("def"));
-            Assert.Equal("91", (string)parent.Element("ID"));
-            Assert.Null(parent.Element("displayId"));
-            Assert.Null(parent.Element("spawnBatchId"));
-            Assert.Null(parent.Element("settled"));
-            Assert.Equal("WorldObject_91", (string)map.Element("mapInfo").Element("parent"));
-            Assert.Equal("Encounter", (string)map.Element("generatorDef"));
-            Assert.Equal(colonist, Pawn(document, "100").ToString());
-            Assert.Equal(retained, map.Element("retainedCaravanData").ToString());
-            Assert.Equal("RatkinColonist", (string)Pawn(document, "101").Element("kindDef"));
-            Assert.Null(FindBareId(document, "92"));
-            Assert.Null(FindBareId(document, "93"));
-            Assert.Equal("RimWorld.Planet.CaravansBattlefield", (string)WorldObject(document, "94").Attribute("Class"));
-            Assert.Equal("AttackedNonPlayerCaravan", (string)WorldObject(document, "94").Element("def"));
-            Assert.Empty(map.Element("components").Elements());
-            Assert.Empty(map.Element("lordManager").Element("lords").Elements());
+            Assert.Null(FindBareId(document, "5"));
+            Assert.Equal(foreignSite, WorldObject(document, "6").ToString());
+            Assert.Equal("null", (string)WorldObject(document, "7").Element("pather").Element("arrivalAction").Element("site"));
         }
 
         [Theory]
@@ -597,13 +616,10 @@ namespace HungerAndHavoc.Tests
             plan.Replacements.Add("RHAH_Suiyin", "Randy");
             plan.GeneDefs.Add("RHAH_Gene_ThinRations");
             plan.XenotypeIconDefs.Add("RHAH_XenotypeIcon_Ratkin");
-            plan.CampObjectDefs.Add("RHAH_RefugeeCamp");
-            plan.CampObjectDefs.Add("RHAH_RecordSite");
-            plan.CampObjectDefs.Add("RHAH_Interception");
-            plan.CampObjectClasses.Add("HungerAndHavoc.Incidents.WorldObject_RHAH_RefugeeCamp");
-            plan.CampObjectClasses.Add("HungerAndHavoc.Incidents.WorldObject_RHAH_Interception");
-            plan.MapGeneratorReplacements.Add("RHAH_RefugeeCamp", "Encounter");
-            plan.MapGeneratorReplacements.Add("RHAH_RecordSite", "Encounter");
+            plan.WorldObjectDefs.UnionWith(new[]
+            {
+                "RHAH_RefugeeCamp", "RHAH_RecordSite", "RHAH_Interception", "RHAH_Approach", "RHAH_KingdomSite"
+            });
             return plan;
         }
         static XElement Pawn(XDocument document, string id)
@@ -853,22 +869,12 @@ namespace HungerAndHavoc.Tests
   </worldObjects>
   <maps>
     <li>
-      <uniqueID>8</uniqueID>
-      <generatorDef>RHAH_RefugeeCamp</generatorDef>
-      <mapInfo><size>(250, 1, 250)</size><parent>WorldObject_30</parent></mapInfo>
-      <components><li Class=""HungerAndHavoc.Core.MapComponent_RHAH_Map"" /></components>
-      <areas><li Class=""HungerAndHavoc.Pawn.Area_RHAH_Relief""><ID>7</ID></li><li Class=""Verse.Area_Home""><ID>1</ID></li></areas>
-      <lords><li><loadID>4</loadID><lordJob Class=""HungerAndHavoc.Pawn.LordJob_RHAH_Visitor"" /></li></lords>
-    </li>
-    <li>
-      <uniqueID>9</uniqueID>
-      <generatorDef>RHAH_RecordSite</generatorDef>
-      <mapInfo><size>(200, 1, 200)</size><parent>WorldObject_32</parent></mapInfo>
-    </li>
-    <li>
       <uniqueID>10</uniqueID>
       <generatorDef>Base_Player</generatorDef>
       <mapInfo><size>(250, 1, 250)</size><parent>WorldObject_90</parent></mapInfo>
+      <components><li Class=""HungerAndHavoc.Core.MapComponent_RHAH_Map"" /></components>
+      <areas><li Class=""HungerAndHavoc.Pawn.Area_RHAH_Relief""><ID>7</ID></li><li Class=""Verse.Area_Home""><ID>1</ID></li></areas>
+      <lords><li><loadID>4</loadID><lordJob Class=""HungerAndHavoc.Pawn.LordJob_RHAH_Visitor"" /></li></lords>
       <things><thing><def>ForeignThing</def><id>77</id></thing></things>
     </li>
   </maps>

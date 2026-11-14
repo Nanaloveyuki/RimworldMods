@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_IncidentGroup_I059>Young ratkin shambler</RHAH_IncidentGroup_I059>
+  <RHAH_IncidentGroup_I060>Ratkin shamblers</RHAH_IncidentGroup_I060>
+  <RHAH_IncidentGroup_I061>Ratkin shambler horde</RHAH_IncidentGroup_I061>
+  <RHAH_Incident_ShamblerChild_Label>Young ratkin shambler</RHAH_Incident_ShamblerChild_Label>
+  <RHAH_Incident_ShamblerGroup_Label>Ratkin shamblers</RHAH_Incident_ShamblerGroup_Label>
+  <RHAH_Incident_ShamblerHorde_Label>Ratkin shambler horde</RHAH_Incident_ShamblerHorde_Label>
+  <RHAH_Incident_ShamblerChild_Text>A young ratkin has stumbled into the area around our colony. It seems to be dead, yet it moves like a shambler. We can leave it alone. As long as we keep our distance, it should leave us alone for now.</RHAH_Incident_ShamblerChild_Text>
+  <RHAH_Incident_ShamblerGroup_Text>Some ratkin shamblers have arrived near our colony. There is no life left in them. We can leave them alone, but how these ratkin became shamblers is a troubling question.</RHAH_Incident_ShamblerGroup_Text>
+  <RHAH_Incident_ShamblerHorde_Text>A large horde of ratkin shamblers has arrived near our colony, and they look dangerous. We need to clear them out soon, before they draw more shamblers here.\n\nIf any living ratkin shamblers can still move on this map in three days, another wave will arrive.</RHAH_Incident_ShamblerHorde_Text>
+  <RHAH_Shambler_Reinforcements_Label>More ratkin shamblers</RHAH_Shambler_Reinforcements_Label>
+  <RHAH_Shambler_Reinforcements_Text>Another large horde of ratkin shamblers has been drawn to our colony. They are advancing on us.</RHAH_Shambler_Reinforcements_Text>
+</LanguageData>

@@ -32,7 +32,11 @@ namespace HungerAndHavoc.Incidents
             Resolve("I-054"),
             Resolve("I-055"),
             Resolve("I-056"),
-            Resolve("I-057")
+            Resolve("I-057"),
+            Resolve("I-058"),
+            Resolve("I-059", "I-059-01"),
+            Resolve("I-060", "I-060-01"),
+            Resolve("I-061")
         };
         static readonly Dictionary<string, int> groupByDisplayId = IndexGroups();
         static readonly string[] labelKeys = BuildLabelKeys();

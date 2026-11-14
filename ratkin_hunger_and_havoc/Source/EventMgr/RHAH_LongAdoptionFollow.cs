@@ -37,6 +37,7 @@ namespace HungerAndHavoc.EventMgr
             }
             if (id == "I-032")
             {
+                if (r.Phase >= 1 && r.Phase <= 3 && !AvailableVisitor(visitor, map)) return true;
                 if (r.Phase == 0)
                 {
                     if (tick < r.DueTick) return false;
@@ -421,6 +422,15 @@ namespace HungerAndHavoc.EventMgr
 
         static bool TickDrop(RHAH_LongFollowRecord r, Map map, int tick)
         {
+            if (r.Phase >= 1 && r.Phase <= 3)
+            {
+                Verse.Pawn visitor = r.VisitorIds.Count == 0 ? null : RHAH_LongFollowRuntime.Pawn(r.VisitorIds[0], tick);
+                if (!AvailableVisitor(visitor, map))
+                {
+                    RHAH_LongFollowRuntime.Complete(r);
+                    return true;
+                }
+            }
             if (r.Phase == 0)
             {
                 Verse.Pawn focus = null;
@@ -469,6 +479,12 @@ namespace HungerAndHavoc.EventMgr
                 RHAH_LongFollowRuntime.Say(r, "RHAH_Long_ReturnedThin"); RHAH_LongFollowRuntime.Complete(r); return true;
             }
             return false;
+        }
+
+        static bool AvailableVisitor(Verse.Pawn visitor, Map map)
+        {
+            return RHAH_LongFollowRuntime.Alive(visitor) && visitor.MapHeld == map && visitor.Faction != null &&
+                visitor.Faction != Faction.OfPlayer && !visitor.IsPrisoner && !visitor.IsSlave;
         }
 
         static bool TickAttachment(RHAH_LongFollowRecord r, Map map, int tick)

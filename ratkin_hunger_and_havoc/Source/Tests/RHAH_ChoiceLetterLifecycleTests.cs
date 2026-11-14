@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Threading;
+using HarmonyLib;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.EventMgr;
 using HungerAndHavoc.Generation;
@@ -19,6 +20,7 @@ namespace HungerAndHavoc.Tests
 {
     public sealed class RHAH_ChoiceLetterLifecycleTests : IDisposable
     {
+        static readonly List<int> tickedChoices = new List<int>();
         readonly Game previousGame = Current.Game;
         readonly ProgramState previousProgramState = Current.ProgramState;
         readonly RHAH_Settings previousSettings = RHAH_Mod.Settings;
@@ -235,6 +237,100 @@ namespace HungerAndHavoc.Tests
 
             Assert.DoesNotContain(letter, Find.LetterStack.LettersListForReading);
             Assert.Equal(RHAH_ChoiceAction.None, record.Settled);
+        }
+
+        [Fact]
+        public void SettledHistoryStaysQueryableWithoutBeingPolledAndPendingGiftsStillRun()
+        {
+            for (int i = 1; i <= 200; i++) AddChoice(i, -1, RHAH_ChoiceAction.Deliver);
+            RHAH_ChoiceRecord active = AddChoice(201, -1);
+            RHAH_ChoiceRecord gift = AddChoice(202, -1);
+            Assert.Equal(RHAH_ChoiceAction.Deliver, RHAH_ChoiceRuntime.FindRecord(game, 1).Settled);
+            gift.Settled = RHAH_ChoiceAction.Ally;
+            gift.AllyPawnIds.Add(999);
+            Harmony harmony = new Harmony("rhah.choice.schedule.tests");
+            harmony.Patch(AccessTools.Method(typeof(RHAH_AllyTransfer), "Tick"),
+                prefix: new HarmonyMethod(typeof(RHAH_ChoiceLetterLifecycleTests), nameof(RecordChoiceTick)));
+            try
+            {
+                tickedChoices.Clear();
+                RHAH_ChoiceRuntime.Tick(game, 1);
+                tickedChoices.Sort();
+                Assert.Equal(new[] { active.Id, gift.Id }, tickedChoices);
+                Assert.Equal(RHAH_ChoiceAction.Deliver, RHAH_ChoiceRuntime.FindRecord(game, 1).Settled);
+
+                gift.AllyPawnIds.Clear();
+                gift.AllyGiftDueTick = 50;
+                RHAH_ChoiceRuntime.Tick(game, 50);
+                Assert.Equal(-1, gift.AllyGiftDueTick);
+                RHAH_ChoiceRecord appended = AddChoice(203, 51);
+                tickedChoices.Clear();
+                RHAH_ChoiceRuntime.Tick(game, 51);
+                tickedChoices.Sort();
+                Assert.Equal(new[] { active.Id, appended.Id }, tickedChoices);
+                Assert.Equal(RHAH_ChoiceAction.Timeout, appended.Settled);
+            }
+            finally
+            {
+                harmony.UnpatchAll(harmony.Id);
+                tickedChoices.Clear();
+            }
+        }
+
+        [Fact]
+        public void FailedFoodChoiceKeepsTheLetterAndOtherActionsAvailable()
+        {
+            RHAH_ChoiceRecord record = AddChoice(1, -1);
+            ChoiceLetter_RHAH_Visitors letter = new ChoiceLetter_RHAH_Visitors { choiceId = record.Id };
+            Find.LetterStack.LettersListForReading.Add(letter);
+            RHAH_Mod.Settings.foodGiveHintDismissed = true;
+            MessageTypeDef previousReject = MessageTypeDefOf.RejectInput;
+            List<Message> messages = (List<Message>)Field(typeof(Messages), "liveMessages").GetValue(null);
+            List<Message> previousMessages = new List<Message>(messages);
+            try
+            {
+                MessageTypeDefOf.RejectInput = new MessageTypeDef { defName = "RejectInput" };
+                bool completed = (bool)typeof(ChoiceLetter_RHAH_Visitors)
+                    .GetMethod("Settle", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Invoke(letter, new object[] { RHAH_ChoiceAction.Feed, RHAH_ChoiceRecord.NoAllyFaction });
+
+                Assert.False(completed);
+                Assert.True(record.Open);
+                Assert.Contains(letter, Find.LetterStack.LettersListForReading);
+                List<DiaOption> options = new List<DiaOption>(letter.Choices);
+                Assert.Contains(options, option => (string)Field(typeof(DiaOption), "text").GetValue(option) ==
+                    "RHAH_Choice_Reject".Translate().ToString() && !option.disabled);
+            }
+            finally
+            {
+                MessageTypeDefOf.RejectInput = previousReject;
+                messages.Clear();
+                messages.AddRange(previousMessages);
+            }
+        }
+
+        static void RecordChoiceTick(RHAH_ChoiceRecord record)
+        {
+            tickedChoices.Add(record.Id);
+        }
+
+        [Fact]
+        public void ReloadedChoiceListRebuildsTheScheduleEvenWhenItsCountIsUnchanged()
+        {
+            RHAH_ChoiceRecord previous = AddChoice(1, -1);
+            RHAH_ChoiceRuntime.Tick(game, 1);
+            RHAH_ChoiceRecord loaded = new RHAH_ChoiceRecord
+            {
+                Id = 1, DisplayId = "I-001", MapId = 41, ExpireTick = 20
+            };
+            Field(typeof(GameComponent_RHAH_Game), "openChoices")
+                .SetValue(game, new List<RHAH_ChoiceRecord> { loaded });
+
+            RHAH_ChoiceRuntime.Tick(game, 20);
+
+            Assert.Same(loaded, RHAH_ChoiceRuntime.FindRecord(game, 1));
+            Assert.Equal(RHAH_ChoiceAction.Timeout, loaded.Settled);
+            Assert.True(previous.Open);
         }
 
         [Theory]

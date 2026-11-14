@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Background_Rebellion_Label>Rebellion</RHAH_Background_Rebellion_Label>
+  <RHAH_Background_Rebellion_Text>Word has reached us from afar. Famine brought on by natural disasters and human failings has driven the common ratkin of {0} to revolt. They are rallying against the authorities of {0}, demanding that grain be shared.</RHAH_Background_Rebellion_Text>
+  <RHAH_Background_Rebellion_Option>Watch closely</RHAH_Background_Rebellion_Option>
+  <RHAH_Background_Ruins_Label>Ruins</RHAH_Background_Ruins_Label>
+  <RHAH_Background_Ruins_Text>Someone has told us that a nearby ratkin camp has been destroyed. No one knows who did it. Only wreckage, ruins, and bodies remain. It seems unlikely that many of the ratkin there survived...</RHAH_Background_Ruins_Text>
+  <RHAH_Background_Ruins_Option>Poor souls</RHAH_Background_Ruins_Option>
+  <RHAH_Background_Unrest_Label>Unrest</RHAH_Background_Unrest_Label>
+  <RHAH_Background_Unrest_Text>There has been unrest at a nearby ratkin camp, apparently over food distribution... If we want to stay clear of it, we had better keep an eye on things for a while.</RHAH_Background_Unrest_Text>
+  <RHAH_Background_Unrest_Option>Watch closely</RHAH_Background_Unrest_Option>
+  <RHAH_Background_Mutiny_Label>Mutiny</RHAH_Background_Mutiny_Label>
+  <RHAH_Background_Mutiny_Text>A riot-control unit from {0} has mutinied. The cause is still unclear. It may be their pay, or something else entirely. Some soldiers may pass through or ask to stay with us. Whatever happens, we should stay alert.</RHAH_Background_Mutiny_Text>
+  <RHAH_Background_Mutiny_Option>Understood</RHAH_Background_Mutiny_Option>
+  <RHAH_Background_CivilWar_Label>Internal conflict</RHAH_Background_CivilWar_Label>
+  <RHAH_Background_CivilWar_Text>{0} has sent an urgent broadcast to the outside world. They report fierce internal conflict, with several factions struggling for power. The authorities can no longer spare any attention for diplomacy.</RHAH_Background_CivilWar_Text>
+  <RHAH_Background_CivilWar_Option>Keep watching and call for peace</RHAH_Background_CivilWar_Option>
+  <RHAH_Background_Takeover_Label>Settlement changes hands</RHAH_Background_Takeover_Label>
+  <RHAH_Background_Takeover_Text>This is {0}. We have taken control of {1}. The settlement now belongs to us. Over.</RHAH_Background_Takeover_Text>
+  <RHAH_Background_Explore>Explore ruins</RHAH_Background_Explore>
+  <RHAH_Background_ExploreDescription>Search the ruins for supplies worth taking.</RHAH_Background_ExploreDescription>
+  <RHAH_Background_ExploreReport>Travelling to explore the ratkin ruins.</RHAH_Background_ExploreReport>
+  <RHAH_Background_ExploreRemaining>Some supplies could not be packed. Make room in the caravan inventories and search again.</RHAH_Background_ExploreRemaining>
+  <RHAH_Background_Explored_Label>Ruins searched</RHAH_Background_Explored_Label>
+  <RHAH_Background_Explored_Text>The caravan has searched the ruins and packed up the usable supplies. There is nothing else worth taking.</RHAH_Background_Explored_Text>
+  <RHAH_Background_RuinsSupplies>Supplies: {0} hardtack, {1} silver, {2} components</RHAH_Background_RuinsSupplies>
+  <RHAH_Background_SettingsTitle>Kingdom background stories</RHAH_Background_SettingsTitle>
+  <RHAH_Background_SettingsDescription>All-ages news from the kingdom, drawn from its own event pool.</RHAH_Background_SettingsDescription>
+  <RHAH_Background_SettingsEnabled>Enable background stories</RHAH_Background_SettingsEnabled>
+  <RHAH_Background_SettingsAverageDays>Average interval between background stories: {0} days</RHAH_Background_SettingsAverageDays>
+  <RHAH_Background_SettingsFrequency>Set the interval to 0 to stop random messages. Weights determine relative selection chances. Civil war follows rebellion only. Evacuations and memorials require both warlord and guerrilla factions in the world.</RHAH_Background_SettingsFrequency>
+  <RHAH_Background_SettingsWeight>Selection weight: {0}</RHAH_Background_SettingsWeight>
+  <RHAH_Background_SettingsCivilWar>Enable internal conflict after rebellion</RHAH_Background_SettingsCivilWar>
+  <RHAH_Background_SettingsCivilWarChance>Chance of internal conflict after each rebellion: {0}%</RHAH_Background_SettingsCivilWarChance>
+  <RHAH_Background_SettingsCivilWarDelay>Wait after rebellion: {0} days</RHAH_Background_SettingsCivilWarDelay>
+  <RHAH_Background_SettingsTakeover>Enable settlement takeovers by guerrillas and warlords</RHAH_Background_SettingsTakeover>
+  <RHAH_Background_SettingsTakeoverRule>Requires the corresponding factions in the world. When the wait after internal conflict ends, each side gets one chance to take one settlement. The kingdom keeps at least 3 settlements. Settlements with active maps are excluded.</RHAH_Background_SettingsTakeoverRule>
+  <RHAH_Background_SettingsTakeoverChance>Chance for each side to take a settlement: {0}%</RHAH_Background_SettingsTakeoverChance>
+  <RHAH_Background_SettingsTakeoverDelay>Wait after internal conflict: {0} days (60 days is one year)</RHAH_Background_SettingsTakeoverDelay>
+  <RHAH_Background_SettingsUnrestBonus>Increase in this mod’s negative event rate during unrest: {0}%</RHAH_Background_SettingsUnrestBonus>
+  <RHAH_Background_SettingsUnrestDays>Duration of unrest effects: {0} days</RHAH_Background_SettingsUnrestDays>
+  <RHAH_Background_SettingsRuinsDistance>Ruins distance from home: {0}–{1} tiles along passable routes</RHAH_Background_SettingsRuinsDistance>
+  <RHAH_Background_SettingsHardtack>Hardtack in ruins: {0}–{1}</RHAH_Background_SettingsHardtack>
+  <RHAH_Background_SettingsSilver>Silver in ruins: {0}–{1}</RHAH_Background_SettingsSilver>
+  <RHAH_Background_SettingsComponents>Components in ruins: {0}–{1}</RHAH_Background_SettingsComponents>
+  <RHAH_Background_TwoTaxes_Label>Two tax bills</RHAH_Background_TwoTaxes_Label>
+  <RHAH_Background_TwoTaxes_Text>We heard that a village ceded by {0} recently received two tax bills. One came from {1}; the other came from {0}.</RHAH_Background_TwoTaxes_Text>
+  <RHAH_Background_TwoTaxes_Option>Understood</RHAH_Background_TwoTaxes_Option>
+  <RHAH_Background_SameCallsign_Label>The same callsign</RHAH_Background_SameCallsign_Label>
+  <RHAH_Background_SameCallsign_Text>A distress call came from nearby, using an old callsign from when the warlords and guerrillas fought together. Several wounded ratkin are stranded there. Both sides have lowered their weapons, but neither will hand over their wounded first.\n\nThey are asking our caravan to help evacuate them.</RHAH_Background_SameCallsign_Text>
+  <RHAH_Background_SameCallsign_Option>Mark the location</RHAH_Background_SameCallsign_Option>
+  <RHAH_Background_HarvestFestival_Label>Empty harvest wagons</RHAH_Background_HarvestFestival_Label>
+  <RHAH_Background_HarvestFestival_Text>{0} has announced a harvest festival, declaring that the granaries are full and its people prosperous. Traders have begun offering festival food.\n\nOur next food purchase from a kingdom caravan or settlement will receive a {2}% discount.</RHAH_Background_HarvestFestival_Text>
+  <RHAH_Background_HarvestFestival_Option>Must be a good year</RHAH_Background_HarvestFestival_Option>
+  <RHAH_Background_Memorial_Label>Spaces on the memorial</RHAH_Background_Memorial_Label>
+  <RHAH_Background_Memorial_Text>An old coalition memorial stands nearby. Its top is cracked, and several rows of names were never finished. The warlords want it repaired; the guerrillas want the missing list of names found first. Neither side will budge.\n\nOur caravan could bring steel or wood, search for the list, or restore the memorial as it was.</RHAH_Background_Memorial_Text>
+  <RHAH_Background_Memorial_Option>Mark the location</RHAH_Background_Memorial_Option>
+  <RHAH_Background_AidManifest_Label>The aid manifest</RHAH_Background_AidManifest_Label>
+  <RHAH_Background_AidManifest_Text>A weapons aid manifest from {0} has surfaced. The kingdom calls the shipment a generous gift from its allies. Its traders are already selling some of it.\n\nOur next ratkin weapon purchase from a kingdom caravan or settlement will receive a {2}% discount.</RHAH_Background_AidManifest_Text>
+  <RHAH_Background_AidManifest_Option>Keep an eye out</RHAH_Background_AidManifest_Option>
+  <RHAH_Background_CancelledBanquet_Label>The banquet was cancelled</RHAH_Background_CancelledBanquet_Label>
+  <RHAH_Background_CancelledBanquet_Text>A noble banquet in {0} was suddenly cancelled. The cooks had already ordered the food, but the deliveries were turned away. Traders are selling it cheaply.\n\nOur next food purchase from a kingdom caravan or settlement will receive a {2}% discount.</RHAH_Background_CancelledBanquet_Text>
+  <RHAH_Background_CancelledBanquet_Option>Understood</RHAH_Background_CancelledBanquet_Option>
+  <RHAH_Background_HarvestFestival_FollowLabel>The wagons went home</RHAH_Background_HarvestFestival_FollowLabel>
+  <RHAH_Background_HarvestFestival_FollowText>A trader returning from {0} mentioned how fine the festival wagons looked. Once the nobles had taken their share, the empty wagons were sent back to the villages. The villagers were still waiting for their grain.</RHAH_Background_HarvestFestival_FollowText>
+  <RHAH_Background_AidManifest_FollowLabel>The price of aid</RHAH_Background_AidManifest_FollowLabel>
+  <RHAH_Background_AidManifest_FollowText>Someone sent us another page of the aid manifest from {0}. It lists no weapons, only ceded villages, mines, and rights of passage.\n\nThis may be how they paid for the guns that broke the coalition.</RHAH_Background_AidManifest_FollowText>
+  <RHAH_Background_CancelledBanquet_FollowLabel>Who pays the bill</RHAH_Background_CancelledBanquet_FollowLabel>
+  <RHAH_Background_CancelledBanquet_FollowText>Farmers in {0} are demanding payment for the cancelled banquet. The purchasing official says that since the banquet was cancelled, so was the bill.\n\nThe food has been sold. The farmers are still unpaid.</RHAH_Background_CancelledBanquet_FollowText>
+  <RHAH_Background_SiteSameCallsign>Coalition evacuation point</RHAH_Background_SiteSameCallsign>
+  <RHAH_Background_SiteMemorial>Old coalition memorial</RHAH_Background_SiteMemorial>
+  <RHAH_Background_SiteNameList>Abandoned coalition relay</RHAH_Background_SiteNameList>
+  <RHAH_Background_SiteDescriptionSameCallsign>The wounded are waiting to be evacuated. Helping them will improve goodwill with both the warlords and the guerrillas.</RHAH_Background_SiteDescriptionSameCallsign>
+  <RHAH_Background_SiteDescriptionMemorial>The names are arranged in two columns. The last few rows are blank.</RHAH_Background_SiteDescriptionMemorial>
+  <RHAH_Background_SiteDescriptionNameList>The old coalition lists may still be in this relay station.</RHAH_Background_SiteDescriptionNameList>
+  <RHAH_Background_SiteDescriptionWaitingForNames>Someone pointed out an old relay station nearby. It may hold the names that were never carved.</RHAH_Background_SiteDescriptionWaitingForNames>
+  <RHAH_Background_SiteDescriptionJoinOffer>The evacuation is arranged. One of the wounded adult ratkin wants to live with us. Will we let this ratkin join the caravan?</RHAH_Background_SiteDescriptionJoinOffer>
+  <RHAH_Background_Visit>Visit and help</RHAH_Background_Visit>
+  <RHAH_Background_VisitDescription>Send the caravan to speak with the ratkin there.</RHAH_Background_VisitDescription>
+  <RHAH_Background_VisitReport>Travelling to a ratkin gathering.</RHAH_Background_VisitReport>
+  <RHAH_Background_AcceptWounded>Welcome the wounded ratkin</RHAH_Background_AcceptWounded>
+  <RHAH_Background_DeclineWounded>Decline and finish the evacuation</RHAH_Background_DeclineWounded>
+  <RHAH_Background_JoinUnavailable>We cannot take in this wounded ratkin right now.</RHAH_Background_JoinUnavailable>
+  <RHAH_Background_InteractionUnavailable>We cannot complete this task now. Check the caravan’s location and supplies.</RHAH_Background_InteractionUnavailable>
+  <RHAH_Background_Evacuated>The wounded left one by one. Someone repeated the old callsign before leaving.</RHAH_Background_Evacuated>
+  <RHAH_Background_WoundedJoined>The wounded ratkin joined our caravan. The others handed over a small bag and thanked us.</RHAH_Background_WoundedJoined>
+  <RHAH_Background_Supply>Provide {0} {1} (both factions +{2})</RHAH_Background_Supply>
+  <RHAH_Background_Restore>Restore with {0} {1} (both factions +{2})</RHAH_Background_Restore>
+  <RHAH_Background_SearchNames>Find the names (guerrillas +{0}, warlords +{1})</RHAH_Background_SearchNames>
+  <RHAH_Background_NameListLabel>A lead on the names</RHAH_Background_NameListLabel>
+  <RHAH_Background_NameListText>An older ratkin remembers an old relay station nearby. The coalition roster may still be there. Our caravan could search it.</RHAH_Background_NameListText>
+  <RHAH_Background_NamesFound>The caravan found the list and sent it back to the memorial. The empty rows finally have names.</RHAH_Background_NamesFound>
+  <RHAH_Background_MemorialSupplied>The supplies were carried to the memorial. Both sides began working, and the argument fell quiet for a while.</RHAH_Background_MemorialSupplied>
+  <RHAH_Background_MemorialRestored>The caravan restored the memorial as it was. Both sides looked at it for a long time. Neither asked to change the inscription.</RHAH_Background_MemorialRestored>
+  <RHAH_Background_SettingsTradeDiscount>Kingdom follow-up purchase discount: {0}%</RHAH_Background_SettingsTradeDiscount>
+  <RHAH_Background_SettingsWoundedJoinChance>Chance an evacuated ratkin asks to join: {0}%</RHAH_Background_SettingsWoundedJoinChance>
+  <RHAH_Background_SettingsStoryDistance>Evacuation and memorial distance from home: {0}–{1} world tiles</RHAH_Background_SettingsStoryDistance>
+  <RHAH_Background_SettingsEvacuationGoodwill>Evacuation goodwill with each faction: {0}</RHAH_Background_SettingsEvacuationGoodwill>
+  <RHAH_Background_SettingsMemorialSteel>Memorial steel donation: {0}</RHAH_Background_SettingsMemorialSteel>
+  <RHAH_Background_SettingsMemorialWood>Memorial wood donation: {0}</RHAH_Background_SettingsMemorialWood>
+  <RHAH_Background_SettingsRestorationSteel>Steel for restoration: {0}</RHAH_Background_SettingsRestorationSteel>
+  <RHAH_Background_SettingsRestorationWood>Wood for restoration: {0}</RHAH_Background_SettingsRestorationWood>
+  <RHAH_Background_SettingsMaterialsGoodwill>Material donation goodwill with each faction: {0}</RHAH_Background_SettingsMaterialsGoodwill>
+  <RHAH_Background_SettingsNamesUndergroundGoodwill>Names found: guerrilla goodwill: {0}</RHAH_Background_SettingsNamesUndergroundGoodwill>
+  <RHAH_Background_SettingsNamesWarlordGoodwill>Names found: warlord goodwill: {0}</RHAH_Background_SettingsNamesWarlordGoodwill>
+  <RHAH_Background_SettingsRestorationGoodwill>Restoration goodwill with each faction: {0}</RHAH_Background_SettingsRestorationGoodwill>
+</LanguageData>

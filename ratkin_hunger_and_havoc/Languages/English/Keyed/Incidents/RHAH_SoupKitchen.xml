@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_SoupKitchen_Label>Soup kitchen</RHAH_Incident_SoupKitchen_Label>
+  <RHAH_IncidentGroup_I058>Soup kitchen</RHAH_IncidentGroup_I058>
+  <RHAH_Incident_SoupKitchen_Text>Someone told us that {0} is giving out food nearby. We could go and collect some supplies, but we had better look poor. If our caravan’s total wealth exceeds 5000 silver, they will turn us away and we will lose goodwill with the faction.</RHAH_Incident_SoupKitchen_Text>
+  <RHAH_SoupKitchen_Terms>The food distribution lasts {0} days. We can collect 5–20 packaged survival meals once.</RHAH_SoupKitchen_Terms>
+  <RHAH_SoupKitchen_Eligibility>Total caravan wealth includes the value of its people, equipment, clothing, and cargo. Exceeding 5000 silver costs 5 goodwill, plus 1 for each additional full 1000 silver.</RHAH_SoupKitchen_Eligibility>
+  <RHAH_SoupKitchen_Visit>Collect food supplies</RHAH_SoupKitchen_Visit>
+  <RHAH_SoupKitchen_Report>Travelling to the soup kitchen.</RHAH_SoupKitchen_Report>
+  <RHAH_SoupKitchen_Rejected>The people from {0} took a look at our caravan, decided the supplies should go to poorer people, and sent us away.\n\nTotal caravan wealth: {1}\nFaction goodwill: -{2}</RHAH_SoupKitchen_Rejected>
+  <RHAH_SoupKitchen_Received>{0} gave our caravan {1} packaged survival meals. With these supplies, it is time to get back on the road.</RHAH_SoupKitchen_Received>
+  <RHAH_SoupKitchen_CannotCarry>The caravan cannot receive the food.</RHAH_SoupKitchen_CannotCarry>
+</LanguageData>

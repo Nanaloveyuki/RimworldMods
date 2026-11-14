@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorldObjectDef ParentName="StaticWorldObjectBase">
+    <defName>RHAH_BackgroundSite</defName>
+    <label>ratkin gathering</label>
+    <description>A gathering of ratkin. A caravan can visit.</description>
+    <worldObjectClass>HungerAndHavoc.Incidents.WorldObject_RHAH_BackgroundSite</worldObjectClass>
+    <texture>World/WorldObjects/TribalSettlement</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>World/WorldObjects/Expanding/DestroyedSettlement</expandingIconTexture>
+    <expandingIconPriority>20</expandingIconPriority>
+    <validLaunchTarget>false</validLaunchTarget>
+  </WorldObjectDef>
+</Defs>

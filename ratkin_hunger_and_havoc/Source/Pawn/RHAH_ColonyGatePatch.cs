@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using HungerAndHavoc.Api;
+using HungerAndHavoc.Identity;
 using RimWorld;
 using Verse;
 
@@ -43,36 +44,6 @@ namespace HungerAndHavoc.Pawn
                 Core.RHAH_Mod.Settings == null ? 100 : Core.RHAH_Mod.Settings.playerIdeoPercent,
                 Rand.Value);
             RHAH_VisitorMood.NotifySheltered(pawn);
-        }
-    }
-
-    // 原版角色买卖不看来源闸门 关闸后这笔不成交
-    [HarmonyPatch(typeof(Tradeable_Pawn), "ResolveTrade")]
-    internal static class RHAH_TradePawnGatePatch
-    {
-        static bool Prefix(Tradeable_Pawn __instance, out List<Verse.Pawn> __state)
-        {
-            __state = null;
-            if (!RHAH_ColonyGates.AllowsTrade(__instance)) return false;
-            if (__instance == null || __instance.ActionToDo == TradeAction.None) return true;
-            bool buy = __instance.ActionToDo == TradeAction.PlayerBuys;
-            List<Thing> things = buy ? __instance.thingsTrader : __instance.thingsColony;
-            int count = buy ? __instance.CountToTransferToSource : __instance.CountToTransferToDestination;
-            __state = new List<Verse.Pawn>();
-            for (int i = 0; things != null && i < things.Count && i < count; i++) if (things[i] is Verse.Pawn pawn) __state.Add(pawn);
-            return true;
-        }
-
-        static void Postfix(Tradeable_Pawn __instance, List<Verse.Pawn> __state)
-        {
-            if (__state == null || __instance == null) return;
-            bool buy = __instance.ActionToDo == TradeAction.PlayerBuys;
-            for (int i = 0; i < __state.Count; i++)
-            {
-                Verse.Pawn pawn = __state[i];
-                bool completed = !pawn.Destroyed && (buy ? pawn.Faction == Faction.OfPlayer || pawn.IsSlaveOfColony : pawn.Faction != Faction.OfPlayer && !pawn.IsPrisonerOfColony && !pawn.IsSlaveOfColony);
-                if (completed) HungerAndHavoc.EventMgr.RHAH_LongFollowRuntime.NotifyTrade(pawn, buy);
-            }
         }
     }
 
@@ -133,25 +104,10 @@ namespace HungerAndHavoc.Pawn
                     continue;
                 }
 
-                if (!RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Transfer))
+                if (!RHAH_Api.Allows(pawn, RHAH_BehaviorGate.Transfer) ||
+                    !RHAH_ApiHost.CanReleaseToColony(pawn, RHAH_ReleaseReason.ModRequest))
                 {
                     return false;
-                }
-            }
-
-            seen = 0;
-            foreach (Thing thing in things)
-            {
-                if (seen >= count)
-                {
-                    break;
-                }
-
-                seen++;
-                Verse.Pawn pawn = thing as Verse.Pawn;
-                if (RHAH_Api.IsOrigin(pawn))
-                {
-                    RHAH_Api.ReleaseToColony(pawn, RHAH_ReleaseReason.ModRequest);
                 }
             }
 

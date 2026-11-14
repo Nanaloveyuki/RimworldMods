@@ -53,7 +53,7 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void ProviderOwnsOnlyStableIncidentsAndInternalArrival()
+        public void ProviderOwnsStableIncidentsAndInternalFollowups()
         {
             RHAH_EventChainProvider provider = new RHAH_EventChainProvider();
             Assert.Equal("nanaloveyuki.ratkin.hungerandhavoc", provider.ProviderId);
@@ -68,6 +68,10 @@ namespace HungerAndHavoc.Tests
             expected.Add("RHAH_AllyDeparture");
             expected.Add("RHAH_RoyalWatch");
             expected.Add("I-057");
+            expected.Add(RHAH_BackgroundFollow.CivilWarId);
+            expected.Add(RHAH_BackgroundFollow.TakeoverId);
+            expected.Add(RHAH_BackgroundTradeFollow.DefinitionId);
+            expected.Add(RHAH_ShamblerReinforcements.DefinitionId);
             Assert.Equal("RHAH_PredationArrival", RHAH_EventChainProvider.ArrivalId);
             Assert.Equal(expected.Count, provider.Definitions.Count);
             for (int i = 0; i < provider.Definitions.Count; i++)

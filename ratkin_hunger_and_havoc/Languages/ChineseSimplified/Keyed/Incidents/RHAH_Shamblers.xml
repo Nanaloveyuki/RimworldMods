@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_IncidentGroup_I059>蹒跚怪鼠蛋</RHAH_IncidentGroup_I059>
+  <RHAH_IncidentGroup_I060>蹒跚怪鼠群</RHAH_IncidentGroup_I060>
+  <RHAH_IncidentGroup_I061>蹒跚怪鼠潮</RHAH_IncidentGroup_I061>
+  <RHAH_Incident_ShamblerChild_Label>蹒跚怪鼠蛋</RHAH_Incident_ShamblerChild_Label>
+  <RHAH_Incident_ShamblerGroup_Label>蹒跚怪鼠群</RHAH_Incident_ShamblerGroup_Label>
+  <RHAH_Incident_ShamblerHorde_Label>蹒跚怪鼠潮</RHAH_Incident_ShamblerHorde_Label>
+  <RHAH_Incident_ShamblerChild_Text>一只似乎已经不再具有生命的鼠蛋摇摇晃晃地来到了我们殖民地周围，看起来符合蹒跚怪的行为特征。我们可以不管它，只要保持距离，它暂时不会来找我们的麻烦。</RHAH_Incident_ShamblerChild_Text>
+  <RHAH_Incident_ShamblerGroup_Text>一些蹒跚怪鼠族来到了我们殖民地周围，它们已经失去了生命力。我们可以不管它们，但这些鼠族为什么会变成蹒跚怪却很可疑。</RHAH_Incident_ShamblerGroup_Text>
+  <RHAH_Incident_ShamblerHorde_Text>一大批蹒跚怪鼠族来到了我们殖民地周围，并且看起来很不好惹。我们需要尽快清理掉它们，不然可能还会有蹒跚怪被吸引来。\n\n如果三天后这张地图上仍有活着且能行动的蹒跚怪鼠族，还会再来一批。</RHAH_Incident_ShamblerHorde_Text>
+  <RHAH_Shambler_Reinforcements_Label>更多蹒跚怪鼠族</RHAH_Shambler_Reinforcements_Label>
+  <RHAH_Shambler_Reinforcements_Text>又一大批蹒跚怪鼠族被吸引到了我们殖民地周围，正朝着殖民地扑来。</RHAH_Shambler_Reinforcements_Text>
+</LanguageData>

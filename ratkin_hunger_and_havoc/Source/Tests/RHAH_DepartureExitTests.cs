@@ -9,6 +9,7 @@ using HungerAndHavoc.Pawn;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 using Xunit;
 
 namespace HungerAndHavoc.Tests
@@ -20,6 +21,7 @@ namespace HungerAndHavoc.Tests
         readonly Dictionary<FieldInfo, object> previousDefs = new Dictionary<FieldInfo, object>();
         static bool blockerJobAvailable;
         static bool normalExitAvailable;
+        static int exitSearches;
         static int nextId = 1900;
 
         public RHAH_DepartureExitTests()
@@ -33,6 +35,7 @@ namespace HungerAndHavoc.Tests
             RHAH_Mod.Settings.familyDropEnabled = false;
             blockerJobAvailable = true;
             normalExitAvailable = false;
+            exitSearches = 0;
             harmony.Patch(typeof(RCellFinder).GetMethod("TryFindBestExitSpot"),
                 prefix: new HarmonyMethod(typeof(RHAH_DepartureExitTests), nameof(NoNormalExit)));
             harmony.Patch(typeof(JobGiver_ExitMap).GetMethod("TryGiveJob", BindingFlags.Instance | BindingFlags.NonPublic),
@@ -130,6 +133,61 @@ namespace HungerAndHavoc.Tests
             Assert.Same(JobDefOf.Goto, JobGiver_RHAH_Leave.TryCreate(pawn).def);
         }
 
+        [Fact]
+        public void DependentChildrenShareOneFailedExitSearchAndTheSameRetryCooldown()
+        {
+            Verse.Pawn carrier = VisitorWithDependents();
+            blockerJobAvailable = false;
+
+            Assert.Same(JobDefOf.Wait, JobGiver_RHAH_Leave.TryCreate(carrier).def);
+            Assert.Equal(1, exitSearches);
+
+            Find.TickManager.DebugSetTicksGame(120);
+            Assert.Same(JobDefOf.Wait, JobGiver_RHAH_Leave.TryCreate(carrier).def);
+            Assert.Equal(1, exitSearches);
+
+            Find.TickManager.DebugSetTicksGame(GenDate.TicksPerHour);
+            Assert.Same(JobDefOf.Wait, JobGiver_RHAH_Leave.TryCreate(carrier).def);
+            Assert.Equal(2, exitSearches);
+        }
+
+        [Fact]
+        public void ReachableExitStillProducesACarryJobForTheFirstDependent()
+        {
+            Verse.Pawn carrier = VisitorWithDependents();
+            normalExitAvailable = true;
+
+            Job job = JobGiver_RHAH_Leave.TryCreate(carrier);
+
+            Assert.Same(RHAH_DefOf.RHAH_CarryYoung, job.def);
+            Assert.Same(carrier.GetLord().ownedPawns[1], job.targetA.Pawn);
+            Assert.Equal(new IntVec3(140, 0, 249), job.targetB.Cell);
+            Assert.Equal(1, exitSearches);
+        }
+
+        Verse.Pawn VisitorWithDependents()
+        {
+            harmony.Patch(typeof(ReachabilityUtility).GetMethod("CanReach", new[] { typeof(Verse.Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(bool), typeof(TraverseMode) }),
+                prefix: new HarmonyMethod(typeof(RHAH_DepartureExitTests), nameof(Allow)));
+            harmony.Patch(typeof(ReservationUtility).GetMethod("CanReserve"),
+                prefix: new HarmonyMethod(typeof(RHAH_DepartureExitTests), nameof(Allow)));
+            Verse.Pawn carrier = Visitor();
+            Lord lord = new Lord();
+            LordJob_RHAH_Visitor job = new LordJob_RHAH_Visitor();
+            job.lord = lord;
+            Field(typeof(Lord), "curJob").SetValue(lord, job);
+            carrier.lord = lord;
+            lord.ownedPawns.Add(carrier);
+            for (int i = 0; i < 2; i++)
+            {
+                Verse.Pawn child = Visitor();
+                Field(typeof(Pawn_HealthTracker), "healthState").SetValue(child.health, PawnHealthState.Down);
+                child.lord = lord;
+                lord.ownedPawns.Add(child);
+            }
+            return carrier;
+        }
+
         Verse.Pawn Visitor()
         {
             Verse.Pawn pawn = (Verse.Pawn)typeof(RHAH_AttackChoiceTests)
@@ -153,10 +211,17 @@ namespace HungerAndHavoc.Tests
             field.SetValue(null, value);
         }
 
-        static bool NoNormalExit(ref IntVec3 spot, ref bool __result)
+        static bool NoNormalExit(Verse.Pawn pawn, ref IntVec3 spot, ref bool __result)
         {
-            spot = normalExitAvailable ? new IntVec3(140, 0, 249) : IntVec3.Invalid;
+            exitSearches++;
+            spot = normalExitAvailable ? new IntVec3(140, 0, 249) : pawn.Position;
             __result = normalExitAvailable;
+            return false;
+        }
+
+        static bool Allow(ref bool __result)
+        {
+            __result = true;
             return false;
         }
 

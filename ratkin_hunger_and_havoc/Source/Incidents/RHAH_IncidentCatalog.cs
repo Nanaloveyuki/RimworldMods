@@ -152,6 +152,12 @@ namespace HungerAndHavoc.Incidents
             entries.Add(Original("I-055", "RHAH_ChildSuicideSquad", RHAH_IncidentFamily.Thief, false, RHAH_AttitudePool.Negative, 300f));
             entries.Add(Original("I-056", "RHAH_MutilatedChildren", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Negative, 300f));
             entries.Add(Original("I-057", "RHAH_SuspiciousRoyal", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Positive, 200f));
+            entries.Add(Original("I-058", "RHAH_SoupKitchen", RHAH_IncidentFamily.Aid, false, RHAH_AttitudePool.Positive, 200f));
+            entries.Add(Original("I-059", "RHAH_ShamblerChild", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Negative, 200f));
+            entries.Add(Original("I-060", "RHAH_ShamblerGroup", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Negative, 300f));
+            entries.Add(Original("I-061", "RHAH_ShamblerHorde", RHAH_IncidentFamily.Special, false, RHAH_AttitudePool.Negative, 700f));
+            entries.Add(SubEvent("I-059-01", "RHAH_ShamblerChildExpiring", "I-059"));
+            entries.Add(SubEvent("I-060-01", "RHAH_ShamblerGroupExpiring", "I-060"));
         }
 
         public static RHAH_IncidentEntry GetByDisplayId(string displayId)

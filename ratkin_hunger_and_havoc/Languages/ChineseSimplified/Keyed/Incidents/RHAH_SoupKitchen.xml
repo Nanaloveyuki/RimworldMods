@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_SoupKitchen_Label>施粥</RHAH_Incident_SoupKitchen_Label>
+  <RHAH_IncidentGroup_I058>施粥</RHAH_IncidentGroup_I058>
+  <RHAH_Incident_SoupKitchen_Text>有人告诉我们，离我们不远处有{0}在施粥。如果我们前去的话，可以领取到一些食物补给，但最好装扮得贫穷一些。如果远行队的财富总和大于5000银，就会被赶走且损失派系好感。</RHAH_Incident_SoupKitchen_Text>
+  <RHAH_SoupKitchen_Terms>施粥持续{0}天。可以领取5～20个生存包装食物，只能领取一次。</RHAH_SoupKitchen_Terms>
+  <RHAH_SoupKitchen_Eligibility>远行队总财富包括人物自身、装备、衣物和携带物资的价值。超过5000银损失5点派系好感，每额外满1000银再损失1点。</RHAH_SoupKitchen_Eligibility>
+  <RHAH_SoupKitchen_Visit>领取施粥补给</RHAH_SoupKitchen_Visit>
+  <RHAH_SoupKitchen_Report>正在前往施粥地点。</RHAH_SoupKitchen_Report>
+  <RHAH_SoupKitchen_Rejected>{0}的人打量了一下我们的远行队，认为这些补给应该留给更贫穷的人，把我们赶走了。\n\n远行队总财富：{1}\n派系好感：-{2}</RHAH_SoupKitchen_Rejected>
+  <RHAH_SoupKitchen_Received>{0}给了我们的远行队{1}个生存包装食物。带上这些补给，该继续赶路了。</RHAH_SoupKitchen_Received>
+  <RHAH_SoupKitchen_CannotCarry>远行队无法接收这些食物。</RHAH_SoupKitchen_CannotCarry>
+</LanguageData>

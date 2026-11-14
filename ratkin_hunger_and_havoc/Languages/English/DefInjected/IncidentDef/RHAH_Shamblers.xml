@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_ShamblerChild.label>young ratkin shambler</RHAH_ShamblerChild.label>
+  <RHAH_ShamblerChildExpiring.label>young ratkin shambler (expires naturally)</RHAH_ShamblerChildExpiring.label>
+  <RHAH_ShamblerGroup.label>ratkin shamblers</RHAH_ShamblerGroup.label>
+  <RHAH_ShamblerGroupExpiring.label>ratkin shamblers (expire naturally)</RHAH_ShamblerGroupExpiring.label>
+  <RHAH_ShamblerHorde.label>ratkin shambler horde</RHAH_ShamblerHorde.label>
+</LanguageData>

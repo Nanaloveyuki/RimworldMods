@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RHAH_Incident_SoupKitchen_Label>炊き出し</RHAH_Incident_SoupKitchen_Label>
+  <RHAH_IncidentGroup_I058>炊き出し</RHAH_IncidentGroup_I058>
+  <RHAH_Incident_SoupKitchen_Text>近くで{0}が炊き出しをしているという話が届いた。向かえば食料を分けてもらえるが、貧しく見える格好をしたほうがよさそうだ。キャラバンの総資産が5000シルバーを超えていると追い返され、派閥との友好度も下がる。</RHAH_Incident_SoupKitchen_Text>
+  <RHAH_SoupKitchen_Terms>炊き出しは{0}日間続く。非常用食品を5～20個、一度だけ受け取れる。</RHAH_SoupKitchen_Terms>
+  <RHAH_SoupKitchen_Eligibility>総資産には、人員自身、装備、衣服、積み荷の価値が含まれる。5000シルバーを超えると友好度が5下がり、超過分がさらに1000シルバー増えるごとに1下がる。</RHAH_SoupKitchen_Eligibility>
+  <RHAH_SoupKitchen_Visit>食料を受け取る</RHAH_SoupKitchen_Visit>
+  <RHAH_SoupKitchen_Report>炊き出しの場所へ移動中。</RHAH_SoupKitchen_Report>
+  <RHAH_SoupKitchen_Rejected>{0}の人々は私たちのキャラバンを見て、物資はもっと貧しい人に渡すべきだと判断し、私たちを追い返した。\n\nキャラバンの総資産：{1}\n派閥との友好度：-{2}</RHAH_SoupKitchen_Rejected>
+  <RHAH_SoupKitchen_Received>{0}が私たちのキャラバンに非常用食品を{1}個分けてくれた。この物資を持って、旅を続けよう。</RHAH_SoupKitchen_Received>
+  <RHAH_SoupKitchen_CannotCarry>キャラバンは食料を受け取れない。</RHAH_SoupKitchen_CannotCarry>
+</LanguageData>

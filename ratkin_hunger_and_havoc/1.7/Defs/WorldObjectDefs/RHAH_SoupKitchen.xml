@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorldObjectDef>
+    <defName>RHAH_SoupKitchen</defName>
+    <label>soup kitchen</label>
+    <description>A food distribution point. A caravan with total wealth of 5000 silver or less can collect supplies once.</description>
+    <worldObjectClass>HungerAndHavoc.Incidents.WorldObject_RHAH_SoupKitchen</worldObjectClass>
+    <canHaveFaction>true</canHaveFaction>
+    <texture>World/WorldObjects/TribalSettlement</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>World/WorldObjects/Expanding/Camp</expandingIconTexture>
+    <expandingIconPriority>20</expandingIconPriority>
+    <validLaunchTarget>false</validLaunchTarget>
+    <comps>
+      <li Class="WorldObjectCompProperties_Timeout" />
+    </comps>
+  </WorldObjectDef>
+</Defs>

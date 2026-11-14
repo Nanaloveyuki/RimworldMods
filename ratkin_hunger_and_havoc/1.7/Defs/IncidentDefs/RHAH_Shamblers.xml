@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <IncidentDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>RHAH_ShamblerChild</defName>
+    <label>young ratkin shambler</label>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_Shamblers</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+  <IncidentDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>RHAH_ShamblerChildExpiring</defName>
+    <label>young ratkin shambler (expires naturally)</label>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_Shamblers</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+  <IncidentDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>RHAH_ShamblerGroup</defName>
+    <label>ratkin shamblers</label>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_Shamblers</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+  <IncidentDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>RHAH_ShamblerGroupExpiring</defName>
+    <label>ratkin shamblers (expire naturally)</label>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_Shamblers</workerClass>
+    <category>Misc</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+  <IncidentDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>RHAH_ShamblerHorde</defName>
+    <label>ratkin shambler horde</label>
+    <workerClass>HungerAndHavoc.Incidents.IncidentWorker_RHAH_Shamblers</workerClass>
+    <category>ThreatBig</category>
+    <targetTags><li>Map_PlayerHome</li></targetTags>
+    <baseChance>0</baseChance>
+  </IncidentDef>
+</Defs>

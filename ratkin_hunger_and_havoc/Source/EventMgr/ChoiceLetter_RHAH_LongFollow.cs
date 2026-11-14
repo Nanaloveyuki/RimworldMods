@@ -29,6 +29,11 @@ namespace HungerAndHavoc.EventMgr
                     yield return Option_Postpone;
                     yield break;
                 }
+                if (!RHAH_LongFollowRuntime.CanChoose(record, OxygenEventChainHost.Runtime))
+                {
+                    yield return Option_Postpone;
+                    yield break;
+                }
                 foreach (RHAH_LongOption choice in RHAH_LongFollowRuntime.Options(record, map))
                 {
                     RHAH_LongOption captured = choice;

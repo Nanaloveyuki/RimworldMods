@@ -18,6 +18,7 @@ namespace HungerAndHavoc.Core
         public bool plagueContagious = true;
         public float positiveIncidentDays = 15f;
         public float negativeIncidentDays = 15f;
+        internal RHAH_BackgroundOptions background = new RHAH_BackgroundOptions();
         public string positiveIncidentPace = HungerAndHavoc.Incidents.RHAH_IncidentPace.DefaultFormula;
         public string negativeIncidentPace = HungerAndHavoc.Incidents.RHAH_IncidentPace.DefaultFormula;
         public float frequencyWindowDays = 15f;
@@ -279,6 +280,9 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref plagueContagious, "plagueContagious", true);
             Scribe_Values.Look(ref positiveIncidentDays, "positiveIncidentDays", 15f);
             Scribe_Values.Look(ref negativeIncidentDays, "negativeIncidentDays", 15f);
+            Scribe_Deep.Look(ref background, "background");
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+                background = background ?? new RHAH_BackgroundOptions();
             Scribe_Values.Look(ref positiveIncidentPace, "positiveIncidentPace", HungerAndHavoc.Incidents.RHAH_IncidentPace.DefaultFormula);
             Scribe_Values.Look(ref negativeIncidentPace, "negativeIncidentPace", HungerAndHavoc.Incidents.RHAH_IncidentPace.DefaultFormula);
             Scribe_Values.Look(ref frequencyWindowDays, "frequencyWindowDays", 15f);

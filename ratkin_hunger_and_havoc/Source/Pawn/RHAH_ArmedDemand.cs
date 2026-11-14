@@ -26,12 +26,7 @@ namespace HungerAndHavoc.Pawn
 
         internal static RHAH_ChoiceRecord Find(int choiceId)
         {
-            IReadOnlyList<RHAH_ChoiceRecord> records = Current.Game?.GetComponent<GameComponent_RHAH_Game>()?.OpenChoices;
-            for (int i = 0; records != null && i < records.Count; i++)
-            {
-                if (records[i].Id == choiceId) return records[i];
-            }
-            return null;
+            return RHAH_ChoiceRuntime.FindRecord(Current.Game?.GetComponent<GameComponent_RHAH_Game>(), choiceId);
         }
         internal static bool StartsAssault(bool enabled, bool alreadyAssaulting, RHAH_ChoiceAction action)
         {

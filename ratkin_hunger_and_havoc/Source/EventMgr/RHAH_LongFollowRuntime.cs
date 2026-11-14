@@ -429,9 +429,11 @@ namespace HungerAndHavoc.EventMgr
         {
             RHAH_LongFollowRecord record = FindRecord(chainId);
             Map map = record == null ? null : RHAH_EventFollowRuntime.FindMap(record.MapId);
-            if (record == null || record.Completed || record.Phase != phase || map == null || !record.LetterOpen) return false;
+            if (record == null || record.Completed || record.Phase != phase || map == null || !record.LetterOpen ||
+                !CanChoose(record, OxygenEventChainHost.Runtime)) return false;
             Dispatch(record.ChainId, record.DisplayId, record.BatchId, record.MapId, Now);
-            if (record.Completed || record.Phase != phase || !record.LetterOpen) return false;
+            if (record.Completed || record.Phase != phase || !record.LetterOpen ||
+                !CanChoose(record, OxygenEventChainHost.Runtime)) return false;
             bool valid = false;
             foreach (RHAH_LongOption option in Options(record, map))
             {
@@ -444,6 +446,21 @@ namespace HungerAndHavoc.EventMgr
             else changed = ChooseOther(record, map, action, pawnId, Now);
             if (changed) Wake(record);
             return changed;
+        }
+
+        internal static bool CanChoose(RHAH_LongFollowRecord record, EventChainRuntime runtime)
+        {
+            EventChainProviderState state = runtime?.GetProviderState(RHAH_EventChainProvider.ProviderKey);
+            if (record == null || record.Completed || state == null || state.Mode != EventChainMode.Active ||
+                !string.IsNullOrEmpty(state.Reason) || (state.MigrationStatus ?? "").StartsWith("failed:", StringComparison.Ordinal)) return false;
+            EventChainInstance instance = runtime.Find(RHAH_EventChainProvider.ProviderKey, record.ChainId);
+            if (instance == null || instance.End != EventChainEnd.None || instance.Stage != 3 ||
+                instance.DefinitionId != record.DisplayId || instance.SiteId != record.MapId ||
+                !string.IsNullOrEmpty(instance.PauseReason)) return false;
+            for (int i = 0; i < instance.Receipts.Count; i++)
+                if (instance.Receipts[i].Status == "pending" || instance.Receipts[i].Status == "failed") return false;
+            return RHAH_EventFollowRules.ReadPayload(instance.Payload, out string id, out int batch, out int site) &&
+                id == record.DisplayId && batch == record.BatchId && site == record.MapId;
         }
 
         internal static void Wake(RHAH_LongFollowRecord record)
@@ -606,54 +623,62 @@ namespace HungerAndHavoc.EventMgr
         }
         internal static bool SendChildren(RHAH_LongFollowRecord record, Map map, IList<int> ids, Verse.Pawn receiver)
         {
-            if (!Alive(receiver) || receiver.MapHeld != map || receiver.Faction == null || receiver.Faction == Faction.OfPlayer || ids == null || ids.Count == 0) return false;
+            if (!EligibleReceiver(receiver, map) || ids == null || ids.Count == 0 ||
+                !RCellFinder.TryFindBestExitSpot(receiver, out IntVec3 exit) ||
+                !receiver.CanReach(exit, PathEndMode.OnCell, Danger.Some)) return false;
+            List<Verse.Pawn> children = new List<Verse.Pawn>();
             for (int i = 0; i < ids.Count; i++)
             {
                 Verse.Pawn child = Pawn(ids[i], Now);
                 bool purchasedSlave = ParentId(record.DisplayId) == "I-012" && Alive(child) && child.MapHeld == map && child.IsSlaveOfColony && RHAH_Api.TryGetExtra(child, RHAH_EventFollowMood.BoughtKey, out string bought);
-                if ((!AtHome(child, map) && !purchasedSlave) || child.IsPrisoner || child.IsSlave && !purchasedSlave || (RHAH_Api.IsOrigin(child) && !RHAH_Api.Allows(child, RHAH_BehaviorGate.Transfer))) return false;
+                if ((!AtHome(child, map) && !purchasedSlave) || !child.Spawned || child.Map != map || child.IsPrisoner || child.IsSlave && !purchasedSlave ||
+                    children.Contains(child) || (RHAH_Api.IsOrigin(child) && !RHAH_ApiHost.CanTransfer(child)) ||
+                    !receiver.CanReach(child, PathEndMode.Touch, Danger.Some)) return false;
                 if (RHAH_Api.IsOrigin(child) && !RHAH_ApiHost.CanReleaseToColony(child, RHAH_ReleaseReason.ModRequest)) return false;
+                children.Add(child);
             }
-            List<Verse.Pawn> group = new List<Verse.Pawn>();
-            List<Verse.Pawn> carriers = new List<Verse.Pawn> { receiver };
-            int infants = 0;
-            for (int i = 0; i < ids.Count; i++) if (!HungerAndHavoc.Pawn.Compat.RHAH_ChildMovement.CanWalkOut(Pawn(ids[i], Now))) infants++;
-            for (int i = 1; i < infants; i++)
+            Faction faction = receiver.Faction;
+            Rot4 direction = CellRect.WholeMap(map).GetClosestEdge(exit);
+            // 与初次交换一致, 实际交付后才记录离开, 不把离场任务当作结果
+            try
             {
-                Verse.Pawn escort = CreateAdult(record, map);
-                if (escort == null) { for (int j = 1; j < carriers.Count; j++) Leave(carriers[j]); return false; }
-                escort.SetFaction(receiver.Faction);
-                carriers.Add(escort);
-                record.VisitorIds.Add(escort.thingIDNumber);
+                for (int i = 0; i < children.Count; i++)
+                {
+                    Verse.Pawn child = children[i];
+                    if (RHAH_Api.IsOrigin(child)) RHAH_ApiHost.CommitReleaseToColony(child, RHAH_ReleaseReason.ModRequest);
+                    if (child.IsSlaveOfColony) child.guest.SetGuestStatus(null);
+                    child.SetFaction(faction);
+                    RHAH_VisitorGroup.NotifyReleased(child);
+                    child.ExitMap(false, direction);
+                    if (child.MapHeld == map || child.Spawned || !Find.WorldPawns.Contains(child))
+                        throw new InvalidOperationException("The handed-over child did not enter the world pawn pool.");
+                    if (!record.DepartedIds.Contains(child.thingIDNumber)) record.DepartedIds.Add(child.thingIDNumber);
+                    Keep(child);
+                }
+                Leave(receiver);
             }
-            for (int i = 0; i < ids.Count; i++)
+            catch (Exception exception)
             {
-                Verse.Pawn child = Pawn(ids[i], Now);
-                if (RHAH_Api.IsOrigin(child)) RHAH_ApiHost.CommitReleaseToColony(child, RHAH_ReleaseReason.ModRequest);
-                if (child.IsSlaveOfColony) child.guest.SetGuestStatus(null);
-                child.SetFaction(receiver.Faction);
-                CompRHAH_Pawn transferred = CompRHAH_Pawn.TryGet(child);
-                if (transferred != null) transferred.State.lifecycle = RHAH_Lifecycle.Leaving;
-                Keep(child);
-                if (!record.DepartedIds.Contains(ids[i])) record.DepartedIds.Add(ids[i]);
-                group.Add(child);
-            }
-            group.AddRange(carriers);
-            RHAH_VisitorGroup.TryStart(group, map, receiver.Position, RHAH_PawnRole.Refugee);
-            for (int i = 0; i < group.Count; i++) Leave(group[i]);
-            int carrierIndex = 0;
-            for (int i = 0; i < ids.Count; i++)
-            {
-                Verse.Pawn child = Pawn(ids[i], Now);
-                if (HungerAndHavoc.Pawn.Compat.RHAH_ChildMovement.CanWalkOut(child)) continue;
-                Verse.Pawn carrier = carriers[carrierIndex++];
-                if (!RCellFinder.TryFindBestExitSpot(carrier, out IntVec3 exit)) continue;
-                Job carry = JobMaker.MakeJob(DefDatabase<JobDef>.GetNamed("RHAH_LongMeeting"), child, exit);
-                carry.count = 1;
-                carry.exitMapOnArrival = true;
-                carrier.jobs.StartJob(carry, JobCondition.InterruptForced);
+                for (int i = 0; i < children.Count; i++)
+                {
+                    Verse.Pawn child = children[i];
+                    if (child.Faction == faction && !child.Spawned && child.MapHeld == null && Find.WorldPawns.Contains(child) &&
+                        !record.DepartedIds.Contains(child.thingIDNumber)) record.DepartedIds.Add(child.thingIDNumber);
+                }
+                EventChainInstance instance = OxygenEventChainHost.Runtime?.Find(RHAH_EventChainProvider.ProviderKey, record.ChainId);
+                if (instance != null) instance.PauseReason = "Long-follow handover stopped after an uncertain pawn mutation: " + exception.Message;
+                Log.Error("[RHAH] Long-follow handover stopped without replay; chain=" + record.ChainId +
+                    "; confirmedDepartures=" + string.Join(",", record.DepartedIds) + ": " + exception);
+                return false;
             }
             return true;
+        }
+
+        internal static bool EligibleReceiver(Verse.Pawn receiver, Map map)
+        {
+            return Alive(receiver) && receiver.Spawned && receiver.Map == map && receiver.Faction != null &&
+                receiver.Faction != Faction.OfPlayer && !receiver.IsPrisoner && !receiver.IsSlave && !receiver.Downed &&
+                !(receiver.MentalStateDef?.stopsJobs ?? false) && receiver.DevelopmentalStage == DevelopmentalStage.Adult;
         }
 
         internal static Verse.Pawn CreateAdult(RHAH_LongFollowRecord record, Map map, Gender? gender = null, bool plague = false)

@@ -125,7 +125,7 @@ namespace HungerAndHavoc.Tests
 
             Assert.Equal(1, catalogDraws);
             Assert.Equal(developerMode ? 0 : 1, quotes);
-            Assert.Equal(60, entries.Count);
+            Assert.Equal(RHAH_IncidentCatalog.All.Count, entries.Count);
             Assert.Equal(RHAH_IncidentCatalog.All.Select(entry => "dev-" + entry.DisplayId), entries.Select(entry => entry.Id));
             foreach (RHAH_IncidentEntry incident in RHAH_IncidentCatalog.All)
             {
@@ -139,7 +139,7 @@ namespace HungerAndHavoc.Tests
         public void RestoredSubpagesHaveTheirOwnSearchRoutes()
         {
             string[] expected = { "overview", "relief", "relief-foods", "give-foods", "beg-foods", "visitors", "stay", "plague",
-                "events", "pawns", "suiyin-trust", "settlement-progress", "environment", "compat-diagnostics", "genes",
+                "events", "background-stories", "pawns", "suiyin-trust", "settlement-progress", "environment", "compat-diagnostics", "genes",
                 "dev-events", "event-frequency", "pawn-history", "experimental", "arrival-options", "removal" };
             Assert.Equal(expected.OrderBy(id => id), registered.Keys.OrderBy(id => id));
             Assert.Equal(new[] { "shelter-days", "short-stay-lock", "hire-days" }, SearchIds("stay"));

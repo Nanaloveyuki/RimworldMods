@@ -210,6 +210,12 @@ namespace HungerAndHavoc.Incidents
             if (settled == RHAH_ChoiceAction.None)
             {
                 RHAH_ChoiceRecord current = FindRecord();
+                if (action == RHAH_ChoiceAction.Feed && current != null && current.Open && enabled)
+                {
+                    ShowFoodHint(settings);
+                    ShowFoodFailure(RHAH_ChoiceRuntime.Present(current));
+                    return false;
+                }
                 string key = AllyRefusalKey(action, allyRefusal);
                 if (key == null)
                 {
@@ -228,50 +234,10 @@ namespace HungerAndHavoc.Incidents
             {
                 ShowFoodHint(settings);
                 List<Verse.Pawn> present = record == null ? null : RHAH_ChoiceRuntime.Present(record);
-                int waiting = present == null ? 0 : RHAH_FoodHandoff.Begin(present);
-                if (waiting > 0)
-                {
-                    Messages.Message("RHAH_Choice_FeedWaiting".Translate(waiting), MessageTypeDefOf.NeutralEvent);
-                }
-                else
-                {
-                    string key = "RHAH_Choice_FeedNoVisitor";
-                    string name = "-";
-                    if (present != null)
-                    {
-                        // 要人喂的来客不进等饭名单 先说清要亲手喂 别让不饿的人挡住
-                        bool handFeed = false;
-                        for (int i = 0; i < present.Count; i++)
-                        {
-                            Verse.Pawn pawn = present[i];
-                            if (pawn != null && RHAH_FoodHandoff.Refusal(pawn) == null &&
-                                HungerAndHavoc.Pawn.Compat.RHAH_ChildMovement.NeedsHandFeed(pawn))
-                            {
-                                key = "RHAH_Choice_FeedBabyOnly";
-                                name = pawn.LabelShort;
-                                handFeed = true;
-                                break;
-                            }
-                        }
-
-                        if (!handFeed)
-                        {
-                            for (int i = 0; i < present.Count; i++)
-                            {
-                                Verse.Pawn pawn = present[i];
-                                string refusal = pawn == null ? null : RHAH_FoodHandoff.Refusal(pawn);
-                                if (refusal != null)
-                                {
-                                    key = refusal;
-                                    name = pawn.LabelShort;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    Messages.Message(key.Translate(name), MessageTypeDefOf.RejectInput);
-                }
+                int waiting = 0;
+                for (int i = 0; present != null && i < present.Count; i++)
+                    if (RHAH_FoodHandoff.TryCountLeft(present[i], out _)) waiting++;
+                Messages.Message("RHAH_Choice_FeedWaiting".Translate(waiting), MessageTypeDefOf.NeutralEvent);
             }
             else if (settled == RHAH_ChoiceAction.Ally)
             {
@@ -283,6 +249,31 @@ namespace HungerAndHavoc.Incidents
 
             Find.LetterStack.RemoveLetter(this);
             return true;
+        }
+
+        static void ShowFoodFailure(List<Verse.Pawn> present)
+        {
+            string key = "RHAH_Choice_FeedNoVisitor";
+            string name = "-";
+            for (int i = 0; i < present.Count; i++)
+            {
+                Verse.Pawn pawn = present[i];
+                if (RHAH_FoodHandoff.Refusal(pawn) == null &&
+                    HungerAndHavoc.Pawn.Compat.RHAH_ChildMovement.NeedsHandFeed(pawn))
+                {
+                    Messages.Message("RHAH_Choice_FeedBabyOnly".Translate(pawn.LabelShort), MessageTypeDefOf.RejectInput);
+                    return;
+                }
+            }
+            for (int i = 0; i < present.Count; i++)
+            {
+                string refusal = RHAH_FoodHandoff.Refusal(present[i]);
+                if (refusal == null) continue;
+                key = refusal;
+                name = present[i].LabelShort;
+                break;
+            }
+            Messages.Message(key.Translate(name), MessageTypeDefOf.RejectInput);
         }
 
         // 转送失败只有这两种原因玩家能补救，其余仍按 Stale 报
@@ -401,21 +392,7 @@ namespace HungerAndHavoc.Incidents
         RHAH_ChoiceRecord FindRecord(GameComponent_RHAH_Game game = null)
         {
             game = game ?? Current.Game?.GetComponent<GameComponent_RHAH_Game>();
-            if (game == null)
-            {
-                return null;
-            }
-
-            IReadOnlyList<RHAH_ChoiceRecord> records = game.OpenChoices;
-            for (int i = 0; i < records.Count; i++)
-            {
-                if (records[i].Id == choiceId)
-                {
-                    return records[i];
-                }
-            }
-
-            return null;
+            return RHAH_ChoiceRuntime.FindRecord(game, choiceId);
         }
     }
 }

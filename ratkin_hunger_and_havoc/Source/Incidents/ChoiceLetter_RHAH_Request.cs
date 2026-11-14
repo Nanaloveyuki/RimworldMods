@@ -149,21 +149,7 @@ namespace HungerAndHavoc.Incidents
 
         RHAH_ChoiceRecord FindRecord(GameComponent_RHAH_Game game)
         {
-            if (game == null)
-            {
-                return null;
-            }
-
-            IReadOnlyList<RHAH_ChoiceRecord> records = game.OpenChoices;
-            for (int i = 0; i < records.Count; i++)
-            {
-                if (records[i].Id == choiceId)
-                {
-                    return records[i];
-                }
-            }
-
-            return null;
+            return RHAH_ChoiceRuntime.FindRecord(game, choiceId);
         }
 
     }

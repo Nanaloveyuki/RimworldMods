@@ -6,6 +6,8 @@
 
 卸载动作只有 `Remove` 或 `Replace`。导出器见 [unload-export.md](unload-export.md)。没有登记的持久化产物视为漏了卸载保护。本页的动作行是导出器的契约，规划不能改写它。
 
+自有世界据点在卸载副本中整体 Remove，不再替换成原版地点。若 `maps` 中仍有以自有据点为父物体的地图，导出在修改副本前中止，提示先撤出角色和物资并让地图卸载。地图内原版物品没有可验证的来源归属，不能因为没有玩家角色就直接删除地图。无地图据点的居民引用随据点移除，实际存于 `worldPawns` 或商队中的角色继续保留。
+
 ## 破坏性重建（1.0.0 前）
 
 M0 工程对齐对实验性存档格式做 **破坏性重建**，不读旧键、不兼容旧 XML 类型名、不提供迁移。含本模组身份标记的旧档加载后，旧类型节点与旧键视为未知或不完整。
@@ -269,7 +271,7 @@ Scribe 默认值必须等于字段默认值。集合在 `PostLoadInit` 补空集
 | HungerAndHavoc.Pawn.LordJob_RHAH_Visitor | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Camp | Lord `lordJob`，沿用原版驻守字段 | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree |
 | HungerAndHavoc.Pawn.LordJob_RHAH_Intercept | Lord `lordJob` | Remove。卸载后该 Lord 必须消失，pawn 回原版 ThinkTree。`exitCell` 随 Lord 删除，不改地图上的玩家 |
-| HungerAndHavoc.Incidents.WorldObject_RHAH_Interception | WorldObjectDef `worldObjectClass` | 已有地图或居民：Replace，类名改成 `RimWorld.Planet.Site`。没有地图也没有居民：Remove |
+| HungerAndHavoc.Incidents.WorldObject_RHAH_Interception | WorldObjectDef `worldObjectClass` | Remove。仍有关联地图时中止导出，先撤出角色和物资并让地图卸载 |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_Beg | Job `driverClass` | Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_Gnaw | Job `driverClass` | Remove |
 | HungerAndHavoc.Pawn.JobDriver_RHAH_WarlordSabotage | Job `driverClass`；XML 反射入口公开，无新增存档字段 | Remove，清除当前和排队的破坏、纵火 Job |
@@ -507,15 +509,15 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_CarryYoung | JobDef | Remove，连同当前驱动和相关预约清理 |
 | RHAH_CarryToSafety | JobDef | Remove，使用同一 CarryYoung 驱动；清除当前及排队 Job、驱动与相关预约，保留 carryTracker 中的孩子 |
 | RHAH_RefugeeMassacre | QuestScriptDef | Remove |
-| RHAH_RefugeeCamp | WorldObjectDef | 没有地图、也没有居民：Remove，删整个世界物体。已有地图或居民：Replace。保留世界物体 ID、地图和居民，类名与 Def 改成已加载的原版 `Site`，去掉本模组部件和生成步骤。`Site` 不能接住已生成地图就中止，不删地图 |
+| RHAH_RefugeeCamp | WorldObjectDef | Remove，删除整个无地图据点及其居民引用，实际世界角色保留。仍有关联地图时中止导出，先撤出角色和物资并让地图卸载；不替换成原版地点，也不直接删除地图 |
 | RHAH_RefugeeCamp | SitePartDef | Remove。同名地点部件单独删除，不把它当成世界物体，也不改成原版部件 |
-| RHAH_RefugeeCamp | MapGeneratorDef | Replace。已生成地图在 `maps/li/generatorDef` 保存；按 `mapInfo/parent` 匹配保留地点，只将自有生成器改为已加载、非本模组的 `Site.mapGenerator`，为空时使用原版 `Encounter`。替代 Def 缺失时中止 |
+| RHAH_RefugeeCamp | MapGeneratorDef | Remove。关联地图必须先卸载，导出不替换地图生成器。其它位置残留该生成器引用时中止 |
 | RHAH_RefugeeCamp | GenStepDef | Remove，随地点部件清理，不改其它地图 |
 | RHAH_Approach | WorldObjectDef | Remove。不替换成原版商队。卸载后物体消失，未到达的事件不再生成 |
-| RHAH_Interception | WorldObjectDef | 没有地图、也没有居民：Remove，删整个世界物体。已有地图或居民：Replace。保留世界物体 ID、地图、玩家 pawn 和 `retainedCaravanData`，类名与 Def 改成已加载的原版 `Site`，去掉 `displayId`、`spawnBatchId`、`settled`。地图生成器已是原版 `Encounter`，不另换。`Site` 不能接住已生成地图就中止，不删地图。只带重组远行队组件，不带限时侦测或战场袭击。旧档里的原版 `AttackedNonPlayerCaravan` / `CaravansBattlefield` 只是当时的临时地图父物体，保持原样，不改成 `Site`，也不当作本模组地图迁移 |
-| RHAH_RecordSite | WorldObjectDef | Replace。`worldObjectClass` 已是原版 `Site`。没有地图也没有居民：删整个世界物体。已有地图或居民：保留世界物体 ID、地图和居民，Def 改成已加载的原版 `Site`，地图生成器改成 `Site` 自带的生成器。`Site` 不能接住已生成地图就中止 |
+| RHAH_Interception | WorldObjectDef | Remove，删除整个无地图据点。仍有关联地图时中止导出，保留角色、物品及 `retainedCaravanData`，提示先撤出并让地图卸载。旧档中原版 `AttackedNonPlayerCaravan` / `CaravansBattlefield` 保持原样，不当作本模组据点删除 |
+| RHAH_RecordSite | WorldObjectDef | 已退休，由加载迁移处理：无地图时 Remove；已有地图时按上节迁移为原版 `Camp` 并保留地图。导出不再定义地点替换，已经成为原版 `Camp` 的地点保留 |
 | RHAH_RecordSite | SitePartDef | Remove。同名地点部件单独删除，不把它当成世界物体 |
-| RHAH_RecordSite | MapGeneratorDef | Replace。按 `maps/li/mapInfo/parent` 匹配保留地点，将该地图的自有 `generatorDef` 改为已加载、非本模组的 `Site.mapGenerator`，为空时使用原版 `Encounter`。替代 Def 缺失时中止 |
+| RHAH_RecordSite | MapGeneratorDef | 已退休，由加载迁移改为原版 `Encounter`。导出不再替换地图生成器，未知残留引用使导出中止 |
 | RHAH_RecordBox | ThingDef | Remove。不替换成原版建筑 |
 | RHAH_MigrationRecord | ThingDef | Remove。不替换成原版物品 |
 | RHAH_RecordLetter | LetterDef | Remove。不替换成原版信 |
@@ -580,7 +582,7 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 | RHAH_Trader_Famine | TraderKindDef | Replace。改成已加载原版 `Visitor_Outlander_Standard`，保留 trader Tracker 和真实原版库存 |
 | RHAH_PawnKind_Ratkin | PawnKindDef | Replace。保留 pawn 的 thingID。`kindDef` 改成仍会随 NewRatkinPlus 加载、种族同为 `Ratkin`、不属于本模组的 PawnKind。按 defName 序选第一个。没有这种种类就中止，不换成人类 |
 
-替代 Def 必须已经加载，且不属于本模组。写死的目标是 `Ancients`、`Baseliner`、`Randy`、`Site`、`Visitor_Outlander_Standard`。种类和背景的具体 defName 在导出时按上表从已加载 Def 里选，不写进本页。
+替代 Def 必须已经加载，且不属于本模组。写死的目标是 `Ancients`、`Baseliner`、`Randy`、`Cloth`、`Visitor_Outlander_Standard`。种类和背景的具体 defName 在导出时按上表从已加载 Def 里选，不写进本页。
 
 ### Hediff_RHAH_ClaySatiety
 
@@ -830,3 +832,97 @@ ODF 的 51 个 definition ID、Version=1、StateVersion=1 和 payload 保持。A
 - 未知本模组 Def 或类型引用必须中止，不猜测删除其所属节点
 - 清理交叉引用时保持 Scribe 字典 keys/values 同步
 - 全局 ModSettings 不改；卸模组后设置文件可残留
+
+## 王国背景故事
+
+本轮新增内容面向1.7，保留1.6既有资源和程序集。背景消息独立于普通事件正负池，均为全年龄级。`RHAH_BackgroundCivilWar` 和 `RHAH_BackgroundTakeover` 使用现有 ODF provider，分别保存叛乱后的单次内乱判定和每个夺城派系的单次判定；到期、实例终态和动作凭据由 ODF 持有。`siteId` 是原王国的 faction loadID，`tile=-1`；payload 分别为 `0` 和原夺城派系的 faction loadID。后续仅解析原派系，缺失时结束。卸载时随本 provider 分区 Remove。延迟在建立实例时确定，概率在到期时读取当前设置；独立开关关闭后，到期的相应后续取消。夺城在原位置建立同名原版 Settlement 并移除旧据点，使派系材质与交易库存随占领方更新；卸载后保留已经改变的世界事实。每次修改前重新计数，王国至少保留三个据点；有地图的据点不参与夺取。
+
+| 归属 | 键 / 类型 / Def | 默认值与动作 |
+| --- | --- | --- |
+| GameComponent_RHAH_Game | `backgroundUnrestUntilTick` | -1，骚动效果截止 tick，随组件 Remove；重复骚动只延后截止，不叠加倍率 |
+| ChoiceLetter_RHAH_Background | `backgroundStory` | Rebellion=0，Ruins=1，Unrest=2，Mutiny=3，CivilWar=4，TwoTaxes=5，SameCallsign=6，HarvestFestival=7，Memorial=8，AidManifest=9，CancelledBanquet=10；随信件 Remove |
+| WorldObject_RHAH_Ruins | `hardtackRemaining`、`silverRemaining`、`componentsRemaining` | 均为0，地点生成时抽取数量，成功实物交付后扣除，领完销毁；随世界对象 Remove |
+| CaravanArrivalAction_RHAH_Ruins | `ruins` | null，原废墟引用；随到达动作 Remove，原地点消失后不改投 |
+| 类型 | `HungerAndHavoc.Incidents.ChoiceLetter_RHAH_Background` | Remove，Verse / XML 创建选择信 |
+| 类型 | `HungerAndHavoc.Incidents.WorldObject_RHAH_Ruins` | Remove，Verse / XML 创建无地图世界地点 |
+| 类型 | `HungerAndHavoc.Incidents.CaravanArrivalAction_RHAH_Ruins` | Remove，Verse 恢复远行队到达动作 |
+| Def | `RHAH_BackgroundLetter`、`RHAH_Ruins` | Remove；无地图转换 |
+
+`RHAH_Settings.background` 是全局设置中的 `RHAH_BackgroundOptions` 深对象，不进入游戏存档；旧设置缺失该键时补默认对象。以下字段的存储键与字段名相同。无需卸载游戏存档时处理这些设置。
+
+| 字段 / 键 | 默认值 |
+| --- | --- |
+| enabled | true |
+| averageDays | 15 |
+| rebellionEnabled / ruinsEnabled / unrestEnabled / mutinyEnabled | true |
+| rebellionWeight / ruinsWeight / unrestWeight / mutinyWeight | 1 |
+| civilWarEnabled | true |
+| civilWarChancePercent / civilWarDelayDays | 5 / 3 |
+| takeoverEnabled | true |
+| takeoverChancePercent / takeoverDelayDays | 50 / 60 |
+| unrestBonusPercent / unrestDays | 50 / 3 |
+| ruinsDistance | 8～20，可通行路线距离 |
+| hardtack / silver / components | 5～50 / 100～1000 / 1～5 |
+
+背景池间隔为0时停止新随机消息；所有权重为0时不抽取消息，内乱不参加随机池。新内容总闸门与本存档停用状态沿用现有运行时约束。关闭背景总开关即停止新消息，骚动倍率恢复1；已有后续在到期时取消。既有废墟继续允许探索。
+
+### 世界交互与贸易后续
+
+`RHAH_BackgroundTrade` 是同一 provider 的版本1定义。`siteId` 保存原王国 faction loadID，`tile=-1`，payload 为 HarvestFestival=7、AidManifest=9 或 CancelledBanquet=10 的十进制值。阶段0休眠，等待成功购买对应物资；阶段1由原版交易成功通知唤醒，在下一 tick 发送结果信并结束。报价、取消、赠送、出售及交易失败不推进实例。每个王国每类故事同时最多一个活动实例；两种食物优惠按实例顺序各占一次交易，武器优惠独立，两者均使用单次折扣，绝不叠乘。参与交易的原版 Pawn 商队与 Settlement 据点通过同一 ITrader.Faction 验证，换王国不会转移已有优惠。关闭故事开关时优惠休眠，重新开启后可继续。已确认的交易后续正常发出。随 provider 分区 Remove。
+
+鼠族武器只接受 IsWeapon 且原始定义归属 Solaris.RatkinRaceMod、bbb.ratkinweapon.morefailure、fxz.ratkinfaction 或 RKU.RatkinUnderground 的交集。没有新增强制依赖或上游私有接口。
+
+| 归属 | 键 / 类型 / Def | 默认值与动作 |
+| --- | --- | --- |
+| WorldObject_RHAH_BackgroundSite | `story` | SameCallsign=6；只使用 SameCallsign 或 Memorial，随地点 Remove |
+| 同上 | `undergroundId`、`warlordId` | 均0，创建时锁定双方原派系 loadID，缺失时跳过其好感，不改投同类型的新派系 |
+| 同上 | `evacuated`、`joinOffered` | 均false，撤离结算与创建时抽取的加入请求；重复到访不重复加好感、不重抽概率 |
+| 同上 | `generationAttempted` | false，生成伤员前置位，明确无角色的失败才复位，异常结果停止自动重放；拒绝仍可结束事件 |
+| 同上 | `memorialId`、`nameListId` | 均0，原纪念碑与名单地点的世界对象 ID，名单只完成原关联碑文，缺失时不改投 |
+| 同上 | `settled` | false，实物材料交付或找到名单后终结，只给选中分支的好感 |
+| CaravanArrivalAction_RHAH_BackgroundSite | `site` | null，原地点引用，缺失或关闭相应故事后不可到访；随动作 Remove |
+| 类型 | `HungerAndHavoc.Incidents.WorldObject_RHAH_BackgroundSite` | Remove，不生成地图或保管角色 |
+| 类型 | `HungerAndHavoc.Incidents.CaravanArrivalAction_RHAH_BackgroundSite` | Remove |
+| Def | `RHAH_BackgroundSite` | Remove，无地图转换 |
+
+## 施粥
+
+`I-058` 面向 1.7，使用原版世界地点与到达动作，不建立地图或 ODF 后续。地点的原派系由 WorldObject 基类持有，缺失、隐藏、灭亡或敌对时停止交互。原版 `TimeoutComp.timeoutEndTick` 保存十天期限。奖励数量在生成时确定，领取前按远行队所有人物自身、装备、衣物和物资的完整市场价值检查；超过 5000 银损失 5 好感，每额外满 1000 银再损失 1。成功交付后销毁地点，交付失败回滚本次食物，避免重复领取。
+
+| 归属 | 字段或类型 | 默认值与卸载动作 |
+| --- | --- | --- |
+| WorldObject_RHAH_SoupKitchen | `mealCount` | 0，生成时随机 5～20 个生存包装食物；随地点 Remove |
+| CaravanArrivalAction_RHAH_SoupKitchen | `site` | null，原施粥地点引用，地点缺失或到期时失效；随到达动作 Remove |
+| 类型 | `HungerAndHavoc.Incidents.WorldObject_RHAH_SoupKitchen` | Remove，无地图转换 |
+| 类型 | `HungerAndHavoc.Incidents.CaravanArrivalAction_RHAH_SoupKitchen` | Remove |
+| Def | `RHAH_SoupKitchen` | IncidentDef、WorldObjectDef，Remove |
+
+纪念碑、伤员点由现有世界对象持有交互事实，没有额外轮询或定时器。名单地点距原碑1～3格；找到后托人送回，双方地点一起关闭。捐赠与原样修复先检查全远行队库存，再从原容器拆取实物；不足时保留全部材料与选择。接受加入才经现有验证后的 PawnFactory 生成一名成年鼠族，轻度瘀伤，释放为殖民者并加入当前远行队；其原版角色事实保留，来源标记沿用现有卸载替换规则。
+
+下列新增全局 `RHAH_BackgroundOptions` 字段键与字段名一致。旧设置缺键采用下列默认；存档卸载不处理全局设置。
+
+| 字段 / 键 | 默认值 |
+| --- | --- |
+| twoTaxesEnabled / sameCallsignEnabled / harvestFestivalEnabled / memorialEnabled / aidManifestEnabled / cancelledBanquetEnabled | true |
+| twoTaxesWeight / sameCallsignWeight / harvestFestivalWeight / memorialWeight / aidManifestWeight / cancelledBanquetWeight | 1 |
+| tradeDiscountPercent / woundedJoinChancePercent | 25 / 50 |
+| storyDistance | 3～8，可通行路线距离 |
+| evacuationGoodwill | 5，双方各自增加 |
+| memorialSteel / memorialWood | 40 / 80，二选一 |
+| restorationSteel / restorationWood | 20 / 40，二选一 |
+| materialsGoodwill | 5，双方各自增加 |
+| namesUndergroundGoodwill / namesWarlordGoodwill | 10 / 3 |
+| restorationGoodwill | 8，双方各自增加 |
+
+## 蹒跚怪鼠族
+
+`I-059`、`I-060`、`I-061` 面向 1.7，仅在异象 DLC 启用时抽取，均为一般向。前两类各自包含等权重的普通与自然死亡变体 `I-059-01`、`I-060-01`。角色通过现有 PawnFactory 生成，再使用原版 Shambler mutant 与原版游荡或袭击 Lord；没有本模组来源标记、角色轮询或自定义 AI。自然死亡变体使用原版单体 25000～45000 tick、鼠群 150000～210000 tick；普通变体与鼠潮首批、增援关闭自然死亡倒计时。
+
+`RHAH_ShamblerReinforcements` 是现有 ODF provider 的版本 1 定义。`siteId` 为首批到达的原地图 uniqueID，0 合法；`tile` 为原地图位置，阶段始终为 0，payload 为首批实际人数的十进制字符串。初始 `nextTick` 固定为到达时刻加 180000 tick，溢出时拒绝建立实例。到期只检查原地图上已生成、存活且能走动或爬行的鼠族蹒跚怪，包含其他来源的同类。地图缺失或没有符合条件的角色时结束；符合条件时生成与首批同样人数的原版袭击队伍，再结束。增援不创建后续实例。总闸门或鼠潮开关关闭时取消，异常副作用由 ODF 动作凭据阻止自动重放。
+
+| 归属 | 类型 / Def | 卸载动作 |
+| --- | --- | --- |
+| ODF provider | `RHAH_ShamblerReinforcements` | 随本 provider 分区 Remove，清除未到期检查 |
+| IncidentDef | `RHAH_ShamblerChild`、`RHAH_ShamblerChildExpiring`、`RHAH_ShamblerGroup`、`RHAH_ShamblerGroupExpiring`、`RHAH_ShamblerHorde` | Remove |
+
+已到达角色的种族、mutant、原版 Lord 和寿命组件按原版存档持有，卸载后保留；本模组特质、经历及衣物继续遵循既有归属规则。

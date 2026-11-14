@@ -46,6 +46,7 @@ namespace HungerAndHavoc.Incidents
                 case "I-047":
                 case "I-053":
                 case "I-057":
+                case "I-058":
                     return RHAH_ContentRating.AllAges;
                 case "I-001":
                 case "I-002":
@@ -81,6 +82,11 @@ namespace HungerAndHavoc.Incidents
                 case "I-050":
                 case "I-052":
                 case "I-054":
+                case "I-059":
+                case "I-060":
+                case "I-061":
+                case "I-059-01":
+                case "I-060-01":
                     return RHAH_ContentRating.General;
                 default:
                     throw new ArgumentException("Incident has no content rating: " + displayId, nameof(displayId));

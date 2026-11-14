@@ -31,6 +31,7 @@ namespace HungerAndHavoc.Core
         List<RHAH_LongFollowRecord> longFollows = new List<RHAH_LongFollowRecord>();
         int longClaimChainId;
         int lastRoyalArrivalTick = -1;
+        int backgroundUnrestUntilTick = -1;
 
         public IReadOnlyList<string> ActiveGenerationBatches => activeGenerationBatches;
         public IReadOnlyList<string> PendingIncidentDisplayIds => pendingIncidentDisplayIds;
@@ -46,6 +47,7 @@ namespace HungerAndHavoc.Core
         internal List<RHAH_LongFollowRecord> LongFollows => longFollows;
         internal int LongClaimChainId { get => longClaimChainId; set => longClaimChainId = value; }
         internal int LastRoyalArrivalTick { get => lastRoyalArrivalTick; set => lastRoyalArrivalTick = value; }
+        internal int BackgroundUnrestUntilTick { get => backgroundUnrestUntilTick; set => backgroundUnrestUntilTick = value; }
 
 
         public GameComponent_RHAH_Game(Game game)
@@ -68,6 +70,7 @@ namespace HungerAndHavoc.Core
             if (tick % GenDate.TicksPerHour == 0)
             {
                 Pawn.RHAH_AttitudeFactions.LockGoodwill();
+                RHAH_BackgroundStories.Tick(tick);
             }
 
             HungerAndHavoc.Storyteller.Suiyin.RHAH_EntrustCare.Tick(tick);
@@ -131,7 +134,7 @@ namespace HungerAndHavoc.Core
                 return false;
             }
 
-            if (entry.Target == HungerAndHavoc.Incidents.RHAH_IncidentTarget.Map && queued.Target is Map saved)
+            if (RHAH_ApproachRules.UsesApproach(entry.Target, displayId) && queued.Target is Map saved)
             {
                 int approachMap = saved.uniqueID;
                 if (HungerAndHavoc.Incidents.RHAH_Approach.EnRoute(displayId, approachMap))
@@ -473,6 +476,7 @@ namespace HungerAndHavoc.Core
             Scribe_Collections.Look(ref longFollows, "longFollows", LookMode.Deep);
             Scribe_Values.Look(ref longClaimChainId, "longClaimChainId", 0);
             Scribe_Values.Look(ref lastRoyalArrivalTick, "lastRoyalArrivalTick", -1);
+            Scribe_Values.Look(ref backgroundUnrestUntilTick, "backgroundUnrestUntilTick", -1);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 activeGenerationBatches = activeGenerationBatches ?? new List<string>();

@@ -78,17 +78,25 @@ namespace HungerAndHavoc.Pawn
                 return drop;
             }
 
-            if (RHAH_ChildMovement.CanWalkOut(pawn))
-            {
-                Job carry = CarryDependent(pawn);
-                if (carry != null)
-                {
-                    return carry;
-                }
-            }
-            else
+            if (!RHAH_ChildMovement.CanWalkOut(pawn))
             {
                 return null;
+            }
+
+            int now = Find.TickManager == null ? 0 : Find.TickManager.TicksGame;
+            ExitSearchCooldown cooldown;
+            if (ExitSearchCooldowns.TryGetValue(pawn, out cooldown) && !IsExitSearchCooldownOver(cooldown, now))
+            {
+                return CanDepartAlone(pawn) ? CreateCooldownWaitJob() : null;
+            }
+
+            bool exitChecked;
+            IntVec3 spot;
+            Job carryDependent = CarryDependent(pawn, out exitChecked, out spot);
+            if (carryDependent != null)
+            {
+                ExitSearchCooldowns.Remove(pawn);
+                return carryDependent;
             }
 
             if (HasUnreadyCarriedChild(pawn))
@@ -101,15 +109,7 @@ namespace HungerAndHavoc.Pawn
                 return null;
             }
 
-            int now = Find.TickManager == null ? 0 : Find.TickManager.TicksGame;
-            ExitSearchCooldown cooldown;
-            if (ExitSearchCooldowns.TryGetValue(pawn, out cooldown) && !IsExitSearchCooldownOver(cooldown, now))
-            {
-                return CanDepartAlone(pawn) ? CreateCooldownWaitJob() : null;
-            }
-
-            IntVec3 spot;
-            if (!RCellFinder.TryFindBestExitSpot(pawn, out spot))
+            if ((!exitChecked && !RCellFinder.TryFindBestExitSpot(pawn, out spot)) || !spot.IsValid)
             {
                 return DigOutWhenNoExit(pawn, now);
             }
@@ -186,8 +186,10 @@ namespace HungerAndHavoc.Pawn
             return now >= cooldown.nextSearchTick || cooldown.nextSearchTick - now > FailedExitSearchCooldownTicks;
         }
 
-        static Job CarryDependent(Verse.Pawn pawn)
+        static Job CarryDependent(Verse.Pawn pawn, out bool exitChecked, out IntVec3 exit)
         {
+            exitChecked = false;
+            exit = IntVec3.Invalid;
             if (pawn.Downed || pawn.carryTracker?.CarriedThing != null ||
                 pawn.CarriedBy != null)
             {
@@ -237,10 +239,11 @@ namespace HungerAndHavoc.Pawn
                     continue;
                 }
 
-                IntVec3 exit;
+                exitChecked = true;
                 if (!RCellFinder.TryFindBestExitSpot(pawn, out exit, TraverseMode.ByPawn, true))
                 {
-                    continue;
+                    exit = IntVec3.Invalid;
+                    return null;
                 }
 
                 Job carry = JobMaker.MakeJob(RHAH_DefOf.RHAH_CarryYoung, child, exit);

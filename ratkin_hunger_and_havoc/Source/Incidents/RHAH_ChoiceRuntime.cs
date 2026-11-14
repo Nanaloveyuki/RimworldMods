@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using HungerAndHavoc.Api;
 using HungerAndHavoc.Core;
 using HungerAndHavoc.Identity;
@@ -19,6 +20,46 @@ namespace HungerAndHavoc.Incidents
 
     internal static class RHAH_ChoiceRuntime
     {
+        static readonly ConditionalWeakTable<GameComponent_RHAH_Game, ChoiceSchedule> schedules =
+            new ConditionalWeakTable<GameComponent_RHAH_Game, ChoiceSchedule>();
+
+        sealed class ChoiceSchedule
+        {
+            internal List<RHAH_ChoiceRecord> Source;
+            internal int IndexedCount;
+            internal readonly List<RHAH_ChoiceRecord> Active = new List<RHAH_ChoiceRecord>();
+            internal readonly Dictionary<int, RHAH_ChoiceRecord> ById = new Dictionary<int, RHAH_ChoiceRecord>();
+
+            internal void Sync(List<RHAH_ChoiceRecord> records)
+            {
+                if (!ReferenceEquals(Source, records) || records.Count < IndexedCount)
+                {
+                    Source = records;
+                    IndexedCount = 0;
+                    Active.Clear();
+                    ById.Clear();
+                }
+                for (; IndexedCount < records.Count; IndexedCount++)
+                {
+                    RHAH_ChoiceRecord record = records[IndexedCount];
+                    if (!ById.ContainsKey(record.Id)) ById.Add(record.Id, record);
+                    if (HasScheduledWork(record)) Active.Add(record);
+                }
+            }
+        }
+
+        static bool HasScheduledWork(RHAH_ChoiceRecord record)
+        {
+            return record.Open || record.AllyGiftDueTick >= 0 || record.AllyPawnIds.Count > 0;
+        }
+
+        static ChoiceSchedule Schedule(GameComponent_RHAH_Game game)
+        {
+            ChoiceSchedule schedule = schedules.GetValue(game, static key => new ChoiceSchedule());
+            schedule.Sync(Records(game));
+            return schedule;
+        }
+
         internal static RHAH_ChoiceRecord Open(GameComponent_RHAH_Game game, RHAH_ChoiceRecord record)
         {
             if (game == null || record == null || string.IsNullOrEmpty(record.DisplayId))
@@ -126,6 +167,11 @@ namespace HungerAndHavoc.Incidents
                 return RHAH_ChoiceAction.None;
             }
 
+            if (settled == RHAH_ChoiceAction.Feed && RHAH_FoodHandoff.Begin(Present(record)) == 0)
+            {
+                return RHAH_ChoiceAction.None;
+            }
+
             record.Settled = settled;
             return settled;
         }
@@ -138,53 +184,59 @@ namespace HungerAndHavoc.Incidents
             }
 
 
-            List<RHAH_ChoiceRecord> records = Records(game);
-            for (int i = 0; i < records.Count; i++)
+            List<RHAH_ChoiceRecord> records = Schedule(game).Active;
+            for (int i = 0; i < records.Count;)
             {
                 RHAH_ChoiceRecord record = records[i];
-                RHAH_AllyTransfer.Tick(record, tick);
-                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
-                    FindMap(record.MapId) == null)
-                {
-                    CloseUnavailable(record);
-                    continue;
-                }
-                if (RHAH_MouseSwarm.IsSource(record.DisplayId))
-                {
-                    if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
-                        Present(record).Count == 0) CloseUnavailable(record);
-                    continue;
-                }
-                if (RHAH_ArmedDemand.IsRequest(record))
-                {
-                    RHAH_ArmedDemand.Tick(record, tick);
-                    continue;
-                }
-                if (record.DisplayId == RHAH_SuspiciousRoyal.DisplayId && record.Open &&
-                    record.ExpireTick >= 0 && tick >= record.ExpireTick)
-                {
-                    RHAH_SuspiciousRoyal.Settle(record, RHAH_ChoiceAction.Timeout, tick, true);
-                    continue;
-                }
-                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
-                    Present(record).Count == 0)
-                {
-                    CloseUnavailable(record);
-                    continue;
-                }
-                if (!record.Open || record.ExpireTick < 0 || tick < record.ExpireTick)
-                {
-                    continue;
-                }
-
-                RHAH_ChoiceAction settled = TrySettle(game, record.Id, RHAH_ChoiceAction.Timeout, tick, true, false);
-                if (settled == RHAH_ChoiceAction.Timeout)
-                {
-                    Leave(record);
-                }
+                if (HasScheduledWork(record)) TickRecord(game, record, tick);
+                if (!HasScheduledWork(record)) records.RemoveAt(i);
+                else i++;
             }
             if (tick % GenDate.TicksPerHour == 0) CleanupLetters(game, tick);
+        }
 
+        static void TickRecord(GameComponent_RHAH_Game game, RHAH_ChoiceRecord record, int tick)
+        {
+            RHAH_AllyTransfer.Tick(record, tick);
+            if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
+                FindMap(record.MapId) == null)
+            {
+                CloseUnavailable(record);
+                return;
+            }
+            if (RHAH_MouseSwarm.IsSource(record.DisplayId))
+            {
+                if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
+                    Present(record).Count == 0) CloseUnavailable(record);
+                return;
+            }
+            if (RHAH_ArmedDemand.IsRequest(record))
+            {
+                RHAH_ArmedDemand.Tick(record, tick);
+                return;
+            }
+            if (record.DisplayId == RHAH_SuspiciousRoyal.DisplayId && record.Open &&
+                record.ExpireTick >= 0 && tick >= record.ExpireTick)
+            {
+                RHAH_SuspiciousRoyal.Settle(record, RHAH_ChoiceAction.Timeout, tick, true);
+                return;
+            }
+            if (record.Open && record.PawnLoadIds.Count > 0 && tick % GenDate.TicksPerHour == 0 &&
+                Present(record).Count == 0)
+            {
+                CloseUnavailable(record);
+                return;
+            }
+            if (!record.Open || record.ExpireTick < 0 || tick < record.ExpireTick)
+            {
+                return;
+            }
+
+            RHAH_ChoiceAction settled = TrySettle(game, record.Id, RHAH_ChoiceAction.Timeout, tick, true, false);
+            if (settled == RHAH_ChoiceAction.Timeout)
+            {
+                Leave(record);
+            }
         }
 
         internal static bool Pending(RHAH_ChoiceRecord record, int tick)
@@ -813,16 +865,9 @@ namespace HungerAndHavoc.Incidents
 
         internal static RHAH_ChoiceRecord FindRecord(GameComponent_RHAH_Game game, int choiceId)
         {
-            List<RHAH_ChoiceRecord> records = Records(game);
-            for (int i = 0; i < records.Count; i++)
-            {
-                if (records[i].Id == choiceId)
-                {
-                    return records[i];
-                }
-            }
-
-            return null;
+            if (game == null) return null;
+            Schedule(game).ById.TryGetValue(choiceId, out RHAH_ChoiceRecord record);
+            return record;
         }
 
         static List<RHAH_ChoiceRecord> Records(GameComponent_RHAH_Game game)
