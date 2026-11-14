@@ -44,12 +44,13 @@
   <RHAH_Menu_Instant_Failed>Nothing appeared. Check the incident switch, the map, and the log.</RHAH_Menu_Instant_Failed>
   <RHAH_Menu_Queue_Disabled>New content is off.</RHAH_Menu_Queue_Disabled>
   <RHAH_Menu_Queue_NoGame>No game is loaded.</RHAH_Menu_Queue_NoGame>
-  <RHAH_Menu_Queue_NoMap>No usable map.</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Queue_NoMap>No suitable player home for this incident.</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Debug_Target>Target home: {0}. {1}</RHAH_Menu_Debug_Target>
   <RHAH_Menu_Queue_NoCaravan>No player caravan.</RHAH_Menu_Queue_NoCaravan>
   <RHAH_Menu_Queue_Fired>They have appeared.</RHAH_Menu_Queue_Fired>
   <RHAH_Menu_Queue_Queued>Queued. It appears when the pausing window closes.</RHAH_Menu_Queue_Queued>
   <RHAH_Menu_Queue_Failed>Nothing was queued.</RHAH_Menu_Queue_Failed>
-  <RHAH_Menu_DevEvents_Note>Dev mode page. Queue the normal way and map visitors travel across the world first. Place them on this map now and they appear here without closing the window or sending a caravan.</RHAH_Menu_DevEvents_Note>
+  <RHAH_Menu_DevEvents_Note>Dev mode page. Queue the normal way and map visitors travel across the world first. Place them on this map now and they appear immediately. Both actions prefer the home you are viewing. If this is an insect lair, vault, other special map, or a map excluded by the incident settings, a suitable player home is chosen instead and its name is shown.</RHAH_Menu_DevEvents_Note>
   <RHAH_Menu_Frequency_Gap>The line is the chance this group fires at least once on each coming day, from the average days above and the interval formula. Days run across. That day's chance runs up. 0 turns this group off. Rest the cursor on the line to read that day's chance. The graph uses the current trust and season.</RHAH_Menu_Frequency_Gap>
   <RHAH_Menu_Frequency_Positive>Positive incidents, average days</RHAH_Menu_Frequency_Positive>
   <RHAH_Menu_Frequency_Negative>Negative incidents, average days</RHAH_Menu_Frequency_Negative>

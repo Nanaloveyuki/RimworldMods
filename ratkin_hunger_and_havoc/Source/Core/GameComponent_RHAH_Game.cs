@@ -577,6 +577,7 @@ namespace HungerAndHavoc.Core
                     {
                         HungerAndHavoc.Pawn.RHAH_VisitorStay.Tick(pawns[i], tick);
                     }
+                    HungerAndHavoc.Pawn.RHAH_VisitorRecovery.ReconnectYoungVisitors(pawns, map);
                     HungerAndHavoc.Pawn.RHAH_VisitorStay.RebuildDepartureGroups(pawns, map);
                 }
                 finally

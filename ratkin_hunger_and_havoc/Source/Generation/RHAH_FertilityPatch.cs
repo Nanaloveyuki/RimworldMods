@@ -129,12 +129,13 @@ namespace HungerAndHavoc.Generation
 
         internal static int LitterCount(VersePawn mother)
         {
-            if (!Has(mother, RHAH_FertilityRules.LargeLitter))
+            RHAH_Settings settings = RHAH_Mod.Settings;
+            if (!Has(mother, RHAH_FertilityRules.LargeLitter) ||
+                (settings?.stackRatkinGeneExpandedLitters == false && Has(mother, "RK_Gene_ShortGestationMultiLitter")))
             {
                 return 1;
             }
 
-            RHAH_Settings settings = RHAH_Mod.Settings;
             int minimum = settings == null ? RHAH_FertilityRules.DefaultLitterMin : settings.litterMin;
             int peak = settings == null ? RHAH_FertilityRules.DefaultLitterPeak : settings.litterPeak;
             int maximum = settings == null ? RHAH_FertilityRules.DefaultLitterMax : settings.litterMax;

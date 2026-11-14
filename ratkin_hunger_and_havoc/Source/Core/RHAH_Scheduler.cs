@@ -7,12 +7,12 @@ namespace HungerAndHavoc.Core
 {
     internal static class RHAH_Scheduler
     {
-        internal static bool QueueDebugIncident(string displayId)
+        internal static bool QueueDebugIncident(string displayId, Map selectedMap = null)
         {
             RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(displayId);
             RHAH_Settings settings = RHAH_Mod.Settings;
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
-            IIncidentTarget target = ResolveTarget(entry);
+            IIncidentTarget target = ResolveTarget(entry, selectedMap);
             bool targetReady = target != null;
             if (!CanQueueDebug(entry, settings, game != null, targetReady))
             {
@@ -41,7 +41,7 @@ namespace HungerAndHavoc.Core
             Log.Message("[RHAH] Debug trigger queued " + entry.DisplayId +
                 ". def=" + entry.DefName +
                 " points=" + points.ToString("0.##") +
-                " target=" + entry.Target +
+                " target=" + entry.Target + ":" + RHAH_IncidentSchedule.RawId(target) +
                 " forcePause=" + paused +
                 ". A paused menu waits until the next unpaused frame.");
             if (!paused)
@@ -57,7 +57,7 @@ namespace HungerAndHavoc.Core
             RHAH_IncidentEntry entry = RHAH_IncidentCatalog.GetByDisplayId(displayId);
             RHAH_Settings settings = RHAH_Mod.Settings;
             GameComponent_RHAH_Game game = Current.Game?.GetComponent<GameComponent_RHAH_Game>();
-            if (!CanQueueDebug(entry, settings, game != null, map != null))
+            if (!CanQueueDebug(entry, settings, game != null, RHAH_MapResolver.IsIncidentHome(map)))
             {
                 return false;
             }
@@ -98,14 +98,21 @@ namespace HungerAndHavoc.Core
                 GameComponent_RHAH_FamineYear.Available(entry.DisplayId);
         }
 
-        static IIncidentTarget ResolveTarget(RHAH_IncidentEntry entry)
+        static IIncidentTarget ResolveTarget(RHAH_IncidentEntry entry, Map selectedMap)
         {
+            if (entry == null)
+            {
+                return null;
+            }
+
             if (entry.Target == RHAH_IncidentTarget.Caravan)
             {
                 return CaravanTargetResolver.ResolvePlayerCaravan();
             }
 
-            return RHAH_MapResolver.Resolve();
+            return selectedMap == null
+                ? RHAH_MapResolver.ResolveDebugMap()
+                : RHAH_MapResolver.IsIncidentHome(selectedMap) ? selectedMap : null;
         }
 
         internal static bool IsEligible(string displayId, Map map)

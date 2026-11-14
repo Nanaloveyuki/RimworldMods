@@ -9,14 +9,19 @@ namespace HungerAndHavoc.Core
     {
         internal static Map Resolve(Map selectedMap = null, int? selectedMapId = null)
         {
-            if (selectedMap != null && IsUsable(selectedMap))
+            if (selectedMap != null)
             {
-                return selectedMap;
+                return IsUsable(selectedMap) ? selectedMap : null;
             }
 
             if (selectedMapId.HasValue)
             {
                 List<Map> mapsById = Find.Maps;
+                if (mapsById == null)
+                {
+                    return null;
+                }
+
                 for (int i = 0; i < mapsById.Count; i++)
                 {
                     if (mapsById[i].uniqueID == selectedMapId.Value && IsUsable(mapsById[i]))
@@ -30,15 +35,30 @@ namespace HungerAndHavoc.Core
 
             List<Map> maps = new List<Map>();
             List<Map> allMaps = Find.Maps;
+            if (allMaps == null)
+            {
+                return null;
+            }
+
             for (int i = 0; i < allMaps.Count; i++)
             {
-                if (IsUsable(allMaps[i]))
+                if (IsIncidentHome(allMaps[i]))
                 {
                     maps.Add(allMaps[i]);
                 }
             }
 
             return maps.Count == 0 ? null : maps.RandomElement();
+        }
+
+        internal static Map ResolveDebugMap()
+        {
+            return IsIncidentHome(Find.CurrentMap) ? Find.CurrentMap : Resolve();
+        }
+
+        internal static bool IsIncidentHome(Map map)
+        {
+            return IsUsable(map) && map.IsPlayerHome && HungerAndHavoc.Incidents.RHAH_Approach.AllowsHome(map);
         }
 
         internal static Map MapById(int mapId)
@@ -62,7 +82,8 @@ namespace HungerAndHavoc.Core
 
         static bool IsUsable(Map map)
         {
-            return map != null && map.mapPawns != null && !map.Parent.Destroyed;
+            return map?.mapPawns != null && map.Parent != null && !map.Parent.Destroyed &&
+                !map.IsPocketMap && map.Tile.Valid;
         }
     }
 
@@ -118,9 +139,14 @@ namespace HungerAndHavoc.Core
                 return Gone("Saved map is gone.");
             }
 
-            return map.mapPawns != null && !map.Parent.Destroyed
+            if (map.mapPawns == null || map.Parent == null || map.Parent.Destroyed)
+            {
+                return Waiting("Saved map is not usable.");
+            }
+
+            return RHAH_MapResolver.IsIncidentHome(map)
                 ? Ready(map)
-                : Waiting("Saved map is not usable.");
+                : Gone("Saved map is not a suitable player home.");
         }
 
         static RHAH_QueuedTarget Ready(IIncidentTarget target)

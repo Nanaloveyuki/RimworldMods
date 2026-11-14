@@ -53,6 +53,39 @@ namespace HungerAndHavoc.Generation
             }
         }
 
+        internal static void RefreshKind(PawnGenerationRequest request)
+        {
+            PawnKindDef kind = request.KindDef;
+            if (!ModsConfig.BiotechActive || !Owns(kind))
+            {
+                return;
+            }
+
+            List<XenotypeChance> pool = RHAH_XenotypeResolver.GenerationPool(kind);
+            float total = 0f;
+            bool containsForced = false;
+            for (int i = 0; i < pool.Count; i++)
+            {
+                total += pool[i].chance;
+                containsForced |= pool[i].xenotype == request.ForcedXenotype;
+            }
+            for (int i = 0; i < pool.Count; i++)
+            {
+                pool[i] = new XenotypeChance(pool[i].xenotype, pool[i].chance / total);
+            }
+
+            // 显式许可只登记成员资格 不改变随机生成权重
+            if (!containsForced && request.ForcedXenotype != null &&
+                RHAH_HarXenotypeBridge.Allows(request.ForcedXenotype, kind.race))
+            {
+                pool.Add(new XenotypeChance(request.ForcedXenotype, 0f));
+            }
+
+            XenotypeSet updated = new XenotypeSet();
+            chances(updated) = pool;
+            kind.xenotypeSet = updated;
+        }
+
         internal static void RefreshFaction(FactionDef faction, ref string cachedDescription)
         {
             if (!ModsConfig.BiotechActive || !Owns(faction))
@@ -90,6 +123,15 @@ namespace HungerAndHavoc.Generation
             chances(updated) = pool;
             faction.xenotypeSet = updated;
             cachedDescription = null;
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnGenerator), nameof(PawnGenerator.GeneratePawn), new[] { typeof(PawnGenerationRequest) })]
+    internal static class RHAH_PawnKindXenotypePoolPatch
+    {
+        static void Prefix(PawnGenerationRequest request)
+        {
+            RHAH_XenotypeGeneration.RefreshKind(request);
         }
     }
 

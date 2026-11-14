@@ -16,7 +16,7 @@ namespace HungerAndHavoc.Generation
             }
 
             int stage = Stage(pawn);
-            List<ThingDef> pool = Pool(pawn, stage);
+            List<ThingDef> pool = Pool(pawn);
             if (pool.Count == 0)
             {
                 return;
@@ -50,14 +50,14 @@ namespace HungerAndHavoc.Generation
             return stage == DevelopmentalStage.Child ? 1 : 2;
         }
 
-        static List<ThingDef> Pool(Verse.Pawn pawn, int stage)
+        internal static List<ThingDef> Pool(Verse.Pawn pawn)
         {
             List<ThingDef> pool = new List<ThingDef>();
             List<ThingDef> all = DefDatabase<ThingDef>.AllDefsListForReading;
             for (int i = 0; i < all.Count; i++)
             {
                 ThingDef def = all[i];
-                if (def == null || !Candidate(def) || !RHAH_ApparelPolicy.FitsStage(def.defName, stage))
+                if (def == null || !Candidate(def) || !def.apparel.PawnCanWear(pawn, true))
                 {
                     continue;
                 }

@@ -44,12 +44,13 @@
   <RHAH_Menu_Instant_Failed>生成できませんでした。イベントのスイッチ、マップ条件、ログを確認してください。</RHAH_Menu_Instant_Failed>
   <RHAH_Menu_Queue_Disabled>新しいコンテンツは無効です。</RHAH_Menu_Queue_Disabled>
   <RHAH_Menu_Queue_NoGame>ゲームが読み込まれていません。</RHAH_Menu_Queue_NoGame>
-  <RHAH_Menu_Queue_NoMap>利用できるマップがありません。</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Queue_NoMap>このイベントに適したプレイヤー拠点がありません。</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Debug_Target>対象拠点：{0}。{1}</RHAH_Menu_Debug_Target>
   <RHAH_Menu_Queue_NoCaravan>プレイヤーのキャラバンがありません。</RHAH_Menu_Queue_NoCaravan>
   <RHAH_Menu_Queue_Fired>生成しました。</RHAH_Menu_Queue_Fired>
   <RHAH_Menu_Queue_Queued>予約しました。一時停止ウィンドウを閉じると生成されます。</RHAH_Menu_Queue_Queued>
   <RHAH_Menu_Queue_Failed>予約できませんでした。</RHAH_Menu_Queue_Failed>
-  <RHAH_Menu_DevEvents_Note>開発者モードのページです。「通常の手順で発生」ではイベントが予約され、マップへの来客は先にワールドマップを移動します。「今すぐこのマップに配置」では、現在のマップに直接来客が現れます。</RHAH_Menu_DevEvents_Note>
+  <RHAH_Menu_DevEvents_Note>開発者モードのページです。「通常の手順で発生」ではイベントが予約され、来客は先にワールドマップを移動します。「今すぐこのマップに配置」では直接生成します。どちらも表示中の拠点を優先します。昆虫の巣や倉庫などの特殊マップ、またはイベント設定で除外されたマップでは、適したプレイヤー拠点を選び、その名前を表示します。</RHAH_Menu_DevEvents_Note>
   <RHAH_Menu_Frequency_Gap>線は、このグループがこれからの各日に少なくとも1回起きる確率です。上の平均日数と間隔の式から求めます。横軸は日数、縦軸はその日の確率です。0にすると、このグループは起きません。線にマウスを合わせると、その日の確率が表示されます。グラフは現在の信頼と季節で推定します。</RHAH_Menu_Frequency_Gap>
   <RHAH_Menu_Frequency_Positive>好ましいイベントの平均間隔（日）</RHAH_Menu_Frequency_Positive>
   <RHAH_Menu_Frequency_Negative>好ましくないイベントの平均間隔（日）</RHAH_Menu_Frequency_Negative>

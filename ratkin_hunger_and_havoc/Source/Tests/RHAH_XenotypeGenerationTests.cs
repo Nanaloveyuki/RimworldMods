@@ -278,6 +278,75 @@ namespace HungerAndHavoc.Tests
             Assert.Same(external, PawnGenerator.GetXenotypeForGeneratedPawn(new PawnGenerationRequest(kind)));
         }
 
+        [Fact]
+        public void DeclaredKindPoolAcceptsConfiguredXenotypeWithoutChangingItsWeights()
+        {
+            RHAH_Mod.Settings.SetXenotypeEnabled(external.defName, true);
+            RHAH_Mod.Settings.SetXenotypeWeight(primary.defName, 25f);
+            RHAH_Mod.Settings.SetXenotypeWeight(external.defName, 75f);
+
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(kind, forcedXenotype: external));
+
+            Assert.True(kind.xenotypeSet.Contains(external));
+            Assert.Equal(0.25f, kind.xenotypeSet[0].chance);
+            Assert.Equal(0.75f, kind.xenotypeSet[1].chance);
+            Assert.Equal(0f, kind.xenotypeSet.BaselinerChance);
+        }
+
+        [Fact]
+        public void LegalExplicitXenotypeOutsideRandomPoolHasZeroWeightAndExpiresWithTheRequest()
+        {
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(kind, forcedXenotype: external));
+
+            Assert.True(kind.xenotypeSet.Contains(external));
+            Assert.Equal(0f, kind.xenotypeSet[1].chance);
+            Assert.Same(primary, Assert.Single(PawnGenerator.XenotypesAvailableFor(kind)).Key);
+
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(kind));
+
+            Assert.False(kind.xenotypeSet.Contains(external));
+        }
+
+        [Fact]
+        public void DeclaredPoolRespectsHarAndDoesNotAdmitAForbiddenForcedXenotype()
+        {
+            Allow((x, r) => x == primary && r == race);
+
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(kind, forcedXenotype: external));
+
+            Assert.False(kind.xenotypeSet.Contains(external));
+            Assert.True(kind.xenotypeSet.Contains(primary));
+        }
+
+        [Fact]
+        public void RefreshingDeclaredPoolWithOptimizationOffContinuesToReadUpstreamWeights()
+        {
+            RHAH_Mod.Settings.optimizeGeneration = false;
+            DefDatabase<PawnKindDef>.Add(new PawnKindDef
+            {
+                defName = "RatkinColonist", race = race, xenotypeSet = Pool(external, 0.4f)
+            });
+
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(kind));
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(kind));
+
+            Assert.Same(external, kind.xenotypeSet[0].xenotype);
+            Assert.Equal(1f, kind.xenotypeSet[0].chance);
+            Assert.Same(external, Assert.Single(PawnGenerator.XenotypesAvailableFor(kind)).Key);
+        }
+
+        [Fact]
+        public void DeclaredPoolOfOtherModsIsPreserved()
+        {
+            PawnKindDef foreign = new PawnKindDef { defName = "RatkinColonist", race = race, xenotypeSet = Pool(primary, 0.2f) };
+            XenotypeSet original = foreign.xenotypeSet;
+
+            RHAH_XenotypeGeneration.RefreshKind(new PawnGenerationRequest(foreign, forcedXenotype: external));
+
+            Assert.Same(original, foreign.xenotypeSet);
+            Assert.Equal(0.2f, foreign.xenotypeSet[0].chance);
+        }
+
         static void Allow(Func<XenotypeDef, ThingDef, bool> allows)
         {
             Field(typeof(RHAH_HarXenotypeBridge), "canUse").SetValue(null, allows);

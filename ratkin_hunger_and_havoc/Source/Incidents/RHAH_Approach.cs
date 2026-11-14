@@ -27,7 +27,8 @@ namespace HungerAndHavoc.Incidents
 
         internal static bool AllowsHome(Map map)
         {
-            return map != null && Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
+            return map?.Parent != null && !map.IsPocketMap && map.Tile.Valid &&
+                Pawn.Compat.RHAH_SkylandCompat.AllowsIncidents(map) &&
                 RHAH_ApproachRules.AllowsHome(SpaceHome(map), SpaceApproachEnabled());
         }
 

@@ -487,7 +487,8 @@ namespace HungerAndHavoc.Pawn.Compat
                 return "RHAH_Menu_Queue_NoGame".Translate();
             }
 
-            if (entry.Target == RHAH_IncidentTarget.Map && RHAH_MapResolver.Resolve() == null)
+            Map map = entry.Target == RHAH_IncidentTarget.Map ? RHAH_MapResolver.ResolveDebugMap() : null;
+            if (entry.Target == RHAH_IncidentTarget.Map && map == null)
             {
                 return "RHAH_Menu_Queue_NoMap".Translate();
             }
@@ -498,12 +499,13 @@ namespace HungerAndHavoc.Pawn.Compat
                 return "RHAH_Menu_Queue_NoCaravan".Translate();
             }
 
-            if (RHAH_Scheduler.QueueDebugIncident(entry.DisplayId))
+            if (RHAH_Scheduler.QueueDebugIncident(entry.DisplayId, map))
             {
                 GameComponent_RHAH_Game game = Current.Game.GetComponent<GameComponent_RHAH_Game>();
-                return game != null && game.PendingIncidentDisplayIds.Contains(entry.DisplayId)
+                string result = game != null && game.PendingIncidentDisplayIds.Contains(entry.DisplayId)
                     ? "RHAH_Menu_Queue_Queued".Translate()
                     : "RHAH_Menu_Queue_Fired".Translate();
+                return DebugTargetText(result, map);
             }
 
             return "RHAH_Menu_Queue_Failed".Translate();
@@ -526,15 +528,21 @@ namespace HungerAndHavoc.Pawn.Compat
                 return "RHAH_Menu_Queue_Disabled".Translate();
             }
 
-            Map map = RHAH_MapResolver.Resolve(Find.CurrentMap);
+            Map map = RHAH_MapResolver.ResolveDebugMap();
             if (map == null)
             {
                 return "RHAH_Menu_Queue_NoMap".Translate();
             }
 
-            return RHAH_Scheduler.SpawnDebugIncidentOnMap(entry.DisplayId, map)
+            string result = RHAH_Scheduler.SpawnDebugIncidentOnMap(entry.DisplayId, map)
                 ? "RHAH_Menu_Queue_Fired".Translate()
                 : "RHAH_Menu_Instant_Failed".Translate();
+            return DebugTargetText(result, map);
+        }
+
+        static string DebugTargetText(string result, Map map)
+        {
+            return map == null ? result : "RHAH_Menu_Debug_Target".Translate(map.Parent.LabelCap, result);
         }
 
         static IEnumerable<MenuSearchEntry> SearchCatalogEvents()
@@ -1815,6 +1823,9 @@ namespace HungerAndHavoc.Pawn.Compat
                 weightBuffers["litter-peak"] = peak;
                 RHAH_FertilityRules.ClampLitter(ref settings.litterMin, ref settings.litterPeak, ref settings.litterMax);
                 RHAH_IrisMenusWidgets.LitterCurve(list, "litter-curve", settings.litterMin, settings.litterPeak, settings.litterMax);
+                RHAH_IrisMenusWidgets.Checkbox(list, "stack-ratkin-gene-expanded-litters",
+                    "RHAH_Settings_StackRatkinGeneExpandedLitters".Translate(), ref settings.stackRatkinGeneExpandedLitters,
+                    "RHAH_Settings_StackRatkinGeneExpandedLitters_Tooltip".Translate());
                 return;
             }
 
@@ -2338,6 +2349,7 @@ namespace HungerAndHavoc.Pawn.Compat
             yield return Entry("genes-weights", "RHAH_Menu_Genes");
             yield return Entry("genes-switches", "RHAH_Menu_Genes_Switches");
             yield return Entry("litter-curve", "RHAH_Menu_Genes_LitterCurve");
+            yield return Entry("stack-ratkin-gene-expanded-litters", "RHAH_Settings_StackRatkinGeneExpandedLitters");
             yield return Entry("fertile-age", "RHAH_Settings_FertileAge");
             yield return Entry("fertility-percent", "RHAH_Settings_FertilityPercent");
             yield return Entry("gestation-days", "RHAH_Settings_GestationDays");

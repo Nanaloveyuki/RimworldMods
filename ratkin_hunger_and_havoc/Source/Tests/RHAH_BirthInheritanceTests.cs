@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
+using HungerAndHavoc.Core;
 using HungerAndHavoc.Generation;
 using RimWorld;
 using Verse;
@@ -24,9 +25,14 @@ namespace HungerAndHavoc.Tests
         readonly object previousPrefs;
         readonly bool previousProfiler;
         readonly Dictionary<FieldInfo, object> previousRelations = new Dictionary<FieldInfo, object>();
+        readonly RHAH_Settings previousSettings = RHAH_Mod.Settings;
+        readonly List<GeneDef> previousGeneDefs = new List<GeneDef>(DefDatabase<GeneDef>.AllDefsListForReading);
+        readonly GeneDef largeLitter = new GeneDef { defName = RHAH_FertilityRules.LargeLitter };
+        readonly GeneDef shortGestation = new GeneDef { defName = "RK_Gene_ShortGestationMultiLitter" };
 
         public RHAH_BirthInheritanceTests()
         {
+            Rand.PushState(170113);
             temporary = Path.Combine(Path.GetTempPath(), "rhah-inheritance-" + Guid.NewGuid());
             Directory.CreateDirectory(Path.Combine(temporary, "Config"));
             Directory.CreateDirectory(Path.Combine(temporary, "Mods", "Core", "About"));
@@ -71,10 +77,17 @@ namespace HungerAndHavoc.Tests
             typeof(LoadedLanguage).GetField("dataIsLoaded", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(language, true);
             LanguageDatabase.activeLanguage = language;
+            DefDatabase<GeneDef>.Clear();
+            DefDatabase<GeneDef>.Add(largeLitter);
+            DefDatabase<GeneDef>.Add(shortGestation);
         }
 
         public void Dispose()
         {
+            Rand.PopState();
+            RHAH_Mod.Settings = previousSettings;
+            DefDatabase<GeneDef>.Clear();
+            foreach (GeneDef def in previousGeneDefs) DefDatabase<GeneDef>.Add(def);
             LanguageDatabase.activeLanguage = previousLanguage;
             XenotypeDefOf.Baseliner = previousBaseliner;
             foreach (KeyValuePair<FieldInfo, object> entry in previousRelations)
@@ -208,6 +221,64 @@ namespace HungerAndHavoc.Tests
                 RHAH_Fertility.LitterRequest(mother, father);
 
                 Assert.Equal(saved, request.ForcedEndogenes);
+            }
+            finally
+            {
+                Rand.PopState();
+            }
+        }
+
+        [Theory]
+        [InlineData(true, true, true, 4)]
+        [InlineData(false, true, true, 1)]
+        [InlineData(false, false, true, 4)]
+        [InlineData(true, true, false, 1)]
+        [InlineData(false, true, false, 1)]
+        public void LitterStackingOnlyChangesMothersWithBothActiveGenes(bool stack, bool foreignGene, bool ownGene, int expected)
+        {
+            RHAH_Mod.Settings = new RHAH_Settings
+            {
+                stackRatkinGeneExpandedLitters = stack,
+                litterMin = 4,
+                litterPeak = 4,
+                litterMax = 4
+            };
+            Verse.Pawn mother = Parent(Xenotype("Ratkin", true));
+            if (ownGene) mother.genes.Endogenes.Add(GeneOf(largeLitter));
+            if (foreignGene) mother.genes.Endogenes.Add(GeneOf(shortGestation));
+
+            Assert.Equal(expected, RHAH_Fertility.LitterCount(mother));
+        }
+
+        [Fact]
+        public void SuppressedForeignGeneDoesNotDisableOwnedLitter()
+        {
+            RHAH_Mod.Settings = new RHAH_Settings
+            {
+                stackRatkinGeneExpandedLitters = false,
+                litterMin = 4,
+                litterPeak = 4,
+                litterMax = 4
+            };
+            Verse.Pawn mother = Parent(Xenotype("Ratkin", true), largeLitter);
+            Gene suppressed = GeneOf(shortGestation);
+            suppressed.overriddenByGene = GeneOf(new GeneDef { defName = "Override" });
+            mother.genes.Endogenes.Add(suppressed);
+
+            Assert.Equal(4, RHAH_Fertility.LitterCount(mother));
+        }
+
+        [Fact]
+        public void LitterStackingIsEnabledByDefault()
+        {
+            Assert.True(new RHAH_Settings().stackRatkinGeneExpandedLitters);
+            RHAH_Mod.Settings = null;
+            Verse.Pawn mother = Parent(Xenotype("Ratkin", true), largeLitter, shortGestation);
+            Rand.PushState(170112);
+            try
+            {
+                Assert.InRange(RHAH_Fertility.LitterCount(mother), RHAH_FertilityRules.DefaultLitterMin,
+                    RHAH_FertilityRules.DefaultLitterMax);
             }
             finally
             {

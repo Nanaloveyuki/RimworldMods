@@ -17,6 +17,8 @@
   <RHAH_Settings_LitterMin>最少幼崽 {0}</RHAH_Settings_LitterMin>
   <RHAH_Settings_LitterPeak>最常见幼崽 {0}</RHAH_Settings_LitterPeak>
   <RHAH_Settings_LitterMax>最多幼崽 {0}</RHAH_Settings_LitterMax>
+  <RHAH_Settings_StackRatkinGeneExpandedLitters>与鼠窝多胎效果叠加</RHAH_Settings_StackRatkinGeneExpandedLitters>
+  <RHAH_Settings_StackRatkinGeneExpandedLitters_Tooltip>母亲同时携带“一胎多崽”和鼠窝的“速生速死”基因时，两者的多胎效果叠加，幼崽总数可能超过此处设置的上限。关闭后，这类母亲的胎数只由鼠窝决定。</RHAH_Settings_StackRatkinGeneExpandedLitters_Tooltip>
   <RHAH_Settings_FertileAge>最早可孕年龄 {0}</RHAH_Settings_FertileAge>
   <RHAH_Settings_FertilityPercent>怀孕几率 {0}%</RHAH_Settings_FertilityPercent>
   <RHAH_Settings_GestationDays>最短孕期 {0} 天</RHAH_Settings_GestationDays>

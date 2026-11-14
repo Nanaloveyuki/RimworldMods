@@ -47,17 +47,6 @@ namespace HungerAndHavoc.Tests
         }
 
         [Fact]
-        public void YoungClothesStayInTheirAgePool()
-        {
-            Assert.True(RHAH_ApparelPolicy.FitsStage("Apparel_BabyOnesie", 0));
-            Assert.False(RHAH_ApparelPolicy.FitsStage("Apparel_KidTribal", 0));
-            Assert.True(RHAH_ApparelPolicy.FitsStage("Apparel_KidTribal", 1));
-            Assert.False(RHAH_ApparelPolicy.FitsStage("Apparel_BabyOnesie", 1));
-            Assert.False(RHAH_ApparelPolicy.FitsStage("Apparel_KidTribal", 2));
-            Assert.True(RHAH_ApparelPolicy.FitsStage("Apparel_TribalA", 2));
-        }
-
-        [Fact]
         public void QualityStaysAtNormalOrWorseAndClothIsWornOut()
         {
             Assert.Equal(0, RHAH_ApparelPolicy.Quality(0f));

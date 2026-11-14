@@ -193,7 +193,8 @@ namespace HungerAndHavoc.Pawn
         static bool NeedsDepartureGroup(Verse.Pawn pawn)
         {
             return RHAH_BatchAttitude.CanOrderLeave(pawn) &&
-                RHAH_Api.Get(pawn).Lifecycle == RHAH_Lifecycle.Leaving;
+                RHAH_Api.Get(pawn).Lifecycle == RHAH_Lifecycle.Leaving &&
+                !RHAH_VisitorRecovery.WasDropped(pawn);
         }
 
         internal static void LockShortStayApparel(Verse.Pawn pawn, CompRHAH_Pawn comp)

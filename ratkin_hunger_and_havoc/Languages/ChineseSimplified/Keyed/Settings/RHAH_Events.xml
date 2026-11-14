@@ -44,12 +44,13 @@
   <RHAH_Menu_Instant_Failed>未生成。检查事件开关、地图条件和日志。</RHAH_Menu_Instant_Failed>
   <RHAH_Menu_Queue_Disabled>新内容已关闭。</RHAH_Menu_Queue_Disabled>
   <RHAH_Menu_Queue_NoGame>没有已加载的游戏。</RHAH_Menu_Queue_NoGame>
-  <RHAH_Menu_Queue_NoMap>没有可用地图。</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Queue_NoMap>没有适合此事件的玩家据点。</RHAH_Menu_Queue_NoMap>
+  <RHAH_Menu_Debug_Target>目标据点：{0}。{1}</RHAH_Menu_Debug_Target>
   <RHAH_Menu_Queue_NoCaravan>没有玩家商队。</RHAH_Menu_Queue_NoCaravan>
   <RHAH_Menu_Queue_Fired>已生成。</RHAH_Menu_Queue_Fired>
   <RHAH_Menu_Queue_Queued>已排队。关闭暂停窗口后生成。</RHAH_Menu_Queue_Queued>
   <RHAH_Menu_Queue_Failed>没有排队。</RHAH_Menu_Queue_Failed>
-  <RHAH_Menu_DevEvents_Note>本页用于开发模式。“按正常流程触发”会将事件排队，地图来客先在世界地图上行进；“立刻生成到当前地图”会直接在当前地图生成来客。</RHAH_Menu_DevEvents_Note>
+  <RHAH_Menu_DevEvents_Note>本页用于开发模式。“按正常流程触发”会将事件排队，地图来客先在世界地图上行进；“立刻生成到当前地图”会直接生成来客。两种操作都优先使用当前据点；当前地图是虫巢、仓库等非常规地图，或不符合事件地图设置时，会改选合适的玩家据点，并显示目标名称。</RHAH_Menu_DevEvents_Note>
   <RHAH_Menu_Frequency_Gap>曲线表示这一组事件在未来每一天至少发生一次的概率，依据上方的平均天数和间隔式估算。横轴为天数，纵轴为当天概率；鼠标停在曲线上可查看具体数值。估算使用当前信任和季节，将平均天数设为 0 可关闭这一组事件。</RHAH_Menu_Frequency_Gap>
   <RHAH_Menu_Frequency_Positive>正面事件平均天数</RHAH_Menu_Frequency_Positive>
   <RHAH_Menu_Frequency_Negative>负面事件平均天数</RHAH_Menu_Frequency_Negative>

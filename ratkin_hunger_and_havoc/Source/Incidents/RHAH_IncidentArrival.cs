@@ -13,6 +13,12 @@ namespace HungerAndHavoc.Incidents
         internal static bool TryFindSpawnCell(Map map, out IntVec3 cell, out bool dropPod, bool airdrop = false)
         {
             dropPod = airdrop;
+            if (map?.Parent == null || map.IsPocketMap || !map.Tile.Valid)
+            {
+                cell = IntVec3.Invalid;
+                return false;
+            }
+
             if (!airdrop && RCellFinder.TryFindRandomPawnEntryCell(out cell, map, CellFinder.EdgeRoadChance_Animal, false, null))
             {
                 return true;

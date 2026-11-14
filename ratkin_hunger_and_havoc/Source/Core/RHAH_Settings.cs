@@ -28,6 +28,7 @@ namespace HungerAndHavoc.Core
         public int litterMin = Generation.RHAH_FertilityRules.DefaultLitterMin;
         public int litterPeak = Generation.RHAH_FertilityRules.DefaultLitterPeak;
         public int litterMax = Generation.RHAH_FertilityRules.DefaultLitterMax;
+        public bool stackRatkinGeneExpandedLitters = true;
         public float fertileMinAge = Generation.RHAH_FertilityRules.DefaultFertileAge;
         public float fertilityPercent = Generation.RHAH_FertilityRules.DefaultFertilityPercent;
         public float gestationDays = Generation.RHAH_FertilityRules.DefaultGestationDays;
@@ -292,6 +293,7 @@ namespace HungerAndHavoc.Core
             Scribe_Values.Look(ref litterMin, "litterMin", Generation.RHAH_FertilityRules.DefaultLitterMin);
             Scribe_Values.Look(ref litterPeak, "litterPeak", Generation.RHAH_FertilityRules.DefaultLitterPeak);
             Scribe_Values.Look(ref litterMax, "litterMax", Generation.RHAH_FertilityRules.DefaultLitterMax);
+            Scribe_Values.Look(ref stackRatkinGeneExpandedLitters, "stackRatkinGeneExpandedLitters", true);
             Scribe_Values.Look(ref fertileMinAge, "fertileMinAge", Generation.RHAH_FertilityRules.DefaultFertileAge);
             Scribe_Values.Look(ref fertilityPercent, "fertilityPercent", Generation.RHAH_FertilityRules.DefaultFertilityPercent);
             Scribe_Values.Look(ref gestationDays, "gestationDays", Generation.RHAH_FertilityRules.DefaultGestationDays);

@@ -44,4 +44,6 @@
   <RHAH_Menu_Genes_PaternalHungerTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、空腹速度にこの倍率を掛けます。子の年齢は問いません。100%なら元の速度、初期値は110%。範囲は1～1000%。</RHAH_Menu_Genes_PaternalHungerTip>
   <RHAH_Menu_Genes_PaternalLearningTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、全般的な学習速度にこの倍率を掛けます。子の年齢は問いません。100%なら元の速度、初期値は110%。範囲は1～1000%。</RHAH_Menu_Genes_PaternalLearningTip>
   <RHAH_Menu_Genes_PaternalDamageTip>父性本能が有効で、生きている実の息子か娘が同じマップにいる間、被ダメージにこの倍率を掛けます。子の年齢は問いません。100%なら元のダメージ、初期値は90%。範囲は1～100%。</RHAH_Menu_Genes_PaternalDamageTip>
+  <RHAH_Settings_StackRatkinGeneExpandedLitters>Ratkin Gene Expandedの多産効果を重ねる</RHAH_Settings_StackRatkinGeneExpandedLitters>
+  <RHAH_Settings_StackRatkinGeneExpandedLitters_Tooltip>母親が「多産」とRatkin Gene Expandedの「短命多産」を両方持つ場合、双方の効果が重なり、子の総数がここで設定した上限を超えることがあります。無効にすると、このような母親が産む子の数はRatkin Gene Expandedだけで決まります。</RHAH_Settings_StackRatkinGeneExpandedLitters_Tooltip>
 </LanguageData>

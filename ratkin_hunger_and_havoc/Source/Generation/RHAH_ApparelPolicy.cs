@@ -36,20 +36,6 @@ namespace HungerAndHavoc.Generation
             "Apparel_KidTribal"
         };
 
-        static readonly string[] BabyNames =
-        {
-            "Apparel_BabyOnesie",
-            "Apparel_WarmerHat",
-            "Apparel_SunHat"
-        };
-
-        static readonly string[] ChildNames =
-        {
-            "Apparel_WarmerHat",
-            "Apparel_SunHat",
-            "Apparel_KidTribal"
-        };
-
         // NewRatkinPlus 1.6 原始指定清单 不读取第三方扩充后的 HAR 可穿池
         static readonly HashSet<string> RatkinNames = new HashSet<string>(System.StringComparer.Ordinal)
         {
@@ -112,21 +98,6 @@ namespace HungerAndHavoc.Generation
         internal static bool IsYoung(string defName)
         {
             return IndexOf(YoungNames, defName) >= 0;
-        }
-
-        internal static bool FitsStage(string defName, int stage)
-        {
-            if (stage == 0)
-            {
-                return IndexOf(BabyNames, defName) >= 0;
-            }
-
-            if (stage == 1)
-            {
-                return IndexOf(ChildNames, defName) >= 0;
-            }
-
-            return !IsYoung(defName);
         }
 
         internal static int Quality(float roll)
